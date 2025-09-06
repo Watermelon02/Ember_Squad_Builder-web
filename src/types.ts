@@ -39,6 +39,18 @@ export interface Part {
   tags?: string[];
 }
 
+export interface Projectile {
+  id: string;
+  name: string;
+  structure:number;
+  armor:number;
+  parray:number;
+  dodge:number;
+  electronic:number;
+  stance:'offensive' | 'defensive' | 'mobility';
+  imgSrc?: string;
+}
+
 export interface Drone {
   id: string;
   name: string;

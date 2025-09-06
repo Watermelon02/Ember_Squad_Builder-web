@@ -64,6 +64,9 @@ export function PartSelector({
         if (!hasSelectedTag) return false;
       }
 
+      // ⬇️ 过滤掉带 "弃置" 的
+    if (part.score == 0) return false;
+
       return true;
     });
 
@@ -79,6 +82,8 @@ export function PartSelector({
       if (searchQuery && !drone.name.toLowerCase().includes(searchQuery.toLowerCase())) {
         return false;
       }
+      // ⬇️ 过滤低价值无人机
+    if (drone.score == 0) return false;
       return true;
     });
 

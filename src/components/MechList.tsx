@@ -125,7 +125,7 @@ export function MechList({
     const droneRows = Math.ceil(team.drones.length / 3);
     canvas.width = maxRowWidth + padding * 2;
     canvas.height =
-      (mechImages.length + droneRows)* (targetHeight + spacing + 60) + padding * 2; // 更多高度来放分数、闪避、电子值
+      (mechImages.length + droneRows) * (targetHeight + spacing + 60) + padding * 2; // 更多高度来放分数、闪避、电子值
     const ctx = canvas.getContext("2d");
     if (!ctx) return;
 
@@ -201,12 +201,12 @@ export function MechList({
       let padding = 0;
       if (index % 3 === 0) {
         padding = 30;
-      } else if (index % 3 === 1) { padding = 30 + droneWidth+spacing } else { padding = 30 + droneWidth * 2 + spacing*2 }
+      } else if (index % 3 === 1) { padding = 30 + droneWidth + spacing } else { padding = 30 + droneWidth * 2 + spacing * 2 }
       // 绘制无人机的框和图片
       ctx.fillStyle = "#ffffff"; // 白色
       ctx.beginPath();
-      const droneBoxHeight = 60+targetHeight; // 高度
-      const droneBoxWidth = droneWidth+spacing/2 ; // 宽度
+      const droneBoxHeight = 60 + targetHeight; // 高度
+      const droneBoxWidth = droneWidth + spacing / 2; // 宽度
       ctx.moveTo(padding + radius, droneY);
       ctx.arcTo(padding + droneBoxWidth, droneY, padding + droneBoxWidth, droneY + droneBoxHeight, radius);
       ctx.arcTo(padding + droneBoxWidth, droneY + droneBoxHeight, padding, droneY + droneBoxHeight, radius);
@@ -217,11 +217,11 @@ export function MechList({
       // 绘制无人机分数
       ctx.fillStyle = "#000";
       ctx.font = "18px sans-serif";
-      ctx.fillText(`分数: ${droneScore}`, padding + 10, droneY+20);
+      ctx.fillText(`分数: ${droneScore}`, padding + 10, droneY + 20);
       // 绘制无人机图片
       ctx.drawImage(droneImg, padding + 10, droneY + 10, droneWidth, targetHeight);
 
-      if ((index+1) % 3 === 0) {
+      if ((index + 1) % 3 === 0) {
         y += targetHeight + spacing + 60; // 留出空间放文本和图片
 
       }
@@ -236,6 +236,30 @@ export function MechList({
     link.click();
   };
 
+  const deletePart = (mechId: string, partType: string) => {
+    if (!team) return;
+
+    // 更新机甲的部件数据
+    const updatedMechs = team.mechs.map((mech) => {
+      if (mech.id === mechId) {
+        const updatedParts = { ...mech.parts };
+        delete updatedParts[partType]; // 删除对应的部件
+        return { ...mech, parts: updatedParts };
+      }
+      return mech;
+    });
+
+    // 更新机甲的总分数
+    const totalScore = updatedMechs.reduce(
+      (sum, mech) =>
+        sum +
+        Object.values(mech.parts).reduce((partSum, part) => partSum + (part?.score || 0), 0) +
+        (mech.pilot?.score || 0),
+      0
+    ) + team.drones.reduce((sum, drone) => sum + drone.score, 0);
+
+    onUpdateTeam(team.id, { mechs: updatedMechs, totalScore });
+  };
 
 
   const addMech = () => {
@@ -371,11 +395,22 @@ export function MechList({
                     </div>
                     <div className="text-center">
                       <div className="text-sm text-muted-foreground">闪避</div>
-                      <div>{mech.parts.torso?.dodge + mech.parts.chasis?.dodge + mech.parts.leftHand?.dodge + mech.parts.rightHand?.dodge + mech.parts.backpack?.dodge}</div>
+                      <div>{Math.max(
+                        (mech.parts.torso?.dodge || 0) +
+                        (mech.parts.chasis?.dodge || 0) +
+                        (mech.parts.leftHand?.dodge || 0) +
+                        (mech.parts.rightHand?.dodge || 0) +
+                        (mech.parts.backpack?.dodge || 0),
+                        0
+                      )}</div>
                     </div>
                     <div className="text-center">
                       <div className="text-sm text-muted-foreground">电子</div>
-                      <div>{mech.parts.torso?.electronic + mech.parts.chasis?.electronic + mech.parts.leftHand?.electronic + mech.parts.rightHand?.electronic + mech.parts.backpack?.electronic}</div>
+                      <div>{(mech.parts.torso?.electronic || 0) +
+   (mech.parts.chasis?.electronic || 0) +
+   (mech.parts.leftHand?.electronic || 0) +
+   (mech.parts.rightHand?.electronic || 0) +
+   (mech.parts.backpack?.electronic || 0)}</div>
                     </div>
                   </div>
 
@@ -410,36 +445,46 @@ export function MechList({
                         onSelectPartType(partType);
                         onSetViewMode('parts');
                       }}
+                    >    <Badge
+                      variant="secondary"
+                      className="flex absolute bottom-0 left-0 m-1 text-xs"
                     >
+                        {mech.parts[partType]?.score}
+                      </Badge>
                       {mech.parts[partType] ? (
                         <>
-                          {/* 左上角工具栏：分数 + 放大按钮 */}
-                          <div className="absolute top-2 left-2 flex items-center gap-1">
-                            <Badge
-                              variant="secondary"
-                              className="text-xs px-2 py-0.5"
-                            >
-                              {mech.parts[partType]?.score}
-                            </Badge>
 
-                            <Dialog>
-                              <DialogTrigger asChild>
-                                <Badge
-                                  variant="secondary"
-                                  className="text-xs px-2 py-0.5"
-                                >
-                                  <ZoomIn className="w-3 h-3 text-gray-700" />
-                                </Badge>
-                              </DialogTrigger>
-                              <DialogContent>
-                                <img
-                                  src={`${import.meta.env.BASE_URL}res/cn/${team.faction}/part/${mech.parts[partType]!.id}.png`}
-                                  alt={mech.parts[partType]!.name}
-                                  className="w-full h-auto object-contain"
-                                />
-                              </DialogContent>
-                            </Dialog>
-                          </div>
+                          {/* 左上角工具栏：分数 + 放大按钮 */}
+
+                          <Button
+                            variant="ghost"
+                            size="sm"
+                            onClick={() => deletePart(mech.id, partType)} // 删除部件
+                            className="absolute top-0 right-0 text-white"
+                          >
+                            <Trash2 className="w-4 h-4" />
+                          </Button>
+
+
+                          <Dialog>
+                            <DialogTrigger asChild>
+                              <Button
+                                variant="ghost"
+                                size="sm"
+                                className="absolute top-0 left-0 text-white"
+                              >
+                                <ZoomIn className="w-3 h-3 text-gray-700" />
+                              </Button>
+                            </DialogTrigger>
+                            <DialogContent>
+                              <img
+                                src={`${import.meta.env.BASE_URL}res/cn/${team.faction}/part/${mech.parts[partType]!.id}.png`}
+                                alt={mech.parts[partType]!.name}
+                                className="w-full h-auto object-contain"
+                              />
+                            </DialogContent>
+                          </Dialog>
+
                           <img
                             src={`${import.meta.env.BASE_URL}res/cn/${team.faction}/part/${mech.parts[partType]!.id}.png`}
                             alt={mech.parts[partType]!.name}

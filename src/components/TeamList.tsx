@@ -14,6 +14,7 @@ interface TeamListProps {
   onAddTeam: (faction: 'RDL' | 'UN' | 'GOF' | 'PD') => void;
   onDeleteTeam: (teamId: string) => void;
   onUpdateTeam: (teamId: string, updates: Partial<Team>) => void;
+  onCopyTeam: (newTeam: Team) => void;
 }
 
 export function TeamList({
@@ -23,6 +24,7 @@ export function TeamList({
   onAddTeam,
   onDeleteTeam,
   onUpdateTeam,
+  onCopyTeam
 }: TeamListProps) {
   const [isDialogOpen, setIsDialogOpen] = useState(false);
   const [editingTeamId, setEditingTeamId] = useState<string>('');
@@ -32,25 +34,14 @@ export function TeamList({
     setIsDialogOpen(false);
   };
 
-  const handleUpdateTeamName = (teamId: string, newName: string) => {
-    onUpdateTeam(teamId, { name: newName });
-    setEditingTeamId('');
-  };
-
-  const copyTeamData = (team: Team) => {
-    const data = JSON.stringify(team, null, 2);
-    navigator.clipboard.writeText(data);
-  };
-
   const getMechTotalScore = (mech: any) => {
-  let score = 0;
-  Object.values(mech.parts).forEach((part: any) => {
-    if (part && part.score) score += part.score;
-  });
-  if (mech.pilot && mech.pilot.score) score += mech.pilot.score;
-  return score;
-};
-
+    let score = 0;
+    Object.values(mech.parts).forEach((part: any) => {
+      if (part && part.score) score += part.score;
+    });
+    if (mech.pilot && mech.pilot.score) score += mech.pilot.score;
+    return score;
+  };
 
   const exportTeamData = (team: Team) => {
     let clipboardContent = `┏ ${team.name}[小队：${team.totalScore}分]\n`;
@@ -82,6 +73,30 @@ export function TeamList({
     });
   };
 
+ const cloneTeam = (teamId: string) => {
+  // Find the team you want to clone
+  const teamToClone = teams.find(team => team.id === teamId);
+  if (teamToClone) {
+    // Create a new team object based on the original team's data
+    const clonedTeam: Team = {
+      ...teamToClone,
+      id: Date.now().toString(), // Give it a new unique ID
+      name: `${teamToClone.name}`, // Optionally change the name to include "(副本)"
+      mechs: [...teamToClone.mechs], // Clone mechs (ensure no reference sharing)
+      drones: [...teamToClone.drones], // Clone drones
+      totalScore: teamToClone.totalScore,
+      mechCount: teamToClone.mechCount,
+      largeDroneCount: teamToClone.largeDroneCount,
+      mediumDroneCount: teamToClone.mediumDroneCount,
+      smallDroneCount: teamToClone.smallDroneCount,
+      faction: teamToClone.faction
+    };
+
+    onCopyTeam(clonedTeam);
+  }
+};
+
+
   return (
     <div className="min-h-0 flex flex-col">
       <div className="p-4 border-b border-border">
@@ -97,10 +112,7 @@ export function TeamList({
           <Button
             variant="outline"
             size="sm"
-            onClick={() => {
-              const selectedTeam = teams.find(t => t.id === selectedTeamId);
-              if (selectedTeam) exportTeamData(selectedTeam);  // 导出数据到剪贴板
-            }}
+            onClick={() => cloneTeam(selectedTeamId)} // Trigger cloning when clicked
           >
             <Copy className="w-4 h-4 mr-2" />
             复制
