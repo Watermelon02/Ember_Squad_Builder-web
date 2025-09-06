@@ -6,11 +6,12 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '.
 import { Checkbox } from './ui/checkbox';
 import { Badge } from './ui/badge';
 import { Label } from './ui/label';
-import { Part, Drone, Pilot, PART_TYPE_NAMES } from '../types';
+import { Part, Drone, Pilot, PART_TYPE_NAMES, Team } from '../types';
 import { pdDrones } from '../data';
 
 interface PartSelectorProps {
   viewMode: 'parts' | 'drones' | 'pilots';
+  team?: Team;
   selectedPartType: string;
   parts: Part[];
   drones: Drone[];
@@ -22,6 +23,7 @@ interface PartSelectorProps {
 
 export function PartSelector({
   viewMode,
+  team,
   selectedPartType,
   parts,
   drones,
@@ -33,7 +35,7 @@ export function PartSelector({
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedTags, setSelectedTags] = useState<string[]>([]);
   const [containPD, setContainPD] = useState<boolean>(false);
-  const [sortOrder, setSortOrder] = useState<'desc' | 'asc'>('desc');
+  const [sortOrder, setSortOrder] = useState<'score_desc' | 'score_asc'>('score_asc');
 
   // 获取所有可用标签
   const allTags = useMemo(() => {
@@ -49,25 +51,25 @@ export function PartSelector({
     let filtered = parts.filter(part => {
       // 类型过滤
       if (part.type !== selectedPartType) return false;
-      
+
       // 搜索过滤
-      if (searchQuery && !part.name.toLowerCase().includes(searchQuery.toLowerCase()) && 
-          !part.description.toLowerCase().includes(searchQuery.toLowerCase())) {
+      if (searchQuery && !part.name.toLowerCase().includes(searchQuery.toLowerCase()) &&
+        !part.description.toLowerCase().includes(searchQuery.toLowerCase())) {
         return false;
       }
-      
+
       // 标签过滤
       if (selectedTags.length > 0) {
         const hasSelectedTag = selectedTags.some(tag => part.tags?.includes(tag));
         if (!hasSelectedTag) return false;
       }
-      
+
       return true;
     });
 
     // 排序
     return filtered.sort((a, b) => {
-      return sortOrder === 'desc' ? b.score - a.score : a.score - b.score;
+      return sortOrder === 'score_desc' ? b.score - a.score : a.score - b.score;
     });
   }, [parts, selectedPartType, searchQuery, selectedTags, sortOrder]);
 
@@ -81,7 +83,7 @@ export function PartSelector({
     });
 
     return filtered.sort((a, b) => {
-      return sortOrder === 'desc' ? b.score - a.score : a.score - b.score;
+      return sortOrder === 'score_desc' ? b.score - a.score : a.score - b.score;
     });
   }, [drones, searchQuery, sortOrder]);
 
@@ -89,21 +91,21 @@ export function PartSelector({
   const filteredPilots = useMemo(() => {
     let filtered = pilots.filter(pilot => {
       if (searchQuery && !pilot.name.toLowerCase().includes(searchQuery.toLowerCase()) &&
-          !pilot.specialty.toLowerCase().includes(searchQuery.toLowerCase()) &&
-          !pilot.skills.some(skill => skill.toLowerCase().includes(searchQuery.toLowerCase()))) {
+        !pilot.specialty.toLowerCase().includes(searchQuery.toLowerCase()) &&
+        !pilot.skills.some(skill => skill.toLowerCase().includes(searchQuery.toLowerCase()))) {
         return false;
       }
       return true;
     });
 
     return filtered.sort((a, b) => {
-      return sortOrder === 'desc' ? b.score - a.score : a.score - b.score;
+      return sortOrder === 'score_desc' ? b.score - a.score : a.score - b.score;
     });
   }, [pilots, searchQuery, sortOrder]);
 
   const handleTagToggle = (tag: string) => {
-    setSelectedTags(prev => 
-      prev.includes(tag) 
+    setSelectedTags(prev =>
+      prev.includes(tag)
         ? prev.filter(t => t !== tag)
         : [...prev, tag]
     );
@@ -114,7 +116,7 @@ export function PartSelector({
       <div className="min-h-0 flex flex-col">
         <div className="p-4 border-b border-border space-y-4">
           <h3>部件选择 - {PART_TYPE_NAMES[selectedPartType as keyof typeof PART_TYPE_NAMES]}</h3>
-          
+
           {/* 搜索框 */}
           <Input
             placeholder="搜索部件名称或描述..."
@@ -128,13 +130,13 @@ export function PartSelector({
               <Label>标签筛选</Label>
               <div className="flex flex-wrap gap-2">
                 <Checkbox
-                      id={true}
-                      checked={containPD}
-                      onCheckedChange={() => {
-                        setContainPD(!containPD);
-                        drones.concat(pdDrones);
-                      }}
-                    />
+                  id={true}
+                  checked={containPD}
+                  onCheckedChange={() => {
+                    setContainPD(!containPD);
+                    drones.concat(pdDrones);
+                  }}
+                />
                 {allTags.map(tag => (
                   <div key={tag} className="flex items-center space-x-2">
                     <Checkbox
@@ -152,12 +154,12 @@ export function PartSelector({
           {/* 排序选择 */}
           <div className="space-y-2">
             <Label>排序方式</Label>
-            <Select value={sortOrder} onValueChange={(value: 'desc' | 'asc') => setSortOrder(value)}>
+            <Select value={sortOrder} onValueChange={(value: 'score_desc' | 'score_asc') => setSortOrder(value)}>
               <SelectTrigger>
                 <SelectValue />
               </SelectTrigger>
               <SelectContent>
-                <SelectItem value="desc">分数降序</SelectItem>
+                <SelectItem value="score_desc">分数降序</SelectItem>
                 <SelectItem value="asc">分数升序</SelectItem>
               </SelectContent>
             </Select>
@@ -171,14 +173,41 @@ export function PartSelector({
                 {filteredParts.slice(rowIndex * 3, (rowIndex + 1) * 3).map(part => (
                   <Card
                     key={part.id}
-                    className="p-3 cursor-pointer hover:bg-accent/50 transition-colors"
+                    className="relative p-3 cursor-pointer hover:bg-accent/50 transition-colors overflow-hidden"
                     onClick={() => onSelectPart(part)}
                   >
-                    <div className="space-y-2">
+
+                    {/* 前景文字内容 */}
+                    <div className="relative z-10 space-y-2">
                       <div className="flex items-center justify-between">
                         <h4 className="font-medium truncate">{part.name}</h4>
                         <Badge variant="outline">{part.score}</Badge>
                       </div>
+
+                      {/* 机体数据 */}
+                      <div className="flex items-center gap-2">
+                        <div className="flex flex-col items-center px-1 py-0.5 border rounded-md shadow-sm">
+                          <div className="text-[9px] text-muted-foreground">装甲</div>
+                          <div className="text-[10px]">{part.armor}</div>
+                        </div>
+                        <div className="flex flex-col items-center px-1 py-0.5 border rounded-md shadow-sm">
+                          <div className="text-[9px] text-muted-foreground">结构</div>
+                          <div className="text-[10px]">{part.structure}</div>
+                        </div>
+                        <div className="flex flex-col items-center px-1 py-0.5 border rounded-md shadow-sm">
+                          <div className="text-[9px] text-muted-foreground">格挡</div>
+                          <div className="text-[10px]">{part.parray}</div>
+                        </div>
+                        <div className="flex flex-col items-center px-1 py-0.5 border rounded-md shadow-sm">
+                          <div className="text-[9px] text-muted-foreground">闪避</div>
+                          <div className="text-[10px]">{part.dodge}</div>
+                        </div>
+                        <div className="flex flex-col items-center px-1 py-0.5 border rounded-md shadow-sm">
+                          <div className="text-[9px] text-muted-foreground">电子</div>
+                          <div className="text-[10px]">{part.electronic}</div>
+                        </div>
+                      </div>
+
                       <p className="text-sm text-muted-foreground line-clamp-2">
                         {part.description}
                       </p>
@@ -193,6 +222,7 @@ export function PartSelector({
                       )}
                     </div>
                   </Card>
+
                 ))}
               </div>
             ))}
@@ -213,7 +243,7 @@ export function PartSelector({
       <div className="min-h-0 flex flex-col">
         <div className="flex-shrink-0 p-4 border-b border-border space-y-4">
           <h3>驾驶员选择</h3>
-          
+
           {/* 搜索框 */}
           <Input
             placeholder="搜索驾驶员姓名、专长或技能..."
@@ -224,13 +254,13 @@ export function PartSelector({
           {/* 排序选择 */}
           <div className="space-y-2">
             <Label>排序方式</Label>
-            <Select value={sortOrder} onValueChange={(value: 'desc' | 'asc') => setSortOrder(value)}>
+            <Select value={sortOrder} onValueChange={(value: 'score_desc' | 'score_asc') => setSortOrder(value)}>
               <SelectTrigger>
                 <SelectValue />
               </SelectTrigger>
               <SelectContent>
-                <SelectItem value="desc">分数降序</SelectItem>
-                <SelectItem value="asc">分数升序</SelectItem>
+                <SelectItem value="score_desc">分数降序</SelectItem>
+                <SelectItem value="score_asc">分数升序</SelectItem>
               </SelectContent>
             </Select>
           </div>
@@ -240,42 +270,70 @@ export function PartSelector({
           {filteredPilots.map(pilot => (
             <Card
               key={pilot.id}
-              className="p-4 cursor-pointer hover:bg-accent/50 transition-colors"
+              className="p-4 cursor-pointer hover:bg-accent/50 transition-colors relative overflow-hidden"
               onClick={() => onSelectPilot(pilot)}
             >
-              <div className="space-y-3">
+              {/* 背景图层 */}
+              <div
+                className="absolute inset-0 bg-cover bg-left-top"
+                style={{
+                  backgroundImage: `url(${import.meta.env.BASE_URL}res/cn/${pilot.faction}/pilot/${pilot.id}.png)`,
+                  backgroundSize: 'cover',
+                  backgroundPosition: 'left top -40px' // 向上偏移
+                  , opacity: 0.2,
+                }}
+              ></div>
+
+              {/* 文字内容层 */}
+              <div className="relative z-10">
                 <div className="flex items-center justify-between">
                   <h4 className="font-medium">{pilot.name}</h4>
                   <Badge variant="outline">{pilot.score}</Badge>
                 </div>
-                
-                <div className="flex items-center gap-2">
-                  <Badge
-                    variant="secondary"
-                    className="text-xs"
-                  >
-                    {pilot.swift}
-                  </Badge>
-                  <Badge variant="outline" className="text-xs">
-                    {pilot.melee}
-                  </Badge>
-                  <Badge variant="outline" className="text-xs">
-                    {pilot.projectile}
-                  </Badge>
-                  <Badge variant="outline" className="text-xs">
-                    {pilot.firing}
-                  </Badge>
-                  <Badge variant="outline" className="text-xs">
-                    {pilot.moving}
-                  </Badge>
-                  <Badge variant="outline" className="text-xs">
-                    {pilot.tactic}
-                  </Badge>
+                {/* 驾驶员数据 */}
+                <div className="flex items-center gap-1">
+
+                  <div className="flex flex-col items-center px-1 py-0.5 border rounded-md shadow-sm">
+                    <div className="text-[9px] text-muted-foreground">快速</div>
+                    <div className="text-[10px]">{pilot.swift}</div>
+                  </div>
+
+
+                  <div className="flex flex-col items-center px-1 py-0.5 border rounded-md shadow-sm">
+                    <div className="text-[9px] text-muted-foreground">近战</div>
+                    <div className="text-[10px]">{pilot.melee}</div>
+                  </div>
+
+
+                  <div className="flex flex-col items-center px-1 py-0.5 border rounded-md shadow-sm">
+                    <div className="text-[9px] text-muted-foreground">抛射</div>
+                    <div className="text-[10px]">{pilot.projectile}</div>
+                  </div>
+
+
+                  <div className="flex flex-col items-center px-1 py-0.5 border rounded-md shadow-sm">
+                    <div className="text-[9px] text-muted-foreground">射击</div>
+                    <div className="text-[10px]">{pilot.firing}</div>
+                  </div>
+
+
+                  <div className="flex flex-col items-center px-1 py-0.5 border rounded-md shadow-sm">
+                    <div className="text-[9px] text-muted-foreground">移动</div>
+                    <div className="text-[10px]">{pilot.moving}</div>
+                  </div>
+
+
+                  <div className="flex flex-col items-center px-1 py-0.5 border rounded-md shadow-sm">
+                    <div className="text-[9px] text-muted-foreground">战术</div>
+                    <div className="text-[10px]">{pilot.tactic}</div>
+                  </div>
+
                 </div>
+
 
                 <div className="space-y-2">
                   <p className="text-sm text-muted-foreground">{pilot.traitDescription}</p>
-                
+
                 </div>
               </div>
             </Card>
@@ -295,7 +353,7 @@ export function PartSelector({
     <div className="min-h-0 flex flex-col">
       <div className="p-4 border-b border-border space-y-4">
         <h3>无人机选择</h3>
-        
+
         {/* 搜索框 */}
         <Input
           placeholder="搜索无人机名称..."
@@ -306,13 +364,13 @@ export function PartSelector({
         {/* 排序选择 */}
         <div className="space-y-2">
           <Label>排序方式</Label>
-          <Select value={sortOrder} onValueChange={(value: 'desc' | 'asc') => setSortOrder(value)}>
+          <Select value={sortOrder} onValueChange={(value: 'score_desc' | 'score_asc') => setSortOrder(value)}>
             <SelectTrigger>
               <SelectValue />
             </SelectTrigger>
             <SelectContent>
-              <SelectItem value="desc">分数降序</SelectItem>
-              <SelectItem value="asc">分数升序</SelectItem>
+              <SelectItem value="score_desc">分数降序</SelectItem>
+              <SelectItem value="score_asc">分数升序</SelectItem>
             </SelectContent>
           </Select>
         </div>
@@ -334,11 +392,11 @@ export function PartSelector({
                 <Badge
                   variant={
                     drone.type === 'large' ? 'destructive' :
-                    drone.type === 'medium' ? 'default' : 'secondary'
+                      drone.type === 'medium' ? 'default' : 'secondary'
                   }
                 >
-                  {drone.type === 'large' ? '大型' : 
-                   drone.type === 'medium' ? '中型' : '小型'}
+                  {drone.type === 'large' ? '大型' :
+                    drone.type === 'medium' ? '中型' : '小型'}
                 </Badge>
               </div>
               {drone.description && (

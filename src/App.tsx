@@ -86,9 +86,9 @@ export default function App() {
   // 根据小队派系过滤无人机
     const factionDrones: Drone[] = (() => {
     switch (selectedTeam.faction) {
-      case 'RDL': return rdlDrones.concat(pdDrones);
-      case 'UN': return unDrones.concat(pdDrones);
-      case 'GOF':return gofDrones.concat(pdDrones);
+      case 'RDL': return rdlDrones;
+      case 'UN': return unDrones;
+      case 'GOF':return gofDrones;
       case 'PD': return pdDrones;
     }
   })();
@@ -165,6 +165,7 @@ export default function App() {
 <div className="w-80 min-h-0 flex flex-col">
       <PartSelector
         viewMode={viewMode}
+        team={selectedTeam}
         selectedPartType={selectedPartType}
         parts={factionParts}
         drones={factionDrones}

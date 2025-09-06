@@ -4,7 +4,7 @@ import { Card } from './ui/card';
 import { Input } from './ui/input';
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from './ui/dialog';
 import { Badge } from './ui/badge';
-import { Trash2, Plus, Copy, Download, ChevronLeft, ChevronRight } from 'lucide-react';
+import { Trash2, Plus, Copy, Download, ChevronLeft, ChevronRight, Upload } from 'lucide-react';
 import { Team, FACTION_COLORS, FACTION_NAMES } from '../types';
 
 interface TeamListProps {
@@ -42,15 +42,44 @@ export function TeamList({
     navigator.clipboard.writeText(data);
   };
 
+  const getMechTotalScore = (mech: any) => {
+  let score = 0;
+  Object.values(mech.parts).forEach((part: any) => {
+    if (part && part.score) score += part.score;
+  });
+  if (mech.pilot && mech.pilot.score) score += mech.pilot.score;
+  return score;
+};
+
+
   const exportTeamData = (team: Team) => {
-    const data = JSON.stringify(team, null, 2);
-    const blob = new Blob([data], { type: 'application/json' });
-    const url = URL.createObjectURL(blob);
-    const a = document.createElement('a');
-    a.href = url;
-    a.download = `${team.name}.json`;
-    a.click();
-    URL.revokeObjectURL(url);
+    let clipboardContent = `┏ ${team.name}[小队：${team.totalScore}分]\n`;
+
+    team.mechs.forEach((mech) => {
+      const mechScore = getMechTotalScore(mech);
+      clipboardContent += `┣┳ ${mech.name}[M.A.P：${mechScore}分]\n`;
+
+      Object.entries(mech.parts).forEach(([partType, part]) => {
+        clipboardContent += `┃┣ ${partType === 'backpack' ? '背包' : partType === 'chasis' ? '躯干' : partType === 'leftHand' ? '左臂' : partType === 'rightHand' ? '右臂' : partType}：${part.name}\n`;
+      });
+
+      if (mech.pilot) {
+        clipboardContent += `┃┗ 驾驶员：${mech.pilot.name}\n`;
+      }
+    });
+
+    if (team.drones.length > 0) {
+      clipboardContent += `┗┳ 无人机[无人机：${team.drones.reduce((sum, drone) => sum + drone.score, 0)}分]\n`;
+      team.drones.forEach((drone) => {
+        clipboardContent += `　┗ 无人机：${drone.name}\n`;
+      });
+    }
+
+    navigator.clipboard.writeText(clipboardContent).then(() => {
+      alert('数据已成功复制到剪贴板！');
+    }).catch((err) => {
+      alert('导出失败，请重试。');
+    });
   };
 
   return (
@@ -60,30 +89,6 @@ export function TeamList({
           <div className="flex items-center gap-2">
             <h2>机体小队列表</h2>
           </div>
-          <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
-            <DialogTrigger asChild>
-              <Button size="sm">
-                <Plus className="w-4 h-4 mr-2" />
-                新增
-              </Button>
-            </DialogTrigger>
-            <DialogContent>
-              <DialogHeader>
-                <DialogTitle>选择派系</DialogTitle>
-              </DialogHeader>
-              <div className="grid grid-cols-2 gap-4">
-                {(Object.entries(FACTION_NAMES) as [keyof typeof FACTION_NAMES, string][]).map(([key, name]) => (
-                  <Button
-                    key={key}
-                    onClick={() => handleAddTeam(key)}
-                    className={`${FACTION_COLORS[key]} hover:opacity-80`}
-                  >
-                    {name}
-                  </Button>
-                ))}
-              </div>
-            </DialogContent>
-          </Dialog>
         </div>
       </div>
 
@@ -94,18 +99,50 @@ export function TeamList({
             size="sm"
             onClick={() => {
               const selectedTeam = teams.find(t => t.id === selectedTeamId);
-              if (selectedTeam) copyTeamData(selectedTeam);
+              if (selectedTeam) exportTeamData(selectedTeam);  // 导出数据到剪贴板
             }}
           >
             <Copy className="w-4 h-4 mr-2" />
             复制
+          </Button>
+          <input
+            type="file"
+            accept="application/json"
+            id="team-upload"
+            className="hidden"
+            onChange={(e) => {
+              const file = e.target.files?.[0];
+              if (!file) return;
+
+              const reader = new FileReader();
+              reader.onload = (event) => {
+                try {
+                  const json = JSON.parse(event.target?.result as string);
+                  if (json && json.id) {
+                    onAddTeam(json.faction); // 先创建
+                    onUpdateTeam(json.id, json); // 再更新数据
+                  }
+                } catch (err) {
+                  alert("❌ 导入失败：不是有效的 JSON 文件");
+                }
+              };
+              reader.readAsText(file);
+            }}
+          />
+          <Button
+            variant="outline"
+            size="sm"
+            onClick={() => document.getElementById("team-upload")?.click()}
+          >
+            <Upload className="w-4 h-4 mr-2" />
+            导入
           </Button>
           <Button
             variant="outline"
             size="sm"
             onClick={() => {
               const selectedTeam = teams.find(t => t.id === selectedTeamId);
-              if (selectedTeam) exportTeamData(selectedTeam);
+              if (selectedTeam) exportTeamData(selectedTeam);  // 导出数据到剪贴板
             }}
           >
             <Download className="w-4 h-4 mr-2" />
@@ -118,9 +155,8 @@ export function TeamList({
         {teams.map((team) => (
           <Card
             key={team.id}
-            className={`p-4 cursor-pointer transition-colors ${
-              selectedTeamId === team.id ? 'bg-accent' : 'hover:bg-accent/50'
-            }`}
+            className={`p-4 cursor-pointer transition-colors ${selectedTeamId === team.id ? 'bg-accent' : 'hover:bg-accent/50'
+              }`}
             onClick={() => onSelectTeam(team.id)}
           >
             <div className="space-y-3">
@@ -193,6 +229,32 @@ export function TeamList({
             </div>
           </Card>
         ))}
+        <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
+          <DialogTrigger asChild>
+            <div className="flex justify-center">
+              <Button size="sm" className="w-full bg-gray-100 hover:bg-gray-200 text-gray-800">
+                <Plus className="w-4 h-4 mr-2" />
+                新增
+              </Button>
+            </div>
+          </DialogTrigger>
+          <DialogContent>
+            <DialogHeader>
+              <DialogTitle>选择派系</DialogTitle>
+            </DialogHeader>
+            <div className="grid grid-cols-2 gap-4">
+              {(Object.entries(FACTION_NAMES) as [keyof typeof FACTION_NAMES, string][]).map(([key, name]) => (
+                <Button
+                  key={key}
+                  onClick={() => handleAddTeam(key)}
+                  className={`${FACTION_COLORS[key]} hover:opacity-80`}
+                >
+                  {name}
+                </Button>
+              ))}
+            </div>
+          </DialogContent>
+        </Dialog>
       </div>
     </div>
   );

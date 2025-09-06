@@ -80,8 +80,9 @@ export const FACTION_COLORS = {
 export const FACTION_NAMES = {
   RDL: '复兴发展同盟',
   UN: '联合网络',
-  GOF: '自由卫士',
-  PD: '星环动力',
+  // GOF: '自由卫士',
+  // PD: '星环动力',
+  //没有卡片数据
 } as const;
 
 export const PART_TYPE_NAMES = {

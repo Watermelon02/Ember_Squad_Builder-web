@@ -1972,18 +1972,6 @@ export const rdlTorso: Part[] = [
     "dodge": 0,
     "electronic": 3,
     "description": ""
-  },
-  {
-    "id": "RTX-06SR\n“泥沼SR”主战核心",
-    "name": "RTX-06SR\n“泥沼SR”主战核心",
-    "type": "torso",
-    "score": 32,
-    "structure": 2,
-    "armor": 6,
-    "parray": 0,
-    "dodge": 0,
-    "electronic": 2,
-    "description": ""
   }
 ];
 
@@ -2256,7 +2244,7 @@ export const rdlLeftHand: Part[] = [
     "description": ""
   },
   {
-    "id": "508",
+    "id": "510",
     "name": "55型轻盾 + PC-9K霰弹枪（左）",
     "type": "leftHand",
     "score": 63,
@@ -2280,7 +2268,7 @@ export const rdlLeftHand: Part[] = [
     "description": ""
   },
   {
-    "id": "55型轻盾",
+    "id": "520",
     "name": "55型轻盾",
     "type": "leftHand",
     "score": 30,

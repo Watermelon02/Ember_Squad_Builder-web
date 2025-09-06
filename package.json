@@ -1,6 +1,6 @@
 {
       "name": "月尘写表器",
-      "version": "0.1.0",
+      "version": "0.2.0",
       "private": true,
       "dependencies": {
             "@radix-ui/react-accordion": "^1.2.3",
@@ -57,5 +57,6 @@
       "scripts": {
             "dev": "vite",
             "build": "vite build"
-      }
+      },
+      "homepage": "https://watermelon02.github.io/builder-web/"
 }
