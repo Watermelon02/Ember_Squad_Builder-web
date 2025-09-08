@@ -4,8 +4,8 @@ import { Card } from './ui/card';
 import { Input } from './ui/input';
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from './ui/dialog';
 import { Badge } from './ui/badge';
-import { Trash2, Plus, Copy, Download, ChevronLeft, ChevronRight, Upload } from 'lucide-react';
-import { Team, FACTION_COLORS, FACTION_NAMES } from '../types';
+import { Trash2, Plus, Copy, Download, ChevronLeft, ChevronRight, Upload, Dice6, Sword } from 'lucide-react';
+import { Team, FACTION_COLORS } from '../types';
 
 interface TeamListProps {
   teams: Team[];
@@ -15,6 +15,8 @@ interface TeamListProps {
   onDeleteTeam: (teamId: string) => void;
   onUpdateTeam: (teamId: string, updates: Partial<Team>) => void;
   onCopyTeam: (newTeam: Team) => void;
+  translations: any,
+  factionNames: any
 }
 
 export function TeamList({
@@ -24,7 +26,7 @@ export function TeamList({
   onAddTeam,
   onDeleteTeam,
   onUpdateTeam,
-  onCopyTeam
+  onCopyTeam, translations, factionNames
 }: TeamListProps) {
   const [isDialogOpen, setIsDialogOpen] = useState(false);
   const [editingTeamId, setEditingTeamId] = useState<string>('');
@@ -67,43 +69,61 @@ export function TeamList({
     }
 
     navigator.clipboard.writeText(clipboardContent).then(() => {
-      alert('数据已成功复制到剪贴板！');
+      alert(translations.t1);
     }).catch((err) => {
-      alert('导出失败，请重试。');
+      alert(translations.t2);
     });
   };
 
- const cloneTeam = (teamId: string) => {
-  // Find the team you want to clone
-  const teamToClone = teams.find(team => team.id === teamId);
-  if (teamToClone) {
-    // Create a new team object based on the original team's data
-    const clonedTeam: Team = {
-      ...teamToClone,
-      id: Date.now().toString(), // Give it a new unique ID
-      name: `${teamToClone.name}`, // Optionally change the name to include "(副本)"
-      mechs: [...teamToClone.mechs], // Clone mechs (ensure no reference sharing)
-      drones: [...teamToClone.drones], // Clone drones
-      totalScore: teamToClone.totalScore,
-      mechCount: teamToClone.mechCount,
-      largeDroneCount: teamToClone.largeDroneCount,
-      mediumDroneCount: teamToClone.mediumDroneCount,
-      smallDroneCount: teamToClone.smallDroneCount,
-      faction: teamToClone.faction
-    };
+  const cloneTeam = (teamId: string) => {
+    // Find the team you want to clone
+    const teamToClone = teams.find(team => team.id === teamId);
+    if (teamToClone) {
+      // Create a new team object based on the original team's data
+      const clonedTeam: Team = {
+        ...teamToClone,
+        id: Date.now().toString(), // Give it a new unique ID
+        name: `${teamToClone.name}`, // Optionally change the name to include "(副本)"
+        mechs: [...teamToClone.mechs], // Clone mechs (ensure no reference sharing)
+        drones: [...teamToClone.drones], // Clone drones
+        totalScore: teamToClone.totalScore,
+        mechCount: teamToClone.mechCount,
+        largeDroneCount: teamToClone.largeDroneCount,
+        mediumDroneCount: teamToClone.mediumDroneCount,
+        smallDroneCount: teamToClone.smallDroneCount,
+        faction: teamToClone.faction
+      };
 
-    onCopyTeam(clonedTeam);
-  }
-};
+      onCopyTeam(clonedTeam);
+    }
+  };
 
 
   return (
     <div className="min-h-0 flex flex-col">
       <div className="p-4 border-b border-border">
-        <div className="flex items-center justify-between mb-4">
+        <div className="flex items-center justify-between mb-0">
           <div className="flex items-center gap-2">
-            <h2>机体小队列表</h2>
+            <h2>{translations.t3}</h2>
           </div>
+          <div className="flex gap-1">
+            <Button
+              variant="outline"
+              size="sm"
+              onClick={() => window.open("https://watermelon02.github.io/ember-dice/", "_blank")}
+            >
+              <Dice6 className="w-4 h-4" />
+            </Button>
+
+            <Button
+              variant="outline"
+              size="sm"
+              onClick={() => window.open("https://random0v0.github.io/AmadeusEmber/AmadeusEmber_web/", "_blank")}
+            >
+              <Sword className="w-4 h-4" />
+            </Button>
+          </div>
+
         </div>
       </div>
 
@@ -115,7 +135,7 @@ export function TeamList({
             onClick={() => cloneTeam(selectedTeamId)} // Trigger cloning when clicked
           >
             <Copy className="w-4 h-4 mr-2" />
-            复制
+            {translations.t4}
           </Button>
           <input
             type="file"
@@ -135,7 +155,7 @@ export function TeamList({
                     onUpdateTeam(json.id, json); // 再更新数据
                   }
                 } catch (err) {
-                  alert("❌ 导入失败：不是有效的 JSON 文件");
+                  alert(`{translations.t5}`);
                 }
               };
               reader.readAsText(file);
@@ -147,7 +167,7 @@ export function TeamList({
             onClick={() => document.getElementById("team-upload")?.click()}
           >
             <Upload className="w-4 h-4 mr-2" />
-            导入
+            {translations.t62}
           </Button>
           <Button
             variant="outline"
@@ -158,7 +178,7 @@ export function TeamList({
             }}
           >
             <Download className="w-4 h-4 mr-2" />
-            导出
+            {translations.t6}
           </Button>
         </div>
       </div>
@@ -175,7 +195,7 @@ export function TeamList({
               {/* 标题行 */}
               <div className="flex items-center justify-between">
                 <div className="flex items-center gap-2">
-                  <Badge className={FACTION_COLORS[team.faction]}>{FACTION_NAMES[team.faction]}</Badge>
+                  <Badge className={FACTION_COLORS[team.faction]}>{factionNames[team.faction]}</Badge>
                   {editingTeamId === team.id ? (
                     <Input
                       value={team.name}
@@ -218,23 +238,23 @@ export function TeamList({
               {/* 数据行 */}
               <div className="grid grid-cols-5 gap-2">
                 <div className="text-center">
-                  <div className="text-sm text-muted-foreground">总分</div>
+                  <div className="text-sm text-muted-foreground">{translations.t7}</div>
                   <div>{team.totalScore}</div>
                 </div>
                 <div className="text-center">
-                  <div className="text-sm text-muted-foreground">机体</div>
+                  <div className="text-sm text-muted-foreground">{translations.t8}</div>
                   <div>{team.mechCount}</div>
                 </div>
                 <div className="text-center">
-                  <div className="text-sm text-muted-foreground">大型</div>
+                  <div className="text-sm text-muted-foreground">{translations.t9}</div>
                   <div>{team.largeDroneCount}</div>
                 </div>
                 <div className="text-center">
-                  <div className="text-sm text-muted-foreground">中型</div>
+                  <div className="text-sm text-muted-foreground">{translations.t10}</div>
                   <div>{team.mediumDroneCount}</div>
                 </div>
                 <div className="text-center">
-                  <div className="text-sm text-muted-foreground">小型</div>
+                  <div className="text-sm text-muted-foreground">{translations.t11}</div>
                   <div>{team.smallDroneCount}</div>
                 </div>
               </div>
@@ -246,16 +266,16 @@ export function TeamList({
             <div className="flex justify-center">
               <Button size="sm" className="w-full bg-gray-100 hover:bg-gray-200 text-gray-800">
                 <Plus className="w-4 h-4 mr-2" />
-                新增
+                <div className="text-sm text-muted-foreground">{translations.t12}</div>
               </Button>
             </div>
           </DialogTrigger>
           <DialogContent>
             <DialogHeader>
-              <DialogTitle>选择派系</DialogTitle>
+              <DialogTitle>{translations.t13}</DialogTitle>
             </DialogHeader>
             <div className="grid grid-cols-2 gap-4">
-              {(Object.entries(FACTION_NAMES) as [keyof typeof FACTION_NAMES, string][]).map(([key, name]) => (
+              {(Object.entries(factionNames) as [keyof typeof factionNames, string][]).map(([key, name]) => (
                 <Button
                   key={key}
                   onClick={() => handleAddTeam(key)}

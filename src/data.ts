@@ -1,4 +1,4 @@
-import { Part, Drone, Pilot, Projectile } from './types';
+import { Part, Drone, Pilot, Projectile } from '../../src/types';
 
 export const gofPilots: Pilot[] = [
   {
@@ -729,21 +729,6 @@ export const unPilots: Pilot[] = [
     "tactic": 6,
     "trait": "",
     "traitDescription": "303中队的实习冲锋手。"
-  },
-  {
-    "id": "LPA-23-2",
-    "name": "玉髓\n温柔和弦",
-    "score": 24,
-    "LV": 4,
-    "faction": "UN",
-    "swift": 6,
-    "melee": 2,
-    "projectile": 3,
-    "firing": 5,
-    "moving": 4,
-    "tactic": 4,
-    "trait": "装饰音",
-    "traitDescription": "· 当本机执行射击动作时，如果目标处于3格内范围，本次射击动作+1Y。"
   }
 ];
 
@@ -1001,7 +986,8 @@ export const pdDrones: Drone[] = [
     "electronic": 3,
     "move": 6,
     "stance": "defensive",
-    "description": "·曲射：本动作不需要对落点或目标有视线。\n·齐射X：发射或布撒最多X枚抛射物，并消耗同等数量的弹药标记。"
+    "description": "·曲射：本动作不需要对落点或目标有视线。\n·齐射X：发射或布撒最多X枚抛射物，并消耗同等数量的弹药标记。",
+    "isPD":true
   },
   {
     "id": "PRDR-102",
@@ -1015,7 +1001,8 @@ export const pdDrones: Drone[] = [
     "electronic": 3,
     "move": 6,
     "stance": "defensive",
-    "description": "·曲射：本动作不需要对落点或目标有视线。\n·齐射X：发射或布撒最多X枚抛射物，并消耗同等数量的弹药标记。"
+    "description": "·曲射：本动作不需要对落点或目标有视线。\n·齐射X：发射或布撒最多X枚抛射物，并消耗同等数量的弹药标记。",
+    "isPD":true
   },
   {
     "id": "PRDR-103",
@@ -1029,7 +1016,8 @@ export const pdDrones: Drone[] = [
     "electronic": 3,
     "move": 6,
     "stance": "defensive",
-    "description": ""
+    "description": "",
+    "isPD":true
   },
   {
     "id": "PRDR-104",
@@ -1043,7 +1031,8 @@ export const pdDrones: Drone[] = [
     "electronic": 3,
     "move": 6,
     "stance": "defensive",
-    "description": ""
+    "description": "",
+    "isPD":true
   },
   {
     "id": "PRDR-105",
@@ -1057,7 +1046,8 @@ export const pdDrones: Drone[] = [
     "electronic": 3,
     "move": 6,
     "stance": "defensive",
-    "description": "·直射：本动作需要对落点或目标有视线。"
+    "description": "·直射：本动作需要对落点或目标有视线。",
+    "isPD":true
   },
   {
     "id": "PRDR-201",
@@ -1071,7 +1061,8 @@ export const pdDrones: Drone[] = [
     "electronic": 2,
     "move": 6,
     "stance": "mobility",
-    "description": "·全向射击：本动作没有射界限制。\n·近战射击：在近战锁定中仍可执行本动作。\n·空中移动：本动作视为飞行。"
+    "description": "·全向射击：本动作没有射界限制。\n·近战射击：在近战锁定中仍可执行本动作。\n·空中移动：本动作视为飞行。",
+    "isPD":true
   },
   {
     "id": "PRDR-202",
@@ -1085,7 +1076,8 @@ export const pdDrones: Drone[] = [
     "electronic": 2,
     "move": 6,
     "stance": "mobility",
-    "description": "·全向射击：本动作没有射界限制。\n·近战射击：在近战锁定中仍可执行本动作。\n·空中移动：本动作视为飞行。"
+    "description": "·全向射击：本动作没有射界限制。\n·近战射击：在近战锁定中仍可执行本动作。\n·空中移动：本动作视为飞行。",
+    "isPD":true
   },
   {
     "id": "PRDR-203",
@@ -1099,7 +1091,8 @@ export const pdDrones: Drone[] = [
     "electronic": 2,
     "move": 6,
     "stance": "mobility",
-    "description": "·曲射：本动作不需要对落点或目标有视线。\n·齐射X：发射或布撒最多X枚抛射物，并消耗同等数量的弹药标记。\n·空中移动：本动作视为飞行。"
+    "description": "·曲射：本动作不需要对落点或目标有视线。\n·齐射X：发射或布撒最多X枚抛射物，并消耗同等数量的弹药标记。\n·空中移动：本动作视为飞行。",
+    "isPD":true
   },
   {
     "id": "PRDR-204",
@@ -1113,7 +1106,8 @@ export const pdDrones: Drone[] = [
     "electronic": 2,
     "move": 6,
     "stance": "mobility",
-    "description": "·曲射：本动作不需要对落点或目标有视线。\n·齐射X：发射或布撒最多X枚抛射物，并消耗同等数量的弹药标记。\n·空中移动：本动作视为飞行。\n·直射：本动作需要对落点或目标有视线。"
+    "description": "·曲射：本动作不需要对落点或目标有视线。\n·齐射X：发射或布撒最多X枚抛射物，并消耗同等数量的弹药标记。\n·空中移动：本动作视为飞行。\n·直射：本动作需要对落点或目标有视线。",
+    "isPD":true
   }
 ];
 
@@ -1698,7 +1692,8 @@ export const rdlTorso: Part[] = [
     "type": "torso",
     "description": "",
     "imgSrc": "",
-    "tags": []
+    "tags": [],    
+    "projectile":["268"]
   },
   {
     "id": "017",
@@ -1712,7 +1707,8 @@ export const rdlTorso: Part[] = [
     "type": "torso",
     "description": "",
     "imgSrc": "",
-    "tags": []
+    "tags": [],
+    "projectile":["268"]
   },
   {
     "id": "019",
@@ -1726,7 +1722,8 @@ export const rdlTorso: Part[] = [
     "type": "torso",
     "description": "",
     "imgSrc": "",
-    "tags": []
+    "tags": [],
+        "projectile":["268"]
   },
   {
     "id": "018",
@@ -1754,7 +1751,8 @@ export const rdlTorso: Part[] = [
     "type": "torso",
     "description": "",
     "imgSrc": "",
-    "tags": []
+    "tags": [],
+        "projectile":["268"]
   },
   {
     "id": "280",
@@ -1768,7 +1766,8 @@ export const rdlTorso: Part[] = [
     "type": "torso",
     "description": "",
     "imgSrc": "",
-    "tags": []
+    "tags": [],
+        "projectile":["268"]
   },
   {
     "id": "503",
@@ -1782,7 +1781,8 @@ export const rdlTorso: Part[] = [
     "type": "torso",
     "description": "",
     "imgSrc": "",
-    "tags": []
+    "tags": [],
+        "projectile":["268"]
   },
   {
     "id": "504",
@@ -1928,7 +1928,8 @@ export const rdlLeftHand: Part[] = [
     "type": "leftHand",
     "description": "",
     "imgSrc": "",
-    "tags": []
+    "tags": [],
+    "throwIndex":"024",
   },
   {
     "id": "024",
@@ -1956,7 +1957,8 @@ export const rdlLeftHand: Part[] = [
     "type": "leftHand",
     "description": "",
     "imgSrc": "",
-    "tags": []
+    "tags": [],
+    "projectile":["071"]
   },
   {
     "id": "032",
@@ -1984,7 +1986,8 @@ export const rdlLeftHand: Part[] = [
     "type": "leftHand",
     "description": "",
     "imgSrc": "",
-    "tags": []
+    "tags": [],
+    "throwIndex":"035",
   },
   {
     "id": "035",
@@ -1993,20 +1996,6 @@ export const rdlLeftHand: Part[] = [
     "structure": 0,
     "armor": 4,
     "parray": 0,
-    "dodge": 0,
-    "electronic": 0,
-    "type": "leftHand",
-    "description": "",
-    "imgSrc": "",
-    "tags": []
-  },
-  {
-    "id": "037",
-    "name": "CC-4战斗刀（左）",
-    "score": 39,
-    "structure": 0,
-    "armor": 4,
-    "parray": 1,
     "dodge": 0,
     "electronic": 0,
     "type": "leftHand",
@@ -2040,7 +2029,8 @@ export const rdlLeftHand: Part[] = [
     "type": "leftHand",
     "description": "",
     "imgSrc": "",
-    "tags": []
+    "tags": [],
+    "throwIndex":"042",
   },
   {
     "id": "042",
@@ -2096,7 +2086,8 @@ export const rdlLeftHand: Part[] = [
     "type": "leftHand",
     "description": "",
     "imgSrc": "",
-    "tags": []
+    "tags": [],
+    "throwIndex":"054",
   },
   {
     "id": "054",
@@ -2124,7 +2115,9 @@ export const rdlLeftHand: Part[] = [
     "type": "leftHand",
     "description": "",
     "imgSrc": "",
-    "tags": []
+    "tags": [],
+    "throwIndex":"057",
+    "projectile":["267"]
   },
   {
     "id": "057",
@@ -2166,7 +2159,9 @@ export const rdlLeftHand: Part[] = [
     "type": "leftHand",
     "description": "",
     "imgSrc": "",
-    "tags": []
+    "tags": [],
+    "throwIndex":"065",
+    "projectile":["072"]
   },
   {
     "id": "065",
@@ -2194,7 +2189,8 @@ export const rdlLeftHand: Part[] = [
     "type": "leftHand",
     "description": "",
     "imgSrc": "",
-    "tags": []
+    "tags": [],
+    "throwIndex":"253",
   },
   {
     "id": "253",
@@ -2222,7 +2218,8 @@ export const rdlLeftHand: Part[] = [
     "type": "leftHand",
     "description": "",
     "imgSrc": "",
-    "tags": []
+    "tags": [],
+    "throwIndex":"283",
   },
   {
     "id": "283",
@@ -2250,7 +2247,8 @@ export const rdlLeftHand: Part[] = [
     "type": "leftHand",
     "description": "",
     "imgSrc": "",
-    "tags": []
+    "tags": [],
+    "throwIndex":"511",
   },
   {
     "id": "511",
@@ -2278,7 +2276,8 @@ export const rdlLeftHand: Part[] = [
     "type": "leftHand",
     "description": "",
     "imgSrc": "",
-    "tags": []
+    "tags": [],
+    "throwIndex":"515",
   },
   {
     "id": "515",
@@ -2323,39 +2322,12 @@ export const rdlRightHand: Part[] = [
     "type": "rightHand",
     "description": "",
     "imgSrc": "",
-    "tags": []
+    "tags": [],
+    "throwIndex":"026",
   },
   {
     "id": "026",
     "name": "AC-32自动步枪（弃置）",
-    "score": 0,
-    "structure": 0,
-    "armor": 4,
-    "parray": 0,
-    "dodge": 0,
-    "electronic": 0,
-    "type": "rightHand",
-    "description": "",
-    "imgSrc": "",
-    "tags": []
-  },
-  {
-    "id": "027",
-    "name": "AC-32M射手步枪",
-    "score": 33,
-    "structure": 0,
-    "armor": 4,
-    "parray": 0,
-    "dodge": 0,
-    "electronic": 0,
-    "type": "rightHand",
-    "description": "",
-    "imgSrc": "",
-    "tags": []
-  },
-  {
-    "id": "028",
-    "name": "AC-32M射手步枪（弃置）",
     "score": 0,
     "structure": 0,
     "armor": 4,
@@ -2379,7 +2351,8 @@ export const rdlRightHand: Part[] = [
     "type": "rightHand",
     "description": "",
     "imgSrc": "",
-    "tags": []
+    "tags": [],
+    "throwIndex":"031",
   },
   {
     "id": "031",
@@ -2435,7 +2408,8 @@ export const rdlRightHand: Part[] = [
     "type": "rightHand",
     "description": "",
     "imgSrc": "",
-    "tags": []
+    "tags": [],
+    "throwIndex":"039",
   },
   {
     "id": "039",
@@ -2463,7 +2437,8 @@ export const rdlRightHand: Part[] = [
     "type": "rightHand",
     "description": "",
     "imgSrc": "",
-    "tags": []
+    "tags": [],
+    "throwIndex":"044",
   },
   {
     "id": "044",
@@ -2491,7 +2466,8 @@ export const rdlRightHand: Part[] = [
     "type": "rightHand",
     "description": "",
     "imgSrc": "",
-    "tags": []
+    "tags": [],
+    "throwIndex":"047",
   },
   {
     "id": "047",
@@ -2519,7 +2495,9 @@ export const rdlRightHand: Part[] = [
     "type": "rightHand",
     "description": "",
     "imgSrc": "",
-    "tags": []
+    "tags": [],
+    "throwIndex":"049",
+        "projectile":["268"]
   },
   {
     "id": "049",
@@ -2533,7 +2511,8 @@ export const rdlRightHand: Part[] = [
     "type": "rightHand",
     "description": "",
     "imgSrc": "",
-    "tags": []
+    "tags": [],
+        "projectile":["268"]
   },
   {
     "id": "051",
@@ -2547,7 +2526,8 @@ export const rdlRightHand: Part[] = [
     "type": "rightHand",
     "description": "",
     "imgSrc": "",
-    "tags": []
+    "tags": [],
+    "throwIndex":"052",
   },
   {
     "id": "052",
@@ -2589,7 +2569,8 @@ export const rdlRightHand: Part[] = [
     "type": "rightHand",
     "description": "",
     "imgSrc": "",
-    "tags": []
+    "tags": [],
+    "throwIndex":"059",
   },
   {
     "id": "059",
@@ -2631,7 +2612,8 @@ export const rdlRightHand: Part[] = [
     "type": "rightHand",
     "description": "",
     "imgSrc": "",
-    "tags": []
+    "tags": [],
+    "throwIndex":"069",
   },
   {
     "id": "069",
@@ -2659,7 +2641,8 @@ export const rdlRightHand: Part[] = [
     "type": "rightHand",
     "description": "",
     "imgSrc": "",
-    "tags": []
+    "tags": [],
+    "throwIndex":"255",
   },
   {
     "id": "255",
@@ -2687,7 +2670,8 @@ export const rdlRightHand: Part[] = [
     "type": "rightHand",
     "description": "",
     "imgSrc": "",
-    "tags": []
+    "tags": [],
+    "throwIndex":"285",
   },
   {
     "id": "285",
@@ -2715,7 +2699,8 @@ export const rdlRightHand: Part[] = [
     "type": "rightHand",
     "description": "",
     "imgSrc": "",
-    "tags": []
+    "tags": [],
+    "throwIndex":"509",
   },
   {
     "id": "509",
@@ -2743,7 +2728,8 @@ export const rdlRightHand: Part[] = [
     "type": "rightHand",
     "description": "",
     "imgSrc": "",
-    "tags": []
+    "tags": [],
+    "throwIndex":"513",
   },
   {
     "id": "513",
@@ -2771,7 +2757,8 @@ export const rdlRightHand: Part[] = [
     "type": "rightHand",
     "description": "",
     "imgSrc": "",
-    "tags": []
+    "tags": [],
+    "throwIndex":"517",
   },
   {
     "id": "517",
@@ -2799,7 +2786,8 @@ export const rdlRightHand: Part[] = [
     "type": "rightHand",
     "description": "",
     "imgSrc": "",
-    "tags": []
+    "tags": [],
+    "throwIndex":"519",
   },
   {
     "id": "519",
@@ -2872,7 +2860,8 @@ export const rdlBackpack: Part[] = [
     "type": "backpack",
     "description": "",
     "imgSrc": "",
-    "tags": []
+    "tags": [],
+    "projectile":["071"]
   },
   {
     "id": "005",
@@ -2900,7 +2889,8 @@ export const rdlBackpack: Part[] = [
     "type": "backpack",
     "description": "",
     "imgSrc": "",
-    "tags": []
+    "tags": [],
+    "projectile":["074"]
   },
   {
     "id": "007",
@@ -2928,7 +2918,8 @@ export const rdlBackpack: Part[] = [
     "type": "backpack",
     "description": "",
     "imgSrc": "",
-    "tags": []
+    "tags": [],
+    "projectile":["075","076","077"]
   },
   {
     "id": "009",
@@ -2970,7 +2961,8 @@ export const rdlBackpack: Part[] = [
     "type": "backpack",
     "description": "",
     "imgSrc": "",
-    "tags": []
+    "tags": [],
+    "projectile":["073"]
   },
   {
     "id": "264",
@@ -3071,7 +3063,8 @@ export const rdlDrones: Drone[] = [
     "type": "small",
     "move": 0,
     "stance": "offensive",
-    "description": ""
+    "description": "",
+    "projectile":["071"]
   },
   {
     "id": "080",
@@ -3116,7 +3109,8 @@ export const unTorso: Part[] = [
     "type": "torso",
     "description": "",
     "imgSrc": "",
-    "tags": []
+    "tags": [],
+    "projectile":["155"]
   },
   {
     "id": "092",
@@ -3290,7 +3284,9 @@ export const unLeftHand: Part[] = [
     "type": "leftHand",
     "description": "",
     "imgSrc": "",
-    "tags": []
+    "tags": [],
+    "throwIndex":"108",
+    "projectile":["154"]
   },
   {
     "id": "108",
@@ -3304,7 +3300,8 @@ export const unLeftHand: Part[] = [
     "type": "leftHand",
     "description": "",
     "imgSrc": "",
-    "tags": []
+    "tags": [],
+    "projectile":["154"]
   },
   {
     "id": "111",
@@ -3318,7 +3315,8 @@ export const unLeftHand: Part[] = [
     "type": "leftHand",
     "description": "",
     "imgSrc": "",
-    "tags": []
+    "tags": [],
+    "throwIndex":"112",
   },
   {
     "id": "112",
@@ -3346,7 +3344,8 @@ export const unLeftHand: Part[] = [
     "type": "leftHand",
     "description": "",
     "imgSrc": "",
-    "tags": []
+    "tags": [],
+    "throwIndex":"118",
   },
   {
     "id": "118",
@@ -3402,7 +3401,9 @@ export const unLeftHand: Part[] = [
     "type": "leftHand",
     "description": "",
     "imgSrc": "",
-    "tags": []
+    "tags": [],
+    "throwIndex":"130",
+    "projectile":["157"]
   },
   {
     "id": "130",
@@ -3444,7 +3445,8 @@ export const unLeftHand: Part[] = [
     "type": "leftHand",
     "description": "",
     "imgSrc": "",
-    "tags": []
+    "tags": [],
+    "projectile":["154"]
   },
   {
     "id": "139",
@@ -3472,7 +3474,8 @@ export const unLeftHand: Part[] = [
     "type": "leftHand",
     "description": "",
     "imgSrc": "",
-    "tags": []
+    "tags": [],
+    "throwIndex":"143",
   },
   {
     "id": "143",
@@ -3514,7 +3517,9 @@ export const unLeftHand: Part[] = [
     "type": "leftHand",
     "description": "",
     "imgSrc": "",
-    "tags": []
+    "tags": [],
+    "throwIndex":"147",
+    "projectile":["154"]
   },
   {
     "id": "147",
@@ -3528,7 +3533,8 @@ export const unLeftHand: Part[] = [
     "type": "leftHand",
     "description": "",
     "imgSrc": "",
-    "tags": []
+    "tags": [],
+    "projectile":["154"]
   },
   {
     "id": "150",
@@ -3542,39 +3548,12 @@ export const unLeftHand: Part[] = [
     "type": "leftHand",
     "description": "",
     "imgSrc": "",
-    "tags": []
+    "tags": [],
+    "throwIndex":"151",
   },
   {
     "id": "151",
     "name": "RHX23暴雨突击手枪（左）（抛弃卡）",
-    "score": 0,
-    "structure": 0,
-    "armor": 3,
-    "parray": 0,
-    "dodge": 2,
-    "electronic": 0,
-    "type": "leftHand",
-    "description": "",
-    "imgSrc": "",
-    "tags": []
-  },
-  {
-    "id": "152",
-    "name": "RHX23暴雨突击手枪（右）",
-    "score": 57,
-    "structure": 0,
-    "armor": 3,
-    "parray": 0,
-    "dodge": 2,
-    "electronic": 0,
-    "type": "leftHand",
-    "description": "",
-    "imgSrc": "",
-    "tags": []
-  },
-  {
-    "id": "153",
-    "name": "RHX23暴雨突击手枪（右）（抛弃卡）",
     "score": 0,
     "structure": 0,
     "armor": 3,
@@ -3603,6 +3582,36 @@ export const unLeftHand: Part[] = [
 ];
 
 export const unRightHand: Part[] = [
+  ,
+  {
+    "id": "152",
+    "name": "RHX23暴雨突击手枪（右）",
+    "score": 57,
+    "structure": 0,
+    "armor": 3,
+    "parray": 0,
+    "dodge": 2,
+    "electronic": 0,
+    "type": "rightHand",
+    "description": "",
+    "imgSrc": "",
+    "tags": [],
+    "throwIndex":"153",
+  },
+  {
+    "id": "153",
+    "name": "RHX23暴雨突击手枪（右）（抛弃卡）",
+    "score": 0,
+    "structure": 0,
+    "armor": 3,
+    "parray": 0,
+    "dodge": 2,
+    "electronic": 0,
+    "type": "rightHand",
+    "description": "",
+    "imgSrc": "",
+    "tags": []
+  },
   {
     "id": "104",
     "name": "R7自动步枪",
@@ -3615,7 +3624,8 @@ export const unRightHand: Part[] = [
     "type": "rightHand",
     "description": "",
     "imgSrc": "",
-    "tags": []
+    "tags": [],
+    "throwIndex":"105",
   },
   {
     "id": "105",
@@ -3657,7 +3667,8 @@ export const unRightHand: Part[] = [
     "type": "rightHand",
     "description": "",
     "imgSrc": "",
-    "tags": []
+    "tags": [],
+    "throwIndex":"110",
   },
   {
     "id": "110",
@@ -3685,7 +3696,8 @@ export const unRightHand: Part[] = [
     "type": "rightHand",
     "description": "",
     "imgSrc": "",
-    "tags": []
+    "tags": [],
+    "throwIndex":"114",
   },
   {
     "id": "114",
@@ -3713,7 +3725,8 @@ export const unRightHand: Part[] = [
     "type": "rightHand",
     "description": "",
     "imgSrc": "",
-    "tags": []
+    "tags": [],
+    "throwIndex":"116",
   },
   {
     "id": "116",
@@ -3741,7 +3754,8 @@ export const unRightHand: Part[] = [
     "type": "rightHand",
     "description": "",
     "imgSrc": "",
-    "tags": []
+    "tags": [],
+    "throwIndex":"120",
   },
   {
     "id": "120",
@@ -3783,7 +3797,8 @@ export const unRightHand: Part[] = [
     "type": "rightHand",
     "description": "",
     "imgSrc": "",
-    "tags": []
+    "tags": [],
+    "throwIndex":"125",
   },
   {
     "id": "125",
@@ -3811,7 +3826,8 @@ export const unRightHand: Part[] = [
     "type": "rightHand",
     "description": "",
     "imgSrc": "",
-    "tags": []
+    "tags": [],
+    "throwIndex":"128",
   },
   {
     "id": "128",
@@ -3853,7 +3869,8 @@ export const unRightHand: Part[] = [
     "type": "rightHand",
     "description": "",
     "imgSrc": "",
-    "tags": []
+    "tags": [],
+    "projectile":["154"]
   },
   {
     "id": "140",
@@ -3867,7 +3884,8 @@ export const unRightHand: Part[] = [
     "type": "rightHand",
     "description": "",
     "imgSrc": "",
-    "tags": []
+    "tags": [],
+    "throwIndex":"141",
   },
   {
     "id": "141",
@@ -3909,7 +3927,8 @@ export const unRightHand: Part[] = [
     "type": "rightHand",
     "description": "",
     "imgSrc": "",
-    "tags": []
+    "tags": [],
+    "throwIndex":"149",
   },
   {
     "id": "149",
@@ -3968,7 +3987,8 @@ export const unBackpack: Part[] = [
     "type": "backpack",
     "description": "",
     "imgSrc": "",
-    "tags": []
+    "tags": [],
+    "projectile":["156"]
   },
   {
     "id": "083",
@@ -3996,7 +4016,8 @@ export const unBackpack: Part[] = [
     "type": "backpack",
     "description": "",
     "imgSrc": "",
-    "tags": []
+    "tags": [],
+    "projectile":["158"]
   },
   {
     "id": "085",
@@ -4024,7 +4045,8 @@ export const unBackpack: Part[] = [
     "type": "backpack",
     "description": "",
     "imgSrc": "",
-    "tags": []
+    "tags": [],
+    "projectile":["157"]
   },
   {
     "id": "087",

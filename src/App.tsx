@@ -2,104 +2,130 @@ import React, { useState, useEffect } from 'react';
 import { TeamList } from './components/TeamList';
 import { MechList } from './components/MechList';
 import { PartSelector } from './components/PartSelector';
-import { Team, Mech, Part, Drone, Pilot } from './types';
-import { gofBackpack, gofChasis, gofDrones, gofLeftHand, gofPilots, gofRightHand, gofTorso, pdBackpack, pdChasis, pdDrones, pdLeftHand, pdPilots, pdRightHand, pdTorso, rdlBackpack, rdlChasis, rdlDrones, rdlLeftHand, rdlPilots, rdlRightHand, rdlTorso, unBackpack, unChasis, unDrones, unLeftHand, unPilots, unRightHand, unTorso } from './data';
-
-// 模拟数据
-const initialTeams: Team[] = [
-  {
-    id: '1',
-    name: '第一小队',
-    faction: 'RDL',
-    mechs: [],
-    drones: [],
-    totalScore: 0,
-    mechCount: 0,
-    largeDroneCount: 0,
-    mediumDroneCount: 0,
-    smallDroneCount: 0
-  }
-];
+import { Team, Mech, Part, Drone, Pilot, PART_TYPE_NAMES, FACTION_NAMES } from './types';
+import { Button } from './components/ui/button';
+import { translations } from './i18n';
+import { IMAGE_SRC, LOCAL_IMAGE_SRC } from './resource';
+import * as zhData from './data';
+import * as enData from './data_en';
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from './components/ui/select';
+import { Globe } from 'lucide-react';
 
 export default function App() {
-  // ⬇️ 初始化时尝试从 localStorage 读取
-  const [teams, setTeams] = useState<Team[]>(() => {
-    
-    const saved = localStorage.getItem('teams');
-    return saved ? JSON.parse(saved) : initialTeams;
+    // ⬇️ 初始化语言，从 localStorage 读取
+ const [lang, setLang] = useState<"en" | "zh"|"jp">(() => {
+    return (localStorage.getItem("lang") as "en" | "zh"|"jp") || "zh";
   });
+  const t = translations[lang]; // 取当前语言的字典
+  const [teams, setTeams] = useState<Team[]>(() => {
+    const v = localStorage.getItem("version");
+    if (v !== "3") {
+      localStorage.clear();
+      localStorage.setItem("version", "3");
+    }
+    const saved = localStorage.getItem('teams');
+    return saved ? JSON.parse(saved) : [{
+      id: '1',
+      name: t.t63,
+      faction: 'RDL',
+      mechs: [],
+      drones: [],
+      totalScore: 0,
+      mechCount: 0,
+      largeDroneCount: 0,
+      mediumDroneCount: 0,
+      smallDroneCount: 0
+    }];
+  });
+
   const [selectedTeamId, setSelectedTeamId] = useState<string>('1');
   const [selectedMechId, setSelectedMechId] = useState<string>('');
   const [selectedPartType, setSelectedPartType] = useState<string>('torso');
   const [viewMode, setViewMode] = useState<'parts' | 'drones' | 'pilots'>('parts');
 
-  const addTeam = (faction: 'RDL' | 'UN' | 'GOF' | 'PD') => {
-    const newTeam: Team = {
-      id: Date.now().toString(),
-      name: `新小队`,
-      faction,
-      mechs: [],
-      drones: [],
-      totalScore: 0,
-      mechCount: 0,
-      largeDroneCount: 0,
-      mediumDroneCount: 0,
-      smallDroneCount: 0
-    };
-    setSelectedTeamId(newTeam.id); // ⬅️ 顺便切换到新小队
-    setTeams(prev => [...prev, newTeam]);
-  };
 
-const initNewTeam = (faction: 'RDL' | 'UN' | 'GOF' | 'PD') => {
-    const newTeam: Team = {
-      id: "1",
-      name: `新小队`,
-      faction,
-      mechs: [],
-      drones: [],
-      totalScore: 0,
-      mechCount: 0,
-      largeDroneCount: 0,
-      mediumDroneCount: 0,
-      smallDroneCount: 0
-    };
-    setSelectedTeamId(newTeam.id); // ⬅️ 顺便切换到新小队
-    setTeams(prev => [...prev, newTeam]);
-  };
+  const [data, setData] = useState<any | null>(null);
 
-  // ⬇️ 监听 teams，每次更新时保存到 localStorage
+  const typePartNames = PART_TYPE_NAMES[lang]
+  const factionNames = FACTION_NAMES[lang]
+  const imageSrc = IMAGE_SRC[lang]
+   const localImgsrc = LOCAL_IMAGE_SRC[lang]
+
+useEffect(() => {
+    const selectedData = lang === "zh" ? zhData : enData;
+    setData(selectedData);
+    localStorage.setItem("lang", lang);
+  }, [lang]);
+
   useEffect(() => {
     localStorage.setItem('teams', JSON.stringify(teams));
   }, [teams]);
-  
 
- const selectedTeam = teams.find(team => {return team.id === selectedTeamId
-   console.log(team.id)}
- );
+  if (!data) {
+    return <div>加载中...</div>;
+  }
 
+  const {
+    gofBackpack, gofChasis, gofDrones, gofLeftHand, gofPilots, gofRightHand, gofTorso,
+    pdBackpack, pdChasis, pdDrones, pdLeftHand, pdPilots, pdRightHand, pdTorso,
+    rdlBackpack, rdlChasis, rdlDrones, rdlLeftHand, rdlPilots, rdlRightHand, rdlTorso,
+    unBackpack, unChasis, unDrones, unLeftHand, unPilots, unRightHand, unTorso
+  } = data;
 
-  // Safely handle the case where selectedTeam might be undefined
-if (!selectedTeam) {
+  const addTeam = (faction: 'RDL' | 'UN' | 'GOF' | 'PD') => {
+    const newTeam: Team = {
+      id: Date.now().toString(),
+      name:t.t64,
+      faction,
+      mechs: [],
+      drones: [],
+      totalScore: 0,
+      mechCount: 0,
+      largeDroneCount: 0,
+      mediumDroneCount: 0,
+      smallDroneCount: 0
+    };
+    setSelectedTeamId(newTeam.id);
+    setTeams(prev => [...prev, newTeam]);
+  };
+
+  const initNewTeam = (faction: 'RDL' | 'UN' | 'GOF' | 'PD') => {
+    const newTeam: Team = {
+      id: "1",
+      name: t.t64,
+      faction,
+      mechs: [],
+      drones: [],
+      totalScore: 0,
+      mechCount: 0,
+      largeDroneCount: 0,
+      mediumDroneCount: 0,
+      smallDroneCount: 0
+    };
+    setSelectedTeamId(newTeam.id);
+    setTeams(prev => [...prev, newTeam]);
+  };
+
+  const selectedTeam = teams.find(team => team.id === selectedTeamId);
+
+  if (!selectedTeam) {
     return (
       <div className="fixed inset-0 bg-background flex items-center justify-center">
         <div className="text-center">
-          <p className="mb-4">目前没有小队，请新建一个小队。</p>
+          <p className="mb-4">{t.t65}</p>
           <button
             onClick={() => initNewTeam('RDL')}
             className="px-4 py-2 bg-blue-500 text-white rounded"
           >
-            新建小队
+            {t.t66}
           </button>
         </div>
       </div>
     );
   }
 
-
-  // Now we can safely access the `faction` property
   const factionParts: Part[] = (() => {
-    if (!selectedTeam.faction) return [];  // Safely return an empty array if faction is not found
-
+    if (!selectedTeam.faction) return [];
     switch (selectedTeam.faction) {
       case 'RDL': {
         switch (selectedPartType) {
@@ -140,17 +166,15 @@ if (!selectedTeam) {
     }
   })();
 
-  // 根据小队派系过滤无人机
   const factionDrones: Drone[] = (() => {
     switch (selectedTeam.faction) {
-      case 'RDL': return rdlDrones;
-      case 'UN': return unDrones;
-      case 'GOF': return gofDrones;
+      case 'RDL': return rdlDrones.concat(pdDrones);
+      case 'UN': return unDrones.concat(pdDrones);
+      case 'GOF': return gofDrones.concat(pdDrones);
       case 'PD': return pdDrones;
     }
   })();
 
-  // 根据小队派系过滤无人机
   const factionPilots: Pilot[] = (() => {
     switch (selectedTeam.faction) {
       case 'RDL': return rdlPilots;
@@ -180,10 +204,25 @@ if (!selectedTeam) {
 
   return (
     <div className="fixed inset-0 bg-background flex overflow-hidden">
+      {/* 右上角语言切换按钮 */}
+
+      <div className="absolute top-3 right-3 flex items-center gap-2 p-3">
+  <Globe className="w-5 h-5 text-gray-600" />
+  <Select value={lang} onValueChange={(value) => setLang(value as "zh" | "en" | "jp")}>
+    <SelectTrigger className="w-[120px]">
+      <SelectValue placeholder="选择语言" />
+    </SelectTrigger>
+    <SelectContent>
+      <SelectItem value="zh">中文</SelectItem>
+      <SelectItem value="en">English</SelectItem>
+      <SelectItem value="jp">日本語</SelectItem>
+    </SelectContent>
+  </Select>
+</div>
+
+
       {/* 左侧小队列表 */}
-      <div
-        className={`border-r border-border transition-all duration-300 overflow-y-auto min-h-0`}
-      >
+      <div className={`border-r border-border transition-all duration-300 overflow-y-auto min-h-0`}>
         <TeamList
           teams={teams}
           selectedTeamId={selectedTeamId}
@@ -192,6 +231,8 @@ if (!selectedTeam) {
           onDeleteTeam={deleteTeam}
           onUpdateTeam={updateTeam}
           onCopyTeam={copyTeam}
+          translations={t}
+          factionNames={factionNames}
         />
       </div>
 
@@ -204,6 +245,10 @@ if (!selectedTeam) {
           onSelectPartType={setSelectedPartType}
           onUpdateTeam={updateTeam}
           onSetViewMode={setViewMode}
+          translations={t}
+          partTypeNames={typePartNames}
+          imgsrc={imageSrc}
+          localImgsrc={localImgsrc}
         />
       </div>
 
@@ -216,6 +261,9 @@ if (!selectedTeam) {
           parts={factionParts}
           drones={factionDrones}
           pilots={factionPilots}
+          translations={t}
+          partTypeNames={typePartNames}
+          imgsrc={imageSrc}
           onSelectPart={(part) => {
             if (selectedTeam && selectedMechId) {
               const updatedMechs = selectedTeam.mechs.map(mech => {
