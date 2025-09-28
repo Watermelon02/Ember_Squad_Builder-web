@@ -5,6 +5,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '.
 import { Badge } from './ui/badge';
 import { Label } from './ui/label';
 import { Part, Drone, Pilot, Team } from '../types';
+import { Checkbox } from "./ui/checkbox";
 
 interface PartSelectorProps {
   viewMode: 'parts' | 'drones' | 'pilots';
@@ -16,9 +17,9 @@ interface PartSelectorProps {
   onSelectPart: (part: Part) => void;
   onSelectDrone: (drone: Drone) => void;
   onSelectPilot: (pilot: Pilot) => void;
-  translations:any,
-  partTypeNames:any,
-  imgsrc:string
+  translations: any,
+  partTypeNames: any,
+  imgsrc: string, tabsrc: string
 }
 
 export function PartSelector({
@@ -33,7 +34,7 @@ export function PartSelector({
   onSelectPilot,
   translations,
   partTypeNames,
-  imgsrc
+  imgsrc, tabsrc
 }: PartSelectorProps) {
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedTags, setSelectedTags] = useState<string[]>([]);
@@ -49,6 +50,14 @@ export function PartSelector({
       // 搜索过滤
       if (searchQuery && !part.name.toLowerCase().includes(searchQuery.toLowerCase()) &&
         !part.description.toLowerCase().includes(searchQuery.toLowerCase())) {
+        return false;
+      }
+
+      if (part.isPD && !containPD) {
+        return false;
+      }
+
+      if ((part.isPD === undefined) && containPD) {
         return false;
       }
 
@@ -68,7 +77,7 @@ export function PartSelector({
     return filtered.sort((a, b) => {
       return sortOrder === 'score_desc' ? b.score - a.score : a.score - b.score;
     });
-  }, [parts, selectedPartType, searchQuery, selectedTags, sortOrder]);
+  }, [parts, selectedPartType, searchQuery, selectedTags, sortOrder, containPD]);
 
   // 过滤无人机
   const filteredDrones = useMemo(() => {
@@ -78,6 +87,10 @@ export function PartSelector({
       }
       // 如果是星环无人机 且 当前不包含星环 => 过滤掉
       if (drone.isPD && !containPD) {
+        return false;
+      }
+
+      if ((drone.isPD === undefined) && containPD) {
         return false;
       }
 
@@ -100,21 +113,23 @@ export function PartSelector({
       ) {
         return false;
       }
+
+      if ((pilot.faction === "PD") && !containPD) {
+        return false;
+      }
+
+      if ((pilot.faction !== "PD") && containPD) {
+        return false;
+      }
+
       return true;
     });
 
     return filtered.sort((a, b) => {
       return sortOrder === 'score_desc' ? b.score - a.score : a.score - b.score;
     });
-  }, [pilots, searchQuery, sortOrder]);
+  }, [pilots, searchQuery, sortOrder, containPD]);
 
-  const handleTagToggle = (tag: string) => {
-    setSelectedTags(prev =>
-      prev.includes(tag)
-        ? prev.filter(t => t !== tag)
-        : [...prev, tag]
-    );
-  };
 
   if (viewMode === 'parts') {
     return (
@@ -129,18 +144,38 @@ export function PartSelector({
             onChange={(e) => setSearchQuery(e.target.value)}
           />
 
-          {/* 排序选择 */}
-          <div className="space-y-2">
-            <Label>{translations.t36}</Label>
-            <Select value={sortOrder} onValueChange={(value: 'score_desc' | 'score_asc') => setSortOrder(value)}>
-              <SelectTrigger>
-                <SelectValue />
-              </SelectTrigger>
-              <SelectContent>
-                <SelectItem value="score_desc">{translations.t37}</SelectItem>
-                <SelectItem value="asc">{translations.t38}</SelectItem>
-              </SelectContent>
-            </Select>
+
+          <div className="flex items-center justify-between space-x-4">
+            {/* 排序选择 */}
+            <div className="flex items-center space-x-2">
+              <Label>{translations.t36}</Label>
+              <Select
+                value={sortOrder}
+                onValueChange={(value: 'score_desc' | 'score_asc') => setSortOrder(value)}
+              >
+                <SelectTrigger className="w-[140px]">
+                  <SelectValue />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="score_desc">{translations.t58}</SelectItem>
+                  <SelectItem value="score_asc">{translations.t59}</SelectItem>
+                </SelectContent>
+              </Select>
+            </div>
+
+            {/* 星环选择 */}
+            <div className="flex items-center space-x-2">
+              <input
+                type="checkbox"
+                id="contain-pd"
+                checked={containPD}
+                onChange={(e) => setContainPD(e.target.checked)}
+                className="h-4 w-4"
+              />
+              <label htmlFor="contain-pd" className="text-sm">
+                {translations.t67}
+              </label>
+            </div>
           </div>
         </div>
 
@@ -151,40 +186,79 @@ export function PartSelector({
                 {filteredParts.slice(rowIndex * 3, (rowIndex + 1) * 3).map(part => (
                   <Card
                     key={part.id}
-                    className="relative p-3 cursor-pointer hover:bg-accent/50 transition-colors overflow-hidden"
+                    className="relative p-3 cursor-pointer hover:bg-accent/50 transition-colors overflow-hidden shadow-sm"
                     onClick={() => onSelectPart(part)}
                   >
+                    {/* 背景图层 */}
+                    <div
+                      className="absolute inset-0 bg-contain"
+                      style={{
+                        backgroundImage: `url(${tabsrc}/${part.id}.png)`,
+                        backgroundSize: 'contain',     // 等比缩放，完整显示
+                        backgroundRepeat: 'no-repeat', // 不要平铺
+                        backgroundPosition: 'right top', // 靠左上对齐
+                        opacity: 0.8,
+                      }}
+                    ></div>
+
 
                     {/* 前景文字内容 */}
                     <div className="relative z-10 space-y-2">
-                      <div className="flex items-center justify-between">
+                      <div className="flex items-center gap-2">
+                        <Badge variant="outline" className="shrink-0">{part.score}</Badge>
+
                         <h4 className="font-medium truncate">{part.name}</h4>
-                        <Badge variant="outline">{part.score}</Badge>
                       </div>
 
-                      {/* 机体数据 */}
+
+                      {/* 部件数据 */}
                       <div className="flex items-center gap-2">
-                        <div className="flex flex-col items-center px-1 py-0.5 border rounded-md shadow-sm">
-                          <div className="text-[9px] text-muted-foreground">{translations.t39}</div>
-                          <div className="text-[10px]">{part.armor}</div>
-                        </div>
-                        <div className="flex flex-col items-center px-1 py-0.5 border rounded-md shadow-sm">
-                          <div className="text-[9px] text-muted-foreground">{translations.t40}</div>
-                          <div className="text-[10px]">{part.structure}</div>
-                        </div>
-                        <div className="flex flex-col items-center px-1 py-0.5 border rounded-md shadow-sm">
-                          <div className="text-[9px] text-muted-foreground">{translations.t41}</div>
-                          <div className="text-[10px]">{part.parray}</div>
-                        </div>
-                        <div className="flex flex-col items-center px-1 py-0.5 border rounded-md shadow-sm">
-                          <div className="text-[9px] text-muted-foreground">{translations.t42}</div>
-                          <div className="text-[10px]">{part.dodge}</div>
-                        </div>
-                        <div className="flex flex-col items-center px-1 py-0.5 border rounded-md shadow-sm">
-                          <div className="text-[9px] text-muted-foreground">{translations.t43}</div>
-                          <div className="text-[10px]">{part.electronic}</div>
-                        </div>
+                        {/* 装甲/结构 */}
+                        {(part.armor !== 0 || part.structure !== 0) && (
+                          <div className="flex flex-col items-center px-1 py-0.5 border rounded-md shadow-sm">
+                            <div className="flex items-center gap-1">
+                              {/* icon */}
+                              <img src={`${tabsrc}/icon_armor.png`} alt="armor" className="w-4 h-4" />
+                              <div style={{ fontSize: '12px', color: 'var(--muted-foreground)' }}>
+                                {part.structure === 0 ? translations.t39 : `${translations.t39}/${translations.t40}`}
+                              </div>
+                            </div>
+                            <div
+                              style={{
+                                fontSize: '16px',
+                                color: part.armor < 0 || part.structure < 0 ? 'red' : 'inherit',
+                              }}
+                            >
+                              {part.structure === 0 ? part.armor : `${part.armor} / ${part.structure}`}
+                            </div>
+                          </div>
+                        )}
+
+                        {/* 其他属性 */}
+                        {[
+                          { label: translations.t41, value: part.parray, icon: 'icon_parray' },
+                          { label: translations.t42, value: part.dodge, icon: 'icon_dodge' },
+                          { label: translations.t43, value: part.electronic, icon: 'icon_electronic' },
+                        ]
+                          .filter(attr => attr.value !== 0) // 过滤掉值为0
+                          .map(attr => (
+                            <div
+                              key={attr.label}
+                              className="flex flex-col items-center px-1 py-0.5 border rounded-md shadow-sm"
+                            >
+                              <div className="flex items-center gap-1">
+                                {/* icon */}
+                                <img src={`${tabsrc}/${attr.icon}.png`} alt={attr.label} className="w-4 h-4" />
+                                <div style={{ fontSize: '12px', color: 'var(--muted-foreground)' }}>{attr.label}</div>
+                              </div>
+                              <div style={{ fontSize: '16px', color: attr.value < 0 ? 'red' : 'inherit' }}>
+                                {attr.value}
+                              </div>
+                            </div>
+                          ))}
                       </div>
+
+
 
                       <p className="text-sm text-muted-foreground line-clamp-2">
                         {part.description}
@@ -229,18 +303,37 @@ export function PartSelector({
             onChange={(e) => setSearchQuery(e.target.value)}
           />
 
-          {/* 排序选择 */}
-          <div className="space-y-2">
-            <Label>排序方式</Label>
-            <Select value={sortOrder} onValueChange={(value: 'score_desc' | 'score_asc') => setSortOrder(value)}>
-              <SelectTrigger>
-                <SelectValue />
-              </SelectTrigger>
-              <SelectContent>
-                <SelectItem value="score_desc">{translations.t47}</SelectItem>
-                <SelectItem value="score_asc">{translations.t48}</SelectItem>
-              </SelectContent>
-            </Select>
+          <div className="flex items-center justify-between space-x-4">
+            {/* 排序选择 */}
+            <div className="flex items-center space-x-2">
+              <Label>{translations.t36}</Label>
+              <Select
+                value={sortOrder}
+                onValueChange={(value: 'score_desc' | 'score_asc') => setSortOrder(value)}
+              >
+                <SelectTrigger className="w-[140px]">
+                  <SelectValue />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="score_desc">{translations.t58}</SelectItem>
+                  <SelectItem value="score_asc">{translations.t59}</SelectItem>
+                </SelectContent>
+              </Select>
+            </div>
+
+            {/* 星环选择 */}
+            <div className="flex items-center space-x-2">
+              <input
+                type="checkbox"
+                id="contain-pd"
+                checked={containPD}
+                onChange={(e) => setContainPD(e.target.checked)}
+                className="h-4 w-4"
+              />
+              <label htmlFor="contain-pd" className="text-sm">
+                {translations.t67}
+              </label>
+            </div>
           </div>
         </div>
 
@@ -248,71 +341,65 @@ export function PartSelector({
           {filteredPilots.map(pilot => (
             <Card
               key={pilot.id}
-              className="p-4 cursor-pointer hover:bg-accent/50 transition-colors relative overflow-hidden"
+              className="p-4 cursor-pointer hover:bg-accent/50 transition-colors relative overflow-hidden shadow-sm"
               onClick={() => onSelectPilot(pilot)}
             >
               {/* 背景图层 */}
               <div
                 className="absolute inset-0 bg-cover bg-left-top"
                 style={{
-                  backgroundImage: `url(${imgsrc}/${pilot.faction}/pilot/${pilot.id}.png)`,
-                  backgroundSize: 'cover',
-                  backgroundPosition: 'left top -40px' // 向上偏移
-                  , opacity: 0.2,
+                  backgroundImage: `url(${tabsrc}/${pilot.id}.png)`,
+                  backgroundSize: 'contain',
+                  backgroundRepeat: 'no-repeat',
+                  backgroundPosition: 'right top',
+                  opacity: 0.4,
                 }}
               ></div>
 
               {/* 文字内容层 */}
-              <div className="relative z-10">
+              <div className="relative z-10 space-y-2">
+                {/* 名称和分数 */}
                 <div className="flex items-center justify-between">
                   <h4 className="font-medium">{pilot.name}</h4>
                   <Badge variant="outline">{pilot.score}</Badge>
                 </div>
-                {/* 驾驶员数据 */}
+
+                {/* 驾驶员属性 */}
                 <div className="flex items-center gap-1">
-
-                  <div className="flex flex-col items-center px-1 py-0.5 border rounded-md shadow-sm">
-                    <div className="text-[9px] text-muted-foreground">{translations.t49}</div>
-                    <div className="text-[10px]">{pilot.swift}</div>
-                  </div>
-
-
-                  <div className="flex flex-col items-center px-1 py-0.5 border rounded-md shadow-sm">
-                    <div className="text-[9px] text-muted-foreground">{translations.t50}</div>
-                    <div className="text-[10px]">{pilot.melee}</div>
-                  </div>
-
-
-                  <div className="flex flex-col items-center px-1 py-0.5 border rounded-md shadow-sm">
-                    <div className="text-[9px] text-muted-foreground">{translations.t51}</div>
-                    <div className="text-[10px]">{pilot.projectile}</div>
-                  </div>
-
-
-                  <div className="flex flex-col items-center px-1 py-0.5 border rounded-md shadow-sm">
-                    <div className="text-[9px] text-muted-foreground">{translations.t52}</div>
-                    <div className="text-[10px]">{pilot.firing}</div>
-                  </div>
-
-
-                  <div className="flex flex-col items-center px-1 py-0.5 border rounded-md shadow-sm">
-                    <div className="text-[9px] text-muted-foreground">{translations.t53}</div>
-                    <div className="text-[10px]">{pilot.moving}</div>
-                  </div>
-
-
-                  <div className="flex flex-col items-center px-1 py-0.5 border rounded-md shadow-sm">
-                    <div className="text-[9px] text-muted-foreground">{translations.t54}</div>
-                    <div className="text-[10px]">{pilot.tactic}</div>
-                  </div>
-
+                  {[
+                    { value: pilot.swift, icon: 'icon_swift' },
+                    { value: pilot.melee, icon: 'icon_melee' },
+                    { value: pilot.projectile, icon: 'icon_projectile' },
+                    { value: pilot.firing, icon: 'icon_firing' },
+                    { value: pilot.moving, icon: 'icon_moving' },
+                    { value: pilot.tactic, icon: 'icon_tactic' },
+                  ].map(({ value, icon }) => (
+                    <div
+                      key={icon}
+                      className="flex flex-col items-center px-1 py-0.5 border rounded-md shadow-sm"
+                    >
+                      {/* 图标 */}
+                      <img
+                        src={`${tabsrc}/${icon}.png`}
+                        alt={icon}
+                        className="w-6 h-6"
+                      />
+                      {/* 属性值 */}
+                      <div className="text-[10px]">{value}</div>
+                    </div>
+                  ))}
                 </div>
 
 
-                <div className="space-y-2">
-                  <p className="text-sm text-muted-foreground">{pilot.traitDescription}</p>
-
-                </div>
+                {/* 特性描述 */}
+                {pilot.traitDescription && (
+                  <div className="space-y-2" >
+                    <p className="text-sm text-muted-foreground" style={{
+                              color: 'white',
+                              textShadow: '0 0 4px rgba(0,0,0,0.7)',
+                            }}>{pilot.traitDescription}</p>
+                  </div>
+                )}
               </div>
             </Card>
           ))}
@@ -323,6 +410,7 @@ export function PartSelector({
             </div>
           )}
         </div>
+
       </div>
     );
   }
@@ -339,29 +427,40 @@ export function PartSelector({
           onChange={(e) => setSearchQuery(e.target.value)}
         />
 
-        {/* 排序选择 */}
-        <div className="space-y-2">
-          <Label>排序方式</Label>
-          <Select value={sortOrder} onValueChange={(value: 'score_desc' | 'score_asc') => setSortOrder(value)}>
-            <SelectTrigger>
-              <SelectValue />
-            </SelectTrigger>
-            <SelectContent>
-              <SelectItem value="score_desc">{translations.t58}</SelectItem>
-              <SelectItem value="score_asc">{translations.t59}</SelectItem>
-            </SelectContent>
-          </Select>
+        {/* 排序 + 星环选择 同一行 */}
+        <div className="flex items-center justify-between space-x-4">
+          {/* 排序选择 */}
+          <div className="flex items-center space-x-2">
+            <Label>{translations.t36}</Label>
+            <Select
+              value={sortOrder}
+              onValueChange={(value: 'score_desc' | 'score_asc') => setSortOrder(value)}
+            >
+              <SelectTrigger className="w-[140px]">
+                <SelectValue />
+              </SelectTrigger>
+              <SelectContent>
+                <SelectItem value="score_desc">{translations.t58}</SelectItem>
+                <SelectItem value="score_asc">{translations.t59}</SelectItem>
+              </SelectContent>
+            </Select>
+          </div>
+
+          {/* 星环选择 */}
+          <div className="flex items-center space-x-2">
+            <input
+              type="checkbox"
+              id="contain-pd"
+              checked={containPD}
+              onChange={(e) => setContainPD(e.target.checked)}
+              className="h-4 w-4"
+            />
+            <label htmlFor="contain-pd" className="text-sm">
+              {translations.t67}
+            </label>
+          </div>
         </div>
 
-        {/* 星环选择 */}
-        {/* <div className="flex items-center space-x-2">
-          <Checkbox
-            id="contain-pd"
-            checked={containPD}
-            onCheckedChange={(checked) => setContainPD(!!checked)}
-          />
-          <Label htmlFor="contain-pd">包含星环</Label>
-        </div> */}
       </div>
 
 
@@ -369,14 +468,77 @@ export function PartSelector({
         {filteredDrones.map(drone => (
           <Card
             key={drone.id}
-            className="p-4 cursor-pointer hover:bg-accent/50 transition-colors"
+            className="relative p-3 cursor-pointer hover:bg-accent/50 transition-colors overflow-hidden shadow-sm min-h-[120px]"
             onClick={() => onSelectDrone(drone)}
           >
-            <div className="space-y-2">
-              <div className="flex items-center justify-between">
-                <h4 className="font-medium">{drone.name}</h4>
-                <Badge variant="outline">{drone.score}</Badge>
+
+            {/* 背景图层 */}
+            <div
+              className="absolute inset-0 bg-contain"
+              style={{
+                backgroundImage: `url(${tabsrc}/${drone.id}.png)`,
+                backgroundSize: 'contain',     // 等比缩放，完整显示
+                backgroundRepeat: 'no-repeat', // 不要平铺
+                backgroundPosition: 'right top', // 靠右上角
+                opacity: 0.8,
+              }}
+            ></div>
+
+            {/* 前景文字内容 */}
+            <div className="relative z-10 space-y-2">
+              {/* 名称和分数 */}
+              <div className="flex items-center gap-2">
+                <Badge variant="outline" className="shrink-0">{drone.score}</Badge>
+                <h4 className="font-medium truncate">{drone.name}</h4>
               </div>
+
+              <div className="flex items-center gap-2">
+                        {/* 装甲/结构 */}
+                        {(drone.armor !== 0 || drone.structure !== 0) && (
+                          <div className="flex flex-col items-center px-1 py-0.5 border rounded-md shadow-sm">
+                            <div className="flex items-center gap-1">
+                              {/* icon */}
+                              <img src={`${tabsrc}/icon_armor.png`} alt="armor" className="w-4 h-4" />
+                              <div style={{ fontSize: '12px', color: 'var(--muted-foreground)' }}>
+                                {drone.structure === 0 ? translations.t39 : `${translations.t39}/${translations.t40}`}
+                              </div>
+                            </div>
+                            <div
+                              style={{
+                                fontSize: '16px',
+                                color: drone.armor < 0 || drone.structure < 0 ? 'red' : 'inherit',
+                              }}
+                            >
+                              {drone.structure === 0 ? drone.armor : `${drone.armor} / ${drone.structure}`}
+                            </div>
+                          </div>
+                        )}
+
+                        {/* 其他属性 */}
+                        {[
+                          { label: translations.t41, value: drone.parray, icon: 'icon_parray' },
+                          { label: translations.t42, value: drone.dodge, icon: 'icon_dodge' },
+                          { label: translations.t43, value: drone.electronic, icon: 'icon_electronic' },
+                        ]
+                          .filter(attr => attr.value !== 0) // 过滤掉值为0
+                          .map(attr => (
+                            <div
+                              key={attr.label}
+                              className="flex flex-col items-center px-1 py-0.5 border rounded-md shadow-sm"
+                            >
+                              <div className="flex items-center gap-1">
+                                {/* icon */}
+                                <img src={`${tabsrc}/${attr.icon}.png`} alt={attr.label} className="w-4 h-4" />
+                                <div style={{ fontSize: '12px', color: 'var(--muted-foreground)' }}>{attr.label}</div>
+                              </div>
+                              <div style={{ fontSize: '16px', color: attr.value < 0 ? 'red' : 'inherit' }}>
+                                {attr.value}
+                              </div>
+                            </div>
+                          ))}
+                      </div>
+
+              {/* 类型 */}
               <div className="flex items-center gap-2">
                 <Badge
                   variant={
@@ -388,19 +550,14 @@ export function PartSelector({
                     drone.type === 'medium' ? '中型' : '小型'}
                 </Badge>
               </div>
-              {drone.description && (
-                <p className="text-sm text-muted-foreground">{drone.description}</p>
-              )}
+
+
             </div>
           </Card>
         ))}
-
-        {filteredDrones.length === 0 && (
-          <div className="text-center text-muted-foreground py-8">
-            {translations.t60}
-          </div>
-        )}
       </div>
+
+
     </div>
   );
 }

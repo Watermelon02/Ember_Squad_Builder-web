@@ -5,8 +5,8 @@ export const rdlTorso: Part[] = [
     "id": "012",
     "name": "RT-06「マイア」戦闘コア",
     "score": 15,
-    "structure": 0,
-    "armor": 0,
+    "structure": 2,
+    "armor": 6,
     "parray": 0,
     "dodge": 0,
     "electronic": 2,
@@ -19,8 +19,8 @@ export const rdlTorso: Part[] = [
     "id": "014",
     "name": "RT-07T「デューン」 戦術コア",
     "score": 62,
-    "structure": 0,
-    "armor": 0,
+    "structure": 4,
+    "armor": 5,
     "parray": 0,
     "dodge": 0,
     "electronic": 3,
@@ -33,8 +33,8 @@ export const rdlTorso: Part[] = [
     "id": "015",
     "name": "RT-08「テンペスト」 砲戦コア",
     "score": 62,
-    "structure": 0,
-    "armor": 0,
+    "structure": 2,
+    "armor": 7,
     "parray": 0,
     "dodge": 0,
     "electronic": 3,
@@ -47,120 +47,53 @@ export const rdlTorso: Part[] = [
     "id": "016",
     "name": "RT-09A「ボルカノ」 装甲コア",
     "score": 66,
-    "structure": 0,
-    "armor": 0,
+    "structure": 4,
+    "armor": 6,
     "parray": 0,
     "dodge": 0,
     "electronic": 3,
     "type": "torso",
     "description": "",
     "imgSrc": "",
-    "tags": []
+    "tags": [],
+    "projectile": ["268"]
   },
   {
     "id": "017",
     "name": "RT-15B「ラバー」強襲コア",
     "score": 59,
-    "structure": 0,
-    "armor": 0,
+    "structure": 4,
+    "armor": 5,
     "parray": 0,
-    "dodge": 0,
+    "dodge": 1,
     "electronic": 3,
     "type": "torso",
     "description": "",
     "imgSrc": "",
-    "tags": []
+    "tags": [],
+    "projectile": ["268"]
   },
   {
     "id": "019",
     "name": "RT-15C「グレイシャ」強襲コア",
     "score": 56,
-    "structure": 0,
-    "armor": 0,
+    "structure": 4,
+    "armor": 5,
     "parray": 0,
-    "dodge": 0,
+    "dodge": 1,
     "electronic": 2,
     "type": "torso",
     "description": "",
     "imgSrc": "",
-    "tags": []
+    "tags": [],
+    "projectile": ["268"]
   },
   {
     "id": "018",
     "name": "RT-15/EC「オーロラ」ECMコア",
     "score": 60,
-    "structure": 0,
-    "armor": 0,
-    "parray": 0,
-    "dodge": 0,
-    "electronic": 3,
-    "type": "torso",
-    "description": "",
-    "imgSrc": "",
-    "tags": []
-  },
-  {
-    "id": "246",
-    "name": "RT-09M「ボルカノM」装甲コア",
-    "score": 66,
-    "structure": 0,
-    "armor": 0,
-    "parray": 0,
-    "dodge": 0,
-    "electronic": 3,
-    "type": "torso",
-    "description": "",
-    "imgSrc": "",
-    "tags": []
-  },
-  {
-    "id": "280",
-    "name": "RT-09M II「ボルカノM II」装甲コア",
-    "score": 66,
-    "structure": 0,
-    "armor": 0,
-    "parray": 0,
-    "dodge": 0,
-    "electronic": 3,
-    "type": "torso",
-    "description": "",
-    "imgSrc": "",
-    "tags": []
-  },
-  {
-    "id": "503",
-    "name": "RT-16B 「アバランシェ」 強襲コア",
-    "score": 60,
-    "structure": 0,
-    "armor": 0,
-    "parray": 0,
-    "dodge": 0,
-    "electronic": 3,
-    "type": "torso",
-    "description": "",
-    "imgSrc": "",
-    "tags": []
-  },
-  {
-    "id": "504",
-    "name": "RT-15/S 「ニンバス」支援コア",
-    "score": 60,
-    "structure": 0,
-    "armor": 0,
-    "parray": 0,
-    "dodge": 0,
-    "electronic": 3,
-    "type": "torso",
-    "description": "",
-    "imgSrc": "",
-    "tags": []
-  },
-  {
-    "id": "505",
-    "name": "RT-06E 「マイア」E 戦闘コア",
-    "score": 21,
-    "structure": 0,
-    "armor": 0,
+    "structure": 4,
+    "armor": 4,
     "parray": 0,
     "dodge": 0,
     "electronic": 3,
@@ -1314,76 +1247,6 @@ export const rdlBackpack: Part[] = [
     "description": "",
     "imgSrc": "",
     "tags": []
-  },
-  {
-    "id": "##",
-    "name": "AMS-192 アクティブ防護システム",
-    "score": 27,
-    "structure": 0,
-    "armor": 3,
-    "parray": 0,
-    "dodge": 0,
-    "electronic": 1,
-    "type": "backpack",
-    "description": "",
-    "imgSrc": "",
-    "tags": []
-  },
-  {
-    "id": "##",
-    "name": "AMS-193 アクティブ防護システム",
-    "score": 27,
-    "structure": 0,
-    "armor": 3,
-    "parray": 0,
-    "dodge": 0,
-    "electronic": 1,
-    "type": "backpack",
-    "description": "",
-    "imgSrc": "",
-    "tags": []
-  },
-  {
-    "id": "500",
-    "name": "HD-2データパック",
-    "score": 24,
-    "structure": 0,
-    "armor": 3,
-    "parray": 0,
-    "dodge": 0,
-    "electronic": 1,
-    "type": "backpack",
-    "description": "",
-    "imgSrc": "",
-    "tags": []
-  },
-  {
-    "id": "501",
-    "name": "ML-94四連装ミサイルラック",
-    "score": 48,
-    "structure": 0,
-    "armor": 3,
-    "parray": 0,
-    "dodge": 0,
-    "electronic": 0,
-    "type": "backpack",
-    "description": "",
-    "imgSrc": "",
-    "tags": []
-  },
-  {
-    "id": "502",
-    "name": "CP-4ドローンパック",
-    "score": 36,
-    "structure": 0,
-    "armor": 3,
-    "parray": 0,
-    "dodge": 0,
-    "electronic": 0,
-    "type": "backpack",
-    "description": "",
-    "imgSrc": "",
-    "tags": []
   }
 ];
 
@@ -1499,7 +1362,7 @@ export const rdlDrones: Drone[] = [
     "parray": 0,
     "dodge": 0,
     "electronic": 2,
-    "type": "small",
+    "type": "medium",
     "move": 0,
     "stance": "offensive",
     "description": ""
@@ -1513,10 +1376,13 @@ export const rdlDrones: Drone[] = [
     "parray": 0,
     "dodge": 0,
     "electronic": 2,
-    "type": "small",
+    "type": "medium",
     "move": 0,
     "stance": "offensive",
-    "description": ""
+    "description": "",
+    "projectile": [
+      "071"
+    ]
   },
   {
     "id": "080",
@@ -1527,7 +1393,7 @@ export const rdlDrones: Drone[] = [
     "parray": 0,
     "dodge": 0,
     "electronic": 2,
-    "type": "small",
+    "type": "medium",
     "move": 0,
     "stance": "offensive",
     "description": ""
@@ -1553,24 +1419,25 @@ export const unTorso: Part[] = [
     "id": "091",
     "name": "TM31C 「グレーウルフ」戦闘コア",
     "score": 45,
-    "structure": 0,
-    "armor": 0,
+    "structure": 4,
+    "armor": 4,
     "parray": 0,
-    "dodge": 0,
+    "dodge": 1,
     "electronic": 3,
     "type": "torso",
     "description": "",
     "imgSrc": "",
-    "tags": []
+    "tags": [],
+    "projectile": ["155"]
   },
   {
     "id": "092",
     "name": "TM31R 「カラカル」戦闘コア",
     "score": 54,
-    "structure": 0,
-    "armor": 0,
+    "structure": 4,
+    "armor": 4,
     "parray": 0,
-    "dodge": 0,
+    "dodge": 1,
     "electronic": 4,
     "type": "torso",
     "description": "",
@@ -1581,10 +1448,10 @@ export const unTorso: Part[] = [
     "id": "094",
     "name": "TM39 「ヴァイパー」低姿勢コア",
     "score": 63,
-    "structure": 0,
-    "armor": 0,
+    "structure": 3,
+    "armor": 3,
     "parray": 0,
-    "dodge": 0,
+    "dodge": 1,
     "electronic": 5,
     "type": "torso",
     "description": "",
@@ -1595,10 +1462,10 @@ export const unTorso: Part[] = [
     "id": "096",
     "name": "TM641 「オクトパス」ステルスコア",
     "score": 81,
-    "structure": 0,
-    "armor": 0,
+    "structure": 3,
+    "armor": 3,
     "parray": 0,
-    "dodge": 0,
+    "dodge": 1,
     "electronic": 5,
     "type": "torso",
     "description": "",
@@ -1609,10 +1476,10 @@ export const unTorso: Part[] = [
     "id": "097",
     "name": "TM35N 「アリゲーター」電子戦コア",
     "score": 72,
-    "structure": 0,
-    "armor": 0,
+    "structure": 4,
+    "armor": 5,
     "parray": 0,
-    "dodge": 0,
+    "dodge": 1,
     "electronic": 4,
     "type": "torso",
     "description": "",
@@ -1623,30 +1490,30 @@ export const unTorso: Part[] = [
     "id": "098",
     "name": "TM35B 「バイソン」突撃コア",
     "score": 72,
-    "structure": 0,
-    "armor": 0,
+    "structure": 4,
+    "armor": 5,
     "parray": 0,
-    "dodge": 0,
+    "dodge": 1,
     "electronic": 4,
     "type": "torso",
     "description": "",
     "imgSrc": "",
     "tags": []
   },
-  {
-    "id": "096",
-    "name": "TM641O 「オクトパス」ステルスコア試作型",
-    "score": 81,
-    "structure": 0,
-    "armor": 0,
-    "parray": 0,
-    "dodge": 0,
-    "electronic": 5,
-    "type": "torso",
-    "description": "",
-    "imgSrc": "",
-    "tags": []
-  }
+  // {
+  //   "id": "247",
+  //   "name": "TM641O 「オクトパス」ステルスコア試作型",
+  //   "score": 81,
+  //   "structure": 3,
+  //   "armor": 3,
+  //   "parray": 0,
+  //   "dodge": 1,
+  //   "electronic": 5,
+  //   "type": "torso",
+  //   "description": "",
+  //   "imgSrc": "",
+  //   "tags": []
+  // }
 ];
 
 export const unChasis: Part[] = [
@@ -1683,20 +1550,6 @@ export const unChasis: Part[] = [
     "name": "LM213B 格闘下肢",
     "score": 57,
     "structure": 1,
-    "armor": 4,
-    "parray": 0,
-    "dodge": 4,
-    "electronic": 0,
-    "type": "chasis",
-    "description": "",
-    "imgSrc": "",
-    "tags": []
-  },
-  {
-    "id": "100",
-    "name": "LM210SO  隠密下肢試作型",
-    "score": 39,
-    "structure": 0,
     "armor": 4,
     "parray": 0,
     "dodge": 4,
@@ -2049,7 +1902,7 @@ export const unRightHand: Part[] = [
     "tags": []
   },
   {
-    "id": "119",
+    "id": "109",
     "name": "R6 SMG",
     "score": 54,
     "structure": 0,
@@ -2172,7 +2025,8 @@ export const unRightHand: Part[] = [
     "type": "rightHand",
     "description": "",
     "imgSrc": "",
-    "tags": []
+    "tags": [],
+    "throwIndex": "123"
   },
   {
     "id": "123",
@@ -2667,7 +2521,7 @@ export const unDrones: Drone[] = [
     "parray": 0,
     "dodge": 7,
     "electronic": 3,
-    "type": "small",
+    "type": "medium",
     "move": 0,
     "stance": "offensive",
     "description": ""
@@ -2681,7 +2535,7 @@ export const unDrones: Drone[] = [
     "parray": 0,
     "dodge": 7,
     "electronic": 3,
-    "type": "small",
+    "type": "medium",
     "move": 0,
     "stance": "offensive",
     "description": ""
@@ -2695,7 +2549,7 @@ export const unDrones: Drone[] = [
     "parray": 0,
     "dodge": 7,
     "electronic": 3,
-    "type": "small",
+    "type": "medium",
     "move": 0,
     "stance": "offensive",
     "description": ""
@@ -2719,7 +2573,7 @@ export const unDrones: Drone[] = [
 export const unPilots: Pilot[] = [
   {
     "id": "LPA-19",
-    "name": "石英",
+    "name": "クォーツ",
     "score": 24,
     "LV": 4,
     "faction": "UN",
@@ -2729,12 +2583,12 @@ export const unPilots: Pilot[] = [
     "firing": 4,
     "moving": 6,
     "tactic": 6,
-    "trait": "沉著",
-    "traitDescription": "· 每回合结束时恢复1点链接值。"
+    "trait": "冷静",
+    "traitDescription": "· ターン終了したとき、リンク値１回復する。"
   },
   {
     "id": "LPA-20",
-    "name": "铠甲",
+    "name": "パンツァー",
     "score": 15,
     "LV": 4,
     "faction": "UN",
@@ -2744,12 +2598,12 @@ export const unPilots: Pilot[] = [
     "firing": 5,
     "moving": 2,
     "tactic": 6,
-    "trait": "阻拦",
-    "traitDescription": "· 敌方单位脱离与本机的近战锁定时，需要额外消耗1格移动力，或者支付1点链接值。"
+    "trait": "ブロック",
+    "traitDescription": "敵ユニットが本機の近接ロックから離脱する場合、追加で移動力1またはリンク値1を支払わなければない。"
   },
   {
     "id": "LPA-21",
-    "name": "鬼火",
+    "name": "オニビ",
     "score": 18,
     "LV": 4,
     "faction": "UN",
@@ -2759,12 +2613,12 @@ export const unPilots: Pilot[] = [
     "firing": 1,
     "moving": 5,
     "tactic": 5,
-    "trait": "匿踪",
-    "traitDescription": "· 当本机开启光学迷彩或处于低特征中时，本机的移动路径可穿越其他单位。"
+    "trait": "ステルス",
+    "traitDescription": "本機が光学迷彩を発動している場合、または低姿勢である場合、本機はほかのユニットをすり抜けて移動できる。"
   },
   {
     "id": "LPA-22",
-    "name": "余裕",
+    "name": "ヨユウ",
     "score": 21,
     "LV": 4,
     "faction": "UN",
@@ -2774,12 +2628,12 @@ export const unPilots: Pilot[] = [
     "firing": 3,
     "moving": 4,
     "tactic": 1,
-    "trait": "挑衅",
-    "traitDescription": "· 当本机电子对抗投骰成功时，可使对方机甲切换为攻击姿态。"
+    "trait": "挑発",
+    "traitDescription": "本機が電子戦対抗ロールに成功した場合、対抗ロールを行った敵機甲を攻撃態勢へ変更させられる。"
   },
   {
     "id": "LPA-23",
-    "name": "玉髓",
+    "name": "オニキス",
     "score": 21,
     "LV": 4,
     "faction": "UN",
@@ -2790,11 +2644,11 @@ export const unPilots: Pilot[] = [
     "moving": 4,
     "tactic": 4,
     "trait": "不屈",
-    "traitDescription": "· 本机可以碾压大体型单位。"
+    "traitDescription": "本機は大型ユニットをクラッシュできる。"
   },
   {
     "id": "LPA-24",
-    "name": "峡湾",
+    "name": "シーロック",
     "score": 21,
     "LV": 4,
     "faction": "UN",
@@ -2804,12 +2658,12 @@ export const unPilots: Pilot[] = [
     "firing": 4,
     "moving": 7,
     "tactic": 3,
-    "trait": "追击",
-    "traitDescription": "· 攻击有脆弱标记的目标时，{眼睛}视为{重击}。"
+    "trait": "チェース",
+    "traitDescription": "脆弱トークン付いてるユニットを攻撃する場合、攻撃ロール出目{目}は{重撃}になる。"
   },
   {
     "id": "LPA-27",
-    "name": "步枪手1",
+    "name": "チャージャー1",
     "score": 9,
     "LV": 4,
     "faction": "UN",
@@ -2820,11 +2674,11 @@ export const unPilots: Pilot[] = [
     "moving": 5,
     "tactic": 5,
     "trait": "",
-    "traitDescription": "303中队的实习步枪手。"
+    "traitDescription": "303中隊のトレーナーチャージャー。"
   },
   {
     "id": "LPA-28",
-    "name": "步枪手2",
+    "name": "チャージャー2",
     "score": 9,
     "LV": 4,
     "faction": "UN",
@@ -2835,11 +2689,11 @@ export const unPilots: Pilot[] = [
     "moving": 5,
     "tactic": 5,
     "trait": "",
-    "traitDescription": "303中队的实习步枪手。"
+    "traitDescription": "303中隊のトレーナーチャージャー。"
   },
   {
     "id": "LPA-29",
-    "name": "步枪手3",
+    "name": "チャージャー3",
     "score": 9,
     "LV": 4,
     "faction": "UN",
@@ -2850,11 +2704,11 @@ export const unPilots: Pilot[] = [
     "moving": 5,
     "tactic": 5,
     "trait": "",
-    "traitDescription": "303中队的实习步枪手。"
+    "traitDescription": "303中隊のトレーナーチャージャー。"
   },
   {
     "id": "LPA-30",
-    "name": "步枪手4",
+    "name": "チャージャー4",
     "score": 9,
     "LV": 4,
     "faction": "UN",
@@ -2865,11 +2719,11 @@ export const unPilots: Pilot[] = [
     "moving": 5,
     "tactic": 5,
     "trait": "",
-    "traitDescription": "303中队的实习步枪手。"
+    "traitDescription": "303中隊のトレーナーチャージャー。"
   },
   {
     "id": "LPA-31",
-    "name": "冲锋手1",
+    "name": "ライフルマン1",
     "score": 6,
     "LV": 4,
     "faction": "UN",
@@ -2880,11 +2734,11 @@ export const unPilots: Pilot[] = [
     "moving": 2,
     "tactic": 6,
     "trait": "",
-    "traitDescription": "303中队的实习冲锋手。"
+    "traitDescription": "303中隊のトレーナーライフルマン。"
   },
   {
     "id": "LPA-32",
-    "name": "冲锋手2",
+    "name": "ライフルマン2",
     "score": 6,
     "LV": 4,
     "faction": "UN",
@@ -2895,11 +2749,11 @@ export const unPilots: Pilot[] = [
     "moving": 2,
     "tactic": 6,
     "trait": "",
-    "traitDescription": "303中队的实习冲锋手。"
+    "traitDescription": "303中隊のトレーナーライフルマン。"
   },
   {
     "id": "LPA-33",
-    "name": "冲锋手3",
+    "name": "ライフルマン3",
     "score": 6,
     "LV": 4,
     "faction": "UN",
@@ -2910,11 +2764,11 @@ export const unPilots: Pilot[] = [
     "moving": 2,
     "tactic": 6,
     "trait": "",
-    "traitDescription": "303中队的实习冲锋手。"
+    "traitDescription": "303中隊のトレーナーライフルマン。"
   },
   {
     "id": "LPA-34",
-    "name": "冲锋手4",
+    "name": "ライフルマン4",
     "score": 6,
     "LV": 4,
     "faction": "UN",
@@ -2925,14 +2779,14 @@ export const unPilots: Pilot[] = [
     "moving": 2,
     "tactic": 6,
     "trait": "",
-    "traitDescription": "303中队的实习冲锋手。"
+    "traitDescription": "303中隊のトレーナーライフルマン。"
   }
 ];
 
 export const rdlPilots: Pilot[] = [
   {
     "id": "FPA-01",
-    "name": "薄雾-01",
+    "name": "ミスティ",
     "score": 15,
     "LV": 4,
     "faction": "RDL",
@@ -2942,12 +2796,12 @@ export const rdlPilots: Pilot[] = [
     "firing": 3,
     "moving": 3,
     "tactic": 2,
-    "trait": "变招",
-    "traitDescription": "· 在战术时机，起手动作不限制时机类型。"
+    "trait": "変化",
+    "traitDescription": "· 戦術タイミングでは、任意タイミングのアクションでリードアクションを実行してもよい。"
   },
   {
     "id": "FPA-02",
-    "name": "长钉-02",
+    "name": "スパイク",
     "score": 15,
     "LV": 4,
     "faction": "RDL",
@@ -2957,12 +2811,12 @@ export const rdlPilots: Pilot[] = [
     "firing": 2,
     "moving": 5,
     "tactic": 5,
-    "trait": "鹰眼",
-    "traitDescription": "· 执行射击动作时获得穿甲1。"
+    "trait": "鷹の目",
+    "traitDescription": "· 射撃アクション、常に装甲貫通1を得る。"
   },
   {
     "id": "FPA-03",
-    "name": "无霜-03",
+    "name": "ウー",
     "score": 12,
     "LV": 4,
     "faction": "RDL",
@@ -2972,12 +2826,12 @@ export const rdlPilots: Pilot[] = [
     "firing": 7,
     "moving": 4,
     "tactic": 4,
-    "trait": "坚毅",
-    "traitDescription": "· 本机部件被摧毁时，不扣除链接值。"
+    "trait": "頑健",
+    "traitDescription": "·搭乗している機甲がパーツを失うことに、リンク値が減らない。"
   },
   {
     "id": "FPA-04",
-    "name": "锤头鲨-04",
+    "name": "ハンマーヘッド",
     "score": 10,
     "LV": 4,
     "faction": "RDL",
@@ -2988,11 +2842,11 @@ export const rdlPilots: Pilot[] = [
     "moving": 2,
     "tactic": 6,
     "trait": "猛攻",
-    "traitDescription": "· 【攻击姿态】近战动作{眼睛}视为{轻击}。"
+    "traitDescription": "·[攻撃態勢] 近接アクション は{Eye}を{Light Hit}.と見なしてもよい。"
   },
   {
     "id": "FPA-05",
-    "name": "灰雁-05",
+    "name": "アンサー",
     "score": 15,
     "LV": 4,
     "faction": "RDL",
@@ -3002,12 +2856,12 @@ export const rdlPilots: Pilot[] = [
     "firing": 3,
     "moving": 8,
     "tactic": 4,
-    "trait": "不竭",
-    "traitDescription": "· 本机的下肢如果没有结构值，则视为拥有2点结构值。"
+    "trait": "スタミナ",
+    "traitDescription": "·搭乗した機甲の下肢に構造値がなければ、構造値2を持っているように扱う。"
   },
   {
     "id": "FPA-06",
-    "name": "锁眼-06",
+    "name": "キーホール",
     "score": 12,
     "LV": 4,
     "faction": "RDL",
@@ -3017,12 +2871,12 @@ export const rdlPilots: Pilot[] = [
     "firing": 6,
     "moving": 6,
     "tactic": 7,
-    "trait": "功率加大",
-    "traitDescription": "· 本机的光环、电子攻击与电子支援，+1范围。"
+    "trait": "増幅",
+    "traitDescription": "・搭乗した機甲のオーラ、電子攻撃と電子サポートの射程が+1グリッド。"
   },
   {
     "id": "FPA-09",
-    "name": "突击兵-09",
+    "name": "突撃兵-09",
     "score": 6,
     "LV": 4,
     "faction": "RDL",
@@ -3033,11 +2887,11 @@ export const rdlPilots: Pilot[] = [
     "moving": 4,
     "tactic": 4,
     "trait": "",
-    "traitDescription": "066测试中队的新晋突击兵。"
+    "traitDescription": "試験評価中隊066の新米隊員"
   },
   {
     "id": "FPA-10",
-    "name": "突击兵-10",
+    "name": "突撃兵-10",
     "score": 6,
     "LV": 4,
     "faction": "RDL",
@@ -3048,11 +2902,11 @@ export const rdlPilots: Pilot[] = [
     "moving": 4,
     "tactic": 4,
     "trait": "",
-    "traitDescription": "066测试中队的新晋突击兵。"
+    "traitDescription": "試験評価中隊066の新米隊員"
   },
   {
     "id": "FPA-11",
-    "name": "突击兵-11",
+    "name": "突撃兵-11",
     "score": 6,
     "LV": 4,
     "faction": "RDL",
@@ -3063,11 +2917,11 @@ export const rdlPilots: Pilot[] = [
     "moving": 4,
     "tactic": 4,
     "trait": "",
-    "traitDescription": "066测试中队的新晋突击兵。"
+    "traitDescription": "試験評価中隊066の新米隊員"
   },
   {
     "id": "FPA-12",
-    "name": "突击兵-12",
+    "name": "突撃兵-12",
     "score": 6,
     "LV": 4,
     "faction": "RDL",
@@ -3078,11 +2932,11 @@ export const rdlPilots: Pilot[] = [
     "moving": 4,
     "tactic": 4,
     "trait": "",
-    "traitDescription": "066测试中队的新晋突击兵。"
+    "traitDescription": "試験評価中隊066の新米隊員"
   },
   {
     "id": "FPA-13",
-    "name": "突击兵-13",
+    "name": "突撃兵-13",
     "score": 6,
     "LV": 4,
     "faction": "RDL",
@@ -3093,11 +2947,11 @@ export const rdlPilots: Pilot[] = [
     "moving": 4,
     "tactic": 4,
     "trait": "",
-    "traitDescription": "066测试中队的新晋突击兵。"
+    "traitDescription": "試験評価中隊066の新米隊員"
   },
   {
     "id": "FPA-14",
-    "name": "侦察兵-14",
+    "name": "斥候-14",
     "score": 9,
     "LV": 4,
     "faction": "RDL",
@@ -3108,11 +2962,11 @@ export const rdlPilots: Pilot[] = [
     "moving": 7,
     "tactic": 3,
     "trait": "",
-    "traitDescription": "066测试中队的新晋侦察兵。"
+    "traitDescription": "試験評価隊066の新米スカウト"
   },
   {
     "id": "FPA-15",
-    "name": "侦察兵-15",
+    "name": "斥候-15",
     "score": 9,
     "LV": 4,
     "faction": "RDL",
@@ -3123,11 +2977,11 @@ export const rdlPilots: Pilot[] = [
     "moving": 7,
     "tactic": 3,
     "trait": "",
-    "traitDescription": "066测试中队的新晋侦察兵。"
+    "traitDescription": "試験評価隊066の新米スカウト"
   },
   {
     "id": "FPA-16",
-    "name": "侦察兵-16",
+    "name": "斥候-16",
     "score": 9,
     "LV": 4,
     "faction": "RDL",
@@ -3138,11 +2992,11 @@ export const rdlPilots: Pilot[] = [
     "moving": 7,
     "tactic": 3,
     "trait": "",
-    "traitDescription": "066测试中队的新晋侦察兵。"
+    "traitDescription": "試験評価隊066の新米スカウト"
   },
   {
     "id": "FPA-17",
-    "name": "侦察兵-17",
+    "name": "斥候-17",
     "score": 9,
     "LV": 4,
     "faction": "RDL",
@@ -3153,11 +3007,11 @@ export const rdlPilots: Pilot[] = [
     "moving": 7,
     "tactic": 3,
     "trait": "",
-    "traitDescription": "066测试中队的新晋侦察兵。"
+    "traitDescription": "試験評価隊066の新米スカウト"
   },
   {
     "id": "FPA-18",
-    "name": "侦察兵-18",
+    "name": "斥候-18",
     "score": 9,
     "LV": 4,
     "faction": "RDL",
@@ -3168,7 +3022,7 @@ export const rdlPilots: Pilot[] = [
     "moving": 7,
     "tactic": 3,
     "trait": "",
-    "traitDescription": "066测试中队的新晋侦察兵。"
+    "traitDescription": "試験評価隊066の新米スカウト"
   },
   {
     "id": "FPA-06-2",
@@ -3187,7 +3041,7 @@ export const rdlPilots: Pilot[] = [
   },
   {
     "id": "FPA-63",
-    "name": "侦察兵-63",
+    "name": "斥候-63",
     "score": 9,
     "LV": 4,
     "faction": "RDL",
@@ -3198,15 +3052,15 @@ export const rdlPilots: Pilot[] = [
     "moving": 7,
     "tactic": 3,
     "trait": "",
-    "traitDescription": "066测试中队的新晋侦察兵。"
+    "traitDescription": "試験評価隊066の新米スカウト"
   }
 ];
 
 export const pdDrones: Drone[] = [
   {
     "id": "PRDR-101",
-    "name": "MD-4A \"收割者\"I型",
-    "type": "medium",
+    "name": "MD-4A「リーパー」I型",
+    "type": "large",
     "score": 90,
     "structure": 4,
     "armor": 5,
@@ -3215,13 +3069,15 @@ export const pdDrones: Drone[] = [
     "electronic": 3,
     "move": 6,
     "stance": "defensive",
-    "description": "·曲射：本动作不需要对落点或目标有视线。\n·齐射X：发射或布撒最多X枚抛射物，并消耗同等数量的弹药标记。",
-    "isPD":true
+    "description": "",
+    "isPD":true,"projectile": [
+      "PDAM-001"
+    ]
   },
   {
     "id": "PRDR-102",
-    "name": "MD-4C \"收割者\"III型",
-    "type": "medium",
+    "name": "MD-4C「リーパー」III型",
+    "type": "large",
     "score": 99,
     "structure": 4,
     "armor": 5,
@@ -3230,13 +3086,15 @@ export const pdDrones: Drone[] = [
     "electronic": 3,
     "move": 6,
     "stance": "defensive",
-    "description": "·曲射：本动作不需要对落点或目标有视线。\n·齐射X：发射或布撒最多X枚抛射物，并消耗同等数量的弹药标记。",
-    "isPD":true
+    "description": "",
+    "isPD":true,"projectile": [
+      "PDAM-001"
+    ]
   },
   {
     "id": "PRDR-103",
-    "name": "MD-4D \"收割者\"IV型",
-    "type": "medium",
+    "name": "MD-4D「リーパー」IV型",
+    "type": "large",
     "score": 105,
     "structure": 5,
     "armor": 6,
@@ -3250,8 +3108,8 @@ export const pdDrones: Drone[] = [
   },
   {
     "id": "PRDR-104",
-    "name": "MD-4B \"收割者\"II型",
-    "type": "medium",
+    "name": "MD-4B「リーパー」II型",
+    "type": "large",
     "score": 114,
     "structure": 5,
     "armor": 6,
@@ -3265,8 +3123,8 @@ export const pdDrones: Drone[] = [
   },
   {
     "id": "PRDR-105",
-    "name": "MD-4E \"收割者\"工兵型",
-    "type": "medium",
+    "name": "MD-4E「リーパー」工兵型",
+    "type": "large",
     "score": 90,
     "structure": 4,
     "armor": 5,
@@ -3275,12 +3133,14 @@ export const pdDrones: Drone[] = [
     "electronic": 3,
     "move": 6,
     "stance": "defensive",
-    "description": "·直射：本动作需要对落点或目标有视线。",
-    "isPD":true
+    "description": "",
+    "isPD":true,"projectile": [
+      "PDAM-003","PDAM-004"
+    ]
   },
   {
     "id": "PRDR-201",
-    "name": "LD-5A \"警惕\"机炮型",
+    "name": "LD-5A 「ヴィジラント」オートキャノン型",
     "type": "medium",
     "score": 48,
     "structure": 0,
@@ -3290,12 +3150,12 @@ export const pdDrones: Drone[] = [
     "electronic": 2,
     "move": 6,
     "stance": "mobility",
-    "description": "·全向射击：本动作没有射界限制。\n·近战射击：在近战锁定中仍可执行本动作。\n·空中移动：本动作视为飞行。",
+    "description": "",
     "isPD":true
   },
   {
     "id": "PRDR-202",
-    "name": "LD-5M \"警惕\"机枪型",
+    "name": "LD-5M「ヴィジラント」機関銃型",
     "type": "medium",
     "score": 42,
     "structure": 0,
@@ -3305,12 +3165,12 @@ export const pdDrones: Drone[] = [
     "electronic": 2,
     "move": 6,
     "stance": "mobility",
-    "description": "·全向射击：本动作没有射界限制。\n·近战射击：在近战锁定中仍可执行本动作。\n·空中移动：本动作视为飞行。",
+    "description": "",
     "isPD":true
   },
   {
     "id": "PRDR-203",
-    "name": "LD-5B \"警惕\"轰炸型",
+    "name": "LD-5B「ヴィジラント」爆撃型",
     "type": "medium",
     "score": 45,
     "structure": 0,
@@ -3320,12 +3180,14 @@ export const pdDrones: Drone[] = [
     "electronic": 2,
     "move": 6,
     "stance": "mobility",
-    "description": "·曲射：本动作不需要对落点或目标有视线。\n·齐射X：发射或布撒最多X枚抛射物，并消耗同等数量的弹药标记。\n·空中移动：本动作视为飞行。",
-    "isPD":true
+    "description": "",
+    "isPD":true, "projectile": [
+      "PDAM-005"
+    ]
   },
   {
     "id": "PRDR-204",
-    "name": "LD-5S \"警惕\"支援型",
+    "name": "LD-5S「ヴィジラント」支援型",
     "type": "medium",
     "score": 48,
     "structure": 0,
@@ -3335,7 +3197,24 @@ export const pdDrones: Drone[] = [
     "electronic": 2,
     "move": 6,
     "stance": "mobility",
-    "description": "·曲射：本动作不需要对落点或目标有视线。\n·齐射X：发射或布撒最多X枚抛射物，并消耗同等数量的弹药标记。\n·空中移动：本动作视为飞行。\n·直射：本动作需要对落点或目标有视线。",
-    "isPD":true
+    "description": "",
+    "isPD":true,"projectile": [
+      "PDAM-005","PDAM-006"
+    ]
   }
+];
+
+export const pdLeftHand: Part[] = [{}
+];
+
+export const pdRightHand: Part[] = [{}
+];
+export const pdTorso: Part[] = [{}
+];
+export const pdChasis: Part[] = [{}
+];
+export const pdBackpack: Part[] = [{}
+];
+
+export const pdPilot: Pilot[] = [{}
 ];

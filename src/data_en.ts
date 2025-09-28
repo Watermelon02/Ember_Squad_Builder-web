@@ -1413,7 +1413,9 @@ export const rdlBackpack: Part[] = [
     "type": "backpack",
     "description": "",
     "imgSrc": "",
-    "tags": []
+    "tags": [],"projectile": [
+      "522"
+    ]
   }
 ];
 
@@ -1427,7 +1429,7 @@ export const rdlDrones: Drone[] = [
     "parray": 0,
     "dodge": 0,
     "electronic": 2,
-    "type": "small",
+    "type": "medium",
     "move": null,
     "stance": "offensive",
     "description": ""
@@ -1441,7 +1443,7 @@ export const rdlDrones: Drone[] = [
     "parray": 0,
     "dodge": 0,
     "electronic": 2,
-    "type": "small",
+    "type": "medium",
     "move": null,
     "stance": "offensive",
     "description": "",
@@ -1458,10 +1460,10 @@ export const rdlDrones: Drone[] = [
     "parray": 0,
     "dodge": 0,
     "electronic": 2,
-    "type": "small",
+    "type": "medium",
     "move": null,
     "stance": "offensive",
-    "description": ""
+    "description": "",
   },
   {
     "id": "522",
@@ -1566,6 +1568,19 @@ export const unTorso: Part[] = [
     "description": "",
     "imgSrc": "",
     "tags": []
+  },{
+    "id": "247",
+    "name": "TM641 Octopus Stealth Core Trial Model",
+    "score": 81,
+    "structure": 3,
+    "armor": 3,
+    "parray": 0,
+    "dodge": 1,
+    "electronic": 5,
+    "type": "torso",
+    "description": "",
+    "imgSrc": "",
+    "tags": []
   }
 ];
 
@@ -1587,6 +1602,19 @@ export const unChasis: Part[] = [
   {
     "id": "100",
     "name": "LM210S  Stealth Chassis",
+    "score": 39,
+    "structure": 0,
+    "armor": 4,
+    "parray": 0,
+    "dodge": 4,
+    "electronic": 0,
+    "type": "chasis",
+    "description": "",
+    "imgSrc": "",
+    "tags": []
+  },{
+    "id": "250",
+    "name": "LM210S  Stealth Chassis -Trial Mode",
     "score": 39,
     "structure": 0,
     "armor": 4,
@@ -1739,6 +1767,19 @@ export const unLeftHand: Part[] = [
   {
     "id": "126",
     "name": "K9 Nail Gun + M14BO Wakizashi",
+    "score": 42,
+    "structure": 0,
+    "armor": 3,
+    "parray": 1,
+    "dodge": 0,
+    "electronic": 0,
+    "type": "leftHand",
+    "description": "",
+    "imgSrc": "",
+    "tags": []
+  },{
+    "id": "256",
+    "name": "K9 Nail Gun + M14BO Wakizashi Trial Model (L)",
     "score": 42,
     "structure": 0,
     "armor": 3,
@@ -1936,7 +1977,20 @@ export const unLeftHand: Part[] = [
   }
 ];
 
-export const unRightHand: Part[] = [
+export const unRightHand: Part[] = [{
+    "id": "257",
+    "name": "K9 Nail Gun + M14BO Wakizashi Trial Model (L)",
+    "score": 42,
+    "structure": 0,
+    "armor": 3,
+    "parray": 1,
+    "dodge": 0,
+    "electronic": 0,
+    "type": "rightHand",
+    "description": "",
+    "imgSrc": "",
+    "tags": []
+  },
   {
     "id": "104",
     "name": "R7 Automatic Rifle",
@@ -1981,7 +2035,7 @@ export const unRightHand: Part[] = [
     "tags": []
   },
   {
-    "id": "119",
+    "id": "109",
     "name": "R6 SMG",
     "score": 54,
     "structure": 0,
@@ -2107,7 +2161,8 @@ export const unRightHand: Part[] = [
     "type": "rightHand",
     "description": "",
     "imgSrc": "",
-    "tags": []
+    "tags": [],
+    "throwIndex": "123",
   },
   {
     "id": "123",
@@ -2319,6 +2374,19 @@ export const unBackpack: Part[] = [
   {
     "id": "081",
     "name": "EBS/X40 Armor Energy Charger",
+    "score": 39,
+    "structure": 0,
+    "armor": 3,
+    "parray": 0,
+    "dodge": 2,
+    "electronic": 0,
+    "type": "backpack",
+    "description": "",
+    "imgSrc": "",
+    "tags": []
+  },{
+    "id": "265",
+    "name": "EBS/X40 Armor Energy Charger Trial Model",
     "score": 39,
     "structure": 0,
     "armor": 3,
@@ -2547,7 +2615,7 @@ export const unDrones: Drone[] = [
     "parray": 0,
     "dodge": 7,
     "electronic": 3,
-    "type": "small",
+    "type": "medium",
     "move": null,
     "stance": "offensive",
     "description": ""
@@ -2561,7 +2629,7 @@ export const unDrones: Drone[] = [
     "parray": 0,
     "dodge": 7,
     "electronic": 3,
-    "type": "small",
+    "type": "medium",
     "move": null,
     "stance": "offensive",
     "description": ""
@@ -2575,7 +2643,7 @@ export const unDrones: Drone[] = [
     "parray": 0,
     "dodge": 7,
     "electronic": 3,
-    "type": "small",
+    "type": "medium",
     "move": null,
     "stance": "offensive",
     "description": ""
@@ -2599,8 +2667,8 @@ export const unDrones: Drone[] = [
 export const pdDrones: Drone[] = [
   {
     "id": "PRDR-101",
-    "name": "MD-4A \"收割者\"I型",
-    "type": "medium",
+    "name": "MD-4A Reaper Type I",
+    "type": "large",
     "score": 90,
     "structure": 4,
     "armor": 5,
@@ -2609,13 +2677,15 @@ export const pdDrones: Drone[] = [
     "electronic": 3,
     "move": 6,
     "stance": "defensive",
-    "description": "·曲射：本动作不需要对落点或目标有视线。\n·齐射X：发射或布撒最多X枚抛射物，并消耗同等数量的弹药标记。",
-    "isPD":true
+    "description": "",
+    "isPD":true,"projectile": [
+      "PDAM-001"
+    ]
   },
   {
     "id": "PRDR-102",
-    "name": "MD-4C \"收割者\"III型",
-    "type": "medium",
+    "name": "MD-4C Reaper Type III",
+    "type": "large",
     "score": 99,
     "structure": 4,
     "armor": 5,
@@ -2624,13 +2694,15 @@ export const pdDrones: Drone[] = [
     "electronic": 3,
     "move": 6,
     "stance": "defensive",
-    "description": "·曲射：本动作不需要对落点或目标有视线。\n·齐射X：发射或布撒最多X枚抛射物，并消耗同等数量的弹药标记。",
-    "isPD":true
+    "description": "",
+    "isPD":true,"projectile": [
+      "PDAM-001"
+    ]
   },
   {
     "id": "PRDR-103",
-    "name": "MD-4D \"收割者\"IV型",
-    "type": "medium",
+    "name": "MD-4D Reaper Type IV",
+    "type": "large",
     "score": 105,
     "structure": 5,
     "armor": 6,
@@ -2644,8 +2716,8 @@ export const pdDrones: Drone[] = [
   },
   {
     "id": "PRDR-104",
-    "name": "MD-4B \"收割者\"II型",
-    "type": "medium",
+    "name": "MD-4B Reaper Type II",
+    "type": "large",
     "score": 114,
     "structure": 5,
     "armor": 6,
@@ -2659,8 +2731,8 @@ export const pdDrones: Drone[] = [
   },
   {
     "id": "PRDR-105",
-    "name": "MD-4E \"收割者\"工兵型",
-    "type": "medium",
+    "name": "MD-4E Reaper  Engineer Type",
+    "type": "large",
     "score": 90,
     "structure": 4,
     "armor": 5,
@@ -2669,12 +2741,14 @@ export const pdDrones: Drone[] = [
     "electronic": 3,
     "move": 6,
     "stance": "defensive",
-    "description": "·直射：本动作需要对落点或目标有视线。",
-    "isPD":true
+    "description": "",
+    "isPD":true,"projectile": [
+      "PDAM-003","PDAM-004"
+    ]
   },
   {
     "id": "PRDR-201",
-    "name": "LD-5A \"警惕\"机炮型",
+    "name": "LD-5A Vigilant Autocannon Type",
     "type": "medium",
     "score": 48,
     "structure": 0,
@@ -2684,12 +2758,12 @@ export const pdDrones: Drone[] = [
     "electronic": 2,
     "move": 6,
     "stance": "mobility",
-    "description": "·全向射击：本动作没有射界限制。\n·近战射击：在近战锁定中仍可执行本动作。\n·空中移动：本动作视为飞行。",
+    "description": "",
     "isPD":true
   },
   {
     "id": "PRDR-202",
-    "name": "LD-5M \"警惕\"机枪型",
+    "name": "LD-5M Vigilant MG Type",
     "type": "medium",
     "score": 42,
     "structure": 0,
@@ -2699,12 +2773,12 @@ export const pdDrones: Drone[] = [
     "electronic": 2,
     "move": 6,
     "stance": "mobility",
-    "description": "·全向射击：本动作没有射界限制。\n·近战射击：在近战锁定中仍可执行本动作。\n·空中移动：本动作视为飞行。",
+    "description": "",
     "isPD":true
   },
   {
     "id": "PRDR-203",
-    "name": "LD-5B \"警惕\"轰炸型",
+    "name": "LD-5B Vigilant Bombing Type",
     "type": "medium",
     "score": 45,
     "structure": 0,
@@ -2714,12 +2788,14 @@ export const pdDrones: Drone[] = [
     "electronic": 2,
     "move": 6,
     "stance": "mobility",
-    "description": "·曲射：本动作不需要对落点或目标有视线。\n·齐射X：发射或布撒最多X枚抛射物，并消耗同等数量的弹药标记。\n·空中移动：本动作视为飞行。",
-    "isPD":true
+    "description": "",
+    "isPD":true, "projectile": [
+      "PDAM-005"
+    ]
   },
   {
     "id": "PRDR-204",
-    "name": "LD-5S \"警惕\"支援型",
+    "name": "LD-5S Vigilant Support Type",
     "type": "medium",
     "score": 48,
     "structure": 0,
@@ -2729,8 +2805,10 @@ export const pdDrones: Drone[] = [
     "electronic": 2,
     "move": 6,
     "stance": "mobility",
-    "description": "·曲射：本动作不需要对落点或目标有视线。\n·齐射X：发射或布撒最多X枚抛射物，并消耗同等数量的弹药标记。\n·空中移动：本动作视为飞行。\n·直射：本动作需要对落点或目标有视线。",
-    "isPD":true
+    "description": "",
+    "isPD":true,"projectile": [
+      "PDAM-005","PDAM-006"
+    ]
   }
 ];
 
@@ -2796,8 +2874,8 @@ export const rdlPilots: Pilot[] = [
     "traitDescription": "· [Offensive Stance] Melee Action may exchange {Eye} for {Light Hit}."
   },
   {
-    "id": "Anser",
-    "name": "灰雁-05",
+    "id": "FPA-05",
+    "name": "Anser",
     "score": 15,
     "LV": 4,
     "faction": "RDL",
@@ -2963,36 +3041,6 @@ export const rdlPilots: Pilot[] = [
   {
     "id": "FPA-18",
     "name": "Scout-18",
-    "score": 9,
-    "LV": 4,
-    "faction": "RDL",
-    "swift": 5,
-    "melee": 6,
-    "projectile": 7,
-    "firing": 4,
-    "moving": 7,
-    "tactic": 3,
-    "trait": "",
-    "traitDescription": "A new Scout from Test and Evaluation Squadron 066"
-  },
-  {
-    "id": "FPA-06-2",
-    "name": "锁眼-06\n藏木于林",
-    "score": 12,
-    "LV": 4,
-    "faction": "RDL",
-    "swift": 2,
-    "melee": 5,
-    "projectile": 4,
-    "firing": 6,
-    "moving": 6,
-    "tactic": 7,
-    "trait": "功率隐匿",
-    "traitDescription": "· 本机处于友军光环范围内时获得低特征。"
-  },
-  {
-    "id": "FPA-63",
-    "name": "Scout-63",
     "score": 9,
     "LV": 4,
     "faction": "RDL",
@@ -3218,4 +3266,19 @@ export const unPilots: Pilot[] = [
     "trait": "",
     "traitDescription": "Trainee Charger of 303 Squadron."
   }
+];
+
+export const pdLeftHand: Part[] = [{}
+];
+
+export const pdRightHand: Part[] = [{}
+];
+export const pdTorso: Part[] = [{}
+];
+export const pdChasis: Part[] = [{}
+];
+export const pdBackpack: Part[] = [{}
+];
+
+export const pdPilot: Pilot[] = [{}
 ];

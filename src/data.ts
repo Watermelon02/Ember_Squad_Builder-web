@@ -200,49 +200,19 @@ export const gofPilots: Pilot[] = [
 
 export const pdPilots: Pilot[] = [
   {
-    "id": "战斗员A-101",
-    "name": "战斗员A-101",
-    "score": 10,
-    "LV": 5,
+    "id": "ACE-01",
+    "name": "卡尔·弗里德",
+    "score": 15,
+    "LV": 4,
     "faction": "PD",
-    "swift": 8,
-    "melee": 4,
-    "projectile": 5,
+    "swift": 5,
+    "melee": 7,
+    "projectile": 6,
     "firing": 3,
-    "moving": 3,
-    "tactic": 2,
-    "trait": "",
-    "traitDescription": "为了使用LUKAS系统进行远程接入，战斗员的作战义体均装备了LK系列植入体。"
-  },
-  {
-    "id": "战斗员A-102",
-    "name": "战斗员A-102",
-    "score": 10,
-    "LV": 5,
-    "faction": "PD",
-    "swift": 8,
-    "melee": 4,
-    "projectile": 5,
-    "firing": 3,
-    "moving": 3,
-    "tactic": 2,
-    "trait": "",
-    "traitDescription": "搭载作战员和LUKAS的运输机通常作为空中支援，在战场上空盘旋，以获得最低的延迟。"
-  },
-  {
-    "id": "战斗员A-103",
-    "name": "战斗员A-103",
-    "score": 10,
-    "LV": 5,
-    "faction": "PD",
-    "swift": 8,
-    "melee": 4,
-    "projectile": 5,
-    "firing": 3,
-    "moving": 3,
-    "tactic": 2,
-    "trait": "",
-    "traitDescription": "虽然“工作就是工作”，但执行中队通常不会在短时间内切换合作方。"
+    "moving": 8,
+    "tactic": 6,
+    "trait": "联觉",
+    "traitDescription": "· “白矮星浮游单元组”投骰时，可以消耗本机链接值进行专注重投"
   }
 ];
 
@@ -500,7 +470,7 @@ export const rdlPilots: Pilot[] = [
     "moving": 6,
     "tactic": 7,
     "trait": "功率隐匿",
-    "traitDescription": "· 本机处于友军光环范围内时获得低特征。"
+    "traitDescription": "· 本机处于友军光环范围内时获得低特征。",
   },
   {
     "id": "FPA-63",
@@ -977,7 +947,7 @@ export const pdDrones: Drone[] = [
   {
     "id": "PRDR-101",
     "name": "MD-4A \"收割者\"I型",
-    "type": "medium",
+    "type": "large",
     "score": 90,
     "structure": 4,
     "armor": 5,
@@ -987,12 +957,14 @@ export const pdDrones: Drone[] = [
     "move": 6,
     "stance": "defensive",
     "description": "·曲射：本动作不需要对落点或目标有视线。\n·齐射X：发射或布撒最多X枚抛射物，并消耗同等数量的弹药标记。",
-    "isPD":true
+    "isPD": true, "projectile": [
+      "PDAM-001"
+    ]
   },
   {
     "id": "PRDR-102",
     "name": "MD-4C \"收割者\"III型",
-    "type": "medium",
+    "type": "large",
     "score": 99,
     "structure": 4,
     "armor": 5,
@@ -1002,12 +974,14 @@ export const pdDrones: Drone[] = [
     "move": 6,
     "stance": "defensive",
     "description": "·曲射：本动作不需要对落点或目标有视线。\n·齐射X：发射或布撒最多X枚抛射物，并消耗同等数量的弹药标记。",
-    "isPD":true
+    "isPD": true, "projectile": [
+      "PDAM-001"
+    ]
   },
   {
     "id": "PRDR-103",
     "name": "MD-4D \"收割者\"IV型",
-    "type": "medium",
+    "type": "large",
     "score": 105,
     "structure": 5,
     "armor": 6,
@@ -1017,12 +991,12 @@ export const pdDrones: Drone[] = [
     "move": 6,
     "stance": "defensive",
     "description": "",
-    "isPD":true
+    "isPD": true
   },
   {
     "id": "PRDR-104",
     "name": "MD-4B \"收割者\"II型",
-    "type": "medium",
+    "type": "large",
     "score": 114,
     "structure": 5,
     "armor": 6,
@@ -1032,12 +1006,12 @@ export const pdDrones: Drone[] = [
     "move": 6,
     "stance": "defensive",
     "description": "",
-    "isPD":true
+    "isPD": true
   },
   {
     "id": "PRDR-105",
     "name": "MD-4E \"收割者\"工兵型",
-    "type": "medium",
+    "type": "large",
     "score": 90,
     "structure": 4,
     "armor": 5,
@@ -1047,7 +1021,9 @@ export const pdDrones: Drone[] = [
     "move": 6,
     "stance": "defensive",
     "description": "·直射：本动作需要对落点或目标有视线。",
-    "isPD":true
+    "isPD": true, "projectile": [
+      "PDAM-003", "PDAM-004"
+    ]
   },
   {
     "id": "PRDR-201",
@@ -1062,7 +1038,7 @@ export const pdDrones: Drone[] = [
     "move": 6,
     "stance": "mobility",
     "description": "·全向射击：本动作没有射界限制。\n·近战射击：在近战锁定中仍可执行本动作。\n·空中移动：本动作视为飞行。",
-    "isPD":true
+    "isPD": true
   },
   {
     "id": "PRDR-202",
@@ -1077,7 +1053,7 @@ export const pdDrones: Drone[] = [
     "move": 6,
     "stance": "mobility",
     "description": "·全向射击：本动作没有射界限制。\n·近战射击：在近战锁定中仍可执行本动作。\n·空中移动：本动作视为飞行。",
-    "isPD":true
+    "isPD": true
   },
   {
     "id": "PRDR-203",
@@ -1092,7 +1068,9 @@ export const pdDrones: Drone[] = [
     "move": 6,
     "stance": "mobility",
     "description": "·曲射：本动作不需要对落点或目标有视线。\n·齐射X：发射或布撒最多X枚抛射物，并消耗同等数量的弹药标记。\n·空中移动：本动作视为飞行。",
-    "isPD":true
+    "isPD": true, "projectile": [
+      "PDAM-005"
+    ]
   },
   {
     "id": "PRDR-204",
@@ -1107,7 +1085,9 @@ export const pdDrones: Drone[] = [
     "move": 6,
     "stance": "mobility",
     "description": "·曲射：本动作不需要对落点或目标有视线。\n·齐射X：发射或布撒最多X枚抛射物，并消耗同等数量的弹药标记。\n·空中移动：本动作视为飞行。\n·直射：本动作需要对落点或目标有视线。",
-    "isPD":true
+    "isPD": true, "projectile": [
+      "PDAM-005", "PDAM-006"
+    ]
   }
 ];
 
@@ -1501,136 +1481,106 @@ export const gofBackpack: Part[] = [
 
 export const pdTorso: Part[] = [
   {
-    "id": "PDTR-101",
-    "name": "H2-A“危机”I型",
-    "type": "torso",
-    "score": 69,
-    "structure": 3,
-    "armor": 5,
-    "parray": 0,
-    "dodge": 0,
-    "electronic": 2,
-    "description": ""
-  },
-  {
-    "id": "PDTR-102",
-    "name": "H2-B“危机”II型",
+    "id": "287",
+    "name": "ACE-001 白矮星 核心组件",
     "type": "torso",
     "score": 72,
     "structure": 3,
     "armor": 5,
     "parray": 0,
-    "dodge": 0,
-    "electronic": 2,
-    "description": ""
+    "dodge": 1,
+    "electronic": 3,
+    "description": "",
+    "projectile": [288],
+    "isPD": true
   }
 ];
 
 export const pdChasis: Part[] = [
   {
-    "id": "PDLT-101",
-    "name": "HL2\n“危机”下肢",
+    "id": "289",
+    "name": "ACE-001 白矮星 下肢组件",
     "type": "chasis",
     "score": 24,
     "structure": 0,
-    "armor": 5,
+    "armor": 4,
     "parray": 0,
     "dodge": 3,
     "electronic": 0,
-    "description": ""
-  },
-  {
-    "id": "PDLT-102",
-    "name": "HL2-M\n“危机”下肢M",
-    "type": "chasis",
-    "score": 32,
-    "structure": 2,
-    "armor": 5,
-    "parray": 0,
-    "dodge": 3,
-    "electronic": 0,
-    "description": ""
+    "description": "",
+    "isPD": true
   }
 ];
 
-export const pdLeftHand: Part[] = [
-  {
-    "id": "PDLA-101",
-    "name": "Ls197R机炮（左）",
-    "type": "leftHand",
-    "score": 48,
-    "structure": 0,
-    "armor": 3,
-    "parray": 0,
-    "dodge": 0,
-    "electronic": 0,
-    "description": ""
-  },
-  {
-    "id": "PDLA-102",
-    "name": "Ot41激光压制系统+Sd3盾牌",
-    "type": "leftHand",
-    "score": 66,
-    "structure": 0,
-    "armor": 4,
-    "parray": 0,
-    "dodge": 0,
-    "electronic": 0,
-    "description": ""
-  }
+export const pdLeftHand: Part[] = [{
+  "id": "291",
+  "name": "ACE-001 白矮星 左臂组件",
+  "type": "leftHand",
+  "score": 57,
+  "structure": 0,
+  "armor": 4,
+  "parray": 0,
+  "dodge": 0,
+  "electronic": 0,
+  "description": "",
+  "isPD": true
+}
 ];
 
 export const pdRightHand: Part[] = [
+
   {
-    "id": "PDRA-101",
-    "name": "Ls197R机炮（右）",
+    "id": "290",
+    "name": "ACE-001 白矮星 右臂组件",
     "type": "rightHand",
-    "score": 48,
-    "structure": 0,
-    "armor": 3,
-    "parray": 0,
-    "dodge": 0,
-    "electronic": 0,
-    "description": ""
-  },
-  {
-    "id": "PDRA-102",
-    "name": "Ot50-ADS+Sd3盾牌",
-    "type": "rightHand",
-    "score": 66,
+    "score": 72,
     "structure": 0,
     "armor": 4,
-    "parray": 0,
+    "parray": 1,
     "dodge": 0,
     "electronic": 0,
-    "description": ""
+    "description": "",
+    "isPD": true
   }
 ];
-
+// {
+//     "id": "PDBP-101",
+//     "name": "四联装“飞鱼”发射器",
+//     "type": "backpack",
+//     "score": 56,
+//     "structure": 0,
+//     "armor": 3,
+//     "parray": 0,
+//     "dodge": 0,
+//     "electronic": 0,
+//     "description": "·曲射：本动作不需要对落点或目标有视线。\n·齐射X：发射或布撒最多X枚抛射物，并消耗同等数量的弹药标记。"
+//   },
+//   {
+//     "id": "PDBP-102",
+//     "name": "Ls297双联机炮",
+//     "type": "backpack",
+//     "score": 48,
+//     "structure": 0,
+//     "armor": 3,
+//     "parray": 0,
+//     "dodge": 0,
+//     "electronic": 0,
+//     "description": "·压制：被本动作宣布为目标的机甲会立刻切换为防御姿态（处于宕机姿态的单位不受此影响）。"
+//   },
 export const pdBackpack: Part[] = [
   {
-    "id": "PDBP-101",
-    "name": "四联装“飞鱼”发射器",
+    "id": "292",
+    "name": "ACE-001 白矮星 浮游单元接口",
     "type": "backpack",
-    "score": 56,
+    "score": 60,
     "structure": 0,
     "armor": 3,
     "parray": 0,
-    "dodge": 0,
-    "electronic": 0,
-    "description": "·曲射：本动作不需要对落点或目标有视线。\n·齐射X：发射或布撒最多X枚抛射物，并消耗同等数量的弹药标记。"
-  },
-  {
-    "id": "PDBP-102",
-    "name": "Ls297双联机炮",
-    "type": "backpack",
-    "score": 48,
-    "structure": 0,
-    "armor": 3,
-    "parray": 0,
-    "dodge": 0,
-    "electronic": 0,
-    "description": "·压制：被本动作宣布为目标的机甲会立刻切换为防御姿态（处于宕机姿态的单位不受此影响）。"
+    "dodge": 1,
+    "electronic": 2,
+    "description": "",
+    "projectile": ["293", "294", "295"],
+    "isPD": true
   }
 ];
 
@@ -1692,8 +1642,8 @@ export const rdlTorso: Part[] = [
     "type": "torso",
     "description": "",
     "imgSrc": "",
-    "tags": [],    
-    "projectile":["268"]
+    "tags": [],
+    "projectile": ["268"]
   },
   {
     "id": "017",
@@ -1708,7 +1658,7 @@ export const rdlTorso: Part[] = [
     "description": "",
     "imgSrc": "",
     "tags": [],
-    "projectile":["268"]
+    "projectile": ["268"]
   },
   {
     "id": "019",
@@ -1723,7 +1673,7 @@ export const rdlTorso: Part[] = [
     "description": "",
     "imgSrc": "",
     "tags": [],
-        "projectile":["268"]
+    "projectile": ["268"]
   },
   {
     "id": "018",
@@ -1752,7 +1702,7 @@ export const rdlTorso: Part[] = [
     "description": "",
     "imgSrc": "",
     "tags": [],
-        "projectile":["268"]
+    "projectile": ["268"]
   },
   {
     "id": "280",
@@ -1767,7 +1717,7 @@ export const rdlTorso: Part[] = [
     "description": "",
     "imgSrc": "",
     "tags": [],
-        "projectile":["268"]
+    "projectile": ["268"]
   },
   {
     "id": "503",
@@ -1782,7 +1732,7 @@ export const rdlTorso: Part[] = [
     "description": "",
     "imgSrc": "",
     "tags": [],
-        "projectile":["268"]
+    "projectile": ["268"]
   },
   {
     "id": "504",
@@ -1909,7 +1859,7 @@ export const rdlChasis: Part[] = [
     "dodge": 3,
     "electronic": 0,
     "type": "chasis",
-    "description": "空手",
+    "description": "",
     "imgSrc": "",
     "tags": []
   }
@@ -1929,7 +1879,7 @@ export const rdlLeftHand: Part[] = [
     "description": "",
     "imgSrc": "",
     "tags": [],
-    "throwIndex":"024",
+    "throwIndex": "024",
   },
   {
     "id": "024",
@@ -1958,7 +1908,7 @@ export const rdlLeftHand: Part[] = [
     "description": "",
     "imgSrc": "",
     "tags": [],
-    "projectile":["071"]
+    "projectile": ["071"]
   },
   {
     "id": "032",
@@ -1987,7 +1937,7 @@ export const rdlLeftHand: Part[] = [
     "description": "",
     "imgSrc": "",
     "tags": [],
-    "throwIndex":"035",
+    "throwIndex": "035",
   },
   {
     "id": "035",
@@ -2030,7 +1980,7 @@ export const rdlLeftHand: Part[] = [
     "description": "",
     "imgSrc": "",
     "tags": [],
-    "throwIndex":"042",
+    "throwIndex": "042",
   },
   {
     "id": "042",
@@ -2087,7 +2037,7 @@ export const rdlLeftHand: Part[] = [
     "description": "",
     "imgSrc": "",
     "tags": [],
-    "throwIndex":"054",
+    "throwIndex": "054",
   },
   {
     "id": "054",
@@ -2116,8 +2066,8 @@ export const rdlLeftHand: Part[] = [
     "description": "",
     "imgSrc": "",
     "tags": [],
-    "throwIndex":"057",
-    "projectile":["267"]
+    "throwIndex": "057",
+    "projectile": ["267"]
   },
   {
     "id": "057",
@@ -2160,8 +2110,8 @@ export const rdlLeftHand: Part[] = [
     "description": "",
     "imgSrc": "",
     "tags": [],
-    "throwIndex":"065",
-    "projectile":["072"]
+    "throwIndex": "065",
+    "projectile": ["072"]
   },
   {
     "id": "065",
@@ -2190,7 +2140,7 @@ export const rdlLeftHand: Part[] = [
     "description": "",
     "imgSrc": "",
     "tags": [],
-    "throwIndex":"253",
+    "throwIndex": "253",
   },
   {
     "id": "253",
@@ -2219,7 +2169,7 @@ export const rdlLeftHand: Part[] = [
     "description": "",
     "imgSrc": "",
     "tags": [],
-    "throwIndex":"283",
+    "throwIndex": "283",
   },
   {
     "id": "283",
@@ -2248,7 +2198,7 @@ export const rdlLeftHand: Part[] = [
     "description": "",
     "imgSrc": "",
     "tags": [],
-    "throwIndex":"511",
+    "throwIndex": "511",
   },
   {
     "id": "511",
@@ -2277,7 +2227,7 @@ export const rdlLeftHand: Part[] = [
     "description": "",
     "imgSrc": "",
     "tags": [],
-    "throwIndex":"515",
+    "throwIndex": "515",
   },
   {
     "id": "515",
@@ -2323,7 +2273,7 @@ export const rdlRightHand: Part[] = [
     "description": "",
     "imgSrc": "",
     "tags": [],
-    "throwIndex":"026",
+    "throwIndex": "026",
   },
   {
     "id": "026",
@@ -2352,7 +2302,7 @@ export const rdlRightHand: Part[] = [
     "description": "",
     "imgSrc": "",
     "tags": [],
-    "throwIndex":"031",
+    "throwIndex": "031",
   },
   {
     "id": "031",
@@ -2409,7 +2359,7 @@ export const rdlRightHand: Part[] = [
     "description": "",
     "imgSrc": "",
     "tags": [],
-    "throwIndex":"039",
+    "throwIndex": "039",
   },
   {
     "id": "039",
@@ -2438,7 +2388,7 @@ export const rdlRightHand: Part[] = [
     "description": "",
     "imgSrc": "",
     "tags": [],
-    "throwIndex":"044",
+    "throwIndex": "044",
   },
   {
     "id": "044",
@@ -2467,7 +2417,7 @@ export const rdlRightHand: Part[] = [
     "description": "",
     "imgSrc": "",
     "tags": [],
-    "throwIndex":"047",
+    "throwIndex": "047",
   },
   {
     "id": "047",
@@ -2496,8 +2446,8 @@ export const rdlRightHand: Part[] = [
     "description": "",
     "imgSrc": "",
     "tags": [],
-    "throwIndex":"049",
-        "projectile":["268"]
+    "throwIndex": "049",
+    "projectile": ["268"]
   },
   {
     "id": "049",
@@ -2512,7 +2462,7 @@ export const rdlRightHand: Part[] = [
     "description": "",
     "imgSrc": "",
     "tags": [],
-        "projectile":["268"]
+    "projectile": ["268"]
   },
   {
     "id": "051",
@@ -2527,7 +2477,7 @@ export const rdlRightHand: Part[] = [
     "description": "",
     "imgSrc": "",
     "tags": [],
-    "throwIndex":"052",
+    "throwIndex": "052",
   },
   {
     "id": "052",
@@ -2570,7 +2520,7 @@ export const rdlRightHand: Part[] = [
     "description": "",
     "imgSrc": "",
     "tags": [],
-    "throwIndex":"059",
+    "throwIndex": "059",
   },
   {
     "id": "059",
@@ -2613,7 +2563,7 @@ export const rdlRightHand: Part[] = [
     "description": "",
     "imgSrc": "",
     "tags": [],
-    "throwIndex":"069",
+    "throwIndex": "069",
   },
   {
     "id": "069",
@@ -2642,7 +2592,7 @@ export const rdlRightHand: Part[] = [
     "description": "",
     "imgSrc": "",
     "tags": [],
-    "throwIndex":"255",
+    "throwIndex": "255",
   },
   {
     "id": "255",
@@ -2671,7 +2621,7 @@ export const rdlRightHand: Part[] = [
     "description": "",
     "imgSrc": "",
     "tags": [],
-    "throwIndex":"285",
+    "throwIndex": "285",
   },
   {
     "id": "285",
@@ -2700,7 +2650,7 @@ export const rdlRightHand: Part[] = [
     "description": "",
     "imgSrc": "",
     "tags": [],
-    "throwIndex":"509",
+    "throwIndex": "509",
   },
   {
     "id": "509",
@@ -2729,7 +2679,7 @@ export const rdlRightHand: Part[] = [
     "description": "",
     "imgSrc": "",
     "tags": [],
-    "throwIndex":"513",
+    "throwIndex": "513",
   },
   {
     "id": "513",
@@ -2758,7 +2708,7 @@ export const rdlRightHand: Part[] = [
     "description": "",
     "imgSrc": "",
     "tags": [],
-    "throwIndex":"517",
+    "throwIndex": "517",
   },
   {
     "id": "517",
@@ -2787,7 +2737,7 @@ export const rdlRightHand: Part[] = [
     "description": "",
     "imgSrc": "",
     "tags": [],
-    "throwIndex":"519",
+    "throwIndex": "519",
   },
   {
     "id": "519",
@@ -2861,7 +2811,7 @@ export const rdlBackpack: Part[] = [
     "description": "",
     "imgSrc": "",
     "tags": [],
-    "projectile":["071"]
+    "projectile": ["071"]
   },
   {
     "id": "005",
@@ -2890,7 +2840,7 @@ export const rdlBackpack: Part[] = [
     "description": "",
     "imgSrc": "",
     "tags": [],
-    "projectile":["074"]
+    "projectile": ["074"]
   },
   {
     "id": "007",
@@ -2919,7 +2869,7 @@ export const rdlBackpack: Part[] = [
     "description": "",
     "imgSrc": "",
     "tags": [],
-    "projectile":["075","076","077"]
+    "projectile": ["075", "076", "077"]
   },
   {
     "id": "009",
@@ -2962,7 +2912,7 @@ export const rdlBackpack: Part[] = [
     "description": "",
     "imgSrc": "",
     "tags": [],
-    "projectile":["073"]
+    "projectile": ["073"]
   },
   {
     "id": "264",
@@ -3032,7 +2982,10 @@ export const rdlBackpack: Part[] = [
     "type": "backpack",
     "description": "",
     "imgSrc": "",
-    "tags": []
+    "tags": [],
+    "projectile": [
+      "522"
+    ]
   }
 ];
 
@@ -3046,7 +2999,7 @@ export const rdlDrones: Drone[] = [
     "parray": 0,
     "dodge": 0,
     "electronic": 2,
-    "type": "small",
+    "type": "medium",
     "move": 0,
     "stance": "offensive",
     "description": ""
@@ -3060,11 +3013,11 @@ export const rdlDrones: Drone[] = [
     "parray": 0,
     "dodge": 0,
     "electronic": 2,
-    "type": "small",
+    "type": "medium",
     "move": 0,
     "stance": "offensive",
     "description": "",
-    "projectile":["071"]
+    "projectile": ["071"]
   },
   {
     "id": "080",
@@ -3075,9 +3028,9 @@ export const rdlDrones: Drone[] = [
     "parray": 0,
     "dodge": 0,
     "electronic": 2,
-    "type": "small",
+    "type": "medium",
     "move": 0,
-    "stance": "offensive",
+    "stance": "medium",
     "description": ""
   },
   {
@@ -3110,7 +3063,7 @@ export const unTorso: Part[] = [
     "description": "",
     "imgSrc": "",
     "tags": [],
-    "projectile":["155"]
+    "projectile": ["155"]
   },
   {
     "id": "092",
@@ -3285,8 +3238,8 @@ export const unLeftHand: Part[] = [
     "description": "",
     "imgSrc": "",
     "tags": [],
-    "throwIndex":"108",
-    "projectile":["154"]
+    "throwIndex": "108",
+    "projectile": ["154"]
   },
   {
     "id": "108",
@@ -3301,7 +3254,7 @@ export const unLeftHand: Part[] = [
     "description": "",
     "imgSrc": "",
     "tags": [],
-    "projectile":["154"]
+    "projectile": ["154"]
   },
   {
     "id": "111",
@@ -3316,7 +3269,7 @@ export const unLeftHand: Part[] = [
     "description": "",
     "imgSrc": "",
     "tags": [],
-    "throwIndex":"112",
+    "throwIndex": "112",
   },
   {
     "id": "112",
@@ -3345,7 +3298,7 @@ export const unLeftHand: Part[] = [
     "description": "",
     "imgSrc": "",
     "tags": [],
-    "throwIndex":"118",
+    "throwIndex": "118",
   },
   {
     "id": "118",
@@ -3402,8 +3355,8 @@ export const unLeftHand: Part[] = [
     "description": "",
     "imgSrc": "",
     "tags": [],
-    "throwIndex":"130",
-    "projectile":["157"]
+    "throwIndex": "130",
+    "projectile": ["157"]
   },
   {
     "id": "130",
@@ -3446,7 +3399,7 @@ export const unLeftHand: Part[] = [
     "description": "",
     "imgSrc": "",
     "tags": [],
-    "projectile":["154"]
+    "projectile": ["154"]
   },
   {
     "id": "139",
@@ -3475,7 +3428,7 @@ export const unLeftHand: Part[] = [
     "description": "",
     "imgSrc": "",
     "tags": [],
-    "throwIndex":"143",
+    "throwIndex": "143",
   },
   {
     "id": "143",
@@ -3518,8 +3471,8 @@ export const unLeftHand: Part[] = [
     "description": "",
     "imgSrc": "",
     "tags": [],
-    "throwIndex":"147",
-    "projectile":["154"]
+    "throwIndex": "147",
+    "projectile": ["154"]
   },
   {
     "id": "147",
@@ -3534,7 +3487,7 @@ export const unLeftHand: Part[] = [
     "description": "",
     "imgSrc": "",
     "tags": [],
-    "projectile":["154"]
+    "projectile": ["154"]
   },
   {
     "id": "150",
@@ -3549,7 +3502,7 @@ export const unLeftHand: Part[] = [
     "description": "",
     "imgSrc": "",
     "tags": [],
-    "throwIndex":"151",
+    "throwIndex": "151",
   },
   {
     "id": "151",
@@ -3596,7 +3549,7 @@ export const unRightHand: Part[] = [
     "description": "",
     "imgSrc": "",
     "tags": [],
-    "throwIndex":"153",
+    "throwIndex": "153",
   },
   {
     "id": "153",
@@ -3625,7 +3578,7 @@ export const unRightHand: Part[] = [
     "description": "",
     "imgSrc": "",
     "tags": [],
-    "throwIndex":"105",
+    "throwIndex": "105",
   },
   {
     "id": "105",
@@ -3668,7 +3621,7 @@ export const unRightHand: Part[] = [
     "description": "",
     "imgSrc": "",
     "tags": [],
-    "throwIndex":"110",
+    "throwIndex": "110",
   },
   {
     "id": "110",
@@ -3697,7 +3650,7 @@ export const unRightHand: Part[] = [
     "description": "",
     "imgSrc": "",
     "tags": [],
-    "throwIndex":"114",
+    "throwIndex": "114",
   },
   {
     "id": "114",
@@ -3726,7 +3679,7 @@ export const unRightHand: Part[] = [
     "description": "",
     "imgSrc": "",
     "tags": [],
-    "throwIndex":"116",
+    "throwIndex": "116",
   },
   {
     "id": "116",
@@ -3755,7 +3708,7 @@ export const unRightHand: Part[] = [
     "description": "",
     "imgSrc": "",
     "tags": [],
-    "throwIndex":"120",
+    "throwIndex": "120",
   },
   {
     "id": "120",
@@ -3783,7 +3736,8 @@ export const unRightHand: Part[] = [
     "type": "rightHand",
     "description": "",
     "imgSrc": "",
-    "tags": []
+    "tags": [],
+    "throwIndex": "123",
   },
   {
     "id": "124",
@@ -3798,7 +3752,7 @@ export const unRightHand: Part[] = [
     "description": "",
     "imgSrc": "",
     "tags": [],
-    "throwIndex":"125",
+    "throwIndex": "125",
   },
   {
     "id": "125",
@@ -3827,7 +3781,7 @@ export const unRightHand: Part[] = [
     "description": "",
     "imgSrc": "",
     "tags": [],
-    "throwIndex":"128",
+    "throwIndex": "128",
   },
   {
     "id": "128",
@@ -3870,7 +3824,7 @@ export const unRightHand: Part[] = [
     "description": "",
     "imgSrc": "",
     "tags": [],
-    "projectile":["154"]
+    "projectile": ["154"]
   },
   {
     "id": "140",
@@ -3885,7 +3839,7 @@ export const unRightHand: Part[] = [
     "description": "",
     "imgSrc": "",
     "tags": [],
-    "throwIndex":"141",
+    "throwIndex": "141",
   },
   {
     "id": "141",
@@ -3928,7 +3882,7 @@ export const unRightHand: Part[] = [
     "description": "",
     "imgSrc": "",
     "tags": [],
-    "throwIndex":"149",
+    "throwIndex": "149",
   },
   {
     "id": "149",
@@ -3988,7 +3942,7 @@ export const unBackpack: Part[] = [
     "description": "",
     "imgSrc": "",
     "tags": [],
-    "projectile":["156"]
+    "projectile": ["156"]
   },
   {
     "id": "083",
@@ -4017,7 +3971,7 @@ export const unBackpack: Part[] = [
     "description": "",
     "imgSrc": "",
     "tags": [],
-    "projectile":["158"]
+    "projectile": ["158"]
   },
   {
     "id": "085",
@@ -4046,7 +4000,7 @@ export const unBackpack: Part[] = [
     "description": "",
     "imgSrc": "",
     "tags": [],
-    "projectile":["157"]
+    "projectile": ["157"]
   },
   {
     "id": "087",
@@ -4258,7 +4212,7 @@ export const unDrones: Drone[] = [
     "parray": 0,
     "dodge": 7,
     "electronic": 3,
-    "type": "small",
+    "type": "medium",
     "move": 0,
     "stance": "offensive",
     "description": ""
@@ -4272,7 +4226,7 @@ export const unDrones: Drone[] = [
     "parray": 0,
     "dodge": 7,
     "electronic": 3,
-    "type": "small",
+    "type": "medium",
     "move": 0,
     "stance": "offensive",
     "description": ""
@@ -4286,7 +4240,7 @@ export const unDrones: Drone[] = [
     "parray": 0,
     "dodge": 7,
     "electronic": 3,
-    "type": "small",
+    "type": "medium",
     "move": 0,
     "stance": "offensive",
     "description": ""

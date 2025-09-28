@@ -5,7 +5,7 @@ import { Input } from './ui/input';
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from './ui/dialog';
 import { Badge } from './ui/badge';
 import { Trash2, Plus, Copy, Download, ChevronLeft, ChevronRight, Upload, Dice6, Sword } from 'lucide-react';
-import { Team, FACTION_COLORS } from '../types';
+import { Team, FACTION_COLORS, PART_TYPE_NAMES } from '../types';
 
 interface TeamListProps {
   teams: Team[];
@@ -16,7 +16,8 @@ interface TeamListProps {
   onUpdateTeam: (teamId: string, updates: Partial<Team>) => void;
   onCopyTeam: (newTeam: Team) => void;
   translations: any,
-  factionNames: any
+  factionNames: any,
+  lang: string;
 }
 
 export function TeamList({
@@ -26,7 +27,7 @@ export function TeamList({
   onAddTeam,
   onDeleteTeam,
   onUpdateTeam,
-  onCopyTeam, translations, factionNames
+  onCopyTeam, translations, factionNames, lang
 }: TeamListProps) {
   const [isDialogOpen, setIsDialogOpen] = useState(false);
   const [editingTeamId, setEditingTeamId] = useState<string>('');
@@ -34,45 +35,16 @@ export function TeamList({
   const handleAddTeam = (faction: 'RDL' | 'UN' | 'GOF' | 'PD') => {
     onAddTeam(faction);
     setIsDialogOpen(false);
-  };
-
-  const getMechTotalScore = (mech: any) => {
-    let score = 0;
-    Object.values(mech.parts).forEach((part: any) => {
-      if (part && part.score) score += part.score;
-    });
-    if (mech.pilot && mech.pilot.score) score += mech.pilot.score;
-    return score;
-  };
-
-  const exportTeamData = (team: Team) => {
-    let clipboardContent = `┏ ${team.name}[小队：${team.totalScore}分]\n`;
-
-    team.mechs.forEach((mech) => {
-      const mechScore = getMechTotalScore(mech);
-      clipboardContent += `┣┳ ${mech.name}[M.A.P：${mechScore}分]\n`;
-
-      Object.entries(mech.parts).forEach(([partType, part]) => {
-        clipboardContent += `┃┣ ${partType === 'backpack' ? '背包' : partType === 'chasis' ? '躯干' : partType === 'leftHand' ? '左臂' : partType === 'rightHand' ? '右臂' : partType}：${part.name}\n`;
+    if (window.gtag) {
+      console.log(faction)
+      window.gtag('event', 'select_faction', {
+        event_category: 'faction_selection',
+        event_label: faction,
+        value: 1,
       });
-
-      if (mech.pilot) {
-        clipboardContent += `┃┗ 驾驶员：${mech.pilot.name}\n`;
-      }
-    });
-
-    if (team.drones.length > 0) {
-      clipboardContent += `┗┳ 无人机[无人机：${team.drones.reduce((sum, drone) => sum + drone.score, 0)}分]\n`;
-      team.drones.forEach((drone) => {
-        clipboardContent += `　┗ 无人机：${drone.name}\n`;
-      });
+    } else {
+      console.error('gtag function is not available');
     }
-
-    navigator.clipboard.writeText(clipboardContent).then(() => {
-      alert(translations.t1);
-    }).catch((err) => {
-      alert(translations.t2);
-    });
   };
 
   const cloneTeam = (teamId: string) => {
@@ -95,6 +67,17 @@ export function TeamList({
       };
 
       onCopyTeam(clonedTeam);
+    }
+  };
+
+  const exportTeamAsJson = (teamId: string) => {
+    const selectedTeam = teams.find((team) => team.id === teamId);
+    if (selectedTeam) {
+      const blob = new Blob([JSON.stringify(selectedTeam, null, 2)], { type: 'application/json' });
+      const link = document.createElement('a');
+      link.href = URL.createObjectURL(blob);
+      link.download = `${selectedTeam.name}.json`; // 文件名为小队名称
+      link.click();
     }
   };
 
@@ -151,34 +134,36 @@ export function TeamList({
                 try {
                   const json = JSON.parse(event.target?.result as string);
                   if (json && json.id) {
-                    onAddTeam(json.faction); // 先创建
-                    onUpdateTeam(json.id, json); // 再更新数据
+                    // 先创建小队
+                    onAddTeam(json.faction, json);  // 传递整个 json 作为 teamData
+                    alert('小队数据导入成功');
+                  } else {
+                    alert('剪贴板数据格式不正确');
                   }
                 } catch (err) {
-                  alert(`{translations.t5}`);
+                  console.error('导入失败:', err);
+                  alert('无法读取数据');
                 }
               };
               reader.readAsText(file);
             }}
           />
+
           <Button
             variant="outline"
             size="sm"
             onClick={() => document.getElementById("team-upload")?.click()}
           >
             <Upload className="w-4 h-4 mr-2" />
-            {translations.t62}
+            {translations.t73}
           </Button>
           <Button
             variant="outline"
             size="sm"
-            onClick={() => {
-              const selectedTeam = teams.find(t => t.id === selectedTeamId);
-              if (selectedTeam) exportTeamData(selectedTeam);  // 导出数据到剪贴板
-            }}
+            onClick={() => exportTeamAsJson(selectedTeamId)}
           >
             <Download className="w-4 h-4 mr-2" />
-            {translations.t6}
+            {translations.t74}
           </Button>
         </div>
       </div>

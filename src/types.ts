@@ -9,6 +9,7 @@ export interface Team {
   largeDroneCount: number;
   mediumDroneCount: number;
   smallDroneCount: number;
+  deviceID?:string
 }
 
 export interface Mech {
@@ -39,6 +40,7 @@ export interface Part {
   tags?: string[];
   throwIndex?: string;//是否有对应的抛弃卡，如果有设置为其序号
   projectile?: string[];//是否有对应的导弹\设置物卡，如果有设置为其序号
+  isPD?:boolean
 }
 
 export interface Projectile {
@@ -68,6 +70,7 @@ export interface Drone {
   description?: string;
   projectile?: string[];
   isPD?: boolean;
+  backpack?:Part;
 }
 
 export interface Pilot {
@@ -131,8 +134,8 @@ export const PART_TYPE_NAMES = {
   },jp: {
     torso: '胴',
     chasis: '下肢',
-    leftHand: '武装',
-    rightHand: 'バックパック',
-    backpack: 'ドローン',
+    leftHand: '左腕',
+    rightHand: '右腕',
+    backpack: 'バックパック',
   }
 } as const;
