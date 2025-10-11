@@ -26,7 +26,7 @@ export const translations = {
     t24: "小队图",
     t25: "投射物列表",
     t26: "未装备",
-    t27: "未分配驾驶员",
+    t27: "驾驶员",
     t28: "点击选择",
     t29: "添加机体",
     t30: "暂无机体，点击上方按钮添加",
@@ -68,7 +68,9 @@ export const translations = {
     t66: "新建小队",
     t67: "中立",
     t68: "装载背包",
-    t69:"驾驶员",t70: "无人机列表",t71:"分",t72:"小队",t73:"上传",t74:"下载",t75: "添加无人机"
+    t69: "驾驶员", t70: "无人机列表", t71: "分", t72: "小队", t73: "上传", t74: "下载", t75: "添加无人机",
+     t76: "图片导出完成", t77: "导出失败", t78: "导出失败，请稍后再试", t79: "导出中…",
+     t80:"部件充足",t81:"部件不足",t82:"众筹禁赛",t83:"可参赛"
   },
 
   en: {
@@ -77,9 +79,9 @@ export const translations = {
     t3: "Mech Squad List",
     t4: "Copy",
     t5: "❌ Import failed: Invalid JSON file",
-    t6: "Team Table",
-    t7: "Score",
-    t8: "Mechs",
+    t6: "Table",
+    t7: "SCR",
+    t8: "MCH",
     t9: "LD",
     t10: "MD",
     t11: "SD",
@@ -95,10 +97,10 @@ export const translations = {
     t21: "Please select a team",
     t22: "Mech List",
     t23: "Drone List",
-    t24: "Squad Img",
+    t24: "Image",
     t25: "Projectile List",
     t26: "Not Equipped",
-    t27: "No Pilot Assigned",
+    t27: "Pilot",
     t28: "Click to Select",
     t29: "Add Mech",
     t30: "No mechs yet, click the button above to add",
@@ -129,10 +131,10 @@ export const translations = {
     t55: "No matching pilots found",
     t56: "Drone Selection",
     t57: "Search drone name...",
-    t58: "Score Descending",
-    t59: "Score Ascending",
+    t58: "Point Desc",
+    t59: "Point Asc",
     t60: "No matching drones found",
-    t61: "Part Selection",
+    t61: "Part",
     t62: "Import",
     t63: "Squad One",
     t64: "New Squad",
@@ -140,7 +142,13 @@ export const translations = {
     t66: "new team",
     t67: "Neutral",
     t68: "Load Backpack",
-    t69:"Pilot",t70: "Drone",t71:"Points",t72:"Team",t73:"Upload",t74:"DL",t75: "Add Drone"
+    t69: "Pilot", t70: "Drone", t71: "Points", t72: "Team", t73: "Upload", t74: "DL", t75: "Add Drone",
+     t76: "Image export completed", t77: "Export failed", t78: "Export failed, please try again later", t79: "Exporting…",
+ t80: "Complete",
+t81: "Incomplete",
+t82: "Banned",
+t83: "Eligible"
+
   }, jp: {
     t1: "データがクリップボードにコピーされました！",
     t2: "エクスポートに失敗しました。もう一度お試しください。",
@@ -148,7 +156,7 @@ export const translations = {
     t4: "コピー",
     t5: "❌ インポート失敗：有効なJSONファイルではありません",
     t6: "チーム出力",
-    t7: "総スコ",
+    t7: "総ス",
     t8: "機体",
     t9: "大型",
     t10: "中型",
@@ -207,7 +215,13 @@ export const translations = {
     t63: "第一チーム",
     t64: "新しいチーム",
     t65: "現在チームはありません。新しいチームを作成してください。",
-    t66: "新規チーム作成", t67: "中立", t68: "バックパックを装備",t69:"パイロット",t70: "ドローン",t71:"ポイント",t72:"チーム",t73:"送信",t74:"取得",t75: "ドローンを追加"
+    t66: "新規チーム作成", t67: "中立", t68: "バックパックを装備", t69: "パイロット", t70: "ドローン", t71: "ポイント", t72: "チーム", t73: "送信", t74: "取得", t75: "ドローンを追加"
+    ,t76: "画像の書き出しが完了しました", t77: "書き出しに失敗しました", t78: "書き出しに失敗しました。しばらくしてからもう一度お試しください。", t79: "書き出し中…",
+    t80: "部品充足",
+t81: "部品不足",
+t82: "クラウドファンディング禁止",
+t83: "参加可能"
+
   },
 
 };

@@ -13,6 +13,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '.
 import { ChevronLeft, ChevronRight, Globe } from 'lucide-react';
 import { getDeviceFingerprint } from './remote';
 import axios from "axios";
+import { motion, AnimatePresence } from "framer-motion";
 
 export default function App() {
   // ------------------ 语言 ------------------
@@ -29,21 +30,16 @@ export default function App() {
       localStorage.setItem("version", "3");
     }
     const saved = localStorage.getItem('teams');
-    return saved ? JSON.parse(saved) : [{
-      id: '1',
-      name: t.t63,
-      faction: 'RDL',
-      mechs: [],
-      drones: [],
-      totalScore: 0,
-      mechCount: 0,
-      largeDroneCount: 0,
-      mediumDroneCount: 0,
-      smallDroneCount: 0
-    }];
+    return saved ? JSON.parse(saved) : [];  // 空数组而不是默认队伍
   });
 
-  const [selectedTeamId, setSelectedTeamId] = useState<string>('1');
+
+  const [selectedTeamId, setSelectedTeamId] = useState<string>(() => {
+    const saved = localStorage.getItem('teams');
+    const teams: Team[] = saved ? JSON.parse(saved) : [1];
+    return teams[0]?.id || ''; // 如果有队伍就默认选第一个，否则空
+  });
+
   const [selectedMechId, setSelectedMechId] = useState<string>('');
   const [selectedPartType, setSelectedPartType] = useState<string>('torso');
   const [viewMode, setViewMode] = useState<'parts' | 'drones' | 'pilots'>('parts');
@@ -58,44 +54,44 @@ export default function App() {
   let selectedTeam = teams.find(team => team.id === selectedTeamId);
 
   // ------------------ 移动端判断 ------------------
-const [isMobileOrTablet, setMobileOrTablet] = useState(false);
+  const [isMobileOrTablet, setMobileOrTablet] = useState(false);
 
 
-const [collapsedLeft, setCollapsedLeft] = useState(isMobileOrTablet ? true : false);
-const [collapsedRight, setCollapsedRight] = useState(isMobileOrTablet ? true : false);
+  const [collapsedLeft, setCollapsedLeft] = useState(isMobileOrTablet ? true : false);
+  const [collapsedRight, setCollapsedRight] = useState(isMobileOrTablet ? true : false);
 
-useEffect(() => {
-  if (!sessionStorage.getItem('sw_cleared')) {
-    if ('serviceWorker' in navigator) {
-      navigator.serviceWorker.getRegistrations().then(registrations => {
-        registrations.forEach(registration => registration.unregister());
-      });
+  useEffect(() => {
+    if (!sessionStorage.getItem('sw_cleared')) {
+      if ('serviceWorker' in navigator) {
+        navigator.serviceWorker.getRegistrations().then(registrations => {
+          registrations.forEach(registration => registration.unregister());
+        });
+      }
+
+      if ('caches' in window) {
+        caches.keys().then(cacheNames => {
+          cacheNames.forEach(name => caches.delete(name));
+        });
+      }
+
+      sessionStorage.setItem('sw_cleared', 'true');
+      window.location.replace(window.location.href)
     }
+  }, []);
 
-    if ('caches' in window) {
-      caches.keys().then(cacheNames => {
-        cacheNames.forEach(name => caches.delete(name));
-      });
+  useEffect(() => {
+    const mobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(
+      navigator.userAgent
+    );
+    setMobileOrTablet(mobile);
+    if (mobile) {
+      setCollapsedLeft(true);
+      setCollapsedRight(true);
     }
-
-    sessionStorage.setItem('sw_cleared', 'true');
-    window.location.reload();
-  }
-}, []);
-
-useEffect(() => {
-  const mobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(
-    navigator.userAgent
-  );
-  setMobileOrTablet(mobile);
-  if (mobile) {
-    setCollapsedLeft(true);
-    setCollapsedRight(true);
-  }
-}, []);
+  }, []);
 
 
-if (isMobileOrTablet === null) return null; // 或者显示 loading
+  if (isMobileOrTablet === null) return null; // 或者显示 loading
 
 
 
@@ -136,21 +132,30 @@ if (isMobileOrTablet === null) return null; // 或者显示 loading
 
   // ------------------ 添加/初始化团队 ------------------
   const addTeam = (faction: 'RDL' | 'UN' | 'GOF' | 'PD', teamData?: Partial<Team>) => {
+    // 先复制机甲数组，如果存在的话
+    const mechsWithId: Mech[] = (teamData?.mechs || []).map(mech => ({
+      ...mech,
+      id: Date.now().toString() + Math.random().toString(36).slice(2), // 确保每个id唯一
+    }));
+
     const newTeam: Team = {
       id: Date.now().toString(),
-      name: t.t64,
+      name: teamData?.name || t.t64,
       faction,
-      mechs: teamData?.mechs || [],
+      mechs: mechsWithId,
       drones: teamData?.drones || [],
       totalScore: teamData?.totalScore || 0,
-      mechCount: teamData?.mechCount || 0,
+      mechCount: mechsWithId.length,
       largeDroneCount: teamData?.largeDroneCount || 0,
       mediumDroneCount: teamData?.mediumDroneCount || 0,
       smallDroneCount: teamData?.smallDroneCount || 0,
     };
+
     setSelectedTeamId(newTeam.id);
     setTeams(prev => [...prev, newTeam]);
   };
+
+
 
   const initNewTeam = (faction: 'RDL' | 'UN' | 'GOF' | 'PD') => addTeam(faction);
 
@@ -254,7 +259,15 @@ if (isMobileOrTablet === null) return null; // 或者显示 loading
     } catch (err) {
       console.error("删除失败:", err);
     }
-    setTeams(prev => prev.filter(t => t.id !== teamId));
+    setTeams(prev => {
+      const filtered = prev.filter(t => t.id !== teamId);
+      // 如果删除的是当前选中的队伍
+      if (selectedTeamId === teamId) {
+        setSelectedTeamId(filtered[0]?.id || '');
+      }
+      return filtered;
+    });
+
     if (selectedTeamId === teamId && teams.length > 1) {
       const remainingTeams = teams.filter(t => t.id !== teamId);
       setSelectedTeamId(remainingTeams[0]?.id || '');
@@ -277,8 +290,9 @@ if (isMobileOrTablet === null) return null; // 或者显示 loading
         </Select>
       </div>}
 
+
       {/* 左侧小队列表 */}
-      <div className="relative flex">
+      <div className="relative flex flex-col">
         {/* 左侧折叠按钮 */}
         <Button
           size="sm"
@@ -290,22 +304,62 @@ if (isMobileOrTablet === null) return null; // 或者显示 loading
         </Button>
 
         {/* 左侧面板 */}
-        <div className={`transition-all duration-300 ease-in-out overflow-y-auto min-h-0 ${collapsedLeft ? 'w-0 opacity-0' : 'w-80 opacity-100'}`}>
-          <TeamList
-            teams={teams}
-            selectedTeamId={selectedTeamId}
-            onSelectTeam={setSelectedTeamId}
-            onAddTeam={addTeam}
-            onDeleteTeam={deleteTeam}
-            onUpdateTeam={updateTeam}
-            onCopyTeam={copyTeam}
-            translations={t}
-            factionNames={factionNames}
-            lang={lang}
-          />
-        </div>
-        {!collapsedLeft && <div className="w-px bg-border" />}
+        <AnimatePresence>
+          {isMobileOrTablet ? (
+            !collapsedLeft && (
+              <motion.div
+                className="fixed inset-0 z-50 bg-black/50 flex justify-start"
+                onClick={() => setCollapsedLeft(true)}
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                exit={{ opacity: 0 }}
+              >
+                <motion.div
+                  className="bg-background shadow-lg w-80 h-[70vh] flex flex-col"
+                  onClick={(e) => e.stopPropagation()}
+                  initial={{ x: "-100%" }}
+                  animate={{ x: 0 }}
+                  exit={{ x: "-100%" }}
+                  transition={{ type: "tween", duration: 0.3 }}
+                >
+                  {/* 滚动容器 */}
+                  <div className="flex-1 overflow-y-auto p-4" style={{ WebkitOverflowScrolling: 'touch' }}>
+                    <TeamList
+                      teams={teams}
+                      selectedTeamId={selectedTeamId}
+                      onSelectTeam={setSelectedTeamId}
+                      onAddTeam={addTeam}
+                      onDeleteTeam={deleteTeam}
+                      onUpdateTeam={updateTeam}
+                      onCopyTeam={copyTeam}
+                      translations={t}
+                      factionNames={factionNames}
+                      lang={lang}
+                    />
+                  </div>
+                </motion.div>
+              </motion.div>
+            )
+          ) : (
+            <div className={`transition-all duration-300 ease-in-out overflow-y-auto min-h-0 ${collapsedLeft ? 'w-0 opacity-0' : 'w-80 opacity-100'}`}>
+              <TeamList
+                teams={teams}
+                selectedTeamId={selectedTeamId}
+                onSelectTeam={setSelectedTeamId}
+                onAddTeam={addTeam}
+                onDeleteTeam={deleteTeam}
+                onUpdateTeam={updateTeam}
+                onCopyTeam={copyTeam}
+                translations={t}
+                factionNames={factionNames}
+                lang={lang}
+              />
+            </div>
+          )}
+        </AnimatePresence>
+
       </div>
+
 
       {/* 中间机体列表 */}
       <div className="flex-1 border-r border-border min-h-0 min-w-0 flex flex-col overflow-hidden">
@@ -328,177 +382,185 @@ if (isMobileOrTablet === null) return null; // 或者显示 loading
       </div>
 
       {/* 右侧面板 */}
-      {/* 右侧面板 */}
-      {isMobileOrTablet ? (
-        !collapsedRight && (
-          <div
-            className="fixed inset-0 z-50 bg-black/50 flex justify-end"
-            onClick={() => setCollapsedRight(true)}
-          >
-            <div
-              className="bg-background shadow-lg w-80 h-[70vh] flex flex-col"
-              onClick={(e) => e.stopPropagation()}
+      <AnimatePresence>
+        {isMobileOrTablet ? (
+          !collapsedRight && (
+            <motion.div
+              className="fixed inset-0 z-50 bg-black/50 flex justify-end"
+              onClick={() => setCollapsedRight(true)}
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
             >
-              {/* 滚动容器 */}
-              <div className="flex-1 overflow-y-auto p-4" style={{ WebkitOverflowScrolling: 'touch' }}>
-                <PartSelector
-                  viewMode={viewMode}
-                  team={selectedTeam}
-                  selectedPartType={selectedPartType}
-                  parts={factionParts}
-                  drones={factionDrones}
-                  pilots={factionPilots}
-                  translations={t}
-                  partTypeNames={typePartNames}
-                  imgsrc={imageSrc}
-                  tabsrc={tabSrc}
-                  onSelectPart={(part) => {
-                    if (selectedTeam && selectedMechId) {
-                      const updatedMechs = selectedTeam.mechs.map(mech => {
-                        if (mech.id === selectedMechId) {
-                          return {
-                            ...mech,
-                            parts: { ...mech.parts, [selectedPartType]: part }
-                          };
-                        }
-                        return mech;
-                      });
+              <motion.div
+                className="bg-background shadow-lg w-80 h-[70vh] flex flex-col"
+                onClick={(e) => e.stopPropagation()}
+                initial={{ x: "100%" }}
+                animate={{ x: 0 }}
+                exit={{ x: "100%" }}
+                transition={{ type: "tween", duration: 0.3 }}
+              >
+                {/* 滚动容器 */}
+                <div className="flex-1 overflow-y-auto p-4" style={{ WebkitOverflowScrolling: 'touch' }}>
+                  <PartSelector
+                    viewMode={viewMode}
+                    team={selectedTeam}
+                    selectedPartType={selectedPartType}
+                    parts={factionParts}
+                    drones={factionDrones}
+                    pilots={factionPilots}
+                    translations={t}
+                    partTypeNames={typePartNames}
+                    imgsrc={imageSrc}
+                    tabsrc={tabSrc}
+                    onSelectPart={(part) => {
+                      if (selectedTeam && selectedMechId) {
+                        const updatedMechs = selectedTeam.mechs.map(mech => {
+                          if (mech.id === selectedMechId) {
+                            return {
+                              ...mech,
+                              parts: { ...mech.parts, [selectedPartType]: part }
+                            };
+                          }
+                          return mech;
+                        });
 
-                      const totalScore = updatedMechs.reduce((sum, mech) =>
-                        sum + Object.values(mech.parts).reduce((partSum, part) => partSum + (part?.score || 0), 0)
-                        + (mech.pilot?.score || 0), 0
-                      );
+                        const totalScore = updatedMechs.reduce((sum, mech) =>
+                          sum + Object.values(mech.parts).reduce((partSum, part) => partSum + (part?.score || 0), 0)
+                          + (mech.pilot?.score || 0), 0
+                        );
 
-                      updateTeam(selectedTeam.id, {
-                        mechs: updatedMechs,
-                        totalScore: totalScore + selectedTeam.drones.reduce((sum, drone) => sum + drone.score, 0)
-                      });
-                    }
-                    setCollapsedRight(true);
-                  }}
-                  onSelectDrone={(drone) => {
-                    if (selectedTeam) {
-                      const updatedDrones = [...selectedTeam.drones, drone];
-                      const droneScore = updatedDrones.reduce((sum, d) => sum + d.score, 0);
-                      const mechScore = selectedTeam.mechs.reduce((sum, mech) =>
-                        sum + Object.values(mech.parts).reduce((partSum, part) => partSum + (part?.score || 0), 0)
-                        + (mech.pilot?.score || 0), 0
-                      );
+                        updateTeam(selectedTeam.id, {
+                          mechs: updatedMechs,
+                          totalScore: totalScore + selectedTeam.drones.reduce((sum, drone) => sum + drone.score, 0)
+                        });
+                      }
+                      setCollapsedRight(true);
+                    }}
+                    onSelectDrone={(drone) => {
+                      if (selectedTeam) {
+                        const updatedDrones = [...selectedTeam.drones, drone];
+                        const droneScore = updatedDrones.reduce((sum, d) => sum + d.score, 0);
+                        const mechScore = selectedTeam.mechs.reduce((sum, mech) =>
+                          sum + Object.values(mech.parts).reduce((partSum, part) => partSum + (part?.score || 0), 0)
+                          + (mech.pilot?.score || 0), 0
+                        );
 
-                      updateTeam(selectedTeam.id, {
-                        drones: updatedDrones,
-                        totalScore: mechScore + droneScore,
-                        largeDroneCount: updatedDrones.filter(d => d.type === 'large').length,
-                        mediumDroneCount: updatedDrones.filter(d => d.type === 'medium').length,
-                        smallDroneCount: updatedDrones.filter(d => d.type === 'small').length,
-                      });
-                    }
-                    setCollapsedRight(true);
-                  }}
-                  onSelectPilot={(pilot) => {
-                    if (selectedTeam && selectedMechId) {
-                      const updatedMechs = selectedTeam.mechs.map(mech => {
-                        if (mech.id === selectedMechId) {
-                          return { ...mech, pilot };
-                        }
-                        return mech;
-                      });
+                        updateTeam(selectedTeam.id, {
+                          drones: updatedDrones,
+                          totalScore: mechScore + droneScore,
+                          largeDroneCount: updatedDrones.filter(d => d.type === 'large').length,
+                          mediumDroneCount: updatedDrones.filter(d => d.type === 'medium').length,
+                          smallDroneCount: updatedDrones.filter(d => d.type === 'small').length,
+                        });
+                      }
+                      setCollapsedRight(true);
+                    }}
+                    onSelectPilot={(pilot) => {
+                      if (selectedTeam && selectedMechId) {
+                        const updatedMechs = selectedTeam.mechs.map(mech => {
+                          if (mech.id === selectedMechId) {
+                            return { ...mech, pilot };
+                          }
+                          return mech;
+                        });
 
-                      const mechScore = updatedMechs.reduce((sum, mech) =>
-                        sum + Object.values(mech.parts).reduce((partSum, part) => partSum + (part?.score || 0), 0)
-                        + (mech.pilot?.score || 0), 0
-                      );
-                      const droneScore = selectedTeam.drones.reduce((sum, drone) => sum + drone.score, 0);
+                        const mechScore = updatedMechs.reduce((sum, mech) =>
+                          sum + Object.values(mech.parts).reduce((partSum, part) => partSum + (part?.score || 0), 0)
+                          + (mech.pilot?.score || 0), 0
+                        );
+                        const droneScore = selectedTeam.drones.reduce((sum, drone) => sum + drone.score, 0);
 
-                      updateTeam(selectedTeam.id, {
-                        mechs: updatedMechs,
-                        totalScore: mechScore + droneScore
-                      });
-                    }
-                    setCollapsedRight(true);
-                  }}
-                />
-              </div>
-            </div>
-          </div>
-        )
-      ) : <div className="w-80 min-h-0 flex flex-col">
-        <PartSelector
-          viewMode={viewMode}
-          team={selectedTeam}
-          selectedPartType={selectedPartType}
-          parts={factionParts}
-          drones={factionDrones}
-          pilots={factionPilots}
-          translations={t}
-          partTypeNames={typePartNames}
-          imgsrc={imageSrc}
-          tabsrc={tabSrc}
-          onSelectPart={(part) => {
-            if (selectedTeam && selectedMechId) {
-              const updatedMechs = selectedTeam.mechs.map(mech => {
-                if (mech.id === selectedMechId) {
-                  return {
-                    ...mech,
-                    parts: { ...mech.parts, [selectedPartType]: part }
-                  };
-                }
-                return mech;
-              });
+                        updateTeam(selectedTeam.id, {
+                          mechs: updatedMechs,
+                          totalScore: mechScore + droneScore
+                        });
+                      }
+                      setCollapsedRight(true);
+                    }}
+                  />
+                </div>
+              </motion.div>
+            </motion.div>
 
-              const totalScore = updatedMechs.reduce((sum, mech) =>
-                sum + Object.values(mech.parts).reduce((partSum, part) => partSum + (part?.score || 0), 0)
-                + (mech.pilot?.score || 0), 0
-              );
+          )
+        ) : <div className="w-80 min-h-0 flex flex-col">
+          <PartSelector
+            viewMode={viewMode}
+            team={selectedTeam}
+            selectedPartType={selectedPartType}
+            parts={factionParts}
+            drones={factionDrones}
+            pilots={factionPilots}
+            translations={t}
+            partTypeNames={typePartNames}
+            imgsrc={imageSrc}
+            tabsrc={tabSrc}
+            onSelectPart={(part) => {
+              if (selectedTeam && selectedMechId) {
+                const updatedMechs = selectedTeam.mechs.map(mech => {
+                  if (mech.id === selectedMechId) {
+                    return {
+                      ...mech,
+                      parts: { ...mech.parts, [selectedPartType]: part }
+                    };
+                  }
+                  return mech;
+                });
 
-              updateTeam(selectedTeam.id, {
-                mechs: updatedMechs,
-                totalScore: totalScore + selectedTeam.drones.reduce((sum, drone) => sum + drone.score, 0)
-              });
-            }
-          }}
-          onSelectDrone={(drone) => {
-            if (selectedTeam) {
-              const updatedDrones = [...selectedTeam.drones, drone];
-              const droneScore = updatedDrones.reduce((sum, d) => sum + d.score, 0);
-              const mechScore = selectedTeam.mechs.reduce((sum, mech) =>
-                sum + Object.values(mech.parts).reduce((partSum, part) => partSum + (part?.score || 0), 0)
-                + (mech.pilot?.score || 0), 0
-              );
+                const totalScore = updatedMechs.reduce((sum, mech) =>
+                  sum + Object.values(mech.parts).reduce((partSum, part) => partSum + (part?.score || 0), 0)
+                  + (mech.pilot?.score || 0), 0
+                );
 
-              updateTeam(selectedTeam.id, {
-                drones: updatedDrones,
-                totalScore: mechScore + droneScore,
-                largeDroneCount: updatedDrones.filter(d => d.type === 'large').length,
-                mediumDroneCount: updatedDrones.filter(d => d.type === 'medium').length,
-                smallDroneCount: updatedDrones.filter(d => d.type === 'small').length,
-              });
-            }
-          }}
-          onSelectPilot={(pilot) => {
-            if (selectedTeam && selectedMechId) {
-              const updatedMechs = selectedTeam.mechs.map(mech => {
-                if (mech.id === selectedMechId) {
-                  return { ...mech, pilot };
-                }
-                return mech;
-              });
+                updateTeam(selectedTeam.id, {
+                  mechs: updatedMechs,
+                  totalScore: totalScore + selectedTeam.drones.reduce((sum, drone) => sum + drone.score, 0)
+                });
+              }
+            }}
+            onSelectDrone={(drone) => {
+              if (selectedTeam) {
+                const updatedDrones = [...selectedTeam.drones, drone];
+                const droneScore = updatedDrones.reduce((sum, d) => sum + d.score, 0);
+                const mechScore = selectedTeam.mechs.reduce((sum, mech) =>
+                  sum + Object.values(mech.parts).reduce((partSum, part) => partSum + (part?.score || 0), 0)
+                  + (mech.pilot?.score || 0), 0
+                );
 
-              const mechScore = updatedMechs.reduce((sum, mech) =>
-                sum + Object.values(mech.parts).reduce((partSum, part) => partSum + (part?.score || 0), 0)
-                + (mech.pilot?.score || 0), 0
-              );
-              const droneScore = selectedTeam.drones.reduce((sum, drone) => sum + drone.score, 0);
+                updateTeam(selectedTeam.id, {
+                  drones: updatedDrones,
+                  totalScore: mechScore + droneScore,
+                  largeDroneCount: updatedDrones.filter(d => d.type === 'large').length,
+                  mediumDroneCount: updatedDrones.filter(d => d.type === 'medium').length,
+                  smallDroneCount: updatedDrones.filter(d => d.type === 'small').length,
+                });
+              }
+            }}
+            onSelectPilot={(pilot) => {
+              if (selectedTeam && selectedMechId) {
+                const updatedMechs = selectedTeam.mechs.map(mech => {
+                  if (mech.id === selectedMechId) {
+                    return { ...mech, pilot };
+                  }
+                  return mech;
+                });
 
-              updateTeam(selectedTeam.id, {
-                mechs: updatedMechs,
-                totalScore: mechScore + droneScore
-              });
-            }
-          }}
-        />
-      </div>}
+                const mechScore = updatedMechs.reduce((sum, mech) =>
+                  sum + Object.values(mech.parts).reduce((partSum, part) => partSum + (part?.score || 0), 0)
+                  + (mech.pilot?.score || 0), 0
+                );
+                const droneScore = selectedTeam.drones.reduce((sum, drone) => sum + drone.score, 0);
 
+                updateTeam(selectedTeam.id, {
+                  mechs: updatedMechs,
+                  totalScore: mechScore + droneScore
+                });
+              }
+            }}
+          />
+        </div>}
+      </AnimatePresence>
 
 
 

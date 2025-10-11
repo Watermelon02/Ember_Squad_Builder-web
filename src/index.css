@@ -4169,6 +4169,23 @@ html {
   font-size: var(--font-size);
 }
 
+/* 全局字体生效 */
+html, body, #root {
+  font-family: 'Orbitron',  'Noto Sans Mono SC', 'Kosugi Maru', sans-serif;
+  background-color: #111111;
+
+  margin: 0;
+  padding: 0;
+}
+
+
+@keyframes rotateBg {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+
+
 @property --tw-translate-x {
   syntax: "*";
   inherits: false;

@@ -2559,7 +2559,7 @@ export const unDrones: Drone[] = [
     "parray": 0,
     "dodge": 0,
     "electronic": 2,
-    "type": "small",
+    "type": "medium",
     "move": null,
     "stance": "offensive",
     "description": ""
@@ -2573,7 +2573,7 @@ export const unDrones: Drone[] = [
     "parray": 0,
     "dodge": 0,
     "electronic": 2,
-    "type": "small",
+    "type": "medium",
     "move": null,
     "stance": "offensive",
     "description": ""
@@ -2587,7 +2587,7 @@ export const unDrones: Drone[] = [
     "parray": 0,
     "dodge": 5,
     "electronic": 2,
-    "type": "small",
+    "type": "medium",
     "move": null,
     "stance": "offensive",
     "description": ""
@@ -3268,16 +3268,86 @@ export const unPilots: Pilot[] = [
   }
 ];
 
-export const pdLeftHand: Part[] = [{}
+export const pdTorso: Part[] = [
+  {
+    "id": "287",
+    "name": "ACE-001 White Dwarf Core Part",
+    "type": "torso",
+    "score": 72,
+    "structure": 3,
+    "armor": 5,
+    "parray": 0,
+    "dodge": 1,
+    "electronic": 3,
+    "description": "",
+    "projectile": [288],
+    "isPD": true
+  }
 ];
 
-export const pdRightHand: Part[] = [{}
+export const pdChasis: Part[] = [
+  {
+    "id": "289",
+    "name": "ACE-001 White Chassis Part",
+    "type": "chasis",
+    "score": 24,
+    "structure": 0,
+    "armor": 4,
+    "parray": 0,
+    "dodge": 3,
+    "electronic": 0,
+    "description": "",
+    "isPD": true
+  }
 ];
-export const pdTorso: Part[] = [{}
+
+export const pdLeftHand: Part[] = [{
+  "id": "291",
+  "name": "ACE-001 White Left Arm Part",
+  "type": "leftHand",
+  "score": 57,
+  "structure": 0,
+  "armor": 4,
+  "parray": 0,
+  "dodge": 0,
+  "electronic": 0,
+  "description": "",
+  "isPD": true
+}
 ];
-export const pdChasis: Part[] = [{}
+
+export const pdRightHand: Part[] = [
+
+  {
+    "id": "290",
+    "name": "ACE-001 White Right Arm Part",
+    "type": "rightHand",
+    "score": 72,
+    "structure": 0,
+    "armor": 4,
+    "parray": 1,
+    "dodge": 0,
+    "electronic": 0,
+    "description": "",
+    "isPD": true
+  }
 ];
-export const pdBackpack: Part[] = [{}
+
+export const pdBackpack: Part[] = [
+  {
+    "id": "292",
+    "name": "ACE-001 White Left Bit Part",
+    "type": "backpack",
+    "score": 60,
+    "structure": 0,
+    "armor": 3,
+    "parray": 0,
+    "dodge": 1,
+    "electronic": 2,
+    "description": "",
+    "projectile": ["293", "294", "295"],
+    "isPD": true
+  }
 ];
 
 export const pdPilot: Pilot[] = [{}

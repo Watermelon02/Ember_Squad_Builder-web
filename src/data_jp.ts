@@ -2465,7 +2465,7 @@ export const unDrones: Drone[] = [
     "parray": 0,
     "dodge": 0,
     "electronic": 2,
-    "type": "small",
+    "type": "medium",
     "move": 0,
     "stance": "offensive",
     "description": ""
@@ -2479,7 +2479,7 @@ export const unDrones: Drone[] = [
     "parray": 0,
     "dodge": 0,
     "electronic": 2,
-    "type": "small",
+    "type": "medium",
     "move": 0,
     "stance": "offensive",
     "description": ""
@@ -2493,7 +2493,7 @@ export const unDrones: Drone[] = [
     "parray": 0,
     "dodge": 5,
     "electronic": 2,
-    "type": "small",
+    "type": "medium",
     "move": 0,
     "stance": "offensive",
     "description": ""
@@ -2507,7 +2507,7 @@ export const unDrones: Drone[] = [
     "parray": 0,
     "dodge": 5,
     "electronic": 2,
-    "type": "small",
+    "type": "medium",
     "move": 0,
     "stance": "offensive",
     "description": ""
