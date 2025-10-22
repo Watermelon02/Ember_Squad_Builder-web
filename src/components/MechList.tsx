@@ -4,7 +4,7 @@ import { Card } from './ui/card';
 import { Input } from './ui/input';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from './ui/tabs';
 import { Plus, Trash2, Copy, ZoomIn, Rocket, Image, Table2, Loader2, Repeat } from 'lucide-react';
-import { Team, Mech, Part, PART_TYPE_NAMES, } from '../types';
+import { Team, Mech, Part, PART_TYPE_NAMES, calculateTotalScore, } from '../types';
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger, DialogClose } from './ui/dialog';
 import { unBackpack } from '../data';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from './ui/select';
@@ -19,7 +19,7 @@ interface MechListProps {
   onSelectMech: (mechId: string) => void;
   onSelectPartType: (partType: string) => void;
   onUpdateTeam: (teamId: string, updates: Partial<Team>) => void;
-  onSetViewMode: (mode: 'parts' | 'drones' | 'pilots') => void;
+  onSetViewMode: (mode: 'parts' | 'drones' | 'pilots' | 'tacticCards') => void;
   translations: any;
   partTypeNames: any;
   imgsrc: string, tabsrc: string,
@@ -41,6 +41,7 @@ export function MechList({
   const [editingMechId, setEditingMechId] = useState<string>('');
   // 用一个对象记录每个无人机的页码
   const [dronePages, setDronePages] = React.useState<{ [index: number]: number }>({});
+  const [tacticCardPages, settacticCardPages] = React.useState<{ [index: number]: number }>({});
   const pageSize = 4; // 每页展示几个背包
   const [isExporting, setIsExporting] = useState(false);
   const setDronePage = (index: number, newPage: number) => {
@@ -100,16 +101,37 @@ export function MechList({
     if (team.drones.length > 0) {
       clipboardContent += `┗┳ [${translations.t70}：${team.drones.reduce((sum, drone) => sum + drone.score + (drone.backpack?.score || 0), 0)}${translations.t71}]\n`;
       team.drones.forEach((drone) => {
-        if (droneIndex == team.drones.length - 1) {
-          clipboardContent += `　┗ ${drone.name}\n`;
+        if (team.tacticCards && team.tacticCards.length > 0) {
+          if (droneIndex == team.drones.length - 1) {
+            clipboardContent += `┃┗ ${drone.name}\n`;
+          } else {
+            clipboardContent += `┃┣ ${drone.name}\n`;
+          }
         } else {
-          clipboardContent += `　┣ ${drone.name}\n`;
+          if (droneIndex == team.drones.length - 1) {
+            clipboardContent += `　┗ ${drone.name}\n`;
+          } else {
+            clipboardContent += `　┣ ${drone.name}\n`;
+          }
         }
 
         if (drone.backpack) {
           clipboardContent += `    ┃  ┗ ${drone.backpack.name}\n`;
         }
         droneIndex++;
+      });
+    }
+
+    let tacticCardIndex = 0;
+    if (team.tacticCards && team.tacticCards.length > 0) {
+      clipboardContent += `┗┳ [${translations.t90}：${team.tacticCards.reduce((sum, tacticCard) => sum + tacticCard.score + (tacticCard.backpack?.score || 0), 0)}${translations.t71}]\n`;
+      team.tacticCards.forEach((tacticCard) => {
+        if (tacticCardIndex == team.tacticCards.length - 1) {
+          clipboardContent += `　┗ ${tacticCard.name}\n`;
+        } else {
+          clipboardContent += `　┣ ${tacticCard.name}\n`;
+        }
+        tacticCardIndex++;
       });
     }
 
@@ -191,32 +213,32 @@ export function MechList({
   }
 
   function createSoftSparseTexture(ctx: CanvasRenderingContext2D, spacing = 160, dotSize = 2, faction: string = "RDL"): CanvasPattern {
-      const pCanvas = document.createElement("canvas");
-      pCanvas.width = spacing;
-      pCanvas.height = spacing;
-      const pctx = pCanvas.getContext("2d")!;
+    const pCanvas = document.createElement("canvas");
+    pCanvas.width = spacing;
+    pCanvas.height = spacing;
+    const pctx = pCanvas.getContext("2d")!;
 
-      // 柔和颜色
-      const color = faction === "RDL" ? "rgba(255,255,255,0.1)" : "rgba(0,0,0,0.1)";
-      pctx.fillStyle = color;
+    // 柔和颜色
+    const color = faction === "RDL" ? "rgba(255,255,255,0.1)" : "rgba(0,0,0,0.1)";
+    pctx.fillStyle = color;
 
-      // 四角 + 中心点，间距更大
-      const positions = [
-        [spacing * 0.25, spacing * 0.25],
-        [spacing * 0.75, spacing * 0.25],
-        [spacing * 0.25, spacing * 0.75],
-        [spacing * 0.75, spacing * 0.75],
-        [spacing * 0.5, spacing * 0.5]
-      ];
+    // 四角 + 中心点，间距更大
+    const positions = [
+      [spacing * 0.25, spacing * 0.25],
+      [spacing * 0.75, spacing * 0.25],
+      [spacing * 0.25, spacing * 0.75],
+      [spacing * 0.75, spacing * 0.75],
+      [spacing * 0.5, spacing * 0.5]
+    ];
 
-      for (const [x, y] of positions) {
-        pctx.beginPath();
-        pctx.arc(x, y, dotSize, 0, Math.PI * 2);
-        pctx.fill();
-      }
-
-      return ctx.createPattern(pCanvas, "repeat")!;
+    for (const [x, y] of positions) {
+      pctx.beginPath();
+      pctx.arc(x, y, dotSize, 0, Math.PI * 2);
+      pctx.fill();
     }
+
+    return ctx.createPattern(pCanvas, "repeat")!;
+  }
 
   const exportTeamImage = async (team: Team, lang: string) => {
     sendGtagEvent("导出图片", "次数", "1");
@@ -231,6 +253,7 @@ export function MechList({
     const radius = 15;
     const targetHeight = 400;
     const dronesPerRow = 3;
+    const tacticCardsPerRow = 6;
 
     const canvas = document.createElement("canvas");
     const ctx = canvas.getContext("2d");
@@ -289,6 +312,14 @@ export function MechList({
       })
     );
 
+    // 并行加载战术卡
+    const tacticImages = await Promise.all(
+      team.tacticCards.map(async tacticCard => {
+        const img = await getImage(`${localImgsrc}/${tacticCard.id}.png`);
+        return { tacticCard, img };
+      })
+    );
+
     // Step 1: 收集所有唯一 projectile ID
     const uniqueProjectileIds = new Set<string>();
 
@@ -304,7 +335,9 @@ export function MechList({
       partOrder.forEach((p) => {
         const projectiles = mech.parts[p]?.projectile; // string[] | undefined
         if (projectiles === undefined) return;
-
+        //排除白矮星
+        if (projectiles[0] == '288') return;
+        console.log(projectiles[0])
         projectiles.forEach((projId) => uniqueProjectileIds.add(projId));
       });
     });
@@ -330,8 +363,9 @@ export function MechList({
     for (const { imgs } of mechImages) y += 55 + targetHeight + spacing + 40;
     const totalDroneRows = Math.ceil(team.drones.length / dronesPerRow);
     const totalProjectileRows = Math.ceil(projectileImages.length / dronesPerRow);
+    const totaltacticCardsRows = Math.ceil(tacticImages.length / tacticCardsPerRow);
     const droneRowHeight = targetHeight + 30 + spacing;
-    const canvasHeight = y + (totalDroneRows + totalProjectileRows) * droneRowHeight + padding;
+    const canvasHeight = y + (totalDroneRows + totalProjectileRows + totaltacticCardsRows) * droneRowHeight + padding;
     canvas.width = 1741 + padding * 2;
     canvas.height = canvasHeight;
 
@@ -341,7 +375,7 @@ export function MechList({
     const gradient = ctx.createLinearGradient(0, 0, 0, height); // 从顶部到底部
 
     if (team.faction === "RDL") {
-      gradient.addColorStop(0, `rgba(229,85,98,1)`);
+      gradient.addColorStop(0, `rgba(237,114,124,1)`);
       gradient.addColorStop(0.5, `rgba(211,169,158,1)`);
       gradient.addColorStop(1, `rgba(255,255,255,1)`);
     } else {
@@ -361,7 +395,7 @@ export function MechList({
     ctx.fillRect(0, 0, width, height);
     ctx.restore();
 
-    
+
 
     // 使用
     ctx.fillStyle = createSoftSparseTexture(ctx, 160, 2, team.faction);
@@ -401,7 +435,7 @@ export function MechList({
 
       ctx.save();
       const alpha = 0.15 + Math.random() * 0.2;
-      const r = boxWidth ; 
+      const r = boxWidth;
       const centerX = x + Math.random() * boxWidth;
       const centerY = y + Math.random() * boxHeight;
 
@@ -562,70 +596,138 @@ export function MechList({
     }
 
     // 计算无人机绘制结束后的最大Y值
-    let lastDroneBottom = droneY + targetHeight + 30 + spacing;
+    let projectileY = droneY + targetHeight + 30 + spacing;
 
     // 绘制抛射物
     for (let i = 0; i < projectileImages.length; i++) {
+      const img = projectileImages[i];
+      const projWidth = img.width * (targetHeight / img.height);
+      const col = i % dronesPerRow;
+      const row = Math.floor(i / dronesPerRow);
 
-      for (let j = 0; j < projectileImages.length; j++) {
-        const img = projectileImages[j];
-        const projWidth = img.width * (targetHeight / img.height);
-        const index = i * projectileImages.length + j;
-        const col = index % dronesPerRow;
-        const row = Math.floor(index / dronesPerRow);
+      const projX = padding + col * (projWidth + spacing + 20);
+      const projY = projectileY + row * (targetHeight + 30 + spacing);
 
-        const projX = padding + col * (projWidth + spacing + 20);
-        // 🚀 关键：让抛射物从无人机部分的底部往下偏移一行
-        const projY = lastDroneBottom + row * (targetHeight + 30 + spacing);
+      // 背景渐变
+      const alpha = 0.3;
+      const gradientRadius = Math.max(projWidth, targetHeight) * (0.6 + Math.random() * 0.2);
+      const centerX = projX + (projWidth + spacing) * (0.3 + Math.random() * 0.4);
+      const centerY = projY + (targetHeight + 30) * (0.3 + Math.random() * 0.4);
 
-        // 背景渐变
-        const alpha = 0.3;
-        const gradientRadius = Math.max(projWidth, targetHeight) * (0.6 + Math.random() * 0.2);
-        const centerX = projX + (projWidth + spacing) * (0.3 + Math.random() * 0.4);
-        const centerY = projY + (targetHeight + 30) * (0.3 + Math.random() * 0.4);
+      const gradient = ctx.createRadialGradient(centerX, centerY, 0, centerX, centerY, gradientRadius);
 
-        const gradient = ctx.createRadialGradient(centerX, centerY, 0, centerX, centerY, gradientRadius);
-
-        if (team.faction === "RDL") {
-          gradient.addColorStop(0, `rgba(229,85,98,${alpha})`);
-          gradient.addColorStop(1, `rgba(255,255,255,0)`);
-        } else {
-          gradient.addColorStop(0, `rgba(80,140,255,${alpha})`);
-          gradient.addColorStop(1, "rgba(80,140,255,0.1)");
-        }
-
-        // 背景 + 边框 + 投影绘制部分（保持原样）
-        ctx.save();
-        ctx.fillStyle = gradient;
-        ctx.beginPath();
-        ctx.roundRect(projX, projY, projWidth + spacing, targetHeight + 30, radius);
-        ctx.fill();
-        ctx.restore();
-
-        ctx.save();
-        ctx.globalAlpha = 0.25;
-        ctx.fillStyle = "#fff";
-        ctx.beginPath();
-        ctx.roundRect(projX, projY, projWidth + spacing, targetHeight + 30, radius);
-        ctx.fill();
-        ctx.restore();
-
-        ctx.save();
-        ctx.strokeStyle = "rgba(255,255,255,0.5)";
-        ctx.lineWidth = 2;
-        ctx.beginPath();
-        ctx.roundRect(projX, projY, projWidth + spacing, targetHeight + 30, radius);
-        ctx.stroke();
-        ctx.restore();
-
-        // 图片本体
-        ctx.save();
-        ctx.shadowColor = "rgba(0,0,0,0.2)";
-        ctx.shadowBlur = 6;
-        ctx.drawImage(img, projX + 10, projY + 35, projWidth, targetHeight);
-        ctx.restore();
+      if (team.faction === "RDL") {
+        gradient.addColorStop(0, `rgba(229,85,98,${alpha})`);
+        gradient.addColorStop(1, `rgba(255,255,255,0)`);
+      } else {
+        gradient.addColorStop(0, `rgba(80,140,255,${alpha})`);
+        gradient.addColorStop(1, "rgba(80,140,255,0.1)");
       }
+
+      // 绘制背景
+      ctx.save();
+      ctx.fillStyle = gradient;
+      ctx.beginPath();
+      ctx.roundRect(projX, projY, projWidth + spacing, targetHeight + 30, radius);
+      ctx.fill();
+      ctx.restore();
+
+      // 磨砂玻璃
+      ctx.save();
+      ctx.globalAlpha = 0.25;
+      ctx.fillStyle = "#fff";
+      ctx.beginPath();
+      ctx.roundRect(projX, projY, projWidth + spacing, targetHeight + 30, radius);
+      ctx.fill();
+      ctx.restore();
+
+      // 边框
+      ctx.save();
+      ctx.strokeStyle = "rgba(255,255,255,0.5)";
+      ctx.lineWidth = 2;
+      ctx.beginPath();
+      ctx.roundRect(projX, projY, projWidth + spacing, targetHeight + 30, radius);
+      ctx.stroke();
+      ctx.restore();
+
+      // 图片本体
+      ctx.save();
+      ctx.shadowColor = "rgba(0,0,0,0.2)";
+      ctx.shadowBlur = 6;
+      ctx.drawImage(img, projX + 10, projY + 35, projWidth, targetHeight);
+      ctx.restore();
     }
+
+    // 绘制战术卡
+    const tacticCardsStartY = projectileY + targetHeight + 30 + spacing; // 起始 Y
+    for (let i = 0; i < tacticImages.length; i++) {
+      const { tacticCard, img } = tacticImages[i];
+
+      const cardWidth = img.width * (targetHeight / img.height);
+      const col = i % tacticCardsPerRow;
+      const row = Math.floor(i / tacticCardsPerRow);
+
+      const cardX = padding + col * (cardWidth + spacing + 20);
+      const cardY = tacticCardsStartY + row * (targetHeight + 30 + spacing); // 固定行高
+
+      // 背景
+      const alpha = 0.3;
+      const gradientRadius = Math.max(cardWidth, targetHeight) * (0.6 + Math.random() * 0.2);
+      const centerX = cardX + (cardWidth + spacing) * (0.3 + Math.random() * 0.4);
+      const centerY = cardY + (targetHeight + 30) * (0.3 + Math.random() * 0.4);
+
+      const gradient = ctx.createRadialGradient(centerX, centerY, 0, centerX, centerY, gradientRadius);
+      if (team.faction === "RDL") {
+        gradient.addColorStop(0, `rgba(229,85,98,${alpha})`);
+        gradient.addColorStop(1, `rgba(255,255,255,0)`);
+      } else {
+        gradient.addColorStop(0, `rgba(80,140,255,${alpha})`);
+        gradient.addColorStop(1, "rgba(80,140,255,0.1)");
+      }
+
+      ctx.save();
+      ctx.fillStyle = gradient;
+      ctx.beginPath();
+      ctx.roundRect(cardX, cardY, cardWidth + spacing, targetHeight + 30, radius);
+      ctx.fill();
+      ctx.restore();
+
+      // 磨砂玻璃
+      ctx.save();
+      ctx.globalAlpha = 0.25;
+      ctx.fillStyle = "#fff";
+      ctx.beginPath();
+      ctx.roundRect(cardX, cardY, cardWidth + spacing, targetHeight + 30, radius);
+      ctx.fill();
+      ctx.restore();
+
+      // 边框
+      ctx.save();
+      ctx.strokeStyle = "rgba(255,255,255,0.5)";
+      ctx.lineWidth = 2;
+      ctx.beginPath();
+      ctx.roundRect(cardX, cardY, cardWidth + spacing, targetHeight + 30, radius);
+      ctx.stroke();
+      ctx.restore();
+
+      // 分数文本
+      ctx.save();
+      setGlowText(ctx, 36, "#ffffff");
+      drawMixedText(ctx, `${translations.t16}: ${tacticCard.score || 0}`, cardX + 20, cardY + 30, 24, lang);
+      ctx.restore();
+
+      // 图片本体
+      ctx.save();
+      ctx.shadowColor = "rgba(0,0,0,0.2)";
+      ctx.shadowBlur = 6;
+      ctx.drawImage(img, cardX + 10, cardY + 35, cardWidth, targetHeight);
+      ctx.restore();
+    }
+
+
+
+
+
 
 
 
@@ -679,13 +781,7 @@ export function MechList({
     });
 
     // 更新机甲的总分数
-    const totalScore = updatedMechs.reduce(
-      (sum, mech) =>
-        sum +
-        Object.values(mech.parts).reduce((partSum, part) => partSum + (part?.score || 0), 0) +
-        (mech.pilot?.score || 0),
-      0
-    ) + team.drones.reduce((sum, drone) => sum + drone.score, 0);
+    const totalScore = calculateTotalScore(team.drones, team.tacticCards, updatedMechs);
 
     onUpdateTeam(team.id, { mechs: updatedMechs, totalScore });
   };
@@ -701,14 +797,7 @@ export function MechList({
   const deleteMech = (mechId: string) => {
     if (!team) return;
     const updatedMechs = team.mechs.filter((mech) => mech.id !== mechId);
-    const totalScore =
-      updatedMechs.reduce(
-        (sum, mech) =>
-          sum +
-          Object.values(mech.parts).reduce((partSum, part) => partSum + (part?.score || 0), 0) +
-          (mech.pilot?.score || 0),
-        0
-      ) + team.drones.reduce((sum, drone) => sum + drone.score, 0);
+    const totalScore = calculateTotalScore(team.drones, team.tacticCards, updatedMechs);
 
     onUpdateTeam(team.id, { mechs: updatedMechs, mechCount: updatedMechs.length, totalScore });
     if (selectedMechId === mechId) onSelectMech('');
@@ -724,14 +813,7 @@ export function MechList({
     if (!team) return;
     const copiedMech: Mech = { ...mech, id: Date.now().toString(), name: `${mech.name} ${translations.t20}` };
     const updatedMechs = [...team.mechs, copiedMech];
-    const totalScore =
-      updatedMechs.reduce(
-        (sum, m) =>
-          sum +
-          Object.values(m.parts).reduce((partSum, part) => partSum + (part?.score || 0), 0) +
-          (m.pilot?.score || 0),
-        0
-      ) + team.drones.reduce((sum, drone) => sum + drone.score, 0);
+    const totalScore = calculateTotalScore(team.drones, team.tacticCards, updatedMechs);
 
     onUpdateTeam(team.id, { mechs: updatedMechs, mechCount: updatedMechs.length, totalScore });
   };
@@ -739,20 +821,22 @@ export function MechList({
   const deleteDrone = (droneIndex: number) => {
     if (!team) return;
     const updatedDrones = team.drones.filter((_, index) => index !== droneIndex);
-    const droneScore = updatedDrones.reduce((sum, d) => sum + d.score, 0);
-    const mechScore = team.mechs.reduce(
-      (sum, mech) =>
-        sum +
-        Object.values(mech.parts).reduce((partSum, part) => partSum + (part?.score || 0), 0) +
-        (mech.pilot?.score || 0),
-      0
-    );
+
     onUpdateTeam(team.id, {
       drones: updatedDrones,
-      totalScore: mechScore + droneScore,
+      totalScore: calculateTotalScore(updatedDrones, team.tacticCards, team.mechs),
       largeDroneCount: updatedDrones.filter((d) => d.type === 'large').length,
       mediumDroneCount: updatedDrones.filter((d) => d.type === 'medium').length,
       smallDroneCount: updatedDrones.filter((d) => d.type === 'small').length,
+    });
+  };
+
+  const deleteTacticCard = (id: number) => {
+    if (!team) return;
+    const updatedtacticCard = team.tacticCards?.filter((_, index) => index !== id);
+    onUpdateTeam(team.id, {
+      totalScore: calculateTotalScore(team.drones, updatedtacticCard, team.mechs),
+      tacticCards: updatedtacticCard
     });
   };
 
@@ -802,6 +886,13 @@ export function MechList({
                 className="flex-1 max-w-[150px]"
               >
                 {translations.t23} ({team.drones.length})
+              </TabsTrigger>
+              <TabsTrigger
+                value="tacticCards"
+                onClick={() => onSetViewMode('tacticCards')}
+                className="flex-1 max-w-[150px]"
+              >
+                {translations.t87} ({team.drones.length})
               </TabsTrigger>
             </TabsList>
 
@@ -920,12 +1011,15 @@ export function MechList({
           /* 桌面端：原来的两边布局 */
           <div className="p-4 border-b border-border flex items-center justify-between">
             {/* 左侧 Tabs */}
-            <TabsList className="grid grid-cols-2 gap-2">
+            <TabsList className="gap-2">
               <TabsTrigger value="mechs" onClick={() => onSetViewMode('parts')}>
                 {translations.t22} ({team.mechs.length})
               </TabsTrigger>
               <TabsTrigger value="drones" onClick={() => onSetViewMode('drones')}>
                 {translations.t23} ({team.drones.length})
+              </TabsTrigger>
+              <TabsTrigger value="tacticCards" onClick={() => onSetViewMode('tacticCards')}>
+                战术卡 ({team.tacticCards?.length})
               </TabsTrigger>
             </TabsList>
 
@@ -1008,9 +1102,9 @@ export function MechList({
 
 
 
-        
+
         {/* 机体列表 */}
-        <TabsContent value="mechs" className="flex-1 overflow-y-auto p-4 space-y-4">
+        <TabsContent value="mechs" className="flex-1 overflow-y-auto p-4 space-y-4 ">
           {team.mechs.map((mech) => (
             <Card
               key={mech.id}
@@ -1224,96 +1318,96 @@ export function MechList({
                               </Dialog>
 
                               {/* 底部的：抛弃 */}
-                          <div className="absolute bottom-0 right-0 flex flex-col-reverse items-end gap-0.5">
+                              <div className="absolute bottom-0 right-0 flex flex-col-reverse items-end gap-0.5">
 
-                            {!!mech.parts[partType]?.throwIndex && (
-                              <Dialog>
-                                <DialogTrigger asChild>
-                                  <Button
-                                    variant="secondary"
-                                    className="h-6 w-8 flex bottom-0 left-0 m-1 text-xs shadow-lg shadow-gray-500 rounded-lg bg-blue-500/80"
-                                  >
-                                    <Repeat className="w-4 h-4" />
-                                  </Button>
-                                </DialogTrigger>
-                                <DialogContent className="border-0 shadow-none bg-transparent p-0">
-                                  <img
-                                    src={`${imgsrc}/${mech.parts[partType]?.throwIndex}.png`}
-                                    alt={mech.parts[partType]!.name}
-                                    className="w-full h-auto object-contain rounded-lg"
-                                  />
-                                </DialogContent>
-                              </Dialog>
-
-                            )}
-
-                            {/* 上方的：发射 */}
-                            {Array.isArray(mech.parts[partType]?.projectile) &&
-                              mech.parts[partType]!.projectile!.length > 0 && (
-                                <Dialog>
-                                  <DialogTrigger asChild>
-                                    <Button
-                                      variant="secondary"
-                                      className="h-6 w-8 flex bottom-0 left-0 m-1 text-xs shadow-lg shadow-gray-500 rounded-lg bg-blue-500/80"
-                                    >
-                                      <Rocket className="w-4 h-4" />
-                                    </Button>
-                                  </DialogTrigger>
-
-                                  <DialogContent
-                                    style={{
-                                      border: 0,
-                                      boxShadow: "none",
-                                      background: "transparent",
-                                      padding: "24px",
-                                      maxHeight: "90vh", // 限制弹窗高度
-                                      overflowY: "auto", // 竖向滑动
-                                    }}
-                                  >
-                                    <DialogHeader>
-                                      <DialogTitle>
-                                        <VisuallyHidden>Projectile Images</VisuallyHidden>
-                                      </DialogTitle>
-                                      <DialogClose
-                                        className="absolute top-2 right-2 text-gray-500 hover:text-gray-900"
-                                        aria-label="Close"
+                                {!!mech.parts[partType]?.throwIndex && (
+                                  <Dialog>
+                                    <DialogTrigger asChild>
+                                      <Button
+                                        variant="secondary"
+                                        className="h-6 w-8 flex bottom-0 left-0 m-1 text-xs shadow-lg shadow-gray-500 rounded-lg bg-blue-500/80"
                                       >
-                                        ✕
-                                      </DialogClose>
-                                    </DialogHeader>
+                                        <Repeat className="w-4 h-4" />
+                                      </Button>
+                                    </DialogTrigger>
+                                    <DialogContent className="border-0 shadow-none bg-transparent p-0">
+                                      <img
+                                        src={`${imgsrc}/${mech.parts[partType]?.throwIndex}.png`}
+                                        alt={mech.parts[partType]!.name}
+                                        className="w-full h-auto object-contain rounded-lg"
+                                      />
+                                    </DialogContent>
+                                  </Dialog>
 
-                                    <div
-                                      style={{
-                                        display: "flex",
-                                        flexDirection: "column",
-                                        gap: "24px",
-                                        alignItems: "center",
-                                      }}
-                                    >
-                                      {mech.parts[partType]!.projectile!.map((proj, idx) => (
-                                        <img
-                                          key={idx}
-                                          src={`${imgsrc}/${proj}.png`}
-                                          alt={`Projectile ${proj}`}
+                                )}
+
+                                {/* 上方的：发射 */}
+                                {Array.isArray(mech.parts[partType]?.projectile) &&
+                                  mech.parts[partType]!.projectile!.length > 0 && (
+                                    <Dialog>
+                                      <DialogTrigger asChild>
+                                        <Button
+                                          variant="secondary"
+                                          className="h-6 w-8 flex bottom-0 left-0 m-1 text-xs shadow-lg shadow-gray-500 rounded-lg bg-blue-500/80"
+                                        >
+                                          <Rocket className="w-4 h-4" />
+                                        </Button>
+                                      </DialogTrigger>
+
+                                      <DialogContent
+                                        style={{
+                                          border: 0,
+                                          boxShadow: "none",
+                                          background: "transparent",
+                                          padding: "24px",
+                                          maxHeight: "90vh", // 限制弹窗高度
+                                          overflowY: "auto", // 竖向滑动
+                                        }}
+                                      >
+                                        <DialogHeader>
+                                          <DialogTitle>
+                                            <VisuallyHidden>Projectile Images</VisuallyHidden>
+                                          </DialogTitle>
+                                          <DialogClose
+                                            className="absolute top-2 right-2 text-gray-500 hover:text-gray-900"
+                                            aria-label="Close"
+                                          >
+                                            ✕
+                                          </DialogClose>
+                                        </DialogHeader>
+
+                                        <div
                                           style={{
-                                            width: "90vw",       // 移动端自适应
-                                            maxWidth: "500px",   // 桌面端最大宽度
-                                            height: "auto",
-                                            objectFit: "contain",
-                                            borderRadius: "0.5rem",
-                                            boxShadow: "0 4px 6px rgba(0,0,0,0.1)",
+                                            display: "flex",
+                                            flexDirection: "column",
+                                            gap: "24px",
+                                            alignItems: "center",
                                           }}
-                                        />
-                                      ))}
-                                    </div>
-                                  </DialogContent>
-                                </Dialog>
-                              )}
+                                        >
+                                          {mech.parts[partType]!.projectile!.map((proj, idx) => (
+                                            <img
+                                              key={idx}
+                                              src={`${imgsrc}/${proj}.png`}
+                                              alt={`Projectile ${proj}`}
+                                              style={{
+                                                width: "90vw",       // 移动端自适应
+                                                maxWidth: "500px",   // 桌面端最大宽度
+                                                height: "auto",
+                                                objectFit: "contain",
+                                                borderRadius: "0.5rem",
+                                                boxShadow: "0 4px 6px rgba(0,0,0,0.1)",
+                                              }}
+                                            />
+                                          ))}
+                                        </div>
+                                      </DialogContent>
+                                    </Dialog>
+                                  )}
 
 
-                          </div>
+                              </div>
 
-                              
+
 
                               {/* 外层主显示图片 */}
 
@@ -1376,7 +1470,7 @@ export function MechList({
                                   borderRadius: "0.5rem",
                                 }}
                               >
-                              {`${PART_TYPE_NAMES[lang][partType]}`}
+                                {`${PART_TYPE_NAMES[lang][partType]}`}
                               </div>
                             </div>
 
@@ -1457,20 +1551,20 @@ export function MechList({
                         </div>
                       ) : (
                         <div
-                                style={{
-                                  position: "absolute",
-                                  inset: 0,
-                                  display: "flex",
-                                  alignItems: "center",
-                                  justifyContent: "center",
-                                  fontSize: "0.9rem",
-                                  color: "rgba(100, 100, 100, 0.4)",
-                                  backgroundColor: "rgba(240, 240, 240, 0.4)", // 可选，轻微底色提升可读性
-                                  borderRadius: "0.5rem",
-                                }}
-                              >
-                                {translations.t27}
-                              </div>
+                          style={{
+                            position: "absolute",
+                            inset: 0,
+                            display: "flex",
+                            alignItems: "center",
+                            justifyContent: "center",
+                            fontSize: "0.9rem",
+                            color: "rgba(100, 100, 100, 0.4)",
+                            backgroundColor: "rgba(240, 240, 240, 0.4)", // 可选，轻微底色提升可读性
+                            borderRadius: "0.5rem",
+                          }}
+                        >
+                          {translations.t27}
+                        </div>
                       )}
                     </div>
                   )}
@@ -1676,14 +1770,29 @@ export function MechList({
                                   const bannedRight = ['038', '152', '119'].includes(mech.parts.rightHand?.id || '');
                                   const isBanned = bannedBackpack || bannedLeft || bannedRight;
 
-                                  // 必须可用且不禁赛才能可参赛
+                                  // 机体是否可用
                                   const isUsable =
                                     mech.parts.torso &&
                                     mech.parts.chasis &&
                                     (mech.parts.leftHand || mech.parts.rightHand) &&
                                     mech.pilot;
 
-                                  return !isUsable || isBanned ? '#dc2626' : '#111';
+                                  // === 新增：检测 isPD 派系一致性 ===
+                                  const parts = [
+                                    mech.parts.torso,
+                                    mech.parts.chasis,
+                                    mech.parts.leftHand,
+                                    mech.parts.rightHand,
+                                    mech.parts.backpack,
+                                  ].filter(Boolean);
+
+                                  const hasPD = parts.some((p) => p.isPD); // 是否存在PD部件
+                                  const allPD = parts.every((p) => p.isPD); // 是否全部PD部件
+
+                                  const factionMismatch = hasPD && !allPD; // 存在PD但不全为PD → 非同派系
+
+                                  // 任一条件不满足则标红
+                                  return !isUsable || isBanned || factionMismatch ? '#dc2626' : '#111';
                                 })(),
                                 boxShadow: 'inset 0 0 8px rgba(0,0,0,0.1)',
                                 transition: 'all 0.3s ease',
@@ -1701,9 +1810,39 @@ export function MechList({
                                   (mech.parts.leftHand || mech.parts.rightHand) &&
                                   mech.pilot;
 
-                                return !isUsable || isBanned ? translations.t82 : translations.t83;
+                                // === 派系检测 ===
+                                const parts = [
+                                  mech.parts.torso,
+                                  mech.parts.chasis,
+                                  mech.parts.leftHand,
+                                  mech.parts.rightHand,
+                                  mech.parts.backpack,
+                                ].filter(Boolean);
+
+                                const hasPD = parts.some((p) => p.isPD);
+                                const allPD = parts.every((p) => p.isPD);
+
+                                // 情况1：部件内部混派
+                                let factionMismatch = hasPD && !allPD;
+
+                                // 情况2：驾驶员是PD但部件不是PD
+                                if (mech.pilot?.faction === 'PD' && !allPD) {
+                                  factionMismatch = true;
+                                }
+
+                                // 情况3：驾驶员不是PD但部件有PD
+                                if (mech.pilot?.faction !== 'PD' && hasPD) {
+                                  factionMismatch = true;
+                                }
+
+                                // === 状态文字 ===
+                                if (factionMismatch) return translations.t84; // 非同一派系
+                                if (!isUsable || isBanned) return translations.t82; // 众筹禁赛
+                                return translations.t83; // 可参赛
+
                               })()}
                             </div>
+
 
                           </div>
 
@@ -1915,21 +2054,7 @@ export function MechList({
                                     const updatedDrones = [...team.drones];
                                     updatedDrones[index] = { ...drone, backpack: bp };
 
-                                    const totalScore =
-                                      team.mechs.reduce(
-                                        (sum, m) =>
-                                          sum +
-                                          Object.values(m.parts).reduce(
-                                            (partSum, part) => partSum + (part?.score || 0),
-                                            0
-                                          ) +
-                                          (m.pilot?.score || 0),
-                                        0
-                                      ) +
-                                      updatedDrones.reduce(
-                                        (sum, d) => sum + d.score + (d.backpack?.score || 0),
-                                        0
-                                      );
+                                    const totalScore = calculateTotalScore(updatedDrones, team.tacticCards, team.mechs);
 
                                     onUpdateTeam(team.id, { drones: updatedDrones, totalScore });
                                     setIsDialogOpen(false);
@@ -2045,6 +2170,39 @@ export function MechList({
                             </DialogClose>
                           </DialogHeader>
 
+                          {/* 放大预览 Dialog */}
+                          <Dialog>
+                            <DialogTrigger asChild>
+                              <Button
+                                variant="ghost"
+                                size="sm"
+
+                                className="absolute top-0 bottom-0 text-white shadow-lg shadow-gray-500 rounded-lg bg-blue-500/80"
+                              >
+                                <ZoomIn
+                                  className="w-3 h-3 text-white"
+                                  style={{
+                                    filter: `
+      drop-shadow(0 0 1px gray)
+      drop-shadow(0 0 1px gray)
+      drop-shadow(0 0 1px gray)
+    `,
+                                  }}
+                                />
+
+                              </Button>
+                            </DialogTrigger>
+                            <DialogContent className="border-0 shadow-none bg-transparent p-0">
+                              <img
+                                key={drone.id}
+                                src={`${imgsrc}/${drone.id}.png`}
+                                alt={drone.name}
+                                className="w-full h-auto object-contain rounded-lg"
+
+                              />
+                            </DialogContent>
+                          </Dialog>
+
                           <div
                             style={{
                               display: "flex",
@@ -2122,6 +2280,166 @@ export function MechList({
           {!mobileOrTablet && team.drones.length === 0 && (
             <div className="text-center text-muted-foreground py-8">
               {translations.t31}
+            </div>
+          )}
+        </TabsContent>
+
+        {/* 战术卡列表 */}
+        <TabsContent
+          value="tacticCards"
+          className="flex-1 overflow-y-auto p-4 space-y-0"
+        >
+          <div
+            style={{
+              display: "grid",
+              gridTemplateColumns: mobileOrTablet
+                ? "repeat(2, 1fr)" // 手机或平板：3列
+                : "repeat(3, 1fr)", // 桌面端：5列
+              gap: "1rem", // 等价于 gap-4
+            }}
+          >
+            {team.tacticCards?.map((tacticCards, index) => {
+              const backpackList = Object.values(unBackpack);
+
+              return (
+                <div
+                  key={`${tacticCards.id}-${index}`}
+                  className={`relative p-0 overflow-hidden cursor-pointer transition shadow-lg shadow-gray-500 rounded-lg 
+                        }`}
+                  style={{ transition: 'transform 0.3s ease, box-shadow 0.3s ease' }}
+                  onMouseEnter={(e) => {
+                    (e.currentTarget as HTMLDivElement).style.transform = 'scale(1.03)';
+                    (e.currentTarget as HTMLDivElement).style.boxShadow = '0 6px 10px rgba(0,0,0,0.1)';
+                  }}
+                  onMouseLeave={(e) => {
+                    (e.currentTarget as HTMLDivElement).style.transform = 'scale(1)';
+                    (e.currentTarget as HTMLDivElement).style.boxShadow =
+                      '0 4px 6px rgba(0,0,0,0.05), 0 1px 3px rgba(0,0,0,0.1)';
+                  }}
+                >
+                  {/* 放大预览 Dialog */}
+                  <Dialog>
+                    <DialogTrigger asChild>
+                      <Button
+                        variant="ghost"
+                        size="sm"
+
+                        className="absolute top-0 bottom-0 text-white shadow-lg shadow-gray-500 rounded-lg bg-blue-500/80"
+                      >
+                        <ZoomIn
+                          className="w-3 h-3 text-white"
+                          style={{
+                            filter: `
+      drop-shadow(0 0 1px gray)
+      drop-shadow(0 0 1px gray)
+      drop-shadow(0 0 1px gray)
+    `,
+                          }}
+                        />
+
+                      </Button>
+                    </DialogTrigger>
+                    <DialogContent className="border-0 shadow-none bg-transparent p-0">
+                      <img
+                        key={tacticCards.id}
+                        src={`${imgsrc}/${tacticCards.id}.png`}
+                        alt={tacticCards.name}
+                        className="w-full h-auto object-contain rounded-lg"
+
+                      />
+                    </DialogContent>
+                  </Dialog>
+
+                  {/* 战术卡分数角标 */}
+                  <Button
+                    variant="secondary"
+                    className="h-6 w-8 absolute bg-blue-500/50 left-0 bottom-0 shadow-lg shadow-gray-500 rounded-lg z-0"
+                    style={{
+                      color: 'white',
+                      textShadow: '0 0 4px rgba(0,0,0,0.7)',
+                    }}
+                  >
+                    {tacticCards?.score}
+                  </Button>
+
+                  <img
+                    src={`${imgsrc}/${tacticCards.id}.png`}
+                    alt={tacticCards.name}
+                    onClick={() => onSetViewMode('tacticCards')}
+                    className="shadow-lg shadow-gray-500 rounded-lg"
+                    style={{ width: '100%', height: '100%', objectFit: 'contain' }}
+                    draggable={false}
+                  />
+
+                  {/* 删除按钮 */}
+                  <Button
+                    variant="ghost"
+                    size="sm"
+                    onClick={(e) => { e.stopPropagation(); deleteTacticCard(index); }}
+                    className="absolute top-0 right-0 shadow-lg shadow-gray-500 rounded-lg text-destructive hover:text-destructive"
+                  >
+                    <Trash2 className="w-4 h-4" />
+                  </Button>
+
+                </div>
+              );
+            })}
+
+
+            {/* 新增战术卡按钮 */}
+            <div
+              style={{ position: 'relative', display: 'flex', padding: '1rem', cursor: 'pointer' }}
+              onClick={() => onSetViewMode('tacticCards')}
+            >
+              <img
+                src={`${imgsrc}/274.png`}
+                style={{
+                  width: '100%',
+                  height: '100%',
+                  objectFit: 'contain',
+                  borderRadius: '0.5rem',
+                  boxShadow: '0 4px 6px rgba(0,0,0,0.1)',
+                  opacity: 0, // 透明
+                }}
+                draggable={false}
+              />
+
+              {mobileOrTablet && (
+                <div
+                  style={{
+                    position: 'absolute',
+                    top: 0,
+                    left: 0,
+                    right: 0,
+                    bottom: 0,
+                    display: 'flex',
+                    flexDirection: 'column',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    pointerEvents: 'none',
+                  }}
+                >
+
+                  <img
+                    src={`${tabsrc}/tactic.png`}
+                    style={{
+                      width: '100%',
+                      height: '100%',
+                      objectFit: 'contain',
+                      borderRadius: '0.5rem',
+                      boxShadow: '0 4px 6px rgba(0,0,0,0.1)',
+                      opacity: 1, // 透明
+                    }}
+                    draggable={false}
+                  />
+                </div>
+              )}
+            </div>
+
+          </div>
+          {!mobileOrTablet && team.tacticCards?.length === 0 && (
+            <div className="text-center text-muted-foreground py-8">
+              {translations.t89}
             </div>
           )}
         </TabsContent>

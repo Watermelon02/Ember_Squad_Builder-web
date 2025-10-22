@@ -1,4 +1,4 @@
-import { Drone, Part, Pilot, Projectile } from "./types";
+import { Drone, Part, Pilot, Projectile,TacticCard } from "./types";
 
 export const rdlTorso: Part[] = [
   {
@@ -94,6 +94,79 @@ export const rdlTorso: Part[] = [
     "score": 60,
     "structure": 4,
     "armor": 4,
+    "parray": 0,
+    "dodge": 0,
+    "electronic": 3,
+    "type": "torso",
+    "description": "",
+    "imgSrc": "",
+    "tags": []
+  },
+  {
+    "id": "246",
+    "name": "RT-09M「ボルカノM」装甲コア",
+    "score": 66,
+    "structure": 4,
+    "armor": 6,
+    "parray": 0,
+    "dodge": 0,
+    "electronic": 3,
+    "type": "torso",
+    "description": "",
+    "imgSrc": "",
+    "tags": [],
+    "projectile": ["268"]
+  },
+  {
+    "id": "280",
+    "name": "RT-09M II「ボルカノM II」装甲コア",
+    "score": 66,
+    "structure": 4,
+    "armor": 6,
+    "parray": 0,
+    "dodge": 0,
+    "electronic": 3,
+    "type": "torso",
+    "description": "",
+    "imgSrc": "",
+    "tags": [],
+    "projectile": ["268"]
+  },
+  {
+    "id": "503",
+    "name": "RT-16B 「アバランシェ」 強襲コア",
+    "score": 60,
+    "structure": 4,
+    "armor": 5,
+    "parray": 0,
+    "dodge": 1,
+    "electronic": 3,
+    "type": "torso",
+    "description": "",
+    "imgSrc": "",
+    "tags": [],
+    "projectile": ["268"]
+  },
+  {
+    "id": "504",
+    "name": "RT-15/S 「ニンバス」支援コア",
+    "score": 60,
+    "structure": 4,
+    "armor": 4,
+    "parray": 0,
+    "dodge": 0,
+    "electronic": 3,
+    "type": "torso",
+    "description": "",
+    "imgSrc": "",
+    "tags": []
+  },
+  {
+    "id": "505",
+    "name": "RT-06E 「マイア」E 戦闘コア",
+    "score": 21,
+    "structure": 2,
+    "armor": 6,
     "parray": 0,
     "dodge": 0,
     "electronic": 3,
@@ -459,7 +532,7 @@ export const rdlLeftHand: Part[] = [
     "tags": []
   },
   {
-    "id": "##",
+    "id": "252",
     "name": "77型ブルウォーク(初期モデル)",
     "score": 50,
     "structure": 0,
@@ -473,7 +546,7 @@ export const rdlLeftHand: Part[] = [
     "tags": []
   },
   {
-    "id": "##",
+    "id": "253",
     "name": "77型ブルウォーク(初期モデル) (D)",
     "score": 0,
     "structure": 0,
@@ -924,7 +997,7 @@ export const rdlRightHand: Part[] = [
     "tags": []
   },
   {
-    "id": "##",
+    "id": "254",
     "name": "L-320 SMMG + CC-90グリーブ(初期モデル)",
     "score": 63,
     "structure": 0,
@@ -938,7 +1011,7 @@ export const rdlRightHand: Part[] = [
     "tags": []
   },
   {
-    "id": "##",
+    "id": "255",
     "name": "L-320 SMMG + CC-90グリーブ(初期モデル)(D)",
     "score": 0,
     "structure": 0,
@@ -1247,6 +1320,79 @@ export const rdlBackpack: Part[] = [
     "description": "",
     "imgSrc": "",
     "tags": []
+  },
+  {
+    "id": "264",
+    "name": "AMS-192 アクティブ防護システム",
+    "score": 27,
+    "structure": 0,
+    "armor": 3,
+    "parray": 0,
+    "dodge": 0,
+    "electronic": 1,
+    "type": "backpack",
+    "description": "",
+    "imgSrc": "",
+    "tags": []
+  },
+  {
+    "id": "286",
+    "name": "AMS-193 アクティブ防護システム",
+    "score": 27,
+    "structure": 0,
+    "armor": 3,
+    "parray": 0,
+    "dodge": 0,
+    "electronic": 1,
+    "type": "backpack",
+    "description": "",
+    "imgSrc": "",
+    "tags": []
+  },
+  {
+    "id": "500",
+    "name": "HD-2データパック",
+    "score": 24,
+    "structure": 0,
+    "armor": 3,
+    "parray": 0,
+    "dodge": 0,
+    "electronic": 1,
+    "type": "backpack",
+    "description": "任务",
+    "imgSrc": "",
+    "tags": []
+  },
+  {
+    "id": "501",
+    "name": "ML-94四連装ミサイルラック",
+    "score": 48,
+    "structure": 0,
+    "armor": 3,
+    "parray": 0,
+    "dodge": 0,
+    "electronic": 0,
+    "type": "backpack",
+    "description": "",
+    "imgSrc": "",
+    "tags": []
+  },
+  {
+    "id": "502",
+    "name": "CP-4ドローンパック",
+    "score": 36,
+    "structure": 0,
+    "armor": 3,
+    "parray": 0,
+    "dodge": 0,
+    "electronic": 0,
+    "type": "backpack",
+    "description": "",
+    "imgSrc": "",
+    "tags": [],
+    "projectile": [
+      "522"
+    ]
   }
 ];
 
@@ -1500,20 +1646,20 @@ export const unTorso: Part[] = [
     "imgSrc": "",
     "tags": []
   },
-  // {
-  //   "id": "247",
-  //   "name": "TM641O 「オクトパス」ステルスコア試作型",
-  //   "score": 81,
-  //   "structure": 3,
-  //   "armor": 3,
-  //   "parray": 0,
-  //   "dodge": 1,
-  //   "electronic": 5,
-  //   "type": "torso",
-  //   "description": "",
-  //   "imgSrc": "",
-  //   "tags": []
-  // }
+  {
+    "id": "247",
+    "name": "TM641O 「オクトパス」ステルスコア試作型",
+    "score": 81,
+    "structure": 3,
+    "armor": 3,
+    "parray": 0,
+    "dodge": 1,
+    "electronic": 5,
+    "type": "torso",
+    "description": "",
+    "imgSrc": "",
+    "tags": []
+  }
 ];
 
 export const unChasis: Part[] = [
@@ -1550,6 +1696,20 @@ export const unChasis: Part[] = [
     "name": "LM213B 格闘下肢",
     "score": 57,
     "structure": 1,
+    "armor": 4,
+    "parray": 0,
+    "dodge": 4,
+    "electronic": 0,
+    "type": "chasis",
+    "description": "",
+    "imgSrc": "",
+    "tags": []
+  },
+  {
+    "id": "250",
+    "name": "LM210SO 隠密下肢試作型",
+    "score": 39,
+    "structure": 0,
     "armor": 4,
     "parray": 0,
     "dodge": 4,
@@ -1850,6 +2010,20 @@ export const unLeftHand: Part[] = [
     "armor": 3,
     "parray": 0,
     "dodge": 2,
+    "electronic": 0,
+    "type": "leftHand",
+    "description": "",
+    "imgSrc": "",
+    "tags": []
+  },
+  {
+    "id": "256",
+    "name": "K9 ネイルガン + M14BO 「脇差」試作型 (L)",
+    "score": 42,
+    "structure": 0,
+    "armor": 3,
+    "parray": 1,
+    "dodge": 0,
     "electronic": 0,
     "type": "leftHand",
     "description": "",
@@ -2223,6 +2397,20 @@ export const unRightHand: Part[] = [
     "description": "",
     "imgSrc": "",
     "tags": []
+  },
+  {
+    "id": "257",
+    "name": "K9 ネイルガン + M14BO 「脇差」試作型(R)",
+    "score": 42,
+    "structure": 0,
+    "armor": 3,
+    "parray": 1,
+    "dodge": 0,
+    "electronic": 0,
+    "type": "rightHand",
+    "description": "",
+    "imgSrc": "",
+    "tags": []
   }
 ];
 
@@ -2426,7 +2614,7 @@ export const unBackpack: Part[] = [
     "tags": []
   },
   {
-    "id": "081",
+    "id": "265",
     "name": "EBS/X40 アーマーチャージャー試作型",
     "score": 39,
     "structure": 0,
@@ -3026,7 +3214,7 @@ export const rdlPilots: Pilot[] = [
   },
   {
     "id": "FPA-06-2",
-    "name": "锁眼-06\n藏木于林",
+    "name": "キーホール-06",
     "score": 12,
     "LV": 4,
     "faction": "RDL",
@@ -3036,8 +3224,8 @@ export const rdlPilots: Pilot[] = [
     "firing": 6,
     "moving": 6,
     "tactic": 7,
-    "trait": "功率隐匿",
-    "traitDescription": "· 本机处于友军光环范围内时获得低特征。"
+    "trait": "隠れた",
+    "traitDescription": "·搭乗しているメックが味方のオーラ範囲内にいる場合、低姿勢を獲得します。"
   },
   {
     "id": "FPA-63",
@@ -3204,17 +3392,51 @@ export const pdDrones: Drone[] = [
   }
 ];
 
-export const pdLeftHand: Part[] = [{}
+export const pdLeftHand: Part[] = [
 ];
 
-export const pdRightHand: Part[] = [{}
+export const pdRightHand: Part[] = [
 ];
-export const pdTorso: Part[] = [{}
+export const pdTorso: Part[] = [
 ];
-export const pdChasis: Part[] = [{}
+export const pdChasis: Part[] = [
 ];
-export const pdBackpack: Part[] = [{}
+export const pdBackpack: Part[] = [
 ];
 
-export const pdPilot: Pilot[] = [{}
+export const pdPilots: Pilot[] = [
 ];
+
+export const allTacticCards: TacticCard[] = [
+  {
+    "id": "274",
+    "name": "追加指令",
+    "description": "",
+    "score": 30
+  },{
+    "id": "275",
+    "name": "戰場復㷌",
+    "description": "",
+    "score": 30
+  },{
+    "id": "276",
+    "name": "一擊離脱",
+    "description": "",
+    "score": 30
+  },{
+    "id": "277",
+    "name": "緊急修理",
+    "description": "",
+    "score": 30
+  },{
+    "id": "278",
+    "name": "協調指揮",
+    "description": "",
+    "score": 30
+  },{
+    "id": "279",
+    "name": "遠隔再起動",
+    "description": "",
+    "score": 30
+  },
+]

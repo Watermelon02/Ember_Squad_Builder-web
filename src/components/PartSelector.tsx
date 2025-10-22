@@ -4,20 +4,22 @@ import { Input } from './ui/input';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from './ui/select';
 import { Badge } from './ui/badge';
 import { Label } from './ui/label';
-import { Part, Drone, Pilot, Team } from '../types';
+import { Part, Drone, Pilot, Team, TacticCard } from '../types';
 import { Checkbox } from "./ui/checkbox";
 import { AnimatePresence, motion } from 'framer-motion';
 
 interface PartSelectorProps {
-  viewMode: 'parts' | 'drones' | 'pilots';
+  viewMode: 'parts' | 'drones' | 'pilots' | 'tacticCards';
   team?: Team;
   selectedPartType: string;
   parts: Part[];
   drones: Drone[];
+  tacticCards: TacticCard[];
   pilots: Pilot[];
   onSelectPart: (part: Part) => void;
   onSelectDrone: (drone: Drone) => void;
   onSelectPilot: (pilot: Pilot) => void;
+  onSelectTacticCard: (tacticCard: TacticCard) => void;
   translations: any,
   partTypeNames: any,
   imgsrc: string, tabsrc: string
@@ -29,10 +31,12 @@ export function PartSelector({
   selectedPartType,
   parts,
   drones,
+  tacticCards,
   pilots,
   onSelectPart,
   onSelectDrone,
   onSelectPilot,
+  onSelectTacticCard,
   translations,
   partTypeNames,
   imgsrc, tabsrc
@@ -106,6 +110,18 @@ export function PartSelector({
       return sortOrder === 'score_desc' ? b.score - a.score : a.score - b.score;
     });
   }, [drones, searchQuery, sortOrder, containPD]);
+
+  const filteredTacticCards = useMemo(() => {
+    if (!tacticCards) return [];
+
+    return tacticCards.filter(tacticCard => {
+      if (searchQuery && !tacticCard.name.toLowerCase().includes(searchQuery.toLowerCase())) {
+        return false;
+      }
+      return true;
+    });
+  }, [tacticCards, searchQuery, sortOrder, containPD]);
+
 
   // 过滤驾驶员
   const filteredPilots = useMemo(() => {
@@ -374,7 +390,6 @@ export function PartSelector({
             animate={{ opacity: 1, x: 0 }}
             exit={{ opacity: 0, x: -60 }}
             transition={{ duration: 0.3 }}
-            transition={{ duration: 0.3 }}
             className="min-h-0 flex flex-col"
           >
             <div className="flex-1 overflow-y-auto p-4 space-y-3">
@@ -523,7 +538,6 @@ export function PartSelector({
             animate={{ opacity: 1, x: 0 }}
             exit={{ opacity: 0, x: -60 }}
             transition={{ duration: 0.3 }}
-            transition={{ duration: 0.3 }}
             className="min-h-0 flex flex-col"
           >
             <div className="flex-1 overflow-y-auto p-4 space-y-3">
@@ -628,6 +642,78 @@ export function PartSelector({
                 </Card>
               ))}
             </div>
+          </motion.div>
+
+        </div>
+      )}
+
+      {viewMode === 'tacticCards' && (
+
+        <div className="min-h-0 flex flex-col">
+          <div className="p-4 border-b border-border space-y-4">
+            <h3>{translations.t85}</h3>
+
+            {/* 搜索框 */}
+            <Input
+              placeholder={translations.t86}
+              value={searchQuery}
+              onChange={(e) => setSearchQuery(e.target.value)}
+            />
+
+          </div>
+
+          <motion.div
+            key="tacticCards"
+            initial={{ opacity: 0, x: 60 }}
+            animate={{ opacity: 1, x: 0 }}
+            exit={{ opacity: 0, x: -60 }}
+            transition={{ duration: 0.3 }}
+            className="min-h-0 flex flex-col"
+          >
+            <div className="flex-1 overflow-y-auto p-4">
+              <div className="grid grid-cols-2 gap-2">
+                {filteredTacticCards.map(tacticCard => (
+                  <Card
+                    key={tacticCard.id}
+                    className="relative cursor-pointer hover:bg-accent/50 transition shadow-sm overflow-hidden"
+                    onClick={() => onSelectTacticCard(tacticCard)}
+                    onMouseEnter={(e) => {
+                      const el = e.currentTarget as HTMLDivElement;
+                      el.style.transform = "scale(1.03)";
+                      el.style.boxShadow = "0 6px 10px rgba(0,0,0,0.15)";
+                    }}
+                    onMouseLeave={(e) => {
+                      const el = e.currentTarget as HTMLDivElement;
+                      el.style.transform = "scale(1)";
+                      el.style.boxShadow =
+                        "0 4px 6px rgba(0,0,0,0.05), 0 1px 3px rgba(0,0,0,0.1)";
+                    }}
+                  >
+                    {/* 图片容器：相对定位 */}
+                    <div className="relative flex justify-center items-center h-[200px] w-full">
+                      <img
+                        src={`${imgsrc}/${tacticCard.id}.png`}
+                        alt={tacticCard.name}
+                        className="max-h-full w-auto pointer-events-none transition-transform duration-300"
+                        loading="lazy"
+                      />
+
+                      {/* 徽章固定在图片左下 */}
+                      <div className="absolute bottom-0 left-0">
+                        <Badge
+                          variant="outline"
+                        >
+                          {tacticCard.score}
+                        </Badge>
+                      </div>
+                    </div>
+
+                  </Card>
+
+                ))}
+              </div>
+            </div>
+
           </motion.div>
 
         </div>

@@ -1,4 +1,4 @@
-import { Part, Drone, Pilot, Projectile } from '../../src/types';
+import { Part, Drone, Pilot, Projectile, TacticCard } from '../../src/types';
 
 export const gofPilots: Pilot[] = [
   {
@@ -212,8 +212,38 @@ export const pdPilots: Pilot[] = [
     "moving": 8,
     "tactic": 6,
     "trait": "联觉",
-    "traitDescription": "· “白矮星浮游单元组”投骰时，可以消耗本机链接值进行专注重投"
-  }
+    "traitDescription": "· 白矮星浮游单元组”投骰时，可以消耗本机链接值进行专注重投"
+  },
+  // {
+  //   "id": "XPA-69",
+  //   "name": "战斗员-69",
+  //   "score": 10,
+  //   "LV": 5,
+  //   "faction": "PD",
+  //   "swift": 8,
+  //   "melee": 4,
+  //   "projectile": 5,
+  //   "firing": 3,
+  //   "moving": 3,
+  //   "tactic": 2,
+  //   "trait": "",
+  //   "traitDescription": "为了使用LUKAS系统进行远程接入，战斗员的作战义体均装备了LK系列植入体"
+  // },
+  // {
+  //   "id": "XPA-70",
+  //   "name": "战斗员-70",
+  //   "score": 10,
+  //   "LV": 5,
+  //   "faction": "PD",
+  //   "swift": 8,
+  //   "melee": 4,
+  //   "projectile": 5,
+  //   "firing": 3,
+  //   "moving": 3,
+  //   "tactic": 2,
+  //   "trait": "",
+  //   "traitDescription": "搭载作战员和LUKAS的运输机通常作为空中支援，在战场上空盘旋，以获得最低的延迟。"
+  // }
 ];
 
 export const rdlPilots: Pilot[] = [
@@ -1491,9 +1521,37 @@ export const pdTorso: Part[] = [
     "dodge": 1,
     "electronic": 3,
     "description": "",
-    "projectile": [288],
+    "projectile": ["288"],
     "isPD": true
-  }
+  },
+  // {
+  //   "id": "546",
+  //   "name": "H2-A危机I型",
+  //   "score": 69,
+  //   "armor": 5,
+  //   "structure": 3,
+  //   "parray": 0,
+  //   "dodge": 0,
+  //   "electronic": 2,
+  //   "type": "torso",
+  //   "imgSrc": "",
+  //   "tags": [],
+  //   "isPD": true
+  // },
+  // {
+  //   "id": "547",
+  //   "name": "H2-B危机II型",
+  //   "score": 72,
+  //   "armor": 5,
+  //   "structure": 3,
+  //   "parray": 0,
+  //   "dodge": 0,
+  //   "electronic": 2,
+  //   "type": "torso",
+  //   "imgSrc": "",
+  //   "tags": [],
+  //   "isPD": true
+  // }
 ];
 
 export const pdChasis: Part[] = [
@@ -1509,7 +1567,35 @@ export const pdChasis: Part[] = [
     "electronic": 0,
     "description": "",
     "isPD": true
-  }
+  },
+  // {
+  //   "id": "548",
+  //   "name": "HL2 危机下肢",
+  //   "score": 24,
+  //   "armor": 5,
+  //   "structure": 0,
+  //   "parray": 0,
+  //   "dodge": 3,
+  //   "electronic": 0,
+  //   "type": "chasis",
+  //   "imgSrc": "",
+  //   "tags": [],
+  //   "isPD": true
+  // },
+  // {
+  //   "id": "549",
+  //   "name": "HL2-M 危机下肢M",
+  //   "score": 32,
+  //   "armor": 5,
+  //   "structure": 2,
+  //   "parray": 0,
+  //   "dodge": 3,
+  //   "electronic": 0,
+  //   "type": "chasis",
+  //   "imgSrc": "",
+  //   "tags": [],
+  //   "isPD": true
+  // }
 ];
 
 export const pdLeftHand: Part[] = [{
@@ -1524,7 +1610,35 @@ export const pdLeftHand: Part[] = [{
   "electronic": 0,
   "description": "",
   "isPD": true
-}
+},
+  // {
+  //   "id": "550",
+  //   "name": "Ls197R机炮（左）",
+  //   "score": 48,
+  //   "armor": 3,
+  //   "structure": 0,
+  //   "parray": 0,
+  //   "dodge": 0,
+  //   "electronic": 0,
+  //   "type": "leftHand",
+  //   "imgSrc": "",
+  //   "tags": [],
+  //   "isPD": true
+  // },
+  // {
+  //   "id": "552",
+  //   "name": "Ot41激光压制系统+Sd3盾牌",
+  //   "score": 66,
+  //   "armor": 4,
+  //   "structure": 0,
+  //   "parray": 0,
+  //   "dodge": 0,
+  //   "electronic": 0,
+  //   "type": "leftHand",
+  //   "imgSrc": "",
+  //   "tags": [],
+  //   "isPD": true
+  // }
 ];
 
 export const pdRightHand: Part[] = [
@@ -1541,32 +1655,37 @@ export const pdRightHand: Part[] = [
     "electronic": 0,
     "description": "",
     "isPD": true
-  }
+  },
+  // {
+  //   "id": "551",
+  //   "name": "Ls197R机炮（右）",
+  //   "score": 48,
+  //   "armor": 3,
+  //   "structure": 0,
+  //   "parray": 0,
+  //   "dodge": 0,
+  //   "electronic": 0,
+  //   "type": "rightHand",
+  //   "imgSrc": "",
+  //   "tags": [],
+  //   "isPD": true
+  // },
+  // {
+  //   "id": "553",
+  //   "name": "Ot50-ADS+Sd3盾牌",
+  //   "score": 66,
+  //   "armor": 4,
+  //   "structure": 0,
+  //   "parray": 0,
+  //   "dodge": 0,
+  //   "electronic": 0,
+  //   "type": "rightHand",
+  //   "imgSrc": "",
+  //   "tags": [],
+  //   "isPD": true
+  // }
 ];
-// {
-//     "id": "PDBP-101",
-//     "name": "四联装“飞鱼”发射器",
-//     "type": "backpack",
-//     "score": 56,
-//     "structure": 0,
-//     "armor": 3,
-//     "parray": 0,
-//     "dodge": 0,
-//     "electronic": 0,
-//     "description": "·曲射：本动作不需要对落点或目标有视线。\n·齐射X：发射或布撒最多X枚抛射物，并消耗同等数量的弹药标记。"
-//   },
-//   {
-//     "id": "PDBP-102",
-//     "name": "Ls297双联机炮",
-//     "type": "backpack",
-//     "score": 48,
-//     "structure": 0,
-//     "armor": 3,
-//     "parray": 0,
-//     "dodge": 0,
-//     "electronic": 0,
-//     "description": "·压制：被本动作宣布为目标的机甲会立刻切换为防御姿态（处于宕机姿态的单位不受此影响）。"
-//   },
+
 export const pdBackpack: Part[] = [
   {
     "id": "292",
@@ -1581,7 +1700,35 @@ export const pdBackpack: Part[] = [
     "description": "",
     "projectile": ["293", "294", "295"],
     "isPD": true
-  }
+  },
+  // {
+  //   "id": "544",
+  //   "name": "四联装飞鱼发射器",
+  //   "score": 56,
+  //   "armor": 3,
+  //   "structure": 0,
+  //   "parray": 0,
+  //   "dodge": 0,
+  //   "electronic": 0,
+  //   "type": "backpack",
+  //   "imgSrc": "",
+  //   "tags": [],
+  //   "isPD": true
+  // },
+  // {
+  //   "id": "545",
+  //   "name": "Ls297双联机炮",
+  //   "score": 48,
+  //   "armor": 3,
+  //   "structure": 0,
+  //   "parray": 0,
+  //   "dodge": 0,
+  //   "electronic": 0,
+  //   "type": "backpack",
+  //   "imgSrc": "",
+  //   "tags": [],
+  //   "isPD": true
+  // }
 ];
 
 
@@ -4261,4 +4408,36 @@ export const unDrones: Drone[] = [
   }
 ];
 
-
+export const allTacticCards: TacticCard[] = [
+  {
+    "id": "274",
+    "name": "额外指令",
+    "description": "",
+    "score": 30
+  },{
+    "id": "275",
+    "name": "战地复苏",
+    "description": "",
+    "score": 30
+  },{
+    "id": "276",
+    "name": "一击脱离",
+    "description": "",
+    "score": 30
+  },{
+    "id": "277",
+    "name": "系统抢修",
+    "description": "",
+    "score": 30
+  },{
+    "id": "278",
+    "name": "协调指挥",
+    "description": "",
+    "score": 30
+  },{
+    "id": "279",
+    "name": "远程重启",
+    "description": "",
+    "score": 30
+  },
+]

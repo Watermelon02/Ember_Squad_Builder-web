@@ -79,7 +79,8 @@ export function TeamList({
 
 
   return (
-    <div style={{ minHeight: '100vh', display: 'flex', flexDirection: 'column', padding: 16 }} className='border-r border-gray-300'>
+    <div style={{  display: 'flex', flexDirection: 'column', padding: 10 }} >
+      
       {/* 顶部工具栏 */}
       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 16 }}>
         <h2 style={{ color: '#333' }}>{translations.t3}</h2>

@@ -9,7 +9,8 @@ export interface Team {
   largeDroneCount: number;
   mediumDroneCount: number;
   smallDroneCount: number;
-  deviceID?:string
+  deviceID?: string;
+  tacticCards?: TacticCard[];
 }
 
 export interface Mech {
@@ -40,7 +41,7 @@ export interface Part {
   tags?: string[];
   throwIndex?: string;//是否有对应的抛弃卡，如果有设置为其序号
   projectile?: string[];//是否有对应的导弹\设置物卡，如果有设置为其序号
-  isPD?:boolean
+  isPD?: boolean
 }
 
 export interface Projectile {
@@ -70,7 +71,7 @@ export interface Drone {
   description?: string;
   projectile?: string[];
   isPD?: boolean;
-  backpack?:Part;
+  backpack?: Part;
 }
 
 export interface Pilot {
@@ -87,6 +88,13 @@ export interface Pilot {
   tactic: number;
   trait: string;
   traitDescription: string;
+}
+
+export interface TacticCard {
+  id: string;
+  name: string;
+  description: string;
+  score: number;
 }
 
 export const FACTION_COLORS = {
@@ -131,7 +139,7 @@ export const PART_TYPE_NAMES = {
     leftHand: 'LeftArm',
     rightHand: 'RightArm',
     backpack: 'Backpack',
-  },jp: {
+  }, jp: {
     torso: '胴',
     chasis: '下肢',
     leftHand: '左腕',
@@ -139,3 +147,16 @@ export const PART_TYPE_NAMES = {
     backpack: 'バックパック',
   }
 } as const;
+
+export const calculateTotalScore = (drones: Drone[], tacticCards: TacticCard[]|undefined, meches: Mech[]) => {
+  const droneScore = drones.reduce(
+    (sum, d) => sum + d.score + (d.backpack?.score || 0),
+    0
+  );
+  const tacticCardScore = tacticCards ? tacticCards.reduce((sum, tacticCard) => sum + tacticCard.score, 0):0;
+  const mechScore = meches.reduce((sum, mech) =>
+    sum + Object.values(mech.parts).reduce((partSum, part) => partSum + (part?.score || 0), 0)
+    + (mech.pilot?.score || 0), 0
+  );
+  return droneScore + tacticCardScore + mechScore
+}

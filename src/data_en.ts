@@ -1,4 +1,4 @@
-import { Part, Drone, Pilot, Projectile } from '../../src/types';
+import { Part, Drone, Pilot, Projectile,TacticCard } from '../../src/types';
 
 export const rdlTorso: Part[] = [
   {
@@ -1413,7 +1413,7 @@ export const rdlBackpack: Part[] = [
     "type": "backpack",
     "description": "",
     "imgSrc": "",
-    "tags": [],"projectile": [
+    "tags": [], "projectile": [
       "522"
     ]
   }
@@ -1568,7 +1568,7 @@ export const unTorso: Part[] = [
     "description": "",
     "imgSrc": "",
     "tags": []
-  },{
+  }, {
     "id": "247",
     "name": "TM641 Octopus Stealth Core Trial Model",
     "score": 81,
@@ -1612,7 +1612,7 @@ export const unChasis: Part[] = [
     "description": "",
     "imgSrc": "",
     "tags": []
-  },{
+  }, {
     "id": "250",
     "name": "LM210S  Stealth Chassis -Trial Mode",
     "score": 39,
@@ -1777,7 +1777,7 @@ export const unLeftHand: Part[] = [
     "description": "",
     "imgSrc": "",
     "tags": []
-  },{
+  }, {
     "id": "256",
     "name": "K9 Nail Gun + M14BO Wakizashi Trial Model (L)",
     "score": 42,
@@ -1978,396 +1978,396 @@ export const unLeftHand: Part[] = [
 ];
 
 export const unRightHand: Part[] = [{
-    "id": "257",
-    "name": "K9 Nail Gun + M14BO Wakizashi Trial Model (L)",
-    "score": 42,
-    "structure": 0,
-    "armor": 3,
-    "parray": 1,
-    "dodge": 0,
-    "electronic": 0,
-    "type": "rightHand",
-    "description": "",
-    "imgSrc": "",
-    "tags": []
-  },
-  {
-    "id": "104",
-    "name": "R7 Automatic Rifle",
-    "score": 42,
-    "structure": 0,
-    "armor": 3,
-    "parray": 0,
-    "dodge": 0,
-    "electronic": 0,
-    "type": "rightHand",
-    "description": "",
-    "imgSrc": "",
-    "tags": [],
-    "throwIndex": "105"
-  },
-  {
-    "id": "105",
-    "name": "R7 Automatic Rifle (D)",
-    "score": 0,
-    "structure": 0,
-    "armor": 3,
-    "parray": 0,
-    "dodge": 0,
-    "electronic": 0,
-    "type": "rightHand",
-    "description": "",
-    "imgSrc": "",
-    "tags": []
-  },
-  {
-    "id": "106",
-    "name": "R33 Sniper Rifle",
-    "score": 39,
-    "structure": 0,
-    "armor": 3,
-    "parray": 0,
-    "dodge": 0,
-    "electronic": 0,
-    "type": "rightHand",
-    "description": "",
-    "imgSrc": "",
-    "tags": []
-  },
-  {
-    "id": "109",
-    "name": "R6 SMG",
-    "score": 54,
-    "structure": 0,
-    "armor": 3,
-    "parray": 0,
-    "dodge": 1,
-    "electronic": 0,
-    "type": "rightHand",
-    "description": "",
-    "imgSrc": "",
-    "tags": []
-  },
-  {
-    "id": "110",
-    "name": "R6 SMG (D)",
-    "score": 0,
-    "structure": 0,
-    "armor": 3,
-    "parray": 0,
-    "dodge": 1,
-    "electronic": 0,
-    "type": "rightHand",
-    "description": "",
-    "imgSrc": "",
-    "tags": []
-  },
-  {
-    "id": "113",
-    "name": "RH21 Pistol + M3 Vibroblade (R)",
-    "score": 45,
-    "structure": 0,
-    "armor": 3,
-    "parray": 1,
-    "dodge": 1,
-    "electronic": 0,
-    "type": "rightHand",
-    "description": "",
-    "imgSrc": "",
-    "tags": [],
-    "throwIndex": "114"
-  },
-  {
-    "id": "114",
-    "name": "RH21 Pistol + M3 Vibroblade (R) (D)",
-    "score": 0,
-    "structure": 0,
-    "armor": 3,
-    "parray": 1,
-    "dodge": 1,
-    "electronic": 0,
-    "type": "rightHand",
-    "description": "",
-    "imgSrc": "",
-    "tags": []
-  },
-  {
-    "id": "115",
-    "name": "S100 Shield + R6SS SMG",
-    "score": 63,
-    "structure": 0,
-    "armor": 5,
-    "parray": 2,
-    "dodge": 0,
-    "electronic": 0,
-    "type": "rightHand",
-    "description": "",
-    "imgSrc": "",
-    "tags": [],
-    "throwIndex": "116"
-  },
-  {
-    "id": "116",
-    "name": "S100 Shield + R6SS SMG (D)",
-    "score": 0,
-    "structure": 0,
-    "armor": 4,
-    "parray": 0,
-    "dodge": 0,
-    "electronic": 0,
-    "type": "rightHand",
-    "description": "",
-    "imgSrc": "",
-    "tags": []
-  },
-  {
-    "id": "119",
-    "name": "MDXS Fairy System + R6 SMG (R)",
-    "score": 45,
-    "structure": 0,
-    "armor": 3,
-    "parray": 0,
-    "dodge": 2,
-    "electronic": 0,
-    "type": "rightHand",
-    "description": "",
-    "imgSrc": "",
-    "tags": [],
-    "throwIndex": "120"
-  },
-  {
-    "id": "120",
-    "name": "MDXS Fairy System + R6 SMG (R) (D)",
-    "score": 0,
-    "structure": 0,
-    "armor": 3,
-    "parray": 0,
-    "dodge": 2,
-    "electronic": 0,
-    "type": "rightHand",
-    "description": "",
-    "imgSrc": "",
-    "tags": []
-  },
-  {
-    "id": "122",
-    "name": "IGX920 Heavy Ion Gun",
-    "score": 60,
-    "structure": 0,
-    "armor": 4,
-    "parray": 0,
-    "dodge": -2,
-    "electronic": 0,
-    "type": "rightHand",
-    "description": "",
-    "imgSrc": "",
-    "tags": [],
-    "throwIndex": "123",
-  },
-  {
-    "id": "123",
-    "name": "IGX920 Heavy Ion Gun (D)",
-    "score": 0,
-    "structure": 0,
-    "armor": 4,
-    "parray": 0,
-    "dodge": 0,
-    "electronic": 0,
-    "type": "rightHand",
-    "description": "",
-    "imgSrc": "",
-    "tags": []
-  },
-  {
-    "id": "124",
-    "name": "R6SD SMG",
-    "score": 60,
-    "structure": 0,
-    "armor": 3,
-    "parray": 0,
-    "dodge": 1,
-    "electronic": 0,
-    "type": "rightHand",
-    "description": "",
-    "imgSrc": "",
-    "tags": [],
-    "throwIndex": "125"
-  },
-  {
-    "id": "125",
-    "name": "R6SD SMG (D)",
-    "score": 0,
-    "structure": 0,
-    "armor": 3,
-    "parray": 0,
-    "dodge": 1,
-    "electronic": 0,
-    "type": "rightHand",
-    "description": "",
-    "imgSrc": "",
-    "tags": []
-  },
-  {
-    "id": "127",
-    "name": "R9B Tactical Rifle",
-    "score": 48,
-    "structure": 0,
-    "armor": 3,
-    "parray": 0,
-    "dodge": 0,
-    "electronic": 0,
-    "type": "rightHand",
-    "description": "",
-    "imgSrc": "",
-    "tags": [],
-    "throwIndex": "128"
-  },
-  {
-    "id": "128",
-    "name": "R9B Tactical Rifle (D)",
-    "score": 0,
-    "structure": 0,
-    "armor": 3,
-    "parray": 0,
-    "dodge": 0,
-    "electronic": 0,
-    "type": "rightHand",
-    "description": "",
-    "imgSrc": "",
-    "tags": []
-  },
-  {
-    "id": "133",
-    "name": "M3S Vibroblade (R)",
-    "score": 42,
-    "structure": 0,
-    "armor": 3,
-    "parray": 1,
-    "dodge": 1,
-    "electronic": 0,
-    "type": "rightHand",
-    "description": "",
-    "imgSrc": "",
-    "tags": []
-  },
-  {
-    "id": "137",
-    "name": "M4 Vibroblade + Grenade Pod (R)",
-    "score": 54,
-    "structure": 0,
-    "armor": 3,
-    "parray": 1,
-    "dodge": 1,
-    "electronic": 0,
-    "type": "rightHand",
-    "description": "",
-    "imgSrc": "",
-    "tags": [],
-    "projectile": [
-      "154"
-    ]
-  },
-  {
-    "id": "140",
-    "name": "IGX350 Ion Shotgun",
-    "score": 45,
-    "structure": 0,
-    "armor": 4,
-    "parray": 0,
-    "dodge": 0,
-    "electronic": 0,
-    "type": "rightHand",
-    "description": "",
-    "imgSrc": "",
-    "tags": [],
-    "throwIndex": "141"
-  },
-  {
-    "id": "141",
-    "name": "IGX350 Ion Shotgun (D)",
-    "score": 0,
-    "structure": 0,
-    "armor": 4,
-    "parray": 0,
-    "dodge": 0,
-    "electronic": 0,
-    "type": "rightHand",
-    "description": "",
-    "imgSrc": "",
-    "tags": []
-  },
-  {
-    "id": "145",
-    "name": "M15BO Katana",
-    "score": 81,
-    "structure": 0,
-    "armor": 4,
-    "parray": 2,
-    "dodge": 2,
-    "electronic": 0,
-    "type": "rightHand",
-    "description": "",
-    "imgSrc": "",
-    "tags": []
-  },
-  {
-    "id": "148",
-    "name": "G6 Shotgun + M5 Pile Bunker",
-    "score": 69,
-    "structure": 0,
-    "armor": 4,
-    "parray": 0,
-    "dodge": 1,
-    "electronic": 0,
-    "type": "rightHand",
-    "description": "",
-    "imgSrc": "",
-    "tags": [],
-    "throwIndex": "149"
-  },
-  {
-    "id": "149",
-    "name": "G6 Shotgun + M5 Pile Bunker (D)",
-    "score": 0,
-    "structure": 0,
-    "armor": 4,
-    "parray": 0,
-    "dodge": 1,
-    "electronic": 0,
-    "type": "rightHand",
-    "description": "",
-    "imgSrc": "",
-    "tags": []
-  },
-  {
-    "id": "152",
-    "name": "RHX23 Rainstorm Assault Pistol (R)",
-    "score": 57,
-    "structure": 0,
-    "armor": 3,
-    "parray": 0,
-    "dodge": 2,
-    "electronic": 0,
-    "type": "rightHand",
-    "description": "",
-    "imgSrc": "",
-    "tags": [],
-    "throwIndex": "153"
-  },
-  {
-    "id": "153",
-    "name": "RHX23 Rainstorm Assault Pistol (R) (D)",
-    "score": 0,
-    "structure": 0,
-    "armor": 3,
-    "parray": 0,
-    "dodge": 2,
-    "electronic": 0,
-    "type": "rightHand",
-    "description": "",
-    "imgSrc": "",
-    "tags": []
-  }
+  "id": "257",
+  "name": "K9 Nail Gun + M14BO Wakizashi Trial Model (L)",
+  "score": 42,
+  "structure": 0,
+  "armor": 3,
+  "parray": 1,
+  "dodge": 0,
+  "electronic": 0,
+  "type": "rightHand",
+  "description": "",
+  "imgSrc": "",
+  "tags": []
+},
+{
+  "id": "104",
+  "name": "R7 Automatic Rifle",
+  "score": 42,
+  "structure": 0,
+  "armor": 3,
+  "parray": 0,
+  "dodge": 0,
+  "electronic": 0,
+  "type": "rightHand",
+  "description": "",
+  "imgSrc": "",
+  "tags": [],
+  "throwIndex": "105"
+},
+{
+  "id": "105",
+  "name": "R7 Automatic Rifle (D)",
+  "score": 0,
+  "structure": 0,
+  "armor": 3,
+  "parray": 0,
+  "dodge": 0,
+  "electronic": 0,
+  "type": "rightHand",
+  "description": "",
+  "imgSrc": "",
+  "tags": []
+},
+{
+  "id": "106",
+  "name": "R33 Sniper Rifle",
+  "score": 39,
+  "structure": 0,
+  "armor": 3,
+  "parray": 0,
+  "dodge": 0,
+  "electronic": 0,
+  "type": "rightHand",
+  "description": "",
+  "imgSrc": "",
+  "tags": []
+},
+{
+  "id": "109",
+  "name": "R6 SMG",
+  "score": 54,
+  "structure": 0,
+  "armor": 3,
+  "parray": 0,
+  "dodge": 1,
+  "electronic": 0,
+  "type": "rightHand",
+  "description": "",
+  "imgSrc": "",
+  "tags": []
+},
+{
+  "id": "110",
+  "name": "R6 SMG (D)",
+  "score": 0,
+  "structure": 0,
+  "armor": 3,
+  "parray": 0,
+  "dodge": 1,
+  "electronic": 0,
+  "type": "rightHand",
+  "description": "",
+  "imgSrc": "",
+  "tags": []
+},
+{
+  "id": "113",
+  "name": "RH21 Pistol + M3 Vibroblade (R)",
+  "score": 45,
+  "structure": 0,
+  "armor": 3,
+  "parray": 1,
+  "dodge": 1,
+  "electronic": 0,
+  "type": "rightHand",
+  "description": "",
+  "imgSrc": "",
+  "tags": [],
+  "throwIndex": "114"
+},
+{
+  "id": "114",
+  "name": "RH21 Pistol + M3 Vibroblade (R) (D)",
+  "score": 0,
+  "structure": 0,
+  "armor": 3,
+  "parray": 1,
+  "dodge": 1,
+  "electronic": 0,
+  "type": "rightHand",
+  "description": "",
+  "imgSrc": "",
+  "tags": []
+},
+{
+  "id": "115",
+  "name": "S100 Shield + R6SS SMG",
+  "score": 63,
+  "structure": 0,
+  "armor": 5,
+  "parray": 2,
+  "dodge": 0,
+  "electronic": 0,
+  "type": "rightHand",
+  "description": "",
+  "imgSrc": "",
+  "tags": [],
+  "throwIndex": "116"
+},
+{
+  "id": "116",
+  "name": "S100 Shield + R6SS SMG (D)",
+  "score": 0,
+  "structure": 0,
+  "armor": 4,
+  "parray": 0,
+  "dodge": 0,
+  "electronic": 0,
+  "type": "rightHand",
+  "description": "",
+  "imgSrc": "",
+  "tags": []
+},
+{
+  "id": "119",
+  "name": "MDXS Fairy System + R6 SMG (R)",
+  "score": 45,
+  "structure": 0,
+  "armor": 3,
+  "parray": 0,
+  "dodge": 2,
+  "electronic": 0,
+  "type": "rightHand",
+  "description": "",
+  "imgSrc": "",
+  "tags": [],
+  "throwIndex": "120"
+},
+{
+  "id": "120",
+  "name": "MDXS Fairy System + R6 SMG (R) (D)",
+  "score": 0,
+  "structure": 0,
+  "armor": 3,
+  "parray": 0,
+  "dodge": 2,
+  "electronic": 0,
+  "type": "rightHand",
+  "description": "",
+  "imgSrc": "",
+  "tags": []
+},
+{
+  "id": "122",
+  "name": "IGX920 Heavy Ion Gun",
+  "score": 60,
+  "structure": 0,
+  "armor": 4,
+  "parray": 0,
+  "dodge": -2,
+  "electronic": 0,
+  "type": "rightHand",
+  "description": "",
+  "imgSrc": "",
+  "tags": [],
+  "throwIndex": "123",
+},
+{
+  "id": "123",
+  "name": "IGX920 Heavy Ion Gun (D)",
+  "score": 0,
+  "structure": 0,
+  "armor": 4,
+  "parray": 0,
+  "dodge": 0,
+  "electronic": 0,
+  "type": "rightHand",
+  "description": "",
+  "imgSrc": "",
+  "tags": []
+},
+{
+  "id": "124",
+  "name": "R6SD SMG",
+  "score": 60,
+  "structure": 0,
+  "armor": 3,
+  "parray": 0,
+  "dodge": 1,
+  "electronic": 0,
+  "type": "rightHand",
+  "description": "",
+  "imgSrc": "",
+  "tags": [],
+  "throwIndex": "125"
+},
+{
+  "id": "125",
+  "name": "R6SD SMG (D)",
+  "score": 0,
+  "structure": 0,
+  "armor": 3,
+  "parray": 0,
+  "dodge": 1,
+  "electronic": 0,
+  "type": "rightHand",
+  "description": "",
+  "imgSrc": "",
+  "tags": []
+},
+{
+  "id": "127",
+  "name": "R9B Tactical Rifle",
+  "score": 48,
+  "structure": 0,
+  "armor": 3,
+  "parray": 0,
+  "dodge": 0,
+  "electronic": 0,
+  "type": "rightHand",
+  "description": "",
+  "imgSrc": "",
+  "tags": [],
+  "throwIndex": "128"
+},
+{
+  "id": "128",
+  "name": "R9B Tactical Rifle (D)",
+  "score": 0,
+  "structure": 0,
+  "armor": 3,
+  "parray": 0,
+  "dodge": 0,
+  "electronic": 0,
+  "type": "rightHand",
+  "description": "",
+  "imgSrc": "",
+  "tags": []
+},
+{
+  "id": "133",
+  "name": "M3S Vibroblade (R)",
+  "score": 42,
+  "structure": 0,
+  "armor": 3,
+  "parray": 1,
+  "dodge": 1,
+  "electronic": 0,
+  "type": "rightHand",
+  "description": "",
+  "imgSrc": "",
+  "tags": []
+},
+{
+  "id": "137",
+  "name": "M4 Vibroblade + Grenade Pod (R)",
+  "score": 54,
+  "structure": 0,
+  "armor": 3,
+  "parray": 1,
+  "dodge": 1,
+  "electronic": 0,
+  "type": "rightHand",
+  "description": "",
+  "imgSrc": "",
+  "tags": [],
+  "projectile": [
+    "154"
+  ]
+},
+{
+  "id": "140",
+  "name": "IGX350 Ion Shotgun",
+  "score": 45,
+  "structure": 0,
+  "armor": 4,
+  "parray": 0,
+  "dodge": 0,
+  "electronic": 0,
+  "type": "rightHand",
+  "description": "",
+  "imgSrc": "",
+  "tags": [],
+  "throwIndex": "141"
+},
+{
+  "id": "141",
+  "name": "IGX350 Ion Shotgun (D)",
+  "score": 0,
+  "structure": 0,
+  "armor": 4,
+  "parray": 0,
+  "dodge": 0,
+  "electronic": 0,
+  "type": "rightHand",
+  "description": "",
+  "imgSrc": "",
+  "tags": []
+},
+{
+  "id": "145",
+  "name": "M15BO Katana",
+  "score": 81,
+  "structure": 0,
+  "armor": 4,
+  "parray": 2,
+  "dodge": 2,
+  "electronic": 0,
+  "type": "rightHand",
+  "description": "",
+  "imgSrc": "",
+  "tags": []
+},
+{
+  "id": "148",
+  "name": "G6 Shotgun + M5 Pile Bunker",
+  "score": 69,
+  "structure": 0,
+  "armor": 4,
+  "parray": 0,
+  "dodge": 1,
+  "electronic": 0,
+  "type": "rightHand",
+  "description": "",
+  "imgSrc": "",
+  "tags": [],
+  "throwIndex": "149"
+},
+{
+  "id": "149",
+  "name": "G6 Shotgun + M5 Pile Bunker (D)",
+  "score": 0,
+  "structure": 0,
+  "armor": 4,
+  "parray": 0,
+  "dodge": 1,
+  "electronic": 0,
+  "type": "rightHand",
+  "description": "",
+  "imgSrc": "",
+  "tags": []
+},
+{
+  "id": "152",
+  "name": "RHX23 Rainstorm Assault Pistol (R)",
+  "score": 57,
+  "structure": 0,
+  "armor": 3,
+  "parray": 0,
+  "dodge": 2,
+  "electronic": 0,
+  "type": "rightHand",
+  "description": "",
+  "imgSrc": "",
+  "tags": [],
+  "throwIndex": "153"
+},
+{
+  "id": "153",
+  "name": "RHX23 Rainstorm Assault Pistol (R) (D)",
+  "score": 0,
+  "structure": 0,
+  "armor": 3,
+  "parray": 0,
+  "dodge": 2,
+  "electronic": 0,
+  "type": "rightHand",
+  "description": "",
+  "imgSrc": "",
+  "tags": []
+}
 ];
 
 export const unBackpack: Part[] = [
@@ -2384,7 +2384,7 @@ export const unBackpack: Part[] = [
     "description": "",
     "imgSrc": "",
     "tags": []
-  },{
+  }, {
     "id": "265",
     "name": "EBS/X40 Armor Energy Charger Trial Model",
     "score": 39,
@@ -2678,7 +2678,7 @@ export const pdDrones: Drone[] = [
     "move": 6,
     "stance": "defensive",
     "description": "",
-    "isPD":true,"projectile": [
+    "isPD": true, "projectile": [
       "PDAM-001"
     ]
   },
@@ -2695,7 +2695,7 @@ export const pdDrones: Drone[] = [
     "move": 6,
     "stance": "defensive",
     "description": "",
-    "isPD":true,"projectile": [
+    "isPD": true, "projectile": [
       "PDAM-001"
     ]
   },
@@ -2712,7 +2712,7 @@ export const pdDrones: Drone[] = [
     "move": 6,
     "stance": "defensive",
     "description": "",
-    "isPD":true
+    "isPD": true
   },
   {
     "id": "PRDR-104",
@@ -2727,7 +2727,7 @@ export const pdDrones: Drone[] = [
     "move": 6,
     "stance": "defensive",
     "description": "",
-    "isPD":true
+    "isPD": true
   },
   {
     "id": "PRDR-105",
@@ -2742,8 +2742,8 @@ export const pdDrones: Drone[] = [
     "move": 6,
     "stance": "defensive",
     "description": "",
-    "isPD":true,"projectile": [
-      "PDAM-003","PDAM-004"
+    "isPD": true, "projectile": [
+      "PDAM-003", "PDAM-004"
     ]
   },
   {
@@ -2759,7 +2759,7 @@ export const pdDrones: Drone[] = [
     "move": 6,
     "stance": "mobility",
     "description": "",
-    "isPD":true
+    "isPD": true
   },
   {
     "id": "PRDR-202",
@@ -2774,7 +2774,7 @@ export const pdDrones: Drone[] = [
     "move": 6,
     "stance": "mobility",
     "description": "",
-    "isPD":true
+    "isPD": true
   },
   {
     "id": "PRDR-203",
@@ -2789,7 +2789,7 @@ export const pdDrones: Drone[] = [
     "move": 6,
     "stance": "mobility",
     "description": "",
-    "isPD":true, "projectile": [
+    "isPD": true, "projectile": [
       "PDAM-005"
     ]
   },
@@ -2806,8 +2806,8 @@ export const pdDrones: Drone[] = [
     "move": 6,
     "stance": "mobility",
     "description": "",
-    "isPD":true,"projectile": [
-      "PDAM-005","PDAM-006"
+    "isPD": true, "projectile": [
+      "PDAM-005", "PDAM-006"
     ]
   }
 ];
@@ -3052,6 +3052,21 @@ export const rdlPilots: Pilot[] = [
     "tactic": 3,
     "trait": "",
     "traitDescription": "A new Scout from Test and Evaluation Squadron 066"
+  },
+  {
+    "id": "FPA-06-2",
+    "name": "KeyHole",
+    "score": 12,
+    "LV": 4,
+    "faction": "RDL",
+    "swift": 2,
+    "melee": 5,
+    "projectile": 4,
+    "firing": 6,
+    "moving": 6,
+    "tactic": 7,
+    "trait": "Hidden",
+    "traitDescription": "·When piloted Mech is within range of allied Aura, gains Low Profile."
   }
 ];
 
@@ -3280,7 +3295,7 @@ export const pdTorso: Part[] = [
     "dodge": 1,
     "electronic": 3,
     "description": "",
-    "projectile": [288],
+    "projectile": ["288"],
     "isPD": true
   }
 ];
@@ -3350,5 +3365,54 @@ export const pdBackpack: Part[] = [
   }
 ];
 
-export const pdPilot: Pilot[] = [{}
+export const pdPilots: Pilot[] = [
+  {
+    "id": "ACE-01",
+    "name": "Karl·Fried",
+    "score": 15,
+    "LV": 4,
+    "faction": "PD",
+    "swift": 5,
+    "melee": 7,
+    "projectile": 6,
+    "firing": 3,
+    "moving": 8,
+    "tactic": 6,
+    "trait": "Synesthesia",
+    "traitDescription": "· When a \"White Dwarf\" Bit performs a roll, it may consume Link from this Mech to re-roll."
+  }
 ];
+
+export const allTacticCards: TacticCard[] = [
+  {
+    "id": "274",
+    "name": "Additional Command",
+    "description": "",
+    "score": 30
+  },{
+    "id": "275",
+    "name": "Battlefield Recovery",
+    "description": "",
+    "score": 30
+  },{
+    "id": "276",
+    "name": "Hit and Run",
+    "description": "",
+    "score": 30
+  },{
+    "id": "277",
+    "name": "System Repair",
+    "description": "",
+    "score": 30
+  },{
+    "id": "278",
+    "name": "Tactical Dispostion",
+    "description": "",
+    "score": 30
+  },{
+    "id": "279",
+    "name": "Remote Restart",
+    "description": "",
+    "score": 30
+  },
+]

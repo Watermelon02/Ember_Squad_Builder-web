@@ -69,8 +69,9 @@ export const translations = {
     t67: "中立",
     t68: "装载背包",
     t69: "驾驶员", t70: "无人机列表", t71: "分", t72: "小队", t73: "上传", t74: "下载", t75: "添加无人机",
-     t76: "图片导出完成", t77: "导出失败", t78: "导出失败，请稍后再试", t79: "导出中…",
-     t80:"部件充足",t81:"部件不足",t82:"众筹禁赛",t83:"可参赛"
+    t76: "图片导出完成", t77: "导出失败", t78: "导出失败，请稍后再试", t79: "导出中…",
+    t80: "部件充足", t81: "部件不足", t82: "众筹禁赛", t83: "可参赛",t84:"非同派系",
+    t85: "战术卡选择",t86: "搜索战术卡名称...",t87:"战术卡",t88:"添加战术卡",t89:"暂无战术卡，在右侧选择区域添加",t90:"战术卡列表"
   },
 
   en: {
@@ -95,8 +96,8 @@ export const translations = {
     t19: "New Mech",
     t20: "(Copy)",
     t21: "Please select a team",
-    t22: "Mech List",
-    t23: "Drone List",
+    t22: "Mech",
+    t23: "Drone",
     t24: "Image",
     t25: "Projectile List",
     t26: "Not Equipped",
@@ -142,12 +143,19 @@ export const translations = {
     t66: "new team",
     t67: "Neutral",
     t68: "Load Backpack",
-    t69: "Pilot", t70: "Drone", t71: "Points", t72: "Team", t73: "Upload", t74: "DL", t75: "Add Drone",
-     t76: "Image export completed", t77: "Export failed", t78: "Export failed, please try again later", t79: "Exporting…",
- t80: "Complete",
-t81: "Incomplete",
-t82: "Banned",
-t83: "Eligible"
+    t69: "Pilot", t70: "Drone", t71: "Points", t72: "Team", t73: "Up", t74: "DL", t75: "Add Drone",
+    t76: "Image export completed", t77: "Export failed", t78: "Export failed, please try again later", t79: "Exporting…",
+    t80: "Complete",
+    t81: "Incomplete",
+    t82: "Banned",
+    t83: "Eligible",t84:"Different Faction",
+    t85: "Tactic Selection",
+t86: "Search tactic card name...",
+t87: "Tactic",
+t88: "Add Tactic Card",
+t89: "No tactic cards yet, add from the selection area on the right",
+t90: "Tactic Card List"
+
 
   }, jp: {
     t1: "データがクリップボードにコピーされました！",
@@ -171,7 +179,7 @@ t83: "Eligible"
     t19: "新しい機体",
     t20: "(コピー)",
     t21: "チームを選択してください",
-    t22: "機体リスト",
+    t22: "機体",
     t23: "ドローンリスト",
     t24: "画像出力",
     t25: "投射物リスト",
@@ -216,11 +224,18 @@ t83: "Eligible"
     t64: "新しいチーム",
     t65: "現在チームはありません。新しいチームを作成してください。",
     t66: "新規チーム作成", t67: "中立", t68: "バックパックを装備", t69: "パイロット", t70: "ドローン", t71: "ポイント", t72: "チーム", t73: "送信", t74: "取得", t75: "ドローンを追加"
-    ,t76: "画像の書き出しが完了しました", t77: "書き出しに失敗しました", t78: "書き出しに失敗しました。しばらくしてからもう一度お試しください。", t79: "書き出し中…",
+    , t76: "画像の書き出しが完了しました", t77: "書き出しに失敗しました", t78: "書き出しに失敗しました。しばらくしてからもう一度お試しください。", t79: "書き出し中…",
     t80: "部品充足",
-t81: "部品不足",
-t82: "クラウドファンディング禁止",
-t83: "参加可能"
+    t81: "部品不足",
+    t82: "クラウドファンディング禁止",
+    t83: "参加可能",t84:"異なる勢力",
+    t85: "戦術カード選択",
+t86: "戦術カード名で検索...",
+t87: "戦術カ",
+t88: "戦術カードを追加",
+t89: "戦術カードはまだありません。右側の選択エリアから追加してください",
+t90: "戦術カード一覧"
+
 
   },
 
