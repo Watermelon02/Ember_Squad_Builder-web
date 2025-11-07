@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { Button } from './ui/button';
 import { Card } from './ui/card';
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from './ui/dialog';
@@ -8,6 +8,9 @@ import { Badge } from './ui/badge';
 import { Input } from './ui/input';
 import extractChunks from "png-chunks-extract";
 import { AnimatePresence, motion } from 'framer-motion';
+import { MechImage } from './ui/MechImage';
+import { DroneImage } from './ui/DroneImage';
+import { TeamEligibility } from './ui/TeamEligibility';
 
 interface TeamListProps {
   teams: Team[];
@@ -20,6 +23,8 @@ interface TeamListProps {
   translations: any;
   factionNames: Record<string, string>;
   lang: string;
+  tabsrc: string;
+  
 }
 
 export function TeamList({
@@ -31,7 +36,7 @@ export function TeamList({
   onUpdateTeam,
   onCopyTeam,
   translations,
-  factionNames, lang
+  factionNames, lang, tabsrc
 }: TeamListProps) {
   const [isDialogOpen, setIsDialogOpen] = useState(false);
   const [editingTeamId, setEditingTeamId] = useState<string>('');
@@ -76,11 +81,30 @@ export function TeamList({
     }
   };
 
+  const containerRef = useRef<HTMLDivElement>(null);
+const [itemsPerRow, setItemsPerRow] = useState(1);
+
+const itemSize = 40; // mech/drone 宽高
+const gap = 4;       // 0.3rem ≈ 4px
+
+useEffect(() => {
+  const updateItemsPerRow = () => {
+    if (!containerRef.current) return;
+    const containerWidth = containerRef.current.offsetWidth;
+    const perRow = Math.floor((containerWidth + gap) / (itemSize + gap));
+    setItemsPerRow(perRow || 1);
+  };
+
+  updateItemsPerRow();
+  window.addEventListener("resize", updateItemsPerRow);
+  return () => window.removeEventListener("resize", updateItemsPerRow);
+}, []);
+
 
 
   return (
-    <div style={{  display: 'flex', flexDirection: 'column', padding: 10 }} >
-      
+    <div style={{ display: 'flex', flexDirection: 'column', padding: 10 }} >
+
       {/* 顶部工具栏 */}
       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 16 }}>
         <h2 style={{ color: '#333' }}>{translations.t3}</h2>
@@ -206,15 +230,21 @@ export function TeamList({
         {teams.map(team => (
           <Card
             key={team.id}
-            className={`p-4 cursor-pointer transition-colors shadow-sm ${selectedTeamId === team.id ? 'bg-accent' : 'hover:bg-accent/50'
+            style={{ paddingTop: '0.5rem', paddingLeft: '1rem', paddingRight: '1rem', paddingBottom: '0.5rem' }}
+            className={`cursor-pointer transition-shadow shadow-sm ${selectedTeamId === team.id
+              ? 'shadow-lg'  // 选中时加重阴影
+              : 'hover:shadow-md'  // 未选中时悬停加轻微阴影
               }`}
             onClick={() => onSelectTeam(team.id)}
           >
-            <div className="space-y-3">
+
+            <div className="space-y-1">
               {/* 标题行 */}
               <div className="flex items-center justify-between">
                 <div className="flex items-center gap-2">
-                  <Badge className={FACTION_COLORS[team.faction]}>{factionNames[team.faction]}</Badge>
+                  <Badge style={{ backgroundColor: FACTION_COLORS[team.faction], color: '#fff' }}>{factionNames[team.faction]}</Badge>
+                  {/* 可参赛状态显示 */}
+                  <TeamEligibility team={team} translations={translations} />
                   {editingTeamId === team.id ? (
                     <Input
                       value={team.name}
@@ -240,7 +270,9 @@ export function TeamList({
                       {team.name}
                     </span>
                   )}
+
                 </div>
+
                 <Button
                   variant="ghost"
                   size="sm"
@@ -284,6 +316,64 @@ export function TeamList({
                 ))}
               </div>
 
+             <motion.div
+  ref={containerRef}
+  style={{
+    display: 'flex',
+    flexWrap: 'wrap',
+    gap: `${gap}px`,
+  }}
+>
+  <AnimatePresence mode="popLayout">
+    {team.mechs.map((mech, index) => (
+      <motion.div
+        key={`mech-${mech.id ?? index}`}
+        initial={{ opacity: 0, scale: 0.8, y: -10 }}
+        animate={{ opacity: 1, scale: 1, y: 0 }}
+        exit={{ opacity: 0, scale: 0.8, y: 10 }}
+        transition={{ duration: 0.2 }}
+      >
+        <MechImage mech={mech} tabsrc={tabsrc} translation={translations} />
+      </motion.div>
+    ))}
+
+    {team.drones.map((drone, index) => (
+      <motion.div
+        key={`drone-${drone.id ?? index}`}
+        initial={{ opacity: 0, scale: 0.8, y: -10 }}
+        animate={{ opacity: 1, scale: 1, y: 0 }}
+        exit={{ opacity: 0, scale: 0.8, y: 10 }}
+        transition={{ duration: 0.2 }}
+      >
+        <DroneImage drone={drone} tabsrc={tabsrc} />
+      </motion.div>
+    ))}
+  </AnimatePresence>
+
+  {/* 占位条纹填满一行 */}
+  {(() => {
+    const totalItems = team.mechs.length + team.drones.length;
+    const remainder = totalItems % itemsPerRow;
+    const placeholders = remainder === 0 ? 0 : itemsPerRow - remainder;
+
+    return Array.from({ length: placeholders }).map((_, idx) => (
+      <div
+        key={`placeholder-${idx}`}
+        style={{
+          width: `${itemSize}px`,
+          height: `${itemSize}px`,
+          borderRadius: '4px',
+          backgroundImage: 'repeating-linear-gradient(45deg, #eee, #eee 4px, #ddd 4px, #ddd 8px)',
+        }}
+      />
+    ));
+  })()}
+</motion.div>
+
+
+
+
+
             </div>
           </Card>
 
@@ -309,7 +399,7 @@ export function TeamList({
             </DialogHeader>
             <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: 8 }}>
               {(Object.entries(factionNames) as [keyof typeof factionNames, string][]).map(([key, name]) => (
-                <Button key={key} onClick={() => handleAddTeam(key)} className={`${FACTION_COLORS[key]}`} style={{ color: '#fff' }}>
+                <Button key={key} onClick={() => handleAddTeam(key)} style={{ backgroundColor: FACTION_COLORS[key], color: '#fff' }}>
                   {name}
                 </Button>
               ))}

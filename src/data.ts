@@ -729,6 +729,21 @@ export const unPilots: Pilot[] = [
     "tactic": 6,
     "trait": "",
     "traitDescription": "303中队的实习冲锋手。"
+  },
+  {
+    "id": "LPA-66",
+    "name": "步枪手66",
+    "score": 9,
+    "LV": 4,
+    "faction": "UN",
+    "swift": 3,
+    "melee": 7,
+    "projectile": 6,
+    "firing": 2,
+    "moving": 5,
+    "tactic": 5,
+    "trait": "",
+    "traitDescription": "303中队的实习步枪手。"
   }
 ];
 
@@ -3115,7 +3130,10 @@ export const rdlBackpack: Part[] = [
     "type": "backpack",
     "description": "",
     "imgSrc": "",
-    "tags": []
+    "tags": [],
+    "projectile": [
+      "521"
+    ]
   },
   {
     "id": "502",
@@ -3293,6 +3311,20 @@ export const unTorso: Part[] = [
     "electronic": 5,
     "type": "torso",
     "description": "",
+    "imgSrc": "",
+    "tags": []
+  },
+  {
+    "id": "555",
+    "name": "TM35BT 金牛 实验核心",
+    "score": 84,
+    "armor": 5,
+    "structure": 4,
+    "parray": 0,
+    "dodge": 1,
+    "electronic": 4,
+    "type": "torso",
+     "description": "",
     "imgSrc": "",
     "tags": []
   }
@@ -4056,6 +4088,32 @@ export const unRightHand: Part[] = [
     "electronic": 0,
     "type": "rightHand",
     "description": "",
+    "imgSrc": "",
+    "tags": []
+  },
+  {
+    "id": "556",
+    "name": "R7MG轻机枪",
+    "score": 50,
+    "armor": 3,
+    "structure": 0,
+    "parray": 0,
+    "dodge": 0,
+    "electronic": 0,
+    "type": "rightHand",
+    "imgSrc": "",
+    "tags": []
+  },
+  {
+    "id": "557",
+    "name": "R7MG轻机枪（抛弃卡）",
+    "score": 0,
+    "armor": 3,
+    "structure": 0,
+    "parray": 0,
+    "dodge": 0,
+    "electronic": 0,
+    "type": "rightHand",
     "imgSrc": "",
     "tags": []
   }

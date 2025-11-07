@@ -1399,7 +1399,10 @@ export const rdlBackpack: Part[] = [
     "type": "backpack",
     "description": "",
     "imgSrc": "",
-    "tags": []
+    "tags": [],
+    "projectile": [
+      "521"
+    ]
   },
   {
     "id": "502",
@@ -1581,7 +1584,20 @@ export const unTorso: Part[] = [
     "description": "",
     "imgSrc": "",
     "tags": []
-  }
+  },
+  // {
+  //   "id": "555",
+  //   "name": "TM35BT Taurus Experimental Core",
+  //   "score": 84,
+  //   "armor": 5,
+  //   "structure": 4,
+  //   "parray": 0,
+  //   "dodge": 1,
+  //   "electronic": 4,
+  //   "type": "torso",
+  //   "imgSrc": "",
+  //   "tags": []
+  // }
 ];
 
 export const unChasis: Part[] = [
@@ -2367,7 +2383,33 @@ export const unRightHand: Part[] = [{
   "description": "",
   "imgSrc": "",
   "tags": []
-}
+},
+// {
+//     "id": "556",
+//     "name": "R7MG LMG",
+//     "score": 50,
+//     "armor": 3,
+//     "structure": 0,
+//     "parray": 0,
+//     "dodge": 0,
+//     "electronic": 0,
+//     "type": "rightHand",
+//     "imgSrc": "",
+//     "tags": []
+//   },
+//   {
+//     "id": "557",
+//     "name": "R7MG LMG (D)",
+//     "score": 0,
+//     "armor": 3,
+//     "structure": 0,
+//     "parray": 0,
+//     "dodge": 0,
+//     "electronic": 0,
+//     "type": "rightHand",
+//     "imgSrc": "",
+//     "tags": []
+//   }
 ];
 
 export const unBackpack: Part[] = [
@@ -3280,7 +3322,22 @@ export const unPilots: Pilot[] = [
     "tactic": 6,
     "trait": "",
     "traitDescription": "Trainee Charger of 303 Squadron."
-  }
+  },
+  //  {
+  //   "id": "LPA-66",
+  //   "name": "Charger34",
+  //   "score": 9,
+  //   "LV": 4,
+  //   "faction": "UN",
+  //   "swift": 3,
+  //   "melee": 7,
+  //   "projectile": 6,
+  //   "firing": 2,
+  //   "moving": 5,
+  //   "tactic": 5,
+  //   "trait": "",
+  //   "traitDescription": "Trainee Charger of 303 Squadron."
+  // }
 ];
 
 export const pdTorso: Part[] = [

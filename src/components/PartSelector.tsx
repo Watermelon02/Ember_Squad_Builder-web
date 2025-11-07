@@ -22,7 +22,13 @@ interface PartSelectorProps {
   onSelectTacticCard: (tacticCard: TacticCard) => void;
   translations: any,
   partTypeNames: any,
-  imgsrc: string, tabsrc: string
+  imgsrc: string, tabsrc: string,
+  onSetHoverImg: (img: string | null) => void;
+  onSetShowHoverImg: (show: boolean) => void;
+  showHoverImg: boolean;
+  mobileOrTablet: boolean;
+  lastScore: number;
+  lastPartId: string;
 }
 
 export function PartSelector({
@@ -39,7 +45,7 @@ export function PartSelector({
   onSelectTacticCard,
   translations,
   partTypeNames,
-  imgsrc, tabsrc
+  imgsrc, tabsrc, onSetHoverImg, onSetShowHoverImg, showHoverImg, mobileOrTablet, lastScore, lastPartId
 }: PartSelectorProps) {
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedTags, setSelectedTags] = useState<string[]>([]);
@@ -52,9 +58,10 @@ export function PartSelector({
       // 类型过滤
       if (part.type !== selectedPartType) return false;
 
+      if (part.id === lastPartId) return false;
+
       // 搜索过滤
-      if (searchQuery && !part.name.toLowerCase().includes(searchQuery.toLowerCase()) &&
-        !part.description.toLowerCase().includes(searchQuery.toLowerCase())) {
+      if (searchQuery && !part.name.toLowerCase().includes(searchQuery.toLowerCase()) ) {
         return false;
       }
 
@@ -114,13 +121,29 @@ export function PartSelector({
   const filteredTacticCards = useMemo(() => {
     if (!tacticCards) return [];
 
-    return tacticCards.filter(tacticCard => {
+    // 获取队伍中已使用的战术卡 id
+    const usedTacticIds = new Set<string>();
+    team?.tacticCards?.forEach((tactic) => {
+      if (tactic?.id) {
+        usedTacticIds.add(tactic.id);
+      }
+    });
+
+    return tacticCards.filter((tacticCard) => {
+      // 搜索过滤
       if (searchQuery && !tacticCard.name.toLowerCase().includes(searchQuery.toLowerCase())) {
         return false;
       }
+
+      // ⬇️ 过滤掉队伍中已经存在的战术卡
+      if (usedTacticIds.has(tacticCard.id)) {
+        return false;
+      }
+
       return true;
     });
-  }, [tacticCards, searchQuery, sortOrder, containPD]);
+  }, [tacticCards, team, searchQuery]);
+
 
 
   // 过滤驾驶员
@@ -187,6 +210,20 @@ export function PartSelector({
                   </SelectContent>
                 </Select>
               </div>
+              {/* 是否显示卡片预览 */}
+              {!mobileOrTablet && <div className="flex items-center space-x-2">
+                <input
+                  type="checkbox"
+                  id="show-hover-img"
+                  checked={showHoverImg}
+                  onChange={(e) => onSetShowHoverImg(e.target.checked)}
+                  className="h-4 w-4"
+                  style={{ accentColor: "#ffffff" }} // 灰色勾选
+                />
+                <label htmlFor="show-hover-img" className="text-sm">
+                  {translations.t92}
+                </label>
+              </div>}
 
               {/* 星环选择 */}
               <div className="flex items-center space-x-2">
@@ -196,11 +233,15 @@ export function PartSelector({
                   checked={containPD}
                   onChange={(e) => setContainPD(e.target.checked)}
                   className="h-4 w-4"
+                  style={{
+                    accentColor: "#ffffff",   // 勾选颜色为灰色
+                  }}
                 />
                 <label htmlFor="contain-pd" className="text-sm">
                   {translations.t67}
                 </label>
               </div>
+
             </div>
           </div>
           <motion.div
@@ -218,38 +259,54 @@ export function PartSelector({
                     {filteredParts.slice(rowIndex * 3, (rowIndex + 1) * 3).map(part => (
                       <Card
                         key={part.id}
-                        className="relative p-3  cursor-pointer hover:bg-accent/50 transition overflow-hidden shadow-sm"
+                        className="relative p-3 cursor-pointer hover:bg-accent/50 transition overflow-hidden shadow-sm"
                         onClick={() => onSelectPart(part)}
-
                         onMouseEnter={(e) => {
+                          onSetHoverImg(`${imgsrc}/${part.id}.png`);
                           (e.currentTarget as HTMLDivElement).style.transform = "scale(1.05)";
                           (e.currentTarget as HTMLDivElement).style.boxShadow =
                             "0 6px 10px rgba(0,0,0,0.1)";
                         }}
                         onMouseLeave={(e) => {
-                          (e.currentTarget as HTMLDivElement).style.transform = "scale(1)";
+                          onSetHoverImg("null"); (e.currentTarget as HTMLDivElement).style.transform = "scale(1)";
                           (e.currentTarget as HTMLDivElement).style.boxShadow =
                             "0 4px 6px rgba(0,0,0,0.05), 0 1px 3px rgba(0,0,0,0.1)";
                         }}
                       >
-
                         {/* 背景图层 */}
                         <div
                           className="absolute inset-0 bg-contain"
                           style={{
                             backgroundImage: `url(${tabsrc}/${part.id}.png)`,
-                            backgroundSize: 'contain',     // 等比缩放，完整显示
-                            backgroundRepeat: 'no-repeat', // 不要平铺
-                            backgroundPosition: 'right top', // 靠左上对齐
+                            backgroundSize: 'contain',
+                            backgroundRepeat: 'no-repeat',
+                            backgroundPosition: 'right top',
                             opacity: 0.8,
                           }}
                         ></div>
 
-
                         {/* 前景文字内容 */}
                         <div className="relative z-10 space-y-2">
                           <div className="flex items-center gap-2">
-                            <Badge variant="outline" className="shrink-0">{part.score}</Badge>
+                            <Badge
+                              variant="outline"
+                              className="shrink-0 relative"
+                            >
+                              {part.score}
+                              {part.score !== lastScore && (
+                                <span
+                                  style={{
+                                    position: 'absolute',
+                                    top: 0,
+                                    left: 2,
+                                    fontSize: 8,
+                                    opacity: 0.5, // 半透明
+                                  }}
+                                >
+                                  {part.score > lastScore ? '▲' : '▼'}
+                                </span>
+                              )}
+                            </Badge>
 
                             <h4 className="font-medium truncate">{part.name}</h4>
                           </div>
@@ -257,45 +314,93 @@ export function PartSelector({
 
                           {/* 部件数据 */}
                           <div className="flex items-center gap-2">
-                            {/* 装甲/结构 */}
                             {(part.armor !== 0 || part.structure !== 0) && (
                               <div className="flex flex-col items-center px-1 py-0.5 border rounded-md shadow-sm">
                                 <div className="flex items-center gap-1">
-                                  {/* icon */}
-                                  <img loading="lazy" src={`${tabsrc}/icon_armor.png`} alt="armor" className="w-4 h-4" />
+                                  <img
+                                    loading="lazy"
+                                    src={`${tabsrc}/icon_armor.png`}
+                                    alt="armor"
+                                    className="w-4 h-4"
+                                  />
                                   <div style={{ fontSize: '12px', color: 'var(--muted-foreground)' }}>
-                                    {part.structure === 0 ? translations.t39 : `${translations.t39}/${translations.t40}`}
+                                    {part.structure === 0
+                                      ? translations.t39
+                                      : `${translations.t39}/${translations.t40}`}
                                   </div>
                                 </div>
+
                                 <div
                                   style={{
                                     fontSize: '16px',
-                                    color: part.armor < 0 || part.structure < 0 ? 'red' : 'inherit',
+                                    color:
+                                      part.armor < 0 || part.structure < 0 ? 'red' : 'inherit',
                                   }}
                                 >
-                                  {part.structure === 0 ? part.armor : `${part.armor} / ${part.structure}`}
+                                  {part.structure === 0
+                                    ? part.armor
+                                    : `${part.armor} / ${part.structure}`}
                                 </div>
                               </div>
                             )}
 
-                            {/* 其他属性 */}
                             {[
                               { label: translations.t41, value: part.parray, icon: 'icon_parray' },
-                              { label: translations.t42, value: part.dodge, icon: 'icon_dodge' },
-                              { label: translations.t43, value: part.electronic, icon: 'icon_electronic' },
+
+                              // 🔵 dodge（弱化发光）
+                              {
+                                label: translations.t42,
+                                value: part.dodge,
+                                icon: 'icon_dodge',
+                                color: (() => {
+                                  const v = Math.min(Math.max(part.dodge, 1), 6);
+                                  const opacity = 0.20 + v * 0.08; // ✅ 弱化光效
+                                  return `rgba(0,120,255,${opacity})`;
+                                })(),
+                              },
+
+                              // 🟡 electronic（弱化发光）
+                              {
+                                label: translations.t43,
+                                value: part.electronic,
+                                icon: 'icon_electronic',
+                                color: (() => {
+                                  const v = Math.min(Math.max(part.electronic, 1), 6);
+                                  const opacity = 0.20 + v * 0.08; // ✅ 弱化光效
+                                  return `rgba(255,180,0,${opacity})`;
+                                })(),
+                              },
                             ]
-                              .filter(attr => attr.value !== 0) // 过滤掉值为0
+                              .filter(attr => attr.value !== 0)
                               .map(attr => (
                                 <div
                                   key={attr.label}
                                   className="flex flex-col items-center px-1 py-0.5 border rounded-md shadow-sm"
                                 >
                                   <div className="flex items-center gap-1">
-                                    {/* icon */}
-                                    <img loading="lazy" src={`${tabsrc}/${attr.icon}.png`} alt={attr.label} className="w-4 h-4" />
-                                    <div style={{ fontSize: '12px', color: 'var(--muted-foreground)' }}>{attr.label}</div>
+                                    <img
+                                      loading="lazy"
+                                      src={`${tabsrc}/${attr.icon}.png`}
+                                      alt={attr.label}
+                                      className="w-4 h-4"
+                                    />
+                                    <div
+                                      style={{
+                                        fontSize: '12px',
+                                        color: 'var(--muted-foreground)',
+                                      }}
+                                    >
+                                      {attr.label}
+                                    </div>
                                   </div>
-                                  <div style={{ fontSize: '16px', color: attr.value < 0 ? 'red' : 'inherit' }}>
+
+                                  <div
+                                    style={{
+                                      fontSize: '16px',
+                                      color:
+                                        attr.value < 0 ? 'red' : attr.color || 'inherit',
+                                    }}
+                                  >
                                     {attr.value}
                                   </div>
                                 </div>
@@ -318,7 +423,6 @@ export function PartSelector({
                           )}
                         </div>
                       </Card>
-
                     ))}
                   </div>
                 ))}
@@ -368,6 +472,20 @@ export function PartSelector({
                   </SelectContent>
                 </Select>
               </div>
+              {/* 是否显示卡片预览 */}
+              {!mobileOrTablet && <div className="flex items-center space-x-2">
+                <input
+                  type="checkbox"
+                  id="show-hover-img"
+                  checked={showHoverImg}
+                  onChange={(e) => onSetShowHoverImg(e.target.checked)}
+                  className="h-4 w-4"
+                  style={{ accentColor: "#ffffff" }} // 灰色勾选
+                />
+                <label htmlFor="show-hover-img" className="text-sm">
+                  {translations.t92}
+                </label>
+              </div>}
 
               {/* 星环选择 */}
               <div className="flex items-center space-x-2">
@@ -377,11 +495,16 @@ export function PartSelector({
                   checked={containPD}
                   onChange={(e) => setContainPD(e.target.checked)}
                   className="h-4 w-4"
+                  style={{
+                    accentColor: "#ffffff",   // 勾选颜色为灰色
+                    backgroundColor: "#ffffff" // 背景白色
+                  }}
                 />
                 <label htmlFor="contain-pd" className="text-sm">
                   {translations.t67}
                 </label>
               </div>
+
             </div>
           </div>
           <motion.div
@@ -399,12 +522,13 @@ export function PartSelector({
                   className="p-4 cursor-pointer hover:bg-accent/50 transition relative overflow-hidden shadow-sm"
                   onClick={() => onSelectPilot(pilot)}
                   onMouseEnter={(e) => {
+                    onSetHoverImg(`${imgsrc}/${pilot.id}.png`);
                     (e.currentTarget as HTMLDivElement).style.transform = "scale(1.05)";
                     (e.currentTarget as HTMLDivElement).style.boxShadow =
                       "0 6px 10px rgba(0,0,0,0.1)";
                   }}
                   onMouseLeave={(e) => {
-                    (e.currentTarget as HTMLDivElement).style.transform = "scale(1)";
+                    onSetHoverImg("null"); (e.currentTarget as HTMLDivElement).style.transform = "scale(1)";
                     (e.currentTarget as HTMLDivElement).style.boxShadow =
                       "0 4px 6px rgba(0,0,0,0.05), 0 1px 3px rgba(0,0,0,0.1)";
                   }}
@@ -426,7 +550,23 @@ export function PartSelector({
                     {/* 名称和分数 */}
                     <div className="flex items-center justify-between">
                       <h4 className="font-medium">{pilot.name}</h4>
-                      <Badge variant="outline">{pilot.score}</Badge>
+                      <Badge variant="outline" className="relative">
+                        {pilot.score}
+
+                        {pilot.score !== lastScore && (
+                          <span
+                            style={{
+                              position: 'absolute',
+                              top: 0,
+                              right: 2,
+                              fontSize: 8,
+                              opacity: 0.5, // 半透明
+                            }}
+                          >
+                            {pilot.score > lastScore ? '▲' : '▼'}
+                          </span>
+                        )}
+                      </Badge>
                     </div>
 
                     {/* 驾驶员属性 */}
@@ -514,6 +654,20 @@ export function PartSelector({
                   </SelectContent>
                 </Select>
               </div>
+              {/* 是否显示卡片预览 */}
+              {!mobileOrTablet && <div className="flex items-center space-x-2">
+                <input
+                  type="checkbox"
+                  id="show-hover-img"
+                  checked={showHoverImg}
+                  onChange={(e) => onSetShowHoverImg(e.target.checked)}
+                  className="h-4 w-4"
+                  style={{ accentColor: "#ffffff" }} // 灰色勾选
+                />
+                <label htmlFor="show-hover-img" className="text-sm">
+                  {translations.t92}
+                </label>
+              </div>}
 
               {/* 星环选择 */}
               <div className="flex items-center space-x-2">
@@ -523,11 +677,16 @@ export function PartSelector({
                   checked={containPD}
                   onChange={(e) => setContainPD(e.target.checked)}
                   className="h-4 w-4"
+                  style={{
+                    accentColor: "#ffffff",   // 勾选颜色为灰色
+                    backgroundColor: "#ffffff" // 背景白色
+                  }}
                 />
                 <label htmlFor="contain-pd" className="text-sm">
                   {translations.t67}
                 </label>
               </div>
+
             </div>
 
           </div>
@@ -547,12 +706,13 @@ export function PartSelector({
                   className="relative p-3 cursor-pointer hover:bg-accent/50 transition overflow-hidden shadow-sm min-h-[120px]"
                   onClick={() => onSelectDrone(drone)}
                   onMouseEnter={(e) => {
+                    onSetHoverImg(`${imgsrc}/${drone.id}.png`);
                     (e.currentTarget as HTMLDivElement).style.transform = "scale(1.05)";
                     (e.currentTarget as HTMLDivElement).style.boxShadow =
                       "0 6px 10px rgba(0,0,0,0.1)";
                   }}
                   onMouseLeave={(e) => {
-                    (e.currentTarget as HTMLDivElement).style.transform = "scale(1)";
+                    onSetHoverImg("null"); (e.currentTarget as HTMLDivElement).style.transform = "scale(1)";
                     (e.currentTarget as HTMLDivElement).style.boxShadow =
                       "0 4px 6px rgba(0,0,0,0.05), 0 1px 3px rgba(0,0,0,0.1)";
                   }}
@@ -578,51 +738,101 @@ export function PartSelector({
                       <h4 className="font-medium truncate">{drone.name}</h4>
                     </div>
 
-                    <div className="flex items-center gap-2">
-                      {/* 装甲/结构 */}
-                      {(drone.armor !== 0 || drone.structure !== 0) && (
-                        <div className="flex flex-col items-center px-1 py-0.5 border rounded-md shadow-sm">
-                          <div className="flex items-center gap-1">
-                            {/* icon */}
-                            <img loading="lazy" src={`${tabsrc}/icon_armor.png`} alt="armor" className="w-4 h-4" />
-                            <div style={{ fontSize: '12px', color: 'var(--muted-foreground)' }}>
-                              {drone.structure === 0 ? translations.t39 : `${translations.t39}/${translations.t40}`}
-                            </div>
-                          </div>
-                          <div
-                            style={{
-                              fontSize: '16px',
-                              color: drone.armor < 0 || drone.structure < 0 ? 'red' : 'inherit',
-                            }}
-                          >
-                            {drone.structure === 0 ? drone.armor : `${drone.armor} / ${drone.structure}`}
-                          </div>
-                        </div>
-                      )}
 
-                      {/* 其他属性 */}
-                      {[
-                        { label: translations.t41, value: drone.parray, icon: 'icon_parray' },
-                        { label: translations.t42, value: drone.dodge, icon: 'icon_dodge' },
-                        { label: translations.t43, value: drone.electronic, icon: 'icon_electronic' },
-                      ]
-                        .filter(attr => attr.value !== 0) // 过滤掉值为0
-                        .map(attr => (
-                          <div
-                            key={attr.label}
-                            className="flex flex-col items-center px-1 py-0.5 border rounded-md shadow-sm"
-                          >
-                            <div className="flex items-center gap-1">
-                              {/* icon */}
-                              <img loading="lazy" src={`${tabsrc}/${attr.icon}.png`} alt={attr.label} className="w-4 h-4" />
-                              <div style={{ fontSize: '12px', color: 'var(--muted-foreground)' }}>{attr.label}</div>
-                            </div>
-                            <div style={{ fontSize: '16px', color: attr.value < 0 ? 'red' : 'inherit' }}>
-                              {attr.value}
-                            </div>
+                       <div className="flex items-center gap-2">
+                            {(drone.armor !== 0 || drone.structure !== 0) && (
+                              <div className="flex flex-col items-center px-1 py-0.5 border rounded-md shadow-sm">
+                                <div className="flex items-center gap-1">
+                                  <img
+                                    loading="lazy"
+                                    src={`${tabsrc}/icon_armor.png`}
+                                    alt="armor"
+                                    className="w-4 h-4"
+                                  />
+                                  <div style={{ fontSize: '12px', color: 'var(--muted-foreground)' }}>
+                                    {drone.structure === 0
+                                      ? translations.t39
+                                      : `${translations.t39}/${translations.t40}`}
+                                  </div>
+                                </div>
+
+                                <div
+                                  style={{
+                                    fontSize: '16px',
+                                    color:
+                                      drone.armor < 0 || drone.structure < 0 ? 'red' : 'inherit',
+                                  }}
+                                >
+                                  {drone.structure === 0
+                                    ? drone.armor
+                                    : `${drone.armor} / ${drone.structure}`}
+                                </div>
+                              </div>
+                            )}
+
+                            {[
+                              { label: translations.t41, value: drone.parray, icon: 'icon_parray' },
+
+                              // 🔵 dodge（弱化发光）
+                              {
+                                label: translations.t42,
+                                value: drone.dodge,
+                                icon: 'icon_dodge',
+                                color: (() => {
+                                  const v = Math.min(Math.max(drone.dodge, 1), 6);
+                                  const opacity = 0.20 + v * 0.08; // ✅ 弱化光效
+                                  return `rgba(0,120,255,${opacity})`;
+                                })(),
+                              },
+
+                              // 🟡 electronic（弱化发光）
+                              {
+                                label: translations.t43,
+                                value: drone.electronic,
+                                icon: 'icon_electronic',
+                                color: (() => {
+                                  const v = Math.min(Math.max(drone.electronic, 1), 6);
+                                  const opacity = 0.20 + v * 0.08; // ✅ 弱化光效
+                                  return `rgba(255,180,0,${opacity})`;
+                                })(),
+                              },
+                            ]
+                              .filter(attr => attr.value !== 0)
+                              .map(attr => (
+                                <div
+                                  key={attr.label}
+                                  className="flex flex-col items-center px-1 py-0.5 border rounded-md shadow-sm"
+                                >
+                                  <div className="flex items-center gap-1">
+                                    <img
+                                      loading="lazy"
+                                      src={`${tabsrc}/${attr.icon}.png`}
+                                      alt={attr.label}
+                                      className="w-4 h-4"
+                                    />
+                                    <div
+                                      style={{
+                                        fontSize: '12px',
+                                        color: 'var(--muted-foreground)',
+                                      }}
+                                    >
+                                      {attr.label}
+                                    </div>
+                                  </div>
+
+                                  <div
+                                    style={{
+                                      fontSize: '16px',
+                                      color:
+                                        attr.value < 0 ? 'red' : attr.color || 'inherit',
+                                    }}
+                                  >
+                                    {attr.value}
+                                  </div>
+                                </div>
+                              ))}
                           </div>
-                        ))}
-                    </div>
+
 
                     {/* 类型 */}
                     <div className="flex items-center gap-2">
@@ -678,14 +888,14 @@ export function PartSelector({
                     className="relative cursor-pointer hover:bg-accent/50 transition shadow-sm overflow-hidden"
                     onClick={() => onSelectTacticCard(tacticCard)}
                     onMouseEnter={(e) => {
-                      const el = e.currentTarget as HTMLDivElement;
-                      el.style.transform = "scale(1.03)";
-                      el.style.boxShadow = "0 6px 10px rgba(0,0,0,0.15)";
+                      onSetHoverImg(`${imgsrc}/${tacticCard.id}.png`);
+                      (e.currentTarget as HTMLDivElement).style.transform = "scale(1.05)";
+                      (e.currentTarget as HTMLDivElement).style.boxShadow =
+                        "0 6px 10px rgba(0,0,0,0.1)";
                     }}
                     onMouseLeave={(e) => {
-                      const el = e.currentTarget as HTMLDivElement;
-                      el.style.transform = "scale(1)";
-                      el.style.boxShadow =
+                      onSetHoverImg("null"); (e.currentTarget as HTMLDivElement).style.transform = "scale(1)";
+                      (e.currentTarget as HTMLDivElement).style.boxShadow =
                         "0 4px 6px rgba(0,0,0,0.05), 0 1px 3px rgba(0,0,0,0.1)";
                     }}
                   >

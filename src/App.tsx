@@ -22,7 +22,7 @@ export default function App() {
   });
   const t = translations[lang];
 
-  // ------------------ 团队状态 ------------------
+  // ------------------ 队伍状态 ------------------
   const [teams, setTeams] = useState<Team[]>(() => {
     const v = localStorage.getItem("version");
     if (v !== "3") {
@@ -43,7 +43,16 @@ export default function App() {
   const [selectedMechId, setSelectedMechId] = useState<string>('');
   const [selectedPartType, setSelectedPartType] = useState<string>('torso');
   const [viewMode, setViewMode] = useState<'parts' | 'drones' | 'pilots' | 'tacticCards'>('parts');
-
+  const [hoverImg, setHoverImg] = useState<string | null>("null");
+  //前部件分数
+  const [lastScore, setLastScore] = useState<number>(0);
+  //前部件ID
+  const [lastPartId, setLastPartId] = useState<string>('');
+  const [showHoverImg, setShowHoverImg] = useState<boolean>(() => {
+    // 初始化时从 localStorage 获取
+    const stored = localStorage.getItem("showHoverImg");
+    return stored !== null ? JSON.parse(stored) : true;
+  });
 
   const typePartNames = PART_TYPE_NAMES[lang];
   const factionNames = FACTION_NAMES[lang];
@@ -80,7 +89,7 @@ export default function App() {
   }, []);
 
   useEffect(() => {
-    const mobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(
+    const mobile = /Android|webOS|iPhone|iPod|BlackBerry|IEMobile|Opera Mini/i.test(
       navigator.userAgent
     );
     setMobileOrTablet(mobile);
@@ -106,6 +115,11 @@ export default function App() {
     localStorage.setItem("lang", lang);
   }, [lang]);
 
+  // 每次 showHoverImg 改变时保存到 localStorage
+  useEffect(() => {
+    localStorage.setItem("showHoverImg", JSON.stringify(showHoverImg));
+  }, [showHoverImg]);
+
   // ------------------ 保存到 localStorage & 服务器 ------------------
   async function saveTeam(team: Team) {
     team.deviceID = await getDeviceFingerprint()
@@ -120,6 +134,28 @@ export default function App() {
     localStorage.setItem('teams', JSON.stringify(teams));
     if (selectedTeam) saveTeam(selectedTeam);
   }, [teams]);
+
+  // ------------------ 当前部件分数和id，用于在部件选择列表中进行对比 ------------------
+  useEffect(() => {
+    if (!selectedTeam) return;
+
+    const cMech = selectedTeam.mechs.find(mech => mech.id === selectedMechId);
+    if (!cMech) {
+      setLastScore(0);
+      return;
+    }
+    
+    let score = 0;
+    if (viewMode === 'parts') {
+      score = cMech.parts[selectedPartType]?.score ?? 0;
+      setLastPartId(cMech.parts[selectedPartType]?.id || '');
+    } else if (viewMode === 'pilots') {
+      score = cMech.pilot?.score ?? 0;
+    setLastPartId(cMech.pilot?.id || '');
+    }
+    setLastScore(score);
+  }, [selectedTeam, selectedMechId, selectedPartType, viewMode]);
+
 
   if (!data) return <div>加载中...</div>;
 
@@ -144,6 +180,7 @@ export default function App() {
       faction,
       mechs: mechsWithId,
       drones: teamData?.drones || [],
+      tacticCards: teamData?.tacticCards || [],
       totalScore: teamData?.totalScore || 0,
       mechCount: mechsWithId.length,
       largeDroneCount: teamData?.largeDroneCount || 0,
@@ -186,6 +223,13 @@ export default function App() {
       else {
         setCollapsedRight(false); // 用户操作时展开浮层
       }
+    }
+  };
+
+  // ------------------ 设置部件选择预览图 ------------------
+  const handleHoverImg = (img: string | null) => {
+    if (img !== null) {
+      setHoverImg(img);
     }
   };
 
@@ -303,7 +347,7 @@ export default function App() {
             {isMobileOrTablet ? (
               !collapsedLeft && (
                 <motion.div
-                  className="fixed inset-0 z-50 bg-black/50 flex justify-start"
+                  className="fixed inset-0 z-50 flex justify-start"
                   onClick={() => setCollapsedLeft(true)}
                   initial={{ opacity: 0 }}
                   animate={{ opacity: 1 }}
@@ -329,6 +373,7 @@ export default function App() {
                         translations={t}
                         factionNames={factionNames}
                         lang={lang}
+                        tabsrc={tabSrc}
                       />
                     </div>
                   </motion.div>
@@ -366,6 +411,7 @@ export default function App() {
                   translations={t}
                   factionNames={factionNames}
                   lang={lang}
+                  tabsrc={tabSrc}
                 />
 
               </div>
@@ -383,6 +429,38 @@ export default function App() {
             border: '1px solid rgba(255, 255, 255, 0.1)' // 半透明边框
           }}
         >
+          {/* 屏幕中央的悬浮大图 */}
+          <AnimatePresence>
+            {!isMobileOrTablet && showHoverImg && hoverImg !== "null" && (
+              <motion.div
+                className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-50 pointer-events-none flex items-center justify-center"
+                style={{
+                  maxWidth: collapsedLeft ? "30%" : "80%",
+                  maxHeight: collapsedLeft ? "30%" : "80%",
+                  backgroundColor: "rgba(255,255,255,0.5)", // 白色半透明背景
+                  borderRadius: "0.375rem",
+                  padding: "0.25rem"
+                }}
+                initial={{ opacity: 0, scale: 0.8 }}    // 初始状态
+                animate={{ opacity: 1, scale: 1 }}      // 出现动画
+                exit={{ opacity: 0, scale: 0.8 }}       // 消失动画
+                transition={{ duration: 0.3, ease: "easeOut" }} // 动画时长和缓动
+              >
+                {(viewMode !== 'drones' && viewMode!=='tacticCards' && lastPartId !== '') &&
+                <img
+                  src={`${imageSrc}/${lastPartId}.png`}
+                  alt="last preview"
+                  className="max-w-full max-h-full object-contain rounded-md shadow-lg"
+                />}
+                <img
+                  src={hoverImg}
+                  alt="preview"
+                  className="max-w-full max-h-full object-contain rounded-md shadow-lg"
+                />
+              </motion.div>
+            )}
+          </AnimatePresence>
+
 
 
           <MechList
@@ -408,7 +486,7 @@ export default function App() {
           {isMobileOrTablet ? (
             !collapsedRight && (
               <motion.div
-                className="fixed inset-0 z-50 bg-black/50 flex justify-end"
+                className="fixed inset-0 z-50  flex justify-end"
                 onClick={() => setCollapsedRight(true)}
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
@@ -435,6 +513,12 @@ export default function App() {
                       partTypeNames={typePartNames}
                       imgsrc={imageSrc}
                       tabsrc={tabSrc}
+                      onSetHoverImg={(img) => handleHoverImg(img)}
+                      onSetShowHoverImg={(show) => setShowHoverImg(show)}
+                      showHoverImg={showHoverImg}
+                      mobileOrTablet={isMobileOrTablet}
+                      lastScore={lastScore}
+                      lastPartId={lastPartId}
                       onSelectPart={(part) => {
                         if (selectedTeam && selectedMechId) {
                           const updatedMechs = selectedTeam.mechs.map(mech => {
@@ -540,6 +624,12 @@ export default function App() {
                 partTypeNames={typePartNames}
                 imgsrc={imageSrc}
                 tabsrc={tabSrc}
+                mobileOrTablet={isMobileOrTablet}
+                onSetHoverImg={(img) => handleHoverImg(img)}
+                onSetShowHoverImg={(show) => setShowHoverImg(show)}
+                showHoverImg={showHoverImg}
+                lastScore={lastScore}
+                lastPartId={lastPartId}
                 onSelectPart={(part) => {
                   if (selectedTeam && selectedMechId) {
                     const updatedMechs = selectedTeam.mechs.map(mech => {

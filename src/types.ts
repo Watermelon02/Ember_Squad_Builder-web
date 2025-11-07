@@ -97,17 +97,18 @@ export interface TacticCard {
   score: number;
 }
 
-export const FACTION_COLORS = {
-  RDL: 'bg-red-500',
-  UN: 'bg-blue-500',
-  GOF: 'bg-yellow-500',
-  PD: 'bg-gray-500',
-} as const;
+export const FACTION_COLORS: { [key: string]: string } = {
+  RDL: '#EA0046',
+  UN: '#006CB6',
+  GOF: '#006CB6',
+  PD: '#006CB6',
+};
+
 
 export const FACTION_NAMES = {
   zh: {
-    RDL: '复兴发展同盟',
-    UN: '联合网络',
+    RDL: '复盟',
+    UN: '联合',
     // GOF: '自由卫士',
     // PD: '星环动力',
     //没有卡片数据
