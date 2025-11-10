@@ -73,7 +73,9 @@ export const translations = {
     t80: "部件充足", t81: "部件不足", t82: "众筹禁赛", t83: "可参赛", t84: "非同派系",
     t85: "战术卡选择", t86: "搜索战术卡名称...", t87: "战术卡", t88: "添加战术卡", t89: "暂无战术卡，在右侧选择区域添加", t90: "战术卡列表",
     t91: "抛射物",
-    t92: "预览",t93: "不可参赛",t94:"空"
+    t92: "预览",t93: "不可参赛",t94:"空",
+    t95: "TTS指令",t96:"生成TTS指令，可以一键导入Tabletop Simulator中使用",t97:"TTS指令已复制到剪贴板。进入TTS的黑曜协议Mod后，先按 Enter 打开聊天框，然后粘贴指令（Ctrl+V）并按回车，即可导入小队:",
+    t98: "状态"
   },
 
   en: {
@@ -158,7 +160,11 @@ export const translations = {
     t89: "No tactic cards yet, add from the selection area on the right",
     t90: "Tactic Card List",
     t91: "projectile",
- t92: "Pre",t93: "Ineligible",t94:"Empty"
+ t92: "Pre",t93: "Ineligible",t94:"Empty",
+ t95: "TTS",
+t96: "Generate TTS commands that can be imported into Tabletop Simulator with one click",
+t97: "The TTS command has been copied to your clipboard. In the TTS Obsidian Protocol mod, press Enter to open the chat box, paste the command (Ctrl+V), and press Enter again to import the squad:",
+t98: "Status"
 
   }, jp: {
     t1: "データがクリップボードにコピーされました！",
@@ -239,8 +245,11 @@ export const translations = {
     t89: "戦術カードはまだありません。右側の選択エリアから追加してください",
     t90: "戦術カード一覧",
     t91: "投擲物",
-    t92: "プレビュー",t93: "出場不可",t94:"空"
-
+    t92: "プレビュー",t93: "出場不可",t94:"空",
+    t95: "TTS",
+t96: "ワンクリックでTabletop SimulatorにインポートできるTTSコマンドを生成します",
+t97: "TTSコマンドがクリップボードにコピーされました。TTSのオブシディアンプロトコルModで、まず Enter を押してチャットボックスを開き、コマンドを貼り付け（Ctrl+V）、再度 Enter を押すと、スコードをインポートできます:",
+t98: "ステータス"
   },
 
 };

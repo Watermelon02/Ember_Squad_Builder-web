@@ -60,6 +60,7 @@ export const MechImage: React.FC<MechImageProps> = ({ mech, tabsrc, translation 
       {/* 核心 Torso */}
       {hasTorso ? (
         <motion.img
+        loading="lazy"
           key={mech.parts.torso.id}
           src={`${tabsrc}/${mech.parts.torso.id}.png`}
           alt="torso"

@@ -172,7 +172,9 @@ export function PartSelector({
       return true;
     });
 
-    return filtered;
+    return filtered.sort((a, b) => {
+      return sortOrder === 'score_desc' ? b.score - a.score : a.score - b.score;
+    });
   }, [pilots, team, searchQuery, containPD]);
 
 

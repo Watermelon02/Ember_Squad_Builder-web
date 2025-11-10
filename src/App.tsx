@@ -5,7 +5,7 @@ import { PartSelector } from './components/PartSelector';
 import { Team, Mech, Part, Drone, Pilot, PART_TYPE_NAMES, FACTION_NAMES, TacticCard, calculateTotalScore } from './types';
 import { Button } from './components/ui/button';
 import { translations } from './i18n';
-import { IMAGE_SRC, LOCAL_IMAGE_SRC, TAB_IMAGE_SRC } from './resource';
+import { IMAGE_SRC, LOCAL_IMAGE_SRC, MECH_IMAGE_SRC, TAB_IMAGE_SRC } from './resource';
 import * as zhData from './data';
 import * as enData from './data_en';
 import * as jpData from './data_jp';
@@ -20,7 +20,7 @@ export default function App() {
   const [lang, setLang] = useState<"en" | "zh" | "jp">(() => {
     return (localStorage.getItem("lang") as "en" | "zh" | "jp") || "zh";
   });
-  const t = translations[lang];
+  const t = translations["zh"];
 
   // ------------------ 队伍状态 ------------------
   const [teams, setTeams] = useState<Team[]>(() => {
@@ -59,12 +59,14 @@ export default function App() {
   const imageSrc = IMAGE_SRC[lang];
   const tabSrc = TAB_IMAGE_SRC[lang];
   const localImgsrc = LOCAL_IMAGE_SRC[lang];
+  const mechImgsrc = MECH_IMAGE_SRC[lang];
 
   let selectedTeam = teams.find(team => team.id === selectedTeamId);
 
   // ------------------ 移动端判断 ------------------
   const [isMobileOrTablet, setMobileOrTablet] = useState(false);
 
+  const [isChampionMode, setChampionMode] = useState(false);
 
   const [collapsedLeft, setCollapsedLeft] = useState(isMobileOrTablet ? true : false);
   const [collapsedRight, setCollapsedRight] = useState(isMobileOrTablet ? true : false);
@@ -330,94 +332,102 @@ export default function App() {
       >
         {/* 左侧小队列表 */}
         <div className="relative flex flex-col">
-          <Button
-            size="sm"
-            className="absolute top-3 left-3 z-50 flex items-center justify-center w-10 h-10  shadow transition-all duration-300 ease-in-out"
-            style={{ backgroundColor: 'rgba(75,85,99,0.2)' }}
-            onClick={() => setCollapsedLeft(prev => !prev)}
+  <Button
+    size="sm"
+    className="absolute top-3 left-3 z-50 flex items-center justify-center w-10 h-10 shadow transition-all duration-300 ease-in-out"
+    style={{ backgroundColor: 'rgba(75,85,99,0.2)' }}
+    onClick={() => setCollapsedLeft(prev => !prev)}
+  >
+    {collapsedLeft ? (
+      <ChevronRight className="w-5 h-5" stroke="white" />
+    ) : (
+      <ChevronLeft className="w-5 h-5" stroke="white" />
+    )}
+  </Button>
+
+  <AnimatePresence>
+    {isMobileOrTablet ? (
+      !collapsedLeft && (
+        <motion.div
+          className="fixed inset-0 z-50 flex justify-start"
+          onClick={() => setCollapsedLeft(true)}
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          exit={{ opacity: 0 }}
+        >
+          <motion.div
+            className="bg-background shadow-lg h-[70vh] flex flex-col"
+            style={{ width: '80%' }} // 移动端宽度保持百分比
+            onClick={(e) => e.stopPropagation()}
+            initial={{ x: "-100%" }}
+            animate={{ x: 0 }}
+            exit={{ x: "-100%" }}
+            transition={{ type: "tween", duration: 0.3 }}
           >
-            {collapsedLeft ? (
-              <ChevronRight className="w-5 h-5" stroke="white" />
-            ) : (
-              <ChevronLeft className="w-5 h-5" stroke="white" />
-            )}
-          </Button>
+            <div className="flex-1 overflow-y-auto p-4 rounded-lg" style={{ WebkitOverflowScrolling: 'touch' }}>
+              <TeamList
+                teams={teams}
+                selectedTeamId={selectedTeamId}
+                onSelectTeam={setSelectedTeamId}
+                onAddTeam={addTeam}
+                onDeleteTeam={deleteTeam}
+                onUpdateTeam={updateTeam}
+                onCopyTeam={copyTeam}
+                translations={t}
+                factionNames={factionNames}
+                lang={lang}
+                tabsrc={tabSrc}
+                championMode={isChampionMode}
+                onChampionModeChange={isChampion => setChampionMode(isChampion)}
+              />
+            </div>
+          </motion.div>
+        </motion.div>
+      )
+    ) : (
+      <div
+        className={`overflow-y-auto min-h-0 shadow-xl transition-all duration-300 ease-in-out rounded-lg`}
+        style={{
+         width: collapsedLeft ? '0' : '22vw',   // 占屏幕20%
+          height: '100%',
+          backgroundColor: 'rgba(255, 255, 255, 0.5)',
+          backdropFilter: 'blur(16px)',
+          WebkitBackdropFilter: 'blur(16px)',
+          border: '1px solid rgba(255, 255, 255, 0.1)',
+          opacity: collapsedLeft ? 0 : 1,
+          scrollbarWidth: 'none',
+          msOverflowStyle: 'none',
+          WebkitOverflowScrolling: 'touch'
+        }}
+      >
+        <style>
+          {`
+            /* Chrome, Safari, Edge */
+            div::-webkit-scrollbar {
+              display: none;
+            }
+          `}
+        </style>
+        <TeamList
+          teams={teams}
+          selectedTeamId={selectedTeamId}
+          onSelectTeam={setSelectedTeamId}
+          onAddTeam={addTeam}
+          onDeleteTeam={deleteTeam}
+          onUpdateTeam={updateTeam}
+          onCopyTeam={copyTeam}
+          translations={t}
+          factionNames={factionNames}
+          lang={lang}
+          tabsrc={tabSrc}
+          championMode={isChampionMode}
+          onChampionModeChange={isChampion => setChampionMode(isChampion)}
+        />
+      </div>
+    )}
+  </AnimatePresence>
+</div>
 
-          <AnimatePresence>
-            {isMobileOrTablet ? (
-              !collapsedLeft && (
-                <motion.div
-                  className="fixed inset-0 z-50 flex justify-start"
-                  onClick={() => setCollapsedLeft(true)}
-                  initial={{ opacity: 0 }}
-                  animate={{ opacity: 1 }}
-                  exit={{ opacity: 0 }}
-                >
-                  <motion.div
-                    className="bg-background shadow-lg w-80 h-[70vh] flex flex-col"
-                    onClick={(e) => e.stopPropagation()}
-                    initial={{ x: "-100%" }}
-                    animate={{ x: 0 }}
-                    exit={{ x: "-100%" }}
-                    transition={{ type: "tween", duration: 0.3 }}
-                  >
-                    <div className="flex-1 overflow-y-auto p-4 rounded-lg " style={{ WebkitOverflowScrolling: 'touch' }}>
-                      <TeamList
-                        teams={teams}
-                        selectedTeamId={selectedTeamId}
-                        onSelectTeam={setSelectedTeamId}
-                        onAddTeam={addTeam}
-                        onDeleteTeam={deleteTeam}
-                        onUpdateTeam={updateTeam}
-                        onCopyTeam={copyTeam}
-                        translations={t}
-                        factionNames={factionNames}
-                        lang={lang}
-                        tabsrc={tabSrc}
-                      />
-                    </div>
-                  </motion.div>
-                </motion.div>
-              )
-            ) : (
-              <div
-                className={`flex-1 overflow-y-auto min-h-0  shadow-xl transition-all duration-300 ease-in-out rounded-lg  ${collapsedLeft ? 'w-0 opacity-0' : 'w-80 opacity-100'}`}
-                style={{
-                  backgroundColor: 'rgba(255, 255, 255, 0.5)', // 半透明白色
-                  backdropFilter: 'blur(16px)',               // 毛玻璃模糊
-                  WebkitBackdropFilter: 'blur(16px)',         // Safari 支持
-                  border: '1px solid rgba(255, 255, 255, 0.1)', // 半透明边框
-                  scrollbarWidth: 'none',                     // Firefox
-                  msOverflowStyle: 'none',                    // IE 10+
-                  WebkitOverflowScrolling: 'touch',           // 移动端流畅滚动
-                }}
-              >
-                <style>
-                  {`
-      /* Chrome, Safari, Edge */
-      div::-webkit-scrollbar {
-        display: none;
-      }
-    `}
-                </style>
-                <TeamList
-                  teams={teams}
-                  selectedTeamId={selectedTeamId}
-                  onSelectTeam={setSelectedTeamId}
-                  onAddTeam={addTeam}
-                  onDeleteTeam={deleteTeam}
-                  onUpdateTeam={updateTeam}
-                  onCopyTeam={copyTeam}
-                  translations={t}
-                  factionNames={factionNames}
-                  lang={lang}
-                  tabsrc={tabSrc}
-                />
-
-              </div>
-            )}
-          </AnimatePresence>
-        </div>
 
         {/* 中间机体列表 */}
         <div
@@ -478,11 +488,13 @@ export default function App() {
             tabsrc={tabSrc}
             mobileOrTablet={isMobileOrTablet}
             setLanguage={setLang}
+            championMode={isChampionMode}
+            mechImgSrc={mechImgsrc}
           />
         </div>
 
         {/* 右侧面板 */}
-        <AnimatePresence>
+       {!isChampionMode && <AnimatePresence>
           {isMobileOrTablet ? (
             !collapsedRight && (
               <motion.div
@@ -587,9 +599,10 @@ export default function App() {
             )
           ) : (
             <div
-              className="w-80 flex flex-col overflow-hidden  shadow-xl rounded-lg "
+              className="flex flex-col overflow-hidden  shadow-xl rounded-lg "
               style={{
                 backgroundColor: 'rgba(255, 255, 255, 0.5)', // 半透明白色，更白
+                 width: '22vw',  
                 backdropFilter: 'blur(16px)',              // 毛玻璃模糊
                 WebkitBackdropFilter: 'blur(16px)',        // Safari 支持
                 border: '1px solid rgba(255, 255, 255, 0.1)' // 半透明边框
@@ -689,7 +702,7 @@ export default function App() {
               />
             </div>
           )}
-        </AnimatePresence>
+        </AnimatePresence>}
       </div>
     </div>
 

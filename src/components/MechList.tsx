@@ -3,15 +3,18 @@ import { Button } from './ui/button';
 import { Card } from './ui/card';
 import { Input } from './ui/input';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from './ui/tabs';
-import { Plus, Trash2, Copy, ZoomIn, Rocket, Image, Table2, Loader2, Repeat, Settings, Globe } from 'lucide-react';
-import { Team, Mech, Part, PART_TYPE_NAMES, calculateTotalScore, } from '../types';
+import { Plus, Trash2, Copy, ZoomIn, Rocket, Image, Table2, Loader2, Repeat, Settings, Globe, Gamepad2Icon } from 'lucide-react';
+import { Team, Mech, Part, PART_TYPE_NAMES, calculateTotalScore, FACTION_COLORS, } from '../types';
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger, DialogClose } from './ui/dialog';
-import { unBackpack } from '../data';
+import { rdlBackpack, rdlChasis, rdlLeftHand, rdlRightHand, rdlTorso, unBackpack, unChasis, unLeftHand, unRightHand, unTorso } from '../data';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from './ui/select';
 import { VisuallyHidden } from "@radix-ui/react-visually-hidden";
 import extractChunks from "png-chunks-extract";
 import encodeChunks from "png-chunks-encode";
 import { motion, AnimatePresence } from 'framer-motion';
+import { DroneImage } from './ui/DroneImage';
+import { MechImage } from './ui/MechImage';
+import { MechPreview } from './ui/MechPreview';
 
 interface MechListProps {
   team?: Team;
@@ -23,7 +26,9 @@ interface MechListProps {
   translations: any;
   partTypeNames: any;
   imgsrc: string, tabsrc: string,
-  localImgsrc: string, lang: string, mobileOrTablet: boolean, setLanguage: React.Dispatch<React.SetStateAction<"zh" | "en" | "jp">>
+  localImgsrc: string, lang: string, mobileOrTablet: boolean, setLanguage: React.Dispatch<React.SetStateAction<"zh" | "en" | "jp">>,
+  championMode: boolean,
+  mechImgSrc: string,
 }
 
 export function MechList({
@@ -36,7 +41,8 @@ export function MechList({
   translations,
   partTypeNames,
   imgsrc, tabsrc,
-  localImgsrc, lang, mobileOrTablet, setLanguage
+  localImgsrc, lang, mobileOrTablet, setLanguage, championMode,
+  mechImgSrc
 }: MechListProps) {
   const [editingMechId, setEditingMechId] = useState<string>('');
   // 用一个对象记录每个无人机的页码
@@ -44,7 +50,10 @@ export function MechList({
   const [tacticCardPages, settacticCardPages] = React.useState<{ [index: number]: number }>({});
   const pageSize = 4; // 每页展示几个背包
   const [isExporting, setIsExporting] = useState(false);
+  const [isExportingTTS, setIsExportingTTS] = useState(false);
   const [showProjectileOption, setShowProjectileOption] = useState(false);
+  const [showTTSHint, setShowTTSHint] = useState(false);
+  const [cPartType, setCPartType] = useState("");
 
   const setDronePage = (index: number, newPage: number) => {
     setDronePages(prev => ({
@@ -467,8 +476,8 @@ export function MechList({
         innerGradient.addColorStop(1, `rgba(255,255,255,0)`); // 逐渐透明
       } else {
         innerGradient.addColorStop(0, `rgba(0,120,255,${alpha})`);       // 鲜蓝
-innerGradient.addColorStop(0.5, `rgba(100,180,255,${alpha * 0.8})`); // 浅蓝
-innerGradient.addColorStop(1, `rgba(255,255,255,0)`);           // 透明
+        innerGradient.addColorStop(0.5, `rgba(100,180,255,${alpha * 0.8})`); // 浅蓝
+        innerGradient.addColorStop(1, `rgba(255,255,255,0)`);           // 透明
 
       }
 
@@ -787,6 +796,188 @@ innerGradient.addColorStop(1, `rgba(255,255,255,0)`);           // 透明
   };
 
 
+  async function generateAndUploadMechImage(team: Team, mech: Mech, lang: string): Promise<string> {
+    sendGtagEvent("导出图片", "次数", "1");
+
+
+    const partOrder: (keyof Mech['parts'])[] = ['leftHand', 'torso', 'chasis', 'rightHand', 'backpack'];
+    const targetSize = 800;
+
+    const canvas = document.createElement("canvas");
+    const ctx = canvas.getContext("2d");
+    if (!ctx) return "";
+
+    const padding = 0;
+    const canvasSize = targetSize + padding * 2;
+    canvas.width = canvasSize;
+    canvas.height = canvasSize;
+
+    // faction 渐变背景
+    const gradient = ctx.createLinearGradient(0, 0, 0, canvas.height);
+    if (team.faction === "RDL") {
+      gradient.addColorStop(0, `rgba(237,114,124,1)`);
+      gradient.addColorStop(1, `rgba(255,255,255,1)`);
+    } else {
+      gradient.addColorStop(0, `rgba(108,128,192,1)`);
+      gradient.addColorStop(1, `rgba(255,255,255,1)`);
+    }
+    ctx.fillStyle = gradient;
+    ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+    // 加载部件图片
+    const partImgs = await Promise.all(
+      partOrder.map(k => mech.parts[k]?.id ? getImage(`${mechImgSrc}/${mech.parts[k]!.id}.png`) : Promise.resolve(null))
+    );
+
+    const torsoImg = partImgs[1];
+    const leftHandImg = partImgs[0];
+    const chasisImg = partImgs[2];
+    const rightHandImg = partImgs[3];
+
+
+    const drawPart = (img: HTMLImageElement | null, x: number, y: number) => {
+      if (!img) return;
+      ctx.drawImage(img, x, y, targetSize, targetSize);
+    };
+
+    // 绘制背包在左上角
+    if (team.faction == "RDL") {
+      const backpackImg = partImgs[4]
+      drawPart(backpackImg, padding, padding)
+    } else {
+      if (mech.parts.backpack?.id) {
+        const backpackImg = await getImage(`${tabsrc}/${mech.parts.backpack.id}.png`);
+
+        // 按比例缩小
+        const scale = 0.5; // 缩小为 1/3
+        const backpackWidth = backpackImg.width * scale;
+        const backpackHeight = backpackImg.height * scale;
+
+        const x = padding;
+        const y = canvas.height - padding - backpackHeight; // 左下角
+        ctx.drawImage(backpackImg, x, y, backpackWidth, backpackHeight);
+      }
+    }
+
+    // 按顺序叠加部件
+    drawPart(leftHandImg, padding, padding);
+    drawPart(torsoImg, padding, padding);
+    drawPart(chasisImg, padding, padding);
+    drawPart(rightHandImg, padding, padding);
+
+
+
+
+    // 生成 PNG Blob
+    const blob: Blob = await new Promise(resolve =>
+      canvas.toBlob(b => resolve(b!), "image/png")
+    );
+
+    const fileName = `mech_${mech.id}.png`;
+    const uploadUrl = `https://op-1307392056.cos.ap-guangzhou.myqcloud.com/mechs/${fileName}`;
+
+    await fetch(uploadUrl, {
+      method: 'PUT',
+      body: blob,
+    });
+
+    return uploadUrl; // ✅ 返回 URL
+  }
+  async function uploadTTSToCOS(jsonData: string, fileName: string): Promise<string> {
+    const blob = new Blob([jsonData], { type: 'application/txt' });
+    const uploadUrl = `https://op-1307392056.cos.ap-guangzhou.myqcloud.com/ttsURL/${fileName}`;
+
+    await fetch(uploadUrl, {
+      method: 'PUT',
+      body: blob,
+    });
+
+    return uploadUrl; // 返回可访问的 URL
+  }
+
+  async function exportTeamToTTS(team: Team, lang: string) {
+    const mechImageUrls: Record<string, string> = {};
+
+    // 生成每台机体图片
+    await Promise.all(
+      team.mechs.map(async mech => {
+        const url = await generateAndUploadMechImage(team, mech, lang);
+        mechImageUrls[mech.id] = url;
+      })
+    );
+
+
+    // 开始生成指令文本
+    let langCode = lang === "zh" ? "cn" : lang;
+    let ttsScript = `# Team ${team.name} [${team.id}] Faction: ${team.faction} Lang: ${langCode}\n\n`;
+
+
+    // 处理机体
+    for (const mech of team.mechs) {
+      const url = mechImageUrls[mech.id] || "";
+      ttsScript += `# Mech ${mech.name} ${mech.id} ${url}\n`;
+
+      const parts = ["torso", "chasis", "leftHand", "rightHand", "backpack"] as const;
+      for (const key of parts) {
+        const part = mech.parts[key];
+        if (part) {
+          const throwText = part.throwIndex ? ` [throwIndex:${part.throwIndex}]` : "";
+          ttsScript += `${PART_TYPE_NAMES["en"][key]}: ${part.id}${throwText}\n`;
+        }
+      }
+
+      // 投射物
+      const projectiles: string[] = [];
+      parts.forEach(key => {
+        const part = mech.parts[key];
+        if (part?.projectile) projectiles.push(...part.projectile);
+      });
+      if (projectiles.length > 0) {
+        ttsScript += `Projectile: ${projectiles.join(",")}\n`;
+      }
+
+      ttsScript += "\n";
+    }
+
+    // 处理无人机
+    for (const drone of team.drones) {
+      ttsScript += `# Drone ${drone.name} ${drone.id}\n`;
+      if (drone.projectile && drone.projectile.length > 0) {
+        ttsScript += `Projectile: ${drone.projectile.join(",")}\n`;
+      }
+      ttsScript += "\n";
+    }
+
+    // 处理战术卡
+    if (team.tacticCards && team.tacticCards.length > 0) {
+      for (const tacticCard of team.tacticCards) {
+        ttsScript += `# TacticCard ${tacticCard.name} ${tacticCard.id}\n\n`;
+      }
+    }
+
+    // 上传到 COS
+    const fileName = `tts_${Date.now()}.txt`;
+    const cosUrl = await uploadTTSToCOS(ttsScript, fileName);
+
+    // 返回 TTS 指令
+    return `!spawn-team-tts-url ${cosUrl}`;
+  }
+
+  const [open, setOpen] = useState(false);
+  const [script, setScript] = useState("");
+
+  async function exportTTS(team: Team, lang: string) {
+    const result = await exportTeamToTTS(team, lang);
+    setScript(result);
+    setOpen(true);
+  }
+
+
+
+
+
+
+
   const deletePart = (mechId: string, partType: string) => {
     if (!team) return;
 
@@ -885,34 +1076,85 @@ innerGradient.addColorStop(1, `rgba(255,255,255,0)`);           // 透明
 
   //数字颜色映射
   // 颜色表（1~10）
-const dodgeColors = [
-  "#dbeafe", "#bfdbfe", "#93c5fd", "#60a5fa", "#3b82f6",
-  "#2563eb", "#1d4ed8", "#1e40af", "#1e3a8a", "#172554"
-];
+  const dodgeColors = [
+    "#dbeafe", "#bfdbfe", "#93c5fd", "#60a5fa", "#3b82f6",
+    "#2563eb", "#1d4ed8", "#1e40af", "#1e3a8a", "#172554"
+  ];
 
-const electronicColors = [
-  "#fef9c3", "#fef08a", "#fde047", "#facc15", "#eab308",
-  "#ca8a04", "#a16207", "#854d0e", "#713f12", "#422006"
-];
+  const electronicColors = [
+    "#fef9c3", "#fef08a", "#fde047", "#facc15", "#eab308",
+    "#ca8a04", "#a16207", "#854d0e", "#713f12", "#422006"
+  ];
 
-// 根据 value 生成颜色（1~10）
-const getColorByAttr = (type, value) => {
-  const v = Math.min(Math.max(value, 1), 10); // 限制范围 1~10
+  // 根据 value 生成颜色（1~10）
+  const getColorByAttr = (type, value) => {
+    const v = Math.min(Math.max(value, 1), 10); // 限制范围 1~10
 
-  if (type === "dodge") {
-    return dodgeColors[v - 1];
-  }
-  if (type === "electronic") {
-    return electronicColors[v - 1];
-  }
+    if (type === "dodge") {
+      return dodgeColors[v - 1];
+    }
+    if (type === "electronic") {
+      return electronicColors[v - 1];
+    }
 
-  return "#111"; // 默认
-};
+    return "#111"; // 默认
+  };
 
 
   return (
     <div className="flex-1 min-h-0 flex flex-col">
       <Tabs defaultValue="mechs" className="flex-1 min-h-0 flex flex-col">
+        <Dialog open={open} onOpenChange={setOpen}>
+          <DialogContent>
+            <DialogHeader>
+              <DialogTitle>{translations.t97}</DialogTitle>
+            </DialogHeader>
+
+            <pre className="bg-muted p-4 rounded text-sm overflow-auto">
+              {script}
+            </pre>
+            <motion.div
+
+              style={{
+                display: 'flex',
+                flexWrap: 'wrap',
+                gap: `2px`,
+              }}
+            >
+              <AnimatePresence mode="popLayout">
+                {team.mechs.map((mech, index) => (
+                  <motion.div
+                    key={`mech-${mech.id ?? index}`}
+                    initial={{ opacity: 0, scale: 0.8, y: -10 }}
+                    animate={{ opacity: 1, scale: 1, y: 0 }}
+                    exit={{ opacity: 0, scale: 0.8, y: 10 }}
+                    transition={{ duration: 0.2 }}
+                  >
+                    <MechImage mech={mech} tabsrc={tabsrc} translation={translations} />
+                  </motion.div>
+                ))}
+
+                {team.drones.map((drone, index) => (
+                  <motion.div
+                    key={`drone-${drone.id}-${index}`}
+                    initial={{ opacity: 0, scale: 0.8, y: -10 }}
+                    animate={{ opacity: 1, scale: 1, y: 0 }}
+                    exit={{ opacity: 0, scale: 0.8, y: 10 }}
+                    transition={{ duration: 0.2 }}
+                  >
+                    <DroneImage drone={drone} tabsrc={tabsrc} />
+                  </motion.div>
+                ))}
+              </AnimatePresence>
+
+
+            </motion.div>
+            <Button variant="outline" onClick={() => navigator.clipboard.writeText(script)}>
+              {translations.t4}
+            </Button>
+          </DialogContent>
+        </Dialog>
+
         {/* 顶部工具栏 */}
         {mobileOrTablet ? (
           /* 移动端：三行布局 */
@@ -921,7 +1163,10 @@ const getColorByAttr = (type, value) => {
             <TabsList className="flex justify-center gap-2 w-full">
               <TabsTrigger
                 value="mechs"
-                onClick={() => onSetViewMode('parts')}
+                onClick={() => {
+                  setCPartType("");
+                  onSetViewMode('parts')
+                }}
                 className="flex-1 max-w-[150px]"
               >
                 {translations.t22} ({team.mechs.length})
@@ -1103,7 +1348,7 @@ const getColorByAttr = (type, value) => {
           <div className="p-4 border-b border-border flex items-center justify-between">
             {/* 左侧 Tabs */}
             <TabsList className="gap-2">
-              <TabsTrigger value="mechs" onClick={() => onSetViewMode('parts')}>
+              <TabsTrigger value="mechs" onClick={() => {setCPartType('');onSetViewMode('parts')}}>
                 {translations.t22} ({team.mechs.length})
               </TabsTrigger>
               <TabsTrigger value="drones" onClick={() => onSetViewMode('drones')}>
@@ -1226,8 +1471,109 @@ const getColorByAttr = (type, value) => {
                 </AnimatePresence>
 
               </div>
+
+              {/* 导出TTS */}
+              <div
+                className="relative"
+                onMouseEnter={() => setShowTTSHint(true)}
+                onMouseLeave={() => setShowTTSHint(false)}
+              >
+                <Button
+                  variant="outline"
+                  size="sm"
+                  disabled={isExportingTTS}
+                  onClick={async () => {
+                    setIsExportingTTS(true);
+                    try {
+                      await exportTTS(team, lang);
+                      const msg = document.createElement("div");
+                      msg.textContent = `✅ ${translations.t76}`;
+                      Object.assign(msg.style, {
+                        position: "fixed",
+                        bottom: "40px",
+                        left: "50%",
+                        transform: "translateX(-50%)",
+                        background: "rgba(0,0,0,0.75)",
+                        color: "white",
+                        padding: "8px 16px",
+                        borderRadius: "8px",
+                        fontSize: "14px",
+                        opacity: "0",
+                        transition: "opacity 0.3s",
+                        zIndex: 9999,
+                      });
+                      document.body.appendChild(msg);
+                      requestAnimationFrame(() => (msg.style.opacity = "1"));
+                      setTimeout(() => {
+                        msg.style.opacity = "0";
+                        setTimeout(() => msg.remove(), 300);
+                      }, 2000);
+                    } catch (err) {
+                      console.error(`${translations.t77}`, err);
+                      alert(`${translations.t78}`);
+                    } finally {
+                      setIsExportingTTS(false);
+                    }
+                  }}
+                >
+                  <div className="flex items-center gap-2">
+                    <AnimatePresence>
+                      {isExportingTTS && (
+                        <motion.div
+                          key="loader"
+                          initial={{ opacity: 0 }}
+                          animate={{ opacity: 1, rotate: [0, 360] }}
+                          exit={{ opacity: 0 }}
+                          transition={{
+                            rotate: { repeat: Infinity, duration: 1, ease: "linear" },
+                            opacity: { duration: 0.2 },
+                          }}
+                        >
+                          <Loader2 className="w-4 h-4" />
+                        </motion.div>
+                      )}
+                    </AnimatePresence>
+
+                    {isExportingTTS ? (
+                      <span>{translations.t79}</span>
+                    ) : (
+                      <div className="flex items-center gap-1">
+                        <Gamepad2Icon className="w-4 h-4" />
+                        <span>{translations.t95}</span>
+                      </div>
+                    )}
+                  </div>
+                </Button>
+
+                {/* 悬浮出现的 checkbox */}
+                <AnimatePresence>
+                  {showTTSHint && (
+                    <motion.div
+                      key="checkbox-popup"
+                      initial={{ opacity: 0, y: 8 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      exit={{ opacity: 0, y: 8 }}
+                      transition={{ duration: 0.2 }}
+                      className="absolute top-20 right-0 bg-white border border-gray-300 rounded-lg shadow-lg px-3 py-1.5 flex items-center  text-sm"
+                      style={{
+                        marginTop: '-6px', // 给一点视觉上的“悬浮”距离
+                      }}
+                    >
+
+                      <label
+                        htmlFor="include-projectile"
+                        className="cursor-pointer select-none text-gray-700 whitespace-nowrap"
+                      >
+                        {translations.t96}
+                      </label>
+                    </motion.div>
+                  )}
+                </AnimatePresence>
+
+              </div>
             </div>
           </div>
+
 
         )}
 
@@ -1349,7 +1695,7 @@ const getColorByAttr = (type, value) => {
                   </div>
 
 
-                  <div>
+                  {!championMode && <div>
                     <Button
                       variant="ghost"
                       size="sm"
@@ -1366,7 +1712,7 @@ const getColorByAttr = (type, value) => {
                     >
                       <Trash2 className="w-4 h-4" />
                     </Button>
-                  </div>
+                  </div>}
                 </div>}
 
                 <div
@@ -1380,24 +1726,29 @@ const getColorByAttr = (type, value) => {
 
                   {(Object.entries(partTypeNames) as [keyof typeof partTypeNames, string][]).map(
                     ([partType]) => (
-                      <AnimatePresence mode="wait" key={partType}>
+                      <AnimatePresence mode="wait">
                         <motion.div
                           key={mech.parts[partType]?.id || partType}
-                          initial={{ opacity: 0, y: -10, scale: 1 }}
-                          animate={{ opacity: 1, y: 0, scale: 1 }}
-                          exit={{ opacity: 0, y: 10, scale: 1 }}
+                          initial={{ opacity: 0, y: -10, scale: ((cPartType === partType&&selectedMechId === mech.id)&&selectedMechId === mech.id) ? 1.12 : 1 }}
+                          animate={{ opacity: 1, y: 0, scale: (cPartType === partType&&selectedMechId === mech.id) ? 1.08 : 1 }}
+                          exit={{ opacity: 0, y: 10, scale: (cPartType === partType&&selectedMechId === mech.id) ? 1.08 : 1 }}
                           transition={{ duration: 0.1 }}
+
                           onMouseEnter={(e) => {
-                            (e.currentTarget as HTMLDivElement).style.transform = "scale(1.05)";
-                            (e.currentTarget as HTMLDivElement).style.boxShadow =
-                              "0 6px 10px rgba(0,0,0,0.1)";
+                            if (cPartType !== partType) {
+                              e.currentTarget.style.transform = "scale(1.05)";
+                              e.currentTarget.style.boxShadow = "0 6px 10px rgba(0,0,0,0.1)";
+                            }
                           }}
                           onMouseLeave={(e) => {
-                            (e.currentTarget as HTMLDivElement).style.transform = "scale(1)";
-                            (e.currentTarget as HTMLDivElement).style.boxShadow =
-                              "0 4px 6px rgba(0,0,0,0.05), 0 1px 3px rgba(0,0,0,0.1)";
+                            if (cPartType !== partType) {
+                              e.currentTarget.style.transform = "scale(1)";
+                              e.currentTarget.style.boxShadow =
+                                "0 4px 6px rgba(0,0,0,0.05), 0 1px 3px rgba(0,0,0,0.1)";
+                            }
                           }}
-                          className={`relative p-0 overflow-hidden  cursor-pointer transition shadow-lg shadow-gray-500 rounded-lg ${selectedMechId === mech.id ? "border-primary" : ""
+
+                          className={`relative p-0 overflow-hidden cursor-pointer transition shadow-lg shadow-gray-500 rounded-lg ${selectedMechId === mech.id ? "border-primary" : ""
                             }`}
                         >
                           {/* 分数按钮 */}
@@ -1412,14 +1763,14 @@ const getColorByAttr = (type, value) => {
                           {mech.parts[partType] ? (
                             <>
                               {/* 删除按钮 */}
-                              <Button
+                              {!championMode && <Button
                                 variant="ghost"
                                 size="sm"
                                 onClick={() => deletePart(mech.id, partType)}
                                 className="absolute top-0 right-0 text-white shadow-lg shadow-gray-500 rounded-lg bg-blue-500/80"
                               >
                                 <Trash2 className="w-4 h-4" />
-                              </Button>
+                              </Button>}
 
                               {/* 放大预览 Dialog */}
                               <Dialog>
@@ -1549,6 +1900,7 @@ const getColorByAttr = (type, value) => {
                                 loading="lazy"
                                 className="w-full h-auto object-contain rounded-lg"
                                 onClick={() => {
+                                  setCPartType(partType);
                                   onSelectMech(mech.id);
                                   onSelectPartType(partType);
                                   onSetViewMode('parts');
@@ -1566,6 +1918,7 @@ const getColorByAttr = (type, value) => {
                                 cursor: "pointer",
                               }}
                               onClick={() => {
+                                setCPartType(partType);
                                 onSelectMech(mech.id);
                                 onSelectPartType(partType);
                                 onSetViewMode("parts");
@@ -1735,54 +2088,52 @@ const getColorByAttr = (type, value) => {
                         onSetViewMode('pilots');
                       }}
                       style={{
-                        flex: '0 0 14rem',
-                        height: '6rem',
+                        flex: '0 0 16vw',
+                        height: '8rem',
                         position: 'relative',
                         cursor: 'pointer',
                         transition: 'transform 0.3s ease, box-shadow 0.3s ease',
                         borderRadius: '0.5rem',
                         overflow: 'hidden',
-                        boxShadow: '0 10px 15px -3px rgba(0,0,0,0.1), 0 4px 6px -4px rgba(0,0,0,0.1)',
+                        boxShadow: '0 10px 15px -3px rgba(0,0,0,0.1), 0 4px 6px -4px rgba(0,0,0,0.1)'
                       }}
                       onMouseEnter={(e) => {
-                        (e.currentTarget as HTMLDivElement).style.transform = 'scale(1.03)';
-                        (e.currentTarget as HTMLDivElement).style.boxShadow = '0 6px 10px rgba(0,0,0,0.1)';
+                        const el = e.currentTarget;
+                        el.style.transform = 'scale(1.03)';
                       }}
                       onMouseLeave={(e) => {
-                        (e.currentTarget as HTMLDivElement).style.transform = 'scale(1)';
-                        (e.currentTarget as HTMLDivElement).style.boxShadow =
-                          '0 4px 6px rgba(0,0,0,0.05), 0 1px 3px rgba(0,0,0,0.1)';
+                        const el = e.currentTarget;
+                        el.style.transform = 'scale(1)';
+
                       }}
                     >
 
                       <AnimatePresence mode="wait">
-                      {/* 背景动画层，始终在最底层 */}
-                      {(selectedMechId === mech.id && mech.pilot !== undefined) && (
-                        <motion.div
-                        initial={{ opacity: 0, scale: 0 }}
-                            animate={{ opacity: 1, scale: 1 }}
-                            exit={{ opacity: 0, scale: 0 }}
+                        {/* 背景动画层，始终在最底层 */}
+                        {(selectedMechId === mech.id && mech.pilot !== undefined) && (
+                          <motion.div
+                            initial={{ opacity: 0 }}
+                            animate={{ opacity: 1 }}
+                            exit={{ opacity: 0 }}
                             transition={{ duration: 0.3 }}
-                          style={{
-                            position: 'absolute',
-                            inset: 0,
-                            top: '-300%',
-                            left: '-300%',
-                            width: '600%',
-                            height: '600%',
-                            pointerEvents: 'none',
-                            borderRadius: '0.5rem',
-                            background: `conic-gradient(
-            from 0deg,
-            ${getFactionColor(team.faction, 0.5)},
-            ${getFactionColor(team.faction, 0.2)},
-            ${getFactionColor(team.faction, 0.5)}
-          )`,
-                            animation: 'rotateBg 6s linear infinite',
-                            zIndex: 0, // 确保在最底层
-                          }}
-                        />
-                      )}
+                            style={{
+                              position: 'absolute',
+                              inset: 0,
+                              pointerEvents: 'none',
+                              borderRadius: '0.5rem',
+                              background: `conic-gradient(
+      from 0deg,
+      ${getFactionColor(team.faction, 0.5)},
+      ${getFactionColor(team.faction, 0.2)},
+      ${getFactionColor(team.faction, 0.5)}
+    )`,
+                              zIndex: 0,
+                              transformOrigin: 'center',
+                            }}
+
+                          />
+
+                        )}
                       </AnimatePresence>
 
                       {/* 图片 + AnimatePresence，zIndex 默认比背景高 */}
@@ -1860,13 +2211,55 @@ const getColorByAttr = (type, value) => {
                     </div>
                   )}
 
+                  {!mobileOrTablet && team.faction === 'RDL' && !mech.parts.torso?.isPD && (
+
+                    <MechPreview
+                      mech={mech}
+                      mechImgSrc={mechImgSrc}
+                      width="8rem"
+                      height="8rem"
+                      scaleOverrides={{ chasis: 1, backpack: 2 }}
+                      cropLeftPercent={13}
+                      defaultParts={{
+                        leftHand: rdlLeftHand[0],
+                        torso: rdlTorso[0],
+                        rightHand: rdlRightHand[0],
+                        chasis: rdlChasis[0],
+                        backpack: rdlBackpack[0],
+                      }}
+                    />
+
+                  )}
+
+                  {!mobileOrTablet && (team.faction === 'UN' || mech.parts.torso?.isPD) && (
+                    <MechPreview
+                      mech={mech}
+                      mechImgSrc={mechImgSrc}
+                      width="8rem"
+                      height="8rem"
+                      scaleOverrides={{
+                        chasis: 1,
+                        backpack: 1,
+                        leftHand: 1,
+                        rightHand: 1,
+                        torso: 1,
+                      }}
+                      defaultParts={{
+                        leftHand: unLeftHand[0],
+                        torso: unTorso[0], rightHand: unRightHand[1], chasis: unChasis[0], backpack: unBackpack[0],
+                      }}
+
+                    />
+                  )}
+
+
 
                   {/* 右侧信息卡片 */}
                   {!mobileOrTablet && (
                     <div
                       style={{
                         flex: 1,
-                        height: '6rem', // 高度统一
+                        height: '8rem', // 高度统一
                         padding: '0.75rem 1rem',
                         borderRadius: '0.5rem',
                         boxShadow: 'inset 0 0 8px  rgba(0,0,0,0.1)',
@@ -1881,63 +2274,33 @@ const getColorByAttr = (type, value) => {
                         <div style={{ display: 'flex', justifyContent: 'space-between', gap: '0.5rem' }}>
                           {/* 可用状态 */}
                           <div style={{ display: 'flex', justifyContent: 'space-between', gap: '0.5rem' }}>
-                            {/* 可用状态 */}
+                            {/* 综合状态栏 */}
                             <div
                               style={{
                                 flex: 1,
-                                height: '1.8rem',
-                                borderRadius: '0.3rem',
-                                width: '4rem',
+                                height: '3rem',
+                                minWidth: '5rem',
+                                borderRadius: '0.5rem',
                                 display: 'flex',
-                                alignItems: 'center',
-                                justifyContent: 'center',
-                                backgroundColor: '#f9fafb',
-                                fontSize: '0.6rem',
-                                color:
-                                  mech.parts.torso &&
-                                    mech.parts.chasis &&
-                                    (mech.parts.leftHand || mech.parts.rightHand) &&
-                                    mech.pilot
-                                    ? '#111' // 可用
-                                    : '#dc2626', // 禁用红色
-                                boxShadow: 'inset 0 0 8px rgba(0,0,0,0.1)',
-                                transition: 'all 0.3s ease',
-                              }}
-                            >
-                              {mech.parts.torso &&
-                                mech.parts.chasis &&
-                                (mech.parts.leftHand || mech.parts.rightHand) &&
-                                mech.pilot
-                                ? translations.t80
-                                : translations.t81}
-                            </div>
-
-                            {/* 众筹禁赛状态 */}
-                            <div
-                              style={{
-                                flex: 1,
-                                height: '1.8rem',
-                                width: '5rem',
-                                borderRadius: '0.3rem',
-                                display: 'flex',
+                                flexDirection: 'column', // 垂直排列
                                 alignItems: 'center',
                                 justifyContent: 'center',
                                 backgroundColor: '#f9fafb',
                                 fontSize: '0.6rem',
                                 color: (() => {
-                                  const bannedBackpack = ['005'].includes(mech.parts.backpack?.id || '');
-                                  const bannedLeft = ['040', '150', '117'].includes(mech.parts.leftHand?.id || '');
-                                  const bannedRight = ['038', '152', '119'].includes(mech.parts.rightHand?.id || '');
-                                  const isBanned = bannedBackpack || bannedLeft || bannedRight;
-
-                                  // 机体是否可用
-                                  const isUsable =
+                                  const usable =
                                     mech.parts.torso &&
                                     mech.parts.chasis &&
                                     (mech.parts.leftHand || mech.parts.rightHand) &&
                                     mech.pilot;
 
-                                  // === 新增：检测 isPD 派系一致性 ===
+                                  if (!usable) return '#dc2626'; // 缺部件，不可用
+
+                                  const bannedBackpack = ['005'].includes(mech.parts.backpack?.id || '');
+                                  const bannedLeft = ['040', '150', '117'].includes(mech.parts.leftHand?.id || '');
+                                  const bannedRight = ['038', '152', '119'].includes(mech.parts.rightHand?.id || '');
+                                  const isBanned = bannedBackpack || bannedLeft || bannedRight;
+
                                   const parts = [
                                     mech.parts.torso,
                                     mech.parts.chasis,
@@ -1946,89 +2309,114 @@ const getColorByAttr = (type, value) => {
                                     mech.parts.backpack,
                                   ].filter(Boolean);
 
-                                  const hasPD = parts.some((p) => p.isPD); // 是否存在PD部件
-                                  const allPD = parts.every((p) => p.isPD); // 是否全部PD部件
+                                  const hasPD = parts.some((p) => p.isPD);
+                                  const allPD = parts.every((p) => p.isPD);
+                                  let factionMismatch = hasPD && !allPD;
 
-                                  const factionMismatch = hasPD && !allPD; // 存在PD但不全为PD → 非同派系
+                                  if (mech.pilot?.faction === 'PD' && !allPD) factionMismatch = true;
+                                  if (mech.pilot?.faction !== 'PD' && hasPD) factionMismatch = true;
 
-                                  // 任一条件不满足则标红
-                                  return  isBanned || factionMismatch ? '#dc2626' : '#111';
+                                  if (isBanned || factionMismatch) return '#dc2626';
+
+                                  return '#111'; // 正常
                                 })(),
                                 boxShadow: 'inset 0 0 8px rgba(0,0,0,0.1)',
                                 transition: 'all 0.3s ease',
+
                               }}
                             >
-                              {(() => {
-                                const bannedBackpack = ['005'].includes(mech.parts.backpack?.id || '');
-                                const bannedLeft = ['040', '150', '117'].includes(mech.parts.leftHand?.id || '');
-                                const bannedRight = ['038', '152', '119'].includes(mech.parts.rightHand?.id || '');
-                                const isBanned = bannedBackpack || bannedLeft || bannedRight;
+                              {/* 上方固定文字 */}
+                              <div className="text-ssm text-muted-foreground">{translations.t98}</div>
 
-                                const isUsable =
-                                  mech.parts.torso &&
-                                  mech.parts.chasis &&
-                                  (mech.parts.leftHand || mech.parts.rightHand) &&
-                                  mech.pilot;
+                              {/* 下方原本的动态状态文字 */}
+                              <div>
+                                {(() => {
+                                  const usable =
+                                    mech.parts.torso &&
+                                    mech.parts.chasis &&
+                                    (mech.parts.leftHand || mech.parts.rightHand) &&
+                                    mech.pilot;
 
-                                // === 派系检测 ===
-                                const parts = [
-                                  mech.parts.torso,
-                                  mech.parts.chasis,
-                                  mech.parts.leftHand,
-                                  mech.parts.rightHand,
-                                  mech.parts.backpack,
-                                ].filter(Boolean);
+                                  if (!usable) return translations.t81; // ❌ 不可用
 
-                                const hasPD = parts.some((p) => p.isPD);
-                                const allPD = parts.every((p) => p.isPD);
+                                  const bannedBackpack = ['005'].includes(mech.parts.backpack?.id || '');
+                                  const bannedLeft = ['040', '150', '117'].includes(mech.parts.leftHand?.id || '');
+                                  const bannedRight = ['038', '152', '119'].includes(mech.parts.rightHand?.id || '');
+                                  const isBanned = bannedBackpack || bannedLeft || bannedRight;
 
-                                // 情况1：部件内部混派
-                                let factionMismatch = hasPD && !allPD;
+                                  const parts = [
+                                    mech.parts.torso,
+                                    mech.parts.chasis,
+                                    mech.parts.leftHand,
+                                    mech.parts.rightHand,
+                                    mech.parts.backpack,
+                                  ].filter(Boolean);
 
-                                // 情况2：驾驶员是PD但部件不是PD
-                                if (mech.pilot?.faction === 'PD' && !allPD) {
-                                  factionMismatch = true;
-                                }
+                                  const hasPD = parts.some((p) => p.isPD);
+                                  const allPD = parts.every((p) => p.isPD);
 
-                                // 情况3：驾驶员不是PD但部件有PD
-                                if (mech.pilot?.faction !== 'PD' && hasPD) {
-                                  factionMismatch = true;
-                                }
+                                  let factionMismatch = hasPD && !allPD;
+                                  if (mech.pilot?.faction === 'PD' && !allPD) factionMismatch = true;
+                                  if (mech.pilot?.faction !== 'PD' && hasPD) factionMismatch = true;
 
-                                // === 状态文字 ===
-                                if (factionMismatch) return translations.t84; // 非同一派系
-                                if (isBanned) return translations.t82; // 众筹禁赛
-                                return translations.t83; // 可参赛
+                                  if (factionMismatch) return translations.t84; // ❌ 非同派系
+                                  if (isBanned) return translations.t82; // ❌ 众筹禁赛
 
-                              })()}
+                                  return translations.t83; // ✅ 可参赛
+                                })()}
+                              </div>
                             </div>
-
 
                           </div>
 
                         </div>
-                        <div style={{ fontSize: '1rem' }}>
+                        <div
+                          style={{
+                            fontSize: lang === 'en' ? '0.5rem' : '1rem', // 英文缩小
+                            flexShrink: 0,           // 不让名字挤压其他 UI
+                            maxWidth: '5rem',        // 名字最多占 4rem，可调整
+                            overflow: 'hidden',
+                            whiteSpace: 'nowrap',
+                            textOverflow: 'ellipsis', // 名字过长显示省略号
+                          }}
+                        >
                           {editingMechId === mech.id ? (
                             <Input
                               value={mech.name}
                               onChange={(e) => updateMechName(mech.id, e.target.value)}
-                              onBlur={() => setEditingMechId('')}
-                              onKeyDown={(e) => { if (e.key === 'Enter') setEditingMechId(''); }}
+                              onBlur={() => {
+                                // 如果用户删除了名字，自动设置为默认
+                                if (!mech.name || mech.name.trim() === '') {
+                                  updateMechName(mech.id, translations.t19);
+                                }
+                                setEditingMechId('');
+                              }}
+                              onKeyDown={(e) => {
+                                if (e.key === 'Enter') {
+                                  if (!mech.name || mech.name.trim() === '') {
+                                    updateMechName(mech.id, '1');
+                                  }
+                                  setEditingMechId('');
+                                }
+                              }}
                               className="h-8 w-full"
                               autoFocus
                             />
                           ) : (
-                            <span onDoubleClick={() => setEditingMechId(mech.id)} className="cursor-pointer">
-                              {mech.name}
+                            <span
+                              onDoubleClick={() => setEditingMechId(mech.id)}
+                              className="cursor-pointer"
+                            >
+                              {mech.name || '1'}
                             </span>
                           )}
                         </div>
 
+
+
                         {/* 状态栏 */}
 
-
-
-                        <div style={{ display: 'flex', gap: '0.25rem' }}>
+                        {!championMode && <div style={{ display: 'flex', gap: '0.25rem' }}>
                           <Button
                             variant="ghost"
                             size="sm"
@@ -2047,100 +2435,100 @@ const getColorByAttr = (type, value) => {
                           >
                             <Trash2 className="w-4 h-4" />
                           </Button>
-                        </div>
+                        </div>}
                       </div>
 
                       {/* 属性卡片 */}
 
                       <div style={{ display: 'flex', justifyContent: 'space-between', gap: '0.25rem' }}>
-  {[
-    // 总分（无图标，无颜色变化）
-    { label: translations.t32, value: getMechTotalScore(mech), type: "score" },
+                        {[
+                          // 总分（无图标，无颜色变化）
+                          { label: translations.t32, value: getMechTotalScore(mech), type: "score" },
 
-    // dodge（蓝色）
-    {
-      value: Math.max(
-        (mech.parts.torso?.dodge || 0) +
-        (mech.parts.chasis?.dodge || 0) +
-        (mech.parts.leftHand?.dodge || 0) +
-        (mech.parts.rightHand?.dodge || 0) +
-        (mech.parts.backpack?.dodge || 0),
-        0
-      ),
-      icon: `${tabsrc}/icon_dodge.png`,
-      type: "dodge",
-      label: translations.t42,
-    },
+                          // dodge（蓝色）
+                          {
+                            value: Math.max(
+                              (mech.parts.torso?.dodge || 0) +
+                              (mech.parts.chasis?.dodge || 0) +
+                              (mech.parts.leftHand?.dodge || 0) +
+                              (mech.parts.rightHand?.dodge || 0) +
+                              (mech.parts.backpack?.dodge || 0),
+                              0
+                            ),
+                            icon: `${tabsrc}/icon_dodge.png`,
+                            type: "dodge",
+                            label: translations.t42,
+                          },
 
-    // electronic（黄色）
-    {
-      value:
-        (mech.parts.torso?.electronic || 0) +
-        (mech.parts.chasis?.electronic || 0) +
-        (mech.parts.leftHand?.electronic || 0) +
-        (mech.parts.rightHand?.electronic || 0) +
-        (mech.parts.backpack?.electronic || 0),
-      icon: `${tabsrc}/icon_electronic.png`,
-      type: "electronic",
-      label: translations.t43,
-    },
-  ].map((attr, idx) => (
-    <div
-      key={idx}
-      style={{
-        flex: 1,
-        height: '2.5rem',
-        padding: '0 0.25rem',
-        backgroundColor: '#f9fafb',
-        borderRadius: '0.5rem',
-        textAlign: 'center',
-        display: 'flex',
-        flexDirection: 'column',
-        justifyContent: 'center',
-        alignItems: 'center',
-        boxShadow: 'inset 0 0 8px rgba(0,0,0,0.1)',
-      }}
-    >
-      {/* 标签 */}
-      <div style={{ fontSize: '0.65rem', color: '#6b7280', marginBottom: '0.15rem' }}>
-        {attr.label}
-      </div>
+                          // electronic（黄色）
+                          {
+                            value:
+                              (mech.parts.torso?.electronic || 0) +
+                              (mech.parts.chasis?.electronic || 0) +
+                              (mech.parts.leftHand?.electronic || 0) +
+                              (mech.parts.rightHand?.electronic || 0) +
+                              (mech.parts.backpack?.electronic || 0),
+                            icon: `${tabsrc}/icon_electronic.png`,
+                            type: "electronic",
+                            label: translations.t43,
+                          },
+                        ].map((attr, idx) => (
+                          <div
+                            key={idx}
+                            style={{
+                              flex: 1,
+                              height: '3rem',
+                              padding: '0 0.25rem',
+                              backgroundColor: '#f9fafb',
+                              borderRadius: '0.5rem',
+                              textAlign: 'center',
+                              display: 'flex',
+                              flexDirection: 'column',
+                              justifyContent: 'center',
+                              alignItems: 'center',
+                              boxShadow: 'inset 0 0 8px rgba(0,0,0,0.1)',
+                            }}
+                          >
+                            {/* 标签 */}
+                            <div style={{ fontSize: '0.65rem', color: '#6b7280', marginBottom: '0.15rem' }}>
+                              {attr.label}
+                            </div>
 
-      {/* 数字 + 图标 */}
-      <div style={{ display: 'flex', alignItems: 'center', gap: '0.25rem' }}>
-        {attr.icon && (
-          <img
-            src={attr.icon}
-            alt={attr.label}
-            style={{ width: '1.25rem', height: '1.25rem' }}
-          />
-        )}
+                            {/* 数字 + 图标 */}
+                            <div style={{ display: 'flex', alignItems: 'center', gap: '0.25rem' }}>
+                              {attr.icon && (
+                                <img
+                                  src={attr.icon}
+                                  alt={attr.label}
+                                  style={{ width: '1.25rem', height: '1.25rem' }}
+                                />
+                              )}
 
-        <AnimatePresence mode="popLayout">
-          <motion.div
-            key={attr.value}
-            initial={{ scale: 1, y: 0, opacity: 0 }}
-            animate={{ y: [-5, 0], opacity: 1 }}
-            exit={{ y: 5, opacity: 0 }}
-            transition={{ duration: 0.3 }}
-            style={{
-              fontSize: '0.875rem',
-              fontWeight: 500,
-              color:
-                attr.type === "dodge"
-                  ? getColorByAttr("dodge", attr.value)
-                  : attr.type === "electronic"
-                  ? getColorByAttr("electronic", attr.value)
-                  : "#111", // score 默认深色
-            }}
-          >
-            {attr.value}
-          </motion.div>
-        </AnimatePresence>
-      </div>
-    </div>
-  ))}
-</div>
+                              <AnimatePresence mode="popLayout">
+                                <motion.div
+                                  key={attr.value}
+                                  initial={{ scale: 1, y: 0, opacity: 0 }}
+                                  animate={{ y: [-5, 0], opacity: 1 }}
+                                  exit={{ y: 5, opacity: 0 }}
+                                  transition={{ duration: 0.3 }}
+                                  style={{
+                                    fontSize: '0.875rem',
+                                    fontWeight: 500,
+                                    color:
+                                      attr.type === "dodge"
+                                        ? getColorByAttr("dodge", attr.value)
+                                        : attr.type === "electronic"
+                                          ? getColorByAttr("electronic", attr.value)
+                                          : "#111", // score 默认深色
+                                  }}
+                                >
+                                  {attr.value}
+                                </motion.div>
+                              </AnimatePresence>
+                            </div>
+                          </div>
+                        ))}
+                      </div>
 
 
                     </div>
@@ -2151,13 +2539,26 @@ const getColorByAttr = (type, value) => {
               </div>
             </Card>
           ))}
-          <div className="flex justify-center">
-            <Button onClick={addMech} size="sm" className="w-full bg-gray-100 hover:bg-gray-200 text-gray-800">
-              <Plus className="w-4 h-4 mr-2" />
-              {translations.t29}
-            </Button>
+          {!championMode ? (
+            <div className="flex justify-center">
+              <Button
+                onClick={addMech}
+                size="sm"
+                className="w-full bg-gray-100 hover:bg-gray-200 text-gray-800"
+              >
+                <Plus className="w-4 h-4 mr-2" />
+                {translations.t29}
+              </Button>
+            </div>
+          ) : (
+            <div className="p-4 bg-white rounded shadow">
+              <h2 className="text-lg font-semibold mb-2">文章标题</h2>
+              <p className="text-gray-700">
+                这里显示文章内容，可以是介绍冠军模式的说明或其他信息。
+              </p>
+            </div>
+          )}
 
-          </div>
 
           {team.mechs.length === 0 && (
             <div className="text-center text-muted-foreground py-8">
@@ -2309,14 +2710,14 @@ const getColorByAttr = (type, value) => {
                   />
 
                   {/* 删除按钮 */}
-                  <Button
+                  {!championMode && <Button
                     variant="ghost"
                     size="sm"
                     onClick={(e) => { e.stopPropagation(); deleteDrone(index); }}
                     className="absolute top-0 right-0 shadow-lg shadow-gray-500 rounded-lg text-destructive hover:text-destructive"
                   >
                     <Trash2 className="w-4 h-4" />
-                  </Button>
+                  </Button>}
 
 
                   {Array.isArray(drone.projectile) &&
@@ -2556,14 +2957,14 @@ const getColorByAttr = (type, value) => {
                   />
 
                   {/* 删除按钮 */}
-                  <Button
+                  {!championMode && <Button
                     variant="ghost"
                     size="sm"
                     onClick={(e) => { e.stopPropagation(); deleteTacticCard(index); }}
                     className="absolute top-0 right-0 shadow-lg shadow-gray-500 rounded-lg text-destructive hover:text-destructive"
                   >
                     <Trash2 className="w-4 h-4" />
-                  </Button>
+                  </Button>}
 
                 </div>
               );

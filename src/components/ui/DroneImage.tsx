@@ -35,6 +35,7 @@ export const DroneImage: React.FC<DroneImageProps> = ({ drone, tabsrc }) => {
     >
       {hasImage ? (
         <motion.img
+        loading="lazy"
           src={`${tabsrc}/${drone.id}.png`}
           alt={drone.name}
           style={{
