@@ -1,6 +1,6 @@
 {
       "name": "月尘写表器",
-      "version": "0.1.0",
+      "version": "1.0.0",
       "private": true,
       "dependencies": {
             "@radix-ui/react-accordion": "^1.2.3",
@@ -29,18 +29,26 @@
             "@radix-ui/react-toggle": "^1.1.2",
             "@radix-ui/react-toggle-group": "^1.1.2",
             "@radix-ui/react-tooltip": "^1.1.8",
+            "@zxing/browser": "^0.1.5",
+            "@zxing/library": "^0.21.3",
+            "axios": "^1.11.0",
+            "bwip-js": "^4.7.0",
             "class-variance-authority": "^0.7.1",
             "clsx": "*",
             "cmdk": "^1.1.1",
+            "datamatrix-decode": "^0.0.2",
             "embla-carousel-react": "^8.6.0",
+            "framer-motion": "^12.23.22",
+            "html2canvas": "^1.4.1",
             "input-otp": "^1.4.2",
+            "jsqr": "^1.4.0",
             "lucide-react": "^0.487.0",
+            "lz-string": "^1.5.0",
             "next-themes": "^0.4.6",
-<<<<<<< Updated upstream
-=======
             "png-chunks-encode": "^1.0.0",
             "png-chunks-extract": "^1.0.0",
->>>>>>> Stashed changes
+            "qr-scanner": "^1.4.2",
+            "qrcode": "^1.5.4",
             "react": "^18.3.1",
             "react-day-picker": "^8.10.1",
             "react-dom": "^18.3.1",
@@ -53,14 +61,24 @@
       },
       "devDependencies": {
             "@types/node": "^20.10.0",
+            "@types/png-chunks-extract": "^1.0.2",
+            "@types/react": "^19.2.1",
+            "@types/react-dom": "^19.2.0",
             "@vitejs/plugin-react-swc": "^3.10.2",
             "autoprefixer": "^10.4.21",
+            "gh-pages": "^6.3.0",
             "postcss": "^8.5.6",
             "tailwindcss": "^4.1.13",
-            "vite": "6.3.5"
+            "typescript": "^5.9.3",
+            "vite": "6.3.5",
+            "vite-plugin-gh-pages": "^1.0.1",
+            "vite-plugin-pwa": "^1.0.3"
       },
       "scripts": {
             "dev": "vite",
-            "build": "vite build"
-      }
+            "build": "vite build",
+            "predeploy": "npm run build",
+  "deploy": "gh-pages -d build"
+      },
+      "homepage": "https://watermelon02.github.io/builder-web/"
 }
