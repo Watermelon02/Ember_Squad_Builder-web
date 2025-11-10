@@ -20,7 +20,7 @@ export default function App() {
   const [lang, setLang] = useState<"en" | "zh" | "jp">(() => {
     return (localStorage.getItem("lang") as "en" | "zh" | "jp") || "zh";
   });
-  const t = translations["zh"];
+  const t = translations[lang];
 
   // ------------------ 队伍状态 ------------------
   const [teams, setTeams] = useState<Team[]>(() => {
@@ -125,11 +125,11 @@ export default function App() {
   // ------------------ 保存到 localStorage & 服务器 ------------------
   async function saveTeam(team: Team) {
     team.deviceID = await getDeviceFingerprint()
-    try {
-      await axios.post("https://4watermelon.fun/api/teams/save", team);
-    } catch (err) {
-      console.error("保存失败:", err);
-    }
+    // try {
+    //   await axios.post("https://4watermelon.fun/api/teams/save", team);
+    // } catch (err) {
+    //   console.error("保存失败:", err);
+    // }
   }
 
   useEffect(() => {
@@ -301,12 +301,12 @@ export default function App() {
   const deleteTeam = async (teamId: string) => {
     const team = teams.find(t => t.id === teamId);
     if (!team) return;
-    try {
-      team.deviceID = await getDeviceFingerprint();
-      await axios.post("https://4watermelon.fun/api/teams/delete", team);
-    } catch (err) {
-      console.error("删除失败:", err);
-    }
+    // try {
+    //   team.deviceID = await getDeviceFingerprint();
+    //   await axios.post("https://4watermelon.fun/api/teams/delete", team);
+    // } catch (err) {
+    //   console.error("删除失败:", err);
+    // }
     setTeams(prev => {
       const filtered = prev.filter(t => t.id !== teamId);
       // 如果删除的是当前选中的队伍

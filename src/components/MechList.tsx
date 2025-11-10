@@ -826,8 +826,20 @@ export function MechList({
 
     // 加载部件图片
     const partImgs = await Promise.all(
-      partOrder.map(k => mech.parts[k]?.id ? getImage(`${mechImgSrc}/${mech.parts[k]!.id}.png`) : Promise.resolve(null))
-    );
+    partOrder.map(async (k) => {
+      const id = mech.parts[k]?.id;
+      if (!id) return null;
+
+      // ✅ 如果是背包，且阵营为 UN，则从 tabsrc 加载
+      if (k === "backpack" && team.faction === "UN") {
+        return await getImage(`${tabsrc}/${id}.png`);
+      }
+
+      // ✅ 否则走 mechImgSrc 默认逻辑
+      return await getImage(`${mechImgSrc}/${id}.png`);
+    })
+  );
+
 
     const torsoImg = partImgs[1];
     const leftHandImg = partImgs[0];
