@@ -22,6 +22,17 @@ local function getTabTemplate()
     end
 end
 
+-- --------------------------
+-- 辅助函数：生成驾驶员卡 URL
+local function getPilotUrl(pilotId, fileType)
+    local template
+    if currentLang == "cn" then
+        template = "https://op-1307392056.cos.ap-guangzhou.myqcloud.com/res/cn/pilot_dial/%s.png"
+    else
+        template = "https://raw.githubusercontent.com/Watermelon02/builder-web/main/res/" .. currentLang .. "/pilot_dial/%s.png"
+    end
+    return string.format(template, pilotId .. (fileType or ""))
+end
 
 -- --------------------------
 -- 辅助函数：生成完整 URL
@@ -104,13 +115,10 @@ function onChat(message, player)
         local offsetX = 0
         local droneX = 0
         local droneRealX = 0
-
-        -- 当前机体数据
         local mechBaseX = 0
         local torsoX = 0
         local partOffsetX = 0
         local projectileOffsetX = 0
-
         local lastType = "part"
 
         for _, line in ipairs(lines) do
@@ -132,12 +140,10 @@ function onChat(message, player)
                     mechBaseX = offsetX
                     partOffsetX = 0
                     projectileOffsetX = 0
-
                     local mechUrl = getUrl(mechUrlTemplate, urlPart)
                     printToAll("生成机体 : " .. mechUrl, {1, 0.5, 0})
                     spawnFigurine(mechUrl, {basePos.x + mechBaseX, basePos.y + 2, basePos.z}, {1.5, 1.5, 1.5},
                         player.color)
-
                     offsetX = offsetX + 15
                 end
 
@@ -145,26 +151,21 @@ function onChat(message, player)
             elseif line:sub(1, 7) == "# Drone" then
                 lastType = "drone"
                 projectileOffsetX = 0
-                droneRealX = droneX  
+                droneRealX = droneX
                 droneX = spawnDrone(line, basePos, droneX, player.color)
 
                 -- -------------------- 投射物 --------------------
             elseif line:find("^Projectile:") then
                 for proj in line:gmatch("([^,]+)") do
                     proj = proj:gsub("Projectile:%s*", ""):gsub("^%s+", ""):gsub("%s+$", "")
-
-                    -- 投射物 Card
                     local urlProjCard = getUrl(getCardUrlTemplate(), proj)
                     printToAll("生成投射物 : " .. urlProjCard, {0, 0.5, 1})
                     if lastType == "part" then
                         spawnCard(urlProjCard, {basePos.x + mechBaseX + projectileOffsetX, basePos.y, basePos.z - 4})
                     elseif lastType == "drone" then
-                        spawnCard(urlProjCard, {basePos.x + droneRealX + projectileOffsetX, basePos.y, basePos.z+6 })
-
+                        spawnCard(urlProjCard, {basePos.x + droneRealX + projectileOffsetX, basePos.y, basePos.z + 6})
                     end
 
--- 投射物 Figurine
-                    
                     if not projectileFigurineBlacklist[proj] then
                         local urlProjFig = getUrl(getTabTemplate(), proj)
                         printToAll("生成投射物 Figurine: " .. urlProjFig, {0, 0.7, 1})
@@ -173,8 +174,9 @@ function onChat(message, player)
                                 {basePos.x + mechBaseX + projectileOffsetX, basePos.y + 2, basePos.z - 4}, {1, 1, 1},
                                 player.color)
                         elseif lastType == "drone" then
-                            spawnFigurine(urlProjFig, {basePos.x + droneRealX + projectileOffsetX, basePos.y+2 , basePos.z+6 },
-                                {1, 1, 1}, player.color)
+                            spawnFigurine(urlProjFig,
+                                {basePos.x + droneRealX + projectileOffsetX, basePos.y + 2, basePos.z + 6}, {1, 1, 1},
+                                player.color)
                         end
                     else
                         printToAll("跳过投射物 Figurine: " .. proj, {1, 0, 0})
@@ -194,27 +196,36 @@ function onChat(message, player)
                 else
                     printToAll("战术卡未解析到 ID: " .. line, {1, 0, 0})
                 end
+
+                -- -------------------- 驾驶员卡 --------------------
+            elseif line:sub(1, 6) == "Pilot:" then
+                local pilotId = line:match("Pilot:%s*(%S+)")
+                if pilotId then
+                    printToAll("生成驾驶员卡片: " .. pilotId, {1, 1, 0})
+                    spawnPilotCard(pilotId, {
+                        x = basePos.x + mechBaseX,
+                        y = basePos.y,
+                        z = basePos.z
+                    })
+                    partOffsetX = partOffsetX + 2
+                end
+
                 -- -------------------- 部件行 --------------------
             else
                 local partId, throwIndex = line:match("^%S+: (%S+)%s*%[throwIndex:(%S+)%]")
                 if partId then
-                    -- 部件 Card
                     local urlPart = getUrl(getCardUrlTemplate(), partId)
                     printToAll("生成部件卡: " .. urlPart, {1, 1, 0})
                     lastType = "part"
                     spawnCard(urlPart, {basePos.x + mechBaseX + partOffsetX, basePos.y, basePos.z})
-
                     if line:match("^Torso:") then
                         torsoX = mechBaseX + partOffsetX
                     end
-
-                    -- throwIndex Card 放在主部件下方
                     if throwIndex then
                         local urlThrow = getUrl(getCardUrlTemplate(), throwIndex)
                         printToAll("生成弃置卡: " .. urlThrow, {1, 0.5, 0})
                         spawnCard(urlThrow, {basePos.x + mechBaseX + partOffsetX, basePos.y, basePos.z})
                     end
-
                     partOffsetX = partOffsetX + 2
                 else
                     partId = line:match("^%S+: (%S+)")
@@ -270,22 +281,79 @@ function spawnFigurine(url, pos, sca, playerColor)
             })
             o.setColorTint(playerColor)
             o.reload()
-
         end
     })
 end
 
+
+
+-- --------------------------
+function spawnPilotCard(pilotId, pos)
+    local stateCount = 6
+    local baseName = tostring(pilotId)
+    local deckId = 50
+    local cardId = deckId * 100 + 1
+
+    -- CustomDeck
+    local customDeck = {}
+    customDeck[tostring(deckId)] = {
+        FaceURL = getPilotUrl(baseName, "-face"),
+        BackURL = getPilotUrl(baseName, "-state-1"),
+        NumWidth = 1,
+        NumHeight = 1,
+        BackIsHidden = true,
+        UniqueBack = false,
+        Type = 0
+    }
+
+    local card = {
+        GUID = "pilot"..pilotId,
+        Name = "CardCustom",
+        Nickname = baseName,
+        Description = "",
+        Transform = {
+            posX = pos.x, posY = pos.y, posZ = pos.z,
+            rotX = 0, rotY = 180, rotZ = 0,
+            scaleX = 1, scaleY = 1, scaleZ = 1
+        },
+        CustomDeck = customDeck,
+        CardID = cardId,
+        States = {}
+    }
+
+    for i = 2, stateCount do
+        local stateCardId = deckId * 100 + i
+        card.States[tostring(i)] = {
+            GUID = "pilot" .. pilotId .. "s" .. i,
+            Name = "CardCustom",
+            Nickname = baseName,
+            Description = "",
+            FaceURL = getPilotUrl(baseName, "-face"),
+            BackURL = getPilotUrl(baseName, "-state-" .. i),
+            Transform = {
+                posX = pos.x, posY = pos.y, posZ = pos.z,
+                rotX = 0, rotY = 180, rotZ = 0,
+                scaleX = 1, scaleY = 1, scaleZ = 1
+            },
+            CardID = stateCardId
+        }
+    end
+
+    spawnObjectJSON({ json = JSON.encode(card) })
+end
+
+
+
+
+-- --------------------------
 function onPlayerConnect(player)
     printToColor(
         "欢迎游玩 EOP！你可以前往 https://watermelon02.github.io/builder-web/ 创建你的军表。完成后将军表导出为 TTS 指令，并把指令粘贴到 TTS 聊天框中，即可自动生成对应的卡片和单位。\n\nWelcome to EOP! Visit https://watermelon02.github.io/builder-web/ to build your squad. After exporting the TTS command, paste it into the TTS chat to automatically generate all cards and units.",
-        player.color,
-        {1, 0, 0}
-    )
+        player.color, {1, 0, 0})
 end
 
 function onLoad()
     printToAll(
         "欢迎游玩 EOP！你可以前往 https://watermelon02.github.io/builder-web/ 创建你的军表。完成后将军表导出为 TTS 指令，并把指令粘贴到 TTS 聊天框中，即可自动生成对应的卡片和单位。\n\nWelcome to EOP! Visit https://watermelon02.github.io/builder-web/ to build your squad. After exporting the TTS command, paste it into the TTS chat to automatically generate all cards and units.",
-        {1, 0, 0}
-    )
+        {1, 0, 0})
 end

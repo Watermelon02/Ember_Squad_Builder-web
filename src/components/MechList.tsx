@@ -9,12 +9,14 @@ import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger, Dialog
 import { rdlBackpack, rdlChasis, rdlLeftHand, rdlRightHand, rdlTorso, unBackpack, unChasis, unLeftHand, unRightHand, unTorso } from '../data';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from './ui/select';
 import { VisuallyHidden } from "@radix-ui/react-visually-hidden";
-import extractChunks from "png-chunks-extract";
-import encodeChunks from "png-chunks-encode";
+
 import { motion, AnimatePresence } from 'framer-motion';
 import { DroneImage } from './ui/DroneImage';
 import { MechImage } from './ui/MechImage';
 import { MechPreview } from './ui/MechPreview';
+import { exportTeamImage } from '../util/TeamImage';
+import { getImage } from '../util/ImageGetter';
+import { MechStatus } from './ui/MechStatus';
 
 interface MechListProps {
   team?: Team;
@@ -153,29 +155,7 @@ export function MechList({
     });
   };
 
-  // 混排文字绘制函数：中文/日文使用原字体，数字使用 Orbitron
-  const drawMixedText = (ctx: CanvasRenderingContext2D, text: string, x: number, y: number, fontSize: number, lang: string) => {
-    const fontMap: Record<string, string> = {
-      en: "'Orbitron', sans-serif",
-      cn: "'Noto Sans Mono SC', 'Kosugi Maru', sans-serif",
-      jp: "'Kosugi Maru', 'Noto Sans Mono SC', sans-serif",
-    };
-    const chineseFont = fontMap[lang] || "sans-serif";
-    const numberFont = "'Orbitron', sans-serif";
 
-    const parts = text.split(/(\d+)/); // 分割数字部分
-    let offsetX = x;
-
-    for (const part of parts) {
-      if (!part) continue;
-      ctx.font = /^\d+$/.test(part) ? `bold ${fontSize}px ${numberFont}` : `bold ${fontSize}px ${chineseFont}`;
-      ctx.fillText(part, offsetX, y);
-      offsetX += ctx.measureText(part).width;
-    }
-  };
-
-
-  const imageCache = new Map<string, HTMLImageElement>();
   // 初始化时从 localStorage 读取
   const [includeProjectile, setIncludeProjectile] = useState<boolean>(() => {
     const saved = localStorage.getItem("includeProjectile");
@@ -186,615 +166,6 @@ export function MechList({
   useEffect(() => {
     localStorage.setItem("includeProjectile", JSON.stringify(includeProjectile));
   }, [includeProjectile]);
-
-
-  const loadImage = (src: string): Promise<HTMLImageElement> => {
-    return new Promise((resolve) => {
-      const img = document.createElement("img");
-      img.crossOrigin = "anonymous";
-      img.onload = () => resolve(img);
-      img.onerror = () => {
-        console.warn("图片加载失败:", src);
-        // 使用 canvas 生成占位图
-        const placeholder = document.createElement("canvas");
-        placeholder.width = 100;
-        placeholder.height = 100;
-        const ctx = placeholder.getContext("2d");
-        if (ctx) {
-          ctx.fillStyle = "#ccc";
-          ctx.fillRect(0, 0, placeholder.width, placeholder.height);
-          ctx.fillStyle = "#000";
-          ctx.font = "12px sans-serif";
-          ctx.fillText("No Img", 10, 50);
-        }
-        const phImg = new Image();
-        phImg.src = placeholder.toDataURL();
-        resolve(phImg); // 直接返回占位图
-      };
-      img.src = src;
-    });
-  };
-
-
-  async function getImage(src: string) {
-    if (imageCache.has(src)) return imageCache.get(src)!;
-
-    const img = await loadImage(src); // 如果失败会返回占位图
-    imageCache.set(src, img);
-    return img;
-  }
-
-  function textChunk(keyword: string, text: string) {
-    const keywordBuffer = new TextEncoder().encode(keyword);
-    const textBuffer = new TextEncoder().encode(text);
-    const separator = new Uint8Array([0]); // null 分隔符
-    return {
-      name: "tEXt",
-      data: new Uint8Array([...keywordBuffer, ...separator, ...textBuffer]),
-    };
-  }
-
-  function createSoftSparseTexture(ctx: CanvasRenderingContext2D, spacing = 160, dotSize = 2, faction: string = "RDL"): CanvasPattern {
-    const pCanvas = document.createElement("canvas");
-    pCanvas.width = spacing;
-    pCanvas.height = spacing;
-    const pctx = pCanvas.getContext("2d")!;
-
-    // 柔和颜色
-    const color = faction === "RDL" ? "rgba(255,255,255,0.1)" : "rgba(0,0,0,0.1)";
-    pctx.fillStyle = color;
-
-    // 四角 + 中心点，间距更大
-    const positions = [
-      [spacing * 0.25, spacing * 0.25],
-      [spacing * 0.75, spacing * 0.25],
-      [spacing * 0.25, spacing * 0.75],
-      [spacing * 0.75, spacing * 0.75],
-      [spacing * 0.5, spacing * 0.5]
-    ];
-
-    for (const [x, y] of positions) {
-      pctx.beginPath();
-      pctx.arc(x, y, dotSize, 0, Math.PI * 2);
-      pctx.fill();
-    }
-
-    return ctx.createPattern(pCanvas, "repeat")!;
-  }
-
-  const exportTeamImage = async (team: Team, lang: string) => {
-    sendGtagEvent("导出图片", "次数", "1");
-
-    if (!team.mechs.length) {
-      alert(`${translations.t14}`);
-      return;
-    }
-
-    if (team.tacticCards === undefined) {
-      team.tacticCards = []
-    }
-
-    const padding = 30;
-    const spacing = 20;
-    const radius = 15;
-    const targetHeight = 400;
-    const dronesPerRow = 3;
-    const tacticCardsPerRow = 6;
-
-    const canvas = document.createElement("canvas");
-    const ctx = canvas.getContext("2d");
-    if (!ctx) return;
-
-    // 字体映射
-    const fontMap: Record<string, string> = {
-      en: "'Orbitron', sans-serif",
-      cn: "'Orbitron', 'Noto Sans Mono SC', 'Kosugi Maru', sans-serif",
-      jp: "'Orbitron', 'Kosugi Maru', 'Noto Sans Mono SC', sans-serif",
-    };
-    const fontFamily = fontMap[lang] || "sans-serif";
-
-    const setGlowText = (ctx: CanvasRenderingContext2D, fontSize: number, color: string) => {
-      ctx.fillStyle = color;
-      ctx.font = `bold ${fontSize}px ${fontFamily}`;
-      ctx.shadowColor = color + "66";
-      ctx.shadowBlur = 12;
-      ctx.shadowOffsetX = 0;
-      ctx.shadowOffsetY = 0;
-    };
-
-
-    // 预加载 icon
-    const [iconLogo, iconDodge, iconElectronic] = await Promise.all([
-      getImage(`${tabsrc}/logo.png`),
-      getImage(`${tabsrc}/icon_dodge.png`),
-      getImage(`${tabsrc}/icon_electronic.png`),
-    ]);
-
-    // 并行加载 mech images
-    const mechImages = await Promise.all(
-      team.mechs.map(async mech => {
-        const partOrder: (keyof typeof mech.parts)[] = ["torso", "chasis", "leftHand", "rightHand", "backpack"];
-        const partImgs = await Promise.all(
-          partOrder.map(async p => mech.parts[p] ? getImage(`${localImgsrc}/${mech.parts[p]!.id}.png`) : null)
-        );
-        const pilotImg = mech.pilot ? await getImage(`${localImgsrc}/${mech.pilot.id}.png`) : null;
-
-        const imgs = [...partImgs.filter(Boolean), pilotImg].filter(Boolean) as HTMLImageElement[];
-        const score = Object.values(mech.parts).reduce((sum, part) => sum + (part?.score || 0), 0) + (mech.pilot?.score || 0);
-        const dodge = partOrder.reduce((sum, key) => sum + (mech.parts[key]?.dodge || 0), 0);
-        const electronic = partOrder.reduce((sum, key) => sum + (mech.parts[key]?.electronic || 0), 0);
-
-        return { mech, imgs, score, dodge, electronic };
-      })
-    );
-
-    // 并行加载 drones
-    const droneImages = await Promise.all(
-      team.drones.map(async drone => {
-        const img = await getImage(`${localImgsrc}/${drone.id}.png`);
-        let backpackImg: HTMLImageElement | null = null;
-        if (drone.backpack) backpackImg = await getImage(`${localImgsrc}/${drone.backpack.id}.png`);
-        return { drone, img, backpackImg };
-      })
-    );
-
-    // 并行加载战术卡
-    const tacticImages = await Promise.all(
-      team.tacticCards.map(async tacticCard => {
-        const img = await getImage(`${localImgsrc}/${tacticCard.id}.png`);
-        return { tacticCard, img };
-      })
-    );
-
-    // Step 1: 收集所有唯一 projectile ID
-    const uniqueProjectileIds = new Set<string>();
-
-    team.mechs.forEach((mech) => {
-      const partOrder: (keyof typeof mech.parts)[] = [
-        "torso",
-        "chasis",
-        "leftHand",
-        "rightHand",
-        "backpack",
-      ];
-
-      partOrder.forEach((p) => {
-        const projectiles = mech.parts[p]?.projectile; // string[] | undefined
-        if (projectiles === undefined) return;
-        //排除白矮星变形卡（尺寸不一样）
-        if (projectiles[0] == '288') return;
-        projectiles.forEach((projId) => uniqueProjectileIds.add(projId));
-      });
-    });
-
-    team.drones.forEach((drone) => {
-      drone.projectile?.forEach((projId) => uniqueProjectileIds.add(projId));
-    })
-
-    // Step 2: 并行加载所有唯一 projectile 图片
-    const projectileImageIndex = new Map<string, HTMLImageElement>();
-
-    await Promise.all(
-      Array.from(uniqueProjectileIds).map(async (projId) => {
-        const img = await getImage(`${imgsrc}/${projId}.png`);
-        projectileImageIndex.set(projId, img);
-      })
-    );
-
-    // Step 3: 生成绘制数组（每张图片只出现一次）
-    const projectileImages = Array.from(projectileImageIndex.values());
-
-
-
-
-    // 计算画布大小
-    let y = padding + 100;
-    for (const { imgs } of mechImages) y += 55 + targetHeight + spacing + 40;
-    const totalDroneRows = Math.ceil(team.drones.length / dronesPerRow);
-    const totaltacticCardsRows = Math.ceil(tacticImages.length / tacticCardsPerRow);
-    const droneRowHeight = targetHeight + 30 + spacing;
-    let canvasHeight = 0;
-    if (includeProjectile) {
-      const totalProjectileRows = Math.ceil(projectileImages.length / dronesPerRow);
-      canvasHeight = y + (totalDroneRows + totalProjectileRows + totaltacticCardsRows) * droneRowHeight + padding;
-    } else {
-      canvasHeight = y + (totalDroneRows + totaltacticCardsRows) * droneRowHeight + padding;
-    }
-    canvas.width = 1741 + padding * 2;
-    canvas.height = canvasHeight;
-
-    const width = canvas.width;
-    const height = canvas.height;
-
-    const gradient = ctx.createLinearGradient(0, 0, 0, height); // 从顶部到底部
-
-    if (team.faction === "RDL") {
-      gradient.addColorStop(0, `rgba(237,114,124,1)`);
-      gradient.addColorStop(0.5, `rgba(211,169,158,1)`);
-      gradient.addColorStop(1, `rgba(255,255,255,1)`);
-    } else {
-      gradient.addColorStop(0, `rgba(108,128,192,1)`);
-      gradient.addColorStop(0.5, `rgba(150,177,209,1)`);
-      gradient.addColorStop(1, `rgba(255,255,255,1)`);
-    }
-
-    ctx.fillStyle = gradient;
-    ctx.fillRect(0, 0, width, height);
-
-    // 磨砂玻璃叠加，增加苹果风格质感
-    ctx.save();
-    ctx.globalAlpha = 0.12;
-    ctx.fillStyle = "#ffffff";
-    ctx.filter = "blur(80px)";
-    ctx.fillRect(0, 0, width, height);
-    ctx.restore();
-
-    // 使用
-    ctx.fillStyle = createSoftSparseTexture(ctx, 160, 2, team.faction);
-    ctx.fillRect(0, 0, canvas.width, canvas.height);
-
-    // small header text
-    ctx.save();
-    setGlowText(ctx, 42, "#ffffff");
-    ctx.fillText(`${team.name}`, padding, padding + 20);
-    setGlowText(ctx, 28, "#ffffff");
-    drawMixedText(ctx, `${translations.t15}:  ${team.totalScore}`, padding, padding + 70, 38, lang);
-    ctx.restore();
-
-    ctx.drawImage(iconLogo, 1640, 20, 100, 100);
-
-    // 绘制机甲（注意 icon 对齐修正）
-    y = padding + 100;
-
-    for (const { mech, imgs, score, dodge, electronic } of mechImages) {
-      let x = padding;
-      const boxHeight = 60 + targetHeight;
-      const boxWidth = 4.35 * targetHeight;
-
-      // ----------------------------
-      // 磨砂玻璃
-      // ----------------------------
-      ctx.save();
-      ctx.globalAlpha = 0.25;
-      ctx.fillStyle = "#fff";
-      ctx.beginPath();
-      ctx.roundRect(x, y, boxWidth, boxHeight, radius);
-      ctx.fill();
-      ctx.restore();
-
-      ctx.save();
-      const alpha = 0.15 + Math.random() * 0.2;
-      const r = boxWidth;
-      const centerX = x + Math.random() * boxWidth;
-      const centerY = y + Math.random() * boxHeight;
-
-      const innerGradient = ctx.createRadialGradient(centerX, centerY, 0, centerX, centerY, r);
-
-      if (team.faction === "RDL") {
-        innerGradient.addColorStop(0, `rgba(229,85,98,${alpha})`);
-        innerGradient.addColorStop(0.5, `rgba(211,169,158,${alpha * 0.8})`);
-        innerGradient.addColorStop(1, `rgba(255,255,255,0)`); // 逐渐透明
-      } else {
-        innerGradient.addColorStop(0, `rgba(0,120,255,${alpha})`);       // 鲜蓝
-        innerGradient.addColorStop(0.5, `rgba(100,180,255,${alpha * 0.8})`); // 浅蓝
-        innerGradient.addColorStop(1, `rgba(255,255,255,0)`);           // 透明
-
-      }
-
-      ctx.fillStyle = innerGradient;
-      ctx.beginPath();
-      ctx.roundRect(x, y, boxWidth, boxHeight, radius / 5);
-      ctx.fill();
-      ctx.restore();
-
-
-
-      // ----------------------------
-      // 边框
-      // ----------------------------
-      ctx.save();
-      ctx.strokeStyle = "rgba(255,255,255,0.5)";
-      ctx.lineWidth = 2;
-      ctx.beginPath();
-      ctx.roundRect(x, y, boxWidth, boxHeight, radius);
-      ctx.stroke();
-      ctx.restore();
-
-      // 名称 & 分数
-      ctx.save();
-      setGlowText(ctx, 36, "#ffffff");
-      ctx.fillText(mech.name, x + 20, y + 50);
-      drawMixedText(ctx, `${translations.t16}: ${score}`, x + 260, y + 50, 36, lang);
-      ctx.restore();
-
-      // icons
-      const iconSize = 64;
-      const dodgeX = x + 560;
-      const dodgeY = y + 50 - iconSize / 2;
-      ctx.drawImage(iconDodge, dodgeX, dodgeY - 12, iconSize, iconSize);
-      setGlowText(ctx, 36, "#3dafff");
-      ctx.fillStyle = "#3dafff";
-      drawMixedText(ctx, `${dodge}`, dodgeX + iconSize + 12, y + 50, 36, lang);
-
-      const elecX = x + 720;
-      const elecY = y + 50 - iconSize / 2;
-      ctx.drawImage(iconElectronic, elecX, elecY - 12, iconSize, iconSize);
-      setGlowText(ctx, 36, "#fec031");
-      ctx.fillStyle = "#fec031";
-      drawMixedText(ctx, `${electronic}`, elecX + iconSize + 12, y + 50, 36, lang);
-
-      // 绘制零件图片
-      y += 55;
-      for (const img of imgs) {
-        const scale = targetHeight / img.height;
-        const drawWidth = img.width * scale;
-        ctx.save();
-        ctx.shadowColor = "rgba(0,0,0,0.5)";
-        ctx.shadowBlur = 8;
-        ctx.shadowOffsetX = 2;
-        ctx.shadowOffsetY = 2;
-        ctx.drawImage(img, x + 10, y, drawWidth, targetHeight);
-        ctx.restore();
-        x += drawWidth + spacing;
-      }
-      y += targetHeight + spacing + 40;
-
-    }
-
-    // 绘制无人机（绘制前显式设置白色字体，避免颜色继承）
-    let droneY = y;
-    for (let i = 0; i < droneImages.length; i++) {
-      const { drone, img, backpackImg } = droneImages[i];
-      const droneWidth = img.width * (targetHeight / img.height);
-      const col = i % dronesPerRow;
-      const row = Math.floor(i / dronesPerRow);
-      const droneX = padding + col * (droneWidth + spacing + 20);
-      droneY = y + row * (targetHeight + 30 + spacing);
-
-      // ----------------------------
-      // 渐变背景（无人机专属，径向随机版）
-      // ----------------------------
-      const alpha = 0.3; // 更低调的透明度
-      const gradientRadius = Math.max(droneWidth, targetHeight) * (0.6 + Math.random() * 0.2);
-
-      // 随机中心点（保证在卡片范围内）
-      const centerX = droneX + (droneWidth + spacing) * (0.3 + Math.random() * 0.4);
-      const centerY = droneY + (targetHeight + 30) * (0.3 + Math.random() * 0.4);
-
-      const gradient = ctx.createRadialGradient(
-        centerX, centerY, 0,
-        centerX, centerY, gradientRadius
-      );
-
-      if (team.faction === "RDL") {
-        gradient.addColorStop(0, `rgba(229,85,98,${alpha})`); // 中心红
-        gradient.addColorStop(1, `rgba(255,255,255,0)`);      // 边缘透明
-      } else {
-        gradient.addColorStop(0, `rgba(80,140,255,${alpha})`);   // 中心接近白的电青
-
-        gradient.addColorStop(1, "rgba(80,140,255,0.1)");   // 紫蓝过渡
-
-      }
-
-      ctx.save();
-      ctx.fillStyle = gradient;
-      ctx.beginPath();
-      ctx.roundRect(droneX, droneY, droneWidth + spacing, targetHeight + 30, radius);
-      ctx.fill();
-      ctx.restore();
-
-
-      // 磨砂玻璃 & 边框
-      ctx.save();
-      ctx.globalAlpha = 0.25;
-      ctx.fillStyle = "#fff";
-      ctx.beginPath();
-      ctx.roundRect(droneX, droneY, droneWidth + spacing, targetHeight + 30, radius);
-      ctx.fill();
-      ctx.restore();
-
-      ctx.save();
-      ctx.strokeStyle = "rgba(255,255,255,0.5)";
-      ctx.lineWidth = 2;
-      ctx.beginPath();
-      ctx.roundRect(droneX, droneY, droneWidth + spacing, targetHeight + 30, radius);
-      ctx.stroke();
-      ctx.restore();
-
-
-      ctx.save();
-      setGlowText(ctx, 36, "#ffffff");
-      drawMixedText(ctx, `${translations.t16}: ${drone.score || 0}`, droneX + 20, droneY + 30, 24, lang);
-      ctx.restore();
-
-      ctx.save();
-      ctx.shadowColor = "rgba(0,0,0,0.2)";
-      ctx.shadowBlur = 6;
-      ctx.drawImage(img, droneX + 10, droneY + 35, droneWidth, targetHeight);
-      ctx.restore();
-
-      if (backpackImg) {
-        ctx.save();
-        ctx.shadowColor = "rgba(0,0,0,0.4)";
-        ctx.shadowBlur = 10;
-        const backpackScale = 0.4;
-        ctx.drawImage(backpackImg, droneX + 80, droneY + 25, backpackImg.width * backpackScale, backpackImg.height * backpackScale);
-        ctx.restore();
-      }
-    }
-
-    // 计算无人机绘制结束后的最大Y值
-    let projectileY = 0;
-    let tacticCardY = 0;
-    if (includeProjectile) {
-      projectileY = droneY + targetHeight + 30 + spacing;
-      tacticCardY = projectileY;
-      // 绘制抛射物
-      for (let i = 0; i < projectileImages.length; i++) {
-        const img = projectileImages[i];
-        const projWidth = img.width * (targetHeight / img.height);
-        const col = i % dronesPerRow;
-        const row = Math.floor(i / dronesPerRow);
-
-        const projX = padding + col * (projWidth + spacing + 20);
-        const projY = projectileY + row * (targetHeight + 30 + spacing);
-        tacticCardY = projY;
-
-        // 背景渐变
-        const alpha = 0.3;
-        const gradientRadius = Math.max(projWidth, targetHeight) * (0.6 + Math.random() * 0.2);
-        const centerX = projX + (projWidth + spacing) * (0.3 + Math.random() * 0.4);
-        const centerY = projY + (targetHeight + 30) * (0.3 + Math.random() * 0.4);
-
-        const gradient = ctx.createRadialGradient(centerX, centerY, 0, centerX, centerY, gradientRadius);
-
-        if (team.faction === "RDL") {
-          gradient.addColorStop(0, `rgba(229,85,98,${alpha})`);
-          gradient.addColorStop(1, `rgba(255,255,255,0)`);
-        } else {
-          gradient.addColorStop(0, `rgba(80,140,255,${alpha})`);
-          gradient.addColorStop(1, "rgba(80,140,255,0.1)");
-        }
-
-        // 绘制背景
-        ctx.save();
-        ctx.fillStyle = gradient;
-        ctx.beginPath();
-        ctx.roundRect(projX, projY, projWidth + spacing, targetHeight + 30, radius);
-        ctx.fill();
-        ctx.restore();
-
-        // 磨砂玻璃
-        ctx.save();
-        ctx.globalAlpha = 0.25;
-        ctx.fillStyle = "#fff";
-        ctx.beginPath();
-        ctx.roundRect(projX, projY, projWidth + spacing, targetHeight + 30, radius);
-        ctx.fill();
-        ctx.restore();
-
-        // 边框
-        ctx.save();
-        ctx.strokeStyle = "rgba(255,255,255,0.5)";
-        ctx.lineWidth = 2;
-        ctx.beginPath();
-        ctx.roundRect(projX, projY, projWidth + spacing, targetHeight + 30, radius);
-        ctx.stroke();
-        ctx.restore();
-
-        // 图片本体
-        ctx.save();
-        ctx.shadowColor = "rgba(0,0,0,0.2)";
-        ctx.shadowBlur = 6;
-        ctx.drawImage(img, projX + 10, projY + 35, projWidth, targetHeight);
-        ctx.restore();
-      }
-    } else {
-      tacticCardY = droneY + spacing;
-    }
-
-    // 绘制战术卡
-    const tacticCardsStartY = tacticCardY + targetHeight + 30 + spacing; // 起始 Y
-    for (let i = 0; i < tacticImages.length; i++) {
-      const { tacticCard, img } = tacticImages[i];
-
-      const cardWidth = img.width * (targetHeight / img.height);
-      const col = i % tacticCardsPerRow;
-      const row = Math.floor(i / tacticCardsPerRow);
-
-      const cardX = padding + col * (cardWidth + spacing + 20);
-      const cardY = tacticCardsStartY + row * (targetHeight + 30 + spacing); // 固定行高
-
-      // 背景
-      const alpha = 0.3;
-      const gradientRadius = Math.max(cardWidth, targetHeight) * (0.6 + Math.random() * 0.2);
-      const centerX = cardX + (cardWidth + spacing) * (0.3 + Math.random() * 0.4);
-      const centerY = cardY + (targetHeight + 30) * (0.3 + Math.random() * 0.4);
-
-      const gradient = ctx.createRadialGradient(centerX, centerY, 0, centerX, centerY, gradientRadius);
-      if (team.faction === "RDL") {
-        gradient.addColorStop(0, `rgba(229,85,98,${alpha})`);
-        gradient.addColorStop(1, `rgba(255,255,255,0)`);
-      } else {
-        gradient.addColorStop(0, `rgba(80,140,255,${alpha})`);
-        gradient.addColorStop(1, "rgba(80,140,255,0.1)");
-      }
-
-      ctx.save();
-      ctx.fillStyle = gradient;
-      ctx.beginPath();
-      ctx.roundRect(cardX, cardY, cardWidth + spacing, targetHeight + 30, radius);
-      ctx.fill();
-      ctx.restore();
-
-      // 磨砂玻璃
-      ctx.save();
-      ctx.globalAlpha = 0.25;
-      ctx.fillStyle = "#fff";
-      ctx.beginPath();
-      ctx.roundRect(cardX, cardY, cardWidth + spacing, targetHeight + 30, radius);
-      ctx.fill();
-      ctx.restore();
-
-      // 边框
-      ctx.save();
-      ctx.strokeStyle = "rgba(255,255,255,0.5)";
-      ctx.lineWidth = 2;
-      ctx.beginPath();
-      ctx.roundRect(cardX, cardY, cardWidth + spacing, targetHeight + 30, radius);
-      ctx.stroke();
-      ctx.restore();
-
-      // 分数文本
-      ctx.save();
-      setGlowText(ctx, 36, "#ffffff");
-      drawMixedText(ctx, `${translations.t16}: ${tacticCard.score || 0}`, cardX + 20, cardY + 30, 24, lang);
-      ctx.restore();
-
-      // 图片本体
-      ctx.save();
-      ctx.shadowColor = "rgba(0,0,0,0.2)";
-      ctx.shadowBlur = 6;
-      ctx.drawImage(img, cardX + 10, cardY + 35, cardWidth, targetHeight);
-      ctx.restore();
-    }
-
-
-    // 把 canvas 导出为 PNG
-    const blob: Blob = await new Promise(resolve =>
-      canvas.toBlob(b => resolve(b!), "image/png")
-    );
-    if (!blob) return;
-
-    // 转成 ArrayBuffer
-    const buffer = new Uint8Array(await blob.arrayBuffer());
-
-    // 提取 PNG chunks
-    const chunks = extractChunks(buffer);
-
-    // 插入 JSON 数据
-    const jsonString = JSON.stringify(team);
-    const customChunk = textChunk("TeamData", jsonString);
-    chunks.splice(-1, 0, customChunk); // 在 IEND 前插入
-
-    // 重新编码 PNG
-    const outputBuffer = encodeChunks(chunks);
-    const outBlob = new Blob([outputBuffer], { type: "image/png" });
-
-    const blobUrl = URL.createObjectURL(outBlob);
-    const link = document.createElement("a");
-    link.download = `${team.name}.png`;
-    link.href = blobUrl;
-
-    // 尝试在用户交互环境触发
-    document.body.appendChild(link);
-    link.click();
-    document.body.removeChild(link);
-
-    setTimeout(() => URL.revokeObjectURL(blobUrl), 500);
-
-  };
-
 
   async function generateAndUploadMechImage(team: Team, mech: Mech, lang: string): Promise<string> {
     sendGtagEvent("导出图片", "次数", "1");
@@ -826,19 +197,19 @@ export function MechList({
 
     // 加载部件图片
     const partImgs = await Promise.all(
-    partOrder.map(async (k) => {
-      const id = mech.parts[k]?.id;
-      if (!id) return null;
+      partOrder.map(async (k) => {
+        const id = mech.parts[k]?.id;
+        if (!id) return null;
 
-      // ✅ 如果是背包，且阵营为 UN，则从 tabsrc 加载
-      if (k === "backpack" && team.faction === "UN") {
-        return await getImage(`${tabsrc}/${id}.png`);
-      }
+        // ✅ 如果是背包，且阵营为 UN，则从 tabsrc 加载
+        if (k === "backpack" && team.faction === "UN") {
+          return await getImage(`${tabsrc}/${id}.png`);
+        }
 
-      // ✅ 否则走 mechImgSrc 默认逻辑
-      return await getImage(`${mechImgSrc}/${id}.png`);
-    })
-  );
+        // ✅ 否则走 mechImgSrc 默认逻辑
+        return await getImage(`${mechImgSrc}/${id}.png`);
+      })
+    );
 
 
     const torsoImg = partImgs[1];
@@ -928,6 +299,7 @@ export function MechList({
     for (const mech of team.mechs) {
       const url = mechImageUrls[mech.id] || "";
       ttsScript += `# Mech ${mech.name} ${mech.id} ${url}\n`;
+      ttsScript += `Pilot: ${mech.pilot?.id}\n`;
 
       const parts = ["torso", "chasis", "leftHand", "rightHand", "backpack"] as const;
       for (const key of parts) {
@@ -1170,7 +542,7 @@ export function MechList({
         {/* 顶部工具栏 */}
         {mobileOrTablet ? (
           /* 移动端：三行布局 */
-          <div className="p-4 border-b border-border flex flex-col gap-3">
+          <div className="p-2 border-b border-border flex flex-col gap-2">
             {/* 第 1 行：Tabs */}
             <TabsList className="flex justify-center gap-2 w-full">
               <TabsTrigger
@@ -1201,36 +573,46 @@ export function MechList({
 
 
             {/* 第 2 行：语言切换 + 按钮 */}
-            <div className="flex items-center justify-end gap-2 relative">
+            <div className="flex gap-2">
               {/* 语言选择 */}
-              <Select value={lang} onValueChange={(v) => setLanguage(v as "zh" | "en" | "jp")}>
-                <SelectTrigger className="h-8 text-sm">
-                  <Globe className="w-4 h-4 text-gray-600" />
-                  <SelectValue placeholder="选择语言" />
-                </SelectTrigger>
-                <SelectContent>
-                  <SelectItem value="zh">中文</SelectItem>
-                  <SelectItem value="en">En</SelectItem>
-                  <SelectItem value="jp">日語</SelectItem>
-                </SelectContent>
-              </Select>
+              <div className="flex-1">
+                <Select value={lang} onValueChange={(v) => setLanguage(v as "zh" | "en" | "jp")}>
+                  <SelectTrigger className="h-8 text-sm w-full">
+                    <Globe className="w-4 h-4 text-gray-600" />
+                    <SelectValue placeholder="选择语言" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value="zh">CN</SelectItem>
+                    <SelectItem value="en">EN</SelectItem>
+                    <SelectItem value="jp">JP</SelectItem>
+                  </SelectContent>
+                </Select>
+              </div>
 
               {/* 导出文本按钮 */}
-              <Button variant="outline" size="sm" onClick={() => team && exportTextTeamData(team)}>
-                <Table2 className="w-4 h-4 mr-1" />
-                {translations.t6}
-              </Button>
-
-              {/* 导出图片按钮 + 设置 */}
-              <div className="relative">
+              <div className="flex-1">
                 <Button
+                  className="w-full"
+                  variant="outline"
+                  size="sm"
+                  onClick={() => team && exportTextTeamData(team)}
+                >
+                  <Table2 className="w-4 h-4 mr-1" />
+                  {translations.t6}
+                </Button>
+              </div>
+
+              {/* 导出图片按钮 */}
+              <div className="flex-1 relative">
+                <Button
+                  className="w-full"
                   variant="outline"
                   size="sm"
                   disabled={isExporting}
                   onClick={async () => {
                     setIsExporting(true);
                     try {
-                      await exportTeamImage(team, lang);
+                      await exportTeamImage(team, lang, translations, tabsrc, localImgsrc, imgsrc, includeProjectile);
                       const msg = document.createElement("div");
                       msg.textContent = `✅ ${translations.t76}`;
                       Object.assign(msg.style, {
@@ -1261,8 +643,7 @@ export function MechList({
                     }
                   }}
                 >
-
-                  <div className="flex items-center gap-2">
+                  <div className="flex items-center gap-2 justify-center">
                     <AnimatePresence>
                       {isExporting && (
                         <motion.div
@@ -1279,7 +660,6 @@ export function MechList({
                         </motion.div>
                       )}
                     </AnimatePresence>
-
                     {isExporting ? (
                       <span>{translations.t79}</span>
                     ) : (
@@ -1290,69 +670,97 @@ export function MechList({
                     )}
                   </div>
                 </Button>
-                {/* ⚙️ 小齿轮图标，点击展开选项 */}
-                <button
-                  onClick={() => setShowProjectileOption((v) => !v)}
-                  className="absolute -top-1 -right-0 bg-white border border-gray-300 rounded-full p-1 shadow-sm active:scale-95"
-                >
-                  <Settings className="w-4 h-4 text-gray-600" />
+              </div>
 
-                </button>
+
+              {/* 小齿轮按钮 + 悬浮层 */}
+              <div className="relative flex-1">
+                <Button
+                  className="w-full"
+                  variant="outline"
+                  size="sm"
+                  onClick={() => setShowProjectileOption((v) => !v)}
+                  disabled={isExporting}
+                >
+                  <div className="flex items-center gap-1">
+                    <Settings className="w-4 h-4" />
+                    <span>{translations.t99}</span>
+                  </div>
+                </Button>
+
                 {/* 悬浮选项浮层 */}
                 <AnimatePresence>
                   {showProjectileOption && (
                     <motion.div
                       key="checkbox-popup"
-                      initial={{ opacity: 0, y: 6 }}
+                      initial={{ opacity: 0, y: -5 }}
                       animate={{ opacity: 1, y: 0 }}
-                      exit={{ opacity: 0, y: 6 }}
+                      exit={{ opacity: 0, y: -5 }}
                       transition={{ duration: 0.2 }}
-                      className="absolute -top-14 right-0 bg-white/95 border border-gray-300 rounded-lg shadow-lg px-3 py-1.5 flex items-center gap-2 text-sm"
+                      className="absolute top-full left-1/2 -translate-x-1/2 bg-white border border-gray-300 rounded-lg shadow-lg px-3 py-1.5 flex items-center gap-2 text-sm z-10 max-w-[200px] sm:max-w-[250px] break-words"
+                      style={{
+                        backgroundColor: 'white',
+                      }}
                     >
                       <input
                         type="checkbox"
                         id="include-projectile"
                         checked={includeProjectile}
                         onChange={(e) => setIncludeProjectile(e.target.checked)}
-                        className="h-4 w-4 accent-blue-500"
+                        className="h-4 w-4"
                       />
                       <label
                         htmlFor="include-projectile"
-                        className="cursor-pointer select-none text-gray-900 whitespace-nowrap"
+                        className="cursor-pointer select-none whitespace-normal"
+                        style={{
+                          color: 'black',
+                          WebkitTextStroke: '0.5px white', // 黑字白边
+                        }}
                       >
                         {translations.t91}
                       </label>
                     </motion.div>
+
                   )}
                 </AnimatePresence>
 
               </div>
+
             </div>
 
 
 
             {/* 第 3 行：统计信息 */}
-            <div className="grid grid-cols-5 gap-2 text-center pt-2">
-              <div>
-                <div className="text-xs text-muted-foreground">{translations.t7}</div>
-                <div className="font-medium">{team.totalScore}</div>
-              </div>
-              <div>
-                <div className="text-xs text-muted-foreground">{translations.t8}</div>
-                <div className="font-medium">{team.mechCount}</div>
-              </div>
-              <div>
-                <div className="text-xs text-muted-foreground">{translations.t9}</div>
-                <div className="font-medium">{team.largeDroneCount}</div>
-              </div>
-              <div>
-                <div className="text-xs text-muted-foreground">{translations.t10}</div>
-                <div className="font-medium">{team.mediumDroneCount}</div>
-              </div>
-              <div>
-                <div className="text-xs text-muted-foreground">{translations.t11}</div>
-                <div className="font-medium">{team.smallDroneCount}</div>
-              </div>
+            <div className="grid grid-cols-5 gap-2" >
+              {/* 动画数字单元格 */}
+              {[
+                { label: translations.t7, value: team.totalScore, highlight: team.totalScore > 900 },
+                { label: translations.t8, value: team.mechCount },
+                { label: translations.t9, value: team.largeDroneCount },
+                { label: translations.t10, value: team.mediumDroneCount },
+                { label: translations.t11, value: team.smallDroneCount },
+              ].map((stat, idx) => (
+                <div key={idx} className="text-center">
+                  <div className="text-muted-foreground" style={{
+                    fontSize: 12
+                  }}>{stat.label}</div>
+                  <AnimatePresence mode="popLayout">
+                    <motion.div
+                      key={stat.value} // 数字变化时触发动画
+                      initial={{ scale: 0.9, y: 5, opacity: 0 }}
+                      animate={{ scale: 1, y: 0, opacity: 1 }}
+                      exit={{ scale: 0.9, y: -5, opacity: 0 }}
+                      transition={{ duration: 0.3, type: "spring", stiffness: 300, damping: 20 }}
+                      style={{
+                        color: stat.highlight ? '#dc2626' : '#111', // 高亮逻辑
+                        fontSize: 12
+                      }}
+                    >
+                      {stat.value}
+                    </motion.div>
+                  </AnimatePresence>
+                </div>
+              ))}
             </div>
           </div>
         ) : (
@@ -1360,7 +768,7 @@ export function MechList({
           <div className="p-4 border-b border-border flex items-center justify-between">
             {/* 左侧 Tabs */}
             <TabsList className="gap-2">
-              <TabsTrigger value="mechs" onClick={() => {setCPartType('');onSetViewMode('parts')}}>
+              <TabsTrigger value="mechs" onClick={() => { setCPartType(''); onSetViewMode('parts') }}>
                 {translations.t22} ({team.mechs.length})
               </TabsTrigger>
               <TabsTrigger value="drones" onClick={() => onSetViewMode('drones')}>
@@ -1391,7 +799,7 @@ export function MechList({
                   onClick={async () => {
                     setIsExporting(true);
                     try {
-                      await exportTeamImage(team, lang);
+                      await exportTeamImage(team, lang, translations, tabsrc, localImgsrc, imgsrc, includeProjectile);
                       const msg = document.createElement("div");
                       msg.textContent = `✅ ${translations.t76}`;
                       Object.assign(msg.style, {
@@ -1589,144 +997,23 @@ export function MechList({
 
         )}
 
-
-
-
         {/* 机体列表 */}
         <TabsContent value="mechs" className="flex-1 overflow-y-auto p-4 space-y-4 ">
           {team.mechs.map((mech) => (
             <Card
               key={mech.id}
-              className={`p-3 rounded-lg transition-transform transition-shadow duration-500 ease-in-out ${selectedMechId === mech.id
-                ? 'scale-105 shadow-xl  border-blue-500'  // 选中效果
+              style={{
+                paddingLeft: mobileOrTablet ? '2vw' : '1vw',
+                paddingRight: mobileOrTablet ? '2vw' : '1vw',
+                paddingTop: mobileOrTablet ? '1vh' : '1vh',
+                paddingBottom: mobileOrTablet ? '0vh' : '1vh'
+              }}
+              className={`rounded-lg transition-transform transition-shadow duration-500 ease-in-out ${selectedMechId === mech.id
+                ? 'scale-105 shadow-xl  '  // 选中效果
                 : 'scale-100 shadow-md hover:scale-103 hover:shadow-lg'
                 }`}
             >
-              <div className="space-y-4">
-                {/* 机体标题行 */}
-                {mobileOrTablet && <div className="flex items-center justify-between">
-                  {editingMechId === mech.id ? (
-                    <Input
-                      value={mech.name}
-                      onChange={(e) => updateMechName(mech.id, e.target.value)}
-                      onBlur={() => setEditingMechId('')}
-                      onKeyDown={(e) => {
-                        if (e.key === 'Enter') {
-                          setEditingMechId('');
-                        }
-                      }}
-                      className="h-8 max-w-48"
-                      autoFocus
-                    />
-                  ) : (
-                    <span
-                      onDoubleClick={() => setEditingMechId(mech.id)}
-                      className="font-medium cursor-pointer"
-                    >
-                      {mech.name}
-                    </span>
-                  )}
-                  {/* 机体数据 */}
-
-
-                  <div className="flex justify-between gap-2">
-                    {/* 总分 */}
-                    <div className="text-center">
-                      <div className="text-sm text-muted-foreground">{translations.t32}</div>
-                      <AnimatePresence mode="popLayout">
-                        <motion.div
-                          key={getMechTotalScore(mech)}
-                          initial={{ scale: 1, y: 0, opacity: 0 }}
-                          animate={{ y: [-5, 0], opacity: 1 }}
-                          exit={{ scale: 1, y: 5, opacity: 0 }}
-                          transition={{ duration: 0.3, times: [0, 1] }}
-                          className="text-base font-medium"
-                        >
-                          {getMechTotalScore(mech)}
-                        </motion.div>
-                      </AnimatePresence>
-                    </div>
-
-                    {/* 闪避 */}
-                    <div className="text-center">
-                      <div className="text-sm text-muted-foreground">{translations.t33}</div>
-                      <AnimatePresence mode="popLayout">
-                        <motion.div
-                          key={Math.max(
-                            (mech.parts.torso?.dodge || 0) +
-                            (mech.parts.chasis?.dodge || 0) +
-                            (mech.parts.leftHand?.dodge || 0) +
-                            (mech.parts.rightHand?.dodge || 0) +
-                            (mech.parts.backpack?.dodge || 0),
-                            0
-                          )}
-                          initial={{ scale: 1, y: 0, opacity: 0 }}
-                          animate={{ y: [-5, 0], opacity: 1 }}
-                          exit={{ scale: 1, y: 5, opacity: 0 }}
-                          transition={{ duration: 0.3, times: [0, 1] }}
-                          className="text-base font-medium"
-                        >
-                          {Math.max(
-                            (mech.parts.torso?.dodge || 0) +
-                            (mech.parts.chasis?.dodge || 0) +
-                            (mech.parts.leftHand?.dodge || 0) +
-                            (mech.parts.rightHand?.dodge || 0) +
-                            (mech.parts.backpack?.dodge || 0),
-                            0
-                          )}
-                        </motion.div>
-                      </AnimatePresence>
-                    </div>
-
-                    {/* 电子 */}
-                    <div className="text-center">
-                      <div className="text-sm text-muted-foreground">{translations.t34}</div>
-                      <AnimatePresence mode="popLayout">
-                        <motion.div
-                          key={
-                            (mech.parts.torso?.electronic || 0) +
-                            (mech.parts.chasis?.electronic || 0) +
-                            (mech.parts.leftHand?.electronic || 0) +
-                            (mech.parts.rightHand?.electronic || 0) +
-                            (mech.parts.backpack?.electronic || 0)
-                          }
-                          initial={{ scale: 1, y: 0, opacity: 0 }}
-                          animate={{ y: [-5, 0], opacity: 1 }}
-                          exit={{ scale: 1, y: 5, opacity: 0 }}
-                          transition={{ duration: 0.3, times: [0, 1] }}
-                          className="text-base font-medium"
-                        >
-                          {(mech.parts.torso?.electronic || 0) +
-                            (mech.parts.chasis?.electronic || 0) +
-                            (mech.parts.leftHand?.electronic || 0) +
-                            (mech.parts.rightHand?.electronic || 0) +
-                            (mech.parts.backpack?.electronic || 0)}
-                        </motion.div>
-                      </AnimatePresence>
-                    </div>
-                  </div>
-
-
-                  {!championMode && <div>
-                    <Button
-                      variant="ghost"
-                      size="sm"
-                      onClick={() => copyMech(mech)}
-                      className="text shadow-lg shadow-gray-500 rounded-lg bg-blue-500/80"
-                    >
-                      <Copy className="w-4 h-4" />
-                    </Button>
-                    <Button
-                      variant="ghost"
-                      size="sm"
-                      onClick={() => deleteMech(mech.id)}
-                      className="text-destructive shadow-lg shadow-gray-500 rounded-lg bg-blue-500/80"
-                    >
-                      <Trash2 className="w-4 h-4" />
-                    </Button>
-                  </div>}
-                </div>}
-
+              <div >
                 <div
                   style={{
                     display: 'grid',
@@ -1741,9 +1028,9 @@ export function MechList({
                       <AnimatePresence mode="wait">
                         <motion.div
                           key={mech.parts[partType]?.id || partType}
-                          initial={{ opacity: 0, y: -10, scale: ((cPartType === partType&&selectedMechId === mech.id)&&selectedMechId === mech.id) ? 1.12 : 1 }}
-                          animate={{ opacity: 1, y: 0, scale: (cPartType === partType&&selectedMechId === mech.id) ? 1.08 : 1 }}
-                          exit={{ opacity: 0, y: 10, scale: (cPartType === partType&&selectedMechId === mech.id) ? 1.08 : 1 }}
+                          initial={{ opacity: 0, y: -10, scale: ((cPartType === partType && selectedMechId === mech.id) && selectedMechId === mech.id) ? 1.12 : 1 }}
+                          animate={{ opacity: 1, y: 0, scale: (cPartType === partType && selectedMechId === mech.id) ? 1.08 : 1 }}
+                          exit={{ opacity: 0, y: 10, scale: (cPartType === partType && selectedMechId === mech.id) ? 1.08 : 1 }}
                           transition={{ duration: 0.1 }}
 
                           onMouseEnter={(e) => {
@@ -1775,14 +1062,14 @@ export function MechList({
                           {mech.parts[partType] ? (
                             <>
                               {/* 删除按钮 */}
-                              {!championMode && <Button
+                              <Button
                                 variant="ghost"
                                 size="sm"
                                 onClick={() => deletePart(mech.id, partType)}
-                                className="absolute top-0 right-0 text-white shadow-lg shadow-gray-500 rounded-lg bg-blue-500/80"
+                                className="absolute top-0 right-0 text-white shadow-lg shadow-gray-500 rounded-lg hover:text-destructive"
                               >
                                 <Trash2 className="w-4 h-4" />
-                              </Button>}
+                              </Button>
 
                               {/* 放大预览 Dialog */}
                               <Dialog>
@@ -1811,7 +1098,7 @@ export function MechList({
                                 </DialogContent>
                               </Dialog>
 
-                              {/* 底部的：抛弃 */}
+                              {/* 底部的抛射物卡 */}
                               <div className="absolute bottom-0 right-0 flex flex-col-reverse items-end gap-0.5">
 
                                 {!!mech.parts[partType]?.throwIndex && (
@@ -1901,10 +1188,7 @@ export function MechList({
 
                               </div>
 
-
-
                               {/* 外层主显示图片 */}
-
                               <img
                                 key={mech.parts[partType]!.id}
                                 src={`${imgsrc}/${mech.parts[partType]!.id}.png`}
@@ -2021,7 +1305,7 @@ export function MechList({
 
                       {mech.pilot ? (<Button
                         variant="secondary"
-                        className="h-6 w-8 flex absolute bottom-0 left-0 m-1 text-xs shadow-lg shadow-gray-500 rounded-lg bg-blue-500/80"
+                        className="h-6 w-8 flex absolute bottom-0 left-0 m-1 text-xs shadow-lg shadow-gray-500 rounded-lg pa"
                         style={{
                           color: 'white',
                           textShadow: '0 0 4px rgba(0,0,0,0.7)',
@@ -2031,24 +1315,53 @@ export function MechList({
                       </Button>) : (<></>)}
                       {mech.pilot ? (
                         <div
-
                           style={{
                             display: 'flex',
                             flexDirection: 'column', // 竖直排列
                             alignItems: 'center',
-
                           }}
                         >
+                          <AnimatePresence mode="wait">
+                            {/* 背景动画层，始终在最底层 */}
+                            {(selectedMechId === mech.id && mech.pilot !== undefined) && (
+                              <motion.div
+                                initial={{ opacity: 0 }}
+                                animate={{ opacity: 1 }}
+                                exit={{ opacity: 0 }}
+                                transition={{ duration: 0.3 }}
+                                style={{
+                                  position: 'absolute',
+                                  inset: 0,
+                                  pointerEvents: 'none',
+                                  borderRadius: '0.5rem',
+                                  background: `conic-gradient(
+      from 0deg,
+      ${getFactionColor(team.faction, 0.5)},
+      ${getFactionColor(team.faction, 0.2)},
+      ${getFactionColor(team.faction, 0.5)}
+    )`,
+                                  zIndex: 0,
+                                  transformOrigin: 'center',
+                                }}
+
+                              />
+
+                            )}
+                          </AnimatePresence>
                           <img
                             src={`${tabsrc}/${mech.pilot.id}.png`}
                             alt={mech.pilot.name}
                             style={{
-                              width: '100%',
-                              height: '100%',
-                              objectFit: 'cover',          // 保持比例填满容器
-                              objectPosition: 'center', // 可以调整显示区域：'center', 'top', 'bottom', 'left', 'right', 或百分比
-                              borderRadius: '0.5rem',       // 圆角
+                              position: 'absolute', // ✅ 让图片覆盖整个卡片
+                              inset: 0,
+                              width: '130%',
+                              height: '130%',
+                              objectFit: 'cover', // ✅ 填满卡片
+                              objectPosition: 'center',
+                              transform: 'translateY(-15%) ',
+                              borderRadius: '0.5rem',
                             }}
+
                           />
                           <div
                             style={{
@@ -2063,8 +1376,32 @@ export function MechList({
                               alignItems: 'flex-end', textAlign: 'right',
                             }}
                           >
-                            <span style={{ fontWeight: 'bold', fontSize: '0.875rem' }}>{mech.pilot.name}</span>
-                            <span style={{ fontSize: '0.75rem' }}>{mech.pilot.traitDescription}</span>
+                            <span
+                              style={{
+                                fontWeight: 'bold',
+                                fontSize: mobileOrTablet
+                                  ? lang === 'en'
+                                    ? '3vw' // 📱 移动端英文稍小
+                                    : '4vw'   // 📱 移动端中文稍大
+                                  : lang === 'en'
+                                    ? '0.9vw' // 💻 桌面端英文
+                                    : '1vw',  // 💻 桌面端中文
+                              }}
+                            >
+                              {mech.pilot.name}
+                            </span>
+
+                            <span
+                              style={{
+                                fontSize:
+                                  lang === 'en'
+                                    ? '2vw' // 📱 移动端英文说明小一些
+                                    : '3vw'   // 📱 移动端中文说明稍大
+                              }}
+                            >
+                              {mech.pilot.traitDescription}
+                            </span>
+
                           </div>
                         </div>
                       ) : (
@@ -2088,10 +1425,55 @@ export function MechList({
                   )}
 
                 </div>
+                {/* 机体信息 */}
+                {mobileOrTablet && (
+                  <div
+                    style={{
+                      display: 'flex',
+                      flexDirection: 'row',
+                      justifyContent: 'flex-start',
+                      gap: '3vw',               // 元素之间的间距
+                      width: '100%',
+                      marginTop: '1.5vh'
+                    }}
+                  >
+                    <MechStatus
+                      mech={mech}
+                      translations={translations}
+                      tabsrc={tabsrc}
+                      lang={lang}
+                      editingMechId={editingMechId}
+                      setEditingMechId={setEditingMechId}
+                      updateMechName={updateMechName}
+                      copyMech={copyMech}
+                      deleteMech={deleteMech}
+                      getMechTotalScore={getMechTotalScore}
+                      getColorByAttr={getColorByAttr}
+                      style={{ flex: '2' }}
+                      isMobile={mobileOrTablet} />
+                    <MechPreview
+                      mech={mech}
+                      mechImgSrc={mechImgSrc}
+                      width="16vh"
+                      height="16vh"
+                      scaleOverrides={{ chasis: 1, backpack: 2 }}
+                      cropLeftPercent={13}
+                      defaultParts={{
+                        leftHand: rdlLeftHand[0],
+                        torso: rdlTorso[0],
+                        rightHand: rdlRightHand[0],
+                        chasis: rdlChasis[0],
+                        backpack: rdlBackpack[0],
+                      }}
+                      championMode={championMode}
+                      style={{ flex: '1' }}
+                    />
+                  </div>
+                )}
 
 
                 {/* 驾驶员卡片 pc端显示 */}
-                <div style={{ display: 'flex', gap: '1rem', marginBottom: '1rem' }} >
+                <div style={{ display: 'flex', gap: '1rem', marginBottom: '1vh', marginTop: "2vh" }} >
                   {/* 左侧驾驶员卡片 */}
                   {!mobileOrTablet && (
                     <div
@@ -2101,7 +1483,7 @@ export function MechList({
                       }}
                       style={{
                         flex: '0 0 16vw',
-                        height: '8rem',
+                        height: '16vh',
                         position: 'relative',
                         cursor: 'pointer',
                         transition: 'transform 0.3s ease, box-shadow 0.3s ease',
@@ -2217,7 +1599,11 @@ export function MechList({
                           }}
                         >
                           <span style={{ fontWeight: 'bold', fontSize: '0.875rem' }}>{mech.pilot.name}</span>
-                          <span style={{ fontSize: '0.6rem' }}>{mech.pilot.traitDescription}</span>
+                          <span style={{
+                            fontSize: lang === 'en'
+                              ? '0.75vw' // 💻 桌面端英文
+                              : '1.2vh', // 💻 桌面端中文
+                          }}>{mech.pilot.traitDescription}</span>
                         </div>
                       )}
                     </div>
@@ -2228,8 +1614,8 @@ export function MechList({
                     <MechPreview
                       mech={mech}
                       mechImgSrc={mechImgSrc}
-                      width="8rem"
-                      height="8rem"
+                      width="16vh"
+                      height="16vh"
                       scaleOverrides={{ chasis: 1, backpack: 2 }}
                       cropLeftPercent={13}
                       defaultParts={{
@@ -2239,6 +1625,7 @@ export function MechList({
                         chasis: rdlChasis[0],
                         backpack: rdlBackpack[0],
                       }}
+                      championMode={championMode}
                     />
 
                   )}
@@ -2247,8 +1634,8 @@ export function MechList({
                     <MechPreview
                       mech={mech}
                       mechImgSrc={mechImgSrc}
-                      width="8rem"
-                      height="8rem"
+                      width="16vh"
+                      height="16vh"
                       scaleOverrides={{
                         chasis: 1,
                         backpack: 1,
@@ -2258,9 +1645,9 @@ export function MechList({
                       }}
                       defaultParts={{
                         leftHand: unLeftHand[0],
-                        torso: unTorso[0], rightHand: unRightHand[1], chasis: unChasis[0], backpack: unBackpack[0],
+                        torso: unTorso[0], rightHand: unRightHand[3], chasis: unChasis[0], backpack: unBackpack[0],
                       }}
-
+                      championMode={championMode}
                     />
                   )}
 
@@ -2268,282 +1655,21 @@ export function MechList({
 
                   {/* 右侧信息卡片 */}
                   {!mobileOrTablet && (
-                    <div
-                      style={{
-                        flex: 1,
-                        height: '8rem', // 高度统一
-                        padding: '0.75rem 1rem',
-                        borderRadius: '0.5rem',
-                        boxShadow: 'inset 0 0 8px  rgba(0,0,0,0.1)',
-                        display: 'flex',
-                        flexDirection: 'column',
-                        justifyContent: 'space-between',
-                        gap: '0.25rem',
-                      }}
-                    >
-                      {/* 机体名称和按钮一行 */}
-                      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-                        <div style={{ display: 'flex', justifyContent: 'space-between', gap: '0.5rem' }}>
-                          {/* 可用状态 */}
-                          <div style={{ display: 'flex', justifyContent: 'space-between', gap: '0.5rem' }}>
-                            {/* 综合状态栏 */}
-                            <div
-                              style={{
-                                flex: 1,
-                                height: '3rem',
-                                minWidth: '5rem',
-                                borderRadius: '0.5rem',
-                                display: 'flex',
-                                flexDirection: 'column', // 垂直排列
-                                alignItems: 'center',
-                                justifyContent: 'center',
-                                backgroundColor: '#f9fafb',
-                                fontSize: '0.6rem',
-                                color: (() => {
-                                  const usable =
-                                    mech.parts.torso &&
-                                    mech.parts.chasis &&
-                                    (mech.parts.leftHand || mech.parts.rightHand) &&
-                                    mech.pilot;
-
-                                  if (!usable) return '#dc2626'; // 缺部件，不可用
-
-                                  const bannedBackpack = ['005'].includes(mech.parts.backpack?.id || '');
-                                  const bannedLeft = ['040', '150', '117'].includes(mech.parts.leftHand?.id || '');
-                                  const bannedRight = ['038', '152', '119'].includes(mech.parts.rightHand?.id || '');
-                                  const isBanned = bannedBackpack || bannedLeft || bannedRight;
-
-                                  const parts = [
-                                    mech.parts.torso,
-                                    mech.parts.chasis,
-                                    mech.parts.leftHand,
-                                    mech.parts.rightHand,
-                                    mech.parts.backpack,
-                                  ].filter(Boolean);
-
-                                  const hasPD = parts.some((p) => p.isPD);
-                                  const allPD = parts.every((p) => p.isPD);
-                                  let factionMismatch = hasPD && !allPD;
-
-                                  if (mech.pilot?.faction === 'PD' && !allPD) factionMismatch = true;
-                                  if (mech.pilot?.faction !== 'PD' && hasPD) factionMismatch = true;
-
-                                  if (isBanned || factionMismatch) return '#dc2626';
-
-                                  return '#111'; // 正常
-                                })(),
-                                boxShadow: 'inset 0 0 8px rgba(0,0,0,0.1)',
-                                transition: 'all 0.3s ease',
-
-                              }}
-                            >
-                              {/* 上方固定文字 */}
-                              <div className="text-ssm text-muted-foreground">{translations.t98}</div>
-
-                              {/* 下方原本的动态状态文字 */}
-                              <div>
-                                {(() => {
-                                  const usable =
-                                    mech.parts.torso &&
-                                    mech.parts.chasis &&
-                                    (mech.parts.leftHand || mech.parts.rightHand) &&
-                                    mech.pilot;
-
-                                  if (!usable) return translations.t81; // ❌ 不可用
-
-                                  const bannedBackpack = ['005'].includes(mech.parts.backpack?.id || '');
-                                  const bannedLeft = ['040', '150', '117'].includes(mech.parts.leftHand?.id || '');
-                                  const bannedRight = ['038', '152', '119'].includes(mech.parts.rightHand?.id || '');
-                                  const isBanned = bannedBackpack || bannedLeft || bannedRight;
-
-                                  const parts = [
-                                    mech.parts.torso,
-                                    mech.parts.chasis,
-                                    mech.parts.leftHand,
-                                    mech.parts.rightHand,
-                                    mech.parts.backpack,
-                                  ].filter(Boolean);
-
-                                  const hasPD = parts.some((p) => p.isPD);
-                                  const allPD = parts.every((p) => p.isPD);
-
-                                  let factionMismatch = hasPD && !allPD;
-                                  if (mech.pilot?.faction === 'PD' && !allPD) factionMismatch = true;
-                                  if (mech.pilot?.faction !== 'PD' && hasPD) factionMismatch = true;
-
-                                  if (factionMismatch) return translations.t84; // ❌ 非同派系
-                                  if (isBanned) return translations.t82; // ❌ 众筹禁赛
-
-                                  return translations.t83; // ✅ 可参赛
-                                })()}
-                              </div>
-                            </div>
-
-                          </div>
-
-                        </div>
-                        <div
-                          style={{
-                            fontSize: lang === 'en' ? '0.5rem' : '1rem', // 英文缩小
-                            flexShrink: 0,           // 不让名字挤压其他 UI
-                            maxWidth: '5rem',        // 名字最多占 4rem，可调整
-                            overflow: 'hidden',
-                            whiteSpace: 'nowrap',
-                            textOverflow: 'ellipsis', // 名字过长显示省略号
-                          }}
-                        >
-                          {editingMechId === mech.id ? (
-                            <Input
-                              value={mech.name}
-                              onChange={(e) => updateMechName(mech.id, e.target.value)}
-                              onBlur={() => {
-                                // 如果用户删除了名字，自动设置为默认
-                                if (!mech.name || mech.name.trim() === '') {
-                                  updateMechName(mech.id, translations.t19);
-                                }
-                                setEditingMechId('');
-                              }}
-                              onKeyDown={(e) => {
-                                if (e.key === 'Enter') {
-                                  if (!mech.name || mech.name.trim() === '') {
-                                    updateMechName(mech.id, '1');
-                                  }
-                                  setEditingMechId('');
-                                }
-                              }}
-                              className="h-8 w-full"
-                              autoFocus
-                            />
-                          ) : (
-                            <span
-                              onDoubleClick={() => setEditingMechId(mech.id)}
-                              className="cursor-pointer"
-                            >
-                              {mech.name || '1'}
-                            </span>
-                          )}
-                        </div>
-
-
-
-                        {/* 状态栏 */}
-
-                        {!championMode && <div style={{ display: 'flex', gap: '0.25rem' }}>
-                          <Button
-                            variant="ghost"
-                            size="sm"
-                            onClick={() => copyMech(mech)}
-                            className="text shadow-lg shadow-gray-500 rounded-lg bg-blue-500/80"
-                            style={{ boxShadow: 'inset 0 0 0px  rgba(0,0,0,0.1)' }}
-                          >
-                            <Copy className="w-4 h-4" />
-                          </Button>
-                          <Button
-                            variant="ghost"
-                            size="sm"
-                            onClick={() => deleteMech(mech.id)}
-                            className="text-destructive shadow-lg shadow-gray-500 rounded-lg bg-blue-500/80"
-                            style={{ boxShadow: 'inset 0 0 0px  rgba(0,0,0,0.1)' }}
-                          >
-                            <Trash2 className="w-4 h-4" />
-                          </Button>
-                        </div>}
-                      </div>
-
-                      {/* 属性卡片 */}
-
-                      <div style={{ display: 'flex', justifyContent: 'space-between', gap: '0.25rem' }}>
-                        {[
-                          // 总分（无图标，无颜色变化）
-                          { label: translations.t32, value: getMechTotalScore(mech), type: "score" },
-
-                          // dodge（蓝色）
-                          {
-                            value: Math.max(
-                              (mech.parts.torso?.dodge || 0) +
-                              (mech.parts.chasis?.dodge || 0) +
-                              (mech.parts.leftHand?.dodge || 0) +
-                              (mech.parts.rightHand?.dodge || 0) +
-                              (mech.parts.backpack?.dodge || 0),
-                              0
-                            ),
-                            icon: `${tabsrc}/icon_dodge.png`,
-                            type: "dodge",
-                            label: translations.t42,
-                          },
-
-                          // electronic（黄色）
-                          {
-                            value:
-                              (mech.parts.torso?.electronic || 0) +
-                              (mech.parts.chasis?.electronic || 0) +
-                              (mech.parts.leftHand?.electronic || 0) +
-                              (mech.parts.rightHand?.electronic || 0) +
-                              (mech.parts.backpack?.electronic || 0),
-                            icon: `${tabsrc}/icon_electronic.png`,
-                            type: "electronic",
-                            label: translations.t43,
-                          },
-                        ].map((attr, idx) => (
-                          <div
-                            key={idx}
-                            style={{
-                              flex: 1,
-                              height: '3rem',
-                              padding: '0 0.25rem',
-                              backgroundColor: '#f9fafb',
-                              borderRadius: '0.5rem',
-                              textAlign: 'center',
-                              display: 'flex',
-                              flexDirection: 'column',
-                              justifyContent: 'center',
-                              alignItems: 'center',
-                              boxShadow: 'inset 0 0 8px rgba(0,0,0,0.1)',
-                            }}
-                          >
-                            {/* 标签 */}
-                            <div style={{ fontSize: '0.65rem', color: '#6b7280', marginBottom: '0.15rem' }}>
-                              {attr.label}
-                            </div>
-
-                            {/* 数字 + 图标 */}
-                            <div style={{ display: 'flex', alignItems: 'center', gap: '0.25rem' }}>
-                              {attr.icon && (
-                                <img
-                                  src={attr.icon}
-                                  alt={attr.label}
-                                  style={{ width: '1.25rem', height: '1.25rem' }}
-                                />
-                              )}
-
-                              <AnimatePresence mode="popLayout">
-                                <motion.div
-                                  key={attr.value}
-                                  initial={{ scale: 1, y: 0, opacity: 0 }}
-                                  animate={{ y: [-5, 0], opacity: 1 }}
-                                  exit={{ y: 5, opacity: 0 }}
-                                  transition={{ duration: 0.3 }}
-                                  style={{
-                                    fontSize: '0.875rem',
-                                    fontWeight: 500,
-                                    color:
-                                      attr.type === "dodge"
-                                        ? getColorByAttr("dodge", attr.value)
-                                        : attr.type === "electronic"
-                                          ? getColorByAttr("electronic", attr.value)
-                                          : "#111", // score 默认深色
-                                  }}
-                                >
-                                  {attr.value}
-                                </motion.div>
-                              </AnimatePresence>
-                            </div>
-                          </div>
-                        ))}
-                      </div>
-
-
-                    </div>
+                    <MechStatus
+                      mech={mech}
+                      translations={translations}
+                      tabsrc={tabsrc}
+                      lang={lang}
+                      editingMechId={editingMechId}
+                      setEditingMechId={setEditingMechId}
+                      updateMechName={updateMechName}
+                      copyMech={copyMech}
+                      deleteMech={deleteMech}
+                      getMechTotalScore={getMechTotalScore}
+                      getColorByAttr={getColorByAttr}
+                      style={{ flex: '1' }}
+                      isMobile={mobileOrTablet}
+                    />
                   )}
                 </div>
 
@@ -2551,25 +1677,18 @@ export function MechList({
               </div>
             </Card>
           ))}
-          {!championMode ? (
-            <div className="flex justify-center">
-              <Button
-                onClick={addMech}
-                size="sm"
-                className="w-full bg-gray-100 hover:bg-gray-200 text-gray-800"
-              >
-                <Plus className="w-4 h-4 mr-2" />
-                {translations.t29}
-              </Button>
-            </div>
-          ) : (
-            <div className="p-4 bg-white rounded shadow">
-              <h2 className="text-lg font-semibold mb-2">文章标题</h2>
-              <p className="text-gray-700">
-                这里显示文章内容，可以是介绍冠军模式的说明或其他信息。
-              </p>
-            </div>
-          )}
+
+          <div className="flex justify-center">
+            <Button
+              onClick={addMech}
+              size="sm"
+              className="w-full bg-gray-100 hover:bg-gray-200 text-gray-800"
+            >
+              <Plus className="w-4 h-4 mr-2" />
+              {translations.t29}
+            </Button>
+          </div>
+
 
 
           {team.mechs.length === 0 && (
@@ -2722,14 +1841,14 @@ export function MechList({
                   />
 
                   {/* 删除按钮 */}
-                  {!championMode && <Button
+                  <Button
                     variant="ghost"
                     size="sm"
                     onClick={(e) => { e.stopPropagation(); deleteDrone(index); }}
                     className="absolute top-0 right-0 shadow-lg shadow-gray-500 rounded-lg text-destructive hover:text-destructive"
                   >
                     <Trash2 className="w-4 h-4" />
-                  </Button>}
+                  </Button>
 
 
                   {Array.isArray(drone.projectile) &&
@@ -2969,14 +2088,14 @@ export function MechList({
                   />
 
                   {/* 删除按钮 */}
-                  {!championMode && <Button
+                  <Button
                     variant="ghost"
                     size="sm"
                     onClick={(e) => { e.stopPropagation(); deleteTacticCard(index); }}
                     className="absolute top-0 right-0 shadow-lg shadow-gray-500 rounded-lg text-destructive hover:text-destructive"
                   >
                     <Trash2 className="w-4 h-4" />
-                  </Button>}
+                  </Button>
 
                 </div>
               );

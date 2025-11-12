@@ -14,6 +14,9 @@ import { ChevronLeft, ChevronRight, Globe } from 'lucide-react';
 import { getDeviceFingerprint } from './remote';
 import axios from "axios";
 import { motion, AnimatePresence } from "framer-motion";
+import { SlidePanel } from './components/ui/SlidePanel';
+import { PartSelectorMobile } from './components/PartSelectorMobile';
+import { TeamListMobile } from './components/TeamListMobile';
 
 export default function App() {
   // ------------------ 语言 ------------------
@@ -146,14 +149,14 @@ export default function App() {
       setLastScore(0);
       return;
     }
-    
+
     let score = 0;
     if (viewMode === 'parts') {
       score = cMech.parts[selectedPartType]?.score ?? 0;
       setLastPartId(cMech.parts[selectedPartType]?.id || '');
     } else if (viewMode === 'pilots') {
       score = cMech.pilot?.score ?? 0;
-    setLastPartId(cMech.pilot?.id || '');
+      setLastPartId(cMech.pilot?.id || '');
     }
     setLastScore(score);
   }, [selectedTeam, selectedMechId, selectedPartType, viewMode]);
@@ -332,40 +335,28 @@ export default function App() {
       >
         {/* 左侧小队列表 */}
         <div className="relative flex flex-col">
-  <Button
-    size="sm"
-    className="absolute top-3 left-3 z-50 flex items-center justify-center w-10 h-10 shadow transition-all duration-300 ease-in-out"
-    style={{ backgroundColor: 'rgba(75,85,99,0.2)' }}
-    onClick={() => setCollapsedLeft(prev => !prev)}
-  >
-    {collapsedLeft ? (
-      <ChevronRight className="w-5 h-5" stroke="white" />
-    ) : (
-      <ChevronLeft className="w-5 h-5" stroke="white" />
-    )}
-  </Button>
-
-  <AnimatePresence>
-    {isMobileOrTablet ? (
-      !collapsedLeft && (
-        <motion.div
-          className="fixed inset-0 z-50 flex justify-start"
-          onClick={() => setCollapsedLeft(true)}
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          exit={{ opacity: 0 }}
-        >
-          <motion.div
-            className="bg-background shadow-lg h-[70vh] flex flex-col"
-            style={{ width: '80%' }} // 移动端宽度保持百分比
-            onClick={(e) => e.stopPropagation()}
-            initial={{ x: "-100%" }}
-            animate={{ x: 0 }}
-            exit={{ x: "-100%" }}
-            transition={{ type: "tween", duration: 0.3 }}
+          <Button
+            size="sm"
+            className="absolute top-3 left-3 z-50 flex items-center justify-center w-10 h-10 shadow transition-all duration-300 ease-in-out"
+            style={{ backgroundColor: 'rgba(75,85,99,0.2)' }}
+            onClick={() => setCollapsedLeft(prev => !prev)}
           >
-            <div className="flex-1 overflow-y-auto p-4 rounded-lg" style={{ WebkitOverflowScrolling: 'touch' }}>
-              <TeamList
+            {collapsedLeft ? (
+              <ChevronRight className="w-5 h-5" stroke="white" />
+            ) : (
+              <ChevronLeft className="w-5 h-5" stroke="white" />
+            )}
+          </Button>
+
+          {isMobileOrTablet ? (
+            <SlidePanel
+              collapsed={collapsedLeft}
+              onClose={() => setCollapsedLeft(true)}
+              position="left"
+              width="80%"
+              height="100vh"
+            >
+              <TeamListMobile
                 teams={teams}
                 selectedTeamId={selectedTeamId}
                 onSelectTeam={setSelectedTeamId}
@@ -380,53 +371,40 @@ export default function App() {
                 championMode={isChampionMode}
                 onChampionModeChange={isChampion => setChampionMode(isChampion)}
               />
+            </SlidePanel>
+          ) : (
+            <div
+              className="overflow-y-auto min-h-0 shadow-xl transition-all duration-300 ease-in-out rounded-lg"
+              style={{
+                width: collapsedLeft ? '0' : '22vw',
+                height: '100%',
+                backgroundColor: 'rgba(255,255,255,0.5)',
+                backdropFilter: 'blur(16px)',
+                WebkitBackdropFilter: 'blur(16px)',
+                border: '1px solid rgba(255,255,255,0.1)',
+                opacity: collapsedLeft ? 0 : 1,
+                scrollbarWidth: 'none',
+                msOverflowStyle: 'none',
+                WebkitOverflowScrolling: 'touch',
+              }}
+            >
+              <TeamList
+                teams={teams}
+                selectedTeamId={selectedTeamId}
+                onSelectTeam={setSelectedTeamId}
+                onAddTeam={addTeam}
+                onDeleteTeam={deleteTeam}
+                onUpdateTeam={updateTeam}
+                onCopyTeam={copyTeam}
+                translations={t}
+                factionNames={factionNames}
+                lang={lang}
+                tabsrc={tabSrc}
+                championMode={isChampionMode}
+                onChampionModeChange={isChampion => setChampionMode(isChampion)} />
             </div>
-          </motion.div>
-        </motion.div>
-      )
-    ) : (
-      <div
-        className={`overflow-y-auto min-h-0 shadow-xl transition-all duration-300 ease-in-out rounded-lg`}
-        style={{
-         width: collapsedLeft ? '0' : '22vw',   // 占屏幕20%
-          height: '100%',
-          backgroundColor: 'rgba(255, 255, 255, 0.5)',
-          backdropFilter: 'blur(16px)',
-          WebkitBackdropFilter: 'blur(16px)',
-          border: '1px solid rgba(255, 255, 255, 0.1)',
-          opacity: collapsedLeft ? 0 : 1,
-          scrollbarWidth: 'none',
-          msOverflowStyle: 'none',
-          WebkitOverflowScrolling: 'touch'
-        }}
-      >
-        <style>
-          {`
-            /* Chrome, Safari, Edge */
-            div::-webkit-scrollbar {
-              display: none;
-            }
-          `}
-        </style>
-        <TeamList
-          teams={teams}
-          selectedTeamId={selectedTeamId}
-          onSelectTeam={setSelectedTeamId}
-          onAddTeam={addTeam}
-          onDeleteTeam={deleteTeam}
-          onUpdateTeam={updateTeam}
-          onCopyTeam={copyTeam}
-          translations={t}
-          factionNames={factionNames}
-          lang={lang}
-          tabsrc={tabSrc}
-          championMode={isChampionMode}
-          onChampionModeChange={isChampion => setChampionMode(isChampion)}
-        />
-      </div>
-    )}
-  </AnimatePresence>
-</div>
+          )}
+        </div>
 
 
         {/* 中间机体列表 */}
@@ -456,12 +434,12 @@ export default function App() {
                 exit={{ opacity: 0, scale: 0.8 }}       // 消失动画
                 transition={{ duration: 0.3, ease: "easeOut" }} // 动画时长和缓动
               >
-                {(viewMode !== 'drones' && viewMode!=='tacticCards' && lastPartId !== '') &&
-                <img
-                  src={`${imageSrc}/${lastPartId}.png`}
-                  alt="last preview"
-                  className="max-w-full max-h-full object-contain rounded-md shadow-lg"
-                />}
+                {(viewMode !== 'drones' && viewMode !== 'tacticCards' && lastPartId !== '') &&
+                  <img
+                    src={`${imageSrc}/${lastPartId}.png`}
+                    alt="last preview"
+                    className="max-w-full max-h-full object-contain rounded-md shadow-lg"
+                  />}
                 <img
                   src={hoverImg}
                   alt="preview"
@@ -494,153 +472,32 @@ export default function App() {
         </div>
 
         {/* 右侧面板 */}
-       {!isChampionMode && <AnimatePresence>
+        <AnimatePresence>
           {isMobileOrTablet ? (
-            !collapsedRight && (
-              <motion.div
-                className="fixed inset-0 z-50  flex justify-end"
-                onClick={() => setCollapsedRight(true)}
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                exit={{ opacity: 0 }}
-              >
-                <motion.div
-                  className="bg-background shadow-lg w-80 h-[70vh] flex flex-col"
-                  onClick={(e) => e.stopPropagation()}
-                  initial={{ x: "100%" }}
-                  animate={{ x: 0 }}
-                  exit={{ x: "100%" }}
-                  transition={{ type: "tween", duration: 0.3 }}
-                >
-                  <div className="flex-1 overflow-y-auto p-4 rounded-lg " style={{ WebkitOverflowScrolling: 'touch' }}>
-                    <PartSelector
-                      viewMode={viewMode}
-                      team={selectedTeam}
-                      selectedPartType={selectedPartType}
-                      parts={factionParts}
-                      drones={factionDrones}
-                      pilots={factionPilots}
-                      translations={t}
-                      tacticCards={allTacticCards}
-                      partTypeNames={typePartNames}
-                      imgsrc={imageSrc}
-                      tabsrc={tabSrc}
-                      onSetHoverImg={(img) => handleHoverImg(img)}
-                      onSetShowHoverImg={(show) => setShowHoverImg(show)}
-                      showHoverImg={showHoverImg}
-                      mobileOrTablet={isMobileOrTablet}
-                      lastScore={lastScore}
-                      lastPartId={lastPartId}
-                      onSelectPart={(part) => {
-                        if (selectedTeam && selectedMechId) {
-                          const updatedMechs = selectedTeam.mechs.map(mech => {
-                            if (mech.id === selectedMechId) {
-                              return {
-                                ...mech,
-                                parts: { ...mech.parts, [selectedPartType]: part }
-                              };
-                            }
-                            return mech;
-                          });
-
-                          updateTeam(selectedTeam.id, {
-                            mechs: updatedMechs,
-                            totalScore: calculateTotalScore(selectedTeam.drones, selectedTeam.tacticCards, updatedMechs)
-                          });
-                        }
-                        setCollapsedRight(true);
-                      }}
-                      onSelectDrone={(drone) => {
-                        if (selectedTeam) {
-                          const updatedDrones = [...selectedTeam.drones, drone];
-
-                          updateTeam(selectedTeam.id, {
-                            drones: updatedDrones,
-                            totalScore: calculateTotalScore(updatedDrones, selectedTeam.tacticCards, selectedTeam.mechs),
-                            largeDroneCount: updatedDrones.filter(d => d.type === 'large').length,
-                            mediumDroneCount: updatedDrones.filter(d => d.type === 'medium').length,
-                            smallDroneCount: updatedDrones.filter(d => d.type === 'small').length,
-                          });
-                        }
-                        setCollapsedRight(true);
-                      }}
-                      onSelectTacticCard={(tacticCard) => {
-                        if (selectedTeam) {
-                          const updatedTacticCards = [...(selectedTeam.tacticCards ?? []), tacticCard];
-
-                          updateTeam(selectedTeam.id, {
-                            tacticCards: updatedTacticCards,
-                            totalScore: calculateTotalScore(selectedTeam.drones, updatedTacticCards, selectedTeam.mechs),
-                          });
-                        }
-                        setCollapsedRight(true);
-                      }}
-                      onSelectPilot={(pilot) => {
-                        if (selectedTeam && selectedMechId) {
-                          const updatedMechs = selectedTeam.mechs.map(mech => {
-                            if (mech.id === selectedMechId) {
-                              return { ...mech, pilot };
-                            }
-                            return mech;
-                          });
-
-
-                          updateTeam(selectedTeam.id, {
-                            mechs: updatedMechs,
-                            totalScore: calculateTotalScore(selectedTeam.drones, selectedTeam.tacticCards, updatedMechs)
-                          });
-                        }
-                        setCollapsedRight(true);
-                      }}
-                    />
-                  </div>
-                </motion.div>
-              </motion.div>
-            )
-          ) : (
-            <div
-              className="flex flex-col overflow-hidden  shadow-xl rounded-lg "
-              style={{
-                backgroundColor: 'rgba(255, 255, 255, 0.5)', // 半透明白色，更白
-                 width: '22vw',  
-                backdropFilter: 'blur(16px)',              // 毛玻璃模糊
-                WebkitBackdropFilter: 'blur(16px)',        // Safari 支持
-                border: '1px solid rgba(255, 255, 255, 0.1)' // 半透明边框
-              }}
+            <SlidePanel
+              collapsed={collapsedRight}
+              onClose={() => setCollapsedRight(true)}
+              position="right"
+              width="80%"
+              height="100vh"
             >
-              {/* 右上角语言切换 */}
-              {!isMobileOrTablet && (
-                <div className="absolute top-2 right-3 flex items-center gap-2 p-2 z-50 ">
-                  <Globe className="w-5 h-5 text-gray-600" />
-                  <Select value={lang} onValueChange={v => setLang(v as "zh" | "en" | "jp")}>
-                    <SelectTrigger className="w-[120px]">
-                      <SelectValue placeholder="选择语言" />
-                    </SelectTrigger>
-                    <SelectContent>
-                      <SelectItem value="zh">中文</SelectItem>
-                      <SelectItem value="en">English</SelectItem>
-                      <SelectItem value="jp">日本語</SelectItem>
-                    </SelectContent>
-                  </Select>
-                </div>
-              )}
-
-              <PartSelector
+              <PartSelectorMobile
+              className="overflow-y-auto h-full -webkit-overflow-scrolling-touch"
                 viewMode={viewMode}
                 team={selectedTeam}
                 selectedPartType={selectedPartType}
                 parts={factionParts}
                 drones={factionDrones}
-                tacticCards={allTacticCards}
                 pilots={factionPilots}
                 translations={t}
+                tacticCards={allTacticCards}
                 partTypeNames={typePartNames}
                 imgsrc={imageSrc}
                 tabsrc={tabSrc}
-                mobileOrTablet={isMobileOrTablet}
                 onSetHoverImg={(img) => handleHoverImg(img)}
                 onSetShowHoverImg={(show) => setShowHoverImg(show)}
                 showHoverImg={showHoverImg}
+                mobileOrTablet={isMobileOrTablet}
                 lastScore={lastScore}
                 lastPartId={lastPartId}
                 onSelectPart={(part) => {
@@ -660,6 +517,7 @@ export default function App() {
                       totalScore: calculateTotalScore(selectedTeam.drones, selectedTeam.tacticCards, updatedMechs)
                     });
                   }
+                  setCollapsedRight(true);
                 }}
                 onSelectDrone={(drone) => {
                   if (selectedTeam) {
@@ -673,6 +531,7 @@ export default function App() {
                       smallDroneCount: updatedDrones.filter(d => d.type === 'small').length,
                     });
                   }
+                  setCollapsedRight(true);
                 }}
                 onSelectTacticCard={(tacticCard) => {
                   if (selectedTeam) {
@@ -683,6 +542,7 @@ export default function App() {
                       totalScore: calculateTotalScore(selectedTeam.drones, updatedTacticCards, selectedTeam.mechs),
                     });
                   }
+                  setCollapsedRight(true);
                 }}
                 onSelectPilot={(pilot) => {
                   if (selectedTeam && selectedMechId) {
@@ -693,16 +553,126 @@ export default function App() {
                       return mech;
                     });
 
+
                     updateTeam(selectedTeam.id, {
                       mechs: updatedMechs,
                       totalScore: calculateTotalScore(selectedTeam.drones, selectedTeam.tacticCards, updatedMechs)
                     });
                   }
+                  setCollapsedRight(true);
+                }}
+              />
+            </SlidePanel>
+          ) : (
+            <div
+              className="flex flex-col overflow-y-auto overflow-hidden shadow-xl rounded-lg"
+              style={{
+                backgroundColor: 'rgba(255,255,255,0.5)',
+                width: '22vw',
+                backdropFilter: 'blur(16px)',
+                WebkitBackdropFilter: 'blur(16px)',
+                border: '1px solid rgba(255,255,255,0.1)',
+              }}
+            >
+              {/* 右上角语言切换 */}
+                            {!isMobileOrTablet && (
+                              <div className="absolute top-2 right-3 flex items-center gap-2 p-2 z-50 ">
+                                <Globe className="w-5 h-5 text-gray-600" />
+                                <Select value={lang} onValueChange={v => setLang(v as "zh" | "en" | "jp")}>
+                                  <SelectTrigger className="w-[120px]">
+                                    <SelectValue placeholder="选择语言" />
+                                  </SelectTrigger>
+                                  <SelectContent>
+                                    <SelectItem value="zh">中文</SelectItem>
+                                    <SelectItem value="en">English</SelectItem>
+                                    <SelectItem value="jp">日本語</SelectItem>
+                                  </SelectContent>
+                                </Select>
+                              </div>
+                            )}
+              <PartSelector
+                viewMode={viewMode}
+                team={selectedTeam}
+                selectedPartType={selectedPartType}
+                parts={factionParts}
+                drones={factionDrones}
+                pilots={factionPilots}
+                translations={t}
+                tacticCards={allTacticCards}
+                partTypeNames={typePartNames}
+                imgsrc={imageSrc}
+                tabsrc={tabSrc}
+                onSetHoverImg={(img) => handleHoverImg(img)}
+                onSetShowHoverImg={(show) => setShowHoverImg(show)}
+                showHoverImg={showHoverImg}
+                mobileOrTablet={isMobileOrTablet}
+                lastScore={lastScore}
+                lastPartId={lastPartId}
+                onSelectPart={(part) => {
+                  if (selectedTeam && selectedMechId) {
+                    const updatedMechs = selectedTeam.mechs.map(mech => {
+                      if (mech.id === selectedMechId) {
+                        return {
+                          ...mech,
+                          parts: { ...mech.parts, [selectedPartType]: part }
+                        };
+                      }
+                      return mech;
+                    });
+
+                    updateTeam(selectedTeam.id, {
+                      mechs: updatedMechs,
+                      totalScore: calculateTotalScore(selectedTeam.drones, selectedTeam.tacticCards, updatedMechs)
+                    });
+                  }
+                  setCollapsedRight(true);
+                }}
+                onSelectDrone={(drone) => {
+                  if (selectedTeam) {
+                    const updatedDrones = [...selectedTeam.drones, drone];
+
+                    updateTeam(selectedTeam.id, {
+                      drones: updatedDrones,
+                      totalScore: calculateTotalScore(updatedDrones, selectedTeam.tacticCards, selectedTeam.mechs),
+                      largeDroneCount: updatedDrones.filter(d => d.type === 'large').length,
+                      mediumDroneCount: updatedDrones.filter(d => d.type === 'medium').length,
+                      smallDroneCount: updatedDrones.filter(d => d.type === 'small').length,
+                    });
+                  }
+                  setCollapsedRight(true);
+                }}
+                onSelectTacticCard={(tacticCard) => {
+                  if (selectedTeam) {
+                    const updatedTacticCards = [...(selectedTeam.tacticCards ?? []), tacticCard];
+
+                    updateTeam(selectedTeam.id, {
+                      tacticCards: updatedTacticCards,
+                      totalScore: calculateTotalScore(selectedTeam.drones, updatedTacticCards, selectedTeam.mechs),
+                    });
+                  }
+                  setCollapsedRight(true);
+                }}
+                onSelectPilot={(pilot) => {
+                  if (selectedTeam && selectedMechId) {
+                    const updatedMechs = selectedTeam.mechs.map(mech => {
+                      if (mech.id === selectedMechId) {
+                        return { ...mech, pilot };
+                      }
+                      return mech;
+                    });
+
+
+                    updateTeam(selectedTeam.id, {
+                      mechs: updatedMechs,
+                      totalScore: calculateTotalScore(selectedTeam.drones, selectedTeam.tacticCards, updatedMechs)
+                    });
+                  }
+                  setCollapsedRight(true);
                 }}
               />
             </div>
           )}
-        </AnimatePresence>}
+        </AnimatePresence>
       </div>
     </div>
 

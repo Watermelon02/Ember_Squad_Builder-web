@@ -7,12 +7,11 @@ import { Team, FACTION_COLORS } from '../types';
 import { Badge } from './ui/badge';
 import { Input } from './ui/input';
 import extractChunks from "png-chunks-extract";
-import { AnimatePresence, motion } from 'framer-motion';
+import { motion } from 'framer-motion';
 import { MechImage } from './ui/MechImage';
 import { DroneImage } from './ui/DroneImage';
-import { TeamEligibility } from './ui/TeamEligibility';
 
-interface TeamListProps {
+interface TeamListMobileProps {
   teams: Team[];
   selectedTeamId: string;
   onSelectTeam: (teamId: string) => void;
@@ -28,7 +27,7 @@ interface TeamListProps {
   onChampionModeChange: (isChampion: boolean) => void;
 }
 
-export function TeamList({
+export function TeamListMobile({
   teams,
   selectedTeamId,
   onSelectTeam,
@@ -104,7 +103,7 @@ export function TeamList({
     <div style={{ display: 'flex', flexDirection: 'column' }} >
 
       {/* 顶部工具栏 */}
-      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 16, paddingLeft: 10, paddingRight: 10, paddingTop: 10 }}>
+      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 6}}>
         <h2 style={{ color: '#333' }}>{translations.t3}</h2>
         <div style={{ display: 'flex', gap: 8 }}>
           <Button
@@ -133,14 +132,14 @@ export function TeamList({
       </div>
 
       {/* 操作按钮 */}
-      <div className="flex w-full gap-2 mb-4" style={{ paddingLeft: 10, paddingRight: 10 }}>
+      <div className="flex w-full gap-2" >
         <Button
           className="flex-1"
           variant="outline"
           size="sm"
           onClick={() => cloneTeam(selectedTeamId)}
         >
-          <Copy className="w-4 h-4 mr-2" /> {translations.t4}
+          <Copy className="w-4 h-4 " /> {translations.t4}
         </Button>
 
         <Button
@@ -149,7 +148,7 @@ export function TeamList({
           size="sm"
           onClick={() => document.getElementById("team-upload")?.click()}
         >
-          <Upload className="w-4 h-4 mr-2" /> {translations.t73}
+          <Upload className="w-4 h-4" /> {translations.t73}
         </Button>
 
         <Button
@@ -158,7 +157,7 @@ export function TeamList({
           size="sm"
           onClick={() => exportTeamAsJson(selectedTeamId)}
         >
-          <Download className="w-4 h-4 mr-2" /> {translations.t74}
+          <Download className="w-4 h-4" /> {translations.t74}
         </Button>
 
         <input
@@ -231,21 +230,11 @@ export function TeamList({
       </div>
 
       {/* 小队列表 */}
-      <div style={{ flex: 1, overflowY: 'auto', display: 'flex', flexDirection: 'column', gap: 16, paddingLeft: 10, paddingRight: 10, paddingTop: 10 }}>
+      <div style={{ flex: 1, overflowY: 'auto', display: 'flex', flexDirection: 'column', gap: 16,paddingTop:10}}>
         {teams.map(team => (
-          <motion.div
+          <div
             key={team.id}
-            initial={{ opacity: 0, y: -5, scale: 1 }}
-            animate={{ opacity: 1, y: 0, scale: 1 }}
-            exit={{ opacity: 0, y: 5, scale: 1 }}
-            transition={{ duration: 0.12 }}
-            whileHover={{
-              scale: 1.05,
-              boxShadow: "0 6px 10px rgba(0,0,0,0.1)",
-              transition: { duration: 0.15, ease: "easeOut" }
-            }}
             className='rounded-xl'
-
           >
             <Card
               style={{
@@ -304,12 +293,6 @@ export function TeamList({
                       {factionNames[team.faction]}
                     </Badge>
 
-
-
-
-
-                    {/* 可参赛状态显示 */}
-                    <TeamEligibility team={team} translations={translations} />
                     {editingTeamId === team.id ? (
                       <Input
                         value={team.name}
@@ -349,7 +332,7 @@ export function TeamList({
                   >
                     <Trash2 className="w-4 h-4" />
                   </Button>
-
+                  
                 </div>
 
                 {/* 数据行 */}
@@ -364,20 +347,15 @@ export function TeamList({
                   ].map((stat, idx) => (
                     <div key={idx} className="text-center">
                       <div className="text-sm text-muted-foreground">{stat.label}</div>
-                      <AnimatePresence mode="popLayout">
-                        <motion.div
+
+                        <div
                           key={stat.value} // 数字变化时触发动画
-                          initial={{ scale: 0.9, y: 5, opacity: 0 }}
-                          animate={{ scale: 1, y: 0, opacity: 1 }}
-                          exit={{ scale: 0.9, y: -5, opacity: 0 }}
-                          transition={{ duration: 0.3, type: "spring", stiffness: 300, damping: 20 }}
                           style={{
                             color: stat.highlight ? '#dc2626' : '#111', // 高亮逻辑
                           }}
                         >
                           {stat.value}
-                        </motion.div>
-                      </AnimatePresence>
+                        </div>
                     </div>
                   ))}
                 </div>
@@ -390,32 +368,23 @@ export function TeamList({
                     gap: `${gap}px`,
                   }}
                 >
-                  <AnimatePresence mode="popLayout">
+
                     {team.mechs.map((mech, index) => (
-                      <motion.div
+                      <div
                         key={`mech-${mech.id ?? index}`}
-                        initial={{ opacity: 0, scale: 0.8, y: -10 }}
-                        animate={{ opacity: 1, scale: 1, y: 0 }}
-                        exit={{ opacity: 0, scale: 0.8, y: 10 }}
-                        transition={{ duration: 0.2 }}
                       >
                         <MechImage mech={mech} tabsrc={tabsrc} translation={translations} />
-                      </motion.div>
+                      </div>
                     ))}
 
                     {team.drones.map((drone, index) => (
-                      <motion.div
+                      <div
                         key={`drone-${drone.id}-${index}`}
-                        initial={{ opacity: 0, scale: 0.8, y: -10 }}
-                        animate={{ opacity: 1, scale: 1, y: 0 }}
-                        exit={{ opacity: 0, scale: 0.8, y: 10 }}
-                        transition={{ duration: 0.2 }}
                       >
                         <DroneImage drone={drone} tabsrc={tabsrc} />
-                      </motion.div>
+                      </div>
                     ))}
 
-                  </AnimatePresence>
 
                   {/* 占位条纹填满一行 */}
                   {(() => {
@@ -439,7 +408,11 @@ export function TeamList({
 
               </div>
             </Card>
-          </motion.div>
+          </div>
+
+
+
+
         ))}
 
         {/* 新增小队按钮 */}

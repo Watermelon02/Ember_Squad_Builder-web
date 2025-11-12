@@ -10,6 +10,9 @@ interface MechPreviewProps {
   scaleOverrides?: Partial<Record<keyof Mech['parts'], number>>;
   cropLeftPercent?: number;
   defaultParts?: Partial<Record<keyof Mech['parts'], Part>>;
+  //这里仅用来临时使用
+  championMode:boolean;
+  style?: React.CSSProperties;
 }
 
 // 不包含 backpack
@@ -28,6 +31,9 @@ export const MechPreview: React.FC<MechPreviewProps> = ({
   scaleOverrides = {},
   cropLeftPercent = 0,
   defaultParts = {},
+  championMode,
+  style, 
+  
 }) => {
   // 自动生成“替换历史”
   const replaceHistory = useMemo(() => {
@@ -45,8 +51,8 @@ export const MechPreview: React.FC<MechPreviewProps> = ({
 
   // READY 条件：torso、chasis存在，且至少有一只手存在
   const isReady = !!mech.parts.torso?.id &&
-                  !!mech.parts.chasis?.id &&
-                  (!!mech.parts.leftHand?.id || !!mech.parts.rightHand?.id);
+    !!mech.parts.chasis?.id &&
+    (!!mech.parts.leftHand?.id || !!mech.parts.rightHand?.id);
 
   return (
     <motion.div
@@ -57,6 +63,7 @@ export const MechPreview: React.FC<MechPreviewProps> = ({
         borderRadius: '0.5rem',
         overflow: 'hidden',
         boxShadow: 'inset 0 0 8px rgba(0,0,0,0.1)',
+        ...style,
       }}
       transition={{ duration: 0.3 }}
     >
@@ -98,7 +105,7 @@ export const MechPreview: React.FC<MechPreviewProps> = ({
               transition={{ duration: 0.3 }}
             >
               <img
-              loading='lazy'
+                loading='lazy'
                 src={`${mechImgSrc}/${part.id}.png`}
                 alt={part.name}
                 style={{
@@ -145,27 +152,40 @@ export const MechPreview: React.FC<MechPreviewProps> = ({
       </div>
 
       {/* 历史记录（右下角），无背景 + 浮动动画 + 右对齐 */}
-      {replaceHistory.length > 0 && (
-        <motion.div
-          initial={{ opacity: 0, y: 2 }}
-          animate={{ opacity: 1, y: 0, transition: { duration: 0.25 } }}
-          style={{
-            position: 'absolute',
-            bottom: '0.2rem',
-            right: '0.2rem',
-            color: 'white',
-            fontSize: '0.2rem',
-            pointerEvents: 'none',
-            maxWidth: '100%',
-            whiteSpace: 'pre-line',
-color: '#888888',
-            lineHeight: '0.42rem',
-            textAlign: 'right',
-          }}
-        >
-          {replaceHistory.join('\n')}
-        </motion.div>
-      )}
+      <motion.div
+        style={{
+          position: 'absolute',
+          bottom: '0.2rem',
+          right: '0.2rem',
+          fontSize: typeof height === 'number' ? `${height * 0.08}px` : `calc(${height} * 0.03)`,
+          pointerEvents: 'none',
+          maxWidth: '50%',
+          textAlign: 'right',
+          color: '#888888',
+        }}
+      >
+        {championMode&&<AnimatePresence>
+
+          {replaceHistory.map((line) => (
+            <motion.div
+              key={line} // 每行文字作为 key，改变时会触发动画
+              initial={{ opacity: 0, y: 4 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: 4 }}
+              transition={{ duration: 0.2 }}
+              style={{
+                whiteSpace: 'pre-line',
+                lineHeight: '1.2em',
+                overflowWrap: 'break-word',
+              }}
+            >
+              {line}
+            </motion.div>
+          ))}
+        </AnimatePresence>}
+      </motion.div>
+
+
 
       {/* READY（右上角） */}
       {isReady && (
