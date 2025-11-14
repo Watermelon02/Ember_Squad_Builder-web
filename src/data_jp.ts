@@ -1663,20 +1663,20 @@ export const unTorso: Part[] = [
     "imgSrc": "",
     "tags": []
   },
-  // {
-  //   "id": "555",
-  //   "name": "TM35BT「タウルス」実験型コア",
-  //   "score": 84,
-  //   "armor": 5,
-  //   "structure": 4,
-  //   "parray": 0,
-  //   "dodge": 1,
-  //   "electronic": 4,
-  //   "type": "torso",
-  //    "description": "",
-  //   "imgSrc": "",
-  //   "tags": []
-  // }
+  {
+    "id": "555",
+    "name": "TM35BT「タウルス」実験型コア",
+    "score": 84,
+    "armor": 5,
+    "structure": 4,
+    "parray": 0,
+    "dodge": 1,
+    "electronic": 4,
+    "type": "torso",
+     "description": "",
+    "imgSrc": "",
+    "tags": []
+  }
 ];
 
 export const unChasis: Part[] = [
@@ -2441,7 +2441,9 @@ export const unRightHand: Part[] = [
     "type": "rightHand",
     "imgSrc": "",
     "description": "",
-    "tags": []
+    "tags": [],
+    "throwIndex":"557"
+
   },
   {
     "id": "557",
@@ -3014,21 +3016,21 @@ export const unPilots: Pilot[] = [
     "trait": "",
     "traitDescription": "303中隊のトレーナーライフルマン。"
   },
-  // {
-  //   "id": "LPA-66",
-  //   "name": "ライフルマン66",
-  //   "score": 9,
-  //   "LV": 4,
-  //   "faction": "UN",
-  //   "swift": 3,
-  //   "melee": 7,
-  //   "projectile": 6,
-  //   "firing": 2,
-  //   "moving": 5,
-  //   "tactic": 5,
-  //   "trait": "",
-  //   "traitDescription": "303中隊のトレーナーライフルマン。"
-  // }
+  {
+    "id": "LPA-66",
+    "name": "ライフルマン66",
+    "score": 9,
+    "LV": 4,
+    "faction": "UN",
+    "swift": 3,
+    "melee": 7,
+    "projectile": 6,
+    "firing": 2,
+    "moving": 5,
+    "tactic": 5,
+    "trait": "",
+    "traitDescription": "303中隊のトレーナーライフルマン。"
+  }
 ];
 
 export const rdlPilots: Pilot[] = [

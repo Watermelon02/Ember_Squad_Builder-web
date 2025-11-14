@@ -1,0 +1,5 @@
+export const COLOR_GREY: string = "#1F293740"
+export const COLOR_TEXT_GREY: string = "#1F293780"
+export const COLOR_WHITE: string = "#ffffff"
+export const COLOR_GLOBAL: string = "#1F2937aa"
+export const COLOR_GREY_DEEPER: string = "#1F2937ff"

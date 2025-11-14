@@ -1,22 +1,24 @@
 import React, { useEffect, useState } from 'react';
 import { Button } from './ui/button';
 import { Card } from './ui/card';
-import { Input } from './ui/input';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from './ui/tabs';
 import { Plus, Trash2, Copy, ZoomIn, Rocket, Image, Table2, Loader2, Repeat, Settings, Globe, Gamepad2Icon } from 'lucide-react';
-import { Team, Mech, Part, PART_TYPE_NAMES, calculateTotalScore, FACTION_COLORS, } from '../types';
+import { Team, Mech, Part, PART_TYPE_NAMES, calculateTotalScore, Drone } from '../types';
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger, DialogClose } from './ui/dialog';
 import { rdlBackpack, rdlChasis, rdlLeftHand, rdlRightHand, rdlTorso, unBackpack, unChasis, unLeftHand, unRightHand, unTorso } from '../data';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from './ui/select';
 import { VisuallyHidden } from "@radix-ui/react-visually-hidden";
 
 import { motion, AnimatePresence } from 'framer-motion';
-import { DroneImage } from './ui/DroneImage';
-import { MechImage } from './ui/MechImage';
-import { MechPreview } from './ui/MechPreview';
+import { DroneImage } from './custom/DroneImage';
+import { MechImage } from './custom/MechImage';
+import { MechPreview } from './custom/MechPreview';
 import { exportTeamImage } from '../util/TeamImage';
 import { getImage } from '../util/ImageGetter';
-import { MechStatus } from './ui/MechStatus';
+import { MechStatus } from './custom/MechStatus';
+import { AnimatedButton } from './custom/AnimatedButton';
+import { COLOR_GLOBAL, COLOR_GREY, COLOR_WHITE } from '../styles/color';
+import { MechStatusMobile } from './custom/MechStatusMobile';
 
 interface MechListProps {
   team?: Team;
@@ -25,6 +27,8 @@ interface MechListProps {
   onSelectPartType: (partType: string) => void;
   onUpdateTeam: (teamId: string, updates: Partial<Team>) => void;
   onSetViewMode: (mode: 'parts' | 'drones' | 'pilots' | 'tacticCards') => void;
+  onSetIsChangingPart: (changingPart: boolean) => void,
+  onSelectDrone:(droneId:Drone)=>void;
   translations: any;
   partTypeNames: any;
   imgsrc: string, tabsrc: string,
@@ -40,11 +44,12 @@ export function MechList({
   onSelectPartType,
   onUpdateTeam,
   onSetViewMode,
+  onSelectDrone,
   translations,
   partTypeNames,
   imgsrc, tabsrc,
   localImgsrc, lang, mobileOrTablet, setLanguage, championMode,
-  mechImgSrc
+  mechImgSrc, onSetIsChangingPart,
 }: MechListProps) {
   const [editingMechId, setEditingMechId] = useState<string>('');
   // 用一个对象记录每个无人机的页码
@@ -56,6 +61,10 @@ export function MechList({
   const [showProjectileOption, setShowProjectileOption] = useState(false);
   const [showTTSHint, setShowTTSHint] = useState(false);
   const [cPartType, setCPartType] = useState("");
+  const [currentTab, setCurrentTab] = useState("mechs");
+  const orderedPartTypes: (keyof typeof partTypeNames)[] = mobileOrTablet
+    ? ["rightHand", "torso", "leftHand", "backpack", "chasis"]
+    : (Object.keys(partTypeNames) as (keyof typeof partTypeNames)[]);
 
   const setDronePage = (index: number, newPage: number) => {
     setDronePages(prev => ({
@@ -256,8 +265,22 @@ export function MechList({
       canvas.toBlob(b => resolve(b!), "image/png")
     );
 
-    const fileName = `mech_${mech.id}.png`;
+    // 生成时间戳，不然会导致路径重复（格式：YYYYMMDD_HHmmss）
+    const now = new Date();
+    const timestamp = now
+      .toISOString()
+      .replace(/[-T:.Z]/g, '')   // 去掉无关字符
+      .slice(0, 15)              // 保留 YYYYMMDDHHmmss
+      .replace(/(\d{8})(\d{6})/, '$1_$2'); // 加个下划线分隔日期和时间
+
+    // 示例：timestamp = "20251113_104530"
+
+    // 拼接文件名
+    const fileName = `mech_${mech.id}_${timestamp}.png`;
+
+    // 上传路径
     const uploadUrl = `https://op-1307392056.cos.ap-guangzhou.myqcloud.com/mechs/${fileName}`;
+
 
     await fetch(uploadUrl, {
       method: 'PUT',
@@ -487,7 +510,23 @@ export function MechList({
 
   return (
     <div className="flex-1 min-h-0 flex flex-col">
-      <Tabs defaultValue="mechs" className="flex-1 min-h-0 flex flex-col">
+      <Tabs defaultValue="mechs" className="flex-1 min-h-0 flex flex-col" onValueChange={(v) => {
+        setCurrentTab(v);
+
+        // 同步右侧侧边栏
+        switch (v) {
+          case 'mechs':
+            setCPartType('');
+            onSetViewMode('parts');
+            break;
+          case 'drones':
+            onSetViewMode('drones');
+            break;
+          case 'tacticCards':
+            onSetViewMode('tacticCards');
+            break;
+        }
+      }}>
         <Dialog open={open} onOpenChange={setOpen}>
           <DialogContent>
             <DialogHeader>
@@ -544,33 +583,78 @@ export function MechList({
           /* 移动端：三行布局 */
           <div className="p-2 border-b border-border flex flex-col gap-2">
             {/* 第 1 行：Tabs */}
-            <TabsList className="flex justify-center gap-2 w-full">
-              <TabsTrigger
-                value="mechs"
-                onClick={() => {
-                  setCPartType("");
-                  onSetViewMode('parts')
-                }}
-                className="flex-1 max-w-[150px]"
-              >
-                {translations.t22} ({team.mechs.length})
-              </TabsTrigger>
-              <TabsTrigger
-                value="drones"
-                onClick={() => onSetViewMode('drones')}
-                className="flex-1 max-w-[150px]"
-              >
-                {translations.t23} ({team.drones.length})
-              </TabsTrigger>
-              <TabsTrigger
-                value="tacticCards"
-                onClick={() => onSetViewMode('tacticCards')}
-                className="flex-1 max-w-[150px]"
-              >
-                {translations.t87} ({team.drones.length})
-              </TabsTrigger>
-            </TabsList>
+            <TabsList
+              className="relative flex"
+              style={{
+                backgroundColor: COLOR_WHITE,
+                borderRadius: "4px",
+                boxShadow: "0 2px 8px rgba(0,0,0,0.25)",
+                backdropFilter: "blur(6px)",
+                height: "4vh",
+                width: "100%",
+                padding: "0",
+              }}
+            >
+              {[
+                { key: "mechs", label: `${translations.t22} (${team.mechs.length})`, onClick: () => { setCPartType(""); onSetViewMode("parts"); } },
+                { key: "drones", label: `${translations.t23} (${team.drones.length})`, onClick: () => onSetViewMode("drones") },
+                { key: "tacticCards", label: `${translations.t87} (${team.tacticCards?.length})`, onClick: () => onSetViewMode("tacticCards") },
+              ].map((tab, index, arr) => (
+                <React.Fragment key={tab.key}>
 
+                  {/* Tab 按钮 */}
+                  <TabsTrigger
+                    value={tab.key}
+                    onClick={() => setCurrentTab(tab.key)}
+                    style={{
+                      position: "relative",
+                      color: currentTab === tab.key ? COLOR_WHITE : COLOR_GREY,
+                      fontWeight: 500,
+                      padding: "8px 18px",
+                      borderRadius: "4px",
+                      transition: "color 0.25s ease",
+                      zIndex: 1,
+                    }}
+                  >
+                    {tab.label}
+
+                    {/* ▼ 背景动画：只负责背景，不覆盖文字 */}
+                    {currentTab === tab.key && (
+                      <motion.div
+                        layoutId="tabBG"
+                        transition={{ duration: 0.25, ease: "easeInOut" }}
+                        style={{
+                          position: "absolute",
+                          top: 0,
+                          left: 0,
+                          right: 0,
+                          bottom: 0,
+                          background: COLOR_GREY,
+                          borderRadius: "4px",
+                          zIndex: -1,
+                        }}
+                      />
+                    )}
+                  </TabsTrigger>
+
+                  {/* ▼ 分隔竖线（当两边任意一个被选中 → 隐藏） */}
+                  {index < arr.length - 1 && (
+                    <div
+                      style={{
+                        width: "1.5px",
+                        height: "60%",
+                        backgroundColor:
+                          currentTab === tab.key || currentTab === arr[index + 1].key
+                            ? "transparent"
+                            : "rgba(0,0,0,0.25)",
+                        alignSelf: "center",
+                        transition: "background-color 0.25s ease",
+                      }}
+                    />
+                  )}
+                </React.Fragment>
+              ))}
+            </TabsList>
 
             {/* 第 2 行：语言切换 + 按钮 */}
             <div className="flex gap-2">
@@ -765,37 +849,33 @@ export function MechList({
           </div>
         ) : (
           /* 桌面端：原来的两边布局 */
-          <div className="p-4 border-b border-border flex items-center justify-between">
-            {/* 左侧 Tabs */}
-            <TabsList className="gap-2">
-              <TabsTrigger value="mechs" onClick={() => { setCPartType(''); onSetViewMode('parts') }}>
-                {translations.t22} ({team.mechs.length})
-              </TabsTrigger>
-              <TabsTrigger value="drones" onClick={() => onSetViewMode('drones')}>
-                {translations.t23} ({team.drones.length})
-              </TabsTrigger>
-              <TabsTrigger value="tacticCards" onClick={() => onSetViewMode('tacticCards')}>
-                {translations.t87} ({team.tacticCards?.length})
-              </TabsTrigger>
-            </TabsList>
-
-            {/* 右侧按钮 */}
-            <div className="flex items-center gap-2">
-              <Button variant="outline" size="sm" onClick={() => team && exportTextTeamData(team)}>
-                <Table2 className="w-4 h-4 mr-1" />
+          <div className="p-4 border-b border-border flex items-center justify-between relative">
+            {/* 左侧按钮组 */}
+            <div
+              style={{
+                display: "flex",
+                alignItems: "center",
+                gap: "0.5vw",
+                flexShrink: 0, // 防止收缩
+              }}
+            >
+              {/* 导出文本 */}
+              <AnimatedButton
+                onClick={() => team && exportTextTeamData(team)}
+                fontSize={"0.8vw"}
+              >
+                <Table2 style={{ width: "1vw", height: "1vw" }} />
                 {translations.t6}
-              </Button>
+              </AnimatedButton>
 
-              {/* 导出图片 + 悬浮checkbox */}
+              {/* 导出图片 + 悬浮 checkbox */}
               <div
-                className="relative"
+                style={{ position: "relative" }}
                 onMouseEnter={() => setShowProjectileOption(true)}
                 onMouseLeave={() => setShowProjectileOption(false)}
               >
-                <Button
-                  variant="outline"
-                  size="sm"
-                  disabled={isExporting}
+                <AnimatedButton
+                  fontSize={"0.8vw"}
                   onClick={async () => {
                     setIsExporting(true);
                     try {
@@ -830,7 +910,7 @@ export function MechList({
                     }
                   }}
                 >
-                  <div className="flex items-center gap-2">
+                  <div style={{ display: "flex", alignItems: "center", gap: 4 }}>
                     <AnimatePresence>
                       {isExporting && (
                         <motion.div
@@ -843,23 +923,22 @@ export function MechList({
                             opacity: { duration: 0.2 },
                           }}
                         >
-                          <Loader2 className="w-4 h-4" />
+                          <Loader2 style={{ width: "1vw", height: "1vw" }} />
                         </motion.div>
                       )}
                     </AnimatePresence>
-
                     {isExporting ? (
                       <span>{translations.t79}</span>
                     ) : (
-                      <div className="flex items-center gap-1">
-                        <Image className="w-4 h-4" />
+                      <div style={{ display: "flex", alignItems: "center", gap: 2 }}>
+                        <Image style={{ width: "1vw", height: "1vw" }} />
                         <span>{translations.t24}</span>
                       </div>
                     )}
                   </div>
-                </Button>
+                </AnimatedButton>
 
-                {/* 悬浮出现的 checkbox */}
+                {/* 悬浮 checkbox */}
                 <AnimatePresence>
                   {showProjectileOption && (
                     <motion.div
@@ -868,9 +947,18 @@ export function MechList({
                       animate={{ opacity: 1, y: 0 }}
                       exit={{ opacity: 0, y: 8 }}
                       transition={{ duration: 0.2 }}
-                      className="absolute top-20 right-0 bg-white border border-gray-300 rounded-lg shadow-lg px-3 py-1.5 flex items-center  text-sm"
                       style={{
-                        marginTop: '-6px', // 给一点视觉上的“悬浮”距离
+                        position: "absolute",
+                        top: "100%",
+                        right: 0,
+                        background: "white",
+                        borderRadius: 8,
+                        boxShadow: "0 4px 6px rgba(0,0,0,0.1)",
+                        padding: "6px 12px",
+                        display: "flex",
+                        alignItems: "center",
+                        fontSize: "1vw",
+                        marginTop: -6,
                       }}
                     >
                       <input
@@ -878,30 +966,38 @@ export function MechList({
                         id="include-projectile"
                         checked={includeProjectile}
                         onChange={(e) => setIncludeProjectile(e.target.checked)}
-                        className="h-4 w-4 accent-blue-500"
+                        style={{
+                          width: 16,
+                          height: 16,
+                          accentColor: "#3b82f6",
+                          marginRight: 6,
+                          cursor: "pointer",
+                        }}
                       />
                       <label
                         htmlFor="include-projectile"
-                        className="cursor-pointer select-none text-gray-700 whitespace-nowrap"
+                        style={{
+                          cursor: "pointer",
+                          userSelect: "none",
+                          color: "#374151",
+                          whiteSpace: "nowrap",
+                        }}
                       >
                         {translations.t91}
                       </label>
                     </motion.div>
                   )}
                 </AnimatePresence>
-
               </div>
 
-              {/* 导出TTS */}
+              {/* 导出 TTS */}
               <div
-                className="relative"
+                style={{ position: "relative" }}
                 onMouseEnter={() => setShowTTSHint(true)}
                 onMouseLeave={() => setShowTTSHint(false)}
               >
-                <Button
-                  variant="outline"
-                  size="sm"
-                  disabled={isExportingTTS}
+                <AnimatedButton
+                  fontSize={"0.7vw"}
                   onClick={async () => {
                     setIsExportingTTS(true);
                     try {
@@ -936,7 +1032,7 @@ export function MechList({
                     }
                   }}
                 >
-                  <div className="flex items-center gap-2">
+                  <div style={{ display: "flex", alignItems: "center", gap: 4 }}>
                     <AnimatePresence>
                       {isExportingTTS && (
                         <motion.div
@@ -949,50 +1045,146 @@ export function MechList({
                             opacity: { duration: 0.2 },
                           }}
                         >
-                          <Loader2 className="w-4 h-4" />
+                          <Loader2 style={{ width: 16, height: 16 }} />
                         </motion.div>
                       )}
                     </AnimatePresence>
-
                     {isExportingTTS ? (
                       <span>{translations.t79}</span>
                     ) : (
-                      <div className="flex items-center gap-1">
-                        <Gamepad2Icon className="w-4 h-4" />
+                      <div style={{ display: "flex", alignItems: "center", gap: 2 }}>
+                        <Gamepad2Icon style={{ width: 16, height: 16 }} />
                         <span>{translations.t95}</span>
                       </div>
                     )}
                   </div>
-                </Button>
+                </AnimatedButton>
 
-                {/* 悬浮出现的 checkbox */}
+                {/* 悬浮提示 */}
                 <AnimatePresence>
                   {showTTSHint && (
                     <motion.div
-                      key="checkbox-popup"
+                      key="checkbox-popup-tts"
                       initial={{ opacity: 0, y: 8 }}
                       animate={{ opacity: 1, y: 0 }}
                       exit={{ opacity: 0, y: 8 }}
                       transition={{ duration: 0.2 }}
-                      className="absolute top-20 right-0 bg-white border border-gray-300 rounded-lg shadow-lg px-3 py-1.5 flex items-center  text-sm"
                       style={{
-                        marginTop: '-6px', // 给一点视觉上的“悬浮”距离
+                        position: "absolute",
+                        top: "100%",
+                        right: 0,
+                        background: "white",
+                        borderRadius: 8,
+                        boxShadow: "0 4px 6px rgba(0,0,0,0.1)",
+                        padding: "6px 12px",
+                        fontSize: "1vw",
+                        marginTop: -6,
                       }}
                     >
-
                       <label
                         htmlFor="include-projectile"
-                        className="cursor-pointer select-none text-gray-700 whitespace-nowrap"
+                        style={{
+                          cursor: "pointer",
+                          userSelect: "none",
+                          color: "#374151",
+                          whiteSpace: "nowrap",
+                        }}
                       >
                         {translations.t96}
                       </label>
                     </motion.div>
                   )}
                 </AnimatePresence>
-
               </div>
             </div>
+
+            {/* 中间 Tabs */}
+            <div style={{ flex: 1, display: "flex", justifyContent: "center" }}>
+              <TabsList
+                className="relative flex"
+                style={{
+                  backgroundColor: COLOR_WHITE,
+                  borderRadius: "4px",
+                  boxShadow: "0 2px 4px rgba(0,0,0,0.25)",
+                  backdropFilter: "blur(6px)",
+                  height: "4vh",
+                  padding: 0,
+                  gap: "2px",
+                }}
+              >
+                {[
+                  { key: "mechs", label: `${translations.t22} (${team.mechs.length})`, onClick: () => { setCPartType(""); onSetViewMode("parts"); } },
+                  { key: "drones", label: `${translations.t23} (${team.drones.length})`, onClick: () => onSetViewMode("drones") },
+                  { key: "tacticCards", label: `${translations.t87} (${team.tacticCards?.length})`, onClick: () => onSetViewMode("tacticCards") },
+                ].map((tab, index, arr) => (
+                  <React.Fragment key={tab.key}>
+                    <TabsTrigger
+                      value={tab.key}
+                      onClick={() => setCurrentTab(tab.key)}
+                      style={{
+                        position: "relative",
+                        color: currentTab === tab.key ? COLOR_WHITE : COLOR_GREY,
+                        fontWeight: 500,
+                        padding: "8px 18px",
+                        borderRadius: "4px",
+                        transition: "color 0.25s ease",
+                        zIndex: 1,
+                      }}
+                    >
+                      {tab.label}
+                      {currentTab === tab.key && (
+                        <motion.div
+                          layoutId="tabBG"
+                          transition={{ duration: 0.25, ease: "easeInOut" }}
+                          style={{
+                            position: "absolute",
+                            top: 0,
+                            left: 0,
+                            right: 0,
+                            bottom: 0,
+                            background: COLOR_GREY,
+                            borderRadius: "4px",
+                            zIndex: -1,
+                          }}
+                        />
+                      )}
+                    </TabsTrigger>
+                    {index < arr.length - 1 && (
+                      <div
+                        style={{
+                          width: "1.5px",
+                          height: "60%",
+                          backgroundColor:
+                            currentTab === tab.key || currentTab === arr[index + 1].key
+                              ? "transparent"
+                              : "rgba(0,0,0,0.25)",
+                          alignSelf: "center",
+                          transition: "background-color 0.25s ease",
+                        }}
+                      />
+                    )}
+                  </React.Fragment>
+                ))}
+              </TabsList>
+            </div>
+
+            {/* 右侧语言切换 */}
+            <div className="flex items-center flex-shrink-0" style={{ width: "10vw", gap: "0.5vw", color: COLOR_GREY }}>
+              <Globe style={{ width: "2vw", color: COLOR_GLOBAL }} />
+              <Select value={lang} onValueChange={(v) => setLanguage(v as "zh" | "en" | "jp")}>
+                <SelectTrigger style={{ width: "8vw" }}>
+                  <SelectValue placeholder="选择语言" />
+                </SelectTrigger>
+                <SelectContent style={{ color: COLOR_GREY }}>
+                  <SelectItem value="zh">中文</SelectItem>
+                  <SelectItem value="en">English</SelectItem>
+                  <SelectItem value="jp">日本語</SelectItem>
+                </SelectContent>
+              </Select>
+            </div>
+
           </div>
+
 
 
         )}
@@ -1023,247 +1215,240 @@ export function MechList({
                   }}
                 >
 
-                  {(Object.entries(partTypeNames) as [keyof typeof partTypeNames, string][]).map(
-                    ([partType]) => (
-                      <AnimatePresence mode="wait">
-                        <motion.div
-                          key={mech.parts[partType]?.id || partType}
-                          initial={{ opacity: 0, y: -10, scale: ((cPartType === partType && selectedMechId === mech.id) && selectedMechId === mech.id) ? 1.12 : 1 }}
-                          animate={{ opacity: 1, y: 0, scale: (cPartType === partType && selectedMechId === mech.id) ? 1.08 : 1 }}
-                          exit={{ opacity: 0, y: 10, scale: (cPartType === partType && selectedMechId === mech.id) ? 1.08 : 1 }}
-                          transition={{ duration: 0.1 }}
+                  {orderedPartTypes.map((partType) => (
+                    <AnimatePresence mode="wait">
+                      <motion.div
+                        key={mech.parts[partType]?.id || partType}
+                        initial={{ opacity: 0, y: -10, scale: ((cPartType === partType && selectedMechId === mech.id) && selectedMechId === mech.id) ? 1.12 : 1 }}
+                        animate={{ opacity: 1, y: 0, scale: (cPartType === partType && selectedMechId === mech.id) ? 1.08 : 1 }}
+                        exit={{ opacity: 0, y: 10, scale: (cPartType === partType && selectedMechId === mech.id) ? 1.08 : 1 }}
+                        transition={{ duration: 0.1 }}
 
-                          onMouseEnter={(e) => {
-                            if (cPartType !== partType) {
-                              e.currentTarget.style.transform = "scale(1.05)";
-                              e.currentTarget.style.boxShadow = "0 6px 10px rgba(0,0,0,0.1)";
-                            }
-                          }}
-                          onMouseLeave={(e) => {
-                            if (cPartType !== partType) {
-                              e.currentTarget.style.transform = "scale(1)";
-                              e.currentTarget.style.boxShadow =
-                                "0 4px 6px rgba(0,0,0,0.05), 0 1px 3px rgba(0,0,0,0.1)";
-                            }
-                          }}
+                        onMouseEnter={(e) => {
+                          if (cPartType !== partType) {
+                            e.currentTarget.style.transform = "scale(1.05)";
+                            e.currentTarget.style.boxShadow = "0 6px 10px rgba(0,0,0,0.1)";
+                          }
+                        }}
+                        onMouseLeave={(e) => {
+                          if (cPartType !== partType) {
+                            e.currentTarget.style.transform = "scale(1)";
+                            e.currentTarget.style.boxShadow =
+                              "0 4px 6px rgba(0,0,0,0.05), 0 1px 3px rgba(0,0,0,0.1)";
+                          }
+                        }}
 
-                          className={`relative p-0 overflow-hidden cursor-pointer transition shadow-lg shadow-gray-500 rounded-lg ${selectedMechId === mech.id ? "border-primary" : ""
-                            }`}
+                        className={`relative p-0 overflow-hidden cursor-pointer transition shadow-lg shadow-gray-500 rounded-lg ${selectedMechId === mech.id ? "border-primary" : ""
+                          }`}
+                      >
+                        {/* 分数按钮 */}
+                        <Button
+                          variant="secondary"
+                          className="h-6 w-8 flex absolute bottom-0 left-0 m-1 text-xs shadow-lg shadow-gray-500 rounded-lg bg-blue-500/80"
+                          style={{ color: 'white', textShadow: '0 0 4px rgba(0,0,0,0.7)' }}
                         >
-                          {/* 分数按钮 */}
-                          <Button
-                            variant="secondary"
-                            className="h-6 w-8 flex absolute bottom-0 left-0 m-1 text-xs shadow-lg shadow-gray-500 rounded-lg bg-blue-500/80"
-                            style={{ color: 'white', textShadow: '0 0 4px rgba(0,0,0,0.7)' }}
-                          >
-                            {mech.parts[partType]?.score}
-                          </Button>
+                          {mech.parts[partType]?.score}
+                        </Button>
 
-                          {mech.parts[partType] ? (
-                            <>
-                              {/* 删除按钮 */}
-                              <Button
-                                variant="ghost"
-                                size="sm"
-                                onClick={() => deletePart(mech.id, partType)}
-                                className="absolute top-0 right-0 text-white shadow-lg shadow-gray-500 rounded-lg hover:text-destructive"
-                              >
-                                <Trash2 className="w-4 h-4" />
-                              </Button>
+                        {mech.parts[partType] ? (
+                          <>
+                            {/* 删除按钮 */}
+                            <Button
+                              variant="ghost"
+                              size="sm"
+                              onClick={() => deletePart(mech.id, partType)}
+                              className="absolute top-0 right-0 text-white shadow-lg shadow-gray-500 rounded-lg hover:text-destructive"
+                            >
+                              <Trash2 className="w-4 h-4" />
+                            </Button>
 
-                              {/* 放大预览 Dialog */}
-                              <Dialog>
-                                <DialogTrigger asChild>
-                                  <Button
-                                    variant="ghost"
-                                    size="sm"
-                                    className="absolute top-0 left-0 text-white shadow-lg shadow-gray-500 rounded-lg bg-blue-500/80"
-                                  >
-                                    <ZoomIn className="w-3 h-3 text-gray-700" />
-                                  </Button>
-                                </DialogTrigger>
-                                <DialogContent className="border-0 shadow-none bg-transparent p-0">
-                                  {mech.parts[partType] && (
+                            {/* 放大预览 Dialog */}
+                            <Dialog>
+                              <DialogTrigger asChild>
+                                <Button
+                                  variant="ghost"
+                                  size="sm"
+                                  className="absolute top-0 left-0 text-white shadow-lg shadow-gray-500 rounded-lg bg-blue-500/80"
+                                >
+                                  <ZoomIn className="w-3 h-3 text-gray-700" />
+                                </Button>
+                              </DialogTrigger>
+                              <DialogContent className="border-0 shadow-none bg-transparent p-0">
+                                {mech.parts[partType] && (
+                                  <img
+                                    key={mech.parts[partType]!.id}
+                                    src={`${imgsrc}/${mech.parts[partType]!.id}.png`}
+                                    alt={mech.parts[partType]!.name}
+                                    className="w-full h-auto object-contain rounded-lg"
+                                    initial={{ opacity: 0, y: -20, scale: 0.95 }}
+                                    animate={{ opacity: 1, y: 0, scale: 1 }}
+                                    exit={{ opacity: 0, y: 20, scale: 0.95 }}
+                                    transition={{ duration: 0.3 }}
+                                  />
+                                )}
+                              </DialogContent>
+                            </Dialog>
+
+                            {/* 底部的抛射物卡 */}
+                            <div className="absolute bottom-0 right-0 flex flex-col-reverse items-end gap-0.5">
+
+                              {!!mech.parts[partType]?.throwIndex && (
+                                <Dialog>
+                                  <DialogTrigger asChild>
+                                    <Button
+                                      variant="secondary"
+                                      className="h-6 w-8 flex bottom-0 left-0 m-1 text-xs shadow-lg shadow-gray-500 rounded-lg bg-blue-500/80"
+                                    >
+                                      <Repeat className="w-4 h-4" />
+                                    </Button>
+                                  </DialogTrigger>
+                                  <DialogContent className="border-0 shadow-none bg-transparent p-0">
                                     <img
-                                      key={mech.parts[partType]!.id}
-                                      src={`${imgsrc}/${mech.parts[partType]!.id}.png`}
+                                      src={`${imgsrc}/${mech.parts[partType]?.throwIndex}.png`}
                                       alt={mech.parts[partType]!.name}
                                       className="w-full h-auto object-contain rounded-lg"
-                                      initial={{ opacity: 0, y: -20, scale: 0.95 }}
-                                      animate={{ opacity: 1, y: 0, scale: 1 }}
-                                      exit={{ opacity: 0, y: 20, scale: 0.95 }}
-                                      transition={{ duration: 0.3 }}
                                     />
-                                  )}
-                                </DialogContent>
-                              </Dialog>
+                                  </DialogContent>
+                                </Dialog>
 
-                              {/* 底部的抛射物卡 */}
-                              <div className="absolute bottom-0 right-0 flex flex-col-reverse items-end gap-0.5">
+                              )}
 
-                                {!!mech.parts[partType]?.throwIndex && (
+                              {/* 上方的：发射 */}
+                              {Array.isArray(mech.parts[partType]?.projectile) &&
+                                mech.parts[partType]!.projectile!.length > 0 && (
                                   <Dialog>
                                     <DialogTrigger asChild>
                                       <Button
                                         variant="secondary"
                                         className="h-6 w-8 flex bottom-0 left-0 m-1 text-xs shadow-lg shadow-gray-500 rounded-lg bg-blue-500/80"
                                       >
-                                        <Repeat className="w-4 h-4" />
+                                        <Rocket className="w-4 h-4" />
                                       </Button>
                                     </DialogTrigger>
-                                    <DialogContent className="border-0 shadow-none bg-transparent p-0">
-                                      <img
-                                        src={`${imgsrc}/${mech.parts[partType]?.throwIndex}.png`}
-                                        alt={mech.parts[partType]!.name}
-                                        className="w-full h-auto object-contain rounded-lg"
-                                      />
-                                    </DialogContent>
-                                  </Dialog>
 
-                                )}
-
-                                {/* 上方的：发射 */}
-                                {Array.isArray(mech.parts[partType]?.projectile) &&
-                                  mech.parts[partType]!.projectile!.length > 0 && (
-                                    <Dialog>
-                                      <DialogTrigger asChild>
-                                        <Button
-                                          variant="secondary"
-                                          className="h-6 w-8 flex bottom-0 left-0 m-1 text-xs shadow-lg shadow-gray-500 rounded-lg bg-blue-500/80"
+                                    <DialogContent
+                                      style={{
+                                        border: 0,
+                                        boxShadow: "none",
+                                        background: "transparent",
+                                        padding: "24px",
+                                        maxHeight: "90vh", // 限制弹窗高度
+                                        overflowY: "auto", // 竖向滑动
+                                      }}
+                                    >
+                                      <DialogHeader>
+                                        <DialogTitle>
+                                          <VisuallyHidden>Projectile Images</VisuallyHidden>
+                                        </DialogTitle>
+                                        <DialogClose
+                                          className="absolute top-2 right-2 text-gray-500 hover:text-gray-900"
+                                          aria-label="Close"
                                         >
-                                          <Rocket className="w-4 h-4" />
-                                        </Button>
-                                      </DialogTrigger>
+                                          ✕
+                                        </DialogClose>
+                                      </DialogHeader>
 
-                                      <DialogContent
+                                      <div
                                         style={{
-                                          border: 0,
-                                          boxShadow: "none",
-                                          background: "transparent",
-                                          padding: "24px",
-                                          maxHeight: "90vh", // 限制弹窗高度
-                                          overflowY: "auto", // 竖向滑动
+                                          display: "flex",
+                                          flexDirection: "column",
+                                          gap: "24px",
+                                          alignItems: "center",
                                         }}
                                       >
-                                        <DialogHeader>
-                                          <DialogTitle>
-                                            <VisuallyHidden>Projectile Images</VisuallyHidden>
-                                          </DialogTitle>
-                                          <DialogClose
-                                            className="absolute top-2 right-2 text-gray-500 hover:text-gray-900"
-                                            aria-label="Close"
-                                          >
-                                            ✕
-                                          </DialogClose>
-                                        </DialogHeader>
-
-                                        <div
-                                          style={{
-                                            display: "flex",
-                                            flexDirection: "column",
-                                            gap: "24px",
-                                            alignItems: "center",
-                                          }}
-                                        >
-                                          {mech.parts[partType]!.projectile!.map((proj, idx) => (
-                                            <img
-                                              key={idx}
-                                              src={`${imgsrc}/${proj}.png`}
-                                              alt={`Projectile ${proj}`}
-                                              style={{
-                                                width: "90vw",       // 移动端自适应
-                                                maxWidth: "500px",   // 桌面端最大宽度
-                                                height: "auto",
-                                                objectFit: "contain",
-                                                borderRadius: "0.5rem",
-                                                boxShadow: "0 4px 6px rgba(0,0,0,0.1)",
-                                              }}
-                                            />
-                                          ))}
-                                        </div>
-                                      </DialogContent>
-                                    </Dialog>
-                                  )}
+                                        {mech.parts[partType]!.projectile!.map((proj, idx) => (
+                                          <img
+                                            key={idx}
+                                            src={`${imgsrc}/${proj}.png`}
+                                            alt={`Projectile ${proj}`}
+                                            style={{
+                                              width: "90vw",       // 移动端自适应
+                                              maxWidth: "500px",   // 桌面端最大宽度
+                                              height: "auto",
+                                              objectFit: "contain",
+                                              borderRadius: "0.5rem",
+                                              boxShadow: "0 4px 6px rgba(0,0,0,0.1)",
+                                            }}
+                                          />
+                                        ))}
+                                      </div>
+                                    </DialogContent>
+                                  </Dialog>
+                                )}
 
 
-                              </div>
+                            </div>
 
-                              {/* 外层主显示图片 */}
-                              <img
-                                key={mech.parts[partType]!.id}
-                                src={`${imgsrc}/${mech.parts[partType]!.id}.png`}
-                                alt={mech.parts[partType]!.name}
-                                loading="lazy"
-                                className="w-full h-auto object-contain rounded-lg"
-                                onClick={() => {
-                                  setCPartType(partType);
-                                  onSelectMech(mech.id);
-                                  onSelectPartType(partType);
-                                  onSetViewMode('parts');
-                                }}
-                              />
-
-                            </>
-                          ) : (
-                            <div
-                              style={{
-                                position: "relative",
-                                width: "100%",
-                                borderRadius: "0.5rem",
-                                overflow: "hidden",
-                                cursor: "pointer",
-                              }}
+                            {/* 外层主显示图片 */}
+                            <img
+                              key={mech.parts[partType]!.id}
+                              src={`${imgsrc}/${mech.parts[partType]!.id}.png`}
+                              alt={mech.parts[partType]!.name}
+                              loading="lazy"
+                              className="w-full h-auto object-contain rounded-lg"
                               onClick={() => {
                                 setCPartType(partType);
                                 onSelectMech(mech.id);
                                 onSelectPartType(partType);
-                                onSetViewMode("parts");
+                                onSetViewMode('parts');
+                                onSetIsChangingPart(true);
+                              }}
+                            />
+
+                          </>
+                        ) : (
+                          <div
+                            style={{
+                              position: "relative",
+                              width: "100%",
+                              borderRadius: "0.5rem",
+                              overflow: "hidden",
+                              cursor: "pointer",
+                            }}
+                            onClick={() => {
+                              setCPartType(partType);
+                              onSelectMech(mech.id);
+                              onSelectPartType(partType);
+                              onSetViewMode("parts");
+                              onSetIsChangingPart(true);
+                            }}
+                          >
+                            {/* 透明占位图：保持高度 */}
+                            <img
+                              src={`${imgsrc}/001.png`}
+                              loading="lazy"
+                              alt="placeholder"
+                              style={{
+                                width: "100%",
+                                height: "auto",
+                                objectFit: "contain",
+                                borderRadius: "0.5rem",
+                                opacity: 0, // 透明但保留空间
+                                userSelect: "none",
+                                pointerEvents: "none",
+                              }}
+                            />
+
+                            {/* 叠加显示“未装备”文字 */}
+                            <div
+                              style={{
+                                position: "absolute",
+                                inset: 0,
+                                display: "flex",
+                                flexDirection: "column", // 垂直排列
+                                alignItems: "center",
+                                justifyContent: "center",
+                                fontSize: window.innerWidth > 768 ? "1.4vw" : "0.9rem", // 响应式字体
+                                color: "rgba(100, 100, 100, 0.4)",
+                                backgroundColor: "rgba(240, 240, 240, 0.4)",
+                                borderRadius: "0.5rem",
+                                gap: "0.2rem", // 图标和文字之间间距
                               }}
                             >
-                              {/* 透明占位图：保持高度 */}
-                              <img
-                                src={`${imgsrc}/001.png`}
-                                loading="lazy"
-                                alt="placeholder"
-                                style={{
-                                  width: "100%",
-                                  height: "auto",
-                                  objectFit: "contain",
-                                  borderRadius: "0.5rem",
-                                  opacity: 0, // 透明但保留空间
-                                  userSelect: "none",
-                                  pointerEvents: "none",
-                                }}
-                              />
-
-                              {/* 叠加显示“未装备”文字 */}
-                              <div
-                                style={{
-                                  position: "absolute",
-                                  inset: 0,
-                                  display: "flex",
-                                  flexDirection: "column", // 垂直排列
-                                  alignItems: "center",
-                                  justifyContent: "center",
-                                  fontSize: "0.9rem",
-                                  color: "rgba(100, 100, 100, 0.4)",
-                                  backgroundColor: "rgba(240, 240, 240, 0.4)",
-                                  borderRadius: "0.5rem",
-                                  gap: "0.2rem", // 图标和文字之间间距，可调
-                                }}
-                              >
-                                <Plus className="w-4 h-4" />
-                                {`${PART_TYPE_NAMES[lang][partType]}`}
-                              </div>
-
-
                               {/* icon_part 图片（居中 + 缩小） */}
                               <img
                                 src={`${tabsrc}/icon_part_${partType}.png`}
                                 style={{
-                                  position: "absolute",
-                                  top: "5%",
-                                  left: "5%",
                                   transform: "translate(-5%, -5%)", // 居中
                                   width: "20%", // 缩小尺寸（可改 40%～70%）
                                   height: "auto",
@@ -1273,15 +1458,20 @@ export function MechList({
                                   userSelect: "none",
                                 }}
                               />
+                              {`${PART_TYPE_NAMES[lang][partType]}`}
                             </div>
 
 
 
+                          </div>
 
-                          )}
-                        </motion.div>
-                      </AnimatePresence>
-                    )
+
+
+
+                        )}
+                      </motion.div>
+                    </AnimatePresence>
+                  )
                   )}
 
                   {mobileOrTablet && (
@@ -1300,6 +1490,7 @@ export function MechList({
                       onClick={() => {
                         onSelectMech(mech.id);
                         onSetViewMode('pilots');
+                        onSetIsChangingPart(true);
                       }}
                     >
 
@@ -1321,33 +1512,7 @@ export function MechList({
                             alignItems: 'center',
                           }}
                         >
-                          <AnimatePresence mode="wait">
-                            {/* 背景动画层，始终在最底层 */}
-                            {(selectedMechId === mech.id && mech.pilot !== undefined) && (
-                              <motion.div
-                                initial={{ opacity: 0 }}
-                                animate={{ opacity: 1 }}
-                                exit={{ opacity: 0 }}
-                                transition={{ duration: 0.3 }}
-                                style={{
-                                  position: 'absolute',
-                                  inset: 0,
-                                  pointerEvents: 'none',
-                                  borderRadius: '0.5rem',
-                                  background: `conic-gradient(
-      from 0deg,
-      ${getFactionColor(team.faction, 0.5)},
-      ${getFactionColor(team.faction, 0.2)},
-      ${getFactionColor(team.faction, 0.5)}
-    )`,
-                                  zIndex: 0,
-                                  transformOrigin: 'center',
-                                }}
 
-                              />
-
-                            )}
-                          </AnimatePresence>
                           <img
                             src={`${tabsrc}/${mech.pilot.id}.png`}
                             alt={mech.pilot.name}
@@ -1379,13 +1544,10 @@ export function MechList({
                             <span
                               style={{
                                 fontWeight: 'bold',
-                                fontSize: mobileOrTablet
-                                  ? lang === 'en'
-                                    ? '3vw' // 📱 移动端英文稍小
-                                    : '4vw'   // 📱 移动端中文稍大
-                                  : lang === 'en'
-                                    ? '0.9vw' // 💻 桌面端英文
-                                    : '1vw',  // 💻 桌面端中文
+                                fontSize: lang === 'en'
+                                  ? '4vw' // 📱 移动端英文
+                                  : '4vw',   // 📱 移动端中文
+                                textShadow: '0 0 10px rgba(0,0,0,1)',
                               }}
                             >
                               {mech.pilot.name}
@@ -1395,12 +1557,20 @@ export function MechList({
                               style={{
                                 fontSize:
                                   lang === 'en'
-                                    ? '2vw' // 📱 移动端英文说明小一些
-                                    : '3vw'   // 📱 移动端中文说明稍大
+                                    ? '2.5vw' // 📱 移动端英文说明小一些
+                                    : '3vw',   // 📱 移动端中文说明稍大
+                                color: 'white',
+                                textShadow: `
+      -1px -1px 1px #000,
+       1px -1px 1px #000,
+      -1px  1px 1px #000,
+       1px  1px 1px #000
+    `,
                               }}
                             >
                               {mech.pilot.traitDescription}
                             </span>
+
 
                           </div>
                         </div>
@@ -1437,7 +1607,7 @@ export function MechList({
                       marginTop: '1.5vh'
                     }}
                   >
-                    <MechStatus
+                    <MechStatusMobile
                       mech={mech}
                       translations={translations}
                       tabsrc={tabsrc}
@@ -1480,10 +1650,11 @@ export function MechList({
                       onClick={() => {
                         onSelectMech(mech.id);
                         onSetViewMode('pilots');
+                        onSetIsChangingPart(true);
                       }}
                       style={{
                         flex: '0 0 16vw',
-                        height: '16vh',
+                        height: '20vh',
                         position: 'relative',
                         cursor: 'pointer',
                         transition: 'transform 0.3s ease, box-shadow 0.3s ease',
@@ -1598,12 +1769,28 @@ export function MechList({
                             zIndex: 2,
                           }}
                         >
-                          <span style={{ fontWeight: 'bold', fontSize: '0.875rem' }}>{mech.pilot.name}</span>
                           <span style={{
-                            fontSize: lang === 'en'
-                              ? '0.75vw' // 💻 桌面端英文
-                              : '1.2vh', // 💻 桌面端中文
-                          }}>{mech.pilot.traitDescription}</span>
+                            fontWeight: 'bold', fontSize: lang === 'en'
+                              ? '1vw' // 💻 英文
+                              : '1vw', // 💻 中文
+                            textShadow: '0 0 6px rgba(0,0,0,1)',
+                          }}>{mech.pilot.name}</span>
+                          <span
+                            style={{
+                              fontSize: lang === 'en' ? '0.7vw' : '0.9vw',
+                              color: 'white',
+                              textShadow: `
+  -1px -1px 1px #000,
+   1px -1px 1px #000,
+  -1px  1px 1px #000,
+   1px  1px 1px #000
+`,
+
+                            }}
+                          >
+                            {mech.pilot.traitDescription}
+                          </span>
+
                         </div>
                       )}
                     </div>
@@ -1614,8 +1801,8 @@ export function MechList({
                     <MechPreview
                       mech={mech}
                       mechImgSrc={mechImgSrc}
-                      width="16vh"
-                      height="16vh"
+                      width="20vh"
+                      height="20vh"
                       scaleOverrides={{ chasis: 1, backpack: 2 }}
                       cropLeftPercent={13}
                       defaultParts={{
@@ -1634,8 +1821,8 @@ export function MechList({
                     <MechPreview
                       mech={mech}
                       mechImgSrc={mechImgSrc}
-                      width="16vh"
-                      height="16vh"
+                      width="20vh"
+                      height="20vh"
                       scaleOverrides={{
                         chasis: 1,
                         backpack: 1,
@@ -1669,6 +1856,7 @@ export function MechList({
                       getColorByAttr={getColorByAttr}
                       style={{ flex: '1' }}
                       isMobile={mobileOrTablet}
+
                     />
                   )}
                 </div>
@@ -1703,19 +1891,29 @@ export function MechList({
           value="drones"
           className="flex-1 overflow-y-auto p-4 space-y-0"
         >
-          <div className="grid grid-cols-2 gap-4">
+          <div
+            style={{
+              display: "grid",
+              gridTemplateColumns: mobileOrTablet ? "repeat(2, 1fr)" : "repeat(3, 1fr)",
+              gap: "16px", // 相当于 gap-4
+            }}
+          >
             {team.drones.map((drone, index) => {
-              const page = dronePages[index] || 0;
-              const backpackList = Object.values(unBackpack);
-              const totalPages = Math.max(1, Math.ceil(backpackList.length / pageSize));
 
               return (
-                <div
+                <motion.div
                   key={`${drone.id}-${index}`}
+                  initial={{ y: -20, opacity: 0 }} // 初始向上偏移 20px，透明
+                  animate={{ y: 0, opacity: 1 }}   // 目标位置
+                  transition={{
+                    duration: 0.1,                // 动画时长
+                    delay: index * 0.1,           // 可以让多个卡片依次出现
+                    ease: "easeOut",
+                  }}
                   className={`relative p-0 overflow-hidden cursor-pointer transition shadow-lg shadow-gray-500 rounded-lg 
                         }`}
                   style={{ transition: 'transform 0.3s ease, box-shadow 0.3s ease' }}
-                  onClick={() => onSetViewMode('drones')}
+                  onClick={() => { onSetViewMode('drones'); onSetIsChangingPart(true);onSelectDrone(drone) }}
                   onMouseEnter={(e) => {
                     (e.currentTarget as HTMLDivElement).style.transform = 'scale(1.03)';
                     (e.currentTarget as HTMLDivElement).style.boxShadow = '0 6px 10px rgba(0,0,0,0.1)';
@@ -1732,91 +1930,99 @@ export function MechList({
                       <DialogTrigger asChild>
                         <div
                           onClick={(e) => { e.stopPropagation(); }}
-                          className="absolute bottom-0 left-0 w-12 h-12 flex items-center justify-center 
-               bg-blue-500/50 shadow-md rounded-lg cursor-pointer z-10 hover:bg-blue-500/70"
+                          className="absolute bottom-0 left-0 flex items-center justify-center 
+      bg-blue-500/50 shadow-md rounded-lg cursor-pointer z-10 hover:bg-blue-500/70"
+                          style={{
+                            width: '6vw',      // 改为 6vw
+                            height: 'auto',    // 保持比例
+                            aspectRatio: '1',  // 如果希望保持正方形按钮结构，可去掉
+                          }}
                         >
                           {drone.backpack ? (
                             <img
                               src={`${imgsrc}/${drone.backpack.id}.png`}
                               alt={drone.backpack.name}
-                              className="w-full h-full object-contain"
+                              style={{
+                                width: '100%',
+                                height: 'auto',      // 保持比例
+                                objectFit: 'contain'
+                              }}
+                              draggable={false}
                             />
                           ) : (
-                            <span className="text-xs text-muted-foreground bottom-0" style={{
-                              color: 'white',
-                              textShadow: '0 0 4px rgba(0,0,0,0.7)',
-                            }}>{translations.t68}</span>
+                            <span
+                              className="text-xs text-muted-foreground bottom-0"
+                              style={{
+                                color: 'white',
+                                textShadow: '0 0 4px rgba(0,0,0,0.7)',
+                              }}
+                            >
+                              {translations.t68}
+                            </span>
                           )}
                         </div>
                       </DialogTrigger>
 
+
                       <DialogContent className="max-w-5xl w-[90vw]" open={isDialogOpen}>
                         <DialogHeader>
-                          <DialogTitle>为 {drone.name} {translations.t68}</DialogTitle>
+                          <DialogTitle>{translations.t103} {drone.name} {translations.t68}</DialogTitle>
                         </DialogHeader>
 
-                        <div className="flex flex-col gap-4">
-                          {/* 背包网格（每页 slice） */}
-                          <div className="grid grid-cols-2 gap-4">
-                            {backpackList
-                              .slice(page * pageSize, (page + 1) * pageSize)
-                              .map((bp: Part) => (
-                                <button
-                                  key={bp.id}
-                                  type="button"
-                                  className="w-full relative h-28 cursor-pointer hover:bg-muted rounded-lg flex items-center justify-center p-2"
-                                  onClick={(e) => {
-                                    e.stopPropagation(); // 防止 dialog 的父容器触发 onClick
-                                    const updatedDrones = [...team.drones];
-                                    updatedDrones[index] = { ...drone, backpack: bp };
+                        <div
+                          style={{
+                            maxHeight: '60vh',       // 控制最大高度，超出可滚动
+                            overflowY: 'auto',       // 竖向滚动
+                            paddingRight: '8px',     // 防止滚动条挡住内容
+                            display: 'grid',
+                            gridTemplateColumns: 'repeat(2, 1fr)', // 每行两列
+                            gap: '12px',             // 列间距、行间距
+                          }}
+                        >
+                          {unBackpack
+                            .map((bp: Part) => (
+                              <button
+                                key={bp.id}
+                                type="button"
+                                className="relative h-28 cursor-pointer hover:bg-muted rounded-lg flex items-center justify-center p-2"
+                                onClick={(e) => {
+                                  e.stopPropagation();
+                                  const updatedDrones = [...team.drones];
+                                  updatedDrones[index] = { ...drone, backpack: bp };
 
-                                    const totalScore = calculateTotalScore(updatedDrones, team.tacticCards, team.mechs);
+                                  const totalScore = calculateTotalScore(updatedDrones, team.tacticCards, team.mechs);
 
-                                    onUpdateTeam(team.id, { drones: updatedDrones, totalScore });
-                                    setIsDialogOpen(false);
+                                  onUpdateTeam(team.id, { drones: updatedDrones, totalScore });
+                                  setIsDialogOpen(false);
+                                }}
+                                style={{ backgroundColor: 'rgba(255,255,255,0.1)' }}
+                              >
+                                <img
+                                  src={`${imgsrc}/${bp.id}.png`}
+                                  alt={bp.name}
+                                  style={{
+                                    width: '20vw',       // 每个图片宽度
+                                    height: 'auto',     // 保持比例
+                                    objectFit: 'contain',
+                                    borderRadius: '8px',
+                                    boxShadow: '0 2px 6px rgba(0,0,0,0.2)',
+                                  }}
+                                  draggable={false}
+                                />
+                                <Button
+                                  variant="secondary"
+                                  className="absolute bg-blue-500/50 left-0 bottom-0 shadow-lg shadow-gray-500 rounded-lg"
+                                  style={{
+                                    color: 'white',
+                                    textShadow: '0 0 4px rgba(0,0,0,0.7)',
                                   }}
                                 >
-                                  <img
-                                    src={`${imgsrc}/${bp.id}.png`}
-                                    alt={bp.name}
-                                    className="max-w-full max-h-full object-contain shadow-lg shadow-gray-500 rounded-lg"
-                                    draggable={false}
-                                  />
-                                  <Button
-                                    variant="secondary"
-                                    className="absolute bg-blue-500/50 left-0 bottom-0 shadow-lg shadow-gray-500 rounded-lg"
-                                    style={{
-                                      color: 'white',
-                                      textShadow: '0 0 4px rgba(0,0,0,0.7)',
-                                    }}
-                                  >
-                                    {bp?.score}
-                                  </Button>
-                                </button>
-                              ))}
-                          </div>
-
-                          {/* 分页控制 */}
-                          <div className="flex justify-center items-center gap-4">
-                            <Button
-                              variant="outline"
-                              disabled={page === 0}
-                              onClick={() => setDronePage(index, page - 1)}
-                            >
-                              上一页
-                            </Button>
-                            <span>
-                              {page + 1} / {totalPages}
-                            </span>
-                            <Button
-                              variant="outline"
-                              disabled={page === totalPages - 1}
-                              onClick={() => setDronePage(index, page + 1)}
-                            >
-                              下一页
-                            </Button>
-                          </div>
+                                  {bp?.score}
+                                </Button>
+                              </button>
+                            ))}
                         </div>
+
                       </DialogContent>
                     </Dialog>)}
 
@@ -1946,7 +2152,7 @@ export function MechList({
                         </DialogContent>
                       </Dialog>
                     )}
-                </div>
+                </motion.div>
               );
             })}
 
@@ -1954,7 +2160,10 @@ export function MechList({
             {/* 新增无人机按钮 */}
             <div
               style={{ position: 'relative', display: 'flex', padding: '1rem', cursor: 'pointer' }}
-              onClick={() => onSetViewMode('drones')}
+              onClick={() => {
+                onSetIsChangingPart(true);
+                onSetViewMode('drones')
+              }}
             >
               <img
                 src={`${imgsrc}/080.png`}
@@ -1969,27 +2178,27 @@ export function MechList({
                 draggable={false}
               />
 
-              {mobileOrTablet && (
-                <div
-                  style={{
-                    position: 'absolute',
-                    top: 0,
-                    left: 0,
-                    right: 0,
-                    bottom: 0,
-                    display: 'flex',
-                    flexDirection: 'column',
-                    alignItems: 'center',
-                    justifyContent: 'center',
-                    pointerEvents: 'none',
-                  }}
-                >
-                  <Plus style={{ width: '24px', height: '24px', color: '#6b7280', marginBottom: '4px' }} />
-                  <span style={{ fontSize: '0.875rem', color: '#6b7280' }}>
-                    {translations.t75}
-                  </span>
-                </div>
-              )}
+
+              <div
+                style={{
+                  position: 'absolute',
+                  top: 0,
+                  left: 0,
+                  right: 0,
+                  bottom: 0,
+                  display: 'flex',
+                  flexDirection: 'column',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  pointerEvents: 'none',
+                }}
+              >
+                <Plus style={{ width: '24px', height: '24px', color: '#6b7280', marginBottom: '4px' }} />
+                <span style={{ fontSize: '0.875rem', color: '#6b7280' }}>
+                  {translations.t75}
+                </span>
+              </div>
+
             </div>
 
           </div>
@@ -2001,126 +2210,132 @@ export function MechList({
         </TabsContent>
 
         {/* 战术卡列表 */}
-        <TabsContent
-          value="tacticCards"
-          className="flex-1 overflow-y-auto p-4 space-y-0"
-        >
-          <div
-            style={{
-              display: "grid",
-              gridTemplateColumns: mobileOrTablet
-                ? "repeat(2, 1fr)" // 手机或平板：3列
-                : "repeat(3, 1fr)", // 桌面端：5列
-              gap: "1rem", // 等价于 gap-4
-            }}
+        <AnimatePresence mode="wait">
+          <TabsContent
+            value="tacticCards"
+            className="flex-1 overflow-y-auto p-4 space-y-0"
           >
-            {team.tacticCards?.map((tacticCards, index) => {
-              const backpackList = Object.values(unBackpack);
+            <motion.div
+              style={{
+                display: "grid",
+                gridTemplateColumns: mobileOrTablet
+                  ? "repeat(2, 1fr)" // 手机或平板：3列
+                  : "repeat(3, 1fr)", // 桌面端：5列
+                gap: "1rem", // 等价于 gap-4
+              }}
+              initial={{ opacity: 0, y: 10 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: 10 }}
+              transition={{ duration: 0.25, ease: "easeInOut" }}
+              className="flex-1 overflow-y-auto p-4 space-y-0"
+            >
+              {team.tacticCards?.map((tacticCards, index) => {
+                const backpackList = Object.values(unBackpack);
 
-              return (
-                <div
-                  key={`${tacticCards.id}-${index}`}
-                  className={`relative p-0 overflow-hidden cursor-pointer transition shadow-lg shadow-gray-500 rounded-lg 
+                return (
+                  <div
+                    key={`${tacticCards.id}-${index}`}
+                    className={`relative p-0 overflow-hidden cursor-pointer transition shadow-lg shadow-gray-500 rounded-lg 
                         }`}
-                  style={{ transition: 'transform 0.3s ease, box-shadow 0.3s ease' }}
-                  onMouseEnter={(e) => {
-                    (e.currentTarget as HTMLDivElement).style.transform = 'scale(1.03)';
-                    (e.currentTarget as HTMLDivElement).style.boxShadow = '0 6px 10px rgba(0,0,0,0.1)';
-                  }}
-                  onMouseLeave={(e) => {
-                    (e.currentTarget as HTMLDivElement).style.transform = 'scale(1)';
-                    (e.currentTarget as HTMLDivElement).style.boxShadow =
-                      '0 4px 6px rgba(0,0,0,0.05), 0 1px 3px rgba(0,0,0,0.1)';
-                  }}
-                >
-                  {/* 放大预览 Dialog */}
-                  <Dialog>
-                    <DialogTrigger asChild>
-                      <Button
-                        variant="ghost"
-                        size="sm"
+                    style={{ transition: 'transform 0.3s ease, box-shadow 0.3s ease' }}
+                    onMouseEnter={(e) => {
+                      (e.currentTarget as HTMLDivElement).style.transform = 'scale(1.03)';
+                      (e.currentTarget as HTMLDivElement).style.boxShadow = '0 6px 10px rgba(0,0,0,0.1)';
+                    }}
+                    onMouseLeave={(e) => {
+                      (e.currentTarget as HTMLDivElement).style.transform = 'scale(1)';
+                      (e.currentTarget as HTMLDivElement).style.boxShadow =
+                        '0 4px 6px rgba(0,0,0,0.05), 0 1px 3px rgba(0,0,0,0.1)';
+                    }}
+                  >
+                    {/* 放大预览 Dialog */}
+                    <Dialog>
+                      <DialogTrigger asChild>
+                        <Button
+                          variant="ghost"
+                          size="sm"
 
-                        className="absolute top-0 bottom-0 text-white shadow-lg shadow-gray-500 rounded-lg bg-blue-500/80"
-                      >
-                        <ZoomIn
-                          className="w-3 h-3 text-white"
-                          style={{
-                            filter: `
+                          className="absolute top-0 bottom-0 text-white shadow-lg shadow-gray-500 rounded-lg bg-blue-500/80"
+                        >
+                          <ZoomIn
+                            className="w-3 h-3 text-white"
+                            style={{
+                              filter: `
       drop-shadow(0 0 1px gray)
       drop-shadow(0 0 1px gray)
       drop-shadow(0 0 1px gray)
     `,
-                          }}
+                            }}
+                          />
+
+                        </Button>
+                      </DialogTrigger>
+                      <DialogContent className="border-0 shadow-none bg-transparent p-0">
+                        <img
+                          key={tacticCards.id}
+                          src={`${imgsrc}/${tacticCards.id}.png`}
+                          alt={tacticCards.name}
+                          className="w-full h-auto object-contain rounded-lg"
+
                         />
+                      </DialogContent>
+                    </Dialog>
 
-                      </Button>
-                    </DialogTrigger>
-                    <DialogContent className="border-0 shadow-none bg-transparent p-0">
-                      <img
-                        key={tacticCards.id}
-                        src={`${imgsrc}/${tacticCards.id}.png`}
-                        alt={tacticCards.name}
-                        className="w-full h-auto object-contain rounded-lg"
+                    {/* 战术卡分数角标 */}
+                    <Button
+                      variant="secondary"
+                      className="h-6 w-8 absolute bg-blue-500/50 left-0 bottom-0 shadow-lg shadow-gray-500 rounded-lg z-0"
+                      style={{
+                        color: 'white',
+                        textShadow: '0 0 4px rgba(0,0,0,0.7)',
+                      }}
+                    >
+                      {tacticCards?.score}
+                    </Button>
 
-                      />
-                    </DialogContent>
-                  </Dialog>
+                    <img
+                      src={`${imgsrc}/${tacticCards.id}.png`}
+                      alt={tacticCards.name}
+                      onClick={() => onSetViewMode('tacticCards')}
+                      className="shadow-lg shadow-gray-500 rounded-lg"
+                      style={{ width: '100%', height: '100%', objectFit: 'contain' }}
+                      draggable={false}
+                    />
 
-                  {/* 战术卡分数角标 */}
-                  <Button
-                    variant="secondary"
-                    className="h-6 w-8 absolute bg-blue-500/50 left-0 bottom-0 shadow-lg shadow-gray-500 rounded-lg z-0"
-                    style={{
-                      color: 'white',
-                      textShadow: '0 0 4px rgba(0,0,0,0.7)',
-                    }}
-                  >
-                    {tacticCards?.score}
-                  </Button>
+                    {/* 删除按钮 */}
+                    <Button
+                      variant="ghost"
+                      size="sm"
+                      onClick={(e) => { e.stopPropagation(); deleteTacticCard(index); }}
+                      className="absolute top-0 right-0 shadow-lg shadow-gray-500 rounded-lg text-destructive hover:text-destructive"
+                    >
+                      <Trash2 className="w-4 h-4" />
+                    </Button>
 
-                  <img
-                    src={`${imgsrc}/${tacticCards.id}.png`}
-                    alt={tacticCards.name}
-                    onClick={() => onSetViewMode('tacticCards')}
-                    className="shadow-lg shadow-gray-500 rounded-lg"
-                    style={{ width: '100%', height: '100%', objectFit: 'contain' }}
-                    draggable={false}
-                  />
-
-                  {/* 删除按钮 */}
-                  <Button
-                    variant="ghost"
-                    size="sm"
-                    onClick={(e) => { e.stopPropagation(); deleteTacticCard(index); }}
-                    className="absolute top-0 right-0 shadow-lg shadow-gray-500 rounded-lg text-destructive hover:text-destructive"
-                  >
-                    <Trash2 className="w-4 h-4" />
-                  </Button>
-
-                </div>
-              );
-            })}
+                  </div>
+                );
+              })}
 
 
-            {/* 新增战术卡按钮 */}
-            <div
-              style={{ position: 'relative', display: 'flex', padding: '1rem', cursor: 'pointer' }}
-              onClick={() => onSetViewMode('tacticCards')}
-            >
-              <img
-                src={`${imgsrc}/274.png`}
-                style={{
-                  width: '100%',
-                  height: '100%',
-                  objectFit: 'contain',
-                  borderRadius: '0.5rem',
-                  boxShadow: '0 4px 6px rgba(0,0,0,0.1)',
-                  opacity: 0, // 透明
-                }}
-                draggable={false}
-              />
+              {/* 新增战术卡按钮 */}
+              <div
+                style={{ position: 'relative', display: 'flex', padding: '1rem', cursor: 'pointer' }}
+                onClick={() => { onSetViewMode('tacticCards');onSetIsChangingPart(true);  }}
+              >
+                <img
+                  src={`${imgsrc}/274.png`}
+                  style={{
+                    width: '100%',
+                    height: '100%',
+                    objectFit: 'contain',
+                    borderRadius: '0.5rem',
+                    boxShadow: '0 4px 6px rgba(0,0,0,0.1)',
+                    opacity: 0, // 透明
+                  }}
+                  draggable={false}
+                />
 
-              {mobileOrTablet && (
+
                 <div
                   style={{
                     position: 'absolute',
@@ -2149,17 +2364,17 @@ export function MechList({
                     draggable={false}
                   />
                 </div>
-              )}
-            </div>
 
-          </div>
-          {!mobileOrTablet && team.tacticCards?.length === 0 && (
-            <div className="text-center text-muted-foreground py-8">
-              {translations.t89}
-            </div>
-          )}
-        </TabsContent>
+              </div>
 
+            </motion.div>
+            {!mobileOrTablet && team.tacticCards?.length === 0 && (
+              <div className="text-center text-muted-foreground py-8">
+                {translations.t89}
+              </div>
+            )}
+          </TabsContent>
+        </AnimatePresence>
       </Tabs>
     </div>
   );

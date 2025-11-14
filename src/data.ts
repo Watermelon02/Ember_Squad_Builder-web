@@ -3714,8 +3714,7 @@ export const unLeftHand: Part[] = [
 ];
 
 export const unRightHand: Part[] = [
-  ,
-  {
+{
     "id": "152",
     "name": "RHX23暴雨突击手枪（右）",
     "score": 57,
@@ -4102,7 +4101,8 @@ export const unRightHand: Part[] = [
     "electronic": 0,
     "type": "rightHand",
     "imgSrc": "",
-    "tags": []
+    "tags": [],
+    "throwIndex":"557"
   },
   {
     "id": "557",
@@ -4117,6 +4117,7 @@ export const unRightHand: Part[] = [
     "imgSrc": "",
     "tags": []
   }
+  
 ];
 
 export const unBackpack: Part[] = [

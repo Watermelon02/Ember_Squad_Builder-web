@@ -8,8 +8,8 @@ import { Badge } from './ui/badge';
 import { Input } from './ui/input';
 import extractChunks from "png-chunks-extract";
 import { motion } from 'framer-motion';
-import { MechImage } from './ui/MechImage';
-import { DroneImage } from './ui/DroneImage';
+import { MechImage } from './custom/MechImage';
+import { DroneImage } from './custom/DroneImage';
 
 interface TeamListMobileProps {
   teams: Team[];
@@ -38,7 +38,7 @@ export function TeamListMobile({
   translations,
   factionNames, lang, tabsrc, championMode,
   onChampionModeChange
-}: TeamListProps) {
+}: TeamListMobileProps) {
   const [isDialogOpen, setIsDialogOpen] = useState(false);
   const [editingTeamId, setEditingTeamId] = useState<string>('');
 

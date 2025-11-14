@@ -43,7 +43,7 @@ export const TeamEligibility: React.FC<TeamEligibilityProps> = ({ team, translat
 
   return (
     <div
-    className="bg-gray-100"
+      className="bg-gray-100"
       style={{
         display: 'flex',
         justifyContent: 'center',
@@ -53,7 +53,7 @@ export const TeamEligibility: React.FC<TeamEligibilityProps> = ({ team, translat
         padding: '0 0.25rem',
         borderRadius: '0.3rem',
         fontSize: '0.6rem',
-        color: allEligible ? '#111' : '#dc2626',
+        color: allEligible ? 'gray' : '#dc2626', // ✅ 默认灰色，禁赛红色
         transition: 'all 0.3s ease',
         textAlign: 'center',
       }}
