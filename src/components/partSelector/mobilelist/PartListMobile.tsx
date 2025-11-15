@@ -27,7 +27,7 @@ const PartList: React.FC<PartListProps> = ({
     <div
       key={selectedPartType}
       className="flex-1 overflow-y-auto space-y-3"
-      style={{ paddingTop: '1vh', paddingLeft: '2vw', paddingRight: '2vw' }}
+      style={{  paddingLeft: '2vw', paddingRight: '2vw' }}
     >
       {filteredParts.map((part) => (
         <Card

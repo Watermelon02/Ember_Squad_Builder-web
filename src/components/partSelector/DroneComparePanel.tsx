@@ -22,7 +22,7 @@ export default function DroneComparePanel({
         <div
             className="flex-shrink-0 flex flex-row gap-4"
             style={{
-                width: "60vw",
+                width: (compareMode&&lastPartId!=="")?"60vw":"30vw",
                 padding: "0.5rem",
                 backgroundColor: "rgba(255,255,255,0.3)",
                 borderRight: "1px solid rgba(255,255,255,0.1)",
@@ -32,7 +32,7 @@ export default function DroneComparePanel({
             }}
         >
             {/* 左侧：当前装备 */}
-            {compareMode && <DronePreview
+            {(compareMode&&lastPartId!=="") && <DronePreview
                 droneId={lastPartId}
                 factionDrones={factionDrones}
                 imageSrc={imageSrc}

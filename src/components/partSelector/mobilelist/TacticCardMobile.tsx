@@ -19,7 +19,7 @@ const TacticCardList: React.FC<TacticCardListProps> = ({
     <div className="min-h-0 flex flex-col">
       <div
         className="flex-1 overflow-y-auto"
-        style={{ paddingTop: '1vh', paddingLeft: '2vw', paddingRight: '2vw' }}
+        style={{  paddingLeft: '2vw', paddingRight: '2vw' }}
       >
         <div className="grid grid-cols-2 gap-2">
           {filteredTacticCards.map((tacticCard) => (

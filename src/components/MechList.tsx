@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { Button } from './ui/button';
 import { Card } from './ui/card';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from './ui/tabs';
@@ -19,6 +19,8 @@ import { MechStatus } from './custom/MechStatus';
 import { AnimatedButton } from './custom/AnimatedButton';
 import { COLOR_GLOBAL, COLOR_GREY, COLOR_WHITE } from '../styles/color';
 import { MechStatusMobile } from './custom/MechStatusMobile';
+import * as htmlToImage from "html-to-image";
+import PilotStats from './custom/PilotStats';
 
 interface MechListProps {
   team?: Team;
@@ -28,7 +30,7 @@ interface MechListProps {
   onUpdateTeam: (teamId: string, updates: Partial<Team>) => void;
   onSetViewMode: (mode: 'parts' | 'drones' | 'pilots' | 'tacticCards') => void;
   onSetIsChangingPart: (changingPart: boolean) => void,
-  onSelectDrone:(droneId:Drone)=>void;
+  onSelectDrone: (droneId: Drone) => void;
   translations: any;
   partTypeNames: any;
   imgsrc: string, tabsrc: string,
@@ -65,6 +67,45 @@ export function MechList({
   const orderedPartTypes: (keyof typeof partTypeNames)[] = mobileOrTablet
     ? ["rightHand", "torso", "leftHand", "backpack", "chasis"]
     : (Object.keys(partTypeNames) as (keyof typeof partTypeNames)[]);
+  //直接用html样式导出图片
+  const exportRef = useRef<HTMLDivElement>(null);
+
+  const exportWebAsImage = async () => {
+    const node = exportRef.current;
+    if (!node) return;
+
+    // 1. 记录原始样式
+    const originalOverflow = node.style.overflow;
+    const originalHeight = node.style.height;
+    const originalBackground = node.style.background;
+
+    // 2. 展开内容，防止只导出可见部分
+    node.style.overflow = "visible";
+    node.style.height = "auto";
+
+    // 3. 添加纯灰色背景（导出专用）
+    node.style.background = "#e5e7eb"; // ← 纯灰色
+
+    // 等布局刷新
+    await new Promise((r) => setTimeout(r, 50));
+
+    // 4. 截图
+    const dataUrl = await htmlToImage.toPng(node, {
+      pixelRatio: 2,
+      cacheBust: true,
+    });
+
+    // 5. 恢复原样
+    node.style.overflow = originalOverflow;
+    node.style.height = originalHeight;
+    node.style.background = originalBackground;
+
+    // 6. 下载图片
+    const link = document.createElement("a");
+    link.href = dataUrl;
+    link.download = "export.png";
+    link.click();
+  };
 
   const setDronePage = (index: number, newPage: number) => {
     setDronePages(prev => ({
@@ -507,6 +548,12 @@ export function MechList({
     return "#111"; // 默认
   };
 
+  const cardVariants = {
+    hidden: { opacity: 0, y: 20 },      // 初始状态：透明并下移
+    visible: { opacity: 1, y: 0 },     // 出现状态：完全显示
+    exit: { opacity: 0, y: -20 },      // 消失状态：透明并上移
+  };
+
 
   return (
     <div className="flex-1 min-h-0 flex flex-col">
@@ -528,7 +575,7 @@ export function MechList({
         }
       }}>
         <Dialog open={open} onOpenChange={setOpen}>
-          <DialogContent>
+          <DialogContent >
             <DialogHeader>
               <DialogTitle>{translations.t97}</DialogTitle>
             </DialogHeader>
@@ -1190,680 +1237,709 @@ export function MechList({
         )}
 
         {/* 机体列表 */}
-        <TabsContent value="mechs" className="flex-1 overflow-y-auto p-4 space-y-4 ">
+        <TabsContent ref={exportRef} value="mechs" className="flex-1 overflow-y-auto p-4 space-y-4 ">
           {team.mechs.map((mech) => (
-            <Card
+            <motion.div
               key={mech.id}
-              style={{
-                paddingLeft: mobileOrTablet ? '2vw' : '1vw',
-                paddingRight: mobileOrTablet ? '2vw' : '1vw',
-                paddingTop: mobileOrTablet ? '1vh' : '1vh',
-                paddingBottom: mobileOrTablet ? '0vh' : '1vh'
-              }}
-              className={`rounded-lg transition-transform transition-shadow duration-500 ease-in-out ${selectedMechId === mech.id
-                ? 'scale-105 shadow-xl  '  // 选中效果
-                : 'scale-100 shadow-md hover:scale-103 hover:shadow-lg'
-                }`}
+              variants={cardVariants}
+              initial="hidden"
+              animate="visible"
+              exit="exit"
+              transition={{ duration: 0.3, ease: "easeInOut" }}
             >
-              <div >
-                <div
-                  style={{
-                    display: 'grid',
-                    width: '100%',
-                    gap: '12px', // gap-3 相当于 0.75rem ≈ 12px
-                    gridTemplateColumns: mobileOrTablet ? 'repeat(3, 1fr)' : 'repeat(5, 1fr)',
-                  }}
-                >
+              <Card
+                key={mech.id}
+                style={{
+                  paddingLeft: mobileOrTablet ? '2vw' : '1vw',
+                  paddingRight: mobileOrTablet ? '2vw' : '1vw',
+                  paddingTop: mobileOrTablet ? '1vh' : '1vh',
+                  paddingBottom: mobileOrTablet ? '0vh' : '1vh'
+                }}
+                className={`rounded-lg transition-transform transition-shadow duration-500 ease-in-out ${selectedMechId === mech.id
+                  ? 'scale-105 shadow-xl  '  // 选中效果
+                  : 'scale-100 shadow-md hover:scale-103 hover:shadow-lg'
+                  }`}
+              >
+                <div >
+                  <div
+                    style={{
+                      display: 'grid',
+                      width: '100%',
+                      gap: '12px', // gap-3 相当于 0.75rem ≈ 12px
+                      gridTemplateColumns: mobileOrTablet ? 'repeat(3, 1fr)' : 'repeat(5, 1fr)',
+                    }}
+                  >
 
-                  {orderedPartTypes.map((partType) => (
-                    <AnimatePresence mode="wait">
-                      <motion.div
-                        key={mech.parts[partType]?.id || partType}
-                        initial={{ opacity: 0, y: -10, scale: ((cPartType === partType && selectedMechId === mech.id) && selectedMechId === mech.id) ? 1.12 : 1 }}
-                        animate={{ opacity: 1, y: 0, scale: (cPartType === partType && selectedMechId === mech.id) ? 1.08 : 1 }}
-                        exit={{ opacity: 0, y: 10, scale: (cPartType === partType && selectedMechId === mech.id) ? 1.08 : 1 }}
-                        transition={{ duration: 0.1 }}
+                    {orderedPartTypes.map((partType) => (
+                      <AnimatePresence mode="wait">
+                        <motion.div
+                          key={mech.parts[partType]?.id || partType}
+                          initial={{ opacity: 0, y: -10, scale: ((cPartType === partType && selectedMechId === mech.id) && selectedMechId === mech.id) ? 1.12 : 1 }}
+                          animate={{ opacity: 1, y: 0, scale: (cPartType === partType && selectedMechId === mech.id) ? 1.08 : 1 }}
+                          exit={{ opacity: 0, y: 10, scale: (cPartType === partType && selectedMechId === mech.id) ? 1.08 : 1 }}
+                          transition={{ duration: 0.1 }}
 
-                        onMouseEnter={(e) => {
-                          if (cPartType !== partType) {
-                            e.currentTarget.style.transform = "scale(1.05)";
-                            e.currentTarget.style.boxShadow = "0 6px 10px rgba(0,0,0,0.1)";
-                          }
-                        }}
-                        onMouseLeave={(e) => {
-                          if (cPartType !== partType) {
-                            e.currentTarget.style.transform = "scale(1)";
-                            e.currentTarget.style.boxShadow =
-                              "0 4px 6px rgba(0,0,0,0.05), 0 1px 3px rgba(0,0,0,0.1)";
-                          }
-                        }}
+                          onMouseEnter={(e) => {
+                            if (cPartType !== partType) {
+                              e.currentTarget.style.transform = "scale(1.05)";
+                              e.currentTarget.style.boxShadow = "0 6px 10px rgba(0,0,0,0.1)";
+                            }
+                          }}
+                          onMouseLeave={(e) => {
+                            if (cPartType !== partType) {
+                              e.currentTarget.style.transform = "scale(1)";
+                              e.currentTarget.style.boxShadow =
+                                "0 4px 6px rgba(0,0,0,0.05), 0 1px 3px rgba(0,0,0,0.1)";
+                            }
+                          }}
 
-                        className={`relative p-0 overflow-hidden cursor-pointer transition shadow-lg shadow-gray-500 rounded-lg ${selectedMechId === mech.id ? "border-primary" : ""
-                          }`}
-                      >
-                        {/* 分数按钮 */}
-                        <Button
-                          variant="secondary"
-                          className="h-6 w-8 flex absolute bottom-0 left-0 m-1 text-xs shadow-lg shadow-gray-500 rounded-lg bg-blue-500/80"
-                          style={{ color: 'white', textShadow: '0 0 4px rgba(0,0,0,0.7)' }}
+                          className={`relative p-0 overflow-hidden cursor-pointer transition shadow-lg shadow-gray-500 rounded-lg ${selectedMechId === mech.id ? "border-primary" : ""
+                            }`}
                         >
-                          {mech.parts[partType]?.score}
-                        </Button>
+                          {/* 分数按钮 */}
+                          <Button
+                            variant="secondary"
+                            className="h-6 w-8 flex absolute bottom-0 left-0 m-1 text-xs shadow-lg shadow-gray-500 rounded-lg bg-blue-500/80"
+                            style={{ color: 'white', textShadow: '0 0 4px rgba(0,0,0,0.7)' }}
+                          >
+                            {mech.parts[partType]?.score}
+                          </Button>
 
-                        {mech.parts[partType] ? (
-                          <>
-                            {/* 删除按钮 */}
-                            <Button
-                              variant="ghost"
-                              size="sm"
-                              onClick={() => deletePart(mech.id, partType)}
-                              className="absolute top-0 right-0 text-white shadow-lg shadow-gray-500 rounded-lg hover:text-destructive"
-                            >
-                              <Trash2 className="w-4 h-4" />
-                            </Button>
+                          {mech.parts[partType] ? (
+                            <>
+                              {/* 删除按钮 */}
+                              <Button
+                                variant="ghost"
+                                size="sm"
+                                onClick={() => deletePart(mech.id, partType)}
+                                className="absolute top-0 right-0 text-white shadow-lg shadow-gray-500 rounded-lg hover:text-destructive"
+                              >
+                                <Trash2 className="w-4 h-4" />
+                              </Button>
 
-                            {/* 放大预览 Dialog */}
-                            <Dialog>
-                              <DialogTrigger asChild>
-                                <Button
-                                  variant="ghost"
-                                  size="sm"
-                                  className="absolute top-0 left-0 text-white shadow-lg shadow-gray-500 rounded-lg bg-blue-500/80"
-                                >
-                                  <ZoomIn className="w-3 h-3 text-gray-700" />
-                                </Button>
-                              </DialogTrigger>
-                              <DialogContent className="border-0 shadow-none bg-transparent p-0">
-                                {mech.parts[partType] && (
-                                  <img
-                                    key={mech.parts[partType]!.id}
-                                    src={`${imgsrc}/${mech.parts[partType]!.id}.png`}
-                                    alt={mech.parts[partType]!.name}
-                                    className="w-full h-auto object-contain rounded-lg"
-                                    initial={{ opacity: 0, y: -20, scale: 0.95 }}
-                                    animate={{ opacity: 1, y: 0, scale: 1 }}
-                                    exit={{ opacity: 0, y: 20, scale: 0.95 }}
-                                    transition={{ duration: 0.3 }}
-                                  />
-                                )}
-                              </DialogContent>
-                            </Dialog>
-
-                            {/* 底部的抛射物卡 */}
-                            <div className="absolute bottom-0 right-0 flex flex-col-reverse items-end gap-0.5">
-
-                              {!!mech.parts[partType]?.throwIndex && (
-                                <Dialog>
-                                  <DialogTrigger asChild>
-                                    <Button
-                                      variant="secondary"
-                                      className="h-6 w-8 flex bottom-0 left-0 m-1 text-xs shadow-lg shadow-gray-500 rounded-lg bg-blue-500/80"
-                                    >
-                                      <Repeat className="w-4 h-4" />
-                                    </Button>
-                                  </DialogTrigger>
-                                  <DialogContent className="border-0 shadow-none bg-transparent p-0">
+                              {/* 放大预览 Dialog */}
+                              <Dialog>
+                                <DialogTrigger asChild>
+                                  <Button
+                                    variant="ghost"
+                                    size="sm"
+                                    className="absolute top-0 left-0 text-white shadow-lg shadow-gray-500 rounded-lg bg-blue-500/80"
+                                  >
+                                    <ZoomIn className="w-3 h-3 text-gray-700" />
+                                  </Button>
+                                </DialogTrigger>
+                                <DialogContent className="border-0 shadow-none bg-transparent p-0">
+                                  {mech.parts[partType] && (
                                     <img
-                                      src={`${imgsrc}/${mech.parts[partType]?.throwIndex}.png`}
+                                      key={mech.parts[partType]!.id}
+                                      src={`${imgsrc}/${mech.parts[partType]!.id}.png`}
                                       alt={mech.parts[partType]!.name}
                                       className="w-full h-auto object-contain rounded-lg"
+                                      initial={{ opacity: 0, y: -20, scale: 0.95 }}
+                                      animate={{ opacity: 1, y: 0, scale: 1 }}
+                                      exit={{ opacity: 0, y: 20, scale: 0.95 }}
+                                      transition={{ duration: 0.3 }}
                                     />
-                                  </DialogContent>
-                                </Dialog>
+                                  )}
+                                </DialogContent>
+                              </Dialog>
 
-                              )}
+                              {/* 底部的抛射物卡 */}
+                              <div className="absolute bottom-0 right-0 flex flex-col-reverse items-end gap-0.5">
 
-                              {/* 上方的：发射 */}
-                              {Array.isArray(mech.parts[partType]?.projectile) &&
-                                mech.parts[partType]!.projectile!.length > 0 && (
+                                {!!mech.parts[partType]?.throwIndex && (
                                   <Dialog>
                                     <DialogTrigger asChild>
                                       <Button
                                         variant="secondary"
                                         className="h-6 w-8 flex bottom-0 left-0 m-1 text-xs shadow-lg shadow-gray-500 rounded-lg bg-blue-500/80"
                                       >
-                                        <Rocket className="w-4 h-4" />
+                                        <Repeat className="w-4 h-4" />
                                       </Button>
                                     </DialogTrigger>
-
-                                    <DialogContent
-                                      style={{
-                                        border: 0,
-                                        boxShadow: "none",
-                                        background: "transparent",
-                                        padding: "24px",
-                                        maxHeight: "90vh", // 限制弹窗高度
-                                        overflowY: "auto", // 竖向滑动
-                                      }}
-                                    >
-                                      <DialogHeader>
-                                        <DialogTitle>
-                                          <VisuallyHidden>Projectile Images</VisuallyHidden>
-                                        </DialogTitle>
-                                        <DialogClose
-                                          className="absolute top-2 right-2 text-gray-500 hover:text-gray-900"
-                                          aria-label="Close"
-                                        >
-                                          ✕
-                                        </DialogClose>
-                                      </DialogHeader>
-
-                                      <div
-                                        style={{
-                                          display: "flex",
-                                          flexDirection: "column",
-                                          gap: "24px",
-                                          alignItems: "center",
-                                        }}
-                                      >
-                                        {mech.parts[partType]!.projectile!.map((proj, idx) => (
-                                          <img
-                                            key={idx}
-                                            src={`${imgsrc}/${proj}.png`}
-                                            alt={`Projectile ${proj}`}
-                                            style={{
-                                              width: "90vw",       // 移动端自适应
-                                              maxWidth: "500px",   // 桌面端最大宽度
-                                              height: "auto",
-                                              objectFit: "contain",
-                                              borderRadius: "0.5rem",
-                                              boxShadow: "0 4px 6px rgba(0,0,0,0.1)",
-                                            }}
-                                          />
-                                        ))}
-                                      </div>
+                                    <DialogContent className="border-0 shadow-none bg-transparent p-0">
+                                      <img
+                                        src={`${imgsrc}/${mech.parts[partType]?.throwIndex}.png`}
+                                        alt={mech.parts[partType]!.name}
+                                        className="w-full h-auto object-contain rounded-lg"
+                                      />
                                     </DialogContent>
                                   </Dialog>
+
                                 )}
 
+                                {/* 上方的：发射 */}
+                                {Array.isArray(mech.parts[partType]?.projectile) &&
+                                  mech.parts[partType]!.projectile!.length > 0 && (
+                                    <Dialog>
+                                      <DialogTrigger asChild>
+                                        <Button
+                                          variant="secondary"
+                                          className="h-6 w-8 flex bottom-0 left-0 m-1 text-xs shadow-lg shadow-gray-500 rounded-lg bg-blue-500/80"
+                                        >
+                                          <Rocket className="w-4 h-4" />
+                                        </Button>
+                                      </DialogTrigger>
 
-                            </div>
+                                      <DialogContent
+                                        style={{
+                                          border: 0,
+                                          boxShadow: "none",
+                                          background: "transparent",
+                                          padding: "24px",
+                                          maxHeight: "90vh", // 限制弹窗高度
+                                          overflowY: "auto", // 竖向滑动
+                                        }}
+                                      >
+                                        <DialogHeader>
+                                          <DialogTitle>
+                                            <VisuallyHidden>Projectile Images</VisuallyHidden>
+                                          </DialogTitle>
+                                          <DialogClose
+                                            className="absolute top-2 right-2 text-gray-500 hover:text-gray-900"
+                                            aria-label="Close"
+                                          >
+                                            ✕
+                                          </DialogClose>
+                                        </DialogHeader>
 
-                            {/* 外层主显示图片 */}
-                            <img
-                              key={mech.parts[partType]!.id}
-                              src={`${imgsrc}/${mech.parts[partType]!.id}.png`}
-                              alt={mech.parts[partType]!.name}
-                              loading="lazy"
-                              className="w-full h-auto object-contain rounded-lg"
+                                        <div
+                                          style={{
+                                            display: "flex",
+                                            flexDirection: "column",
+                                            gap: "24px",
+                                            alignItems: "center",
+                                          }}
+                                        >
+                                          {mech.parts[partType]!.projectile!.map((proj, idx) => (
+                                            <img
+                                              key={idx}
+                                              src={`${imgsrc}/${proj}.png`}
+                                              alt={`Projectile ${proj}`}
+                                              style={{
+                                                width: "90vw",       // 移动端自适应
+                                                maxWidth: "500px",   // 桌面端最大宽度
+                                                height: "auto",
+                                                objectFit: "contain",
+                                                borderRadius: "0.5rem",
+                                                boxShadow: "0 4px 6px rgba(0,0,0,0.1)",
+                                              }}
+                                            />
+                                          ))}
+                                        </div>
+                                      </DialogContent>
+                                    </Dialog>
+                                  )}
+
+
+                              </div>
+
+                              {/* 外层主显示图片 */}
+                              <img
+                                key={mech.parts[partType]!.id}
+                                src={`${imgsrc}/${mech.parts[partType]!.id}.png`}
+                                alt={mech.parts[partType]!.name}
+                                loading="lazy"
+                                className="w-full h-auto object-contain rounded-lg"
+                                onClick={() => {
+                                  setCPartType(partType);
+                                  onSelectMech(mech.id);
+                                  onSelectPartType(partType);
+                                  onSetViewMode('parts');
+                                  onSetIsChangingPart(true);
+                                }}
+                              />
+
+                            </>
+                          ) : (
+                            <div
+                              style={{
+                                position: "relative",
+                                width: "100%",
+                                borderRadius: "0.5rem",
+                                overflow: "hidden",
+                                cursor: "pointer",
+                              }}
                               onClick={() => {
                                 setCPartType(partType);
                                 onSelectMech(mech.id);
                                 onSelectPartType(partType);
-                                onSetViewMode('parts');
+                                onSetViewMode("parts");
                                 onSetIsChangingPart(true);
                               }}
-                            />
-
-                          </>
-                        ) : (
-                          <div
-                            style={{
-                              position: "relative",
-                              width: "100%",
-                              borderRadius: "0.5rem",
-                              overflow: "hidden",
-                              cursor: "pointer",
-                            }}
-                            onClick={() => {
-                              setCPartType(partType);
-                              onSelectMech(mech.id);
-                              onSelectPartType(partType);
-                              onSetViewMode("parts");
-                              onSetIsChangingPart(true);
-                            }}
-                          >
-                            {/* 透明占位图：保持高度 */}
-                            <img
-                              src={`${imgsrc}/001.png`}
-                              loading="lazy"
-                              alt="placeholder"
-                              style={{
-                                width: "100%",
-                                height: "auto",
-                                objectFit: "contain",
-                                borderRadius: "0.5rem",
-                                opacity: 0, // 透明但保留空间
-                                userSelect: "none",
-                                pointerEvents: "none",
-                              }}
-                            />
-
-                            {/* 叠加显示“未装备”文字 */}
-                            <div
-                              style={{
-                                position: "absolute",
-                                inset: 0,
-                                display: "flex",
-                                flexDirection: "column", // 垂直排列
-                                alignItems: "center",
-                                justifyContent: "center",
-                                fontSize: window.innerWidth > 768 ? "1.4vw" : "0.9rem", // 响应式字体
-                                color: "rgba(100, 100, 100, 0.4)",
-                                backgroundColor: "rgba(240, 240, 240, 0.4)",
-                                borderRadius: "0.5rem",
-                                gap: "0.2rem", // 图标和文字之间间距
-                              }}
                             >
-                              {/* icon_part 图片（居中 + 缩小） */}
+                              {/* 透明占位图：保持高度 */}
                               <img
-                                src={`${tabsrc}/icon_part_${partType}.png`}
+                                src={`${imgsrc}/001.png`}
+                                loading="lazy"
+                                alt="placeholder"
                                 style={{
-                                  transform: "translate(-5%, -5%)", // 居中
-                                  width: "20%", // 缩小尺寸（可改 40%～70%）
+                                  width: "100%",
                                   height: "auto",
                                   objectFit: "contain",
-                                  opacity: 0.8,
-                                  pointerEvents: "none",
+                                  borderRadius: "0.5rem",
+                                  opacity: 0, // 透明但保留空间
                                   userSelect: "none",
+                                  pointerEvents: "none",
                                 }}
                               />
-                              {`${PART_TYPE_NAMES[lang][partType]}`}
+
+                              {/* 叠加显示“未装备”文字 */}
+                              <div
+                                style={{
+                                  position: "absolute",
+                                  inset: 0,
+                                  display: "flex",
+                                  flexDirection: "column", // 垂直排列
+                                  alignItems: "center",
+                                  justifyContent: "center",
+                                  fontSize: window.innerWidth > 768 ? "1.4vw" : "0.9rem", // 响应式字体
+                                  color: "rgba(100, 100, 100, 0.4)",
+                                  backgroundColor: "rgba(240, 240, 240, 0.4)",
+                                  borderRadius: "0.5rem",
+                                  gap: "0.2rem", // 图标和文字之间间距
+                                }}
+                              >
+                                {/* icon_part 图片（居中 + 缩小） */}
+                                <img
+                                  src={`${tabsrc}/icon_part_${partType}.png`}
+                                  style={{
+                                    transform: "translate(-5%, -5%)", // 居中
+                                    width: "20%", // 缩小尺寸（可改 40%～70%）
+                                    height: "auto",
+                                    objectFit: "contain",
+                                    opacity: 0.8,
+                                    pointerEvents: "none",
+                                    userSelect: "none",
+                                  }}
+                                />
+                                {`${PART_TYPE_NAMES[lang][partType]}`}
+                              </div>
+
+
+
                             </div>
 
 
 
-                          </div>
 
+                          )}
+                        </motion.div>
+                      </AnimatePresence>
+                    )
+                    )}
 
+                    {mobileOrTablet && (
+                      <div
 
-
-                        )}
-                      </motion.div>
-                    </AnimatePresence>
-                  )
-                  )}
-
-                  {mobileOrTablet && (
-                    <div
-
-                      className={`relative p-0 overflow-hidden cursor-pointer transition shadow-lg shadow-gray-500 rounded-lg ${selectedMechId === mech.id ? 'border-primary' : ''
-                        }`}
-                      style={{
-                        position: 'relative',
-                        cursor: 'pointer',
-                        transition: 'all 0.2s',
-                        display: 'flex',
-                        flexDirection: 'column',
-                        alignItems: 'center', // 居中图片和文字
-                      }}
-                      onClick={() => {
-                        onSelectMech(mech.id);
-                        onSetViewMode('pilots');
-                        onSetIsChangingPart(true);
-                      }}
-                    >
-
-                      {mech.pilot ? (<Button
-                        variant="secondary"
-                        className="h-6 w-8 flex absolute bottom-0 left-0 m-1 text-xs shadow-lg shadow-gray-500 rounded-lg pa"
+                        className={`relative p-0 overflow-hidden cursor-pointer transition shadow-lg shadow-gray-500 rounded-lg ${selectedMechId === mech.id ? 'border-primary' : ''
+                          }`}
                         style={{
-                          color: 'white',
-                          textShadow: '0 0 4px rgba(0,0,0,0.7)',
+                          position: 'relative',
+                          cursor: 'pointer',
+                          transition: 'all 0.2s',
+                          display: 'flex',
+                          flexDirection: 'column',
+                          alignItems: 'center', // 居中图片和文字
+                        }}
+                        onClick={() => {
+                          onSelectMech(mech.id);
+                          onSetViewMode('pilots');
+                          onSetIsChangingPart(true);
                         }}
                       >
-                        {mech.pilot?.score}
-                      </Button>) : (<></>)}
-                      {mech.pilot ? (
-                        <div
+
+                        {mech.pilot ? (<Button
+                          variant="secondary"
+                          className="h-6 w-8 flex absolute bottom-0 left-0 m-1 text-xs shadow-lg shadow-gray-500 rounded-lg pa"
                           style={{
-                            display: 'flex',
-                            flexDirection: 'column', // 竖直排列
-                            alignItems: 'center',
+                            color: 'white',
+                            textShadow: '0 0 4px rgba(0,0,0,0.7)',
                           }}
                         >
-
-                          <img
-                            src={`${tabsrc}/${mech.pilot.id}.png`}
-                            alt={mech.pilot.name}
-                            style={{
-                              position: 'absolute', // ✅ 让图片覆盖整个卡片
-                              inset: 0,
-                              width: '130%',
-                              height: '130%',
-                              objectFit: 'cover', // ✅ 填满卡片
-                              objectPosition: 'center',
-                              transform: 'translateY(-15%) ',
-                              borderRadius: '0.5rem',
-                            }}
-
-                          />
+                          {mech.pilot?.score}
+                        </Button>) : (<></>)}
+                        {mech.pilot ? (
                           <div
                             style={{
-                              position: 'absolute',
-                              bottom: '0.5rem',
-                              left: '0.5rem',
-                              right: '0.5rem',
-                              color: 'white',
-                              textShadow: '0 0 4px rgba(0,0,0,0.7)',
                               display: 'flex',
-                              flexDirection: 'column',
-                              alignItems: 'flex-end', textAlign: 'right',
+                              flexDirection: 'column', // 竖直排列
+                              alignItems: 'center',
                             }}
                           >
-                            <span
+
+                            <img
+                              src={`${tabsrc}/${mech.pilot.id}.png`}
+                              alt={mech.pilot.name}
                               style={{
-                                fontWeight: 'bold',
-                                fontSize: lang === 'en'
-                                  ? '4vw' // 📱 移动端英文
-                                  : '4vw',   // 📱 移动端中文
-                                textShadow: '0 0 10px rgba(0,0,0,1)',
+                                position: 'absolute', // ✅ 让图片覆盖整个卡片
+                                inset: 0,
+                                width: '130%',
+                                height: '130%',
+                                objectFit: 'cover', // ✅ 填满卡片
+                                objectPosition: 'center',
+                                transform: 'translateY(-15%) ',
+                                borderRadius: '0.5rem',
+                              }}
+
+                            />
+                            <div
+                              style={{
+                                position: 'absolute',
+                                bottom: '0.5rem',
+                                left: '0.5rem',
+                                right: '0.5rem',
+                                color: 'white',
+                                textShadow: '0 0 4px rgba(0,0,0,0.7)',
+                                display: 'flex',
+                                flexDirection: 'column',
+                                alignItems: 'flex-end', textAlign: 'right',
                               }}
                             >
-                              {mech.pilot.name}
-                            </span>
+                              <span
+                                style={{
+                                  fontWeight: 'bold',
+                                  fontSize: lang === 'en'
+                                    ? '4vw' // 📱 移动端英文
+                                    : '4vw',   // 📱 移动端中文
+                                  textShadow: '0 0 10px rgba(0,0,0,1)',
+                                }}
+                              >
+                                {mech.pilot.name}
+                              </span>
 
-                            <span
-                              style={{
-                                fontSize:
-                                  lang === 'en'
-                                    ? '2.5vw' // 📱 移动端英文说明小一些
-                                    : '3vw',   // 📱 移动端中文说明稍大
-                                color: 'white',
-                                textShadow: `
+                              <span
+                                style={{
+                                  fontSize:
+                                    lang === 'en'
+                                      ? '2.5vw' // 📱 移动端英文说明小一些
+                                      : '3vw',   // 📱 移动端中文说明稍大
+                                  color: 'white',
+                                  textShadow: `
       -1px -1px 1px #000,
        1px -1px 1px #000,
       -1px  1px 1px #000,
        1px  1px 1px #000
     `,
-                              }}
-                            >
-                              {mech.pilot.traitDescription}
-                            </span>
+                                }}
+                              >
+                                {mech.pilot.traitDescription}
+                              </span>
 
 
+                            </div>
                           </div>
-                        </div>
-                      ) : (
-                        <div
-                          style={{
-                            position: "absolute",
-                            inset: 0,
-                            display: "flex",
-                            alignItems: "center",
-                            justifyContent: "center",
-                            fontSize: "0.9rem",
-                            color: "rgba(100, 100, 100, 0.4)",
-                            backgroundColor: "rgba(240, 240, 240, 0.4)", // 可选，轻微底色提升可读性
-                            borderRadius: "0.5rem",
-                          }}
-                        >
-                          {translations.t27}
-                        </div>
-                      )}
+                        ) : (
+                          <div
+                            style={{
+                              position: "absolute",
+                              inset: 0,
+                              display: "flex",
+                              alignItems: "center",
+                              justifyContent: "center",
+                              fontSize: "0.9rem",
+                              color: "rgba(100, 100, 100, 0.4)",
+                              backgroundColor: "rgba(240, 240, 240, 0.4)", // 可选，轻微底色提升可读性
+                              borderRadius: "0.5rem",
+                            }}
+                          >
+                            {translations.t27}
+                          </div>
+                        )}
+                      </div>
+                    )}
+
+                  </div>
+                  {/* 机体信息 */}
+                  {mobileOrTablet && (
+                    <div
+                      style={{
+                        display: 'flex',
+                        flexDirection: 'row',
+                        justifyContent: 'flex-start',
+                        gap: '3vw',               // 元素之间的间距
+                        width: '100%',
+                        marginTop: '1.5vh'
+                      }}
+                    >
+                      <MechStatusMobile
+                        mech={mech}
+                        translations={translations}
+                        tabsrc={tabsrc}
+                        lang={lang}
+                        editingMechId={editingMechId}
+                        setEditingMechId={setEditingMechId}
+                        updateMechName={updateMechName}
+                        copyMech={copyMech}
+                        deleteMech={deleteMech}
+                        getMechTotalScore={getMechTotalScore}
+                        getColorByAttr={getColorByAttr}
+                        style={{ flex: '2' }}
+                        isMobile={mobileOrTablet} />
+                      <MechPreview
+                        mech={mech}
+                        mechImgSrc={mechImgSrc}
+                        width="16vh"
+                        height="16vh"
+                        scaleOverrides={{ chasis: 1, backpack: 2 }}
+                        cropLeftPercent={13}
+                        defaultParts={{
+                          leftHand: rdlLeftHand[0],
+                          torso: rdlTorso[0],
+                          rightHand: rdlRightHand[0],
+                          chasis: rdlChasis[0],
+                          backpack: rdlBackpack[0],
+                        }}
+                        championMode={championMode}
+                        style={{ flex: '1' }}
+                      />
                     </div>
                   )}
 
-                </div>
-                {/* 机体信息 */}
-                {mobileOrTablet && (
-                  <div
-                    style={{
-                      display: 'flex',
-                      flexDirection: 'row',
-                      justifyContent: 'flex-start',
-                      gap: '3vw',               // 元素之间的间距
-                      width: '100%',
-                      marginTop: '1.5vh'
-                    }}
-                  >
-                    <MechStatusMobile
-                      mech={mech}
-                      translations={translations}
-                      tabsrc={tabsrc}
-                      lang={lang}
-                      editingMechId={editingMechId}
-                      setEditingMechId={setEditingMechId}
-                      updateMechName={updateMechName}
-                      copyMech={copyMech}
-                      deleteMech={deleteMech}
-                      getMechTotalScore={getMechTotalScore}
-                      getColorByAttr={getColorByAttr}
-                      style={{ flex: '2' }}
-                      isMobile={mobileOrTablet} />
-                    <MechPreview
-                      mech={mech}
-                      mechImgSrc={mechImgSrc}
-                      width="16vh"
-                      height="16vh"
-                      scaleOverrides={{ chasis: 1, backpack: 2 }}
-                      cropLeftPercent={13}
-                      defaultParts={{
-                        leftHand: rdlLeftHand[0],
-                        torso: rdlTorso[0],
-                        rightHand: rdlRightHand[0],
-                        chasis: rdlChasis[0],
-                        backpack: rdlBackpack[0],
-                      }}
-                      championMode={championMode}
-                      style={{ flex: '1' }}
-                    />
-                  </div>
-                )}
+
+                  {/* 驾驶员卡片 pc端显示 */}
+                  <div style={{ display: 'flex', gap: '1rem', marginBottom: '1vh', marginTop: "2vh" }} >
+
+                    {/* 左侧驾驶员卡片 */}
+                    {!mobileOrTablet && (
+                      <div
+                        onClick={() => {
+                          onSelectMech(mech.id);
+                          onSetViewMode('pilots');
+                          onSetIsChangingPart(true);
+                        }}
+                        style={{
+                          flex: '0 0 20vw',
+                          height: '20vh',
+                          position: 'relative',
+                          cursor: 'pointer',
+                          transition: 'transform 0.3s ease, box-shadow 0.3s ease',
+                          borderRadius: '0.5rem',
+                          overflow: 'hidden',
+                          boxShadow: '0 10px 15px -3px rgba(0,0,0,0.1), 0 4px 6px -4px rgba(0,0,0,0.1)'
+                        }}
+                        onMouseEnter={(e) => {
+                          const el = e.currentTarget;
+                          el.style.transform = 'scale(1.03)';
+                        }}
+                        onMouseLeave={(e) => {
+                          const el = e.currentTarget;
+                          el.style.transform = 'scale(1)';
+
+                        }}
+                      >
 
 
-                {/* 驾驶员卡片 pc端显示 */}
-                <div style={{ display: 'flex', gap: '1rem', marginBottom: '1vh', marginTop: "2vh" }} >
-                  {/* 左侧驾驶员卡片 */}
-                  {!mobileOrTablet && (
-                    <div
-                      onClick={() => {
-                        onSelectMech(mech.id);
-                        onSetViewMode('pilots');
-                        onSetIsChangingPart(true);
-                      }}
-                      style={{
-                        flex: '0 0 16vw',
-                        height: '20vh',
-                        position: 'relative',
-                        cursor: 'pointer',
-                        transition: 'transform 0.3s ease, box-shadow 0.3s ease',
-                        borderRadius: '0.5rem',
-                        overflow: 'hidden',
-                        boxShadow: '0 10px 15px -3px rgba(0,0,0,0.1), 0 4px 6px -4px rgba(0,0,0,0.1)'
-                      }}
-                      onMouseEnter={(e) => {
-                        const el = e.currentTarget;
-                        el.style.transform = 'scale(1.03)';
-                      }}
-                      onMouseLeave={(e) => {
-                        const el = e.currentTarget;
-                        el.style.transform = 'scale(1)';
-
-                      }}
-                    >
-
-                      <AnimatePresence mode="wait">
-                        {/* 背景动画层，始终在最底层 */}
-                        {(selectedMechId === mech.id && mech.pilot !== undefined) && (
-                          <motion.div
-                            initial={{ opacity: 0 }}
-                            animate={{ opacity: 1 }}
-                            exit={{ opacity: 0 }}
-                            transition={{ duration: 0.3 }}
-                            style={{
-                              position: 'absolute',
-                              inset: 0,
-                              pointerEvents: 'none',
-                              borderRadius: '0.5rem',
-                              background: `conic-gradient(
+                        <AnimatePresence mode="wait">
+                          {/* 背景动画层，始终在最底层 */}
+                          {(selectedMechId === mech.id && mech.pilot !== undefined) && (
+                            <motion.div
+                              initial={{ opacity: 0 }}
+                              animate={{ opacity: 1 }}
+                              exit={{ opacity: 0 }}
+                              transition={{ duration: 0.3 }}
+                              style={{
+                                position: 'absolute',
+                                inset: 0,
+                                pointerEvents: 'none',
+                                borderRadius: '0.5rem',
+                                background: `conic-gradient(
       from 0deg,
       ${getFactionColor(team.faction, 0.5)},
       ${getFactionColor(team.faction, 0.2)},
       ${getFactionColor(team.faction, 0.5)}
     )`,
-                              zIndex: 0,
-                              transformOrigin: 'center',
-                            }}
+                                zIndex: 0,
+                                transformOrigin: 'center',
+                              }}
 
-                          />
+                            />
 
-                        )}
-                      </AnimatePresence>
+                          )}
+                        </AnimatePresence>
 
-                      {/* 图片 + AnimatePresence，zIndex 默认比背景高 */}
-                      <AnimatePresence mode="wait">
-                        {mech.pilot ? (
-                          <motion.img
-                            key={mech.pilot.id}
-                            src={`${tabsrc}/${mech.pilot.id}.png`}
-                            alt={mech.pilot.name}
+                        {/* 图片 + AnimatePresence，zIndex 默认比背景高 */}
+                        <AnimatePresence mode="wait">
+                          {mech.pilot ? (
+                            <motion.div
+                              key={mech.pilot.id}
+                              initial={{ opacity: 0, x: 20, scale: 0.97 }}
+                              animate={{ opacity: 1, x: 0, scale: 1 }}
+                              exit={{ opacity: 0, x: 20, scale: 0.97 }}
+                              transition={{ duration: 0.3 }}
+                              style={{ width: '100%', height: '100%', position: 'relative', zIndex: 1 }}
+                            >
+                              <img
+                                src={`${tabsrc}/${mech.pilot.id}.png`}
+                                alt={mech.pilot.name}
+                                style={{
+                                  width: '100%',
+                                  height: '100%',
+                                  objectFit: 'cover',
+                                  objectPosition: 'center',
+                                  transform: 'translate(10%, 0%)', // ✅ 这里百分比就生效
+                                }}
+                              />
+                            </motion.div>
+
+
+                          ) : (
+                            <span
+                              style={{
+                                display: 'flex',
+                                justifyContent: 'center',
+                                alignItems: 'center',
+                                height: '100%',
+                                color: '#9ca3af',
+                                fontSize: '0.875rem',
+                                textAlign: 'center',
+                                position: 'relative',
+                                zIndex: 1,
+                              }}
+                            >
+                              {translations.t27}
+                            </span>
+                          )}
+                        </AnimatePresence>
+
+                        {/* 分数按钮 */}
+                        {mech.pilot && (
+                          <Button
+                            variant="secondary"
+                            className="h-6 w-8 flex absolute top-0 right-0 m-1 text-xs shadow-lg "
                             style={{
-                              width: '100%',
-                              height: '100%',
-                              objectFit: 'cover',
-                              objectPosition: 'center',
-                              transform: 'translate(-20%, 0%)',
-                              position: 'relative', // 相对于父容器
-                              zIndex: 1,
-                            }}
-                            initial={{ opacity: 0, x: -10, scale: 0.97 }}
-                            animate={{ opacity: 1, x: 0, scale: 1 }}
-                            exit={{ opacity: 0, x: 10, scale: 0.97 }}
-                            transition={{ duration: 0.3 }}
-                          />
-                        ) : (
-                          <span
-                            style={{
-                              display: 'flex',
-                              justifyContent: 'center',
-                              alignItems: 'center',
-                              height: '100%',
-                              color: '#9ca3af',
-                              fontSize: '0.875rem',
-                              textAlign: 'center',
-                              position: 'relative',
-                              zIndex: 1,
+                              background: 'rgba(255, 255, 255, 0.1)',
+                              backdropFilter: 'blur(8px)',
+                              WebkitBackdropFilter: 'blur(8px)',
+                              boxShadow: '0 0 12px rgba(0,0,0,0.2)',color: 'white', textShadow: '0 0 4px rgba(0,0,0,0.7)', zIndex: 2
                             }}
                           >
-                            {translations.t27}
-                          </span>
+                            {mech.pilot?.score}
+                          </Button>
                         )}
-                      </AnimatePresence>
 
-                      {/* 分数按钮 */}
-                      {mech.pilot && (
-                        <Button
-                          variant="secondary"
-                          className="h-6 w-8 flex absolute top-0 right-0 m-1 text-xs shadow-lg shadow-gray-500 rounded-lg bg-blue-500/80"
-                          style={{ color: 'white', textShadow: '0 0 4px rgba(0,0,0,0.7)', zIndex: 2 }}
-                        >
-                          {mech.pilot?.score}
-                        </Button>
-                      )}
+                        {mech.pilot && (
+                          <PilotStats pilot={mech.pilot} tabsrc={tabsrc} style={{ position: 'absolute', left: '0.2rem', top: '0.2rem', zIndex: 2 }} />
+                        )}
 
-                      {/* 文字覆盖层 */}
-                      {mech.pilot && (
-                        <div
-                          style={{
-                            position: 'absolute',
-                            bottom: '0.5rem',
-                            left: '0.5rem',
-                            right: '0.5rem',
-                            color: 'white',
-                            textShadow: '0 0 4px rgba(0,0,0,0.7)',
-                            display: 'flex',
-                            flexDirection: 'column',
-                            alignItems: 'flex-end',
-                            textAlign: 'end',
-                            zIndex: 2,
-                          }}
-                        >
-                          <span style={{
-                            fontWeight: 'bold', fontSize: lang === 'en'
-                              ? '1vw' // 💻 英文
-                              : '1vw', // 💻 中文
-                            textShadow: '0 0 6px rgba(0,0,0,1)',
-                          }}>{mech.pilot.name}</span>
-                          <span
+
+                        {/* 文字覆盖层 */}
+                        {mech.pilot && (
+                          <div
                             style={{
-                              fontSize: lang === 'en' ? '0.7vw' : '0.9vw',
+                              position: 'absolute',
+                              bottom: '0.5rem',
+                              left: '6vw',
+                              right: '0.5rem',
                               color: 'white',
-                              textShadow: `
+                              textShadow: '0 0 4px rgba(0,0,0,0.7)',
+                              display: 'flex',
+                              flexDirection: 'column',
+                              alignItems: 'flex-end',
+                              textAlign: 'end',
+                              zIndex: 2,
+                            }}
+                          >
+                            <span style={{
+                              fontWeight: 'bold', fontSize: lang === 'en'
+                                ? '1vw' // 💻 英文
+                                : '1vw', // 💻 中文
+                              textShadow: '0 0 6px rgba(0,0,0,1)',
+                            }}>{mech.pilot.name}</span>
+                            <span
+                              style={{
+                                fontSize: lang === 'en' ? '0.7vw' : '0.7vw',
+                                color: 'white',
+                                textShadow: `
   -1px -1px 1px #000,
    1px -1px 1px #000,
   -1px  1px 1px #000,
    1px  1px 1px #000
 `,
 
-                            }}
-                          >
-                            {mech.pilot.traitDescription}
-                          </span>
+                              }}
+                            >
+                              {mech.pilot.traitDescription}
+                            </span>
 
-                        </div>
-                      )}
-                    </div>
-                  )}
-
-                  {!mobileOrTablet && team.faction === 'RDL' && !mech.parts.torso?.isPD && (
-
-                    <MechPreview
-                      mech={mech}
-                      mechImgSrc={mechImgSrc}
-                      width="20vh"
-                      height="20vh"
-                      scaleOverrides={{ chasis: 1, backpack: 2 }}
-                      cropLeftPercent={13}
-                      defaultParts={{
-                        leftHand: rdlLeftHand[0],
-                        torso: rdlTorso[0],
-                        rightHand: rdlRightHand[0],
-                        chasis: rdlChasis[0],
-                        backpack: rdlBackpack[0],
-                      }}
-                      championMode={championMode}
-                    />
-
-                  )}
-
-                  {!mobileOrTablet && (team.faction === 'UN' || mech.parts.torso?.isPD) && (
-                    <MechPreview
-                      mech={mech}
-                      mechImgSrc={mechImgSrc}
-                      width="20vh"
-                      height="20vh"
-                      scaleOverrides={{
-                        chasis: 1,
-                        backpack: 1,
-                        leftHand: 1,
-                        rightHand: 1,
-                        torso: 1,
-                      }}
-                      defaultParts={{
-                        leftHand: unLeftHand[0],
-                        torso: unTorso[0], rightHand: unRightHand[3], chasis: unChasis[0], backpack: unBackpack[0],
-                      }}
-                      championMode={championMode}
-                    />
-                  )}
+                          </div>
+                        )}
+                      </div>
+                    )}
 
 
 
-                  {/* 右侧信息卡片 */}
-                  {!mobileOrTablet && (
-                    <MechStatus
-                      mech={mech}
-                      translations={translations}
-                      tabsrc={tabsrc}
-                      lang={lang}
-                      editingMechId={editingMechId}
-                      setEditingMechId={setEditingMechId}
-                      updateMechName={updateMechName}
-                      copyMech={copyMech}
-                      deleteMech={deleteMech}
-                      getMechTotalScore={getMechTotalScore}
-                      getColorByAttr={getColorByAttr}
-                      style={{ flex: '1' }}
-                      isMobile={mobileOrTablet}
 
-                    />
-                  )}
+                    {!mobileOrTablet && team.faction === 'RDL' && !mech.parts.torso?.isPD && (
+
+                      <MechPreview
+                        mech={mech}
+                        mechImgSrc={mechImgSrc}
+                        width="20vh"
+                        height="20vh"
+                        scaleOverrides={{ chasis: 1, backpack: 2 }}
+                        cropLeftPercent={13}
+                        defaultParts={{
+                          leftHand: rdlLeftHand[0],
+                          torso: rdlTorso[0],
+                          rightHand: rdlRightHand[0],
+                          chasis: rdlChasis[0],
+                          backpack: rdlBackpack[0],
+                        }}
+                        championMode={championMode}
+                      />
+
+                    )}
+
+                    {!mobileOrTablet && (team.faction === 'UN' || mech.parts.torso?.isPD) && (
+                      <MechPreview
+                        mech={mech}
+                        mechImgSrc={mechImgSrc}
+                        width="20vh"
+                        height="20vh"
+                        scaleOverrides={{
+                          chasis: 1,
+                          backpack: 1,
+                          leftHand: 1,
+                          rightHand: 1,
+                          torso: 1,
+                        }}
+                        defaultParts={{
+                          leftHand: unLeftHand[0],
+                          torso: unTorso[0], rightHand: unRightHand[3], chasis: unChasis[0], backpack: unBackpack[0],
+                        }}
+                        championMode={championMode}
+                      />
+                    )}
+
+
+
+                    {/* 右侧信息卡片 */}
+                    {!mobileOrTablet && (
+                      <MechStatus
+                        mech={mech}
+                        translations={translations}
+                        tabsrc={tabsrc}
+                        lang={lang}
+                        editingMechId={editingMechId}
+                        setEditingMechId={setEditingMechId}
+                        updateMechName={updateMechName}
+                        copyMech={copyMech}
+                        deleteMech={deleteMech}
+                        getMechTotalScore={getMechTotalScore}
+                        getColorByAttr={getColorByAttr}
+                        style={{ flex: '1' }}
+                        isMobile={mobileOrTablet}
+
+                      />
+                    )}
+                  </div>
+
+
+
                 </div>
-
-
-              </div>
-            </Card>
+              </Card>
+            </motion.div>
           ))}
 
           <div className="flex justify-center">
@@ -1913,7 +1989,7 @@ export function MechList({
                   className={`relative p-0 overflow-hidden cursor-pointer transition shadow-lg shadow-gray-500 rounded-lg 
                         }`}
                   style={{ transition: 'transform 0.3s ease, box-shadow 0.3s ease' }}
-                  onClick={() => { onSetViewMode('drones'); onSetIsChangingPart(true);onSelectDrone(drone) }}
+                  onClick={() => { onSetViewMode('drones'); onSetIsChangingPart(true); onSelectDrone(drone) }}
                   onMouseEnter={(e) => {
                     (e.currentTarget as HTMLDivElement).style.transform = 'scale(1.03)';
                     (e.currentTarget as HTMLDivElement).style.boxShadow = '0 6px 10px rgba(0,0,0,0.1)';
@@ -2320,7 +2396,7 @@ export function MechList({
               {/* 新增战术卡按钮 */}
               <div
                 style={{ position: 'relative', display: 'flex', padding: '1rem', cursor: 'pointer' }}
-                onClick={() => { onSetViewMode('tacticCards');onSetIsChangingPart(true);  }}
+                onClick={() => { onSetViewMode('tacticCards'); onSetIsChangingPart(true); }}
               >
                 <img
                   src={`${imgsrc}/274.png`}

@@ -502,21 +502,21 @@ export const rdlPilots: Pilot[] = [
     "trait": "功率隐匿",
     "traitDescription": "· 本机处于友军光环范围内时获得低特征。",
   },
-  {
-    "id": "FPA-63",
-    "name": "侦察兵-63",
-    "score": 9,
-    "LV": 4,
-    "faction": "RDL",
-    "swift": 5,
-    "melee": 6,
-    "projectile": 7,
-    "firing": 4,
-    "moving": 7,
-    "tactic": 3,
-    "trait": "",
-    "traitDescription": "066测试中队的新晋侦察兵。"
-  }
+  // {
+  //   "id": "FPA-63",
+  //   "name": "侦察兵-63",
+  //   "score": 9,
+  //   "LV": 4,
+  //   "faction": "RDL",
+  //   "swift": 5,
+  //   "melee": 6,
+  //   "projectile": 7,
+  //   "firing": 4,
+  //   "moving": 7,
+  //   "tactic": 3,
+  //   "trait": "",
+  //   "traitDescription": "066测试中队的新晋侦察兵。"
+  // }
 ];
 
 export const unPilots: Pilot[] = [

@@ -22,7 +22,7 @@ const DroneList: React.FC<DroneListProps> = ({
     <div className="min-h-0 flex flex-col">
       <div
         className="flex-1 overflow-y-auto space-y-3"
-        style={{ paddingTop: '1vh', paddingLeft: '2vw', paddingRight: '2vw' }}
+        style={{  paddingLeft: '2vw', paddingRight: '2vw' }}
       >
         {filteredDrones.map((drone) => (
           <Card

@@ -178,116 +178,103 @@ export function PartSelectorMobile({
   }, [pilots, team, searchQuery, containPD, sortOrder]);
 
 
-  return <div className="flex flex-col h-full min-h-0">
-    {viewMode === 'parts' && (
+  return <div><div style={{ display: viewMode === 'parts' ? 'block' : 'none' }}>
+  <ListPanel
+    searchQuery={searchQuery}
+    setSearchQuery={setSearchQuery}
+    sortOrder={sortOrder}
+    setSortOrder={setSortOrder}
+    containPD={containPD}
+    setContainPD={setContainPD}
+    showHoverImg={showHoverImg}
+    onSetShowHoverImg={onSetShowHoverImg}
+    mobileOrTablet={mobileOrTablet}
+    translations={translations}
+  >
+    <PartList
+      filteredParts={filteredParts}
+      onSelectPart={onSelectPart}
+      onSetHoverImg={onSetHoverImg}
+      tabsrc={tabSmallSrc}
+      imgsrc={imgsrc}
+      translations={translations}
+      lastScore={lastScore}
+      selectedPartType={selectedPartType}
+    />
+  </ListPanel>
+</div>
 
-      <ListPanel
-        searchQuery={searchQuery}
-        setSearchQuery={setSearchQuery}
-        sortOrder={sortOrder}
-        setSortOrder={setSortOrder}
-        containPD={containPD}
-        setContainPD={setContainPD}
-        showHoverImg={showHoverImg}
-        onSetShowHoverImg={onSetShowHoverImg}
-        mobileOrTablet={mobileOrTablet}
-        translations={translations}
-      >
-        <PartList
-          filteredParts={filteredParts}
-          onSelectPart={onSelectPart}
-          onSetHoverImg={onSetHoverImg}
-          tabsrc={tabSmallSrc}
-          imgsrc={imgsrc}
-          translations={translations}
-          lastScore={lastScore}
-          selectedPartType={selectedPartType}
-        />
-      </ListPanel>
+<div style={{ display: viewMode === 'pilots' ? 'block' : 'none' }}>
+  <ListPanel
+    searchQuery={searchQuery}
+    setSearchQuery={setSearchQuery}
+    sortOrder={sortOrder}
+    setSortOrder={setSortOrder}
+    containPD={containPD}
+    setContainPD={setContainPD}
+    showHoverImg={showHoverImg}
+    onSetShowHoverImg={onSetShowHoverImg}
+    mobileOrTablet={mobileOrTablet}
+    translations={translations}
+  >
+    <PilotList
+      filteredPilots={filteredPilots}
+      onSelectPilot={onSelectPilot}
+      onSetHoverImg={onSetHoverImg}
+      tabsrc={tabsrc}
+      imgsrc={imgsrc}
+      translations={translations}
+      lastScore={lastScore}
+    />
+  </ListPanel>
+</div>
 
-    )
-    }
+<div style={{ display: viewMode === 'drones' ? 'block' : 'none' }}>
+  <ListPanel
+    searchQuery={searchQuery}
+    setSearchQuery={setSearchQuery}
+    sortOrder={sortOrder}
+    setSortOrder={setSortOrder}
+    containPD={containPD}
+    setContainPD={setContainPD}
+    showHoverImg={showHoverImg}
+    onSetShowHoverImg={onSetShowHoverImg}
+    mobileOrTablet={mobileOrTablet}
+    translations={translations}
+  >
+    <DroneList
+      filteredDrones={filteredDrones}
+      onSelectDrone={onSelectDrone}
+      onSetHoverImg={onSetHoverImg}
+      tabsrc={tabsrc}
+      imgsrc={imgsrc}
+      translations={translations}
+    />
+  </ListPanel>
+</div>
 
-
-
-    {viewMode === 'pilots' && (
-
-      <ListPanel
-        searchQuery={searchQuery}
-        setSearchQuery={setSearchQuery}
-        sortOrder={sortOrder}
-        setSortOrder={setSortOrder}
-        containPD={containPD}
-        setContainPD={setContainPD}
-        showHoverImg={showHoverImg}
-        onSetShowHoverImg={onSetShowHoverImg}
-        mobileOrTablet={mobileOrTablet}
-        translations={translations}
-      >
-        <PilotList
-          filteredPilots={filteredPilots}
-          onSelectPilot={onSelectPilot}
-          onSetHoverImg={onSetHoverImg}
-          tabsrc={tabsrc}
-          imgsrc={imgsrc}
-          translations={translations}
-          lastScore={lastScore}
-        />
-      </ListPanel>
-
-    )
-    }
-
-    {viewMode === 'drones' && (
-
-      <ListPanel
-        searchQuery={searchQuery}
-        setSearchQuery={setSearchQuery}
-        sortOrder={sortOrder}
-        setSortOrder={setSortOrder}
-        containPD={containPD}
-        setContainPD={setContainPD}
-        showHoverImg={showHoverImg}
-        onSetShowHoverImg={onSetShowHoverImg}
-        mobileOrTablet={mobileOrTablet}
-        translations={translations}
-      >
-        <DroneList
-          filteredDrones={filteredDrones}
-          onSelectDrone={onSelectDrone}
-          onSetHoverImg={onSetHoverImg}
-          tabsrc={tabsrc}
-          imgsrc={imgsrc}
-          translations={translations}
-        />
-
-
-      </ListPanel>
-    )}
-
-    {viewMode === 'tacticCards' && (
-
-      <ListPanel
-        searchQuery={searchQuery}
-        setSearchQuery={setSearchQuery}
-        sortOrder={sortOrder}
-        setSortOrder={setSortOrder}
-        containPD={containPD}
-        setContainPD={setContainPD}
-        showHoverImg={showHoverImg}
-        onSetShowHoverImg={onSetShowHoverImg}
-        mobileOrTablet={mobileOrTablet}
-        translations={translations}
-      >
-        <TacticCardList
-          filteredTacticCards={filteredTacticCards}
-          onSelectTacticCard={onSelectTacticCard}
-          onSetHoverImg={onSetHoverImg}
-          imgsrc={imgsrc}
-        />
-      </ListPanel>
-    )}
-  </div>
+<div style={{ display: viewMode === 'tacticCards' ? 'block' : 'none' }}>
+  <ListPanel
+    searchQuery={searchQuery}
+    setSearchQuery={setSearchQuery}
+    sortOrder={sortOrder}
+    setSortOrder={setSortOrder}
+    containPD={containPD}
+    setContainPD={setContainPD}
+    showHoverImg={showHoverImg}
+    onSetShowHoverImg={onSetShowHoverImg}
+    mobileOrTablet={mobileOrTablet}
+    translations={translations}
+  >
+    <TacticCardList
+      filteredTacticCards={filteredTacticCards}
+      onSelectTacticCard={onSelectTacticCard}
+      onSetHoverImg={onSetHoverImg}
+      imgsrc={imgsrc}
+    />
+  </ListPanel>
+</div>
+</div>
 
 
 }

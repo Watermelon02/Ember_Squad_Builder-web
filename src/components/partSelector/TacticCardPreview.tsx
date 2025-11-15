@@ -1,6 +1,6 @@
-import React, { useState, useRef } from "react";
 import { TacticCard } from "../../types";
 import { Button } from "../ui/button";
+import { AnimatePresence, motion } from "framer-motion";
 
 interface TacticCardPreviewProps {
   tacticCardId: string;
@@ -17,7 +17,8 @@ export default function TacticCardPreview({
   const tacticCard = factionTacticCards.find((t) => { if (t.id === tacticCardId) { return t } });
 
   return (
-     <div
+    <AnimatePresence mode="wait">
+     <motion.div
        style={{
          width: "20vw",
          overflowY: "auto",
@@ -25,7 +26,13 @@ export default function TacticCardPreview({
          position: "relative",
          scrollbarWidth: "none",
          msOverflowStyle: "none",
+         
        }}
+       key={tacticCard?.id}
+       initial={{ opacity: 0, y: -100 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: 100 }}
+            transition={{ duration: 0.2 }}
      >
        <style>
          {`
@@ -89,6 +96,7 @@ export default function TacticCardPreview({
  
          </div>
        )}
-     </div>
+     </motion.div>
+     </AnimatePresence>
    );
 }

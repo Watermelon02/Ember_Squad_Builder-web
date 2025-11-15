@@ -152,7 +152,7 @@ export const MechStatus: React.FC<MechStatusProps> = ({
                 <div
                     style={{
                         height: "7.5vh",
-                        width: isMobile ? "16vw" : "12vw",
+                        width: isMobile ? "16vw" : "11vw",
                         borderRadius: "0.5rem",
                         display: "flex",
                         flexDirection: "column",

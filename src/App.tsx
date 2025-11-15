@@ -19,6 +19,9 @@ import PartPreview from './components/partSelector/PartPreview';
 import PartComparePanel from './components/partSelector/PartComparePanel';
 import DroneComparePanel from './components/partSelector/DroneComparePanel';
 import TacticCardComparePanel from './components/partSelector/TacticCardComparePanel';
+import { Button } from './components/ui/button';
+import { ChevronLeft, ChevronRight } from 'lucide-react';
+import PilotComparePanel from './components/partSelector/PilotComparePanel';
 
 
 export default function App() {
@@ -149,6 +152,7 @@ export default function App() {
   // ------------------ 当前部件分数和id，用于在部件选择列表中进行对比 ------------------
   useEffect(() => {
     if (viewMode !== lastViewMode) {
+      setLastPartId('');
 
       setHoverImg("")
     }
@@ -214,17 +218,95 @@ export default function App() {
 
   if (!selectedTeam) {
     return (
-      <div className="fixed inset-0 bg-background flex items-center justify-center">
-        <div className="text-center">
-          <p className="mb-4">{t.t65}</p>
-          <button
-            onClick={() => initNewTeam('RDL')}
-            className="px-4 py-2 bg-blue-500 text-white rounded"
-          >
-            {t.t66}
-          </button>
+      <>
+        <style>
+          {`
+      @keyframes bgFloat {
+        0%   { transform: scale(1) translateX(0); }
+        50%  { transform: scale(1.03) translateX(0.5vw); }
+        100% { transform: scale(1) translateX(0); }
+      }
+
+      @keyframes buttonPulse {
+        0%   { transform: scale(1); box-shadow: 0 0 14px rgba(255,255,255,0.5); }
+        50%  { transform: scale(1.05); box-shadow: 0 0 28px rgba(255,255,255,0.9); }
+        100% { transform: scale(1); box-shadow: 0 0 14px rgba(255,255,255,0.5); }
+      }
+    `}
+        </style>
+
+        <div
+          style={{
+            position: "fixed",
+            inset: 0,
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+            backgroundImage: `url("res/intro.jpg")`,
+            backgroundSize: "cover",
+            backgroundPosition: "center",
+            animation: "bgFloat 12s ease-in-out infinite",
+            overflow: "hidden",
+          }}
+        >
+          <div style={{ textAlign: "center" }}>
+            {/* 文字 */}
+            <p
+              style={{
+                marginBottom: "1rem",
+                color: "white",
+                textShadow: `
+            -1px -1px 1px #000,
+             1px -1px 1px #000,
+            -1px  1px 1px #000,
+             1px  1px 1px #000,
+             0px  0px 6px rgba(0,0,0,1)
+          `,
+                fontWeight: "bold",
+                fontSize: isMobileOrTablet ? "3.4vw" : "1.4vw", // 移动设备更大
+              }}
+            >
+              {t.t65}
+            </p>
+
+            {/* 按钮 */}
+            <button
+              onClick={() => initNewTeam('RDL')}
+              style={{
+                padding: "0.75rem 1.5rem",
+                borderRadius: "12px",
+                color: "white",
+                fontWeight: "bold",
+                fontSize: isMobileOrTablet ? "4vw" : "1.2vw", // 移动设备更大
+
+                backdropFilter: "blur(10px)",
+                WebkitBackdropFilter: "blur(10px)",
+                backgroundColor: "rgba(255,255,255,0.12)",
+                border: "1px solid rgba(255,255,255,0.4)",
+                textShadow: `
+            -1px -1px 1px #000,
+             1px -1px 1px #000,
+            -1px  1px 1px #000,
+             1px  1px 1px #000,
+             0 0 6px rgba(255,255,255,0.9)
+          `,
+                cursor: "pointer",
+                animation: "buttonPulse 3.2s ease-in-out infinite",
+                transition: "0.25s ease",
+              }}
+              onMouseEnter={(e) => {
+                e.currentTarget.style.backgroundColor = "rgba(255,255,255,0.22)";
+              }}
+              onMouseLeave={(e) => {
+                e.currentTarget.style.backgroundColor = "rgba(255,255,255,0.12)";
+              }}
+            >
+              {t.t66}
+            </button>
+          </div>
         </div>
-      </div>
+      </>
+
     );
   }
 
@@ -337,6 +419,18 @@ export default function App() {
       <div
         className={`flex flex-1 ${!isMobileOrTablet ? 'gap-4 p-4' : ''} overflow-hidden`}
       >
+        {isMobileOrTablet && <Button
+          size="sm"
+          className="absolute top-3 left-3 z-50 flex items-center justify-center w-10 h-10 shadow transition-all duration-300 ease-in-out"
+          style={{ backgroundColor: 'rgba(75,85,99,0.2)' }}
+          onClick={() => setCollapsedLeft(prev => !prev)}
+        >
+          {collapsedLeft ? (
+            <ChevronRight className="w-5 h-5" stroke="white" />
+          ) : (
+            <ChevronLeft className="w-5 h-5" stroke="white" />
+          )}
+        </Button>}
         {/* 左侧小队列表 */}
         <div className="relative flex flex-col">
           {isMobileOrTablet ? (
@@ -450,11 +544,11 @@ export default function App() {
               onClose={() => setCollapsedRight(true)}
               position="right"
               width="80%"
-              height="100vh"
+              height="100%"
               panelBgColor="#F9FAFB"
             >
               <PartSelectorMobile
-                className="overflow-y-auto h-full -webkit-overflow-scrolling-touch"
+
                 viewMode={viewMode}
                 team={selectedTeam}
                 selectedPartType={selectedPartType}
@@ -527,7 +621,7 @@ export default function App() {
           ) : (
             // 桌面端：Dialog 弹窗
             <AnimatePresence>
-              {isChangingPart && !isMobileOrTablet && (
+              {isChangingPart && (
                 <>
                   {/* 遮罩 */}
                   <motion.div
@@ -549,7 +643,12 @@ export default function App() {
                       style={{
 
                         maxHeight: "90vh",
-                        maxWidth:viewMode==="tacticCards"?"40vw":"90vw",
+                        maxWidth:
+                          viewMode === "drones"
+                            ? "80vw"
+                            : viewMode === "tacticCards"
+                              ? "40vw"
+                              : "60vw",
                         backgroundColor: "rgba(255,255,255,0.5)",
                         backdropFilter: "blur(16px)",
                         WebkitBackdropFilter: "blur(16px)",
@@ -558,7 +657,7 @@ export default function App() {
                       }}
                       onClick={(e) => e.stopPropagation()}
                     >
-                      {(viewMode === "parts" || viewMode === "pilots") &&
+                      {viewMode === "parts" &&
                         <PartComparePanel
                           lastPartId={lastPartId}
                           hoverId={hoverImg}
@@ -566,6 +665,18 @@ export default function App() {
                           imageSrc={imageSrc}
                           compareMode={compareMode}
                           viewMode={viewMode}
+                        />}
+
+                      {viewMode === "pilots" &&
+                        <PilotComparePanel
+                          lastPilotId={lastPartId}
+                          hoverId={hoverImg}
+                          factionPilots={factionPilots}
+                          imageSrc={imageSrc}
+                          compareMode={compareMode}
+                          viewMode={viewMode}
+                          tabsrc={tabSrc}
+                          lang={lang}
                         />}
 
                       {(viewMode === "drones") &&
@@ -578,7 +689,7 @@ export default function App() {
                           viewMode={viewMode}
                         />}
 
-                        {(viewMode === "tacticCards") &&
+                      {(viewMode === "tacticCards") &&
                         <TacticCardComparePanel
                           lastPartId={lastPartId}
                           hoverId={hoverImg}
@@ -589,7 +700,13 @@ export default function App() {
                         />}
 
                       {/* 右侧 PartSelector */}
-                      <div className="flex-1 relative">
+                      <div
+                        className="flex-1 relative"
+                        style={{
+                          backgroundColor: "white",
+                          overflowY: "auto",
+                        }}
+                      >
                         <PartSelector
                           viewMode={viewMode}
                           team={selectedTeam}
@@ -608,6 +725,7 @@ export default function App() {
                           mobileOrTablet={false}
                           lastScore={lastScore}
                           lastPartId={lastPartId}
+
                           onSelectPart={(part) => {
                             if (selectedTeam && selectedMechId) {
                               const updatedMechs = selectedTeam.mechs.map((mech) =>
