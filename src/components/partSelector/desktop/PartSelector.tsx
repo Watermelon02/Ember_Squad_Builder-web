@@ -1,10 +1,10 @@
 import React, { useState, useMemo } from 'react';
-import { Card } from '../ui/card';
-import { Input } from '../ui/input';
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '../ui/select';
-import { Badge } from '../ui/badge';
-import { Label } from '../ui/label';
-import { Part, Drone, Pilot, Team, TacticCard} from '../../types';
+import { Card } from '../../ui/card';
+import { Input } from '../../ui/input';
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '../../ui/select';
+import { Badge } from '../../ui/badge';
+import { Label } from '../../ui/label';
+import { Part, Drone, Pilot, Team, TacticCard} from '../../../types';
 import { AnimatePresence, motion } from 'framer-motion';
 
 interface PartSelectorProps {
@@ -905,7 +905,7 @@ export function PartSelector({
                     className="relative cursor-pointer hover:bg-accent/50 transition shadow-sm overflow-hidden"
                     onClick={() => onSelectTacticCard(tacticCard)}
                     onMouseEnter={(e) => {
-                      onSetHoverImg(`${tacticCard.id}.png`);
+                      onSetHoverImg(`${tacticCard.id}`);
                       (e.currentTarget as HTMLDivElement).style.transform = "scale(1.05)";
                       (e.currentTarget as HTMLDivElement).style.boxShadow =
                         "0 6px 10px rgba(0,0,0,0.1)";

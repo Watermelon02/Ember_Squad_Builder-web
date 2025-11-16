@@ -1,7 +1,8 @@
-import React from 'react';
-import { Card } from '../../ui/card';
-import { Badge } from '../../ui/badge';
-interface DroneListProps {
+import React, { useState } from 'react';
+import { Card } from '../../../ui/card';
+import { Badge } from '../../../ui/badge';
+import { SelectableCard } from '../../../custom/SelectableCard';
+interface DroneListMobileProps {
   filteredDrones: any[];
   onSelectDrone: (drone: any) => void;
   onSetHoverImg: (src: string) => void;
@@ -10,7 +11,7 @@ interface DroneListProps {
   translations: any;
 }
 
-const DroneList: React.FC<DroneListProps> = ({
+const DroneListMobile: React.FC<DroneListMobileProps> = ({
   filteredDrones,
   onSelectDrone,
   onSetHoverImg,
@@ -18,37 +19,31 @@ const DroneList: React.FC<DroneListProps> = ({
   imgsrc,
   translations,
 }) => {
+  const [selectedId, setSelectedId] = useState<string | null>(null);
+
+  // 取消选中
+  const resetSelection = () => setSelectedId(null);
   return (
-    <div className="min-h-0 flex flex-col">
+    <div className="flex flex-col" style={{ minHeight: "70vh" }}>
       <div
         className="flex-1 overflow-y-auto space-y-3"
-        style={{  paddingLeft: '2vw', paddingRight: '2vw' }}
+        style={{ paddingLeft: '2vw', paddingRight: '2vw' }}
       >
         {filteredDrones.map((drone) => (
-          <Card
+          <SelectableCard
             key={drone.id}
             className="relative p-3 cursor-pointer hover:bg-accent/50 transition overflow-hidden shadow-sm min-h-[120px]"
-            onClick={() => onSelectDrone(drone)}
-            onMouseEnter={(e) => {
-              onSetHoverImg(`${imgsrc}/${drone.id}.png`);
-              e.currentTarget.style.transform = 'scale(1.05)';
-              e.currentTarget.style.boxShadow = '0 6px 10px rgba(0,0,0,0.1)';
-            }}
-            onMouseLeave={(e) => {
-              onSetHoverImg('null');
-              e.currentTarget.style.transform = 'scale(1)';
-              e.currentTarget.style.boxShadow =
-                '0 4px 6px rgba(0,0,0,0.05), 0 1px 3px rgba(0,0,0,0.1)';
-            }}
+            selected={selectedId === drone.id} // 由父组件控制选中状态
+            onClick={() => { onSelectDrone(drone); setSelectedId(drone.id) }}
           >
             {/* 背景图层 */}
             <img
-  src={`${tabsrc}/${drone.id}.png`}
-  alt=""
-  className="absolute right-0 top-0 w-auto h-full object-contain pointer-events-none"
-  style={{ opacity: 0.8 }}
-  loading='lazy'
-/>
+              src={`${tabsrc}/${drone.id}.png`}
+              alt=""
+              className="absolute right-0 top-0 w-auto h-full object-contain pointer-events-none"
+              style={{ opacity: 0.8 }}
+              loading='lazy'
+            />
 
 
             {/* 前景文字内容 */}
@@ -156,23 +151,23 @@ const DroneList: React.FC<DroneListProps> = ({
                     drone.type === 'large'
                       ? 'destructive'
                       : drone.type === 'medium'
-                      ? 'default'
-                      : 'secondary'
+                        ? 'default'
+                        : 'secondary'
                   }
                 >
                   {drone.type === 'large'
                     ? '大型'
                     : drone.type === 'medium'
-                    ? '中型'
-                    : '小型'}
+                      ? '中型'
+                      : '小型'}
                 </Badge>
               </div>
             </div>
-          </Card>
+          </SelectableCard>
         ))}
       </div>
     </div>
   );
 };
 
-export default DroneList;
+export default DroneListMobile;

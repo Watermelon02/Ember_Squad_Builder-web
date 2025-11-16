@@ -1,9 +1,8 @@
 import React from 'react';
-import { Input } from '../../ui/input';
 import { Label } from '../../ui/label';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '../../ui/select';
 
-interface ListPanelProps {
+interface ListPanelMobileProps {
   // 搜索和排序相关
   searchQuery: string;
   setSearchQuery: (value: string) => void;
@@ -24,7 +23,7 @@ interface ListPanelProps {
   children: React.ReactNode;
 }
 
-const ListPanel: React.FC<ListPanelProps> = ({
+const ListPanelMobile: React.FC<ListPanelMobileProps> = ({
   searchQuery,
   setSearchQuery,
   sortOrder,
@@ -39,21 +38,15 @@ const ListPanel: React.FC<ListPanelProps> = ({
 }) => {
   return (
     <div className="min-h-0 flex flex-col">
-      <div className="space-y-4" style={{ paddingBottom: '1vh' }}>
-        {/* 搜索框 */}
-        <Input
-          placeholder={translations.t35}
-          value={searchQuery}
-          onChange={(e) => setSearchQuery(e.target.value)}
-        />
+      <div className="space-y-4" style={{ paddingTop:"1vh",paddingLeft: "3vw", paddingRight: "2vw" }}>
 
         {/* 排序 / 筛选栏 */}
         <div
-          className="flex items-center justify-between space-x-4 border-b border-border"
+          className="flex items-center justify-between space-x-4 "
           style={{ paddingBottom: '1vh' }}
         >
           {/* 排序选择 */}
-          <div className="flex items-center space-x-2">
+          <div className="flex items-center space-x-2" >
             <Label>{translations.t36}</Label>
             <Select
               value={sortOrder}
@@ -61,7 +54,7 @@ const ListPanel: React.FC<ListPanelProps> = ({
                 setSortOrder(value)
               }
             >
-              <SelectTrigger className="w-[140px]">
+              <SelectTrigger style={{height:"4vh"}}>
                 <SelectValue />
               </SelectTrigger>
               <SelectContent>
@@ -71,44 +64,46 @@ const ListPanel: React.FC<ListPanelProps> = ({
             </Select>
           </div>
 
-          {/* 是否显示卡片预览（桌面端才有） */}
-          {!mobileOrTablet && (
+          <div className="flex items-center" style={{ gap: "1vw" }}>
+            {!mobileOrTablet && (
+              <div className="flex items-center space-x-2">
+                <input
+                  type="checkbox"
+                  id="show-hover-img"
+                  checked={showHoverImg}
+                  onChange={(e) => onSetShowHoverImg(e.target.checked)}
+                  className="h-4 w-4"
+                  style={{ accentColor: '#ffffff' }}
+                />
+                <label htmlFor="show-hover-img" className="text-sm">
+                  {translations.t92}
+                </label>
+              </div>
+            )}
+
+            {/* 星环过滤 */}
             <div className="flex items-center space-x-2">
               <input
                 type="checkbox"
-                id="show-hover-img"
-                checked={showHoverImg}
-                onChange={(e) => onSetShowHoverImg(e.target.checked)}
+                id="contain-pd"
+                checked={containPD}
+                onChange={(e) => setContainPD(e.target.checked)}
                 className="h-4 w-4"
                 style={{ accentColor: '#ffffff' }}
               />
-              <label htmlFor="show-hover-img" className="text-sm">
-                {translations.t92}
+              <label htmlFor="contain-pd" className="text-sm">
+                {translations.t67}
               </label>
             </div>
-          )}
-
-          {/* 星环过滤 */}
-          <div className="flex items-center space-x-2">
-            <input
-              type="checkbox"
-              id="contain-pd"
-              checked={containPD}
-              onChange={(e) => setContainPD(e.target.checked)}
-              className="h-4 w-4"
-              style={{ accentColor: '#ffffff' }}
-            />
-            <label htmlFor="contain-pd" className="text-sm">
-              {translations.t67}
-            </label>
           </div>
+
         </div>
       </div>
 
       {/* 内部列表内容区域（灵活） */}
-      <div className="flex-1 min-h-0">{children}</div>
+      <div className="flex-1 min-h-0 ">{children}</div>
     </div>
   );
 };
 
-export default ListPanel;
+export default ListPanelMobile;

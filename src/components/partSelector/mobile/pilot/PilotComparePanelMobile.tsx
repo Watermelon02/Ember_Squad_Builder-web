@@ -1,8 +1,8 @@
 // PilotComparePanel.tsx
-import { Pilot } from "../../types";
-import PilotPreview from "./PilotPreview";
+import { Pilot } from "../../../../types";
+import PilotPreviewMobile from "./PilotPreviewMobile";
 
-interface PilotComparePanelProps {
+interface PilotComparePanelMobileProps {
     lastPilotId: string;
     hoverId: string;
     factionPilots: Pilot[];
@@ -12,7 +12,7 @@ interface PilotComparePanelProps {
     lang: string;
 }
 
-export default function PilotComparePanel({
+export default function PilotComparePanelMobile({
     lastPilotId,
     hoverId,
     factionPilots,
@@ -20,15 +20,16 @@ export default function PilotComparePanel({
     compareMode,
     tabsrc,
     lang
-}: PilotComparePanelProps) {
+}: PilotComparePanelMobileProps) {
     const leftPilot = factionPilots.find((p) => p.id === lastPilotId);
     const rightPilot = factionPilots.find((p) => p.id === hoverId);
 
     return (
         <div
-            className="flex-shrink-0 flex flex-row gap-4"
+            className="flex-shrink-0 flex flex-row"
             style={{
-                width: (compareMode && lastPilotId !== "") ? "40vw" : "20vw",
+                height: "50%",
+                width: "100%",
                 padding: "0.5rem",
                 backgroundColor: "rgba(255,255,255,0.3)",
                 borderRight: "1px solid rgba(255,255,255,0.1)",
@@ -38,26 +39,30 @@ export default function PilotComparePanel({
             }}
         >
             {/* 左侧：上一次的Pilot */}
-            {(compareMode && lastPilotId !== ""&& rightPilot ) && (
-                <PilotPreview
+            {(compareMode && lastPilotId !== "") && (
+                <PilotPreviewMobile
                     pilotId={lastPilotId}
                     comparePilot={undefined}
                     factionPilots={factionPilots}
                     imageSrc={imageSrc}
                     tabSrc={tabsrc}
                     lang={lang}
+                    compareMode={compareMode}
+                    leftPreviewExist={true}
                 />
             )}
 
             {/* 右侧：悬浮Pilot，显示与左侧差值 */}
             {rightPilot && (
-                <PilotPreview
-                    pilotId={hoverId}
+                <PilotPreviewMobile
+                    pilotId={(!compareMode && (hoverId === ""||hoverId==="null")) ? lastPilotId : hoverId}
                     comparePilot={leftPilot}
                     factionPilots={factionPilots}
                     imageSrc={imageSrc}
                     tabSrc={tabsrc}
                     lang={lang}
+                    compareMode={compareMode}
+                    leftPreviewExist={lastPilotId !== ""}
                 />
             )}
         </div>

@@ -1,28 +1,31 @@
-import React from 'react';
-import { Card } from '../../ui/card';
-import { Badge } from '../../ui/badge';
+import React, { useState } from 'react';
+import { Card } from '../../../ui/card';
+import { Badge } from '../../../ui/badge';
+import { SelectableCard } from '../../../custom/SelectableCard';
 
-interface PartListProps {
+
+interface PartListMobileProps {
   filteredParts: any[];
   onSelectPart: (part: any) => void;
-  onSetHoverImg: (src: string) => void;
   tabsrc: string;
-  imgsrc: string;
   translations: any;
   lastScore: number;
   selectedPartType: string;
 }
 
-const PartList: React.FC<PartListProps> = ({
+const PartListMobile: React.FC<PartListMobileProps> = ({
   filteredParts,
   onSelectPart,
-  onSetHoverImg,
+
   tabsrc,
-  imgsrc,
   translations,
   lastScore,
   selectedPartType,
 }) => {
+    const [selectedId, setSelectedId] = useState<string | null>(null);
+  
+    // 取消选中
+    const resetSelection = () => setSelectedId(null);
   return (
     <div
       key={selectedPartType}
@@ -30,21 +33,12 @@ const PartList: React.FC<PartListProps> = ({
       style={{  paddingLeft: '2vw', paddingRight: '2vw' }}
     >
       {filteredParts.map((part) => (
-        <Card
+        <SelectableCard
           key={part.id}
           className="relative p-3 cursor-pointer hover:bg-accent/50 transition overflow-hidden shadow-sm"
-          onClick={() => onSelectPart(part)}
-          onMouseEnter={(e) => {
-            onSetHoverImg(`${imgsrc}/${part.id}.png`);
-            e.currentTarget.style.transform = 'scale(1.05)';
-            e.currentTarget.style.boxShadow = '0 6px 10px rgba(0,0,0,0.1)';
-          }}
-          onMouseLeave={(e) => {
-            onSetHoverImg('null');
-            e.currentTarget.style.transform = 'scale(1)';
-            e.currentTarget.style.boxShadow =
-              '0 4px 6px rgba(0,0,0,0.05), 0 1px 3px rgba(0,0,0,0.1)';
-          }}
+           selected={selectedId === part.id} 
+
+          onClick={() => {onSelectPart(part);setSelectedId(part.id)}}
         >
           {/* 背景图 */}
           <img
@@ -189,7 +183,7 @@ const PartList: React.FC<PartListProps> = ({
               </div>
             )}
           </div>
-        </Card>
+        </SelectableCard>
       ))}
 
       {filteredParts.length === 0 && (
@@ -201,4 +195,4 @@ const PartList: React.FC<PartListProps> = ({
   );
 };
 
-export default PartList;
+export default PartListMobile;

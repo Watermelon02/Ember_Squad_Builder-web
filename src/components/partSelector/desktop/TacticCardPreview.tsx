@@ -1,5 +1,5 @@
-import { TacticCard } from "../../types";
-import { Button } from "../ui/button";
+import { TacticCard } from "../../../types";
+import { Button } from "../../ui/button";
 import { AnimatePresence, motion } from "framer-motion";
 
 interface TacticCardPreviewProps {
@@ -48,7 +48,7 @@ export default function TacticCardPreview({
          <div key={`last-${tacticCardId}`} style={{ width: "100%" }}>
            {/* 主图 */}
            <img
-             src={`${imageSrc}/${tacticCardId}`}
+             src={`${imageSrc}/${tacticCardId}.png`}
              alt="current part"
              style={{
                width: "100%",

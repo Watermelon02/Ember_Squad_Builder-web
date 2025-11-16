@@ -1,41 +1,49 @@
-// TacticCardComparePanel.jsx
-import { TacticCard, Part } from "../../types";
-import TacticCardPreview from "./TacticCardPreview";
+// PartComparePanel.jsx
+import { Part } from "../../types";
 import PartPreview from "./PartPreview";
-interface TacticCardComparePanelProps {
+interface PartComparePanelProps {
     lastPartId: string;
     hoverId: string;
-    tacticCards: TacticCard[];
+    factionParts: Part[];
     imageSrc: string;
     compareMode: boolean;
     viewMode: string;
 }
-export default function TacticCardComparePanel({
+export default function PartComparePanel({
     lastPartId,
     hoverId,
-    tacticCards,
+    factionParts,
     imageSrc,
     compareMode,
     viewMode,
-}: TacticCardComparePanelProps) {
+    
+}: PartComparePanelProps) {
     return (
         <div
             className="flex-shrink-0 flex flex-row gap-4"
             style={{
-
+                width: (compareMode&&lastPartId!=="")?"40vw":"20vw",
                 padding: "0.5rem",
                 backgroundColor: "rgba(255,255,255,0.3)",
                 borderRight: "1px solid rgba(255,255,255,0.1)",
                 borderRadius: "0.375rem 0 0 0.375rem",
-                minHeight: "25vw",
+
                 alignItems: "stretch", // 两列等高
             }}
         >
+            {/* 左侧：当前装备 */}
+            {(compareMode&&lastPartId!=="")&& <PartPreview
+                partId={lastPartId}
+                factionParts={factionParts}
+                imageSrc={imageSrc}
+                compareMode={compareMode}
+                
+            />}
 
             {/* 右侧：悬浮预览 */}
-            <TacticCardPreview
-                tacticCardId={hoverId}
-                factionTacticCards={tacticCards}
+            <PartPreview
+                partId={(!compareMode&&hoverId==="")?lastPartId:hoverId}
+                factionParts={factionParts}
                 imageSrc={imageSrc}
                 compareMode={compareMode}
             />

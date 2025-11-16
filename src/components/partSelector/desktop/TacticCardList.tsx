@@ -2,14 +2,14 @@ import React from 'react';
 import { Card } from '../../ui/card';
 import { Badge } from '../../ui/badge';
 
-interface TacticCardListProps {
+interface TacticCardListMobileProps {
   filteredTacticCards: any[];
   onSelectTacticCard: (card: any) => void;
   onSetHoverImg: (src: string) => void;
   imgsrc: string;
 }
 
-const TacticCardList: React.FC<TacticCardListProps> = ({
+const TacticCardListMobile: React.FC<TacticCardListMobileProps> = ({
   filteredTacticCards,
   onSelectTacticCard,
   onSetHoverImg,
@@ -19,7 +19,7 @@ const TacticCardList: React.FC<TacticCardListProps> = ({
     <div className="min-h-0 flex flex-col">
       <div
         className="flex-1 overflow-y-auto"
-        style={{  paddingLeft: '2vw', paddingRight: '2vw' }}
+        style={{ paddingLeft: '2vw', paddingRight: '2vw' }}
       >
         <div className="grid grid-cols-2 gap-2">
           {filteredTacticCards.map((tacticCard) => (
@@ -61,4 +61,4 @@ const TacticCardList: React.FC<TacticCardListProps> = ({
   );
 };
 
-export default TacticCardList;
+export default TacticCardListMobile;

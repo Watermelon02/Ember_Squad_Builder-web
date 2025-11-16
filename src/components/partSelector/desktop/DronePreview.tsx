@@ -1,6 +1,6 @@
 import React, { useState, useRef } from "react";
-import { Drone, Part } from "../../types";
-import { Button } from "../ui/button";
+import { Drone, Part } from "../../../types";
+import { Button } from "../../ui/button";
 import { AnimatePresence, motion } from "framer-motion";
 
 interface DronePreviewProps {

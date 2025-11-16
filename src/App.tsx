@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { TeamList } from './components/TeamList';
 import { MechList } from './components/MechList';
-import { PartSelector } from './components/partSelector/PartSelector';
+import { PartSelector } from './components/partSelector/desktop/PartSelector';
 import { Team, Mech, Part, Drone, Pilot, PART_TYPE_NAMES, FACTION_NAMES, TacticCard, calculateTotalScore } from './types';
 
 import { translations } from './i18n';
@@ -14,14 +14,21 @@ import { getDeviceFingerprint } from './remote';
 import { motion, AnimatePresence } from "framer-motion";
 import { SlidePanel } from './components/custom/SlidePanel';
 import { TeamListMobile } from './components/TeamListMobile';
-import { PartSelectorMobile } from './components/partSelector/PartSelectorMobile';
-import PartPreview from './components/partSelector/PartPreview';
-import PartComparePanel from './components/partSelector/PartComparePanel';
-import DroneComparePanel from './components/partSelector/DroneComparePanel';
-import TacticCardComparePanel from './components/partSelector/TacticCardComparePanel';
+
+import PartComparePanel from './components/partSelector/desktop/PartComparePanel';
+import DroneComparePanel from './components/partSelector/desktop/DroneComparePanel';
+
 import { Button } from './components/ui/button';
-import { ChevronLeft, ChevronRight } from 'lucide-react';
-import PilotComparePanel from './components/partSelector/PilotComparePanel';
+import { ChevronDown, ChevronLeft, ChevronRight } from 'lucide-react';
+import PilotComparePanel from './components/partSelector/desktop/PilotComparePanel';
+import { PartSelectorMobile } from './components/partSelector/mobile/PartSelectorMobile';
+import PilotComparePanelMobile from './components/partSelector/mobile/pilot/PilotComparePanelMobile';
+import PartComparePanelMobile from './components/partSelector/mobile/part/PartComparePanelMobile';
+import DroneComparePanelMobile from './components/partSelector/mobile/drone/DroneComparePanelMobile';
+import TacticCardComparePanel from './components/partSelector/desktop/TacticCardComparePanel';
+import TacticCardComparePanelMobile from './components/partSelector/mobile/tacticCard/TacticCardComparePanelMobile';
+import { MechListMobile } from './components/MechListMobile';
+
 
 
 export default function App() {
@@ -82,6 +89,11 @@ export default function App() {
 
   const [collapsedLeft, setCollapsedLeft] = useState(isMobileOrTablet ? true : false);
   const [collapsedRight, setCollapsedRight] = useState(isMobileOrTablet ? true : false);
+  const [lastSelectPart, setLastSelectPart] = useState<Part>()
+  const [lastSelectPilot, setLastSelectPilot] = useState<Pilot>()
+  const [lastSelectDrone, setLastSelectDrone] = useState<Drone>()
+  const [lastSelectTacticCard, setLastSelectTacticCard] = useState<TacticCard>()
+
 
   useEffect(() => {
     if (!sessionStorage.getItem('sw_cleared')) {
@@ -411,6 +423,155 @@ export default function App() {
     }
   };
 
+  // 更新机甲部件
+  function handleSelectPart(part: Part) {
+    if (!selectedTeam || !selectedMechId) return;
+    setHoverImg(part.id);
+    const updatedMechs = selectedTeam.mechs.map((mech) =>
+      mech.id === selectedMechId
+        ? { ...mech, parts: { ...mech.parts, [selectedPartType]: part } }
+        : mech
+    );
+
+    updateTeam(selectedTeam.id, {
+      mechs: updatedMechs,
+      totalScore: calculateTotalScore(selectedTeam.drones, selectedTeam.tacticCards, updatedMechs),
+    });
+
+    setHoverImg("");
+    //电脑端点击部件直接装备并关闭弹窗`
+    setIsChangingPart(false);
+  }
+
+  function handleSelectPartMobile(part: Part) {
+    if (!selectedTeam || !selectedMechId) return;
+    setHoverImg(part.id);
+    if (lastSelectPart !== undefined && lastSelectPart.id === part.id) {
+      // 移动端在部件选择列表选中部件后，第一次先不直接装备该部件，而是显示其预览图，第二次才装备
+      const updatedMechs = selectedTeam.mechs.map((mech) =>
+        mech.id === selectedMechId
+          ? { ...mech, parts: { ...mech.parts, [selectedPartType]: part } }
+          : mech
+      );
+
+      updateTeam(selectedTeam.id, {
+        mechs: updatedMechs,
+        totalScore: calculateTotalScore(selectedTeam.drones, selectedTeam.tacticCards, updatedMechs),
+      });
+
+      setHoverImg("")
+      setIsChangingPart(false)
+    }
+    setLastSelectPart(part);
+  }
+
+
+
+  // 更新无人机
+  function handleSelectDrone(drone: Drone) {
+    if (!selectedTeam) return;
+    setHoverImg(drone.id);
+    const updatedDrones = [...selectedTeam.drones, drone];
+
+    updateTeam(selectedTeam.id, {
+      drones: updatedDrones,
+      totalScore: calculateTotalScore(updatedDrones, selectedTeam.tacticCards, selectedTeam.mechs),
+      largeDroneCount: updatedDrones.filter((d) => d.type === "large").length,
+      mediumDroneCount: updatedDrones.filter((d) => d.type === "medium").length,
+      smallDroneCount: updatedDrones.filter((d) => d.type === "small").length,
+    });
+    setHoverImg("")
+    setIsChangingPart(false);
+  }
+
+  function handleSelectDroneMobile(drone: Drone) {
+    if (!selectedTeam) return;
+    setHoverImg(drone.id);
+
+    if (lastSelectDrone && lastSelectDrone.id === drone.id) {
+      const updatedDrones = [...selectedTeam.drones, drone];
+
+      updateTeam(selectedTeam.id, {
+        drones: updatedDrones,
+        totalScore: calculateTotalScore(updatedDrones, selectedTeam.tacticCards, selectedTeam.mechs),
+        largeDroneCount: updatedDrones.filter((d) => d.type === "large").length,
+        mediumDroneCount: updatedDrones.filter((d) => d.type === "medium").length,
+        smallDroneCount: updatedDrones.filter((d) => d.type === "small").length,
+      });
+      setIsChangingPart(false);
+      setHoverImg("")
+
+    }
+    setLastSelectDrone(drone);
+  }
+
+  // 更新战术卡
+  function handleSelectTacticCard(tacticCard: TacticCard) {
+    if (!selectedTeam) return;
+    setHoverImg(tacticCard.id);
+    const updatedTacticCards = [...(selectedTeam.tacticCards ?? []), tacticCard];
+
+    updateTeam(selectedTeam.id, {
+      tacticCards: updatedTacticCards,
+      totalScore: calculateTotalScore(selectedTeam.drones, updatedTacticCards, selectedTeam.mechs),
+    });
+    setHoverImg("")
+    setIsChangingPart(false);
+  }
+
+  function handleSelectTacticCardMobile(tacticCard: TacticCard) {
+    if (!selectedTeam) return;
+    setHoverImg(tacticCard.id);
+    if (lastSelectTacticCard && lastSelectTacticCard.id === tacticCard.id) {
+      const updatedTacticCards = [...(selectedTeam.tacticCards ?? []), tacticCard];
+
+      updateTeam(selectedTeam.id, {
+        tacticCards: updatedTacticCards,
+        totalScore: calculateTotalScore(selectedTeam.drones, updatedTacticCards, selectedTeam.mechs),
+      });
+      setIsChangingPart(false);
+      setHoverImg("");
+
+    }
+
+    setLastSelectTacticCard(tacticCard);
+  }
+
+  // 更新驾驶员
+  function handleSelectPilot(pilot: Pilot) {
+    if (!selectedTeam || !selectedMechId) return;
+    setHoverImg(pilot.id);
+    const updatedMechs = selectedTeam.mechs.map((mech) =>
+      mech.id === selectedMechId ? { ...mech, pilot } : mech
+    );
+
+    updateTeam(selectedTeam.id, {
+      mechs: updatedMechs,
+      totalScore: calculateTotalScore(selectedTeam.drones, selectedTeam.tacticCards, updatedMechs),
+    });
+    setHoverImg("");
+
+    setIsChangingPart(false);
+  }
+
+  function handleSelectPilotMobile(pilot: Pilot) {
+    if (!selectedTeam || !selectedMechId) return;
+    setHoverImg(pilot.id);
+
+    if (lastSelectPilot !== undefined && lastSelectPilot.id === pilot.id) {
+      const updatedMechs = selectedTeam.mechs.map((mech) =>
+        mech.id === selectedMechId ? { ...mech, pilot } : mech
+      );
+      updateTeam(selectedTeam.id, {
+        mechs: updatedMechs,
+        totalScore: calculateTotalScore(selectedTeam.drones, selectedTeam.tacticCards, updatedMechs),
+      });
+      setHoverImg("");
+      setIsChangingPart(false);
+    }
+    setLastSelectPilot(pilot);
+  }
+
   // ------------------ 渲染 ------------------
   return (
     <div className="fixed inset-0 bg-gray-100 flex overflow-hidden">
@@ -509,10 +670,7 @@ export default function App() {
           }}
         >
 
-
-
-
-          <MechList
+          {!isMobileOrTablet&&<MechList
             team={selectedTeam}
             selectedMechId={selectedMechId}
             onSelectMech={setSelectedMechId}
@@ -531,93 +689,166 @@ export default function App() {
             mechImgSrc={mechImgsrc}
             onSetIsChangingPart={(changingPart) => { setIsChangingPart(changingPart) }}
             onSelectDrone={(d) => { setLastPartId(d.id) }}
+          />}
 
-          />
+          {isMobileOrTablet&& <MechListMobile
+            team={selectedTeam}
+            selectedMechId={selectedMechId}
+            onSelectMech={setSelectedMechId}
+            onSelectPartType={setSelectedPartType}
+            onUpdateTeam={updateTeam}
+            onSetViewMode={handleSetViewMode}
+            translations={t}
+            partTypeNames={typePartNames}
+            imgsrc={imageSrc}
+            localImgsrc={localImgsrc}
+            lang={lang}
+            tabsrc={tabSrc}
+            mobileOrTablet={isMobileOrTablet}
+            setLanguage={setLang}
+            championMode={isChampionMode}
+            mechImgSrc={mechImgsrc}
+            onSetIsChangingPart={(changingPart) => { setIsChangingPart(changingPart) }}
+            onSelectDrone={(d) => { setLastPartId(d.id) }}
+          />}
         </div>
 
-        {/* 右侧面板/弹窗 */}
+        {/* 上方面板/弹窗 */}
         <AnimatePresence>
           {isMobileOrTablet ? (
-            // 移动端仍然使用 SlidePanel
-            <SlidePanel
-              collapsed={collapsedRight}
-              onClose={() => setCollapsedRight(true)}
-              position="right"
-              width="80%"
-              height="100%"
-              panelBgColor="#F9FAFB"
-            >
-              <PartSelectorMobile
 
-                viewMode={viewMode}
-                team={selectedTeam}
-                selectedPartType={selectedPartType}
-                parts={factionParts}
-                drones={factionDrones}
-                pilots={factionPilots}
-                translations={t}
-                tacticCards={allTacticCards}
-                partTypeNames={typePartNames}
-                imgsrc={imageSrc}
-                tabsrc={tabSrc}
-                tabSmallSrc={tabSmallSrc}
-                onSetHoverImg={handleHoverImg}
-                onSetShowHoverImg={setCompareMode}
-                showHoverImg={compareMode}
-                mobileOrTablet={isMobileOrTablet}
-                lastScore={lastScore}
-                lastPartId={lastPartId}
-                onSelectPart={(part) => {
-                  if (selectedTeam && selectedMechId) {
-                    const updatedMechs = selectedTeam.mechs.map(mech =>
-                      mech.id === selectedMechId
-                        ? { ...mech, parts: { ...mech.parts, [selectedPartType]: part } }
-                        : mech
-                    );
-                    updateTeam(selectedTeam.id, {
-                      mechs: updatedMechs,
-                      totalScore: calculateTotalScore(selectedTeam.drones, selectedTeam.tacticCards, updatedMechs),
-                    });
-                  }
-                  setCollapsedRight(true);
-                }}
-                onSelectDrone={(drone) => {
-                  if (selectedTeam) {
-                    const updatedDrones = [...selectedTeam.drones, drone];
-                    updateTeam(selectedTeam.id, {
-                      drones: updatedDrones,
-                      totalScore: calculateTotalScore(updatedDrones, selectedTeam.tacticCards, selectedTeam.mechs),
-                      largeDroneCount: updatedDrones.filter(d => d.type === 'large').length,
-                      mediumDroneCount: updatedDrones.filter(d => d.type === 'medium').length,
-                      smallDroneCount: updatedDrones.filter(d => d.type === 'small').length,
-                    });
-                  }
-                  setCollapsedRight(true);
-                }}
-                onSelectTacticCard={(tacticCard) => {
-                  if (selectedTeam) {
-                    const updatedTacticCards = [...(selectedTeam.tacticCards ?? []), tacticCard];
-                    updateTeam(selectedTeam.id, {
-                      tacticCards: updatedTacticCards,
-                      totalScore: calculateTotalScore(selectedTeam.drones, updatedTacticCards, selectedTeam.mechs),
-                    });
-                  }
-                  setCollapsedRight(true);
-                }}
-                onSelectPilot={(pilot) => {
-                  if (selectedTeam && selectedMechId) {
-                    const updatedMechs = selectedTeam.mechs.map(mech =>
-                      mech.id === selectedMechId ? { ...mech, pilot } : mech
-                    );
-                    updateTeam(selectedTeam.id, {
-                      mechs: updatedMechs,
-                      totalScore: calculateTotalScore(selectedTeam.drones, selectedTeam.tacticCards, updatedMechs),
-                    });
-                  }
-                  setCollapsedRight(true);
-                }}
-              />
-            </SlidePanel>
+            <AnimatePresence>
+              {isChangingPart && (
+                <>
+                  {/* 遮罩 */}
+                  <motion.div
+                    className="fixed inset-0 z-50 flex items-center justify-center"
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    exit={{ opacity: 0 }}
+                    transition={{ duration: 0.25, ease: "easeOut" }}
+                    style={{ backgroundColor: "rgba(0,0,0,0.5)" }}
+                    onClick={() => setIsChangingPart(false)}
+                  >
+
+                    {/* 弹窗主体 */}
+                    <motion.div
+                      className="relative flex rounded-lg overflow-hidden shadow-xl"
+                      initial={{ opacity: 0 }}
+                      animate={{ opacity: 1 }}
+                      exit={{ opacity: 0 }}
+                      transition={{ duration: 0.25, ease: "easeOut" }}
+                      style={{
+                        height: "100%",
+                        width: "100%",
+                        backgroundColor: "rgba(255,255,255,0.5)",
+                        backdropFilter: "blur(16px)",
+                        WebkitBackdropFilter: "blur(16px)",
+                        border: "1px solid rgba(255,255,255,0.1)",
+                        display: "flex",
+                        flexDirection: "column",
+                      }}
+                      onClick={(e) => e.stopPropagation()}
+                    >
+                      {/* 左上角关闭按钮 */}
+                      <button
+                        onClick={() => {setIsChangingPart(false);setHoverImg("")}}
+                        style={{
+                          position: "absolute",
+                          zIndex: 20,
+                          padding: "1vh 1vw",
+                          backgroundColor: "rgba(0,0,0,0.6)",
+                          color: "white",
+                          borderRadius: "0.375rem",
+                          fontWeight: "bold",
+                        }}
+                      >
+                        <ChevronDown />
+                      </button>
+
+                      {viewMode === "parts" && (
+                        <PartComparePanelMobile
+                          lastPartId={lastPartId}
+                          hoverId={hoverImg}
+                          factionParts={factionParts}
+                          imageSrc={imageSrc}
+                          compareMode={compareMode}
+                          viewMode={viewMode}
+                        />
+                      )}
+
+
+                      {viewMode === "pilots" &&
+                        <PilotComparePanelMobile
+                          lastPilotId={lastPartId}
+                          hoverId={hoverImg}
+                          factionPilots={factionPilots}
+                          imageSrc={imageSrc}
+                          compareMode={compareMode}
+                          viewMode={viewMode}
+                          tabsrc={tabSrc}
+                          lang={lang}
+                        />}
+
+                        {(viewMode === "drones") &&
+                        <DroneComparePanelMobile
+                          lastPartId={lastPartId}
+                          hoverId={hoverImg}
+                          factionDrones={factionDrones}
+                          imageSrc={imageSrc}
+                          compareMode={compareMode}
+                          viewMode={viewMode}
+                        />}
+
+                      {(viewMode === "tacticCards") &&
+                        <TacticCardComparePanelMobile
+                          lastPartId={lastPartId}
+                          hoverId={hoverImg}
+                          tacticCards={allTacticCards}
+                          imageSrc={imageSrc}
+                          compareMode={compareMode}
+                          viewMode={viewMode}
+                        />}
+
+                      {/* 下侧 PartSelector */}
+                      <div
+                        className="flex-1 relative"
+                        style={{
+                          backgroundColor: "white",
+                          overflowY: "auto",
+                        }}
+                      >
+                        <PartSelectorMobile
+                          viewMode={viewMode}
+                          team={selectedTeam}
+                          selectedPartType={selectedPartType}
+                          parts={factionParts}
+                          drones={factionDrones}
+                          pilots={factionPilots}
+                          translations={t}
+                          tacticCards={allTacticCards}
+                          partTypeNames={typePartNames}
+                          imgsrc={imageSrc}
+                          tabsrc={tabSrc}
+                          onSetHoverImg={handleHoverImg}
+                          onSetShowHoverImg={setCompareMode}
+                          showHoverImg={compareMode}
+                          mobileOrTablet={false}
+                          lastScore={lastScore}
+                          lastPartId={lastPartId}
+                          onSelectPart={handleSelectPartMobile}
+                          onSelectDrone={handleSelectDroneMobile}
+                          onSelectTacticCard={handleSelectTacticCardMobile}
+                          onSelectPilot={handleSelectPilotMobile}
+                          tabSmallSrc={tabSmallSrc}
+                        />
+                      </div>
+                    </motion.div>
+
+                  </motion.div>
+                </>
+              )}
+            </AnimatePresence>
           ) : (
             // 桌面端：Dialog 弹窗
             <AnimatePresence>
@@ -726,59 +957,10 @@ export default function App() {
                           lastScore={lastScore}
                           lastPartId={lastPartId}
 
-                          onSelectPart={(part) => {
-                            if (selectedTeam && selectedMechId) {
-                              const updatedMechs = selectedTeam.mechs.map((mech) =>
-                                mech.id === selectedMechId
-                                  ? { ...mech, parts: { ...mech.parts, [selectedPartType]: part } }
-                                  : mech
-                              );
-                              updateTeam(selectedTeam.id, {
-                                mechs: updatedMechs,
-                                totalScore: calculateTotalScore(
-                                  selectedTeam.drones,
-                                  selectedTeam.tacticCards,
-                                  updatedMechs
-                                ),
-                              });
-                            }
-                            setIsChangingPart(false);
-                          }}
-                          onSelectDrone={(drone) => {
-                            if (selectedTeam) {
-                              const updatedDrones = [...selectedTeam.drones, drone];
-                              updateTeam(selectedTeam.id, {
-                                drones: updatedDrones,
-                                totalScore: calculateTotalScore(updatedDrones, selectedTeam.tacticCards, selectedTeam.mechs),
-                                largeDroneCount: updatedDrones.filter((d) => d.type === "large").length,
-                                mediumDroneCount: updatedDrones.filter((d) => d.type === "medium").length,
-                                smallDroneCount: updatedDrones.filter((d) => d.type === "small").length,
-                              });
-                            }
-                            setIsChangingPart(false);
-                          }}
-                          onSelectTacticCard={(tacticCard) => {
-                            if (selectedTeam) {
-                              const updatedTacticCards = [...(selectedTeam.tacticCards ?? []), tacticCard];
-                              updateTeam(selectedTeam.id, {
-                                tacticCards: updatedTacticCards,
-                                totalScore: calculateTotalScore(selectedTeam.drones, updatedTacticCards, selectedTeam.mechs),
-                              });
-                            }
-                            setIsChangingPart(false);
-                          }}
-                          onSelectPilot={(pilot) => {
-                            if (selectedTeam && selectedMechId) {
-                              const updatedMechs = selectedTeam.mechs.map((mech) =>
-                                mech.id === selectedMechId ? { ...mech, pilot } : mech
-                              );
-                              updateTeam(selectedTeam.id, {
-                                mechs: updatedMechs,
-                                totalScore: calculateTotalScore(selectedTeam.drones, selectedTeam.tacticCards, updatedMechs),
-                              });
-                            }
-                            setIsChangingPart(false);
-                          }}
+                          onSelectPart={handleSelectPart}
+                          onSelectDrone={handleSelectDrone}
+                          onSelectTacticCard={handleSelectTacticCard}
+                          onSelectPilot={handleSelectPilot}
                         />
                       </div>
                     </motion.div>

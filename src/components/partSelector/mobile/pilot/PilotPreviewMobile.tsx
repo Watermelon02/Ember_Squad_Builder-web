@@ -1,27 +1,31 @@
 // PilotPreview.tsx
 import React from "react";
-import { Pilot } from "../../types";
-import { Button } from "../ui/button";
-import PilotStatsColumn from "../custom/PilotStatusColumn";
+import { Pilot } from "../../../../types";
+import { Button } from "../../../ui/button";
 import { AnimatePresence, motion } from "framer-motion";
+import PilotStatsColumnMobile from "./PilotStatusColumnMobile";
 
-interface PilotPreviewProps {
+interface PilotPreviewMobileProps {
   pilotId: string;
   comparePilot?: Pilot;
   factionPilots: Pilot[];
   imageSrc: string;
   tabSrc: string;
   lang?: string;
+  compareMode: boolean;
+  leftPreviewExist: boolean;
 }
 
-export default function PilotPreview({
+export default function PilotPreviewMobile({
   pilotId,
   comparePilot,
   factionPilots,
   imageSrc,
   tabSrc,
   lang = "cn",
-}: PilotPreviewProps) {
+  compareMode,
+  leftPreviewExist
+}: PilotPreviewMobileProps) {
   const pilot: Pilot | undefined = factionPilots.find((p) => p.id === pilotId);
 
   if (!pilotId || !pilot) return <div style={{ width: "100%", height: "25vw" }} />;
@@ -29,20 +33,29 @@ export default function PilotPreview({
   return (
     <div
       style={{
-        width: "25vw",
-        flex: 1,
-        display: "flex",
-        flexDirection: "column",
         overflowY: "auto",
+        width: compareMode ? leftPreviewExist ? "50%" : "100%" : "100%",
         position: "relative",
+        scrollbarWidth: "none",
+        msOverflowStyle: "none",
+        paddingLeft: "1vw",
+        paddingRight: "1vw"
       }}
     >
+      <style>
+        {`
+      div::-webkit-scrollbar {
+        display: none;
+      }
+    `}
+      </style>
       {/* SCORE BUTTON */}
       <Button
         variant="secondary"
         style={{
           position: "absolute",
-          marginTop: "0.3rem",
+          top: "0vh",
+          right: "0vw",
           height: "3vh",
           width: "3vh",
           fontSize: "2vh",
@@ -69,12 +82,14 @@ export default function PilotPreview({
 
         {/* PILOT IMAGE */}
         <motion.img
-          src={`${imageSrc}/${pilotId}.png`}
+          src={`${tabSrc}/${pilotId}.png`}
           alt={pilot.name}
           style={{
-            width: "100%",
+            width: compareMode ? "80%" : "40%",
             objectFit: "contain",
             borderRadius: 8,
+            display: "block",     // ★ 必须，让图片变 block
+            margin: "0 auto",     // ★ 水平居中
           }}
           key={pilot.id}
           initial={{ opacity: 0, y: 100 }}
@@ -88,8 +103,8 @@ export default function PilotPreview({
       <div
         style={{
           width: "100%",
-          height: "6vh",
-          padding: "0.4vh 0.5vw",
+          height: "7vh",
+          padding: "0.8vh 3vw",
           marginTop: "1vh",
           marginBottom: "1vh",
           backdropFilter: "blur(16px)",
@@ -105,30 +120,34 @@ export default function PilotPreview({
 
           color: "white",
           zIndex: 2,
+
+          overflowY: "auto",          // ← ★★ 关键代码 ★★
+          scrollbarWidth: "thin",     // Firefox
         }}
       >
-
         <span
           style={{
-            fontSize: lang === "en" ? "1.2vh" : "0.9vw",
+            fontSize: lang === "en" ? "1.2vh" : "3vw",
             color: "white",
             textShadow: `
-              -1px -1px 1px #000,
-               1px -1px 1px #000,
-              -1px  1px 1px #000,
-               1px  1px 1px #000
-            `,
+        -1px -1px 1px #000,
+         1px -1px 1px #000,
+        -1px  1px 1px #000,
+         1px  1px 1px #000
+      `,
           }}
         >
           {pilot.traitDescription}
         </span>
       </div>
 
+
       {/* 📊 柱状图 */}
-      <PilotStatsColumn
+      <PilotStatsColumnMobile
         pilot={pilot}
         comparePilot={comparePilot}
         tabsrc={tabSrc}
+        compareMode={compareMode}
       />
     </div>
   );

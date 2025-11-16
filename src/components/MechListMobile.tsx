@@ -22,7 +22,7 @@ import { MechStatusMobile } from './custom/MechStatusMobile';
 import * as htmlToImage from "html-to-image";
 import PilotStats from './custom/PilotStats';
 
-interface MechListProps {
+interface MechListMobileProps {
   team?: Team;
   selectedMechId: string;
   onSelectMech: (mechId: string) => void;
@@ -39,7 +39,7 @@ interface MechListProps {
   mechImgSrc: string,
 }
 
-export function MechList({
+export function MechListMobile({
   team,
   selectedMechId,
   onSelectMech,
@@ -52,7 +52,7 @@ export function MechList({
   imgsrc, tabsrc,
   localImgsrc, lang, mobileOrTablet, setLanguage, championMode,
   mechImgSrc, onSetIsChangingPart,
-}: MechListProps) {
+}: MechListMobileProps) {
   const [editingMechId, setEditingMechId] = useState<string>('');
   // 用一个对象记录每个无人机的页码
   const [dronePages, setDronePages] = React.useState<{ [index: number]: number }>({});
@@ -1683,12 +1683,15 @@ export function MechList({
                         height="16vh"
                         scaleOverrides={{ chasis: 1, backpack: 2 }}
                         cropLeftPercent={13}
-                        defaultParts={{
+                        defaultParts={team.faction === "RDL" ? {
                           leftHand: rdlLeftHand[0],
                           torso: rdlTorso[0],
                           rightHand: rdlRightHand[0],
                           chasis: rdlChasis[0],
                           backpack: rdlBackpack[0],
+                        } : {
+                          leftHand: unLeftHand[0],
+                          torso: unTorso[0], rightHand: unRightHand[2], chasis: unChasis[0], backpack: unBackpack[0],
                         }}
                         championMode={championMode}
                         style={{ flex: '1' }}
@@ -1811,7 +1814,7 @@ export function MechList({
                               background: 'rgba(255, 255, 255, 0.1)',
                               backdropFilter: 'blur(8px)',
                               WebkitBackdropFilter: 'blur(8px)',
-                              boxShadow: '0 0 12px rgba(0,0,0,0.2)',color: 'white', textShadow: '0 0 4px rgba(0,0,0,0.7)', zIndex: 2
+                              boxShadow: '0 0 12px rgba(0,0,0,0.2)', color: 'white', textShadow: '0 0 4px rgba(0,0,0,0.7)', zIndex: 2
                             }}
                           >
                             {mech.pilot?.score}
@@ -1906,7 +1909,7 @@ export function MechList({
                         }}
                         defaultParts={{
                           leftHand: unLeftHand[0],
-                          torso: unTorso[0], rightHand: unRightHand[2], chasis: unChasis[0], backpack: unBackpack[0],
+                          torso: unTorso[0], rightHand: unRightHand[3], chasis: unChasis[0], backpack: unBackpack[0],
                         }}
                         championMode={championMode}
                       />
