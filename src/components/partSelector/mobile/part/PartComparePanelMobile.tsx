@@ -9,6 +9,8 @@ interface PartComparePanelMobileProps {
     imageSrc: string;
     compareMode: boolean;
     viewMode: string;
+    showKeyword:boolean;
+    lang:string;
 }
 export default function PartComparePanelMobile({
     lastPartId,
@@ -17,6 +19,8 @@ export default function PartComparePanelMobile({
     imageSrc,
     compareMode,
     viewMode,
+    showKeyword,
+    lang
 }: PartComparePanelMobileProps) {
     const leftPart = factionParts.find((p) => p.id === lastPartId);
     return (
@@ -40,7 +44,8 @@ export default function PartComparePanelMobile({
                 imageSrc={imageSrc}
                 compareMode={compareMode}
                 leftPreviewExist={true}
-
+                showKeyword= {showKeyword}
+                lang={lang}
             />}
 
             {/* 右侧：悬浮预览 */}
@@ -50,6 +55,8 @@ export default function PartComparePanelMobile({
                 imageSrc={imageSrc}
                 compareMode={compareMode}
                 leftPreviewExist={lastPartId !== ""}
+                showKeyword= {showKeyword}
+                lang={lang}
             />
         </div>
     );

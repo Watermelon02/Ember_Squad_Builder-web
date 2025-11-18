@@ -1,5 +1,5 @@
 // PartComparePanel.jsx
-import { Part } from "../../types";
+import { Part } from "../../../types";
 import PartPreview from "./PartPreview";
 interface PartComparePanelProps {
     lastPartId: string;
@@ -8,6 +8,7 @@ interface PartComparePanelProps {
     imageSrc: string;
     compareMode: boolean;
     viewMode: string;
+    showKeyword:boolean;
 }
 export default function PartComparePanel({
     lastPartId,
@@ -16,7 +17,7 @@ export default function PartComparePanel({
     imageSrc,
     compareMode,
     viewMode,
-    
+    showKeyword
 }: PartComparePanelProps) {
     return (
         <div
@@ -37,7 +38,7 @@ export default function PartComparePanel({
                 factionParts={factionParts}
                 imageSrc={imageSrc}
                 compareMode={compareMode}
-                
+                showKeyword={showKeyword}
             />}
 
             {/* 右侧：悬浮预览 */}
@@ -46,6 +47,7 @@ export default function PartComparePanel({
                 factionParts={factionParts}
                 imageSrc={imageSrc}
                 compareMode={compareMode}
+                showKeyword={showKeyword}
             />
         </div>
     );

@@ -1,7 +1,6 @@
 // DroneComparePanel.jsx
-import { Drone, Part } from "../../../types";
+import { Drone } from "../../../types";
 import DronePreview from "./DronePreview";
-import PartPreview from "./PartPreview";
 interface DroneComparePanelProps {
     lastPartId: string;
     hoverId: string;
@@ -9,6 +8,7 @@ interface DroneComparePanelProps {
     imageSrc: string;
     compareMode: boolean;
     viewMode: string;
+    showKeyword: boolean;
 }
 export default function DroneComparePanel({
     lastPartId,
@@ -17,13 +17,15 @@ export default function DroneComparePanel({
     imageSrc,
     compareMode,
     viewMode,
+    showKeyword
 }: DroneComparePanelProps) {
     return (
         <div
             className="flex-shrink-0 flex flex-row gap-4"
             style={{
-                width: (compareMode&&lastPartId!=="")?"60vw":"30vw",
+                width: (compareMode && lastPartId !== "") ? "60vw" : "30vw",
                 padding: "0.5rem",
+                height: "100vh",
                 backgroundColor: "rgba(255,255,255,0.3)",
                 borderRight: "1px solid rgba(255,255,255,0.1)",
                 borderRadius: "0.375rem 0 0 0.375rem",
@@ -32,20 +34,21 @@ export default function DroneComparePanel({
             }}
         >
             {/* 左侧：当前装备 */}
-            {(compareMode&&lastPartId!=="") && <DronePreview
+            {(compareMode && lastPartId !== "") && <DronePreview
                 droneId={lastPartId}
                 factionDrones={factionDrones}
                 imageSrc={imageSrc}
                 compareMode={compareMode}
-
+                showKeyword={showKeyword}
             />}
 
             {/* 右侧：悬浮预览 */}
             <DronePreview
-                droneId={(!compareMode&&hoverId==="")?lastPartId:hoverId}
+                droneId={(!compareMode && hoverId === "") ? lastPartId : hoverId}
                 factionDrones={factionDrones}
                 imageSrc={imageSrc}
                 compareMode={compareMode}
+                showKeyword={showKeyword}
             />
         </div>
     );

@@ -75,7 +75,7 @@ export const translations = {
     t91: "图片含抛射物",
     t92: "对比", t93: "不可参赛", t94: "空",
     t95: "TTS指令", t96: "生成TTS指令，可以一键导入Tabletop Simulator中使用", t97: "TTS指令已复制到剪贴板。进入TTS的黑曜协议Mod后，先按 Enter 打开聊天框，然后粘贴指令（Ctrl+V）并按回车，即可导入小队:",
-    t98: "状态", t99: "设置", t100: "删除", t101: "上一页", t102: "下一页", t103: "为"
+    t98: "状态", t99: "设置", t100: "删除", t101: "上一页", t102: "下一页", t103: "为",t104:"词条",t105:"切换小队/选择派系"
   },
 
   en: {
@@ -166,7 +166,7 @@ export const translations = {
     t97: "The TTS command has been copied to your clipboard. In the TTS Obsidian Protocol mod, press Enter to open the chat box, paste the command (Ctrl+V), and press Enter again to import the squad:",
     t98: "Status", t99: "Setting", t100: "delete", t101: "Previous Page",
     t102: "Next Page",
-    t103: "Set for",
+    t103: "Set for",t104:"Keyword",t105:"Switch Squad / Choose Faction"
 
   }, jp: {
     t1: "データがクリップボードにコピーされました！",
@@ -255,6 +255,7 @@ export const translations = {
     t101: "前のページ",
     t102: "次のページ",
     t103: "設定対象：",
+    t104:"キーワード",t105:"部隊を切り替え / 派閥を選択"
 
   },
 

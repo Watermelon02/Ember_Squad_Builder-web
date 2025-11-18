@@ -21,6 +21,8 @@ interface ListPanelMobileProps {
 
   // 内部内容（不固定，比如 PartList / PilotList）
   children: React.ReactNode;
+  showKeyword?: boolean;
+  onSetShowKeyword?: (show: boolean) => void;
 }
 
 const ListPanelMobile: React.FC<ListPanelMobileProps> = ({
@@ -35,10 +37,20 @@ const ListPanelMobile: React.FC<ListPanelMobileProps> = ({
   mobileOrTablet,
   translations,
   children,
+  showKeyword,
+  onSetShowKeyword
 }) => {
   return (
-    <div className="min-h-0 flex flex-col">
-      <div className="space-y-4" style={{ paddingTop:"1vh",paddingLeft: "3vw", paddingRight: "2vw" }}>
+    <div className="min-h-0 flex flex-col" style={{ height: '100%' }}>
+      <div className="space-y-4" style={{
+        paddingTop: "1vh",
+        paddingLeft: "3vw", paddingRight: "2vw", position: 'sticky', top: 0, zIndex: 10,
+        backgroundColor: "rgb(0,0,0,0.05)",
+        backdropFilter: "blur(16px)",
+        WebkitBackdropFilter: "blur(16px)",
+        backgroundSize: "150% auto",
+        backgroundPosition: "center center"
+      }}>
 
         {/* 排序 / 筛选栏 */}
         <div
@@ -54,7 +66,7 @@ const ListPanelMobile: React.FC<ListPanelMobileProps> = ({
                 setSortOrder(value)
               }
             >
-              <SelectTrigger style={{height:"4vh"}}>
+              <SelectTrigger style={{ height: "4vh",backgroundColor: "rgb(255,255,255,1)",}}>
                 <SelectValue />
               </SelectTrigger>
               <SelectContent>
@@ -81,6 +93,21 @@ const ListPanelMobile: React.FC<ListPanelMobileProps> = ({
               </div>
             )}
 
+
+            {showKeyword !== undefined && <div className="flex items-center space-x-2">
+              <input
+                type="checkbox"
+                id="show-keyword"
+                checked={showKeyword}
+                className="h-4 w-4"
+                onChange={(e) => { if (onSetShowKeyword !== undefined) onSetShowKeyword(e.target.checked) }}
+                style={{ accentColor: "#ffffff" }} // 灰色勾选
+              />
+              <label htmlFor="show-keyword" className="text-sm">
+                {translations.t104}
+              </label>
+            </div>}
+
             {/* 星环过滤 */}
             <div className="flex items-center space-x-2">
               <input
@@ -101,7 +128,10 @@ const ListPanelMobile: React.FC<ListPanelMobileProps> = ({
       </div>
 
       {/* 内部列表内容区域（灵活） */}
-      <div className="flex-1 min-h-0 ">{children}</div>
+      <div className="flex-1 min-h-0 " style={{
+        backgroundColor: "rgba(0,0,0,0.05)",
+
+      }}>{children}</div>
     </div>
   );
 };

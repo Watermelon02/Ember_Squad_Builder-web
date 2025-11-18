@@ -4,7 +4,7 @@ import { Input } from '../../ui/input';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '../../ui/select';
 import { Badge } from '../../ui/badge';
 import { Label } from '../../ui/label';
-import { Part, Drone, Pilot, Team, TacticCard} from '../../../types';
+import { Part, Drone, Pilot, Team, TacticCard } from '../../../types';
 import { AnimatePresence, motion } from 'framer-motion';
 
 interface PartSelectorProps {
@@ -22,12 +22,15 @@ interface PartSelectorProps {
   translations: any,
   partTypeNames: any,
   imgsrc: string, tabsrc: string,
+  showKeyword:boolean,
   onSetHoverImg: (img: string | null) => void;
   onSetShowHoverImg: (show: boolean) => void;
+  onSetShowKeyword: (show: boolean) => void;
   showHoverImg: boolean;
   mobileOrTablet: boolean;
   lastScore: number;
   lastPartId: string;
+  lang: string;
 }
 
 export function PartSelector({
@@ -42,8 +45,10 @@ export function PartSelector({
   onSelectDrone,
   onSelectPilot,
   onSelectTacticCard,
+  onSetShowKeyword,
   translations,
-  imgsrc, tabsrc, onSetHoverImg, onSetShowHoverImg, showHoverImg, mobileOrTablet, lastScore, lastPartId
+  imgsrc, tabsrc, onSetHoverImg, onSetShowHoverImg, showHoverImg, mobileOrTablet, lastScore, lastPartId,
+  lang,showKeyword
 }: PartSelectorProps) {
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedTags, setSelectedTags] = useState<string[]>([]);
@@ -173,7 +178,7 @@ export function PartSelector({
     return filtered.sort((a, b) => {
       return sortOrder === 'score_desc' ? b.score - a.score : a.score - b.score;
     });
-  }, [pilots, team, searchQuery, containPD]);
+  }, [pilots, team, searchQuery, containPD, sortOrder]);
 
 
   return <div className="flex flex-col h-full min-h-0" >
@@ -196,7 +201,7 @@ export function PartSelector({
             <div className="flex items-center justify-between space-x-4">
               {/* 排序选择 */}
               <div className="flex items-center space-x-2">
-                <Label>{translations.t36}</Label>
+
                 <Select
                   value={sortOrder}
                   onValueChange={(value: 'score_desc' | 'score_asc') => setSortOrder(value)}
@@ -211,34 +216,48 @@ export function PartSelector({
                 </Select>
               </div>
               {/* 是否显示卡片预览 */}
-              <div>
-                {!mobileOrTablet && <div className="flex items-center space-x-2">
+              <div className="flex gap-1">
+                <div className="flex flex-col items-center space-x-2">
                   <input
                     type="checkbox"
                     id="show-hover-img"
                     checked={showHoverImg}
                     onChange={(e) => onSetShowHoverImg(e.target.checked)}
-                    className="h-4 w-4"
+
                     style={{ accentColor: "#ffffff" }} // 灰色勾选
                   />
-                  <label htmlFor="show-hover-img" className="text-sm">
+                  <label htmlFor="show-hover-img" style={{ fontSize: lang === "en" ? "0.6vw" : "1vw" }}>
                     {translations.t92}
                   </label>
-                </div>}
+                </div>
+
+                <div className="flex flex-col items-center space-x-2">
+                  <input
+                    type="checkbox"
+                    id="show-keyword"
+                    checked={showKeyword}
+                    onChange={(e) => onSetShowKeyword(e.target.checked)}
+
+                    style={{ accentColor: "#ffffff" }} // 灰色勾选
+                  />
+                  <label htmlFor="show-keyword" style={{ fontSize: lang === "en" ? "0.6vw" : "1vw" }}>
+                    {translations.t104}
+                  </label>
+                </div>
 
                 {/* 星环选择 */}
-                <div className="flex items-center space-x-2">
+                <div className="flex flex-col items-center space-x-2">
                   <input
                     type="checkbox"
                     id="contain-pd"
                     checked={containPD}
                     onChange={(e) => setContainPD(e.target.checked)}
-                    className="h-4 w-4"
+
                     style={{
                       accentColor: "#ffffff",   // 勾选颜色为灰色
                     }}
                   />
-                  <label htmlFor="contain-pd" className="text-sm">
+                  <label htmlFor="contain-pd" style={{ fontSize: lang === "en" ? "0.6vw" : "1vw" }}>
                     {translations.t67}
                   </label>
                 </div>
@@ -460,7 +479,7 @@ export function PartSelector({
             <div className="flex items-center justify-between space-x-4">
               {/* 排序选择 */}
               <div className="flex items-center space-x-2">
-                <Label>{translations.t36}</Label>
+
                 <Select
                   value={sortOrder}
                   onValueChange={(value: 'score_desc' | 'score_asc') => setSortOrder(value)}
@@ -475,37 +494,40 @@ export function PartSelector({
                 </Select>
               </div>
               <div>
-                {/* 是否显示卡片预览 */}
-                {!mobileOrTablet && <div className="flex items-center space-x-2">
-                  <input
-                    type="checkbox"
-                    id="show-hover-img"
-                    checked={showHoverImg}
-                    onChange={(e) => onSetShowHoverImg(e.target.checked)}
-                    className="h-4 w-4"
-                    style={{ accentColor: "#ffffff" }} // 灰色勾选
-                  />
-                  <label htmlFor="show-hover-img" className="text-sm">
-                    {translations.t92}
-                  </label>
-                </div>}
+                <div className="flex gap-1">
+                  {/* 是否显示卡片预览 */}
+                  <div className="flex flex-col items-center space-x-2">
+                    <input
+                      type="checkbox"
+                      id="show-hover-img"
+                      checked={showHoverImg}
+                      onChange={(e) => onSetShowHoverImg(e.target.checked)}
 
-                {/* 星环选择 */}
-                <div className="flex items-center space-x-2">
-                  <input
-                    type="checkbox"
-                    id="contain-pd"
-                    checked={containPD}
-                    onChange={(e) => setContainPD(e.target.checked)}
-                    className="h-4 w-4"
-                    style={{
-                      accentColor: "#ffffff",   // 勾选颜色为灰色
-                      backgroundColor: "#ffffff" // 背景白色
-                    }}
-                  />
-                  <label htmlFor="contain-pd" className="text-sm">
-                    {translations.t67}
-                  </label>
+                      style={{ accentColor: "#ffffff", fontSize: lang }} // 灰色勾选
+                    />
+                    <label htmlFor="show-hover-img" style={{ fontSize: lang === "en" ? "0.6vw" : "1vw" }}>
+                      {translations.t92}
+                    </label>
+                  </div>
+
+
+                  {/* 星环选择 */}
+                  <div className="flex flex-col items-center space-x-2">
+                    <input
+                      type="checkbox"
+                      id="contain-pd"
+                      checked={containPD}
+                      onChange={(e) => setContainPD(e.target.checked)}
+
+                      style={{
+                        accentColor: "#ffffff",   // 勾选颜色为灰色
+                        backgroundColor: "#ffffff" // 背景白色
+                      }}
+                    />
+                    <label htmlFor="contain-pd" style={{ fontSize: lang === "en" ? "0.6vw" : "1vw" }}>
+                      {translations.t67}
+                    </label>
+                  </div>
                 </div>
               </div>
 
@@ -655,7 +677,7 @@ export function PartSelector({
             <div className="flex items-center justify-between space-x-4">
               {/* 排序选择 */}
               <div className="flex items-center space-x-2">
-                <Label>{translations.t36}</Label>
+
                 <Select
                   value={sortOrder}
                   onValueChange={(value: 'score_desc' | 'score_asc') => setSortOrder(value)}
@@ -670,37 +692,51 @@ export function PartSelector({
                 </Select>
               </div>
               <div>
-                {/* 是否显示卡片预览 */}
-                {!mobileOrTablet && <div className="flex items-center space-x-2">
-                  <input
-                    type="checkbox"
-                    id="show-hover-img"
-                    checked={showHoverImg}
-                    onChange={(e) => onSetShowHoverImg(e.target.checked)}
-                    className="h-4 w-4"
-                    style={{ accentColor: "#ffffff" }} // 灰色勾选
-                  />
-                  <label htmlFor="show-hover-img" className="text-sm">
-                    {translations.t92}
-                  </label>
-                </div>}
+                <div className="flex gap-1">
+                  {/* 是否显示卡片预览 */}
+                  <div className="flex flex-col items-center space-x-2">
+                    <input
+                      type="checkbox"
+                      id="show-hover-img"
+                      checked={showHoverImg}
+                      onChange={(e) => onSetShowHoverImg(e.target.checked)}
+                      style={{ accentColor: "#ffffff" }} // 灰色勾选
+                    />
+                    <label htmlFor="show-hover-img" style={{ fontSize: lang === "en" ? "0.6vw" : "1vw" }}>
+                      {translations.t92}
+                    </label>
+                  </div>
 
-                {/* 星环选择 */}
-                <div className="flex items-center space-x-2">
-                  <input
-                    type="checkbox"
-                    id="contain-pd"
-                    checked={containPD}
-                    onChange={(e) => setContainPD(e.target.checked)}
-                    className="h-4 w-4"
-                    style={{
-                      accentColor: "#ffffff",   // 勾选颜色为灰色
-                      backgroundColor: "#ffffff" // 背景白色
-                    }}
-                  />
-                  <label htmlFor="contain-pd" className="text-sm">
-                    {translations.t67}
-                  </label>
+                  <div className="flex flex-col items-center space-x-2">
+                    <input
+                      type="checkbox"
+                      id="show-keyword"
+                      checked={showKeyword}
+                      onChange={(e) => onSetShowKeyword(e.target.checked)}
+                      style={{ accentColor: "#ffffff" }} // 灰色勾选
+                    />
+                    <label htmlFor="show-keyword" style={{ fontSize: lang === "en" ? "0.6vw" : "1vw" }}>
+                      {translations.t104}
+                    </label>
+                  </div>
+
+                  {/* 星环选择 */}
+                  <div className="flex flex-col items-center space-x-2">
+                    <input
+                      type="checkbox"
+                      id="contain-pd"
+                      checked={containPD}
+                      onChange={(e) => setContainPD(e.target.checked)}
+
+                      style={{
+                        accentColor: "#ffffff",   // 勾选颜色为灰色
+                        backgroundColor: "#ffffff" // 背景白色
+                      }}
+                    />
+                    <label htmlFor="contain-pd" style={{ fontSize: lang === "en" ? "0.6vw" : "1vw" }}>
+                      {translations.t67}
+                    </label>
+                  </div>
                 </div>
               </div>
 

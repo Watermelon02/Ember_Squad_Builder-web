@@ -104,7 +104,7 @@ export function TeamList({
 
 
   return (
-    <div style={{ display: 'flex', flexDirection: 'column', flex: 1, minHeight: 0 }}>
+    <div style={{ display: 'flex', flexDirection: 'column', flex: 1, minHeight: 0,backgroundColor: 'transparent',  }}>
 
       {/* 顶部工具栏 */}
       <div

@@ -32,6 +32,9 @@ interface MobilePartSelectorMobileProps {
   mobileOrTablet: boolean;
   lastScore: number;
   lastPartId: string;
+  showKeyword?: boolean;
+  onSetShowKeyword: (show: boolean) => void;
+
 }
 
 export function PartSelectorMobile({
@@ -48,6 +51,7 @@ export function PartSelectorMobile({
   onSelectTacticCard,
   translations,
   partTypeNames,
+  onSetShowKeyword,showKeyword,
   imgsrc, tabsrc, tabSmallSrc, onSetHoverImg, onSetShowHoverImg, showHoverImg, mobileOrTablet, lastScore, lastPartId
 }: MobilePartSelectorMobileProps) {
   const [searchQuery, setSearchQuery] = useState('');
@@ -193,6 +197,8 @@ export function PartSelectorMobile({
       onSetShowHoverImg={onSetShowHoverImg}
       mobileOrTablet={mobileOrTablet}
       translations={translations}
+      showKeyword={showKeyword}
+      onSetShowKeyword={onSetShowKeyword}
     >
       <PartListMobile
         filteredParts={filteredParts}
@@ -242,6 +248,8 @@ export function PartSelectorMobile({
         onSetShowHoverImg={onSetShowHoverImg}
         mobileOrTablet={mobileOrTablet}
         translations={translations}
+        showKeyword={showKeyword}
+      onSetShowKeyword={onSetShowKeyword}
       >
         <DroneListMobile
           filteredDrones={filteredDrones}

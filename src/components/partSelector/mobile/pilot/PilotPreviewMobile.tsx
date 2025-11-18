@@ -85,7 +85,7 @@ export default function PilotPreviewMobile({
           src={`${tabSrc}/${pilotId}.png`}
           alt={pilot.name}
           style={{
-            width: compareMode ? "80%" : "40%",
+            width: compareMode ? !leftPreviewExist? "40%":"80%": "40%",
             objectFit: "contain",
             borderRadius: 8,
             display: "block",     // ★ 必须，让图片变 block
@@ -105,7 +105,7 @@ export default function PilotPreviewMobile({
           width: "100%",
           height: "7vh",
           padding: "0.8vh 3vw",
-          marginTop: "1vh",
+
           marginBottom: "1vh",
           backdropFilter: "blur(16px)",
           WebkitBackdropFilter: "blur(16px)",

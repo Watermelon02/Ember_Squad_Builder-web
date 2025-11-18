@@ -1,5 +1,5 @@
-import React, { useState, useRef } from "react";
-import { Drone, Part } from "../../../../types";
+import React, { useState, useRef, useEffect } from "react";
+import { Drone } from "../../../../types";
 import { Button } from "../../../ui/button";
 import { AnimatePresence, motion } from "framer-motion";
 
@@ -8,14 +8,21 @@ interface DronePreviewMobileProps {
   factionDrones: Drone[];
   imageSrc: string;
   compareMode?: boolean;
+  showKeyword: boolean;
+  lang:string;
 }
 
 export default function DronePreviewMobile({
   droneId,
   factionDrones,
   imageSrc,
+  showKeyword, compareMode,lang
 }: DronePreviewMobileProps) {
   const drone = factionDrones.find((dr) => { if (dr.id === droneId) { return dr } });
+  const [activeKeyword, setActiveKeyword] = useState<string | null>(null);
+  useEffect(() => {
+    setActiveKeyword(null);
+  }, [droneId]);
 
   return (
     <AnimatePresence mode="wait">
@@ -42,9 +49,9 @@ export default function DronePreviewMobile({
         </style>
 
         {!droneId ? (
-          <div style={{ width: "100%", height: "30vw" }} />
+          <div style={{ height: "30vw" }} />
         ) : (
-          <div key={`last-${droneId}`} style={{ width: "100%" }}>
+          <div key={`last-${droneId}`} >
             {/* 主图 */}
             <img
               src={`${imageSrc}/${droneId}.png`}
@@ -57,6 +64,7 @@ export default function DronePreviewMobile({
               }}
 
             />
+
             {drone && <Button
               variant="secondary"
               style={{
@@ -68,10 +76,10 @@ export default function DronePreviewMobile({
                 fontSize: "2vh",
                 color: "#fff",                       // 白色文字
                 textShadow: `
-      0 0 2px #000,                      // 黑色描边
-      0 0 4px #000,
-      0 0 6px #000
-    `,
+            0 0 2px #000,
+            0 0 4px #000,
+            0 0 6px #000
+          `,
                 backdropFilter: "blur(4px)",          // 背景模糊
                 WebkitBackdropFilter: "blur(4px)",    // Safari 支持
                 backgroundColor: "rgba(255,255,255,0.1)", // 半透明背景
@@ -84,6 +92,85 @@ export default function DronePreviewMobile({
             >
               {drone.score}
             </Button>}
+
+            {/* 词条 */}
+            {showKeyword && drone?.keywords && drone?.keywords.length > 0 && (
+              <motion.div
+                style={{
+                  position: "absolute",
+                  top: "3vh",
+                  left: "0vw",
+                  display: "flex",
+                  flexDirection: "column",
+                  gap: "0.5vh",
+                  zIndex: 20,
+                }}
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: 20 }}
+              >
+                {drone.keywords.map((kw, index) => (
+                  <Button
+                    key={index}
+                    variant="secondary"
+                    style={{
+                      fontSize: "2vw",
+                      borderRadius: "6px",
+                      width: "10vw",
+                      background: "rgba(255, 255, 255, 0.05)", // 半透明背景
+                      color: "#fff",
+                      backdropFilter: "blur(8px)", // 毛玻璃效果
+                      border: "1px solid rgba(255, 255, 255, 0.2)",
+                      transition: "all 0.2s ease",
+                      textShadow: `
+            1px 1px 1px #000, 
+            -1px -1px 1px #000, 
+            1px -1px 1px #000, 
+            -1px 1px 1px #000,
+            0 0 4px rgba(255,255,255,0.6)
+          `,
+                    }}
+                    onClick={() =>
+                      setActiveKeyword(activeKeyword === kw.name ? null : kw.name)
+                    }
+                  >
+                    {kw.name}
+                  </Button>
+                ))}
+
+                {activeKeyword && activeKeyword.length > 0 && (
+                  <motion.div
+                    initial={{ opacity: 0, scale: 0.9, y: 5 }}
+                    animate={{ opacity: 1, scale: 1, y: 0 }}
+                    exit={{ opacity: 0, scale: 0.9, y: 5 }}
+                    style={{
+                      position: "absolute",
+                      right: "-31vw",
+                      top: 0,
+                      padding: "0.6vh 0.8vw",
+                      background: "rgba(0,0,0,0.4)", // 半透明背景
+                      color: "#fff",
+                      fontSize: "1.2vh",
+                      borderRadius: "6px",
+                      width: "30vw",
+                      backdropFilter: "blur(8px)", // 毛玻璃效果
+                      border: "1px solid rgba(255,255,255,0.2)",
+                      zIndex: 30,
+                      textShadow: `
+            1px 1px 1px #000, 
+            -1px -1px 1px #000, 
+            1px -1px 1px #000, 
+            -1px 1px 1px #000,
+            0 0 4px rgba(255,255,255,0.6)
+          `,
+                    }}
+                  >
+                    {drone.keywords.find((kw) => kw.name === activeKeyword)?.value}
+                  </motion.div>
+                )}
+              </motion.div>
+            )}
+
             {/* projectile + throwIndex */}
             {drone && (
               <div

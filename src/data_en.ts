@@ -1,4 +1,5 @@
-import { Part, Drone, Pilot, Projectile,TacticCard } from '../../src/types';
+import { Part, Drone, Pilot, Projectile,TacticCard } from '../src/types';
+import { KEYWORD_LIST } from './keyword';
 
 export const rdlTorso: Part[] = [
   {
@@ -13,7 +14,8 @@ export const rdlTorso: Part[] = [
     "type": "torso",
     "description": "",
     "imgSrc": "",
-    "tags": []
+    "tags": [],
+    "keywords":[]
   },
   {
     "id": "014",
@@ -27,7 +29,8 @@ export const rdlTorso: Part[] = [
     "type": "torso",
     "description": "",
     "imgSrc": "",
-    "tags": []
+    "tags": [],
+    "keywords": [KEYWORD_LIST.en.光环, KEYWORD_LIST.en.灵活时机]
   },
   {
     "id": "015",
@@ -41,7 +44,8 @@ export const rdlTorso: Part[] = [
     "type": "torso",
     "description": "",
     "imgSrc": "",
-    "tags": []
+    "tags": [],
+    "keywords": [KEYWORD_LIST.en.击退X]
   },
   {
     "id": "016",
@@ -58,7 +62,8 @@ export const rdlTorso: Part[] = [
     "tags": [],
     "projectile": [
       "268"
-    ]
+    ],
+    "keywords": [KEYWORD_LIST.en.指定X, KEYWORD_LIST.en.直射]
   },
   {
     "id": "017",
@@ -75,7 +80,8 @@ export const rdlTorso: Part[] = [
     "tags": [],
     "projectile": [
       "268"
-    ]
+    ],
+    "keywords": [KEYWORD_LIST.en.直射]
   },
   {
     "id": "019",
@@ -92,7 +98,8 @@ export const rdlTorso: Part[] = [
     "tags": [],
     "projectile": [
       "268"
-    ]
+    ],
+    "keywords":[KEYWORD_LIST.en.直射]
   },
   {
     "id": "018",
@@ -106,7 +113,8 @@ export const rdlTorso: Part[] = [
     "type": "torso",
     "description": "",
     "imgSrc": "",
-    "tags": []
+    "tags": [],
+    "keywords": [KEYWORD_LIST.en.电子支援, KEYWORD_LIST.en.电战节点X]
   },
   {
     "id": "246",
@@ -123,7 +131,8 @@ export const rdlTorso: Part[] = [
     "tags": [],
     "projectile": [
       "268"
-    ]
+    ],
+    "keywords": [KEYWORD_LIST.en.指定X, KEYWORD_LIST.en.直射]
   },
   {
     "id": "280",
@@ -140,7 +149,8 @@ export const rdlTorso: Part[] = [
     "tags": [],
     "projectile": [
       "268"
-    ]
+    ],
+    "keywords": [KEYWORD_LIST.en.指定X, KEYWORD_LIST.en.直射]
   },
   {
     "id": "503",
@@ -157,7 +167,8 @@ export const rdlTorso: Part[] = [
     "tags": [],
     "projectile": [
       "268"
-    ]
+    ],
+    "keywords": [KEYWORD_LIST.en.直射]
   },
   {
     "id": "504",
@@ -171,7 +182,8 @@ export const rdlTorso: Part[] = [
     "type": "torso",
     "description": "",
     "imgSrc": "",
-    "tags": []
+    "tags": [],
+    "keywords": [KEYWORD_LIST.en.电子支援]
   },
   {
     "id": "505",
@@ -216,7 +228,8 @@ export const rdlChasis: Part[] = [
     "type": "chasis",
     "description": "",
     "imgSrc": "",
-    "tags": []
+    "tags": [],
+    "keywords": [KEYWORD_LIST.en.直线移动]
   },
   {
     "id": "022",
@@ -258,7 +271,8 @@ export const rdlChasis: Part[] = [
     "type": "chasis",
     "description": "",
     "imgSrc": "",
-    "tags": []
+    "tags": [],
+    "keywords": [KEYWORD_LIST.en.X姿态, KEYWORD_LIST.en.直线移动]
   },
   {
     "id": "506",
@@ -304,7 +318,8 @@ export const rdlLeftHand: Part[] = [
     "description": "",
     "imgSrc": "",
     "tags": [],
-    "throwIndex": "024"
+    "throwIndex": "024",
+    "keywords": [KEYWORD_LIST.en.震撼, KEYWORD_LIST.en.频闪武器]
   },
   {
     "id": "024",
@@ -335,7 +350,8 @@ export const rdlLeftHand: Part[] = [
     "tags": [],
     "projectile": [
       "071"
-    ]
+    ],
+    "keywords": [KEYWORD_LIST.en.齐射X, KEYWORD_LIST.en.曲射]
   },
   {
     "id": "032",
@@ -349,7 +365,8 @@ export const rdlLeftHand: Part[] = [
     "type": "leftHand",
     "description": "",
     "imgSrc": "",
-    "tags": []
+    "tags": [],
+    "keywords": [KEYWORD_LIST.en.直射, KEYWORD_LIST.en.静默]
   },
   {
     "id": "034",
@@ -364,7 +381,8 @@ export const rdlLeftHand: Part[] = [
     "description": "",
     "imgSrc": "",
     "tags": [],
-    "throwIndex": "035"
+    "throwIndex": "035",
+    "keywords": [KEYWORD_LIST.en.指定X]
   },
   {
     "id": "035",
@@ -407,7 +425,8 @@ export const rdlLeftHand: Part[] = [
     "description": "",
     "imgSrc": "",
     "tags": [],
-    "throwIndex": "042"
+    "throwIndex": "042",
+    "keywords": [KEYWORD_LIST.en.拦截X, KEYWORD_LIST.en.频闪武器]
   },
   {
     "id": "042",
@@ -435,7 +454,8 @@ export const rdlLeftHand: Part[] = [
     "type": "leftHand",
     "description": "",
     "imgSrc": "",
-    "tags": []
+    "tags": [],
+    "keywords": [KEYWORD_LIST.en.X姿态]
   },
   {
     "id": "050",
@@ -449,7 +469,8 @@ export const rdlLeftHand: Part[] = [
     "type": "leftHand",
     "description": "",
     "imgSrc": "",
-    "tags": []
+    "tags": [],
+    "keywords": [KEYWORD_LIST.en.拖拽, KEYWORD_LIST.en.缴械]
   },
   {
     "id": "053",
@@ -464,7 +485,8 @@ export const rdlLeftHand: Part[] = [
     "description": "",
     "imgSrc": "",
     "tags": [],
-    "throwIndex": "054"
+    "throwIndex": "054",
+    "keywords": [KEYWORD_LIST.en.霰射]
   },
   {
     "id": "054",
@@ -496,7 +518,8 @@ export const rdlLeftHand: Part[] = [
     "projectile": [
       "267"
     ],
-    "throwIndex": "057"
+    "throwIndex": "057",
+    "keywords": [KEYWORD_LIST.en.直射]
   },
   {
     "id": "057",
@@ -524,7 +547,8 @@ export const rdlLeftHand: Part[] = [
     "type": "leftHand",
     "description": "",
     "imgSrc": "",
-    "tags": []
+    "tags": [],
+    "keywords": [KEYWORD_LIST.en.频闪武器]
   },
   {
     "id": "064",
@@ -571,7 +595,8 @@ export const rdlLeftHand: Part[] = [
     "description": "",
     "imgSrc": "",
     "tags": [],
-    "throwIndex": "253"
+    "throwIndex": "253",
+    "keywords": [KEYWORD_LIST.en.X姿态]
   },
   {
     "id": "253",
@@ -600,7 +625,8 @@ export const rdlLeftHand: Part[] = [
     "description": "",
     "imgSrc": "",
     "tags": [],
-    "throwIndex": "283"
+    "throwIndex": "283",
+    "keywords": [KEYWORD_LIST.en.拦截X, KEYWORD_LIST.en.X姿态]
   },
   {
     "id": "283",
@@ -629,7 +655,8 @@ export const rdlLeftHand: Part[] = [
     "description": "",
     "imgSrc": "",
     "tags": [],
-    "throwIndex": "511"
+    "throwIndex": "511",
+    "keywords": [KEYWORD_LIST.en.击退X, KEYWORD_LIST.en.霰射]
   },
   {
     "id": "511",
@@ -658,7 +685,8 @@ export const rdlLeftHand: Part[] = [
     "description": "",
     "imgSrc": "",
     "tags": [],
-    "throwIndex": "515"
+    "throwIndex": "515",
+    "keywords": [KEYWORD_LIST.en.全向射击]
   },
   {
     "id": "515",
@@ -686,7 +714,8 @@ export const rdlLeftHand: Part[] = [
     "type": "leftHand",
     "description": "",
     "imgSrc": "",
-    "tags": []
+    "tags": [],
+    "keywords": [KEYWORD_LIST.en.震撼]
   }
 ];
 
@@ -704,7 +733,8 @@ export const rdlRightHand: Part[] = [
     "description": "",
     "imgSrc": "",
     "tags": [],
-    "throwIndex": "026"
+    "throwIndex": "026",
+    "keywords": [KEYWORD_LIST.en.双手]
   },
   {
     "id": "026",
@@ -733,7 +763,8 @@ export const rdlRightHand: Part[] = [
     "description": "",
     "imgSrc": "",
     "tags": [],
-    "throwIndex": "031"
+    "throwIndex": "031",
+    "keywords": [KEYWORD_LIST.en.静止, KEYWORD_LIST.en.压制]
   },
   {
     "id": "031",
@@ -761,7 +792,8 @@ export const rdlRightHand: Part[] = [
     "type": "rightHand",
     "description": "",
     "imgSrc": "",
-    "tags": []
+    "tags": [],
+    "keywords": [KEYWORD_LIST.en.静止, KEYWORD_LIST.en.穿甲X]
   },
   {
     "id": "036",
@@ -775,7 +807,8 @@ export const rdlRightHand: Part[] = [
     "type": "rightHand",
     "description": "",
     "imgSrc": "",
-    "tags": []
+    "tags": [],
+    "keywords": [KEYWORD_LIST.en.频闪武器]
   },
   {
     "id": "038",
@@ -790,7 +823,8 @@ export const rdlRightHand: Part[] = [
     "description": "",
     "imgSrc": "",
     "tags": [],
-    "throwIndex": "039"
+    "throwIndex": "039",
+    "keywords": [KEYWORD_LIST.en.双手, KEYWORD_LIST.en.多目标X, KEYWORD_LIST.en.压制]
   },
   {
     "id": "039",
@@ -819,7 +853,8 @@ export const rdlRightHand: Part[] = [
     "description": "",
     "imgSrc": "",
     "tags": [],
-    "throwIndex": "044"
+    "throwIndex": "044",
+    "keywords": [KEYWORD_LIST.en.X姿态, KEYWORD_LIST.en.毁伤, KEYWORD_LIST.en.穿甲X]
   },
   {
     "id": "044",
@@ -848,7 +883,8 @@ export const rdlRightHand: Part[] = [
     "description": "",
     "imgSrc": "",
     "tags": [],
-    "throwIndex": "047"
+    "throwIndex": "047",
+    "keywords": [KEYWORD_LIST.en.霰射]
   },
   {
     "id": "047",
@@ -880,7 +916,8 @@ export const rdlRightHand: Part[] = [
     "projectile": [
       "268"
     ],
-    "throwIndex": "049"
+    "throwIndex": "049",
+    "keywords": [KEYWORD_LIST.en.直射, KEYWORD_LIST.en.霰射]
   },
   {
     "id": "049",
@@ -912,7 +949,8 @@ export const rdlRightHand: Part[] = [
     "description": "",
     "imgSrc": "",
     "tags": [],
-    "throwIndex": "052"
+    "throwIndex": "052",
+    "keywords": [KEYWORD_LIST.en.拦截X, KEYWORD_LIST.en.双手, KEYWORD_LIST.en.毁伤, KEYWORD_LIST.en.频闪武器, KEYWORD_LIST.en.顺劈]
   },
   {
     "id": "052",
@@ -940,7 +978,8 @@ export const rdlRightHand: Part[] = [
     "type": "rightHand",
     "description": "",
     "imgSrc": "",
-    "tags": []
+    "tags": [],
+    "keywords": [KEYWORD_LIST.en.毁伤, KEYWORD_LIST.en.粉碎]
   },
   {
     "id": "058",
@@ -955,7 +994,8 @@ export const rdlRightHand: Part[] = [
     "description": "",
     "imgSrc": "",
     "tags": [],
-    "throwIndex": "059"
+    "throwIndex": "059",
+    "keywords": [KEYWORD_LIST.en.双手]
   },
   {
     "id": "059",
@@ -983,7 +1023,8 @@ export const rdlRightHand: Part[] = [
     "type": "rightHand",
     "description": "",
     "imgSrc": "",
-    "tags": []
+    "tags": [],
+    "keywords": [KEYWORD_LIST.en.频闪武器]
   },
   {
     "id": "068",
@@ -998,7 +1039,8 @@ export const rdlRightHand: Part[] = [
     "description": "",
     "imgSrc": "",
     "tags": [],
-    "throwIndex": "069"
+    "throwIndex": "069",
+    "keywords": [KEYWORD_LIST.en.双手, KEYWORD_LIST.en.静止]
   },
   {
     "id": "069",
@@ -1027,7 +1069,8 @@ export const rdlRightHand: Part[] = [
     "description": "",
     "imgSrc": "",
     "tags": [],
-    "throwIndex": "255"
+    "throwIndex": "255",
+    "keywords": [KEYWORD_LIST.en.拦截X, KEYWORD_LIST.en.双手, KEYWORD_LIST.en.毁伤, KEYWORD_LIST.en.频闪武器, KEYWORD_LIST.en.顺劈]
   },
   {
     "id": "255",
@@ -1056,7 +1099,8 @@ export const rdlRightHand: Part[] = [
     "description": "",
     "imgSrc": "",
     "tags": [],
-    "throwIndex": "285"
+    "throwIndex": "285",
+    "keywords": [KEYWORD_LIST.en.拦截X, KEYWORD_LIST.en.双手, KEYWORD_LIST.en.毁伤, KEYWORD_LIST.en.震撼]
   },
   {
     "id": "285",
@@ -1085,7 +1129,8 @@ export const rdlRightHand: Part[] = [
     "description": "",
     "imgSrc": "",
     "tags": [],
-    "throwIndex": "509"
+    "throwIndex": "509",
+    "keywords": [KEYWORD_LIST.en.击退X, KEYWORD_LIST.en.霰射]
   },
   {
     "id": "509",
@@ -1114,7 +1159,8 @@ export const rdlRightHand: Part[] = [
     "description": "",
     "imgSrc": "",
     "tags": [],
-    "throwIndex": "513"
+    "throwIndex": "513",
+    "keywords": [KEYWORD_LIST.en.全向射击]
   },
   {
     "id": "513",
@@ -1143,7 +1189,8 @@ export const rdlRightHand: Part[] = [
     "description": "",
     "imgSrc": "",
     "tags": [],
-    "throwIndex": "517"
+    "throwIndex": "517",
+    "keywords": [KEYWORD_LIST.en.双手, KEYWORD_LIST.en.狙击]
   },
   {
     "id": "517",
@@ -1172,7 +1219,8 @@ export const rdlRightHand: Part[] = [
     "description": "",
     "imgSrc": "",
     "tags": [],
-    "throwIndex": "519"
+    "throwIndex": "519",
+    "keywords": [KEYWORD_LIST.en.双手, KEYWORD_LIST.en.霰射, KEYWORD_LIST.en.近战射击]
   },
   {
     "id": "519",
@@ -1203,7 +1251,8 @@ export const rdlBackpack: Part[] = [
     "type": "backpack",
     "description": "",
     "imgSrc": "",
-    "tags": []
+    "tags": [],
+    "keywords": [KEYWORD_LIST.en.修补]
   },
   {
     "id": "002",
@@ -1217,7 +1266,8 @@ export const rdlBackpack: Part[] = [
     "type": "backpack",
     "description": "",
     "imgSrc": "",
-    "tags": []
+    "tags": [],
+    "keywords": [KEYWORD_LIST.en.X姿态]
   },
   {
     "id": "003",
@@ -1231,7 +1281,8 @@ export const rdlBackpack: Part[] = [
     "type": "backpack",
     "description": "",
     "imgSrc": "",
-    "tags": []
+    "tags": [],
+    "keywords": [KEYWORD_LIST.en.拦截X]
   },
   {
     "id": "004",
@@ -1248,7 +1299,8 @@ export const rdlBackpack: Part[] = [
     "tags": [],
     "projectile": [
       "071"
-    ]
+    ],
+    "keywords": [KEYWORD_LIST.en.齐射X, KEYWORD_LIST.en.曲射]
   },
   {
     "id": "005",
@@ -1262,7 +1314,8 @@ export const rdlBackpack: Part[] = [
     "type": "backpack",
     "description": "",
     "imgSrc": "",
-    "tags": []
+    "tags": [],
+    "keywords": [KEYWORD_LIST.en.毁伤]
   },
   {
     "id": "006",
@@ -1279,7 +1332,8 @@ export const rdlBackpack: Part[] = [
     "tags": [],
     "projectile": [
       "074"
-    ]
+    ],
+    "keywords": [KEYWORD_LIST.en.直射, KEYWORD_LIST.en.静默]
   },
   {
     "id": "007",
@@ -1293,7 +1347,8 @@ export const rdlBackpack: Part[] = [
     "type": "backpack",
     "description": "",
     "imgSrc": "",
-    "tags": []
+    "tags": [],
+    "keywords": [KEYWORD_LIST.en.高亮目标]
   },
   {
     "id": "008",
@@ -1312,7 +1367,8 @@ export const rdlBackpack: Part[] = [
       "075",
       "076",
       "077"
-    ]
+    ],
+    "keywords": [KEYWORD_LIST.en.直射, KEYWORD_LIST.en.静默, KEYWORD_LIST.en.投掷]
   },
   {
     "id": "009",
@@ -1326,7 +1382,8 @@ export const rdlBackpack: Part[] = [
     "type": "backpack",
     "description": "",
     "imgSrc": "",
-    "tags": []
+    "tags": [],
+    "keywords": [KEYWORD_LIST.en.电子支援]
   },
   {
     "id": "010",
@@ -1340,7 +1397,8 @@ export const rdlBackpack: Part[] = [
     "type": "backpack",
     "description": "",
     "imgSrc": "",
-    "tags": []
+    "tags": [],
+    "keywords": [KEYWORD_LIST.en.空中移动]
   },
   {
     "id": "011",
@@ -1357,7 +1415,8 @@ export const rdlBackpack: Part[] = [
     "tags": [],
     "projectile": [
       "073"
-    ]
+    ],
+    "keywords": [KEYWORD_LIST.en.齐射X, KEYWORD_LIST.en.曲射]
   },
   {
     "id": "264",
@@ -1371,7 +1430,8 @@ export const rdlBackpack: Part[] = [
     "type": "backpack",
     "description": "",
     "imgSrc": "",
-    "tags": []
+    "tags": [],
+    "keywords": [KEYWORD_LIST.en.拦截X]
   },
   {
     "id": "286",
@@ -1385,7 +1445,8 @@ export const rdlBackpack: Part[] = [
     "type": "backpack",
     "description": "",
     "imgSrc": "",
-    "tags": []
+    "tags": [],
+    "keywords": [KEYWORD_LIST.en.拦截X]
   },
   {
     "id": "501",
@@ -1402,7 +1463,8 @@ export const rdlBackpack: Part[] = [
     "tags": [],
     "projectile": [
       "521"
-    ]
+    ],
+    "keywords": [KEYWORD_LIST.en.齐射X, KEYWORD_LIST.en.曲射]
   },
   {
     "id": "502",
@@ -1418,7 +1480,8 @@ export const rdlBackpack: Part[] = [
     "imgSrc": "",
     "tags": [], "projectile": [
       "522"
-    ]
+    ],
+    "keywords": [KEYWORD_LIST.en.曲射, KEYWORD_LIST.en.静默, KEYWORD_LIST.en.投掷]
   }
 ];
 
@@ -1433,9 +1496,10 @@ export const rdlDrones: Drone[] = [
     "dodge": 0,
     "electronic": 2,
     "type": "medium",
-    "move": null,
+    "move": 0,
     "stance": "offensive",
-    "description": ""
+    "description": "",
+    "keywords": [KEYWORD_LIST.en.拦截X, KEYWORD_LIST.en.全向射击, KEYWORD_LIST.en.近战射击]
   },
   {
     "id": "079",
@@ -1447,12 +1511,13 @@ export const rdlDrones: Drone[] = [
     "dodge": 0,
     "electronic": 2,
     "type": "medium",
-    "move": null,
+    "move": 0,
     "stance": "offensive",
     "description": "",
     "projectile": [
       "071"
-    ]
+    ],
+    "keywords": [KEYWORD_LIST.en.齐射X, KEYWORD_LIST.en.曲射]
   },
   {
     "id": "080",
@@ -1464,7 +1529,7 @@ export const rdlDrones: Drone[] = [
     "dodge": 0,
     "electronic": 2,
     "type": "medium",
-    "move": null,
+    "move": 0,
     "stance": "offensive",
     "description": "",
   },
@@ -1478,7 +1543,7 @@ export const rdlDrones: Drone[] = [
     "dodge": 2,
     "electronic": 3,
     "type": "small",
-    "move": null,
+    "move": 0,
     "stance": "offensive",
     "description": ""
   }
@@ -1500,7 +1565,8 @@ export const unTorso: Part[] = [
     "tags": [],
     "projectile": [
       "155"
-    ]
+    ],
+    "keywords": [KEYWORD_LIST.en.曲射]
   },
   {
     "id": "092",
@@ -1528,7 +1594,8 @@ export const unTorso: Part[] = [
     "type": "torso",
     "description": "",
     "imgSrc": "",
-    "tags": []
+    "tags": [],
+    "keywords": [KEYWORD_LIST.en.低特征, KEYWORD_LIST.en.静默]
   },
   {
     "id": "096",
@@ -1542,7 +1609,8 @@ export const unTorso: Part[] = [
     "type": "torso",
     "description": "",
     "imgSrc": "",
-    "tags": []
+    "tags": [],
+    "keywords": [KEYWORD_LIST.en.低特征, KEYWORD_LIST.en.静默, KEYWORD_LIST.en.隐秘X]
   },
   {
     "id": "097",
@@ -1556,7 +1624,8 @@ export const unTorso: Part[] = [
     "type": "torso",
     "description": "",
     "imgSrc": "",
-    "tags": []
+    "tags": [],
+    "keywords": [KEYWORD_LIST.en.KC装甲, KEYWORD_LIST.en.电子攻击, KEYWORD_LIST.en.静默, KEYWORD_LIST.en.禁足]
   },
   {
     "id": "098",
@@ -1570,7 +1639,8 @@ export const unTorso: Part[] = [
     "type": "torso",
     "description": "",
     "imgSrc": "",
-    "tags": []
+    "tags": [],
+    "keywords": [KEYWORD_LIST.en.KC装甲, KEYWORD_LIST.en.高亮目标]
   }, {
     "id": "247",
     "name": "TM641 Octopus Stealth Core Trial Model",
@@ -1583,7 +1653,8 @@ export const unTorso: Part[] = [
     "type": "torso",
     "description": "",
     "imgSrc": "",
-    "tags": []
+    "tags": [],
+    "keywords": [KEYWORD_LIST.en.低特征, KEYWORD_LIST.en.静默, KEYWORD_LIST.en.隐秘X]
   },
   {
     "id": "555",
@@ -1596,6 +1667,7 @@ export const unTorso: Part[] = [
     "electronic": 4,
     "type": "torso",
     "imgSrc": "",
+    "description": "",
     "tags": []
   }
 ];
@@ -1627,7 +1699,8 @@ export const unChasis: Part[] = [
     "type": "chasis",
     "description": "",
     "imgSrc": "",
-    "tags": []
+    "tags": [],
+    "keywords": [KEYWORD_LIST.en.静默]
   }, {
     "id": "250",
     "name": "LM210S  Stealth Chassis -Trial Mode",
@@ -1640,7 +1713,8 @@ export const unChasis: Part[] = [
     "type": "chasis",
     "description": "",
     "imgSrc": "",
-    "tags": []
+    "tags": [],
+    "keywords": [KEYWORD_LIST.en.静默]
   },
   {
     "id": "101",
@@ -1671,7 +1745,8 @@ export const unLeftHand: Part[] = [
     "type": "leftHand",
     "description": "",
     "imgSrc": "",
-    "tags": []
+    "tags": [],
+    "keywords": [KEYWORD_LIST.en.震撼, KEYWORD_LIST.en.毁伤]
   },
   {
     "id": "107",
@@ -1689,7 +1764,8 @@ export const unLeftHand: Part[] = [
     "projectile": [
       "154"
     ],
-    "throwIndex": "108"
+    "throwIndex": "108",
+    "keywords": [KEYWORD_LIST.en.齐射X, KEYWORD_LIST.en.曲射]
   },
   {
     "id": "108",
@@ -1721,7 +1797,8 @@ export const unLeftHand: Part[] = [
     "description": "",
     "imgSrc": "",
     "tags": [],
-    "throwIndex": "112"
+    "throwIndex": "112",
+    "keywords": [KEYWORD_LIST.en.全向射击]
   },
   {
     "id": "112",
@@ -1750,7 +1827,8 @@ export const unLeftHand: Part[] = [
     "description": "",
     "imgSrc": "",
     "tags": [],
-    "throwIndex": "118"
+    "throwIndex": "118",
+    "keywords": [KEYWORD_LIST.en.激光武器, KEYWORD_LIST.en.静止]
   },
   {
     "id": "118",
@@ -1778,7 +1856,8 @@ export const unLeftHand: Part[] = [
     "type": "leftHand",
     "description": "",
     "imgSrc": "",
-    "tags": []
+    "tags": [],
+    "keywords": [KEYWORD_LIST.en.双手]
   },
   {
     "id": "126",
@@ -1792,7 +1871,8 @@ export const unLeftHand: Part[] = [
     "type": "leftHand",
     "description": "",
     "imgSrc": "",
-    "tags": []
+    "tags": [],
+    "keywords": [KEYWORD_LIST.en.静默]
   }, {
     "id": "256",
     "name": "K9 Nail Gun + M14BO Wakizashi Trial Model (L)",
@@ -1805,7 +1885,9 @@ export const unLeftHand: Part[] = [
     "type": "leftHand",
     "description": "",
     "imgSrc": "",
-    "tags": []
+    "tags": [],
+    "keywords": [KEYWORD_LIST.en.静默]
+
   },
   {
     "id": "129",
@@ -1823,7 +1905,8 @@ export const unLeftHand: Part[] = [
     "projectile": [
       "157"
     ],
-    "throwIndex": "130"
+    "throwIndex": "130",
+    "keywords": [KEYWORD_LIST.en.直射, KEYWORD_LIST.en.双手]
   },
   {
     "id": "130",
@@ -1868,7 +1951,8 @@ export const unLeftHand: Part[] = [
     "tags": [],
     "projectile": [
       "154"
-    ]
+    ],
+    "keywords": [KEYWORD_LIST.en.齐射X, KEYWORD_LIST.en.曲射]
   },
   {
     "id": "139",
@@ -1882,7 +1966,8 @@ export const unLeftHand: Part[] = [
     "type": "leftHand",
     "description": "",
     "imgSrc": "",
-    "tags": []
+    "tags": [],
+    "keywords": [KEYWORD_LIST.en.拖拽, KEYWORD_LIST.en.禁足]
   },
   {
     "id": "142",
@@ -1925,7 +2010,8 @@ export const unLeftHand: Part[] = [
     "type": "leftHand",
     "description": "",
     "imgSrc": "",
-    "tags": []
+    "tags": [],
+    "keywords": [KEYWORD_LIST.en.静默, KEYWORD_LIST.en.X姿态]
   },
   {
     "id": "146",
@@ -1943,7 +2029,8 @@ export const unLeftHand: Part[] = [
     "projectile": [
       "154"
     ],
-    "throwIndex": "147"
+    "throwIndex": "147",
+    "keywords": [KEYWORD_LIST.en.霰射, KEYWORD_LIST.en.激光武器, KEYWORD_LIST.en.近战射击, KEYWORD_LIST.en.齐射X, KEYWORD_LIST.en.曲射]
   },
   {
     "id": "147",
@@ -1975,7 +2062,8 @@ export const unLeftHand: Part[] = [
     "description": "",
     "imgSrc": "",
     "tags": [],
-    "throwIndex": "151"
+    "throwIndex": "151",
+    "keywords": [KEYWORD_LIST.en.全向射击, KEYWORD_LIST.en.压制]
   },
   {
     "id": "151",
@@ -2005,7 +2093,8 @@ export const unRightHand: Part[] = [{
   "type": "rightHand",
   "description": "",
   "imgSrc": "",
-  "tags": []
+  "tags": [],
+    "keywords": [KEYWORD_LIST.en.静默]
 },
 {
   "id": "104",
@@ -2020,7 +2109,8 @@ export const unRightHand: Part[] = [{
   "description": "",
   "imgSrc": "",
   "tags": [],
-  "throwIndex": "105"
+  "throwIndex": "105",
+    "keywords": [KEYWORD_LIST.en.激光武器, KEYWORD_LIST.en.双手]
 },
 {
   "id": "105",
@@ -2048,7 +2138,8 @@ export const unRightHand: Part[] = [{
   "type": "rightHand",
   "description": "",
   "imgSrc": "",
-  "tags": []
+  "tags": [],
+    "keywords": [KEYWORD_LIST.en.激光武器, KEYWORD_LIST.en.静止, KEYWORD_LIST.en.狙击]
 },
 {
   "id": "109",
@@ -2062,7 +2153,8 @@ export const unRightHand: Part[] = [{
   "type": "rightHand",
   "description": "",
   "imgSrc": "",
-  "tags": []
+  "tags": [],
+    "keywords": [KEYWORD_LIST.en.激光武器, KEYWORD_LIST.en.双手, KEYWORD_LIST.en.静止]
 },
 {
   "id": "110",
@@ -2091,7 +2183,8 @@ export const unRightHand: Part[] = [{
   "description": "",
   "imgSrc": "",
   "tags": [],
-  "throwIndex": "114"
+  "throwIndex": "114",
+    "keywords": [KEYWORD_LIST.en.全向射击]
 },
 {
   "id": "114",
@@ -2120,7 +2213,8 @@ export const unRightHand: Part[] = [{
   "description": "",
   "imgSrc": "",
   "tags": [],
-  "throwIndex": "116"
+  "throwIndex": "116",
+    "keywords": [KEYWORD_LIST.en.激光武器, KEYWORD_LIST.en.静止]
 },
 {
   "id": "116",
@@ -2149,7 +2243,8 @@ export const unRightHand: Part[] = [{
   "description": "",
   "imgSrc": "",
   "tags": [],
-  "throwIndex": "120"
+  "throwIndex": "120",
+    "keywords": [KEYWORD_LIST.en.激光武器, KEYWORD_LIST.en.静止]
 },
 {
   "id": "120",
@@ -2179,6 +2274,7 @@ export const unRightHand: Part[] = [{
   "imgSrc": "",
   "tags": [],
   "throwIndex": "123",
+    "keywords": [KEYWORD_LIST.en.双手, KEYWORD_LIST.en.狙击, KEYWORD_LIST.en.充能, KEYWORD_LIST.en.毁伤, KEYWORD_LIST.en.离子武器]
 },
 {
   "id": "123",
@@ -2207,7 +2303,8 @@ export const unRightHand: Part[] = [{
   "description": "",
   "imgSrc": "",
   "tags": [],
-  "throwIndex": "125"
+  "throwIndex": "125",
+    "keywords": [KEYWORD_LIST.en.静默, KEYWORD_LIST.en.激光武器, KEYWORD_LIST.en.双手]
 },
 {
   "id": "125",
@@ -2236,7 +2333,8 @@ export const unRightHand: Part[] = [{
   "description": "",
   "imgSrc": "",
   "tags": [],
-  "throwIndex": "128"
+  "throwIndex": "128",
+    "keywords": [KEYWORD_LIST.en.静默, KEYWORD_LIST.en.激光武器, KEYWORD_LIST.en.双手]
 },
 {
   "id": "128",
@@ -2281,7 +2379,8 @@ export const unRightHand: Part[] = [{
   "tags": [],
   "projectile": [
     "154"
-  ]
+  ],
+    "keywords": [KEYWORD_LIST.en.齐射X, KEYWORD_LIST.en.曲射]
 },
 {
   "id": "140",
@@ -2296,7 +2395,8 @@ export const unRightHand: Part[] = [{
   "description": "",
   "imgSrc": "",
   "tags": [],
-  "throwIndex": "141"
+  "throwIndex": "141",
+    "keywords": [KEYWORD_LIST.en.充能, KEYWORD_LIST.en.毁伤, KEYWORD_LIST.en.霰射, KEYWORD_LIST.en.离子武器, KEYWORD_LIST.en.近战射击]
 },
 {
   "id": "141",
@@ -2324,7 +2424,8 @@ export const unRightHand: Part[] = [{
   "type": "rightHand",
   "description": "",
   "imgSrc": "",
-  "tags": []
+  "tags": [],
+    "keywords": [KEYWORD_LIST.en.双手, KEYWORD_LIST.en.毁伤]
 },
 {
   "id": "148",
@@ -2339,7 +2440,8 @@ export const unRightHand: Part[] = [{
   "description": "",
   "imgSrc": "",
   "tags": [],
-  "throwIndex": "149"
+  "throwIndex": "149",
+    "keywords": [KEYWORD_LIST.en.霰射, KEYWORD_LIST.en.激光武器, KEYWORD_LIST.en.近战射击, KEYWORD_LIST.en.毁伤]
 },
 {
   "id": "149",
@@ -2368,7 +2470,8 @@ export const unRightHand: Part[] = [{
   "description": "",
   "imgSrc": "",
   "tags": [],
-  "throwIndex": "153"
+  "throwIndex": "153",
+    "keywords": [KEYWORD_LIST.en.全向射击, KEYWORD_LIST.en.压制]
 },
 {
   "id": "153",
@@ -2396,6 +2499,7 @@ export const unRightHand: Part[] = [{
     "type": "rightHand",
     "imgSrc": "",
     "tags": [],
+    "description": "",
     "throwIndex":"557"
   },
   {
@@ -2409,6 +2513,7 @@ export const unRightHand: Part[] = [{
     "electronic": 0,
     "type": "rightHand",
     "imgSrc": "",
+    "description": "",
     "tags": []
   }
 ];
@@ -2426,7 +2531,8 @@ export const unBackpack: Part[] = [
     "type": "backpack",
     "description": "",
     "imgSrc": "",
-    "tags": []
+    "tags": [],
+    "keywords": [KEYWORD_LIST.en.KC装甲]
   }, {
     "id": "265",
     "name": "EBS/X40 Armor Energy Charger Trial Model",
@@ -2439,7 +2545,8 @@ export const unBackpack: Part[] = [
     "type": "backpack",
     "description": "",
     "imgSrc": "",
-    "tags": []
+    "tags": [],
+    "keywords": [KEYWORD_LIST.en.KC装甲]
   },
   {
     "id": "082",
@@ -2456,7 +2563,8 @@ export const unBackpack: Part[] = [
     "tags": [],
     "projectile": [
       "156"
-    ]
+    ],
+    "keywords": [KEYWORD_LIST.en.曲射, KEYWORD_LIST.en.投掷, KEYWORD_LIST.en.静默]
   },
   {
     "id": "083",
@@ -2470,7 +2578,8 @@ export const unBackpack: Part[] = [
     "type": "backpack",
     "description": "",
     "imgSrc": "",
-    "tags": []
+    "tags": [],
+    "keywords": [KEYWORD_LIST.en.激光武器]
   },
   {
     "id": "084",
@@ -2532,7 +2641,8 @@ export const unBackpack: Part[] = [
     "type": "backpack",
     "description": "",
     "imgSrc": "",
-    "tags": []
+    "tags": [],
+    "keywords": [KEYWORD_LIST.en.全向射击]
   },
   {
     "id": "088",
@@ -2546,7 +2656,8 @@ export const unBackpack: Part[] = [
     "type": "backpack",
     "description": "",
     "imgSrc": "",
-    "tags": []
+    "tags": [],
+    "keywords": [KEYWORD_LIST.en.空中移动, KEYWORD_LIST.en.负载]
   },
   {
     "id": "089",
@@ -2560,7 +2671,8 @@ export const unBackpack: Part[] = [
     "type": "backpack",
     "description": "",
     "imgSrc": "",
-    "tags": []
+    "tags": [],
+    "keywords": [KEYWORD_LIST.en.电子攻击, KEYWORD_LIST.en.火控干扰]
   },
   {
     "id": "090",
@@ -2574,7 +2686,8 @@ export const unBackpack: Part[] = [
     "type": "backpack",
     "description": "",
     "imgSrc": "",
-    "tags": []
+    "tags": [],
+    "keywords": [KEYWORD_LIST.en.负载]
   }
 ];
 
@@ -2589,7 +2702,7 @@ export const unDrones: Drone[] = [
     "dodge": 0,
     "electronic": 2,
     "type": "small",
-    "move": null,
+    "move": 0,
     "stance": "offensive",
     "description": ""
   },
@@ -2603,9 +2716,10 @@ export const unDrones: Drone[] = [
     "dodge": 0,
     "electronic": 2,
     "type": "medium",
-    "move": null,
+    "move": 0,
     "stance": "offensive",
-    "description": ""
+    "description": "",
+    "keywords": [KEYWORD_LIST.en.激光武器,KEYWORD_LIST.en.拦截X,KEYWORD_LIST.en.全向射击,KEYWORD_LIST.en.近战射击]
   },
   {
     "id": "161",
@@ -2617,7 +2731,7 @@ export const unDrones: Drone[] = [
     "dodge": 0,
     "electronic": 2,
     "type": "medium",
-    "move": null,
+    "move": 0,
     "stance": "offensive",
     "description": ""
   },
@@ -2631,9 +2745,10 @@ export const unDrones: Drone[] = [
     "dodge": 5,
     "electronic": 2,
     "type": "medium",
-    "move": null,
+    "move": 0,
     "stance": "offensive",
-    "description": ""
+    "description": "",
+    "keywords": [KEYWORD_LIST.en.负载]
   },
   {
     "id": "163",
@@ -2645,9 +2760,10 @@ export const unDrones: Drone[] = [
     "dodge": 5,
     "electronic": 2,
     "type": "small",
-    "move": null,
+    "move": 0,
     "stance": "offensive",
-    "description": ""
+    "description": "",
+    "keywords": [KEYWORD_LIST.en.激光武器,KEYWORD_LIST.en.拦截X,KEYWORD_LIST.en.全向射击,KEYWORD_LIST.en.近战射击]
   },
   {
     "id": "164",
@@ -2659,7 +2775,7 @@ export const unDrones: Drone[] = [
     "dodge": 7,
     "electronic": 3,
     "type": "medium",
-    "move": null,
+    "move": 0,
     "stance": "offensive",
     "description": ""
   },
@@ -2673,9 +2789,10 @@ export const unDrones: Drone[] = [
     "dodge": 7,
     "electronic": 3,
     "type": "medium",
-    "move": null,
+    "move": 0,
     "stance": "offensive",
-    "description": ""
+    "description": "",
+    "keywords": [KEYWORD_LIST.en.中继器]
   },
   {
     "id": "166",
@@ -2687,9 +2804,10 @@ export const unDrones: Drone[] = [
     "dodge": 7,
     "electronic": 3,
     "type": "medium",
-    "move": null,
+    "move": 0,
     "stance": "offensive",
-    "description": ""
+    "description": "",
+    "keywords": [KEYWORD_LIST.en.电子攻击,KEYWORD_LIST.en.火控干扰]
   },
   {
     "id": "167",
@@ -2701,7 +2819,7 @@ export const unDrones: Drone[] = [
     "dodge": 2,
     "electronic": 2,
     "type": "small",
-    "move": null,
+    "move": 0,
     "stance": "offensive",
     "description": ""
   }
@@ -2723,7 +2841,8 @@ export const pdDrones: Drone[] = [
     "description": "",
     "isPD": true, "projectile": [
       "PDAM-001"
-    ]
+    ],
+    "keywords": [KEYWORD_LIST.en.齐射X, KEYWORD_LIST.en.曲射, KEYWORD_LIST.en.拦截X]
   },
   {
     "id": "PRDR-102",
@@ -2740,7 +2859,8 @@ export const pdDrones: Drone[] = [
     "description": "",
     "isPD": true, "projectile": [
       "PDAM-001"
-    ]
+    ],
+    "keywords": [KEYWORD_LIST.en.齐射X, KEYWORD_LIST.en.曲射, KEYWORD_LIST.en.火控干扰]
   },
   {
     "id": "PRDR-103",
@@ -2770,7 +2890,8 @@ export const pdDrones: Drone[] = [
     "move": 6,
     "stance": "defensive",
     "description": "",
-    "isPD": true
+    "isPD": true,
+    "keywords": [KEYWORD_LIST.en.火控干扰]
   },
   {
     "id": "PRDR-105",
@@ -2787,7 +2908,8 @@ export const pdDrones: Drone[] = [
     "description": "",
     "isPD": true, "projectile": [
       "PDAM-003", "PDAM-004"
-    ]
+    ],
+    "keywords": [KEYWORD_LIST.en.直射]
   },
   {
     "id": "PRDR-201",
@@ -2802,7 +2924,8 @@ export const pdDrones: Drone[] = [
     "move": 6,
     "stance": "mobility",
     "description": "",
-    "isPD": true
+    "isPD": true,
+    "keywords": [KEYWORD_LIST.en.全向射击, KEYWORD_LIST.en.近战射击, KEYWORD_LIST.en.空中移动]
   },
   {
     "id": "PRDR-202",
@@ -2817,7 +2940,8 @@ export const pdDrones: Drone[] = [
     "move": 6,
     "stance": "mobility",
     "description": "",
-    "isPD": true
+    "isPD": true,
+    "keywords": [KEYWORD_LIST.en.高亮目标, KEYWORD_LIST.en.空中移动, KEYWORD_LIST.en.全向射击, KEYWORD_LIST.en.近战射击]
   },
   {
     "id": "PRDR-203",
@@ -2834,7 +2958,8 @@ export const pdDrones: Drone[] = [
     "description": "",
     "isPD": true, "projectile": [
       "PDAM-005"
-    ]
+    ],
+    "keywords": [KEYWORD_LIST.en.空中移动, KEYWORD_LIST.en.曲射, KEYWORD_LIST.en.齐射X]
   },
   {
     "id": "PRDR-204",
@@ -2851,7 +2976,8 @@ export const pdDrones: Drone[] = [
     "description": "",
     "isPD": true, "projectile": [
       "PDAM-005", "PDAM-006"
-    ]
+    ],
+    "keywords": [KEYWORD_LIST.en.曲射, KEYWORD_LIST.en.齐射X, KEYWORD_LIST.en.直射]
   }
 ];
 
@@ -3385,7 +3511,8 @@ export const pdLeftHand: Part[] = [{
   "dodge": 0,
   "electronic": 0,
   "description": "",
-  "isPD": true
+  "isPD": true,
+  "keywords": [KEYWORD_LIST.en.近战射击, KEYWORD_LIST.en.脆弱]
 }
 ];
 
@@ -3402,7 +3529,8 @@ export const pdRightHand: Part[] = [
     "dodge": 0,
     "electronic": 0,
     "description": "",
-    "isPD": true
+    "isPD": true,
+    "keywords": [KEYWORD_LIST.en.近战射击, KEYWORD_LIST.en.毁伤]
   }
 ];
 

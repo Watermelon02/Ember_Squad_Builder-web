@@ -1,3 +1,4 @@
+import { KEYWORD_LIST } from "./keyword";
 import { Drone, Part, Pilot, Projectile,TacticCard } from "./types";
 
 export const rdlTorso: Part[] = [
@@ -27,7 +28,8 @@ export const rdlTorso: Part[] = [
     "type": "torso",
     "description": "",
     "imgSrc": "",
-    "tags": []
+    "tags": [],
+    "keywords": [KEYWORD_LIST.jp.光环, KEYWORD_LIST.jp.灵活时机]
   },
   {
     "id": "015",
@@ -41,7 +43,8 @@ export const rdlTorso: Part[] = [
     "type": "torso",
     "description": "",
     "imgSrc": "",
-    "tags": []
+    "tags": [],
+    "keywords": [KEYWORD_LIST.jp.击退X]
   },
   {
     "id": "016",
@@ -56,7 +59,8 @@ export const rdlTorso: Part[] = [
     "description": "",
     "imgSrc": "",
     "tags": [],
-    "projectile": ["268"]
+    "projectile": ["268"],
+    "keywords": [KEYWORD_LIST.jp.指定X, KEYWORD_LIST.jp.直射]
   },
   {
     "id": "017",
@@ -71,7 +75,8 @@ export const rdlTorso: Part[] = [
     "description": "",
     "imgSrc": "",
     "tags": [],
-    "projectile": ["268"]
+    "projectile": ["268"],
+    "keywords": [KEYWORD_LIST.jp.直射]
   },
   {
     "id": "019",
@@ -86,7 +91,8 @@ export const rdlTorso: Part[] = [
     "description": "",
     "imgSrc": "",
     "tags": [],
-    "projectile": ["268"]
+    "projectile": ["268"],
+    "keywords":[KEYWORD_LIST.jp.直射]
   },
   {
     "id": "018",
@@ -100,7 +106,8 @@ export const rdlTorso: Part[] = [
     "type": "torso",
     "description": "",
     "imgSrc": "",
-    "tags": []
+    "tags": [],
+    "keywords": [KEYWORD_LIST.jp.电子支援, KEYWORD_LIST.jp.电战节点X]
   },
   {
     "id": "246",
@@ -115,7 +122,8 @@ export const rdlTorso: Part[] = [
     "description": "",
     "imgSrc": "",
     "tags": [],
-    "projectile": ["268"]
+    "projectile": ["268"],
+    "keywords": [KEYWORD_LIST.jp.指定X, KEYWORD_LIST.jp.直射]
   },
   {
     "id": "280",
@@ -130,7 +138,8 @@ export const rdlTorso: Part[] = [
     "description": "",
     "imgSrc": "",
     "tags": [],
-    "projectile": ["268"]
+    "projectile": ["268"],
+    "keywords": [KEYWORD_LIST.jp.指定X, KEYWORD_LIST.jp.直射]
   },
   {
     "id": "503",
@@ -145,7 +154,8 @@ export const rdlTorso: Part[] = [
     "description": "",
     "imgSrc": "",
     "tags": [],
-    "projectile": ["268"]
+    "projectile": ["268"],
+    "keywords": [KEYWORD_LIST.jp.直射]
   },
   {
     "id": "504",
@@ -159,7 +169,8 @@ export const rdlTorso: Part[] = [
     "type": "torso",
     "description": "",
     "imgSrc": "",
-    "tags": []
+    "tags": [],
+    "keywords": [KEYWORD_LIST.jp.电子支援]
   },
   {
     "id": "505",
@@ -173,7 +184,8 @@ export const rdlTorso: Part[] = [
     "type": "torso",
     "description": "",
     "imgSrc": "",
-    "tags": []
+    "tags": [],
+    "keywords": []
   }
 ];
 
@@ -204,7 +216,8 @@ export const rdlChasis: Part[] = [
     "type": "chasis",
     "description": "",
     "imgSrc": "",
-    "tags": []
+    "tags": [],
+    "keywords": [KEYWORD_LIST.jp.直线移动]
   },
   {
     "id": "022",
@@ -246,7 +259,8 @@ export const rdlChasis: Part[] = [
     "type": "chasis",
     "description": "",
     "imgSrc": "",
-    "tags": []
+    "tags": [],
+    "keywords": [KEYWORD_LIST.jp.X姿态, KEYWORD_LIST.jp.直线移动]
   },
   {
     "id": "506",
@@ -291,7 +305,8 @@ export const rdlLeftHand: Part[] = [
     "type": "leftHand",
     "description": "",
     "imgSrc": "",
-    "tags": []
+    "tags": [],
+    "keywords": [KEYWORD_LIST.jp.震撼, KEYWORD_LIST.jp.频闪武器]
   },
   {
     "id": "024",
@@ -319,7 +334,8 @@ export const rdlLeftHand: Part[] = [
     "type": "leftHand",
     "description": "",
     "imgSrc": "",
-    "tags": []
+    "tags": [],
+    "keywords": [KEYWORD_LIST.jp.齐射X, KEYWORD_LIST.jp.曲射]
   },
   {
     "id": "032",
@@ -333,7 +349,8 @@ export const rdlLeftHand: Part[] = [
     "type": "leftHand",
     "description": "",
     "imgSrc": "",
-    "tags": []
+    "tags": [],
+    "keywords": [KEYWORD_LIST.jp.直射, KEYWORD_LIST.jp.静默]
   },
   {
     "id": "034",
@@ -347,7 +364,8 @@ export const rdlLeftHand: Part[] = [
     "type": "leftHand",
     "description": "",
     "imgSrc": "",
-    "tags": []
+    "tags": [],
+    "keywords": [KEYWORD_LIST.jp.指定X]
   },
   {
     "id": "035",
@@ -389,7 +407,8 @@ export const rdlLeftHand: Part[] = [
     "type": "leftHand",
     "description": "",
     "imgSrc": "",
-    "tags": []
+    "tags": [],
+    "keywords": [KEYWORD_LIST.jp.拦截X, KEYWORD_LIST.jp.频闪武器]
   },
   {
     "id": "042",
@@ -417,7 +436,8 @@ export const rdlLeftHand: Part[] = [
     "type": "leftHand",
     "description": "",
     "imgSrc": "",
-    "tags": []
+    "tags": [],
+    "keywords": [KEYWORD_LIST.jp.X姿态]
   },
   {
     "id": "050",
@@ -431,7 +451,8 @@ export const rdlLeftHand: Part[] = [
     "type": "leftHand",
     "description": "",
     "imgSrc": "",
-    "tags": []
+    "tags": [],
+    "keywords": [KEYWORD_LIST.jp.拖拽, KEYWORD_LIST.jp.缴械]
   },
   {
     "id": "053",
@@ -445,7 +466,8 @@ export const rdlLeftHand: Part[] = [
     "type": "leftHand",
     "description": "",
     "imgSrc": "",
-    "tags": []
+    "tags": [],
+    "keywords": [KEYWORD_LIST.jp.霰射]
   },
   {
     "id": "054",
@@ -473,7 +495,8 @@ export const rdlLeftHand: Part[] = [
     "type": "leftHand",
     "description": "",
     "imgSrc": "",
-    "tags": []
+    "tags": [],
+    "keywords": [KEYWORD_LIST.jp.直射]
   },
   {
     "id": "057",
@@ -501,7 +524,8 @@ export const rdlLeftHand: Part[] = [
     "type": "leftHand",
     "description": "",
     "imgSrc": "",
-    "tags": []
+    "tags": [],
+    "keywords": [KEYWORD_LIST.jp.频闪武器]
   },
   {
     "id": "064",
@@ -543,7 +567,8 @@ export const rdlLeftHand: Part[] = [
     "type": "leftHand",
     "description": "",
     "imgSrc": "",
-    "tags": []
+    "tags": [],
+    "keywords": [KEYWORD_LIST.jp.X姿态]
   },
   {
     "id": "253",
@@ -571,7 +596,8 @@ export const rdlLeftHand: Part[] = [
     "type": "leftHand",
     "description": "",
     "imgSrc": "",
-    "tags": []
+    "tags": [],
+    "keywords": [KEYWORD_LIST.jp.拦截X, KEYWORD_LIST.jp.X姿态]
   },
   {
     "id": "283",
@@ -599,7 +625,8 @@ export const rdlLeftHand: Part[] = [
     "type": "leftHand",
     "description": "",
     "imgSrc": "",
-    "tags": []
+    "tags": [],
+    "keywords": [KEYWORD_LIST.jp.击退X, KEYWORD_LIST.jp.霰射]
   },
   {
     "id": "511",
@@ -627,7 +654,8 @@ export const rdlLeftHand: Part[] = [
     "type": "leftHand",
     "description": "",
     "imgSrc": "",
-    "tags": []
+    "tags": [],
+    "keywords": [KEYWORD_LIST.jp.全向射击]
   },
   {
     "id": "515",
@@ -655,7 +683,8 @@ export const rdlLeftHand: Part[] = [
     "type": "leftHand",
     "description": "",
     "imgSrc": "",
-    "tags": []
+    "tags": [],
+    "keywords": [KEYWORD_LIST.jp.震撼]
   }
 ];
 
@@ -672,7 +701,8 @@ export const rdlRightHand: Part[] = [
     "type": "rightHand",
     "description": "",
     "imgSrc": "",
-    "tags": []
+    "tags": [],
+    "keywords": [KEYWORD_LIST.jp.双手]
   },
   {
     "id": "026",
@@ -728,7 +758,8 @@ export const rdlRightHand: Part[] = [
     "type": "rightHand",
     "description": "",
     "imgSrc": "",
-    "tags": []
+    "tags": [],
+    "keywords": [KEYWORD_LIST.jp.静止, KEYWORD_LIST.jp.压制]
   },
   {
     "id": "031",
@@ -756,7 +787,8 @@ export const rdlRightHand: Part[] = [
     "type": "rightHand",
     "description": "",
     "imgSrc": "",
-    "tags": []
+    "tags": [],
+    "keywords": [KEYWORD_LIST.jp.静止, KEYWORD_LIST.jp.穿甲X]
   },
   {
     "id": "036",
@@ -770,7 +802,8 @@ export const rdlRightHand: Part[] = [
     "type": "rightHand",
     "description": "",
     "imgSrc": "",
-    "tags": []
+    "tags": [],
+    "keywords": [KEYWORD_LIST.jp.频闪武器]
   },
   {
     "id": "038",
@@ -784,7 +817,8 @@ export const rdlRightHand: Part[] = [
     "type": "rightHand",
     "description": "",
     "imgSrc": "",
-    "tags": []
+    "tags": [],
+    "keywords": [KEYWORD_LIST.jp.双手, KEYWORD_LIST.jp.多目标X, KEYWORD_LIST.jp.压制]
   },
   {
     "id": "039",
@@ -812,7 +846,8 @@ export const rdlRightHand: Part[] = [
     "type": "rightHand",
     "description": "",
     "imgSrc": "",
-    "tags": []
+    "tags": [],
+    "keywords": [KEYWORD_LIST.jp.X姿态, KEYWORD_LIST.jp.毁伤, KEYWORD_LIST.jp.穿甲X]
   },
   {
     "id": "044",
@@ -840,7 +875,8 @@ export const rdlRightHand: Part[] = [
     "type": "rightHand",
     "description": "",
     "imgSrc": "",
-    "tags": []
+    "tags": [],
+    "keywords": [KEYWORD_LIST.jp.霰射]
   },
   {
     "id": "047",
@@ -868,7 +904,8 @@ export const rdlRightHand: Part[] = [
     "type": "rightHand",
     "description": "",
     "imgSrc": "",
-    "tags": []
+    "tags": [],
+    "keywords": [KEYWORD_LIST.jp.直射, KEYWORD_LIST.jp.霰射]
   },
   {
     "id": "049",
@@ -896,7 +933,8 @@ export const rdlRightHand: Part[] = [
     "type": "rightHand",
     "description": "",
     "imgSrc": "",
-    "tags": []
+    "tags": [],
+    "keywords": [KEYWORD_LIST.jp.拦截X, KEYWORD_LIST.jp.双手, KEYWORD_LIST.jp.毁伤, KEYWORD_LIST.jp.频闪武器, KEYWORD_LIST.jp.顺劈]
   },
   {
     "id": "052",
@@ -924,7 +962,8 @@ export const rdlRightHand: Part[] = [
     "type": "rightHand",
     "description": "",
     "imgSrc": "",
-    "tags": []
+    "tags": [],
+    "keywords": [KEYWORD_LIST.jp.毁伤, KEYWORD_LIST.jp.粉碎]
   },
   {
     "id": "058",
@@ -938,7 +977,8 @@ export const rdlRightHand: Part[] = [
     "type": "rightHand",
     "description": "",
     "imgSrc": "",
-    "tags": []
+    "tags": [],
+    "keywords": [KEYWORD_LIST.jp.双手]
   },
   {
     "id": "059",
@@ -966,7 +1006,8 @@ export const rdlRightHand: Part[] = [
     "type": "rightHand",
     "description": "",
     "imgSrc": "",
-    "tags": []
+    "tags": [],
+    "keywords": [KEYWORD_LIST.jp.频闪武器]
   },
   {
     "id": "068",
@@ -980,7 +1021,8 @@ export const rdlRightHand: Part[] = [
     "type": "rightHand",
     "description": "",
     "imgSrc": "",
-    "tags": []
+    "tags": [],
+    "keywords": [KEYWORD_LIST.jp.双手, KEYWORD_LIST.jp.静止]
   },
   {
     "id": "069",
@@ -1008,7 +1050,8 @@ export const rdlRightHand: Part[] = [
     "type": "rightHand",
     "description": "",
     "imgSrc": "",
-    "tags": []
+    "tags": [],
+    "keywords": [KEYWORD_LIST.jp.拦截X, KEYWORD_LIST.jp.双手, KEYWORD_LIST.jp.毁伤, KEYWORD_LIST.jp.频闪武器, KEYWORD_LIST.jp.顺劈]
   },
   {
     "id": "255",
@@ -1036,7 +1079,8 @@ export const rdlRightHand: Part[] = [
     "type": "rightHand",
     "description": "",
     "imgSrc": "",
-    "tags": []
+    "tags": [],
+    "keywords": [KEYWORD_LIST.jp.拦截X, KEYWORD_LIST.jp.双手, KEYWORD_LIST.jp.毁伤, KEYWORD_LIST.jp.震撼]
   },
   {
     "id": "285",
@@ -1064,7 +1108,8 @@ export const rdlRightHand: Part[] = [
     "type": "rightHand",
     "description": "",
     "imgSrc": "",
-    "tags": []
+    "tags": [],
+    "keywords": [KEYWORD_LIST.jp.击退X, KEYWORD_LIST.jp.霰射]
   },
   {
     "id": "509",
@@ -1092,7 +1137,8 @@ export const rdlRightHand: Part[] = [
     "type": "rightHand",
     "description": "",
     "imgSrc": "",
-    "tags": []
+    "tags": [],
+    "keywords": [KEYWORD_LIST.jp.全向射击]
   },
   {
     "id": "513",
@@ -1120,7 +1166,8 @@ export const rdlRightHand: Part[] = [
     "type": "rightHand",
     "description": "",
     "imgSrc": "",
-    "tags": []
+    "tags": [],
+    "keywords": [KEYWORD_LIST.jp.双手, KEYWORD_LIST.jp.狙击]
   },
   {
     "id": "517",
@@ -1148,7 +1195,8 @@ export const rdlRightHand: Part[] = [
     "type": "rightHand",
     "description": "",
     "imgSrc": "",
-    "tags": []
+    "tags": [],
+    "keywords": [KEYWORD_LIST.jp.双手, KEYWORD_LIST.jp.霰射, KEYWORD_LIST.jp.近战射击]
   },
   {
     "id": "519",
@@ -1179,7 +1227,8 @@ export const rdlBackpack: Part[] = [
     "type": "backpack",
     "description": "",
     "imgSrc": "",
-    "tags": []
+    "tags": [],
+    "keywords": [KEYWORD_LIST.jp.修补]
   },
   {
     "id": "002",
@@ -1193,7 +1242,8 @@ export const rdlBackpack: Part[] = [
     "type": "backpack",
     "description": "",
     "imgSrc": "",
-    "tags": []
+    "tags": [],
+    "keywords": [KEYWORD_LIST.jp.X姿态]
   },
   {
     "id": "003",
@@ -1207,7 +1257,8 @@ export const rdlBackpack: Part[] = [
     "type": "backpack",
     "description": "",
     "imgSrc": "",
-    "tags": []
+    "tags": [],
+    "keywords": [KEYWORD_LIST.jp.拦截X]
   },
   {
     "id": "004",
@@ -1221,7 +1272,8 @@ export const rdlBackpack: Part[] = [
     "type": "backpack",
     "description": "",
     "imgSrc": "",
-    "tags": []
+    "tags": [],
+    "keywords": [KEYWORD_LIST.jp.齐射X, KEYWORD_LIST.jp.曲射]
   },
   {
     "id": "005",
@@ -1235,7 +1287,8 @@ export const rdlBackpack: Part[] = [
     "type": "backpack",
     "description": "",
     "imgSrc": "",
-    "tags": []
+    "tags": [],
+    "keywords": [KEYWORD_LIST.jp.毁伤]
   },
   {
     "id": "006",
@@ -1249,7 +1302,8 @@ export const rdlBackpack: Part[] = [
     "type": "backpack",
     "description": "",
     "imgSrc": "",
-    "tags": []
+    "tags": [],
+    "keywords": [KEYWORD_LIST.jp.直射, KEYWORD_LIST.jp.静默]
   },
   {
     "id": "007",
@@ -1263,7 +1317,8 @@ export const rdlBackpack: Part[] = [
     "type": "backpack",
     "description": "",
     "imgSrc": "",
-    "tags": []
+    "tags": [],
+    "keywords": [KEYWORD_LIST.jp.高亮目标]
   },
   {
     "id": "008",
@@ -1277,7 +1332,8 @@ export const rdlBackpack: Part[] = [
     "type": "backpack",
     "description": "",
     "imgSrc": "",
-    "tags": []
+    "tags": [],
+    "keywords": [KEYWORD_LIST.jp.直射, KEYWORD_LIST.jp.静默, KEYWORD_LIST.jp.投掷]
   },
   {
     "id": "009",
@@ -1291,7 +1347,8 @@ export const rdlBackpack: Part[] = [
     "type": "backpack",
     "description": "",
     "imgSrc": "",
-    "tags": []
+    "tags": [],
+    "keywords": [KEYWORD_LIST.jp.电子支援]
   },
   {
     "id": "010",
@@ -1305,7 +1362,8 @@ export const rdlBackpack: Part[] = [
     "type": "backpack",
     "description": "",
     "imgSrc": "",
-    "tags": []
+    "tags": [],
+    "keywords": [KEYWORD_LIST.jp.空中移动]
   },
   {
     "id": "011",
@@ -1319,7 +1377,8 @@ export const rdlBackpack: Part[] = [
     "type": "backpack",
     "description": "",
     "imgSrc": "",
-    "tags": []
+    "tags": [],
+    "keywords": [KEYWORD_LIST.jp.齐射X, KEYWORD_LIST.jp.曲射]
   },
   {
     "id": "264",
@@ -1333,7 +1392,8 @@ export const rdlBackpack: Part[] = [
     "type": "backpack",
     "description": "",
     "imgSrc": "",
-    "tags": []
+    "tags": [],
+    "keywords": [KEYWORD_LIST.jp.拦截X]
   },
   {
     "id": "286",
@@ -1347,7 +1407,8 @@ export const rdlBackpack: Part[] = [
     "type": "backpack",
     "description": "",
     "imgSrc": "",
-    "tags": []
+    "tags": [],
+    "keywords": [KEYWORD_LIST.jp.拦截X]
   },
   {
     "id": "500",
@@ -1378,7 +1439,8 @@ export const rdlBackpack: Part[] = [
     "tags": [],
     "projectile": [
       "521"
-    ]
+    ],
+    "keywords": [KEYWORD_LIST.jp.齐射X, KEYWORD_LIST.jp.曲射]
   },
   {
     "id": "502",
@@ -1395,7 +1457,8 @@ export const rdlBackpack: Part[] = [
     "tags": [],
     "projectile": [
       "522"
-    ]
+    ],
+    "keywords": [KEYWORD_LIST.jp.曲射, KEYWORD_LIST.jp.静默, KEYWORD_LIST.jp.投掷]
   }
 ];
 
@@ -1409,7 +1472,8 @@ export const rdlProjectiles: Projectile[] = [
     "dodge": 4,
     "electronic": 0,
     "stance": "offensive",
-    "imgSrc": ""
+    "imgSrc": "",
+    "keywords": [KEYWORD_LIST.jp.拦截X, KEYWORD_LIST.jp.全向射击, KEYWORD_LIST.jp.近战射击]
   },
   {
     "id": "071",
@@ -1420,7 +1484,8 @@ export const rdlProjectiles: Projectile[] = [
     "dodge": 6,
     "electronic": 1,
     "stance": "offensive",
-    "imgSrc": ""
+    "imgSrc": "",
+    "keywords": [KEYWORD_LIST.jp.齐射X, KEYWORD_LIST.jp.曲射]
   },
   {
     "id": "072",
@@ -1577,7 +1642,8 @@ export const unTorso: Part[] = [
     "description": "",
     "imgSrc": "",
     "tags": [],
-    "projectile": ["155"]
+    "projectile": ["155"],
+    "keywords": [KEYWORD_LIST.jp.曲射]
   },
   {
     "id": "092",
@@ -1605,7 +1671,8 @@ export const unTorso: Part[] = [
     "type": "torso",
     "description": "",
     "imgSrc": "",
-    "tags": []
+    "tags": [],
+    "keywords": [KEYWORD_LIST.jp.低特征, KEYWORD_LIST.jp.静默]
   },
   {
     "id": "096",
@@ -1619,7 +1686,8 @@ export const unTorso: Part[] = [
     "type": "torso",
     "description": "",
     "imgSrc": "",
-    "tags": []
+    "tags": [],
+    "keywords": [KEYWORD_LIST.jp.低特征, KEYWORD_LIST.jp.静默, KEYWORD_LIST.jp.隐秘X]
   },
   {
     "id": "097",
@@ -1633,7 +1701,8 @@ export const unTorso: Part[] = [
     "type": "torso",
     "description": "",
     "imgSrc": "",
-    "tags": []
+    "tags": [],
+    "keywords": [KEYWORD_LIST.jp.KC装甲, KEYWORD_LIST.jp.电子攻击, KEYWORD_LIST.jp.静默, KEYWORD_LIST.jp.禁足]
   },
   {
     "id": "098",
@@ -1647,7 +1716,8 @@ export const unTorso: Part[] = [
     "type": "torso",
     "description": "",
     "imgSrc": "",
-    "tags": []
+    "tags": [],
+    "keywords": [KEYWORD_LIST.jp.KC装甲, KEYWORD_LIST.jp.高亮目标]
   },
   {
     "id": "247",
@@ -1661,7 +1731,8 @@ export const unTorso: Part[] = [
     "type": "torso",
     "description": "",
     "imgSrc": "",
-    "tags": []
+    "tags": [],
+    "keywords": [KEYWORD_LIST.jp.低特征, KEYWORD_LIST.jp.静默, KEYWORD_LIST.jp.隐秘X]
   },
   {
     "id": "555",
@@ -1706,7 +1777,8 @@ export const unChasis: Part[] = [
     "type": "chasis",
     "description": "",
     "imgSrc": "",
-    "tags": []
+    "tags": [],
+    "keywords": [KEYWORD_LIST.jp.静默]
   },
   {
     "id": "101",
@@ -1734,7 +1806,8 @@ export const unChasis: Part[] = [
     "type": "chasis",
     "description": "",
     "imgSrc": "",
-    "tags": []
+    "tags": [],
+    "keywords": [KEYWORD_LIST.jp.静默]
   }
 ];
 
@@ -1751,7 +1824,8 @@ export const unLeftHand: Part[] = [
     "type": "leftHand",
     "description": "",
     "imgSrc": "",
-    "tags": []
+    "tags": [],
+    "keywords": [KEYWORD_LIST.jp.震撼, KEYWORD_LIST.jp.毁伤]
   },
   {
     "id": "107",
@@ -1765,7 +1839,8 @@ export const unLeftHand: Part[] = [
     "type": "leftHand",
     "description": "",
     "imgSrc": "",
-    "tags": []
+    "tags": [],
+    "keywords": [KEYWORD_LIST.jp.齐射X, KEYWORD_LIST.jp.曲射]
   },
   {
     "id": "108",
@@ -1793,7 +1868,8 @@ export const unLeftHand: Part[] = [
     "type": "leftHand",
     "description": "",
     "imgSrc": "",
-    "tags": []
+    "tags": [],
+    "keywords": [KEYWORD_LIST.jp.全向射击]
   },
   {
     "id": "112",
@@ -1821,7 +1897,8 @@ export const unLeftHand: Part[] = [
     "type": "leftHand",
     "description": "",
     "imgSrc": "",
-    "tags": []
+    "tags": [],
+    "keywords": [KEYWORD_LIST.jp.激光武器, KEYWORD_LIST.jp.静止]
   },
   {
     "id": "118",
@@ -1849,7 +1926,8 @@ export const unLeftHand: Part[] = [
     "type": "leftHand",
     "description": "",
     "imgSrc": "",
-    "tags": []
+    "tags": [],
+    "keywords": [KEYWORD_LIST.jp.双手]
   },
   {
     "id": "126",
@@ -1863,7 +1941,8 @@ export const unLeftHand: Part[] = [
     "type": "leftHand",
     "description": "",
     "imgSrc": "",
-    "tags": []
+    "tags": [],
+    "keywords": [KEYWORD_LIST.jp.静默]
   },
   {
     "id": "129",
@@ -1877,7 +1956,8 @@ export const unLeftHand: Part[] = [
     "type": "leftHand",
     "description": "",
     "imgSrc": "",
-    "tags": []
+    "tags": [],
+    "keywords": [KEYWORD_LIST.jp.直射, KEYWORD_LIST.jp.双手]
   },
   {
     "id": "130",
@@ -1919,7 +1999,8 @@ export const unLeftHand: Part[] = [
     "type": "leftHand",
     "description": "",
     "imgSrc": "",
-    "tags": []
+    "tags": [],
+    "keywords": [KEYWORD_LIST.jp.齐射X, KEYWORD_LIST.jp.曲射]
   },
   {
     "id": "139",
@@ -1933,7 +2014,8 @@ export const unLeftHand: Part[] = [
     "type": "leftHand",
     "description": "",
     "imgSrc": "",
-    "tags": []
+    "tags": [],
+    "keywords": [KEYWORD_LIST.jp.拖拽, KEYWORD_LIST.jp.禁足]
   },
   {
     "id": "142",
@@ -1975,7 +2057,8 @@ export const unLeftHand: Part[] = [
     "type": "leftHand",
     "description": "",
     "imgSrc": "",
-    "tags": []
+    "tags": [],
+    "keywords": [KEYWORD_LIST.jp.静默, KEYWORD_LIST.jp.X姿态]
   },
   {
     "id": "146",
@@ -1989,7 +2072,8 @@ export const unLeftHand: Part[] = [
     "type": "leftHand",
     "description": "",
     "imgSrc": "",
-    "tags": []
+    "tags": [],
+    "keywords": [KEYWORD_LIST.jp.霰射, KEYWORD_LIST.jp.激光武器, KEYWORD_LIST.jp.近战射击, KEYWORD_LIST.jp.齐射X, KEYWORD_LIST.jp.曲射]
   },
   {
     "id": "147",
@@ -2017,7 +2101,8 @@ export const unLeftHand: Part[] = [
     "type": "leftHand",
     "description": "",
     "imgSrc": "",
-    "tags": []
+    "tags": [],
+    "keywords": [KEYWORD_LIST.jp.全向射击, KEYWORD_LIST.jp.压制]
   },
   {
     "id": "151",
@@ -2045,7 +2130,8 @@ export const unLeftHand: Part[] = [
     "type": "leftHand",
     "description": "",
     "imgSrc": "",
-    "tags": []
+    "tags": [],
+    "keywords": [KEYWORD_LIST.jp.静默]
   }
 ];
 
@@ -2062,7 +2148,8 @@ export const unRightHand: Part[] = [
     "type": "rightHand",
     "description": "",
     "imgSrc": "",
-    "tags": []
+    "tags": [],
+    "keywords": [KEYWORD_LIST.jp.激光武器, KEYWORD_LIST.jp.双手]
   },
   {
     "id": "105",
@@ -2090,7 +2177,8 @@ export const unRightHand: Part[] = [
     "type": "rightHand",
     "description": "",
     "imgSrc": "",
-    "tags": []
+    "tags": [],
+    "keywords": [KEYWORD_LIST.jp.激光武器, KEYWORD_LIST.jp.静止, KEYWORD_LIST.jp.狙击]
   },
   {
     "id": "109",
@@ -2104,7 +2192,8 @@ export const unRightHand: Part[] = [
     "type": "rightHand",
     "description": "",
     "imgSrc": "",
-    "tags": []
+    "tags": [],
+    "keywords": [KEYWORD_LIST.jp.激光武器, KEYWORD_LIST.jp.双手, KEYWORD_LIST.jp.静止]
   },
   {
     "id": "110",
@@ -2132,7 +2221,8 @@ export const unRightHand: Part[] = [
     "type": "rightHand",
     "description": "",
     "imgSrc": "",
-    "tags": []
+    "tags": [],
+    "keywords": [KEYWORD_LIST.jp.全向射击]
   },
   {
     "id": "114",
@@ -2160,7 +2250,8 @@ export const unRightHand: Part[] = [
     "type": "rightHand",
     "description": "",
     "imgSrc": "",
-    "tags": []
+    "tags": [],
+    "keywords": [KEYWORD_LIST.jp.激光武器, KEYWORD_LIST.jp.静止]
   },
   {
     "id": "116",
@@ -2188,7 +2279,8 @@ export const unRightHand: Part[] = [
     "type": "rightHand",
     "description": "",
     "imgSrc": "",
-    "tags": []
+    "tags": [],
+    "keywords": [KEYWORD_LIST.jp.激光武器, KEYWORD_LIST.jp.静止]
   },
   {
     "id": "120",
@@ -2217,7 +2309,8 @@ export const unRightHand: Part[] = [
     "description": "",
     "imgSrc": "",
     "tags": [],
-    "throwIndex": "123"
+    "throwIndex": "123",
+    "keywords": [KEYWORD_LIST.jp.双手, KEYWORD_LIST.jp.狙击, KEYWORD_LIST.jp.充能, KEYWORD_LIST.jp.毁伤, KEYWORD_LIST.jp.离子武器]
   },
   {
     "id": "123",
@@ -2245,7 +2338,8 @@ export const unRightHand: Part[] = [
     "type": "rightHand",
     "description": "",
     "imgSrc": "",
-    "tags": []
+    "tags": [],
+    "keywords": [KEYWORD_LIST.jp.静默, KEYWORD_LIST.jp.激光武器, KEYWORD_LIST.jp.双手]
   },
   {
     "id": "125",
@@ -2273,7 +2367,8 @@ export const unRightHand: Part[] = [
     "type": "rightHand",
     "description": "",
     "imgSrc": "",
-    "tags": []
+    "tags": [],
+    "keywords": [KEYWORD_LIST.jp.静默, KEYWORD_LIST.jp.激光武器, KEYWORD_LIST.jp.双手]
   },
   {
     "id": "128",
@@ -2315,7 +2410,8 @@ export const unRightHand: Part[] = [
     "type": "rightHand",
     "description": "",
     "imgSrc": "",
-    "tags": []
+    "tags": [],
+    "keywords": [KEYWORD_LIST.jp.齐射X, KEYWORD_LIST.jp.曲射]
   },
   {
     "id": "140",
@@ -2329,7 +2425,8 @@ export const unRightHand: Part[] = [
     "type": "rightHand",
     "description": "",
     "imgSrc": "",
-    "tags": []
+    "tags": [],
+    "keywords": [KEYWORD_LIST.jp.充能, KEYWORD_LIST.jp.毁伤, KEYWORD_LIST.jp.霰射, KEYWORD_LIST.jp.离子武器, KEYWORD_LIST.jp.近战射击]
   },
   {
     "id": "141",
@@ -2357,7 +2454,8 @@ export const unRightHand: Part[] = [
     "type": "rightHand",
     "description": "",
     "imgSrc": "",
-    "tags": []
+    "tags": [],
+    "keywords": [KEYWORD_LIST.jp.双手, KEYWORD_LIST.jp.毁伤]
   },
   {
     "id": "148",
@@ -2371,7 +2469,8 @@ export const unRightHand: Part[] = [
     "type": "rightHand",
     "description": "",
     "imgSrc": "",
-    "tags": []
+    "tags": [],
+    "keywords": [KEYWORD_LIST.jp.霰射, KEYWORD_LIST.jp.激光武器, KEYWORD_LIST.jp.近战射击, KEYWORD_LIST.jp.毁伤]
   },
   {
     "id": "149",
@@ -2399,7 +2498,8 @@ export const unRightHand: Part[] = [
     "type": "rightHand",
     "description": "",
     "imgSrc": "",
-    "tags": []
+    "tags": [],
+    "keywords": [KEYWORD_LIST.jp.全向射击, KEYWORD_LIST.jp.压制]
   },
   {
     "id": "153",
@@ -2427,7 +2527,8 @@ export const unRightHand: Part[] = [
     "type": "rightHand",
     "description": "",
     "imgSrc": "",
-    "tags": []
+    "tags": [],
+    "keywords": [KEYWORD_LIST.jp.静默]
   },
   {
     "id": "556",
@@ -2532,7 +2633,8 @@ export const unBackpack: Part[] = [
     "type": "backpack",
     "description": "",
     "imgSrc": "",
-    "tags": []
+    "tags": [],
+    "keywords": [KEYWORD_LIST.jp.KC装甲]
   },
   {
     "id": "082",
@@ -2546,7 +2648,8 @@ export const unBackpack: Part[] = [
     "type": "backpack",
     "description": "",
     "imgSrc": "",
-    "tags": []
+    "tags": [],
+    "keywords": [KEYWORD_LIST.jp.曲射, KEYWORD_LIST.jp.投掷, KEYWORD_LIST.jp.静默]
   },
   {
     "id": "083",
@@ -2560,7 +2663,8 @@ export const unBackpack: Part[] = [
     "type": "backpack",
     "description": "",
     "imgSrc": "",
-    "tags": []
+    "tags": [],
+    "keywords": [KEYWORD_LIST.jp.激光武器]
   },
   {
     "id": "084",
@@ -2616,7 +2720,8 @@ export const unBackpack: Part[] = [
     "type": "backpack",
     "description": "",
     "imgSrc": "",
-    "tags": []
+    "tags": [],
+    "keywords": [KEYWORD_LIST.jp.全向射击]
   },
   {
     "id": "088",
@@ -2630,7 +2735,8 @@ export const unBackpack: Part[] = [
     "type": "backpack",
     "description": "",
     "imgSrc": "",
-    "tags": []
+    "tags": [],
+    "keywords": [KEYWORD_LIST.jp.空中移动, KEYWORD_LIST.jp.负载]
   },
   {
     "id": "089",
@@ -2644,7 +2750,8 @@ export const unBackpack: Part[] = [
     "type": "backpack",
     "description": "",
     "imgSrc": "",
-    "tags": []
+    "tags": [],
+    "keywords": [KEYWORD_LIST.jp.电子攻击, KEYWORD_LIST.jp.火控干扰]
   },
   {
     "id": "090",
@@ -2658,7 +2765,8 @@ export const unBackpack: Part[] = [
     "type": "backpack",
     "description": "",
     "imgSrc": "",
-    "tags": []
+    "tags": [],
+    "keywords": [KEYWORD_LIST.jp.负载]
   },
   {
     "id": "265",
@@ -2672,7 +2780,8 @@ export const unBackpack: Part[] = [
     "type": "backpack",
     "description": "",
     "imgSrc": "",
-    "tags": []
+    "tags": [],
+    "keywords": [KEYWORD_LIST.jp.KC装甲]
   }
 ];
 
@@ -2703,7 +2812,8 @@ export const unDrones: Drone[] = [
     "type": "medium",
     "move": 0,
     "stance": "offensive",
-    "description": ""
+    "description": "",
+    "keywords": [KEYWORD_LIST.jp.激光武器,KEYWORD_LIST.jp.拦截X,KEYWORD_LIST.jp.全向射击,KEYWORD_LIST.jp.近战射击]
   },
   {
     "id": "161",
@@ -2731,7 +2841,8 @@ export const unDrones: Drone[] = [
     "type": "medium",
     "move": 0,
     "stance": "offensive",
-    "description": ""
+    "description": "",
+    "keywords": [KEYWORD_LIST.jp.负载]
   },
   {
     "id": "163",
@@ -2745,7 +2856,8 @@ export const unDrones: Drone[] = [
     "type": "medium",
     "move": 0,
     "stance": "offensive",
-    "description": ""
+    "description": "",
+    "keywords": [KEYWORD_LIST.jp.激光武器,KEYWORD_LIST.jp.拦截X,KEYWORD_LIST.jp.全向射击,KEYWORD_LIST.jp.近战射击]
   },
   {
     "id": "164",
@@ -2773,7 +2885,8 @@ export const unDrones: Drone[] = [
     "type": "medium",
     "move": 0,
     "stance": "offensive",
-    "description": ""
+    "description": "",
+    "keywords": [KEYWORD_LIST.jp.中继器]
   },
   {
     "id": "166",
@@ -2787,7 +2900,8 @@ export const unDrones: Drone[] = [
     "type": "medium",
     "move": 0,
     "stance": "offensive",
-    "description": ""
+    "description": "",
+    "keywords": [KEYWORD_LIST.jp.电子攻击,KEYWORD_LIST.jp.火控干扰]
   },
   {
     "id": "167",
@@ -3322,7 +3436,8 @@ export const pdDrones: Drone[] = [
     "description": "",
     "isPD":true,"projectile": [
       "PDAM-001"
-    ]
+    ],
+    "keywords": [KEYWORD_LIST.jp.齐射X, KEYWORD_LIST.jp.曲射, KEYWORD_LIST.jp.拦截X]
   },
   {
     "id": "PRDR-102",
@@ -3339,7 +3454,8 @@ export const pdDrones: Drone[] = [
     "description": "",
     "isPD":true,"projectile": [
       "PDAM-001"
-    ]
+    ],
+    "keywords": [KEYWORD_LIST.jp.齐射X, KEYWORD_LIST.jp.曲射, KEYWORD_LIST.jp.火控干扰]
   },
   {
     "id": "PRDR-103",
@@ -3369,7 +3485,8 @@ export const pdDrones: Drone[] = [
     "move": 6,
     "stance": "defensive",
     "description": "",
-    "isPD":true
+    "isPD":true,
+    "keywords": [KEYWORD_LIST.jp.火控干扰]
   },
   {
     "id": "PRDR-105",
@@ -3386,7 +3503,8 @@ export const pdDrones: Drone[] = [
     "description": "",
     "isPD":true,"projectile": [
       "PDAM-003","PDAM-004"
-    ]
+    ],
+    "keywords": [KEYWORD_LIST.jp.直射]
   },
   {
     "id": "PRDR-201",
@@ -3401,7 +3519,8 @@ export const pdDrones: Drone[] = [
     "move": 6,
     "stance": "mobility",
     "description": "",
-    "isPD":true
+    "isPD":true,
+    "keywords": [KEYWORD_LIST.jp.全向射击, KEYWORD_LIST.jp.近战射击, KEYWORD_LIST.jp.空中移动]
   },
   {
     "id": "PRDR-202",
@@ -3416,7 +3535,8 @@ export const pdDrones: Drone[] = [
     "move": 6,
     "stance": "mobility",
     "description": "",
-    "isPD":true
+    "isPD":true,
+    "keywords": [KEYWORD_LIST.jp.高亮目标, KEYWORD_LIST.jp.空中移动, KEYWORD_LIST.jp.全向射击, KEYWORD_LIST.jp.近战射击]
   },
   {
     "id": "PRDR-203",
@@ -3433,7 +3553,8 @@ export const pdDrones: Drone[] = [
     "description": "",
     "isPD":true, "projectile": [
       "PDAM-005"
-    ]
+    ],
+    "keywords": [KEYWORD_LIST.jp.空中移动, KEYWORD_LIST.jp.曲射, KEYWORD_LIST.jp.齐射X]
   },
   {
     "id": "PRDR-204",
@@ -3450,7 +3571,8 @@ export const pdDrones: Drone[] = [
     "description": "",
     "isPD":true,"projectile": [
       "PDAM-005","PDAM-006"
-    ]
+    ],
+    "keywords": [KEYWORD_LIST.jp.曲射, KEYWORD_LIST.jp.齐射X, KEYWORD_LIST.jp.直射]
   }
 ];
 

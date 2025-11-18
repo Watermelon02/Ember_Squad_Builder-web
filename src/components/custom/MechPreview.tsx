@@ -23,6 +23,7 @@ const partOrder: (keyof Mech['parts'])[] = [
   'rightHand',
 ];
 
+
 export const MechPreview: React.FC<MechPreviewProps> = ({
   mech,
   mechImgSrc,
@@ -64,8 +65,18 @@ export const MechPreview: React.FC<MechPreviewProps> = ({
         overflow: 'hidden',
         boxShadow: 'inset 0 0 8px rgba(0,0,0,0.1)',
         ...style,
+        transition: 'transform 0.3s ease, box-shadow 0.3s ease' 
       }}
       transition={{ duration: 0.3 }}
+      onMouseEnter={(e) => {
+                  (e.currentTarget as HTMLDivElement).style.transform = 'scale(1.03)';
+                  (e.currentTarget as HTMLDivElement).style.boxShadow = '0 6px 10px rgba(0,0,0,0.1)';
+                }}
+                onMouseLeave={(e) => {
+                  (e.currentTarget as HTMLDivElement).style.transform = 'scale(1)';
+                  (e.currentTarget as HTMLDivElement).style.boxShadow =
+                    '0 4px 6px rgba(0,0,0,0.05), 0 1px 3px rgba(0,0,0,0.1)';
+                }}
     >
       {/* 零件图层（不显示 backpack） */}
       {partOrder.map((partKey) => {
@@ -122,94 +133,55 @@ export const MechPreview: React.FC<MechPreviewProps> = ({
       })}
 
       {/* 左下角黑色小点（固定顺序） */}
-     {/* 左下角部位状态块 */}
-<div
-  style={{
-    position: 'absolute',
-    top: '0.15rem',
-    left: '0.15rem',
-    display: 'flex',
-    flexDirection: 'column',
-    gap: '0.2rem',
-    padding: '0.15rem 0.25rem',
-    pointerEvents: 'none',
-  }}
->
-  {[
-    { key: 'torso', label: 'T' },
-    { key: 'chasis', label: 'C' },
-    { key: 'leftHand', label: 'L' },
-    { key: 'rightHand', label: 'R' },
-    { key: 'backpack', label: 'B' },
-  ].map(({ key, label }) => {
-    const partKey = key as keyof Mech['parts'];
-    const isReal = !!mech.parts[partKey]?.id;
-
-    return (
+      {/* 左下角部位状态块 */}
       <div
-        key={key}
-        title={key} // 鼠标悬停显示部位名称
-        style={{
-          width: '0.5vh',
-          height: '0.5vh',
-          borderRadius: '0.15vw', // 圆角方块
-          background: isReal ? '#9f9e9a' : '#ffffff',
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'center',
-          color: 'white',
-          fontSize: '0.15rem',
-          fontWeight: 'bold',
-  
-          pointerEvents: 'auto',
-          cursor: 'default',
-          transition: 'transform 0.2s, box-shadow 0.2s',
-        }}
-      >
-
-      </div>
-    );
-  })}
-</div>
-
-
-
-
-      {/* 历史记录（右下角），无背景 + 浮动动画 + 右对齐 */}
-      <motion.div
         style={{
           position: 'absolute',
-          bottom: '0.2rem',
-          right: '0.2rem',
-          fontSize: typeof height === 'number' ? `${height * 0.08}px` : `calc(${height} * 0.03)`,
+          top: '1vh',
+          left: '1vh',
+          display: 'flex',
+          flexDirection: 'column',
+          gap: '0.2rem',
+          padding: '0.15rem 0.25rem',
           pointerEvents: 'none',
-          maxWidth: '50%',
-          textAlign: 'right',
-          color: '#888888',
         }}
       >
-        {championMode && <AnimatePresence>
+        {[
+          { key: 'torso', label: 'T' },
+          { key: 'chasis', label: 'C' },
+          { key: 'leftHand', label: 'L' },
+          { key: 'rightHand', label: 'R' },
+          { key: 'backpack', label: 'B' },
+        ].map(({ key, label }) => {
+          const partKey = key as keyof Mech['parts'];
+          const isReal = !!mech.parts[partKey]?.id;
 
-          {replaceHistory.map((line) => (
-            <motion.div
-              key={line} // 每行文字作为 key，改变时会触发动画
-              initial={{ opacity: 0, y: 4 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: 4 }}
-              transition={{ duration: 0.2 }}
+          return (
+            <div
+              key={key}
+              title={key} // 鼠标悬停显示部位名称
               style={{
-                whiteSpace: 'pre-line',
-                lineHeight: '1.2em',
-                overflowWrap: 'break-word',
+                width: '0.5vh',
+                height: '0.5vh',
+                borderRadius: '0.15vw', // 圆角方块
+                background: isReal ? '#9f9e9a' : '#ffffff',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                color: 'white',
+                fontSize: '0.15rem',
+                fontWeight: 'bold',
+                
+                pointerEvents: 'auto',
+                cursor: 'default',
+                transition: 'transform 0.2s, box-shadow 0.2s',
               }}
             >
-              {line}
-            </motion.div>
-          ))}
-        </AnimatePresence>}
-      </motion.div>
 
-
+            </div>
+          );
+        })}
+      </div>
 
       {/* READY（右上角） */}
       {isReady && (
@@ -218,17 +190,18 @@ export const MechPreview: React.FC<MechPreviewProps> = ({
           animate={{ opacity: 1, y: 0, transition: { duration: 0.25 } }}
           style={{
             position: 'absolute',
-            top: '0.25rem',
-            right: '0.25rem',
+            top: '1vh',
+            right: '1vh',
             color: '#888888',
             fontWeight: 'bold',
-            fontSize: '0.35rem',
+            fontSize: '1vh',
             pointerEvents: 'none',
           }}
         >
           READY
         </motion.div>
       )}
+
 
     </motion.div>
   );

@@ -1,3 +1,5 @@
+import { Keyword } from "./keyword";
+
 export interface Team {
   id: string;
   name: string;
@@ -41,7 +43,8 @@ export interface Part {
   tags?: string[];
   throwIndex?: string;//是否有对应的抛弃卡，如果有设置为其序号
   projectile?: string[];//是否有对应的导弹\设置物卡，如果有设置为其序号
-  isPD?: boolean
+  isPD?: boolean,
+  keywords?:Keyword[]
 }
 
 export interface Projectile {
@@ -54,6 +57,7 @@ export interface Projectile {
   electronic: number;
   stance: 'offensive' | 'defensive' | 'mobility';
   imgSrc?: string;
+    keywords?:Keyword[];
 }
 
 export interface Drone {
@@ -72,6 +76,7 @@ export interface Drone {
   projectile?: string[];
   isPD?: boolean;
   backpack?: Part;
+  keywords?:Keyword[];
 }
 
 export interface Pilot {
@@ -97,9 +102,11 @@ export interface TacticCard {
   score: number;
 }
 
+
+
 export const FACTION_COLORS: { [key: string]: string } = {
   RDL: '#EA6D76',
-  UN: '#006CB6',
+  UN: '#65a2d8',
   GOF: '#006CB6',
   PD: '#006CB6',
 };

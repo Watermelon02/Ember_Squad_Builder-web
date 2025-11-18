@@ -1,7 +1,6 @@
 // TacticCardComparePanel.jsx
 import { TacticCard, Part } from "../../../types";
 import TacticCardPreview from "./TacticCardPreview";
-import PartPreview from "./PartPreview";
 interface TacticCardComparePanelProps {
     lastPartId: string;
     hoverId: string;

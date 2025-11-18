@@ -5,7 +5,7 @@ import { PartSelector } from './components/partSelector/desktop/PartSelector';
 import { Team, Mech, Part, Drone, Pilot, PART_TYPE_NAMES, FACTION_NAMES, TacticCard, calculateTotalScore } from './types';
 
 import { translations } from './i18n';
-import { IMAGE_SRC, LOCAL_IMAGE_SRC, MECH_IMAGE_SRC, TAB_IMAGE_SRC, TAB_SMALL_IMAGE_SRC } from './resource';
+import { BACKGROUND_SRC, IMAGE_SRC, LOCAL_IMAGE_SRC, MECH_IMAGE_SRC, TAB_IMAGE_SRC, TAB_SMALL_IMAGE_SRC } from './resource';
 import * as zhData from './data';
 import * as enData from './data_en';
 import * as jpData from './data_jp';
@@ -67,7 +67,13 @@ export default function App() {
   const [lastPartId, setLastPartId] = useState<string>('');
   const [compareMode, setCompareMode] = useState<boolean>(() => {
     // 初始化时从 localStorage 获取
-    const stored = localStorage.getItem("showHoverImg");
+    const stored = localStorage.getItem("compareMode");
+    return stored !== null ? JSON.parse(stored) : true;
+  });
+  const [showTeamHintText, setShowTeamHintText] = useState(false);
+  const [showKeyword, setShowKeyword] = useState<boolean>(() => {
+    // 初始化时从 localStorage 获取
+    const stored = localStorage.getItem("showKeyword");
     return stored !== null ? JSON.parse(stored) : true;
   });
   const [isChangingPart, setIsChangingPart] = useState<boolean>(false);
@@ -78,7 +84,8 @@ export default function App() {
   const tabSmallSrc = TAB_SMALL_IMAGE_SRC[lang];
   const localImgsrc = LOCAL_IMAGE_SRC[lang];
   const mechImgsrc = MECH_IMAGE_SRC[lang];
-
+    const backgroundImgsrc = BACKGROUND_SRC[lang];
+ 
 
   let selectedTeam = teams.find(team => team.id === selectedTeamId);
 
@@ -124,6 +131,15 @@ export default function App() {
       setCollapsedRight(true);
     }
   }, []);
+
+  useEffect(() => {
+    localStorage.setItem("showKeyword", JSON.stringify(showKeyword));
+  }, [showKeyword]);
+
+  // 当 compareMode 变化时，自动写入 localStorage
+  useEffect(() => {
+    localStorage.setItem("compareMode", JSON.stringify(compareMode));
+  }, [compareMode]);
 
 
   if (isMobileOrTablet === null) return null; // 或者显示 loading
@@ -188,6 +204,14 @@ export default function App() {
     setLastViewMode(viewMode)
   }, [selectedTeam, selectedMechId, selectedPartType, viewMode]);
 
+  useEffect(() => {
+    if (isMobileOrTablet) {
+      setShowTeamHintText(true);
+      const timer = setTimeout(() => setShowTeamHintText(false), 2300); // 文字显示 2.3 秒
+      return () => clearTimeout(timer);
+    }
+  }, [isMobileOrTablet]);
+
 
   if (!data) return <div>加载中...</div>;
 
@@ -227,6 +251,12 @@ export default function App() {
 
 
   const initNewTeam = (faction: 'RDL' | 'UN' | 'GOF' | 'PD') => addTeam(faction);
+
+  function clearLastSelectState() {
+    setLastSelectPart(undefined);
+    setLastSelectDrone(undefined);
+    setLastSelectPilot(undefined);
+  }
 
   if (!selectedTeam) {
     return (
@@ -459,10 +489,11 @@ export default function App() {
         totalScore: calculateTotalScore(selectedTeam.drones, selectedTeam.tacticCards, updatedMechs),
       });
 
+      setLastSelectPart(undefined);
       setHoverImg("")
       setIsChangingPart(false)
-    }
-    setLastSelectPart(part);
+    } else setLastSelectPart(part);
+
   }
 
 
@@ -499,10 +530,9 @@ export default function App() {
         smallDroneCount: updatedDrones.filter((d) => d.type === "small").length,
       });
       setIsChangingPart(false);
+      setLastSelectDrone(undefined)
       setHoverImg("")
-
-    }
-    setLastSelectDrone(drone);
+    } else setLastSelectDrone(drone);
   }
 
   // 更新战术卡
@@ -530,11 +560,11 @@ export default function App() {
         totalScore: calculateTotalScore(selectedTeam.drones, updatedTacticCards, selectedTeam.mechs),
       });
       setIsChangingPart(false);
+      setLastSelectTacticCard(undefined)
       setHoverImg("");
 
-    }
+    } setLastSelectTacticCard(tacticCard);
 
-    setLastSelectTacticCard(tacticCard);
   }
 
   // 更新驾驶员
@@ -568,30 +598,99 @@ export default function App() {
       });
       setHoverImg("");
       setIsChangingPart(false);
-    }
-    setLastSelectPilot(pilot);
+      setLastSelectPilot(undefined);
+    } else setLastSelectPilot(pilot);
+
   }
 
   // ------------------ 渲染 ------------------
   return (
-    <div className="fixed inset-0 bg-gray-100 flex overflow-hidden">
+    <div
+      className="fixed inset-0 flex overflow-hidden"
+      style={{
+        backgroundColor: "white", // 加这一行
+        backgroundImage: `url(${backgroundImgsrc}/background.svg)`,
+        backgroundSize: "cover",
+        backgroundPosition: "center",
+      }}
+    >
+      {/* 右下角派系图片 */}
+      <AnimatePresence>
+        {selectedTeam && (
+          <motion.img
+            key={selectedTeam.id} // 确保切换团队时动画生效
+            src={`${backgroundImgsrc}/logo_${selectedTeam.faction}.png`}
+            alt="右下角装饰"
+            style={{
+              position: "absolute",
+              bottom: 0,
+              right: 0,
+              width: isMobileOrTablet?"25vw":"15vw",
+              height: "auto",
+              pointerEvents: "none",
+            }}
+            initial={{ opacity: 0, scale: 0.8 }}   // 初始状态：透明 + 缩小
+            animate={{ opacity: 0.2, scale: 1 }}  // 出现动画
+            exit={{ opacity: 0, scale: 0.8 }}      // 消失动画
+            transition={{ duration: 0.2, ease: "easeOut" }} // 动画时长与缓动
 
+          />
+        )}
+      </AnimatePresence>
       {/* 三栏主容器 */}
       <div
         className={`flex flex-1 ${!isMobileOrTablet ? 'gap-4 p-4' : ''} overflow-hidden`}
       >
-        {isMobileOrTablet && <Button
-          size="sm"
-          className="absolute top-3 left-3 z-50 flex items-center justify-center w-10 h-10 shadow transition-all duration-300 ease-in-out"
-          style={{ backgroundColor: 'rgba(75,85,99,0.2)' }}
-          onClick={() => setCollapsedLeft(prev => !prev)}
-        >
-          {collapsedLeft ? (
-            <ChevronRight className="w-5 h-5" stroke="white" />
-          ) : (
-            <ChevronLeft className="w-5 h-5" stroke="white" />
-          )}
-        </Button>}
+        {isMobileOrTablet && (
+          <motion.div
+            initial={{ scale: 0 }}
+            animate={{ scale: 1 }}
+            transition={{ type: "spring", stiffness: 300, damping: 20 }}
+            className="absolute top-3 left-3 z-50"
+
+          >
+            <motion.button
+              onClick={() => setCollapsedLeft(prev => !prev)}
+              style={{ backgroundColor: 'rgba(0,0,0,0.5)', borderRadius: "1vw" }}
+              className="h-10 shadow flex items-center justify-center overflow-hidden"
+              initial={{ width: showTeamHintText ? 'auto' : 40 }}
+              animate={{ width: showTeamHintText ? 200 : 40 }} // 文字时宽 200，收缩到圆形 40
+
+              transition={{ width: { duration: 0.5, ease: "easeInOut" } }}
+            >
+              <AnimatePresence mode="wait">
+                {showTeamHintText ? (
+                  <motion.span
+                    key="text"
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    exit={{ opacity: 0 }}
+                    className="text-white whitespace-nowrap px-2"
+                    style={{
+                      fontSize: lang === "zh" ? "3vw" : "2.4vw"
+                    }}
+                  >
+                    {translations[lang].t105}
+                  </motion.span>
+                ) : (
+                  <motion.div
+                    key="icon"
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    exit={{ opacity: 0 }}
+                  >
+                    {collapsedLeft ? (
+                      <ChevronRight className="w-5 h-5" stroke="white" />
+                    ) : (
+                      <ChevronLeft className="w-5 h-5" stroke="white" />
+                    )}
+                  </motion.div>
+                )}
+              </AnimatePresence>
+            </motion.button>
+          </motion.div>
+        )}
+
         {/* 左侧小队列表 */}
         <div className="relative flex flex-col">
           {isMobileOrTablet ? (
@@ -625,13 +724,12 @@ export default function App() {
               style={{
                 width: collapsedLeft ? '0' : '22vw',
                 height: '100%',
-                backgroundColor: 'rgba(255,255,255,0.5)',
-                backdropFilter: 'blur(16px)',
-                WebkitBackdropFilter: 'blur(16px)',
                 border: '1px solid rgba(255,255,255,0.1)',
                 opacity: collapsedLeft ? 0 : 1,
-
-                display: 'flex',      // 🔥 关键
+                backgroundColor: 'transparent',
+                backdropFilter: 'blur(4px)',
+                WebkitBackdropFilter: 'blur(4px)',
+                display: 'flex',
                 flexDirection: 'column',
                 minHeight: 0,         // 🔥 必须：允许内部滚动区域收缩
                 overflow: 'hidden',   // 外层控制边框和裁切，不破坏内层滚动
@@ -663,14 +761,14 @@ export default function App() {
         <div
           className="flex-1 flex flex-col overflow-hidden  shadow-xl rounded-lg "
           style={{
-            backgroundColor: 'rgba(255, 255, 255, 0.5)', // 半透明白色，更白
-            backdropFilter: 'blur(16px)',              // 毛玻璃模糊
-            WebkitBackdropFilter: 'blur(16px)',        // Safari 支持
+            backgroundColor: 'transparent',
+            backdropFilter: 'blur(4px)',
+            WebkitBackdropFilter: 'blur(4px)',
             border: '1px solid rgba(255, 255, 255, 0.1)' // 半透明边框
           }}
         >
 
-          {!isMobileOrTablet&&<MechList
+          {!isMobileOrTablet && <MechList
             team={selectedTeam}
             selectedMechId={selectedMechId}
             onSelectMech={setSelectedMechId}
@@ -691,7 +789,7 @@ export default function App() {
             onSelectDrone={(d) => { setLastPartId(d.id) }}
           />}
 
-          {isMobileOrTablet&& <MechListMobile
+          {isMobileOrTablet && <MechListMobile
             team={selectedTeam}
             selectedMechId={selectedMechId}
             onSelectMech={setSelectedMechId}
@@ -741,18 +839,28 @@ export default function App() {
                       style={{
                         height: "100%",
                         width: "100%",
-                        backgroundColor: "rgba(255,255,255,0.5)",
-                        backdropFilter: "blur(16px)",
-                        WebkitBackdropFilter: "blur(16px)",
+
                         border: "1px solid rgba(255,255,255,0.1)",
                         display: "flex",
                         flexDirection: "column",
+                        backgroundColor: "rgba(255,255,255,0.5)",
+                        backdropFilter: "blur(16px)",
+                        WebkitBackdropFilter: "blur(16px)",
+
+                        backgroundSize: "150% auto",
+                        backgroundPosition: "center center"
                       }}
                       onClick={(e) => e.stopPropagation()}
                     >
                       {/* 左上角关闭按钮 */}
                       <button
-                        onClick={() => {setIsChangingPart(false);setHoverImg("")}}
+                        onClick={() => {
+                          setIsChangingPart(false);
+                          setHoverImg("");
+
+                          //清空状态
+                          clearLastSelectState();
+                        }}
                         style={{
                           position: "absolute",
                           zIndex: 20,
@@ -774,6 +882,8 @@ export default function App() {
                           imageSrc={imageSrc}
                           compareMode={compareMode}
                           viewMode={viewMode}
+                          showKeyword={showKeyword}
+                          lang={lang}
                         />
                       )}
 
@@ -790,7 +900,7 @@ export default function App() {
                           lang={lang}
                         />}
 
-                        {(viewMode === "drones") &&
+                      {(viewMode === "drones") &&
                         <DroneComparePanelMobile
                           lastPartId={lastPartId}
                           hoverId={hoverImg}
@@ -798,6 +908,8 @@ export default function App() {
                           imageSrc={imageSrc}
                           compareMode={compareMode}
                           viewMode={viewMode}
+                          showKeyword={showKeyword}
+                          lang={lang}
                         />}
 
                       {(viewMode === "tacticCards") &&
@@ -841,6 +953,8 @@ export default function App() {
                           onSelectTacticCard={handleSelectTacticCardMobile}
                           onSelectPilot={handleSelectPilotMobile}
                           tabSmallSrc={tabSmallSrc}
+                          showKeyword={showKeyword}
+                          onSetShowKeyword={setShowKeyword}
                         />
                       </div>
                     </motion.div>
@@ -880,7 +994,7 @@ export default function App() {
                             : viewMode === "tacticCards"
                               ? "40vw"
                               : "60vw",
-                        backgroundColor: "rgba(255,255,255,0.5)",
+                        backgroundImage: `url(${backgroundImgsrc}/background2.svg)`,
                         backdropFilter: "blur(16px)",
                         WebkitBackdropFilter: "blur(16px)",
                         border: "1px solid rgba(255,255,255,0.1)",
@@ -896,6 +1010,7 @@ export default function App() {
                           imageSrc={imageSrc}
                           compareMode={compareMode}
                           viewMode={viewMode}
+                          showKeyword={showKeyword}
                         />}
 
                       {viewMode === "pilots" &&
@@ -918,6 +1033,7 @@ export default function App() {
                           imageSrc={imageSrc}
                           compareMode={compareMode}
                           viewMode={viewMode}
+                          showKeyword={showKeyword}
                         />}
 
                       {(viewMode === "tacticCards") &&
@@ -952,11 +1068,13 @@ export default function App() {
                           tabsrc={tabSrc}
                           onSetHoverImg={handleHoverImg}
                           onSetShowHoverImg={setCompareMode}
+                          onSetShowKeyword={setShowKeyword}
                           showHoverImg={compareMode}
                           mobileOrTablet={false}
                           lastScore={lastScore}
                           lastPartId={lastPartId}
-
+                          lang={lang}
+                          showKeyword={showKeyword}
                           onSelectPart={handleSelectPart}
                           onSelectDrone={handleSelectDrone}
                           onSelectTacticCard={handleSelectTacticCard}

@@ -8,12 +8,13 @@ interface DronePreviewProps {
   factionDrones: Drone[];
   imageSrc: string;
   compareMode?: boolean;
+  showKeyword: boolean;
 }
 
 export default function DronePreview({
   droneId,
   factionDrones,
-  imageSrc,
+  imageSrc, showKeyword
 }: DronePreviewProps) {
   const drone = factionDrones.find((dr) => { if (dr.id === droneId) { return dr } });
 
@@ -65,7 +66,7 @@ export default function DronePreview({
         {!droneId ? (
           <div style={{ width: "100%", height: "30vw" }} />
         ) : (
-          <div key={`last-${droneId}`} style={{ width: "100%" }}>
+          <div key={`last-${droneId}`} style={{ width: "100%", display: "flex", alignItems: "center", flexDirection: "column" }}>
             {/* 主图 */}
             <img
               src={`${imageSrc}/${droneId}.png`}
@@ -78,6 +79,72 @@ export default function DronePreview({
               }}
 
             />
+
+            {/* 🔽 关键词展示区域 🔽 */}
+            {showKeyword && drone?.keywords && drone.keywords.length > 0 && (
+              <motion.div
+                style={{
+                  width: "95%",
+                  padding: "0.4vh 0.5vw",
+                  backdropFilter: "blur(16px)",
+                  WebkitBackdropFilter: "blur(16px)",
+                  background: "rgba(255,255,255,0.14)",
+                  borderRadius: 10,
+                  boxShadow: "0 0 8px rgba(0,0,0,0.4) inset",
+                  display: "flex",
+                  flexDirection: "column",
+                  alignItems: "start",
+                  textAlign: "start",
+                  color: "white",
+                  zIndex: 2,
+                }}
+                 initial={{ opacity: 0, y: 100 }}
+        animate={{ opacity: 1, y: 0 }}
+        exit={{ opacity: 0, y: -100 }}
+        transition={{ duration: 0.1 }}
+              >
+                {drone.keywords.map((kw, index) => (
+                  <span
+                    key={index}
+                    style={{
+                      fontSize: "1.3vh",
+                      color: "white",
+                      textShadow: `
+        -1px -1px 1px #000,
+         1px -1px 1px #000,
+        -1px  1px 1px #000,
+         1px  1px 1px #000
+      `,
+                      lineHeight: "2.2vh",
+                      marginTop: "0.7vh",
+                      marginBottom: "0.7vh",
+                      display: "block",
+                    }}
+                  >
+                    <span
+                      style={{
+                        fontSize: "1.5vh",
+                        fontWeight: 600,
+                        textDecoration: "underline",
+
+                        /* 🟦 名称样式 */
+                        color: "black",
+
+                        padding: "0 0.3vw",                    // ⭐ 背景左右留白
+                        borderRadius: "4px",                   // ⭐ 小圆角
+                        /* 去除描边，否则黑字会发白 */
+                        textShadow: "none",
+                      }}
+                    >
+                      {kw.name}
+                    </span>
+                    {kw.value}
+                  </span>
+                ))}
+
+              </motion.div>
+            )}
+            
             {drone && <Button
               variant="secondary"
               style={{

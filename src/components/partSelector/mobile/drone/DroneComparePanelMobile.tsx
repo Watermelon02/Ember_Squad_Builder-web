@@ -8,6 +8,8 @@ interface DroneComparePanelMobileProps {
     imageSrc: string;
     compareMode: boolean;
     viewMode: string;
+    showKeyword: boolean;
+    lang:string;
 }
 export default function DroneComparePanelMobile({
     lastPartId,
@@ -15,13 +17,14 @@ export default function DroneComparePanelMobile({
     factionDrones,
     imageSrc,
     compareMode,
-    viewMode,
+    viewMode, showKeyword,
+    lang
 }: DroneComparePanelMobileProps) {
     return (
         <div
             className="flex-shrink-0 flex flex-row gap-4"
             style={{
-                height: "20vh",
+                height: (compareMode) ? "20vh" : "35vh",
                 width: "100%",
                 backgroundColor: "rgba(255,255,255,0.3)",
                 borderRight: "1px solid rgba(255,255,255,0.1)",
@@ -31,20 +34,23 @@ export default function DroneComparePanelMobile({
             }}
         >
             {/* 左侧：当前装备 */}
-            {(compareMode&&lastPartId!=="") && <DronePreviewMobile
+            {(compareMode && lastPartId !== "") && <DronePreviewMobile
                 droneId={lastPartId}
                 factionDrones={factionDrones}
                 imageSrc={imageSrc}
                 compareMode={compareMode}
-
+                showKeyword={showKeyword}
+                lang={lang}
             />}
 
             {/* 右侧：悬浮预览 */}
             <DronePreviewMobile
-                droneId={(!compareMode&&hoverId==="")?lastPartId:hoverId}
+                droneId={(!compareMode && hoverId === "") ? lastPartId : hoverId}
                 factionDrones={factionDrones}
                 imageSrc={imageSrc}
                 compareMode={compareMode}
+                showKeyword={showKeyword}
+                lang={lang}
             />
         </div>
     );
