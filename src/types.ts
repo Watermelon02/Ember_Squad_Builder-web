@@ -28,6 +28,30 @@ export interface Mech {
   };
 }
 
+export interface Action {
+  id: string;
+  name: string;
+  description: string;
+  type: 'Swift' | 'Melee' | 'Projectile' | 'Firing' | 'Moving' | 'Tactic' | 'Passive';
+  size: 's' | 'm' | 'l';
+  range: number;
+  storage: number;
+  redDice: number;
+  yellowDice: number;
+}
+
+export interface DroneAction {
+  id: string;
+  name: string;
+  description: string;
+  type: 'Swift' | 'Melee' | 'Projectile' | 'Firing' | 'Moving' | 'Tactic' | 'Passive';
+  range: number;
+  storage: number;
+  redDice: number;
+  yellowDice: number;
+  speed: 'auto' | 'command' | 'passive'
+}
+
 export interface Part {
   id: string;
   name: string;
@@ -38,13 +62,16 @@ export interface Part {
   parray: number;
   dodge: number;
   electronic: number;
+  move?: number;
   description: string;
   imgSrc?: string;
   tags?: string[];
   throwIndex?: string;//是否有对应的抛弃卡，如果有设置为其序号
   projectile?: string[];//是否有对应的导弹\设置物卡，如果有设置为其序号
   isPD?: boolean,
-  keywords?:Keyword[]
+  keywords?: Keyword[];
+  action?: Action[]
+  hasImage?:boolean;
 }
 
 export interface Projectile {
@@ -57,7 +84,10 @@ export interface Projectile {
   electronic: number;
   stance: 'offensive' | 'defensive' | 'mobility';
   imgSrc?: string;
-    keywords?:Keyword[];
+  keywords?: Keyword[];
+  actions?:DroneAction[];
+  hasImage?:boolean;
+  isPD?:boolean;
 }
 
 export interface Drone {
@@ -76,7 +106,9 @@ export interface Drone {
   projectile?: string[];
   isPD?: boolean;
   backpack?: Part;
-  keywords?:Keyword[];
+  keywords?: Keyword[];
+  actions?: DroneAction[];
+  hasImage?:boolean;
 }
 
 export interface Pilot {
@@ -93,6 +125,7 @@ export interface Pilot {
   tactic: number;
   trait: string;
   traitDescription: string;
+  hasImage?:boolean;
 }
 
 export interface TacticCard {
@@ -107,7 +140,7 @@ export interface TacticCard {
 export const FACTION_COLORS: { [key: string]: string } = {
   RDL: '#EA6D76',
   UN: '#65a2d8',
-  GOF: '#006CB6',
+  GOF: '#E1D07E',
   PD: '#006CB6',
 };
 
@@ -116,13 +149,13 @@ export const FACTION_NAMES = {
   zh: {
     RDL: 'RDL',
     UN: 'UN',
-    // GOF: '自由卫士',
+    GOF: 'GOF',
     // PD: '星环动力',
     //没有卡片数据
   }, en: {
     RDL: 'RDL',
     UN: 'UN',
-    // GOF: '自由卫士',
+    GOF: 'GOF',
     // PD: '星环动力',
     //没有卡片数据
   }, jp: {
@@ -156,12 +189,14 @@ export const PART_TYPE_NAMES = {
   }
 } as const;
 
-export const calculateTotalScore = (drones: Drone[], tacticCards: TacticCard[]|undefined, meches: Mech[]) => {
+export type MechPartType = 'torso' | 'chasis' | 'leftHand' | 'rightHand' | 'backpack';
+
+export const calculateTotalScore = (drones: Drone[], tacticCards: TacticCard[] | undefined, meches: Mech[]) => {
   const droneScore = drones.reduce(
     (sum, d) => sum + d.score + (d.backpack?.score || 0),
     0
   );
-  const tacticCardScore = tacticCards ? tacticCards.reduce((sum, tacticCard) => sum + tacticCard.score, 0):0;
+  const tacticCardScore = tacticCards ? tacticCards.reduce((sum, tacticCard) => sum + tacticCard.score, 0) : 0;
   const mechScore = meches.reduce((sum, mech) =>
     sum + Object.values(mech.parts).reduce((partSum, part) => partSum + (part?.score || 0), 0)
     + (mech.pilot?.score || 0), 0

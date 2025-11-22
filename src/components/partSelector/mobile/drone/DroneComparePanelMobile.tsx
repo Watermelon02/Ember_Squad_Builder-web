@@ -24,7 +24,7 @@ export default function DroneComparePanelMobile({
         <div
             className="flex-shrink-0 flex flex-row gap-4"
             style={{
-                height: (compareMode) ? "20vh" : "35vh",
+                height: "35vh",
                 width: "100%",
                 backgroundColor: "rgba(255,255,255,0.3)",
                 borderRight: "1px solid rgba(255,255,255,0.1)",

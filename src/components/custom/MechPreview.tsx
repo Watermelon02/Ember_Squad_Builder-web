@@ -65,18 +65,18 @@ export const MechPreview: React.FC<MechPreviewProps> = ({
         overflow: 'hidden',
         boxShadow: 'inset 0 0 8px rgba(0,0,0,0.1)',
         ...style,
-        transition: 'transform 0.3s ease, box-shadow 0.3s ease' 
+        transition: 'transform 0.3s ease, box-shadow 0.3s ease'
       }}
       transition={{ duration: 0.3 }}
       onMouseEnter={(e) => {
-                  (e.currentTarget as HTMLDivElement).style.transform = 'scale(1.03)';
-                  (e.currentTarget as HTMLDivElement).style.boxShadow = '0 6px 10px rgba(0,0,0,0.1)';
-                }}
-                onMouseLeave={(e) => {
-                  (e.currentTarget as HTMLDivElement).style.transform = 'scale(1)';
-                  (e.currentTarget as HTMLDivElement).style.boxShadow =
-                    '0 4px 6px rgba(0,0,0,0.05), 0 1px 3px rgba(0,0,0,0.1)';
-                }}
+        (e.currentTarget as HTMLDivElement).style.transform = 'scale(1.03)';
+        (e.currentTarget as HTMLDivElement).style.boxShadow = '0 6px 10px rgba(0,0,0,0.1)';
+      }}
+      onMouseLeave={(e) => {
+        (e.currentTarget as HTMLDivElement).style.transform = 'scale(1)';
+        (e.currentTarget as HTMLDivElement).style.boxShadow =
+          '0 4px 6px rgba(0,0,0,0.05), 0 1px 3px rgba(0,0,0,0.1)';
+      }}
     >
       {/* 零件图层（不显示 backpack） */}
       {partOrder.map((partKey) => {
@@ -115,7 +115,7 @@ export const MechPreview: React.FC<MechPreviewProps> = ({
               exit={{ ...initialPos, scale: 0.95, opacity: 0 }}
               transition={{ duration: 0.3 }}
             >
-              <img
+              {(part.hasImage === undefined || part.hasImage) && <img
                 loading='lazy'
                 src={`${mechImgSrc}/${part.id}.png`}
                 alt={part.name}
@@ -126,14 +126,13 @@ export const MechPreview: React.FC<MechPreviewProps> = ({
                   pointerEvents: 'none',
                   transformOrigin: 'center center',
                 }}
-              />
+              />}
             </motion.div>
           </AnimatePresence>
         );
       })}
 
       {/* 左下角黑色小点（固定顺序） */}
-      {/* 左下角部位状态块 */}
       <div
         style={{
           position: 'absolute',
@@ -171,7 +170,7 @@ export const MechPreview: React.FC<MechPreviewProps> = ({
                 color: 'white',
                 fontSize: '0.15rem',
                 fontWeight: 'bold',
-                
+
                 pointerEvents: 'auto',
                 cursor: 'default',
                 transition: 'transform 0.2s, box-shadow 0.2s',

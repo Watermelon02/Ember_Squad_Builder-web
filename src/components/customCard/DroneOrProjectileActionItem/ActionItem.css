@@ -1,0 +1,237 @@
+.action-item {
+  display: flex;
+  flex-direction: column;
+
+  gap: 0.425vh;
+  padding: 0.51vh;
+  border-radius: 0.51vh;
+  transition: background-color 0.2s, transform 0.2s;
+  /* 条纹背景 —— 45 度斜条纹，可调 */
+  background-image: repeating-linear-gradient(
+    -45deg,
+    rgba(255, 255, 255, 1) 0,
+    rgba(255, 255, 255, 1) 0.3vh,
+    rgba(255, 255, 255, 0.1) 0.3vh,
+    rgba(255, 255, 255, 0.1) 0.6vh
+  );
+  height: 100%;
+  overflow: hidden;
+}
+
+.action-item:hover {
+  transform: translateX(0.085vh);
+}
+
+/* Action Row 1 */
+.action-row-1 {
+  display: flex;
+  align-items: center;
+
+  background-color: rgb(255, 255, 255);
+}
+
+.action-type-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 2.4vh;
+  color: #64748b;
+
+}
+
+/* 容器样式保持不变 */
+.drone-action-speed.vertical {
+  display: flex;
+  width: 2vh;
+  height: 2vh;
+  justify-content: center; /* 垂直居中对齐子元素 */
+  align-items: center;
+  background-color: rgb(241, 236, 243);
+  border: 1px solid black;
+  border-radius: 0.3vh;
+}
+
+.drone-action-speed-passive.vertical {
+  display: flex;
+  width: 2vh;
+  height: 2vh;
+  justify-content: center; /* 垂直居中对齐子元素 */
+  align-items: center;
+  border-radius: 0.3vh;
+}
+
+.speed-text {
+  border-radius: 0.085vh;
+  box-shadow: 0 0.425px 0.85px rgba(0, 0, 0, 0.1);
+  color: black;
+  font-weight: 600;
+  font-size: 2vh;
+  z-index: 9999; /* 确保不被遮挡 */
+}
+
+.drone-action-name {
+  flex: 1;
+  padding: 0.1vh 0.72vh;
+  font-size: 1.19vh; /* 0.595vh * 2 */
+  font-weight: 800;
+  color: white;
+  border-bottom-right-radius: 0.5vh;
+  border-top-right-radius: 0.5vh;
+  text-transform: uppercase;
+  letter-spacing: 0.02125vh;
+  box-shadow: 0 0.2125vh 0.425vh rgba(0, 0, 0, 0.1),
+    inset 0 0.425px 0 rgba(255, 255, 255, 0.2);
+  text-shadow: 0 0.425px 0.85px rgba(0, 0, 0, 0.2);
+}
+
+/* Action Row 2 */
+.action-row-2 {
+  display: flex;
+  align-items: flex-start;
+}
+
+.action-content-left {
+  width: 4;
+  display: flex;
+  flex-direction: column;
+  gap: 0.2vh;
+  align-items: left;
+  padding-top: 0.085vh;
+}
+
+/* Range Badge */
+.range-badge {
+  display: flex;
+  border-radius: 0.34vh;
+  overflow: hidden;
+  box-shadow: 0 0.085vh 0.2125vh rgba(0, 0, 0, 0.1);
+  height: 1.5vh;
+  width: 100%;
+  border: 0.425px solid rgba(0, 0, 0, 0.05);
+}
+
+.range-label {
+  background-color: #ffffff;
+  color: #0f172a;
+  padding: 0 0.48vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 800;
+  font-size: 1.19vh; /* 0.595vh * 2 */
+  border-right: 0.425px solid #f1f5f9;
+}
+
+.range-value {
+  flex: 1;
+  background-color: #0f172a;
+  color: #ffffff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 800;
+  font-size: 1.19vh; /* 0.595vh * 2 */
+  font-family: "JetBrains Mono", monospace;
+}
+
+.range-value.striped {
+  background: repeating-linear-gradient(
+    45deg,
+    #0f172a,
+    #0f172a 0.1275vh,
+    #334155 0.1275vh,
+    #334155 0.255vh
+  );
+}
+
+/* Storage */
+.storage-row {
+  display: flex;
+  gap: 0.17vh;
+  justify-content: center;
+  align-items: center;
+  background-color: #000000;
+  margin: 0.2vh;
+  border-radius: 0.3vh;
+}
+
+.storage-icon-svg {
+  color: #ffffff;
+  filter: drop-shadow(0 0.425px 0.85px rgba(0, 0, 0, 0.1));
+}
+
+/* Skeuomorphic Dice */
+.dice-row {
+  display: flex;
+
+  justify-content: left;
+}
+
+.skeuomorphic-dice {
+  width: 0.96vh;
+  height: 0.85vh;
+  border-radius: 0.2125vh;
+  position: relative;
+  box-shadow: 0 0.17vh 0.34vh rgba(0, 0, 0, 0.15),
+    0 0.0425vh 0.085vh rgba(0, 0, 0, 0.1);
+}
+
+.skeuomorphic-dice::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  border-radius: 0.2125vh;
+  background: radial-gradient(
+    circle at 30% 30%,
+    rgba(255, 255, 255, 0.6),
+    transparent 70%
+  );
+  pointer-events: none;
+}
+
+.dice-red {
+  background: linear-gradient(135deg, #ef4444 0%, #b91c1c 100%);
+  border: 0.425px solid #991b1b;
+}
+
+.dice-yellow {
+  background: linear-gradient(135deg, #facc15 0%, #a16207 100%);
+  border: 0.425px solid #854d0e;
+}
+
+/* Description */
+.drone-action-description {
+  flex: 1;
+  position: relative;
+  overflow: hidden;
+  border-radius: 0.34vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.drone-description-text {
+  font-size: 1.105vh;
+  color: #334155;
+  position: relative;
+  z-index: 1; /* 文字在最上层 */
+}
+
+/* 条纹背景层 */
+.drone-action-description::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+
+  pointer-events: none; /* 不挡鼠标事件 */
+}
+
+.keyword-text {
+  font-weight: 800;
+  font-style: italic;
+  color: #0f172a;
+  margin-right: 0.2125vh;
+}

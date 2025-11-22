@@ -22,32 +22,40 @@ const PartListMobile: React.FC<PartListMobileProps> = ({
   lastScore,
   selectedPartType,
 }) => {
-    const [selectedId, setSelectedId] = useState<string | null>(null);
-  
-    // 取消选中
-    const resetSelection = () => setSelectedId(null);
+  const [selectedId, setSelectedId] = useState<string | null>(null);
+
+  // 取消选中
+  const resetSelection = () => setSelectedId(null);
   return (
     <div
       key={selectedPartType}
       className="flex-1 overflow-y-auto space-y-3"
-      style={{  paddingLeft: '2vw', paddingRight: '2vw' }}
+      style={{ paddingLeft: '2vw', paddingRight: '2vw' ,height:"60vh"}}
     >
       {filteredParts.map((part) => (
         <SelectableCard
           key={part.id}
           className="relative p-3 cursor-pointer hover:bg-accent/50 transition overflow-hidden shadow-sm"
-           selected={selectedId === part.id} 
+          selected={selectedId === part.id}
 
-          onClick={() => {onSelectPart(part);setSelectedId(part.id)}}
+          onClick={() => { onSelectPart(part); setSelectedId(part.id) }}
         >
           {/* 背景图 */}
-          <img
+          {(part.hasImage === undefined || part.hasImage) ? <img
             src={`${tabsrc}/${part.id}.png`}
             alt=""
             className="absolute right-0 top-0 w-auto h-full object-contain pointer-events-none"
             style={{ opacity: 0.8 }}
             loading="lazy"
-          />
+          /> : <span
+            style={{
+              display: "flex",
+              position: "absolute",
+              right: 0,
+              padding: "1vh",
+              bottom: 0,
+              opacity: 0.8,
+            }}>{translations.t108}</span>}
 
           {/* 内容 */}
           <div className="relative z-10 space-y-2">
@@ -166,11 +174,11 @@ const PartListMobile: React.FC<PartListMobileProps> = ({
             </div>
 
             {/* 描述 */}
-            {part.description && (
+            {/* {part.description && (
               <p className="text-sm text-muted-foreground line-clamp-2">
                 {part.description}
               </p>
-            )}
+            )} */}
 
             {/* 标签 */}
             {part.tags?.length > 0 && (

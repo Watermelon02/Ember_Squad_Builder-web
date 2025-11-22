@@ -2,6 +2,9 @@ import React, { useState, useRef } from "react";
 import { Drone, Part } from "../../../types";
 import { Button } from "../../ui/button";
 import { AnimatePresence, motion } from "framer-motion";
+import { DroneCard } from "../../customCard/droneCard/DroneCard";
+import { gofProjectiles } from "../../../data";
+import { ProjectileCard } from "../../customCard/projectileCard/ProjectileCard";
 
 interface DronePreviewProps {
   droneId: string;
@@ -9,12 +12,14 @@ interface DronePreviewProps {
   imageSrc: string;
   compareMode?: boolean;
   showKeyword: boolean;
+  faction: string;
+  tabsrc: string
 }
 
 export default function DronePreview({
   droneId,
   factionDrones,
-  imageSrc, showKeyword
+  imageSrc, showKeyword, faction, tabsrc
 }: DronePreviewProps) {
   const drone = factionDrones.find((dr) => { if (dr.id === droneId) { return dr } });
 
@@ -68,8 +73,9 @@ export default function DronePreview({
         ) : (
           <div key={`last-${droneId}`} style={{ width: "100%", display: "flex", alignItems: "center", flexDirection: "column" }}>
             {/* 主图 */}
-            <img
+            {drone?.hasImage===undefined || drone.hasImage ? <img
               src={`${imageSrc}/${droneId}.png`}
+              loading="lazy"
               alt="current part"
               style={{
                 width: "100%",
@@ -78,7 +84,7 @@ export default function DronePreview({
 
               }}
 
-            />
+            /> : <DroneCard drone={drone} tabsrc={tabsrc} faction={faction}/>}
 
             {/* 🔽 关键词展示区域 🔽 */}
             {showKeyword && drone?.keywords && drone.keywords.length > 0 && (
@@ -98,10 +104,10 @@ export default function DronePreview({
                   color: "white",
                   zIndex: 2,
                 }}
-                 initial={{ opacity: 0, y: 100 }}
-        animate={{ opacity: 1, y: 0 }}
-        exit={{ opacity: 0, y: -100 }}
-        transition={{ duration: 0.1 }}
+                initial={{ opacity: 0, y: 100 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: -100 }}
+                transition={{ duration: 0.1 }}
               >
                 {drone.keywords.map((kw, index) => (
                   <span
@@ -144,7 +150,7 @@ export default function DronePreview({
 
               </motion.div>
             )}
-            
+
             {drone && <Button
               variant="secondary"
               style={{
@@ -179,26 +185,42 @@ export default function DronePreview({
               >
                 {/* projectile 区域 */}
                 <div style={{ display: "flex", flexWrap: "wrap", gap: 4 }}>
-                  {drone.projectile?.map((proj, idx) => (
-                    <div key={idx} style={{ position: "relative" }}>
-                      <img
-                        src={`${imageSrc}/${proj}.png`}
-                        alt={`projectile-${idx}`}
-                        style={{
-                          width: "30vw",
-                          objectFit: "contain",
-                          borderRadius: 4,
-                          boxShadow: "0 1px 4px rgba(0,0,0,0.2)",
-                        }}
-                        onMouseMove={(e) => {
-                          handleMouseMove(e);
-                          setLensImage(`${imageSrc}/${proj}.png`);
-                        }}
-                        onMouseEnter={() => setLensVisible(true)}
-                        onMouseLeave={() => setLensVisible(false)}
-                      />
-                    </div>
-                  ))}
+                  {drone.projectile?.map((projId, idx) => { // 将 proj 改名为 projId 更清晰
+                    const currentProjectile = gofProjectiles.find((value) => value.id === projId);
+
+                    return (
+                      <div key={idx} style={{ position: "relative" }}>
+                        {faction !== "GOF" ? (
+                          <img
+                            src={`${imageSrc}/${projId}.png`}
+                            alt={`projectile-${idx}`}
+                            style={{
+                              width: "30vw",
+                              objectFit: "contain",
+                              borderRadius: 4,
+                              boxShadow: "0 1px 4px rgba(0,0,0,0.2)",
+                            }}
+                            loading="lazy"
+                            onMouseMove={(e) => {
+                              handleMouseMove(e);
+                              setLensImage(`${imageSrc}/${projId}.png`);
+                            }}
+                            onMouseEnter={() => setLensVisible(true)}
+                            onMouseLeave={() => setLensVisible(false)}
+                          />
+                        ) : (
+
+                          currentProjectile && (
+                            <ProjectileCard
+                              projectile={currentProjectile}
+                              tabsrc={tabsrc}
+                              faction={faction}
+                            />
+                          )
+                        )}
+                      </div>
+                    );
+                  })}
                 </div>
               </div>
             )}

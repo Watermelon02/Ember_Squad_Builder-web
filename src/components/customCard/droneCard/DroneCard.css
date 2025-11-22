@@ -1,0 +1,477 @@
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;800&family=JetBrains+Mono:wght@400;700&display=swap");
+
+:root {
+  /* 原值 / 1.90476 (近似 80/42) 或 * 0.525 (精确) */
+  --spacing-xs: 0.26vh; /* 0.5 * 0.525 */
+  --spacing-sm: 0.525vh; /* 1 * 0.525 */
+  --spacing-md: 0.7875vh; /* 1.5 * 0.525 */
+  --spacing-lg: 1.05vh; /* 2 * 0.525 */
+  --spacing-xl: 1.575vh; /* 3 * 0.525 */
+  --radius-sm: 0.42vh; /* 0.8 * 0.525 */
+  --radius-md: 0.7875vh; /* 1.5 * 0.525 */
+  --radius-lg: 1.3125vh; /* 2.5 * 0.525 */
+}
+
+.drone-card-background-gof {
+  background-image: linear-gradient(
+    to right,
+
+    rgb(232, 232, 128) 0%,
+
+    rgb(240, 240, 170) 30%,
+
+    rgb(243, 243, 225) 60%,
+
+    rgb(245, 245, 238) 85%,
+
+    rgb(255, 255, 255) 100%
+  );
+}
+
+.drone-card-background-pd {
+  background-image: linear-gradient(
+    to right,
+
+    rgb(214, 214, 214) 0%,
+
+    rgb(255, 255, 255) 100%
+  );
+}
+
+.drone-card-background-un {
+  background-image: linear-gradient(
+    to right,
+    rgb(107, 128, 191) 0%,
+    rgb(123, 143, 196) 15%,
+    rgb(142, 160, 205) 28%,
+    rgb(176, 191, 218) 40%,
+    rgb(182, 202, 219) 50%,
+    rgb(231, 232, 238) 70%,
+    rgba(255, 255, 255, 0) 100%
+  );
+}
+
+.drone-card-background-rdl {
+  background-image: linear-gradient(
+    to right,
+    rgb(234, 107, 115) 0%,
+    rgb(232, 140, 136) 25%,
+    rgb(223, 200, 185) 50%,
+    rgb(236, 234, 233) 75%,
+    rgb(255, 255, 255) 100%
+  );
+}
+
+.drone-card {
+  width: 42vh; /* 原 80vh */
+  height: 32vh; /* 原 60vh */
+  position: relative;
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  font-family: "Inter", system-ui, sans-serif;
+  /* 阴影值也应按比例缩小 */
+  box-shadow: 0 2.1vh 4.2vh -1.05vh rgba(0, 0, 0, 0.12),
+    /* 4vh*0.525, 8vh*0.525, 2vh*0.525 */ 0 0 0 1px rgba(0, 0, 0, 0.06) inset;
+  color: #1e293b;
+  background-color: #ffffff;
+
+  background-size: 100% 100%, 100% 100%, 1.05vh 1.05vh; /* 2vh * 0.525 */
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.drone-card-content {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  height: 100%;
+  display: grid;
+  /* 10vh * 0.525 = 5.25vh */
+  grid-template-columns: 5.25vh 1fr;
+  /* 10vh * 0.525 = 5.25vh, 8vh * 0.525 = 4.2vh */
+  grid-template-rows: 5.25vh 1fr 4.2vh;
+  padding: 1.575vh; /* 3vh * 0.525 */
+  box-sizing: border-box;
+  gap: var(--spacing-md);
+}
+
+/* Left Name */
+.drone-name {
+  /* *** 移除所有 grid-column/grid-row 属性 *** */
+  position: absolute; /* 使其脱离网格流，不影响其他UI */
+  z-index: 2; /* 确保它在卡片内容上方 */
+
+  /* 定位：基于 card-content 的 padding */
+  top: 1.6vh; /* 对应 card-content 的上 padding */
+  left: 1.68vh; /* 对应 card-content 的左 padding */
+
+  /* 限制最大高度到 action-list 顶部（约 27vh） */
+  max-height: 27vh;
+
+  writing-mode: vertical-rl;
+  text-orientation: mixed;
+  font-size: 2vh;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.255vh;
+  margin-top: 1.2vh;
+
+  color: #ffffff;
+  /* background/border-radius/font-family/text-shadow 保持不变 */
+  border-radius: 0.5vh;
+
+  display: flex;
+  align-items: flex-start; /* 保持从顶部开始对齐 */
+  justify-content: flex-start;
+
+  text-shadow: 0.1vh 0.1vh 0 #000, /* 右下 */ -0.1vh 0.1vh 0 #000,
+    /* 左下 */ 0.1vh -0.1vh 0 #000, /* 右上 */ -0.1vh -0.1vh 0 #000; /* 左上 */
+
+  /* 高度自动适应内容 */
+  height: auto;
+  width: auto; /* 宽度由内容和 padding 决定 */
+}
+
+/* Top Stats */
+.drone-stats-top {
+  grid-column: 2;
+  grid-row: 1;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  gap: var(--spacing-md);
+  padding-right: var(--spacing-sm);
+}
+
+.stat-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 3.675vh; /* 7vh * 0.525 */
+  height: 3.675vh; /* 7vh * 0.525 */
+  border-radius: var(--radius-md);
+  box-shadow: 0 0.525vh 1.05vh -0.2625vh rgba(0, 0, 0, 0.06),
+    /* 1vh*0.525, 2vh*0.525, 0.5vh*0.525 */ 0 0 0 1px rgba(0, 0, 0, 0.04);
+  background: white;
+  position: relative;
+}
+
+.stat-electronic {
+  color: white;
+  background: linear-gradient(
+    to left,
+    rgba(255, 180, 50, 1) 0%,
+    rgba(223, 183, 109, 0.6) 70%,
+    rgba(224, 213, 194, 0) 100%
+  );
+}
+
+.stat-dodge {
+  color: white; /* 保持文字为白色 */
+
+  background: linear-gradient(
+    to right,
+
+    rgba(79, 175, 230, 0) 0%,
+
+    rgba(21, 138, 206, 0.6) 30%,
+
+    rgba(0, 89, 150, 1) 100%
+  );
+}
+
+.stat-armor {
+  color: white;
+
+  background: linear-gradient(
+    to right,
+    rgba(160, 158, 160, 0) 0%,
+    rgba(119, 115, 118, 0.6) 30%,
+    rgba(70, 68, 70) 100%
+  );
+}
+
+.stat-structure {
+  color: #ffffff;
+  background-color: #bfbfbf;
+}
+
+.stat-val {
+  font-size: 2vh;
+  font-weight: 800;
+  line-height: 1;
+}
+
+.stat-lbl {
+  font-size: 0.42vh; /* 0.8vh * 0.525 */
+  font-weight: 700;
+  text-transform: uppercase;
+  margin-top: 0.1575vh; /* 0.3vh * 0.525 */
+  opacity: 0.8;
+}
+
+/* Actions Area */
+.drone-actions {
+  grid-column: 2;
+  grid-row: 2;
+
+  position: relative;
+
+  width: 50%;
+  justify-self: end;
+
+  display: flex;
+  flex-direction: column; /* 保持 ActionItem 垂直堆叠 */
+  gap: var(--spacing-sm);
+
+  /* 注意：如果使用绝对定位的子元素，padding-right 可能会有影响 */
+  overflow-y: hidden;
+  padding-right: var(--spacing-sm);
+  /* Custom Scrollbar */
+  scrollbar-width: thin;
+  scrollbar-color: #cbd5e1 transparent;
+}
+
+.action-items-wrapper {
+  flex: 1; /* 占据 .drone-actions 中除了网格背景外的所有剩余空间 */
+  display: flex;
+  flex-direction: column; /* 保持 ActionItems 垂直堆叠 */
+  gap: var(--spacing-sm);
+
+  /* 滚动条和右侧间距应该放在这里 */
+  overflow-y: auto;
+  padding-right: var(--spacing-sm);
+  scrollbar-width: thin;
+  scrollbar-color: #cbd5e1 transparent;
+}
+
+/* Footer */
+.drone-footer {
+  grid-column: 2;
+  grid-row: 3;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-top: var(--spacing-sm);
+}
+
+/* Stance Bar */
+.drone-stance-bar {
+  flex: 1;
+  height: 3vh; /* 4vh * 0.525 */
+  border-radius: 0.5vh; /* 2vh * 0.525 */
+  display: flex;
+  align-items: center;
+  padding: 0 1vh; /* 2vh * 0.525 */
+  margin-right: 0.5vh;
+  position: relative;
+  overflow: hidden;
+  justify-content: flex-end;
+}
+
+.drone-stance-indicator {
+  position: absolute;
+  left: 0;
+  top: 0;
+  height: 100%;
+  width: 100%;
+  opacity: 1;
+}
+
+.drone-stance-offensive .drone-stance-indicator {
+  background-image: linear-gradient(
+    to right,
+
+    rgba(241, 156, 122, 0%) 0%,
+    rgb(239, 114, 91) 45%,
+    rgb(236, 98, 74) 85%,
+
+    rgb(232, 234, 234) 100%
+  );
+}
+.drone-stance-defensive .drone-stance-indicator {
+  background-image: linear-gradient(
+    to right,
+
+    rgba(255, 255, 255, 0%) 0%,
+    rgb(213, 211, 188) 45%,
+    rgb(213, 211, 188) 85%,
+
+    rgba(232, 232, 232, 0) 100%
+  );
+}
+.drone-stance-mobility .drone-stance-indicator {
+  background-image: linear-gradient(
+    to right,
+
+    rgba(119, 163, 265, 0) 0%,
+    rgb(33, 135, 198) 45%,
+    rgb(33, 135, 198) 85%,
+
+    rgba(232, 234, 234, 0) 100%
+  );
+}
+
+.drone-stance-text {
+  position: relative;
+  z-index: 1;
+  font-size: 1.5vh;
+  font-weight: 800;
+  padding-right: 3vh;
+  text-transform: uppercase;
+  letter-spacing: 0.105vh; /* 0.2vh * 0.525 */
+  color: #ffffff;
+  display: block;
+  text-align: right;
+}
+
+/* Move Label */
+.move-label {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-image: linear-gradient(
+    to bottom,
+    rgb(4, 116, 174) 0%,
+    rgba(107, 164, 199) 85%,
+    rgb(142, 171, 189) 100%
+  );
+  color: white;
+  height: 5vh; /* 4vh * 0.525 */
+  width: 5vh;
+
+  border-radius: 0.525vh; /* 1vh * 0.525 */
+  font-size: 2vh; /* 2vh * 0.525 */
+  font-weight: 800;
+  box-shadow: 0 0.2625vh 0.525vh rgba(14, 165, 233, 0.3); /* 0.5vh*0.525, 1vh*0.525 */
+  text-transform: uppercase;
+}
+
+.move-icon {
+  position: relative;
+  left: 0vh;
+
+  color: white;
+  height: 4vh;
+}
+
+.drone-main-image-wrapper {
+  /* 确保它相对于 .part-card 定位 */
+  position: absolute;
+  /* 居中技巧 */
+  top: 30%;
+  left: 35%;
+  transform: translate(-50%, -50%);
+  z-index: 1;
+
+  /* 根据需要调整尺寸 */
+  width: 50%;
+  height: 50%;
+
+  opacity: 0.8;
+  filter: grayscale(100%) brightness(1.1)
+    drop-shadow(0 0 1vh rgba(0, 0, 0, 0.1));
+
+  /* ✨ 核心：应用主图片入场动画 */
+  animation: imageSlideIn 0.5s cubic-bezier(0.2, 0.8, 0.5, 1) forwards;
+}
+
+.drone-main-image-wrapper-shadow {
+  /* 确保它相对于 .part-card 定位 */
+  position: absolute;
+
+  top: 28%;
+  left: 33%;
+  transform: translate(-50%, -50%);
+  z-index: 0;
+
+  /* 根据需要调整尺寸 */
+  width: 50%;
+  height: 50%;
+
+  opacity: 0;
+  filter: sepia(0.8) saturate(2.5) brightness(0.2) hue-rotate(15deg);
+
+  /* ✨ 核心：应用影子入场动画，设置延迟和略长的持续时间 */
+  animation: shadowSlideIn 0.6s cubic-bezier(0.2, 0.8, 0.5, 1) 0.1s forwards;
+}
+
+/* 主图片入场动画：从右侧滑入，同时稍微放大 */
+@keyframes imageSlideIn {
+  0% {
+    opacity: 0;
+    /* 从右侧偏移 (+50%)，略微缩小 */
+    transform: translate(-50%, -80%) scale(0.95);
+  }
+  100% {
+    opacity: 0.8;
+    /* 恢复到最终的居中位置 */
+    transform: translate(-50%, -50%) scale(1);
+  }
+}
+
+/* 影子入场动画：从左侧滑入，与图片方向相反 */
+@keyframes shadowSlideIn {
+  0% {
+    opacity: 0;
+    /* 从左侧大幅偏移，模拟影子从远处跟来 */
+    transform: translate(-50%, -45%) scale(0.9);
+  }
+  100% {
+    opacity: 0.8;
+    /* 恢复到最终的偏移位置 */
+    transform: translate(-50%, -50%) scale(1);
+  }
+}
+
+.drone-main {
+  width: 100%;
+  height: 100%;
+  object-fit: contain; /* 确保图片完整显示 */
+}
+
+.drone-main-shadow {
+  width: 100%;
+  height: 100%;
+  object-fit: contain; /* 确保图片完整显示 */
+}
+
+.icon-top-left {
+  position: absolute; /* ✨ 核心：绝对定位 */
+  top: -1vh; /* ✨ 核心：距离顶部 0 */
+  left: -1vh; /* ✨ 核心：距离左侧 0 */
+
+  /* (可选) 调整尺寸，使其不会太大而遮挡其他内容 */
+  height: 2vh;
+
+  /* (可选) 确保它在其他内容之上，如果需要 */
+  z-index: 2;
+}
+
+.drone-grid-background {
+  display: grid;
+
+  grid-template-columns: repeat(3, 1fr);
+  gap: 0.1vh;
+}
+
+/* 其他样式保持不变 */
+.drone-right-grid-bg {
+  position: absolute;
+  top: 0;
+  left: 0vh;
+  z-index: 0;
+  opacity: 0.4;
+  transform: none;
+  /* 确保网格背景不要收缩或放大 */
+  flex-shrink: 0;
+  flex-grow: 0;
+}
+
+.drone-grid-bg-cell {
+  width: 0.9vh;
+  height: 0.9vh;
+  background-color: rgba(221, 221, 221, 0.9);
+  border-radius: 0.255vh;
+  border: 0.425px solid rgba(255, 255, 255, 0.3);
+}

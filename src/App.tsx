@@ -77,6 +77,22 @@ export default function App() {
     return stored !== null ? JSON.parse(stored) : true;
   });
   const [isChangingPart, setIsChangingPart] = useState<boolean>(false);
+  //动画卡片模式
+  const [animationCardMode, setAnimationCardMode] = useState<boolean>(() => {
+    const saved = localStorage.getItem("animationCardMode");
+    try {
+      return saved ? JSON.parse(saved) : false;
+    } catch (e) {
+      return false;
+    }
+  });
+
+  useEffect(() => {
+    try {
+      localStorage.setItem("animationCardMode", JSON.stringify(animationCardMode));
+    } catch (e) {
+    }
+  }, [animationCardMode]);
   const typePartNames = PART_TYPE_NAMES[lang];
   const factionNames = FACTION_NAMES[lang];
   const imageSrc = IMAGE_SRC[lang];
@@ -84,8 +100,8 @@ export default function App() {
   const tabSmallSrc = TAB_SMALL_IMAGE_SRC[lang];
   const localImgsrc = LOCAL_IMAGE_SRC[lang];
   const mechImgsrc = MECH_IMAGE_SRC[lang];
-    const backgroundImgsrc = BACKGROUND_SRC[lang];
- 
+  const backgroundImgsrc = BACKGROUND_SRC[lang];
+
 
   let selectedTeam = teams.find(team => team.id === selectedTeamId);
 
@@ -217,7 +233,7 @@ export default function App() {
 
   const {
     gofBackpack, gofChasis, gofDrones, gofLeftHand, gofPilots, gofRightHand, gofTorso,
-    pdBackpack, pdChasis, pdDrones, pdLeftHand, pdPilots, pdRightHand, pdTorso,
+    pdBackpack, pdChasis, pdDrones, pdLeftHand, pdPilots, pdRightHand, pdTorso,pdProjectiles,
     rdlBackpack, rdlChasis, rdlDrones, rdlLeftHand, rdlPilots, rdlRightHand, rdlTorso,
     unBackpack, unChasis, unDrones, unLeftHand, unPilots, unRightHand, unTorso, allTacticCards
   } = data;
@@ -393,11 +409,11 @@ export default function App() {
         case 'backpack': return unBackpack.concat(pdBackpack);
       }
       case 'GOF': switch (selectedPartType) {
-        case 'torso': return gofTorso;
-        case 'chasis': return gofChasis;
-        case 'leftHand': return gofLeftHand;
-        case 'rightHand': return gofRightHand;
-        case 'backpack': return gofBackpack;
+        case 'torso': return gofTorso.concat(pdTorso);
+        case 'chasis': return gofChasis.concat(pdChasis);
+        case 'leftHand': return gofLeftHand.concat(pdLeftHand);
+        case 'rightHand': return gofRightHand.concat(pdRightHand);
+        case 'backpack': return gofBackpack.concat(pdBackpack);
       }
     }
   })();
@@ -625,7 +641,7 @@ export default function App() {
               position: "absolute",
               bottom: 0,
               right: 0,
-              width: isMobileOrTablet?"25vw":"15vw",
+              width: isMobileOrTablet ? "25vw" : "15vw",
               height: "auto",
               pointerEvents: "none",
             }}
@@ -787,6 +803,8 @@ export default function App() {
             mechImgSrc={mechImgsrc}
             onSetIsChangingPart={(changingPart) => { setIsChangingPart(changingPart) }}
             onSelectDrone={(d) => { setLastPartId(d.id) }}
+            animationCardMode = {animationCardMode}
+            setAnimationCardMode={setAnimationCardMode}
           />}
 
           {isMobileOrTablet && <MechListMobile
@@ -987,13 +1005,13 @@ export default function App() {
                       transition={{ duration: 0.25, ease: "easeOut" }}
                       style={{
 
-                        maxHeight: "90vh",
+                        height: "90vh",
                         maxWidth:
                           viewMode === "drones"
                             ? "80vw"
                             : viewMode === "tacticCards"
                               ? "40vw"
-                              : "60vw",
+                              : "80vw",
                         backgroundImage: `url(${backgroundImgsrc}/background2.svg)`,
                         backdropFilter: "blur(16px)",
                         WebkitBackdropFilter: "blur(16px)",
@@ -1011,6 +1029,9 @@ export default function App() {
                           compareMode={compareMode}
                           viewMode={viewMode}
                           showKeyword={showKeyword}
+                          faction={selectedTeam.faction}
+                          tabsrc={tabSrc}
+                          data={data}
                         />}
 
                       {viewMode === "pilots" &&
@@ -1034,6 +1055,8 @@ export default function App() {
                           compareMode={compareMode}
                           viewMode={viewMode}
                           showKeyword={showKeyword}
+                          tabsrc={tabSrc}
+                          faction={selectedTeam.faction}
                         />}
 
                       {(viewMode === "tacticCards") &&

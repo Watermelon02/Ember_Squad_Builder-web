@@ -512,7 +512,7 @@ export function TeamList({
             <DialogHeader>
               <DialogTitle>{translations.t13}</DialogTitle>
             </DialogHeader>
-            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: 8 }}>
+            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: 8 }}>
               {(Object.entries(factionNames) as [keyof typeof factionNames, string][]).map(([key, name]) => (
                 <Button
                   key={key}

@@ -3,7 +3,6 @@ import { Card } from '../../ui/card';
 import { Input } from '../../ui/input';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '../../ui/select';
 import { Badge } from '../../ui/badge';
-import { Label } from '../../ui/label';
 import { Part, Drone, Pilot, Team, TacticCard } from '../../../types';
 import { AnimatePresence, motion } from 'framer-motion';
 
@@ -22,7 +21,7 @@ interface PartSelectorProps {
   translations: any,
   partTypeNames: any,
   imgsrc: string, tabsrc: string,
-  showKeyword:boolean,
+  showKeyword: boolean,
   onSetHoverImg: (img: string | null) => void;
   onSetShowHoverImg: (show: boolean) => void;
   onSetShowKeyword: (show: boolean) => void;
@@ -48,12 +47,12 @@ export function PartSelector({
   onSetShowKeyword,
   translations,
   imgsrc, tabsrc, onSetHoverImg, onSetShowHoverImg, showHoverImg, mobileOrTablet, lastScore, lastPartId,
-  lang,showKeyword
+  lang, showKeyword
 }: PartSelectorProps) {
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedTags, setSelectedTags] = useState<string[]>([]);
   const [containPD, setContainPD] = useState<boolean>(false);
-  const [sortOrder, setSortOrder] = useState<'score_desc' | 'score_asc'>('score_asc');
+  const [sortOrder, setSortOrder] = useState<'score_desc' | 'score_asc'>('score_desc');
 
   // 过滤部件
   const filteredParts = useMemo(() => {
@@ -72,7 +71,7 @@ export function PartSelector({
         return false;
       }
 
-      if ((part.isPD === undefined) && containPD) {
+      if (((part.isPD === undefined || !part.isPD)) && containPD) {
         return false;
       }
 
@@ -105,7 +104,7 @@ export function PartSelector({
         return false;
       }
 
-      if ((drone.isPD === undefined) && containPD) {
+      if ((drone.isPD === undefined || !drone.isPD) && containPD) {
         return false;
       }
 
@@ -181,7 +180,7 @@ export function PartSelector({
   }, [pilots, team, searchQuery, containPD, sortOrder]);
 
 
-  return <div className="flex flex-col h-full min-h-0" >
+  return <div className="flex flex-col h-full min-h-0 " style={{ width: "20vw" }}>
     <AnimatePresence mode="wait">
 
       {viewMode === 'parts' && (
@@ -295,7 +294,7 @@ export function PartSelector({
                         }}
                       >
                         {/* 背景图层 */}
-                        <div
+                        {(part.hasImage === undefined || part.hasImage) ? <div
                           className="absolute inset-0 bg-contain"
                           style={{
                             backgroundImage: `url(${tabsrc}/${part.id}.png)`,
@@ -303,8 +302,15 @@ export function PartSelector({
                             backgroundRepeat: 'no-repeat',
                             backgroundPosition: 'right top',
                             opacity: 0.8,
-                          }}
-                        ></div>
+                          }} /> : <span
+                            style={{
+                              display: "flex",
+                              position: "absolute",
+                              right: 0,
+                              padding: "1vh",
+                              bottom: 0,
+                              opacity: 0.8,
+                            }}>{translations.t108}</span>}
 
                         {/* 前景文字内容 */}
                         <div className="relative z-10 space-y-2">
@@ -427,12 +433,12 @@ export function PartSelector({
                                 </div>
                               ))}
                           </div>
-
+{/* 
 
 
                           <p className="text-sm text-muted-foreground line-clamp-2">
                             {part.description}
-                          </p>
+                          </p> */}
                           {part.tags && part.tags.length > 0 && (
                             <div className="flex flex-wrap gap-1">
                               {part.tags.map(tag => (
@@ -772,7 +778,7 @@ export function PartSelector({
                 >
 
                   {/* 背景图层 */}
-                  <div
+                  {(drone.hasImage === undefined || drone.hasImage) && <div
                     className="absolute inset-0 bg-contain"
                     style={{
                       backgroundImage: `url(${tabsrc}/${drone.id}.png)`,
@@ -781,7 +787,7 @@ export function PartSelector({
                       backgroundPosition: 'right top', // 靠右上角
                       opacity: 0.8,
                     }}
-                  ></div>
+                  ></div>}
 
                   {/* 前景文字内容 */}
                   <div className="relative z-10 space-y-2">

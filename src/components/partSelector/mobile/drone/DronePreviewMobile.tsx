@@ -62,6 +62,7 @@ export default function DronePreviewMobile({
                 borderRadius: 8,
 
               }}
+              loading="lazy"
 
             />
 
@@ -181,6 +182,7 @@ export default function DronePreviewMobile({
                   {drone.projectile?.map((proj, idx) => (
                     <div key={idx} style={{ position: "relative" }}>
                       <img
+                      loading="lazy"
                         src={`${imageSrc}/${proj}.png`}
                         alt={`projectile-${idx}`}
                         style={{

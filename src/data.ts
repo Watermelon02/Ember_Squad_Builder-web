@@ -4,7 +4,7 @@ import { KEYWORD_LIST } from './keyword';
 
 export const gofPilots: Pilot[] = [
   {
-    "id": "ZPA-35",
+    "id": "35",
     "name": "大厨",
     "score": 15,
     "LV": 4,
@@ -16,10 +16,11 @@ export const gofPilots: Pilot[] = [
     "moving": 6,
     "tactic": 7,
     "trait": "CQC",
+    "hasImage": true,
     "traitDescription": "· 执行近战动作时，可以消耗1枚指令标记，将{眼睛}视为{重击}"
   },
   {
-    "id": "ZPA-36",
+    "id": "36",
     "name": "紫苑",
     "score": 12,
     "LV": 4,
@@ -31,10 +32,11 @@ export const gofPilots: Pilot[] = [
     "moving": 3,
     "tactic": 4,
     "trait": "调整",
+    "hasImage": true,
     "traitDescription": "· 每回合1次，指令阶段可以消耗1枚指令标记，为1台友军机甲恢复1点链接值。"
   },
   {
-    "id": "ZPA-37",
+    "id": "37",
     "name": "猎狐犬",
     "score": 15,
     "LV": 4,
@@ -46,10 +48,11 @@ export const gofPilots: Pilot[] = [
     "moving": 5,
     "tactic": 5,
     "trait": "寻踪",
+    "hasImage": true,
     "traitDescription": "· 如果有2台以上的己方无人机对目标有视线，本机在射击时无视低特征。"
   },
   {
-    "id": "ZPA-38",
+    "id": "38",
     "name": "护林员",
     "score": 15,
     "LV": 4,
@@ -61,10 +64,11 @@ export const gofPilots: Pilot[] = [
     "moving": 7,
     "tactic": 3,
     "trait": "湿件优势",
+    "hasImage": true,
     "traitDescription": "· 执行电子对抗投骰时，可消耗1点链接值，将{眼睛}视为{闪电}。"
   },
   {
-    "id": "ZPA-39",
+    "id": "39",
     "name": "丧尸",
     "score": 18,
     "LV": 4,
@@ -76,10 +80,11 @@ export const gofPilots: Pilot[] = [
     "moving": 4,
     "tactic": 7,
     "trait": "求生意志",
+    "hasImage": true,
     "traitDescription": "· 本机部件少于4时，本机的专注重投不消耗链接值。"
   },
   {
-    "id": "ZPA-40",
+    "id": "40",
     "name": "伯劳",
     "score": 12,
     "LV": 4,
@@ -91,6 +96,7 @@ export const gofPilots: Pilot[] = [
     "moving": 4,
     "tactic": 4,
     "trait": "欢愉",
+    "hasImage": true,
     "traitDescription": "· [攻击姿态]以近战动作摧毁敌军部件时，恢复1点链接值。"
   },
   {
@@ -106,10 +112,11 @@ export const gofPilots: Pilot[] = [
     "moving": 6,
     "tactic": 8,
     "trait": "",
+    "hasImage": true,
     "traitDescription": "525中队的实习游骑兵。"
   },
   {
-    "id": "ZPA-44",
+    "id": "44",
     "name": "游骑兵2",
     "score": 4,
     "LV": 4,
@@ -121,10 +128,11 @@ export const gofPilots: Pilot[] = [
     "moving": 6,
     "tactic": 8,
     "trait": "",
+    "hasImage": true,
     "traitDescription": "525中队的实习游骑兵。"
   },
   {
-    "id": "ZPA-45",
+    "id": "45",
     "name": "游骑兵3",
     "score": 4,
     "LV": 4,
@@ -136,6 +144,7 @@ export const gofPilots: Pilot[] = [
     "moving": 6,
     "tactic": 8,
     "trait": "",
+    "hasImage": true,
     "traitDescription": "525中队的实习游骑兵。"
   },
   {
@@ -151,10 +160,11 @@ export const gofPilots: Pilot[] = [
     "moving": 3,
     "tactic": 2,
     "trait": "",
+    "hasImage": true,
     "traitDescription": "525中队的实习掷弹兵。"
   },
   {
-    "id": "ZPA-47",
+    "id": "47",
     "name": "掷弹兵2",
     "score": 4,
     "LV": 4,
@@ -166,10 +176,11 @@ export const gofPilots: Pilot[] = [
     "moving": 3,
     "tactic": 2,
     "trait": "",
+    "hasImage": true,
     "traitDescription": "525中队的实习掷弹兵。"
   },
   {
-    "id": "ZPA-48",
+    "id": "48",
     "name": "掷弹兵3",
     "score": 4,
     "LV": 4,
@@ -181,10 +192,11 @@ export const gofPilots: Pilot[] = [
     "moving": 3,
     "tactic": 2,
     "trait": "",
+    "hasImage": true,
     "traitDescription": "525中队的实习掷弹兵。"
   },
   {
-    "id": "ZPA-49",
+    "id": "48",
     "name": "掷弹兵4",
     "score": 4,
     "LV": 4,
@@ -196,6 +208,7 @@ export const gofPilots: Pilot[] = [
     "moving": 3,
     "tactic": 2,
     "trait": "",
+    "hasImage": true,
     "traitDescription": "525中队的实习掷弹兵。"
   }
 ];
@@ -214,41 +227,110 @@ export const pdPilots: Pilot[] = [
     "moving": 8,
     "tactic": 6,
     "trait": "联觉",
+    "hasImage": true,
     "traitDescription": "· 白矮星浮游单元组”投骰时，可以消耗本机链接值进行专注重投"
   },
-  // {
-  //   "id": "XPA-69",
-  //   "name": "战斗员-69",
-  //   "score": 10,
-  //   "LV": 5,
-  //   "faction": "PD",
-  //   "swift": 8,
-  //   "melee": 4,
-  //   "projectile": 5,
-  //   "firing": 3,
-  //   "moving": 3,
-  //   "tactic": 2,
-  //   "trait": "",
-  //   "traitDescription": "为了使用LUKAS系统进行远程接入，战斗员的作战义体均装备了LK系列植入体"
-  // },
-  // {
-  //   "id": "XPA-70",
-  //   "name": "战斗员-70",
-  //   "score": 10,
-  //   "LV": 5,
-  //   "faction": "PD",
-  //   "swift": 8,
-  //   "melee": 4,
-  //   "projectile": 5,
-  //   "firing": 3,
-  //   "moving": 3,
-  //   "tactic": 2,
-  //   "trait": "",
-  //   "traitDescription": "搭载作战员和LUKAS的运输机通常作为空中支援，在战场上空盘旋，以获得最低的延迟。"
-  // }
+  {
+    "id": "XPA-59",
+    "name": "战斗员A-101",
+    "score": 10,
+    "LV": 5,
+    "faction": "PD",
+    "swift": 8,
+    "melee": 4,
+    "projectile": 5,
+    "firing": 3,
+    "moving": 3,
+    "tactic": 2,
+    "trait": "",
+    "hasImage": false,
+    "traitDescription": "为了使用LUKAS系统进行远程接入，战斗员的作战义体均装备了LK系列植入体。"
+  },
+  {
+    "id": "XPA-60",
+    "name": "战斗员A-102",
+    "score": 10,
+    "LV": 5,
+    "faction": "PD",
+    "swift": 8,
+    "melee": 4,
+    "projectile": 5,
+    "firing": 3,
+    "moving": 3,
+    "tactic": 2,
+    "trait": "",
+    "hasImage": false,
+    "traitDescription": "搭载作战员和LUKAS的运输机通常作为空中支援，在战场上空盘旋，以获得最低的延迟。"
+  },
+  {
+    "id": "XPA-61",
+    "name": "战斗员A-103",
+    "score": 10,
+    "LV": 5,
+    "faction": "PD",
+    "swift": 8,
+    "melee": 4,
+    "projectile": 5,
+    "firing": 3,
+    "moving": 3,
+    "tactic": 2,
+    "trait": "",
+    "hasImage": false,
+    "traitDescription": "虽然“工作就是工作”，但执行中队通常不会在短时间内切换合作方。"
+  }
 ];
 
+export const pdProjectiles: Projectile[] = [{
+  "id": "PDAM-002",
+  "name": "FGM46“飞鱼”导弹",
+  "armor": 0,
+  "structure": 0,
+  "parray": 0,
+  "dodge": 4,
+  "electronic": 1,
+  "stance": "mobility",
+  "hasImage": false,
+  "isPD": true,
+  "keywords": [
+    {
+      "name": "抛射物"
+    },
+    {
+      "name": "导弹"
+    }
+  ],
+  "actions": [
+    {
+      "id": "PDAM-002_A",
+      "name": "制导攻击",
+      "description": "· 以范围内1个敌方单位为目标，飞行进入目标格并引爆。\n· 引爆时，对目标造成爆炸伤害。\n· 毁伤",
+      "type": "Tactic",
+      "speed": "passive",
+      "range": 6,
+      "storage": 0,
+      "yellowDice": 0,
+      "redDice": 3
+    }
+  ]
+},]
+
 export const rdlPilots: Pilot[] = [
+  {
+    "id": "FPA-04-2",
+    "name": "锤头鲨-04 内务能手",
+    "score": 0,
+    "LV": 4,
+    "faction": "RDL",
+    "swift": 4,
+    "melee": 3,
+    "projectile": 2,
+    "firing": 5,
+    "moving": 2,
+    "tactic": 6,
+    "trait": "除虫",
+    "hasImage": false,
+    "traitDescription": "· 【攻击姿态】当本机获得行动机会时，可最多消耗1点链接值以获得1个动作时点。"
+  },
   {
     "id": "FPA-01",
     "name": "薄雾-01",
@@ -598,6 +680,22 @@ export const unPilots: Pilot[] = [
     "traitDescription": "· 本机可以碾压大体型单位。"
   },
   {
+    "id": "LPA-23-2",
+    "name": "玉髓 温柔和弦",
+    "score": 24,
+    "LV": 4,
+    "faction": "UN",
+    "swift": 6,
+    "melee": 2,
+    "projectile": 3,
+    "firing": 5,
+    "moving": 4,
+    "tactic": 4,
+    "trait": "装饰音",
+    "hasImage": false,
+    "traitDescription": "· 当本机执行射击动作时，如果目标处于3格内范围，本次射击动作+1Y。"
+  },
+  {
     "id": "LPA-24",
     "name": "峡湾",
     "score": 21,
@@ -755,238 +853,643 @@ export const gofDrones: Drone[] = [
     "name": "N31 猎犬I “猎兔犬”",
     "type": "medium",
     "score": 40,
-    "structure": 0,
     "armor": 6,
+    "structure": 0,
     "parray": 2,
     "dodge": 0,
     "electronic": 2,
     "move": 5,
     "stance": "offensive",
-    "description": "·曲射：本动作不需要对落点或目标有视线。\r\n·齐射X：发射或布撒最多X枚抛射物，并消耗同等数量的弹药标记。"
+    "description": "",
+    "projectile": [
+      "ZHAM-002"
+    ],
+    "isPD": false,
+    "hasImage": true,
+    "keywords": [KEYWORD_LIST.zh.齐射X, KEYWORD_LIST.zh.曲射],
+    "actions": [
+      {
+        "id": "ZHDR-201_A",
+        "name": "撕裂",
+        "description": "· [命中] 目标获得1枚脆弱标记",
+        "type": "Melee",
+        "speed": "auto",
+        "range": 1,
+        "storage": 0,
+        "yellowDice": 5,
+        "redDice": 0
+      },
+      {
+        "id": "ZHDR-201_B",
+        "name": "导弹",
+        "description": "· 齐射3 · 曲射\r\n· 发射1枚M60“回旋镖”导弹。",
+        "type": "Projectile",
+        "speed": "command",
+        "range": 6,
+        "storage": 3,
+        "yellowDice": 0,
+        "redDice": 0
+      }
+    ]
   },
   {
     "id": "ZHDR-202",
     "name": "N31 猎犬II “看门狗”",
     "type": "medium",
     "score": 36,
-    "structure": 0,
     "armor": 6,
+    "structure": 0,
     "parray": 2,
     "dodge": 0,
     "electronic": 2,
     "move": 5,
     "stance": "offensive",
-    "description": ""
+    "description": "",
+    "projectile": [],
+    "isPD": false,
+    "hasImage": true,
+    "keywords": [KEYWORD_LIST.zh.光环],
+    "actions": [
+      {
+        "id": "ZHDR-202_A",
+        "name": "撕裂",
+        "description": "· [命中] 目标获得1枚脆弱标记",
+        "type": "Melee",
+        "speed": "auto",
+        "range": 1,
+        "storage": 0,
+        "yellowDice": 5,
+        "redDice": 0
+      },
+      {
+        "id": "ZHDR-202_B",
+        "name": "电战弱化",
+        "description": "· 光环\r\n· 范围内敌方单位进行电子对抗投骰时，强度-1，此效果不可叠加。",
+        "type": "Passive",
+        "speed": "passive",
+        "range": 4,
+        "storage": 0,
+        "yellowDice": 0,
+        "redDice": 0
+      }
+    ]
   },
   {
     "id": "ZHDR-203",
     "name": "N31 猎犬III “斗牛犬”",
     "type": "medium",
     "score": 36,
-    "structure": 0,
     "armor": 6,
+    "structure": 0,
     "parray": 2,
     "dodge": 0,
     "electronic": 2,
     "move": 5,
     "stance": "offensive",
-    "description": ""
+    "description": "",
+    "projectile": [],
+    "isPD": false,
+    "hasImage": true,
+    "keywords": [KEYWORD_LIST.zh.空中移动],
+    "actions": [
+      {
+        "id": "ZHDR-203_A",
+        "name": "撕裂",
+        "description": "· [命中] 目标获得1枚脆弱标记",
+        "type": "Melee",
+        "speed": "auto",
+        "range": 1,
+        "storage": 0,
+        "yellowDice": 5,
+        "redDice": 0
+      },
+      {
+        "id": "ZHDR-203_B",
+        "name": "跳跃",
+        "description": "· 空中移动",
+        "type": "Moving",
+        "speed": "command",
+        "range": 3,
+        "storage": 0,
+        "yellowDice": 0,
+        "redDice": 0
+      }
+    ]
   },
   {
     "id": "ZHDR-303",
     "name": "N503 “女武神”",
-    "type": "medium",
+    "type": "large",
     "score": 72,
-    "structure": 4,
     "armor": 2,
+    "structure": 4,
     "parray": 0,
     "dodge": 0,
     "electronic": 3,
     "move": 5,
     "stance": "offensive",
-    "description": "·全向射击：本动作没有射界限制。\r\n·近战射击：在近战锁定中仍可执行本动作。"
+    "description": "",
+    "projectile": [],
+    "isPD": false,
+    "hasImage": true,
+    "keywords": [KEYWORD_LIST.zh.全向射击, KEYWORD_LIST.zh.近战射击, KEYWORD_LIST.zh.光环],
+    "actions": [
+      {
+        "id": "ZHDR-303_A",
+        "name": "点射",
+        "description": "· 全向射击\r\n· 近战射击\r\n· {闪电} 使目标机甲立刻切换为宕机姿态。",
+        "type": "Firing",
+        "speed": "auto",
+        "range": 4,
+        "storage": 0,
+        "yellowDice": 1,
+        "redDice": 2
+      },
+      {
+        "id": "ZHDR-303_B",
+        "name": "安抚",
+        "description": "· 光环\r\n· 回合结束时，范围内所有友军机甲，恢复1点链接值。",
+        "type": "Passive",
+        "speed": "passive",
+        "range": 2,
+        "storage": 0,
+        "yellowDice": 0,
+        "redDice": 0
+      }
+    ]
   },
   {
     "id": "ZHDR-304",
     "name": "N504 “鹰身女妖”",
-    "type": "medium",
+    "type": "large",
     "score": 72,
-    "structure": 4,
     "armor": 2,
+    "structure": 4,
     "parray": 0,
     "dodge": 0,
     "electronic": 3,
     "move": 5,
     "stance": "offensive",
-    "description": "·全向射击：本动作没有射界限制。\r\n·近战射击：在近战锁定中仍可执行本动作。"
+    "description": "",
+    "projectile": [],
+    "isPD": false,
+    "hasImage": true,
+    "keywords": [KEYWORD_LIST.zh.全向射击, KEYWORD_LIST.zh.近战射击],
+    "actions": [
+      {
+        "id": "ZHDR-304_A",
+        "name": "点射",
+        "description": "· 全向射击\r\n· 近战射击\r\n· {闪电} 使目标机甲立刻切换为宕机姿态。",
+        "type": "Firing",
+        "speed": "auto",
+        "range": 4,
+        "storage": 0,
+        "yellowDice": 1,
+        "redDice": 2
+      },
+      {
+        "id": "ZHDR-304_B",
+        "name": "空中运输",
+        "description": "· 执行指令移动时，可以额外消耗1个指令标记，拖拽1个相邻的友军单位",
+        "type": "Passive",
+        "speed": "passive",
+        "range": 0,
+        "storage": 0,
+        "yellowDice": 0,
+        "redDice": 0
+      }
+    ]
   },
   {
     "id": "ZHDR-101",
     "name": "N11 先锋I “塔盾”",
     "type": "medium",
     "score": 36,
-    "structure": 3,
     "armor": 5,
+    "structure": 3,
     "parray": 0,
     "dodge": 0,
     "electronic": 2,
     "move": 5,
     "stance": "defensive",
-    "description": "·自动盾牌：相邻的己方单位在遭受射击时，如果攻击者与目标的连线穿过本单位，则攻击变为以本机为目标。"
+    "description": "",
+    "projectile": [],
+    "isPD": false,
+    "hasImage": true,
+    "keywords": [KEYWORD_LIST.zh.自动盾牌],
+    "actions": [
+      {
+        "id": "ZHDR-101_A",
+        "name": "移动掩体",
+        "description": "· 本机可以为友军提供单位保护。\r\n· 自动盾牌",
+        "type": "Passive",
+        "speed": "passive",
+        "range": 0,
+        "storage": 0,
+        "yellowDice": 0,
+        "redDice": 0
+      }
+    ]
   },
   {
     "id": "ZHDR-102",
     "name": "N12 先锋II “十字弓”",
     "type": "medium",
     "score": 24,
-    "structure": 0,
     "armor": 4,
+    "structure": 0,
     "parray": 0,
     "dodge": 0,
     "electronic": 2,
     "move": 5,
     "stance": "defensive",
-    "description": "·全向射击：本动作没有射界限制。\r\n·近战射击：在近战锁定中仍可执行本动作。"
+    "description": "",
+    "projectile": [],
+    "isPD": false,
+    "hasImage": true,
+    "keywords": [KEYWORD_LIST.zh.拦截X, KEYWORD_LIST.zh.全向射击, KEYWORD_LIST.zh.近战射击],
+    "actions": [
+      {
+        "id": "ZHDR-102_A",
+        "name": "扫射",
+        "description": "· 拦截1\r\n· 全向射击\r\n· 近战射击",
+        "type": "Firing",
+        "speed": "auto",
+        "range": 6,
+        "storage": 0,
+        "yellowDice": 2,
+        "redDice": 1
+      }
+    ]
   },
   {
     "id": "ZHDR-103",
     "name": "N13 先锋III “阔剑”",
     "type": "medium",
     "score": 24,
-    "structure": 0,
     "armor": 4,
+    "structure": 0,
     "parray": 0,
     "dodge": 0,
     "electronic": 2,
     "move": 5,
     "stance": "defensive",
-    "description": "·全向射击：本动作没有射界限制。\r\n·近战射击：在近战锁定中仍可执行本动作。"
+    "description": "",
+    "projectile": [],
+    "isPD": false,
+    "hasImage": true,
+    "keywords": [KEYWORD_LIST.zh.全向射击, KEYWORD_LIST.zh.近战射击],
+    "actions": [
+      {
+        "id": "ZHDR-103_A",
+        "name": "扫射",
+        "description": "· 全向射击\r\n· 近战射击",
+        "type": "Firing",
+        "speed": "auto",
+        "range": 4,
+        "storage": 0,
+        "yellowDice": 4,
+        "redDice": 0
+      }
+    ]
   },
   {
     "id": "ZHDR-104",
     "name": "N14 先锋IV “标枪”",
     "type": "medium",
     "score": 24,
-    "structure": 0,
     "armor": 4,
+    "structure": 0,
     "parray": 0,
     "dodge": 0,
     "electronic": 2,
     "move": 5,
     "stance": "defensive",
-    "description": "·曲射：本动作不需要对落点或目标有视线。"
+    "description": "",
+    "projectile": [
+      "ZHAM-001A"
+    ],
+    "isPD": false,
+    "hasImage": true,
+    "keywords": [KEYWORD_LIST.zh.曲射],
+    "actions": [
+      {
+        "id": "ZHDR-104_A",
+        "name": "导弹",
+        "description": "· 曲射\r\n· 发射1枚M707“雨燕”导弹。",
+        "type": "Projectile",
+        "speed": "command",
+        "range": 6,
+        "storage": 2,
+        "yellowDice": 0,
+        "redDice": 0
+      }
+    ]
   },
   {
     "id": "ZHDR-106",
     "name": "N113 神盾II “弩炮”",
-    "type": "medium",
+    "type": "large",
     "score": 72,
-    "structure": 6,
     "armor": 3,
+    "structure": 6,
     "parray": 0,
     "dodge": 0,
     "electronic": 2,
     "move": 4,
     "stance": "offensive",
-    "description": "·穿甲X：遭受本攻击时受击方减少X枚白骰。\r\n·近战射击：在近战锁定中仍可执行本动作。"
+    "description": "",
+    "projectile": [
+      "ZHAM-001A"
+    ],
+    "isPD": false,
+    "hasImage": true,
+    "keywords": [KEYWORD_LIST.zh.穿甲X, KEYWORD_LIST.zh.近战射击, KEYWORD_LIST.zh.曲射],
+    "actions": [
+      {
+        "id": "ZHDR-106_A",
+        "name": "点射",
+        "description": "· 穿甲1\r\n· 近战射击",
+        "type": "Firing",
+        "speed": "command",
+        "range": 12,
+        "storage": 0,
+        "yellowDice": 0,
+        "redDice": 3
+      },
+      {
+        "id": "ZHDR-106_B",
+        "name": "导弹",
+        "description": "· 曲射\r\n· 发射1枚M707“雨燕”导弹。",
+        "type": "Projectile",
+        "speed": "command",
+        "range": 6,
+        "storage": 2,
+        "yellowDice": 0,
+        "redDice": 0
+      }
+    ]
   },
   {
     "id": "ZHDR-107",
     "name": "N113 神盾III “冲角”",
-    "type": "medium",
+    "type": "large",
     "score": 60,
-    "structure": 6,
     "armor": 3,
+    "structure": 6,
     "parray": 0,
     "dodge": 0,
     "electronic": 2,
     "move": 4,
     "stance": "offensive",
-    "description": "·压制：被本动作宣布为目标的机甲会立刻切换为防御姿态（重启中单位不受此影响）。"
+    "description": "",
+    "projectile": [],
+    "isPD": false,
+    "hasImage": true,
+    "keywords": [KEYWORD_LIST.zh.压制],
+    "actions": [
+      {
+        "id": "ZHDR-107_A",
+        "name": "扫射",
+        "description": "· 压制",
+        "type": "Firing",
+        "speed": "command",
+        "range": 6,
+        "storage": 0,
+        "yellowDice": 5,
+        "redDice": 0
+      }
+    ]
   },
   {
     "id": "ZHDR-301",
     "name": "N51 “护教者”",
-    "type": "medium",
+    "type": "large",
     "score": 60,
-    "structure": 5,
     "armor": 2,
+    "structure": 5,
     "parray": 0,
     "dodge": 0,
     "electronic": 2,
     "move": 5,
     "stance": "defensive",
-    "description": "·霰射：如果目标为机甲，溢出伤害结算至目标另1个随机部件。\r\n·击退X：本动作结束后，将目标沿攻击方向，强制移动X格。"
+    "description": "",
+    "projectile": [],
+    "isPD": false,
+    "hasImage": true,
+    "keywords": [KEYWORD_LIST.zh.霰射, KEYWORD_LIST.zh.近战射击, KEYWORD_LIST.zh.击退X, KEYWORD_LIST.zh.自动盾牌],
+    "actions": [
+      {
+        "id": "ZHDR-301_A",
+        "name": "点射",
+        "description": "· 霰射 · 近战射击\r\n· 击退1",
+        "type": "Firing",
+        "speed": "command",
+        "range": 3,
+        "storage": 0,
+        "yellowDice": 3,
+        "redDice": 1
+      },
+      {
+        "id": "ZHDR-301_B",
+        "name": "致密盾牌手",
+        "description": "· 本部件被命中时，{防御}可抵消{重击}。\r\n· 自动盾牌",
+        "type": "Passive",
+        "speed": "passive",
+        "range": 0,
+        "storage": 0,
+        "yellowDice": 0,
+        "redDice": 0
+      }
+    ]
   },
   {
     "id": "ZHDR-302",
     "name": "N52 “狂热者”",
-    "type": "medium",
+    "type": "large",
     "score": 60,
-    "structure": 5,
     "armor": 2,
+    "structure": 5,
     "parray": 1,
     "dodge": 0,
     "electronic": 2,
     "move": 5,
     "stance": "defensive",
-    "description": ""
+    "description": "",
+    "projectile": [],
+    "isPD": false,
+    "hasImage": true,
+    "keywords": [KEYWORD_LIST.zh.禁足],
+    "actions": [
+      {
+        "id": "ZHDR-302_A",
+        "name": "劈砍",
+        "description": "· [命中]使目标获得1枚禁足标记。",
+        "type": "Melee",
+        "speed": "command",
+        "range": 1,
+        "storage": 0,
+        "yellowDice": 5,
+        "redDice": 0
+      },
+      {
+        "id": "ZHDR-302_B",
+        "name": "殉道",
+        "description": "· 本机被摧毁时，立刻引爆。\r\n· 引爆时，对范围内所有单位造成爆炸伤害。",
+        "type": "Passive",
+        "speed": "passive",
+        "range": 1,
+        "storage": 0,
+        "yellowDice": 2,
+        "redDice": 4
+      }
+    ]
   },
   {
     "id": "ZHDR-204",
     "name": "N305 猎鹰I “迷雾鹰”",
     "type": "medium",
     "score": 36,
-    "structure": 0,
     "armor": 2,
+    "structure": 0,
     "parray": 0,
     "dodge": 7,
     "electronic": 3,
     "move": 6,
     "stance": "mobility",
-    "description": ""
+    "description": "",
+    "projectile": [],
+    "isPD": false,
+    "hasImage": true,
+    "keywords": [KEYWORD_LIST.zh.低特征],
+    "actions": [
+      {
+        "id": "ZHDR-204_A",
+        "name": "特征削减",
+        "description": "· 范围内敌方单位在执行射击动作时，目标视为拥有低特征。",
+        "type": "Passive",
+        "speed": "passive",
+        "range": 5,
+        "storage": 0,
+        "yellowDice": 0,
+        "redDice": 0
+      }
+    ]
   },
   {
     "id": "ZHDR-205",
     "name": "N306 猎鹰II “咆哮鹰”",
     "type": "medium",
     "score": 36,
-    "structure": 0,
     "armor": 2,
+    "structure": 0,
     "parray": 0,
     "dodge": 7,
     "electronic": 3,
     "move": 6,
     "stance": "mobility",
-    "description": ""
+    "description": "",
+    "projectile": [],
+    "isPD": false,
+    "hasImage": true,
+    "keywords": [KEYWORD_LIST.zh.电子攻击],
+    "actions": [
+      {
+        "id": "ZHDR-205_A",
+        "name": "尖啸",
+        "description": "· 电子攻击\r\n· 与范围内所有敌军机甲进行电子对抗投骰，强度+1，成功则扣除目标1点链接值。",
+        "type": "Tactic",
+        "speed": "auto",
+        "range": 4,
+        "storage": 0,
+        "yellowDice": 0,
+        "redDice": 0
+      }
+    ]
   },
   {
     "id": "ZHDR-206",
     "name": "N307 猎鹰III “巡逻鹰”",
     "type": "medium",
     "score": 36,
-    "structure": 0,
     "armor": 2,
+    "structure": 0,
     "parray": 0,
     "dodge": 7,
     "electronic": 3,
     "move": 6,
     "stance": "mobility",
-    "description": "· 静默：执行本动作时不会解除光学迷彩。"
+    "description": "",
+    "projectile": [],
+    "isPD": false,
+    "hasImage": true,
+    "keywords": [KEYWORD_LIST.zh.静默, KEYWORD_LIST.zh.电子支援],
+    "actions": [
+      {
+        "id": "ZHDR-206_A",
+        "name": "动态感知",
+        "description": "· 范围内敌军单位的所有动作失去静默。",
+        "type": "Passive",
+        "speed": "passive",
+        "range": 3,
+        "storage": 0,
+        "yellowDice": 0,
+        "redDice": 0
+      },
+      {
+        "id": "ZHDR-206_B",
+        "name": "姿态反馈",
+        "description": "· 电子支援\r\n· 使范围内一台宕机姿态以外的友军机甲切换姿态。",
+        "type": "Tactic",
+        "speed": "command",
+        "range": 6,
+        "storage": 0,
+        "yellowDice": 0,
+        "redDice": 0
+      }
+    ]
   },
   {
     "id": "ZYDR-108",
     "name": "SU1 “护巢蜂”",
-    "type": "medium",
+    "type": "small",
     "score": 0,
-    "structure": 0,
     "armor": 1,
+    "structure": 0,
     "parray": 0,
     "dodge": 2,
     "electronic": 1,
     "move": 5,
     "stance": "mobility",
-    "description": ""
+    "description": "低价值",
+    "projectile": [],
+    "isPD": false,
+    "hasImage": true,
+    "keywords": [KEYWORD_LIST.zh.全向射击],
+    "actions": [
+      {
+        "id": "ZYDR-108_A",
+        "name": "点射",
+        "description": "· 全向射击",
+        "type": "Firing",
+        "speed": "auto",
+        "range": 2,
+        "storage": 0,
+        "yellowDice": 3,
+        "redDice": 0
+      },
+      {
+        "id": "ZYDR-108_B",
+        "name": "装甲贴片",
+        "description": "· 移除友军单位的1枚破损标记，然后移除本单位。",
+        "type": "Tactic",
+        "speed": "command",
+        "range": 2,
+        "storage": 0,
+        "yellowDice": 0,
+        "redDice": 0
+      }
+    ]
   }
 ];
 
@@ -1150,115 +1653,364 @@ export const pdDrones: Drone[] = [
 
 export const gofTorso: Part[] = [
   {
-    "id": "ZYTR-101",
+    "id": "172",
     "name": "P7\r\n“勇士”\r\n主战核心",
     "type": "torso",
     "score": 76,
-    "structure": 3,
     "armor": 5,
+    "structure": 3,
     "parray": 0,
     "dodge": 0,
     "electronic": 3,
-    "description": "·指令生成X：指令阶段开始时，本机自动生成X枚指令标记。\r\n· 指令协调X：本动作执行结束后，可以立即向X台己方无人机发送1枚指令标记。 "
+    "move": 0,
+    "description": "·指令生成X：指令阶段开始时，本机自动生成X枚指令标记。\r\n· 指令协调X：本动作执行结束后，可以立即向X台己方无人机发送1枚指令标记。 ",
+    "keywords": [KEYWORD_LIST.zh.指令生成X, KEYWORD_LIST.zh.指令协调X],
+    "hasImage": true,
+    "action": [
+      {
+        "id": "172_A",
+        "name": "N4数据链",
+        "description": "· 指令生成4",
+        "type": "Passive",
+        "size": "m",
+        "range": 0,
+        "storage": 0,
+        "yellowDice": 0,
+        "redDice": 0
+      },
+      {
+        "id": "172_B",
+        "name": "近战协同",
+        "description": "· 本机近战动作获得指令协调1。",
+        "type": "Passive",
+        "size": "m",
+        "range": 0,
+        "storage": 0,
+        "yellowDice": 0,
+        "redDice": 0
+      }
+    ],
+    "projectile": [],
+    "isPD": false
   },
   {
-    "id": "ZYTR-102",
+    "id": "173",
     "name": "P7-A3\r\n“百夫长”\r\n节点核心",
     "type": "torso",
     "score": 79,
-    "structure": 3,
     "armor": 5,
+    "structure": 3,
     "parray": 0,
     "dodge": 0,
     "electronic": 3,
-    "description": "·指令生成X：指令阶段开始时，本机自动生成X枚指令标记。"
+    "move": 0,
+    "description": "·指令生成X：指令阶段开始时，本机自动生成X枚指令标记。",
+    "keywords": [KEYWORD_LIST.zh.指令生成X, KEYWORD_LIST.zh.光环],
+    "hasImage": true,
+    "action": [
+      {
+        "id": "173_A",
+        "name": "N4数据链",
+        "description": "· 指令生成4",
+        "type": "Passive",
+        "size": "m",
+        "range": 0,
+        "storage": 0,
+        "yellowDice": 0,
+        "redDice": 0
+      },
+      {
+        "id": "173_B",
+        "name": "火控规划",
+        "description": "· 光环\r\n· 范围内友军无人机在射击时+2射程，此效果不可叠加。",
+        "type": "Passive",
+        "size": "m",
+        "range": 4,
+        "storage": 0,
+        "yellowDice": 0,
+        "redDice": 0
+      }
+    ],
+    "projectile": [],
+    "isPD": false
   },
   {
-    "id": "ZYTR-201",
+    "id": "174",
     "name": "P22\r\n“猎人”\r\n电战核心",
     "type": "torso",
     "score": 91,
-    "structure": 4,
     "armor": 5,
+    "structure": 4,
     "parray": 0,
     "dodge": 0,
     "electronic": 4,
-    "description": "·指令生成X：指令阶段开始时，本机自动生成X枚指令标记。"
+    "move": 0,
+    "description": "·指令生成X：指令阶段开始时，本机自动生成X枚指令标记。",
+    "keywords": [KEYWORD_LIST.zh.指令生成X],
+
+    "action": [
+      {
+        "id": "174_A",
+        "name": "N4数据链",
+        "description": "· 指令生成4",
+        "type": "Passive",
+        "size": "m",
+        "range": 0,
+        "storage": 0,
+        "yellowDice": 0,
+        "redDice": 0
+      },
+      {
+        "id": "174_B",
+        "name": "标靶追溯",
+        "description": "· 本机被敌方机甲近战/射击后，对攻击者执行一次电子对抗投骰，成功则扣除目标1点链接值。",
+        "type": "Passive",
+        "size": "m",
+        "range": 0,
+        "storage": 0,
+        "yellowDice": 0,
+        "redDice": 0
+      }
+    ],
+    "projectile": [],
+    "isPD": false
   },
   {
-    "id": "ZYTR-301",
+    "id": "175",
     "name": "P28\r\n“龙骑兵”\r\n重甲核心",
     "type": "torso",
     "score": 97,
-    "structure": 4,
     "armor": 5,
+    "structure": 4,
     "parray": 0,
     "dodge": 0,
     "electronic": 2,
-    "description": "·指令生成X：指令阶段开始时，本机自动生成X枚指令标记。"
+    "move": 0,
+    "description": "·指令生成X：指令阶段开始时，本机自动生成X枚指令标记。",
+    "keywords": [KEYWORD_LIST.zh.指令生成X],
+    "hasImage": true,
+    "action": [
+      {
+        "id": "175_A",
+        "name": "A2数据链",
+        "description": "· 指令生成2\r\n· 己方无人机接受本机指令时，可以执行自动动作。",
+        "type": "Passive",
+        "size": "m",
+        "range": 0,
+        "storage": 0,
+        "yellowDice": 0,
+        "redDice": 0
+      },
+      {
+        "id": "175_B",
+        "name": "致密装甲",
+        "description": "· 本部件受击时，{防御}可抵消{重击}。",
+        "type": "Passive",
+        "size": "m",
+        "range": 0,
+        "storage": 0,
+        "yellowDice": 0,
+        "redDice": 0
+      }
+    ],
+    "projectile": [],
+    "isPD": false
   },
   {
-    "id": "ZYTR-302",
+    "id": "176",
     "name": "P24\r\n“战车”\r\n重甲核心",
     "type": "torso",
     "score": 94,
-    "structure": 4,
     "armor": 5,
+    "structure": 4,
     "parray": 0,
     "dodge": 0,
     "electronic": 2,
-    "description": "·指令生成X：指令阶段开始时，本机自动生成X枚指令标记。"
+    "move": 0,
+    "description": "·指令生成X：指令阶段开始时，本机自动生成X枚指令标记。",
+    "keywords": [KEYWORD_LIST.zh.指令生成X],
+    "hasImage": true,
+    "action": [
+      {
+        "id": "176_A",
+        "name": "M2数据链",
+        "description": "· 指令生成2\r\n· 己方无人机接受本机指令时，可在执行动作前移动1格。",
+        "type": "Passive",
+        "size": "m",
+        "range": 0,
+        "storage": 0,
+        "yellowDice": 0,
+        "redDice": 0
+      },
+      {
+        "id": "176_B",
+        "name": "致密装甲",
+        "description": "· 本部件受击时，{防御}可抵消{重击}。",
+        "type": "Passive",
+        "size": "m",
+        "range": 0,
+        "storage": 0,
+        "yellowDice": 0,
+        "redDice": 0
+      }
+    ],
+    "projectile": [],
+    "isPD": false,
+
   }
 ];
 
 export const gofChasis: Part[] = [
   {
-    "id": "ZHLT-101",
+    "id": "179",
     "name": "PL1\r\n标准下肢",
     "type": "chasis",
     "score": 37,
-    "structure": 5,
     "armor": 1,
+    "structure": 5,
     "parray": 0,
     "dodge": 3,
     "electronic": 0,
-    "description": ""
+    "move": 4,
+    "description": "",
+    "keywords": [],
+    "action": [{
+      "id": "179_A",
+      "name": "奔跑",
+      "description": "",
+      "type": "Moving",
+      "size": "m",
+      "range": 4,
+      "storage": 0,
+      "yellowDice": 0,
+      "redDice": 0
+    }],
+    "projectile": [],
+    "isPD": false,
+    "hasImage": true,
   },
   {
-    "id": "ZHLT-201",
+    "id": "180",
     "name": "PL29\r\n隐秘下肢",
     "type": "chasis",
     "score": 61,
-    "structure": 5,
     "armor": 1,
+    "structure": 5,
     "parray": 0,
     "dodge": 4,
     "electronic": 0,
-    "description": "·静默：不会解除光学迷彩。"
+    "move": 3,
+    "description": "·静默：不会解除光学迷彩。",
+    "keywords": [KEYWORD_LIST.zh.静默],
+    "action": [
+      {
+        "id": "180_A",
+        "name": "奔跑",
+        "description": "",
+        "type": "Moving",
+        "size": "m",
+        "range": 3,
+        "storage": 0,
+        "yellowDice": 0,
+        "redDice": 0
+      },
+      {
+        "id": "180_B",
+        "name": "低征机动",
+        "description": "· 本部件的移动动作/调整移动，均为静默。",
+        "type": "Passive",
+        "size": "m",
+        "range": 0,
+        "storage": 0,
+        "yellowDice": 0,
+        "redDice": 0
+      }
+    ],
+    "projectile": [],
+    "isPD": false,
+    "hasImage": true,
   },
   {
-    "id": "ZHLT-301",
+    "id": "181",
     "name": "PLK400\r\n“半人马”\r\n高速下肢",
     "type": "chasis",
     "score": 90,
-    "structure": 3,
     "armor": 5,
+    "structure": 3,
     "parray": 0,
     "dodge": 3,
     "electronic": 0,
-    "description": "`不可阻挡：本动作在禁足状态下也可以移动\r\n·异形X：执行本动作时，需要消耗X点链接值。\r\n·推动X：将目标沿本单位面朝方向，强制直线移动X格，然后本单位执行同样的移动。"
+    "move": 5,
+    "description": "`不可阻挡：本动作在禁足状态下也可以移动\r\n·异形X：执行本动作时，需要消耗X点链接值。\r\n·推动X：将目标沿本单位面朝方向，强制直线移动X格，然后本单位执行同样的移动。",
+    "keywords": [KEYWORD_LIST.zh.异形X, KEYWORD_LIST.zh.不可阻挡, KEYWORD_LIST.zh.推动X],
+    "action": [
+      {
+        "id": "181_A",
+        "name": "狂奔",
+        "description": "· 异形1\n· 不可阻挡\n· 如果在本机移动后，前方相邻格有敌方地面单位，可对其造成推动1。",
+        "type": "Moving",
+        "size": "m",
+        "range": 5,
+        "storage": 0,
+        "yellowDice": 0,
+        "redDice": 0
+      },
+      {
+        "id": "181_B",
+        "name": "奔跑",
+        "description": "",
+        "type": "Moving",
+        "size": "m",
+        "range": 2,
+        "storage": 0,
+        "yellowDice": 0,
+        "redDice": 0
+      }
+    ],
+    "projectile": [],
+    "isPD": false,
+    "hasImage": true,
   },
   {
-    "id": "281",
+    "id": "182",
     "name": "PL35\r\n重甲下肢",
     "type": "chasis",
     "score": 64,
-    "structure": 2,
     "armor": 6,
+    "structure": 2,
     "parray": 0,
     "dodge": 3,
     "electronic": 0,
-    "description": "·推动X：将目标沿本单位面朝方向，强制直线移动X格，然后本单位执行同样的移动。"
+    "move": 4,
+    "description": "·推动X：将目标沿本单位面朝方向，强制直线移动X格，然后本单位执行同样的移动。",
+    "keywords": [KEYWORD_LIST.zh.推动X],
+    "action": [
+      {
+        "id": "182_A",
+        "name": "奔跑",
+        "description": "",
+        "type": "Moving",
+        "size": "m",
+        "range": 4,
+        "storage": 0,
+        "yellowDice": 0,
+        "redDice": 0
+      },
+      {
+        "id": "182_B",
+        "name": "踢击",
+        "description": "·【命中】造成推动1。",
+        "type": "Melee",
+        "size": "m",
+        "range": 1,
+        "storage": 0,
+        "yellowDice": 5,
+        "redDice": 0
+      }
+    ],
+    "projectile": [],
+    "isPD": false,
+    "hasImage": true,
   }
 ];
 
@@ -1268,97 +2020,441 @@ export const gofLeftHand: Part[] = [
     "name": "SS12圆盾",
     "type": "leftHand",
     "score": 53,
-    "structure": 5,
     "armor": 4,
+    "structure": 5,
     "parray": 2,
     "dodge": 0,
     "electronic": 0,
-    "description": ""
+    "move": 0,
+    "description": "",
+    "keywords": [KEYWORD_LIST.zh.空手, KEYWORD_LIST.zh.震撼],
+    "action": [
+      {
+        "id": "ZHLA-101_A",
+        "name": "防御反应",
+        "description": "· 本机任何部件被击穿时，可以立即将本机调整为防御姿态。",
+        "type": "Passive",
+        "size": "m",
+        "range": 0,
+        "storage": 0,
+        "yellowDice": 0,
+        "redDice": 0
+      },
+      {
+        "id": "ZHLA-101_B",
+        "name": "盾击",
+        "description": "· 震撼",
+        "type": "Melee",
+        "size": "s",
+        "range": 1,
+        "storage": 0,
+        "yellowDice": 5,
+        "redDice": 0
+      }
+    ],
+    "projectile": [],
+    "isPD": false,
+    "hasImage": true,
   },
   {
     "id": "ZHLA-102",
     "name": "双联“雨燕”发射器",
     "type": "leftHand",
     "score": 35,
-    "structure": 4,
     "armor": 1,
+    "structure": 4,
     "parray": 0,
     "dodge": 0,
     "electronic": 0,
-    "description": ""
+    "move": 0,
+    "description": "",
+    "keywords": [KEYWORD_LIST.zh.齐射X, KEYWORD_LIST.zh.曲射, KEYWORD_LIST.zh.指令协调X],
+    "throwIndex": "ZHLA-102-T",
+    "action": [
+      {
+        "id": "ZHLA-102_A",
+        "name": "导弹",
+        "description": "· 齐射2 · 曲射\r\n· 发射1枚M707“雨燕”导弹。\r\n· 指令协调1",
+        "type": "Projectile",
+        "size": "m",
+        "range": 3,
+        "storage": 2,
+        "yellowDice": 0,
+        "redDice": 0
+      },
+      {
+        "id": "ZHLA-102_B",
+        "name": "指令协调",
+        "description": "· 向1台己方无人机发送1枚指令标记。",
+        "type": "Tactic",
+        "size": "s",
+        "range": 0,
+        "storage": 0,
+        "yellowDice": 0,
+        "redDice": 0
+      }
+    ],
+    "projectile": [
+      "ZHAM-001A"
+    ],
+    "isPD": false,
+    "hasImage": true,
+  },
+  {
+    "id": "ZHLA-102-T",
+    "name": "双联“雨燕”发射器（抛弃卡）",
+    "type": "leftHand",
+    "score": 0,
+    "armor": 1,
+    "structure": 4,
+    "parray": 0,
+    "dodge": 0,
+    "electronic": 0,
+    "move": 0,
+    "description": "",
+    "keywords": [KEYWORD_LIST.zh.空手],
+    "action": [
+      {
+        "id": "ZHLA-102_B",
+        "name": "指令协调",
+        "description": "· 向1台己方无人机发送1枚指令标记。",
+        "type": "Tactic",
+        "size": "s",
+        "range": 0,
+        "storage": 0,
+        "yellowDice": 0,
+        "redDice": 0
+      }
+    ],
+    "projectile": [],
+    "isPD": false,
+    "hasImage": false,
   },
   {
     "id": "ZHLA-201",
     "name": "GSD7迫击炮",
     "type": "leftHand",
     "score": 29,
-    "structure": 4,
     "armor": 1,
+    "structure": 4,
     "parray": 0,
     "dodge": 0,
     "electronic": 1,
-    "description": ""
+    "move": 0,
+    "description": "",
+    "keywords": [KEYWORD_LIST.zh.曲射, KEYWORD_LIST.zh.静止, KEYWORD_LIST.zh.指令协调X],
+    "throwIndex": "ZHLA-201-T",
+    "action": [
+      {
+        "id": "ZHLA-201_A",
+        "name": "迫击炮",
+        "description": "· 曲射\r\n· 发射1枚PK3末敏穿甲弹或M25榴霰弹。\r\n· [静止] +1射程。\r\n· 指令协调1",
+        "type": "Projectile",
+        "size": "m",
+        "range": 8,
+        "storage": 0,
+        "yellowDice": 0,
+        "redDice": 0
+      },
+      {
+        "id": "ZHLA-201_B",
+        "name": "指令协调",
+        "description": "· 向1台己方无人机发送1枚指令标记。",
+        "type": "Tactic",
+        "size": "s",
+        "range": 0,
+        "storage": 0,
+        "yellowDice": 0,
+        "redDice": 0
+      }
+    ],
+    "projectile": [
+      "ZHAM-003",
+      "ZHAM-004"
+    ],
+    "isPD": false,
+    "hasImage": true,
+  },
+  {
+    "id": "ZHLA-201-T",
+    "name": "GSD7迫击炮（抛弃卡）",
+    "type": "leftHand",
+    "score": 0,
+    "armor": 1,
+    "structure": 4,
+    "parray": 0,
+    "dodge": 0,
+    "electronic": 0,
+    "move": 0,
+    "description": "",
+    "keywords": [KEYWORD_LIST.zh.空手],
+    "action": [
+      {
+        "id": "ZHLA-201-T_B",
+        "name": "指令协调",
+        "description": "· 向1台己方无人机发送1枚指令标记。",
+        "type": "Tactic",
+        "size": "s",
+        "range": 0,
+        "storage": 0,
+        "yellowDice": 0,
+        "redDice": 0
+      }
+    ],
+    "projectile": [],
+    "isPD": false,
+    "hasImage": false,
   },
   {
     "id": "ZHLA-202",
     "name": "M4格斗爪",
     "type": "leftHand",
     "score": 65,
-    "structure": 5,
     "armor": 1,
+    "structure": 5,
     "parray": 3,
     "dodge": 0,
     "electronic": 0,
-    "description": ""
+    "move": 0,
+    "description": "",
+    "keywords": [KEYWORD_LIST.zh.空手],
+    "action": [
+      {
+        "id": "ZHLA-202_A",
+        "name": "撕裂",
+        "description": "· [命中] 目标获得1枚脆弱标记",
+        "type": "Melee",
+        "size": "s",
+        "range": 1,
+        "storage": 0,
+        "yellowDice": 5,
+        "redDice": 0
+      },
+      {
+        "id": "ZHLA-202_B",
+        "name": "反击",
+        "description": "· 以本部件招架成功时，使攻击方立刻结束行动机会，随后本机立刻执行一个近战动作。",
+        "type": "Passive",
+        "size": "m",
+        "range": 0,
+        "storage": 0,
+        "yellowDice": 0,
+        "redDice": 0
+      }
+    ],
+    "projectile": [],
+    "isPD": false,
+    "hasImage": true,
   },
   {
     "id": "ZHLA-301",
     "name": "SS30重盾",
     "type": "leftHand",
     "score": 75,
-    "structure": 5,
     "armor": 6,
+    "structure": 5,
     "parray": 2,
     "dodge": 0,
     "electronic": 0,
-    "description": ""
+    "move": 0,
+    "description": "",
+    "keywords": [],
+    "throwIndex": "ZHLA-301-T",
+    "action": [
+      {
+        "id": "ZHLA-301_A",
+        "name": "盾牌防御",
+        "description": "· 在防御姿态下，本机可以指定本部件受击。",
+        "type": "Passive",
+        "size": "m",
+        "range": 0,
+        "storage": 0,
+        "yellowDice": 0,
+        "redDice": 0
+      },
+      {
+        "id": "ZHLA-301_B",
+        "name": "防御反应",
+        "description": "· 本机任何部件被击穿时，可以立即将本机调整为防御姿态。",
+        "type": "Passive",
+        "size": "m",
+        "range": 0,
+        "storage": 0,
+        "yellowDice": 0,
+        "redDice": 0
+      }
+    ],
+    "projectile": [],
+    "isPD": false,
+    "hasImage": true,
   },
-
+  {
+    "id": "ZHLA-301-T",
+    "name": "SS30重盾（抛弃卡）",
+    "type": "leftHand",
+    "score": 0,
+    "armor": 1,
+    "structure": 5,
+    "parray": 1,
+    "dodge": 0,
+    "electronic": 0,
+    "move": 0,
+    "description": "",
+    "keywords": [KEYWORD_LIST.zh.空手],
+    "action": [],
+    "projectile": [],
+    "isPD": false,
+    "hasImage": false,
+  },
   {
     "id": "ZHLA-302",
     "name": "MR870霰弹枪",
     "type": "leftHand",
     "score": 56,
-    "structure": 5,
     "armor": 1,
+    "structure": 5,
     "parray": 1,
     "dodge": 0,
     "electronic": 0,
-    "description": ""
+    "move": 0,
+    "description": "",
+    "keywords": [KEYWORD_LIST.zh.霰射, KEYWORD_LIST.zh.近战射击],
+    "throwIndex": "ZHLA-302-T",
+    "action": [
+      {
+        "id": "ZHLA-302_A",
+        "name": "速射",
+        "description": "· 霰射 · 近战射击",
+        "type": "Firing",
+        "size": "s",
+        "range": 4,
+        "storage": 0,
+        "yellowDice": 2,
+        "redDice": 1
+      },
+      {
+        "id": "ZHLA-302_B",
+        "name": "点射",
+        "description": "· 霰射 · 近战射击",
+        "type": "Firing",
+        "size": "l",
+        "range": 4,
+        "storage": 0,
+        "yellowDice": 6,
+        "redDice": 1
+      }
+    ],
+    "projectile": [],
+    "isPD": false,
+    "hasImage": false,
+  },
+  {
+    "id": "ZHLA-302-T",
+    "name": "MR870霰弹枪（抛弃卡）",
+    "type": "leftHand",
+    "score": 0,
+    "armor": 1,
+    "structure": 5,
+    "parray": 1,
+    "dodge": 0,
+    "electronic": 0,
+    "move": 0,
+    "description": "",
+    "keywords": [KEYWORD_LIST.zh.空手],
+    "action": [],
+    "projectile": [],
+    "isPD": false,
+    "hasImage": false,
   },
   {
     "id": "ZHLA-303",
     "name": "辅助左臂",
     "type": "leftHand",
     "score": 29,
-    "structure": 5,
     "armor": 1,
+    "structure": 5,
     "parray": 1,
     "dodge": 0,
     "electronic": 0,
-    "description": ""
+    "move": 0,
+    "description": "",
+    "keywords": [KEYWORD_LIST.zh.空手],
+    "action": [
+      {
+        "id": "ZHLA-303_A",
+        "name": "近战辅助",
+        "description": "·  当这个部件作为空手被一个【双手】效果近战动作所指定时，该动作+1R。",
+        "type": "Passive",
+        "size": "m",
+        "range": 0,
+        "storage": 0,
+        "yellowDice": 0,
+        "redDice": 0
+      }
+    ],
+    "projectile": [],
+    "isPD": false,
+    "hasImage": true,
   },
   {
     "id": "ZHLA-304",
     "name": "MH-K1热能重剑（左）",
     "type": "leftHand",
     "score": 47,
-    "structure": 5,
     "armor": 1,
+    "structure": 5,
     "parray": 2,
     "dodge": 0,
     "electronic": 0,
-    "description": ""
+    "move": 0,
+    "description": "",
+    "keywords": [KEYWORD_LIST.zh.顺劈, KEYWORD_LIST.zh.毁伤],
+    "throwIndex": "ZHLA-304-T",
+    "action": [
+      {
+        "id": "ZHLA-304_A",
+        "name": "劈砍",
+        "description": "· 顺劈",
+        "type": "Melee",
+        "size": "s",
+        "range": 1,
+        "storage": 0,
+        "yellowDice": 5,
+        "redDice": 0
+      },
+      {
+        "id": "ZHLA-304_B",
+        "name": "挥斩",
+        "description": "· [双手] 获得毁伤。",
+        "type": "Melee",
+        "size": "l",
+        "range": 1,
+        "storage": 0,
+        "yellowDice": 2,
+        "redDice": 5
+      }
+    ],
+    "projectile": [],
+    "isPD": false,
+    "hasImage": true,
+  },
+  {
+    "id": "ZHLA-304-T",
+    "name": "MH-K1热能重剑（左）（抛弃卡）",
+    "type": "leftHand",
+    "score": 0,
+    "armor": 1,
+    "structure": 5,
+    "parray": 1,
+    "dodge": 0,
+    "electronic": 0,
+    "move": 0,
+    "description": "",
+    "keywords": [KEYWORD_LIST.zh.空手],
+    "action": [],
+    "projectile": [],
+    "isPD": false,
+    "hasImage": false,
   }
 ];
 
@@ -1368,96 +2464,522 @@ export const gofRightHand: Part[] = [
     "name": "MR14磁轨步枪",
     "type": "rightHand",
     "score": 29,
-    "structure": 4,
     "armor": 1,
+    "structure": 4,
     "parray": 0,
     "dodge": 0,
     "electronic": 0,
-    "description": ""
+    "move": 0,
+    "description": "",
+    "keywords": [KEYWORD_LIST.zh.穿甲X, KEYWORD_LIST.zh.双手],
+    "throwIndex": "ZHRA-101-T",
+    "action": [
+      {
+        "id": "ZHRA-101_A",
+        "name": "速射",
+        "description": "· 穿甲1",
+        "type": "Firing",
+        "size": "m",
+        "range": 8,
+        "storage": 0,
+        "yellowDice": 2,
+        "redDice": 2
+      },
+      {
+        "id": "ZHRA-101_B",
+        "name": "点射",
+        "description": "· 穿甲1\r\n· [双手] +2射程。",
+        "type": "Firing",
+        "size": "l",
+        "range": 8,
+        "storage": 0,
+        "yellowDice": 2,
+        "redDice": 3
+      }
+    ],
+    "projectile": [],
+    "isPD": false,
+    "hasImage": true,
+  },
+  {
+    "id": "ZHRA-101-T",
+    "name": "MR14磁轨步枪（抛弃卡）",
+    "type": "rightHand",
+    "score": 0,
+    "armor": 1,
+    "structure": 4,
+    "parray": 0,
+    "dodge": 0,
+    "electronic": 0,
+    "move": 0,
+    "description": "",
+    "keywords": [
+      KEYWORD_LIST.zh.空手
+    ],
+    "action": [],
+    "projectile": [],
+    "isPD": false,
+    "hasImage": false,
   },
   {
     "id": "ZHRA-102",
     "name": "MR16磁轨步枪",
     "type": "rightHand",
     "score": 32,
-    "structure": 4,
     "armor": 1,
+    "structure": 4,
     "parray": 0,
     "dodge": 0,
     "electronic": 0,
-    "description": ""
+    "move": 0,
+    "description": "",
+    "throwIndex": "ZHRA-102-T",
+    "keywords": [KEYWORD_LIST.zh.穿甲X],
+    "action": [
+      {
+        "id": "ZHRA-102_A",
+        "name": "速射",
+        "description": "· 穿甲1\r\n· [攻击姿态]本动作视为短动作。",
+        "type": "Firing",
+        "size": "m",
+        "range": 6,
+        "storage": 0,
+        "yellowDice": 5,
+        "redDice": 0
+      },
+      {
+        "id": "ZHRA-102_B",
+        "name": "点射",
+        "description": "· 穿甲1",
+        "type": "Firing",
+        "size": "l",
+        "range": 6,
+        "storage": 0,
+        "yellowDice": 3,
+        "redDice": 3
+      }
+    ],
+    "projectile": [],
+    "isPD": false,
+    "hasImage": true,
+  },
+  {
+    "id": "ZHRA-102-T",
+    "name": "MR16磁轨步枪（抛弃卡）",
+    "type": "rightHand",
+    "score": 0,
+    "armor": 1,
+    "structure": 4,
+    "parray": 0,
+    "dodge": 0,
+    "electronic": 0,
+    "move": 0,
+    "description": "",
+    "keywords": [
+      KEYWORD_LIST.zh.空手
+    ],
+    "action": [],
+    "projectile": [],
+    "isPD": false,
+    "hasImage": false,
   },
   {
     "id": "ZHRA-103",
     "name": "M115长矛",
     "type": "rightHand",
     "score": 29,
-    "structure": 4,
     "armor": 1,
+    "structure": 4,
     "parray": 0,
     "dodge": 0,
     "electronic": 0,
-    "description": ""
+    "move": 0,
+    "description": "",
+    "keywords": [KEYWORD_LIST.zh.冲锋X, KEYWORD_LIST.zh.毁伤],
+    "throwIndex": "ZHRA-103-T",
+    "action": [
+      {
+        "id": "ZHRA-103_A",
+        "name": "突刺",
+        "description": "· [攻击姿态]获得冲锋1。",
+        "type": "Melee",
+        "size": "m",
+        "range": 1,
+        "storage": 0,
+        "yellowDice": 3,
+        "redDice": 3
+      },
+      {
+        "id": "ZHRA-103_B",
+        "name": "强化突刺",
+        "description": "· [双手] 获得毁伤。",
+        "type": "Melee",
+        "size": "l",
+        "range": 1,
+        "storage": 0,
+        "yellowDice": 3,
+        "redDice": 4
+      }
+    ],
+    "projectile": [],
+    "isPD": false,
+    "hasImage": true,
+  },
+  {
+    "id": "ZHRA-103-T",
+    "name": "M115长矛（抛弃卡）",
+    "type": "rightHand",
+    "score": 0,
+    "armor": 1,
+    "structure": 4,
+    "parray": 0,
+    "dodge": 0,
+    "electronic": 0,
+    "move": 0,
+    "description": "",
+    "keywords": [
+      KEYWORD_LIST.zh.空手
+    ],
+    "action": [],
+    "projectile": [],
+    "isPD": false,
+    "hasImage": false,
   },
   {
     "id": "ZHRA-201",
     "name": "MR21磁轨步枪",
     "type": "rightHand",
     "score": 68,
-    "structure": 4,
     "armor": 1,
+    "structure": 4,
     "parray": 0,
     "dodge": 0,
     "electronic": 1,
-    "description": ""
+    "move": 0,
+    "description": "",
+    "keywords": [KEYWORD_LIST.zh.穿甲X, KEYWORD_LIST.zh.指令协调X, KEYWORD_LIST.zh.狙击, KEYWORD_LIST.zh.毁伤],
+    "throwIndex": "ZHRA-201-T",
+    "action": [
+      {
+        "id": "ZHRA-201_A",
+        "name": "点射",
+        "description": "· 穿甲1\r\n· 指令协调1",
+        "type": "Firing",
+        "size": "m",
+        "range": 12,
+        "storage": 0,
+        "yellowDice": 0,
+        "redDice": 3
+      },
+      {
+        "id": "ZHRA-201_B",
+        "name": "强化点射",
+        "description": "· 穿甲1 · 狙击\r\n· [双手]获得毁伤。\r\n· [攻击姿态]+{1R}。",
+        "type": "Firing",
+        "size": "l",
+        "range": 12,
+        "storage": 0,
+        "yellowDice": 0,
+        "redDice": 4
+      }
+    ],
+    "projectile": [],
+    "isPD": false,
+    "hasImage": true,
+  },
+  {
+    "id": "ZHRA-201-T",
+    "name": "MR21磁轨步枪（抛弃卡）",
+    "type": "rightHand",
+    "score": 0,
+    "armor": 1,
+    "structure": 4,
+    "parray": 0,
+    "dodge": 0,
+    "electronic": 1,
+    "move": 0,
+    "description": "",
+    "keywords": [
+      KEYWORD_LIST.zh.空手
+    ],
+    "action": [
+      {
+        "id": "ZHRA-201-T_B",
+        "name": "指令协调",
+        "description": "· 向1台己方无人机发送1枚指令标记。",
+        "type": "Tactic",
+        "size": "s",
+        "range": 0,
+        "storage": 0,
+        "yellowDice": 0,
+        "redDice": 0
+      }
+    ],
+    "projectile": [],
+    "isPD": false,
+    "hasImage": false,
   },
   {
     "id": "ZHRA-202",
     "name": "MR24磁轨步枪",
     "type": "rightHand",
     "score": 68,
-    "structure": 4,
     "armor": 1,
+    "structure": 4,
     "parray": 0,
     "dodge": 0,
     "electronic": 1,
-    "description": ""
+    "move": 0,
+    "description": "",
+    "keywords": [KEYWORD_LIST.zh.穿甲X, KEYWORD_LIST.zh.静默, KEYWORD_LIST.zh.指令协调X, KEYWORD_LIST.zh.狙击, KEYWORD_LIST.zh.毁伤],
+    "throwIndex": "ZHRA-202-T",
+
+    "action": [
+      {
+        "id": "ZHRA-202_A",
+        "name": "点射",
+        "description": "· 穿甲1\r\n· 静默 · 指令协调1",
+        "type": "Firing",
+        "size": "m",
+        "range": 12,
+        "storage": 0,
+        "yellowDice": 1,
+        "redDice": 2
+      },
+      {
+        "id": "ZHRA-202_B",
+        "name": "强化点射",
+        "description": "· 穿甲1 · 狙击 · 静默\r\n· [双手]获得毁伤。",
+        "type": "Firing",
+        "size": "l",
+        "range": 12,
+        "storage": 0,
+        "yellowDice": 0,
+        "redDice": 4
+      }
+    ],
+    "projectile": [],
+    "isPD": false,
+    "hasImage": true,
+  },
+  {
+    "id": "ZHRA-202-T",
+    "name": "MR24磁轨步枪（抛弃卡）",
+    "type": "rightHand",
+    "score": 0,
+    "armor": 1,
+    "structure": 4,
+    "parray": 0,
+    "dodge": 0,
+    "electronic": 1,
+    "move": 0,
+    "description": "",
+    "keywords": [
+      KEYWORD_LIST.zh.空手
+    ],
+    "action": [
+      {
+        "id": "ZHRA-202-T_B",
+        "name": "指令协调",
+        "description": "· 向1台己方无人机发送1枚指令标记。",
+        "type": "Tactic",
+        "size": "s",
+        "range": 0,
+        "storage": 0,
+        "yellowDice": 0,
+        "redDice": 0
+      }
+    ],
+    "projectile": [],
+    "isPD": false,
+    "hasImage": false,
   },
   {
     "id": "ZHRA-301",
     "name": "M100长枪",
     "type": "rightHand",
     "score": 56,
-    "structure": 5,
     "armor": 1,
+    "structure": 5,
     "parray": 1,
     "dodge": 0,
     "electronic": 0,
-    "description": ""
+    "move": 0,
+    "description": "",
+    "keywords": [KEYWORD_LIST.zh.冲锋X, KEYWORD_LIST.zh.近战射击],
+    "action": [
+      {
+        "id": "ZHRA-301_A",
+        "name": "突刺",
+        "description": "· [攻击姿态]获得冲锋1。",
+        "type": "Melee",
+        "size": "m",
+        "range": 1,
+        "storage": 0,
+        "yellowDice": 0,
+        "redDice": 5
+      },
+      {
+        "id": "ZHRA-301_B",
+        "name": "点射",
+        "description": "· 近战射击",
+        "type": "Firing",
+        "size": "l",
+        "range": 6,
+        "storage": 0,
+        "yellowDice": 3,
+        "redDice": 3
+      }
+    ],
+    "throwIndex": "ZHRA-301-T",
+    "projectile": [],
+    "isPD": false,
+    "hasImage": true,
+  },
+  {
+    "id": "ZHRA-301-T",
+    "name": "M100长枪（抛弃卡）",
+    "type": "rightHand",
+    "score": 0,
+    "armor": 1,
+    "structure": 5,
+    "parray": 1,
+    "dodge": 0,
+    "electronic": 0,
+    "move": 0,
+    "description": "",
+    "keywords": [
+      KEYWORD_LIST.zh.空手
+    ],
+    "action": [],
+    "projectile": [],
+    "isPD": false,
+    "hasImage": false,
   },
   {
     "id": "ZHRA-303",
     "name": "M105长戟",
     "type": "rightHand",
     "score": 38,
-    "structure": 4,
     "armor": 1,
+    "structure": 4,
     "parray": 0,
     "dodge": 0,
     "electronic": 0,
-    "description": ""
+    "move": 0,
+    "description": "",
+    "keywords": [KEYWORD_LIST.zh.冲锋X, KEYWORD_LIST.zh.拖拽, KEYWORD_LIST.zh.压制, KEYWORD_LIST.zh.毁伤],
+    "throwIndex": "ZHRA-303-T",
+    "action": [
+      {
+        "id": "ZHRA-303_A",
+        "name": "突刺挑空",
+        "description": "· [攻击姿态]获得冲锋1。\r\n· [命中]造成拖拽。",
+        "type": "Melee",
+        "size": "m",
+        "range": 1,
+        "storage": 0,
+        "yellowDice": 3,
+        "redDice": 3
+      },
+      {
+        "id": "ZHRA-303_B",
+        "name": "挥斩",
+        "description": "· [双手] 获得压制，毁伤。",
+        "type": "Melee",
+        "size": "l",
+        "range": 1,
+        "storage": 0,
+        "yellowDice": 4,
+        "redDice": 3
+      }
+    ],
+    "projectile": [],
+    "isPD": false,
+    "hasImage": true,
+  },
+  {
+    "id": "ZHRA-303-T",
+    "name": "M105长戟（抛弃卡）",
+    "type": "rightHand",
+    "score": 0,
+    "armor": 1,
+    "structure": 4,
+    "parray": 0,
+    "dodge": 0,
+    "electronic": 0,
+    "move": 0,
+    "description": "",
+    "keywords": [
+      KEYWORD_LIST.zh.空手
+    ],
+    "action": [],
+    "projectile": [],
+    "isPD": false,
+    "hasImage": false,
   },
   {
     "id": "ZHRA-304",
     "name": "MH-K1热能重剑（右）",
     "type": "rightHand",
     "score": 47,
-    "structure": 5,
     "armor": 1,
+    "structure": 5,
     "parray": 2,
     "dodge": 0,
     "electronic": 0,
-    "description": ""
+    "move": 0,
+    "description": "",
+    "keywords": [KEYWORD_LIST.zh.顺劈, KEYWORD_LIST.zh.毁伤],
+    "throwIndex": "ZHRA-304-T",
+
+    "action": [
+      {
+        "id": "ZHRA-304_A",
+        "name": "劈砍",
+        "description": "· 顺劈",
+        "type": "Melee",
+        "size": "s",
+        "range": 1,
+        "storage": 0,
+        "yellowDice": 5,
+        "redDice": 0
+      },
+      {
+        "id": "ZHRA-304_B",
+        "name": "挥斩",
+        "description": "· [双手] 获得毁伤。",
+        "type": "Melee",
+        "size": "l",
+        "range": 1,
+        "storage": 0,
+        "yellowDice": 2,
+        "redDice": 5
+      }
+    ],
+    "projectile": [],
+    "isPD": false,
+    "hasImage": true,
+  },
+  {
+    "id": "ZHRA-304-T",
+    "name": "MH-K1热能重剑（右）（抛弃卡）",
+    "type": "rightHand",
+    "score": 0,
+    "armor": 1,
+    "structure": 5,
+    "parray": 1,
+    "dodge": 0,
+    "electronic": 0,
+    "move": 0,
+    "description": "",
+    "keywords": [
+      KEYWORD_LIST.zh.空手
+    ],
+    "action": [],
+    "projectile": [],
+    "isPD": false,
+    "hasImage": false,
   }
 ];
 
@@ -1466,75 +2988,349 @@ export const gofBackpack: Part[] = [
     "id": "ZYBP-101",
     "name": "DLSP蜂群控制包",
     "type": "backpack",
-    "score": 0,
-    "structure": 0,
+    "score": 33,
     "armor": 3,
+    "structure": 0,
     "parray": 0,
     "dodge": 1,
     "electronic": 1,
-    "description": ""
+    "move": 0,
+    "description": "",
+    "keywords": [KEYWORD_LIST.zh.曲射, KEYWORD_LIST.zh.齐射X],
+    "action": [
+      {
+        "id": "ZYBP-101_A",
+        "name": "护巢蜂",
+        "description": "· 曲射 · 齐射2\r\n· 发射1台护巢蜂。",
+        "type": "Projectile",
+        "size": "s",
+        "range": 6,
+        "storage": 2,
+        "yellowDice": 0,
+        "redDice": 0
+      },
+      {
+        "id": "ZYBP-101_B",
+        "name": "指令协调",
+        "description": "· 向1台己方无人机各发送1枚指令标记。",
+        "type": "Tactic",
+        "size": "s",
+        "range": 0,
+        "storage": 0,
+        "yellowDice": 0,
+        "redDice": 0
+      }
+    ],
+    "projectile": [],
+    "isPD": false,
+    "hasImage": true,
   },
   {
     "id": "ZYBP-102",
     "name": "集成数据链吊舱",
     "type": "backpack",
-    "score": 0,
-    "structure": 0,
+    "score": 33,
     "armor": 3,
+    "structure": 0,
     "parray": 0,
     "dodge": 1,
     "electronic": 1,
-    "description": "· 指令协调X：在本机此次行动结束后，可以立即为X台己方无人机各提供1枚指令标记。"
+    "move": 0,
+    "description": "· 指令协调X：在本机此次行动结束后，可以立即为X台己方无人机各提供1枚指令标记。",
+    "keywords": [KEYWORD_LIST.zh.指令协调X],
+    "action": [
+      {
+        "id": "ZYBP-102_A",
+        "name": "分布协同",
+        "description": "· 本机行动机会结束时，指令协调1。",
+        "type": "Passive",
+        "size": "m",
+        "range": 0,
+        "storage": 0,
+        "yellowDice": 0,
+        "redDice": 0
+      }
+    ],
+    "projectile": [],
+    "isPD": false,
+    "hasImage": true,
   },
   {
     "id": "ZYBP-201",
     "name": "CSS20“披风”光学迷彩系统",
     "type": "backpack",
-    "score": 0,
-    "structure": 0,
+    "score": 45,
     "armor": 3,
+    "structure": 0,
     "parray": 0,
     "dodge": 1,
     "electronic": 0,
-    "description": "·光学迷彩：将本机替换为光学迷彩模型，并移除所有高亮目标/低特征标记。\r\n· 隐秘X：光学迷彩解除时，本机在X格范围内现身。"
+    "move": 0,
+    "description": "·光学迷彩：将本机替换为光学迷彩模型，并移除所有高亮目标/低特征标记。\r\n· 隐秘X：光学迷彩解除时，本机在X格范围内现身。",
+    "keywords": [KEYWORD_LIST.zh.隐秘X],
+    "action": [
+      {
+        "id": "ZYBP-201_A",
+        "name": "光学迷彩",
+        "description": "· 开启光学迷彩，隐秘0。",
+        "type": "Tactic",
+        "size": "s",
+        "range": 0,
+        "storage": 0,
+        "yellowDice": 0,
+        "redDice": 0
+      }
+    ],
+    "projectile": [],
+    "isPD": false,
+    "hasImage": true,
   },
   {
     "id": "ZYBP-202",
     "name": "ECP9“鹰哨”无人机指挥系统",
     "type": "backpack",
-    "score": 0,
-    "structure": 0,
+    "score": 48,
     "armor": 3,
+    "structure": 0,
     "parray": 0,
     "dodge": 1,
     "electronic": 1,
-    "description": ""
+    "move": 0,
+    "description": "",
+    "keywords": [KEYWORD_LIST.zh.光环],
+    "action": [
+      {
+        "id": "ZYBP-202_A",
+        "name": "回旋算法",
+        "description": "· 光环\r\n· 范围内友军无人机在投骰时，可以消耗本机1个指令标记进行重投。",
+        "type": "Passive",
+        "size": "m",
+        "range": 4,
+        "storage": 0,
+        "yellowDice": 0,
+        "redDice": 0
+      },
+      {
+        "id": "ZYBP-202_B",
+        "name": "指令协调",
+        "description": "· 向1台己方无人机各发送1枚指令标记。",
+        "type": "Tactic",
+        "size": "s",
+        "range": 0,
+        "storage": 0,
+        "yellowDice": 0,
+        "redDice": 0
+      }
+    ],
+    "projectile": [],
+    "isPD": false,
+    "hasImage": true,
   },
   {
     "id": "ZYBP-301",
     "name": "MCP7“回旋镖”携带包",
     "type": "backpack",
-    "score": 0,
-    "structure": 0,
+    "score": 27,
     "armor": 3,
+    "structure": 0,
     "parray": 0,
     "dodge": 1,
     "electronic": 0,
-    "description": "·曲射：本动作不需要对落点或目标有视线。"
+    "move": 0,
+    "description": "·曲射：本动作不需要对落点或目标有视线。",
+    "keywords": [KEYWORD_LIST.zh.曲射, KEYWORD_LIST.zh.齐射X],
+    "action": [
+      {
+        "id": "ZYBP-301_A",
+        "name": "导弹",
+        "description": "· 曲射 · 齐射2\r\n· 发射1枚M60“回旋镖”导弹。",
+        "type": "Projectile",
+        "size": "s",
+        "range": 3,
+        "storage": 2,
+        "yellowDice": 0,
+        "redDice": 0
+      }
+    ],
+    "projectile": [
+      "ZHAM-002"
+    ],
+    "isPD": false,
+    "hasImage": true,
   },
   {
     "id": "ZYBP-302",
     "name": "“光环”近战协作系统",
     "type": "backpack",
-    "score": 0,
-    "structure": 0,
+    "score": 39,
     "armor": 3,
+    "structure": 0,
     "parray": 0,
     "dodge": 1,
     "electronic": 0,
-    "description": ""
+    "move": 0,
+    "description": "",
+    "keywords": [],
+    "action": [
+      {
+        "id": "ZYBP-302_A",
+        "name": "闪避强化",
+        "description": "· {闪避}可抵消1枚攻击骰。",
+        "type": "Passive",
+        "size": "m",
+        "range": 0,
+        "storage": 0,
+        "yellowDice": 0,
+        "redDice": 0
+      },
+      {
+        "id": "ZYBP-302_B",
+        "name": "优势格斗",
+        "description": "· 本机招架时，获得1个额外的{闪避}。",
+        "type": "Passive",
+        "size": "m",
+        "range": 0,
+        "storage": 0,
+        "yellowDice": 0,
+        "redDice": 0
+      }
+    ],
+    "projectile": [],
+    "isPD": false,
+    "hasImage": true,
   }
 ];
+
+export const gofProjectiles: Projectile[] = [
+  {
+    "id": "ZHAM-001A",
+    "name": "M707“雨燕”导弹",
+    "armor": 0,
+    "structure": 0,
+    "parray": 0,
+    "dodge": 3,
+    "electronic": 2,
+    "stance": "mobility",
+    "keywords": [
+      {
+        "name": "抛射物"
+      },
+      {
+        "name": "导弹"
+      }
+    ],
+    "actions": [
+      {
+        "id": "ZHAM-001_A",
+        "name": "制导攻击",
+        "description": "· 以范围内1个敌方单位为目标，飞行进入目标格并引爆。\r\n· 引爆时，对目标造成爆炸伤害。\r\n· 巡航",
+        "type": "Tactic",
+        "speed": "passive",
+        "range": 6,
+        "storage": 0,
+        "yellowDice": 4,
+        "redDice": 0
+      }
+    ],
+    "hasImage": true,
+  },
+  {
+    "id": "ZHAM-002",
+    "name": "M60“回旋镖”导弹",
+    "armor": 0,
+    "structure": 0,
+    "parray": 0,
+    "dodge": 6,
+    "electronic": 1,
+    "stance": "mobility",
+    "keywords": [
+      {
+        "name": "抛射物"
+      },
+      {
+        "name": "导弹"
+      }
+    ],
+    "actions": [
+      {
+        "id": "ZHAM-002_A",
+        "name": "制导攻击",
+        "description": "· 以范围内1个敌方单位为目标，飞行进入目标格并引爆。\r\n· 引爆时，对目标造成爆炸伤害。",
+        "type": "Tactic",
+        "speed": "passive",
+        "range": 3,
+        "storage": 0,
+        "yellowDice": 1,
+        "redDice": 3
+      }
+    ],
+    "hasImage": true,
+  },
+  {
+    "id": "ZHAM-003",
+    "name": "PK3末敏穿甲弹",
+    "armor": 0,
+    "structure": 0,
+    "parray": 0,
+    "dodge": 2,
+    "electronic": 1,
+    "stance": "mobility",
+    "keywords": [
+      {
+        "name": "抛射物"
+      },
+      {
+        "name": "智能榴弹"
+      }
+    ],
+    "actions": [
+      {
+        "id": "ZHAM-003_A",
+        "name": "延时引爆",
+        "description": "· 选取范围内最近敌方单位为目标，飞行进入目标格并引爆。\r\n· 优先选取敌方机甲为目标。\r\n· 引爆时，对目标造成爆炸伤害。\r\n· 毁伤",
+        "type": "Tactic",
+        "speed": "passive",
+        "range": 1,
+        "storage": 0,
+        "yellowDice": 0,
+        "redDice": 3
+      }
+    ],
+    "hasImage": true,
+  },
+  {
+    "id": "ZHAM-004",
+    "name": "M25榴霰弹",
+    "armor": 0,
+    "structure": 0,
+    "parray": 0,
+    "dodge": 2,
+    "electronic": 0,
+    "stance": "mobility",
+    "keywords": [
+      {
+        "name": "抛射物"
+      },
+      {
+        "name": "榴弹"
+      }
+    ],
+    "actions": [
+      {
+        "id": "ZHAM-004_A",
+        "name": "延时引爆",
+        "description": "· 在当前位置引爆。\r\n· 引爆时，对范围内的所有单位造成爆炸伤害。",
+        "type": "Tactic",
+        "speed": "passive",
+        "range": 1,
+        "storage": 0,
+        "yellowDice": 3,
+        "redDice": 0
+      }
+    ],
+    "hasImage": true,
+  }
+]
 
 export const pdTorso: Part[] = [
   {
@@ -1550,36 +3346,95 @@ export const pdTorso: Part[] = [
     "description": "",
     "projectile": ["288"],
     "isPD": true,
+    "hasImage": true,
     "keywords": []
   },
-  // {
-  //   "id": "546",
-  //   "name": "H2-A危机I型",
-  //   "score": 69,
-  //   "armor": 5,
-  //   "structure": 3,
-  //   "parray": 0,
-  //   "dodge": 0,
-  //   "electronic": 2,
-  //   "type": "torso",
-  //   "imgSrc": "",
-  //   "tags": [],
-  //   "isPD": true
-  // },
-  // {
-  //   "id": "547",
-  //   "name": "H2-B危机II型",
-  //   "score": 72,
-  //   "armor": 5,
-  //   "structure": 3,
-  //   "parray": 0,
-  //   "dodge": 0,
-  //   "electronic": 2,
-  //   "type": "torso",
-  //   "imgSrc": "",
-  //   "tags": [],
-  //   "isPD": true
-  // }
+  {
+    "id": "546",
+    "name": "H2-A“危机”I型",
+    "type": "torso",
+    "score": 69,
+    "armor": 5,
+    "structure": 3,
+    "parray": 0,
+    "dodge": 0,
+    "electronic": 2,
+    "move": 0,
+    "description": "",
+    "hasImage": false,
+    "keywords": [
+      KEYWORD_LIST.zh.空手,KEYWORD_LIST.zh.近战射击
+    ],
+    "action": [
+      {
+        "id": "546_A",
+        "name": "扫射",
+        "description": "·近战射击\n·命中时，造成击退1。",
+        "type": "Firing",
+        "size": "m",
+        "range": 6,
+        "storage": 0,
+        "yellowDice": 5,
+        "redDice": 0
+      },
+      {
+        "id": "546_B",
+        "name": "应急烟幕",
+        "description": "· 当本机被射击后，可在范围内放置2烟幕。",
+        "type": "Passive",
+        "size": "m",
+        "range": 1,
+        "storage": 1,
+        "yellowDice": 0,
+        "redDice": 0
+      }
+    ],
+    "projectile": [],
+    "isPD": true
+  },
+  {
+    "id": "547",
+    "name": "H2-B“危机”II型",
+    "type": "torso",
+    "score": 72,
+    "armor": 5,
+    "structure": 3,
+    "parray": 0,
+    "dodge": 0,
+    "electronic": 2,
+    "move": 0,
+    "description": "",
+    "keywords": [
+      KEYWORD_LIST.zh.空手,KEYWORD_LIST.zh.击退X
+    ],
+    "action": [
+      {
+        "id": "547_A",
+        "name": "扫射",
+        "description": "·近战射击\n·命中时，造成击退1。",
+        "type": "Firing",
+        "size": "m",
+        "range": 6,
+        "storage": 0,
+        "yellowDice": 5,
+        "redDice": 0
+      },
+      {
+        "id": "547_B",
+        "name": "攻击模式",
+        "description": "· 【攻击姿态】获得1个动作时点。",
+        "type": "Passive",
+        "size": "m",
+        "range": 0,
+        "storage": 0,
+        "yellowDice": 0,
+        "redDice": 0
+      }
+    ],
+    "projectile": [],
+    "hasImage": false,
+    "isPD": true
+  }
 ];
 
 export const pdChasis: Part[] = [
@@ -1595,36 +3450,69 @@ export const pdChasis: Part[] = [
     "electronic": 0,
     "description": "",
     "isPD": true,
+    "hasImage": true,
     "keywords": []
   },
-  // {
-  //   "id": "548",
-  //   "name": "HL2 危机下肢",
-  //   "score": 24,
-  //   "armor": 5,
-  //   "structure": 0,
-  //   "parray": 0,
-  //   "dodge": 3,
-  //   "electronic": 0,
-  //   "type": "chasis",
-  //   "imgSrc": "",
-  //   "tags": [],
-  //   "isPD": true
-  // },
-  // {
-  //   "id": "549",
-  //   "name": "HL2-M 危机下肢M",
-  //   "score": 32,
-  //   "armor": 5,
-  //   "structure": 2,
-  //   "parray": 0,
-  //   "dodge": 3,
-  //   "electronic": 0,
-  //   "type": "chasis",
-  //   "imgSrc": "",
-  //   "tags": [],
-  //   "isPD": true
-  // }
+  {
+    "id": "548",
+    "name": "HL2\n“危机”下肢",
+    "type": "chasis",
+    "score": 24,
+    "armor": 5,
+    "structure": 0,
+    "parray": 0,
+    "dodge": 3,
+    "electronic": 0,
+    "move": 4,
+    "description": "",
+    "keywords": [],
+    "action": [
+      {
+        "id": "548_A",
+        "name": "奔跑",
+        "description": "",
+        "type": "Moving",
+        "size": "m",
+        "range": 0,
+        "storage": 0,
+        "yellowDice": 0,
+        "redDice": 0
+      }
+    ],
+    "projectile": [],
+    "hasImage": false,
+    "isPD": true
+  },
+  {
+    "id": "549",
+    "name": "HL2-M\n“危机”下肢M",
+    "type": "chasis",
+    "score": 32,
+    "armor": 5,
+    "structure": 2,
+    "parray": 0,
+    "dodge": 3,
+    "electronic": 0,
+    "move": 4,
+    "description": "",
+    "keywords": [],
+    "action": [
+      {
+        "id": "549_A",
+        "name": "奔跑",
+        "description": "",
+        "type": "Moving",
+        "size": "m",
+        "range": 0,
+        "storage": 0,
+        "yellowDice": 0,
+        "redDice": 0
+      }
+    ],
+    "hasImage": false,
+    "projectile": [],
+    "isPD": true
+  }
 ];
 
 export const pdLeftHand: Part[] = [{
@@ -1639,36 +3527,80 @@ export const pdLeftHand: Part[] = [{
   "electronic": 0,
   "description": "",
   "isPD": true,
+  "hasImage": true,
   "keywords": [KEYWORD_LIST.zh.近战射击, KEYWORD_LIST.zh.脆弱]
 },
-  // {
-  //   "id": "550",
-  //   "name": "Ls197R机炮（左）",
-  //   "score": 48,
-  //   "armor": 3,
-  //   "structure": 0,
-  //   "parray": 0,
-  //   "dodge": 0,
-  //   "electronic": 0,
-  //   "type": "leftHand",
-  //   "imgSrc": "",
-  //   "tags": [],
-  //   "isPD": true
-  // },
-  // {
-  //   "id": "552",
-  //   "name": "Ot41激光压制系统+Sd3盾牌",
-  //   "score": 66,
-  //   "armor": 4,
-  //   "structure": 0,
-  //   "parray": 0,
-  //   "dodge": 0,
-  //   "electronic": 0,
-  //   "type": "leftHand",
-  //   "imgSrc": "",
-  //   "tags": [],
-  //   "isPD": true
-  // }
+{
+  "id": "550",
+  "name": "Ls197R机炮（左）",
+  "type": "leftHand",
+  "score": 48,
+  "armor": 3,
+  "structure": 0,
+  "parray": 0,
+  "dodge": 0,
+  "electronic": 0,
+  "move": 0,
+  "description": "",
+  "keywords": [KEYWORD_LIST.zh.遥控武器],
+  "action": [
+    {
+      "id": "550_A",
+      "name": "点射",
+      "description": "· 遥控武器",
+      "type": "Firing",
+      "size": "s",
+      "range": 6,
+      "storage": 0,
+      "yellowDice": 1,
+      "redDice": 2
+    }
+  ],
+  "projectile": [],
+  "hasImage": false,
+  "isPD": true
+},
+{
+  "id": "552",
+  "name": "Ot41激光压制系统+Sd3盾牌",
+  "type": "leftHand",
+  "score": 66,
+  "armor": 4,
+  "structure": 0,
+  "parray": 0,
+  "dodge": 0,
+  "electronic": 0,
+  "move": 0,
+  "description": "",
+  "keywords": [KEYWORD_LIST.zh.自动盾牌,KEYWORD_LIST.zh.火控干扰],
+  "action": [
+    {
+      "id": "552_A",
+      "name": "盾牌防御",
+      "description": "· 在防御姿态下，本机可以指定本部件受击。\n· 【防御姿态】获得：自动盾牌",
+      "type": "Passive",
+      "size": "m",
+      "range": 0,
+      "storage": 0,
+      "yellowDice": 0,
+      "redDice": 0
+    },
+    {
+      "id": "552_B",
+      "name": "激光压制",
+      "description": "· 命中使目标获得1枚火控干扰标记。\n· 不造成伤害。",
+      "type": "Firing",
+      "size": "s",
+      "range": 12,
+      "storage": 0,
+      "yellowDice": 2,
+      "redDice": 0
+    }
+  ],
+  "projectile": [],
+  "hasImage": false,
+  "isPD": true
+}
 ];
 
 export const pdRightHand: Part[] = [
@@ -1685,36 +3617,80 @@ export const pdRightHand: Part[] = [
     "electronic": 0,
     "description": "",
     "isPD": true,
+    "hasImage": true,
     "keywords": [KEYWORD_LIST.zh.近战射击, KEYWORD_LIST.zh.毁伤]
   },
-  // {
-  //   "id": "551",
-  //   "name": "Ls197R机炮（右）",
-  //   "score": 48,
-  //   "armor": 3,
-  //   "structure": 0,
-  //   "parray": 0,
-  //   "dodge": 0,
-  //   "electronic": 0,
-  //   "type": "rightHand",
-  //   "imgSrc": "",
-  //   "tags": [],
-  //   "isPD": true
-  // },
-  // {
-  //   "id": "553",
-  //   "name": "Ot50-ADS+Sd3盾牌",
-  //   "score": 66,
-  //   "armor": 4,
-  //   "structure": 0,
-  //   "parray": 0,
-  //   "dodge": 0,
-  //   "electronic": 0,
-  //   "type": "rightHand",
-  //   "imgSrc": "",
-  //   "tags": [],
-  //   "isPD": true
-  // }
+  {
+    "id": "551",
+    "name": "Ls197R机炮（右）",
+    "type": "rightHand",
+    "score": 48,
+    "armor": 3,
+    "structure": 0,
+    "parray": 0,
+    "dodge": 0,
+    "electronic": 0,
+    "move": 0,
+    "description": "",
+    "keywords": [KEYWORD_LIST.zh.遥控武器],
+    "action": [
+      {
+        "id": "551_A",
+        "name": "点射",
+        "description": "· 遥控武器",
+        "type": "Firing",
+        "size": "s",
+        "range": 6,
+        "storage": 0,
+        "yellowDice": 1,
+        "redDice": 2
+      }
+    ],
+    "projectile": [],
+    "hasImage": false,
+    "isPD": true
+  },
+  {
+    "id": "553",
+    "name": "Ot50-ADS+Sd3盾牌",
+    "type": "rightHand",
+    "score": 66,
+    "armor": 4,
+    "structure": 0,
+    "parray": 0,
+    "dodge": 0,
+    "electronic": 0,
+    "move": 0,
+    "description": "",
+    "keywords": [KEYWORD_LIST.zh.自动盾牌],
+    "action": [
+      {
+        "id": "553_A",
+        "name": "盾牌防御",
+        "description": "· 在防御姿态下，本机可以指定本部件受击。\n· 【防御姿态】获得：自动盾牌",
+        "type": "Passive",
+        "size": "m",
+        "range": 0,
+        "storage": 0,
+        "yellowDice": 0,
+        "redDice": 0
+      },
+      {
+        "id": "553_B",
+        "name": "自动拦截",
+        "description": "· 拦截2",
+        "type": "Passive",
+        "size": "m",
+        "range": 4,
+        "storage": 0,
+        "yellowDice": 4,
+        "redDice": 0
+      }
+    ],
+    "projectile": [],
+    "hasImage": false,
+    "isPD": true
+  }
 ];
 
 export const pdBackpack: Part[] = [
@@ -1731,36 +3707,82 @@ export const pdBackpack: Part[] = [
     "description": "",
     "projectile": ["293", "294", "295"],
     "isPD": true,
+    "hasImage": true,
     "keywords": []
   },
-  // {
-  //   "id": "544",
-  //   "name": "四联装飞鱼发射器",
-  //   "score": 56,
-  //   "armor": 3,
-  //   "structure": 0,
-  //   "parray": 0,
-  //   "dodge": 0,
-  //   "electronic": 0,
-  //   "type": "backpack",
-  //   "imgSrc": "",
-  //   "tags": [],
-  //   "isPD": true
-  // },
-  // {
-  //   "id": "545",
-  //   "name": "Ls297双联机炮",
-  //   "score": 48,
-  //   "armor": 3,
-  //   "structure": 0,
-  //   "parray": 0,
-  //   "dodge": 0,
-  //   "electronic": 0,
-  //   "type": "backpack",
-  //   "imgSrc": "",
-  //   "tags": [],
-  //   "isPD": true
-  // }
+  {
+    "id": "544",
+    "name": "四联装“飞鱼”发射器",
+    "type": "backpack",
+    "hasImage": false,
+    "score": 56,
+    "armor": 3,
+    "structure": 0,
+    "parray": 0,
+    "dodge": 0,
+    "electronic": 0,
+    "move": 0,
+    "description": "·曲射：本动作不需要对落点或目标有视线。\n·齐射X：发射或布撒最多X枚抛射物，并消耗同等数量的弹药标记。",
+    "keywords": [KEYWORD_LIST.zh.曲射,KEYWORD_LIST.zh.齐射X],
+    "action": [
+      {
+        "id": "544_A",
+        "name": "导弹",
+        "description": "· 齐射4 · 曲射\n· 发射1枚FGM46“飞鱼”导弹。",
+        "type": "Projectile",
+        "size": "m",
+        "range": 6,
+        "storage": 4,
+        "yellowDice": 0,
+        "redDice": 0
+      }
+    ],
+    "projectile": [
+      "PDAM-002"
+    ],
+    "isPD": true
+  },
+  {
+    "id": "545",
+    "name": "Ls297双联机炮",
+    "type": "backpack",
+    "score": 48,
+    "armor": 3,
+    "structure": 0,
+    "parray": 0,
+    "dodge": 0,
+    "electronic": 0,
+    "move": 0,
+    "description": "·压制：被本动作宣布为目标的机甲会立刻切换为防御姿态（处于宕机姿态的单位不受此影响）。",
+    "keywords": [KEYWORD_LIST.zh.压制],
+    "hasImage": false,
+    "action": [
+      {
+        "id": "545_A",
+        "name": "扫射",
+        "description": "· 压制",
+        "type": "Firing",
+        "size": "s",
+        "range": 6,
+        "storage": 0,
+        "yellowDice": 1,
+        "redDice": 2
+      },
+      {
+        "id": "545_B",
+        "name": "扫射",
+        "description": "· 压制",
+        "type": "Firing",
+        "size": "s",
+        "range": 6,
+        "storage": 0,
+        "yellowDice": 1,
+        "redDice": 2
+      }
+    ],
+    "projectile": [],
+    "isPD": true
+  }
 ];
 
 
@@ -1952,10 +3974,67 @@ export const rdlTorso: Part[] = [
     "imgSrc": "",
     "tags": [],
     "keywords": []
+  }, {
+    "id": "533",
+    "name": "RTX-06SR “泥沼SR”主战核心",
+    "type": "torso",
+    "score": 32,
+    "armor": 6,
+    "structure": 2,
+    "parray": 0,
+    "dodge": 0,
+    "electronic": 2,
+    "move": 0,
+    "description": "",
+    "keywords": [],
+    "hasImage": false,
+    "action": [
+      {
+        "id": "533_A",
+        "name": "此面向敌",
+        "description": "· 本机遭受近战攻击时 ，无法被背击。",
+        "type": "Passive",
+        "size": "m",
+        "range": 0,
+        "storage": 0,
+        "yellowDice": 0,
+        "redDice": 0
+      }
+    ],
+    "projectile": [],
+    "isPD": false
   }
 ];
 
 export const rdlChasis: Part[] = [
+  {
+    "id": "534",
+    "name": "RL-08C\r\n 重甲下肢",
+    "type": "chasis",
+    "score": 24,
+    "armor": 5,
+    "structure": 1,
+    "parray": 0,
+    "dodge": 3,
+    "electronic": 0,
+    "move": 4,
+    "description": "",
+    "keywords": [],
+    "action": [{
+      "id": "534_A",
+      "name": "奔跑",
+      "description": "",
+      "type": "Moving",
+      "size": "m",
+      "range": 4,
+      "storage": 0,
+      "yellowDice": 0,
+      "redDice": 0
+    },],
+    "projectile": [],
+    "isPD": false,
+    "hasImage": false
+  },
   {
     "id": "020",
     "name": "RL-06  标准下肢",
@@ -2110,6 +4189,38 @@ export const rdlLeftHand: Part[] = [
     "tags": [],
     "projectile": ["071"],
     "keywords": [KEYWORD_LIST.zh.齐射X, KEYWORD_LIST.zh.曲射]
+  },
+  {
+    "id": "037",
+    "name": "CC-4战斗刀（左）",
+    "type": "leftHand",
+    "score": 39,
+    "armor": 4,
+    "structure": 0,
+    "parray": 1,
+    "dodge": 0,
+    "electronic": 0,
+    "move": 0,
+    "description": "",
+    "hasImage": false,
+    "keywords": [
+      KEYWORD_LIST.zh.空手
+    ],
+    "action": [
+      {
+        "id": "37_A",
+        "name": "劈砍",
+        "description": "· 频闪武器",
+        "type": "Melee",
+        "size": "m",
+        "range": 1,
+        "storage": 0,
+        "yellowDice": 2,
+        "redDice": 4
+      }
+    ],
+    "projectile": [],
+    "isPD": false
   },
   {
     "id": "032",
@@ -2326,7 +4437,7 @@ export const rdlLeftHand: Part[] = [
     "tags": [],
     "throwIndex": "065",
     "projectile": ["072"],
-    "keywords": [KEYWORD_LIST.zh.直射,KEYWORD_LIST.zh.静默]
+    "keywords": [KEYWORD_LIST.zh.直射, KEYWORD_LIST.zh.静默]
   },
   {
     "id": "065",
@@ -2481,10 +4592,85 @@ export const rdlLeftHand: Part[] = [
     "imgSrc": "",
     "tags": [],
     "keywords": [KEYWORD_LIST.zh.震撼]
+  },
+  {
+    "id": "535",
+    "name": "CC-7战斗刀（左）",
+    "type": "leftHand",
+    "score": 39,
+    "armor": 4,
+    "structure": 0,
+    "parray": 1,
+    "dodge": 0,
+    "electronic": 0,
+    "move": 0,
+    "description": "",
+    "hasImage": false,
+    "keywords": [KEYWORD_LIST.zh.空手, KEYWORD_LIST.zh.频闪武器,
+    ],
+    "action": [
+      {
+        "id": "535_A",
+        "name": "劈砍",
+        "description": "· 频闪武器",
+        "type": "Melee",
+        "size": "s",
+        "range": 1,
+        "storage": 0,
+        "yellowDice": 1,
+        "redDice": 3
+      }
+    ],
+    "projectile": [],
+    "isPD": false
+  },
+  {
+    "id": "037",
+    "name": "ML-32B双联发射器 + CC-3格斗刀",
+    "type": "leftHand",
+    "score": 33,
+    "armor": 4,
+    "structure": 0,
+    "parray": 1,
+    "dodge": 0,
+    "electronic": 0,
+    "move": 0,
+    "description": "",
+    "hasImage": false,
+    "keywords": [
+      KEYWORD_LIST.zh.空手
+    ],
+    "action": [
+      {
+        "id": "037_A",
+        "name": "刺击",
+        "description": "",
+        "type": "Melee",
+        "size": "s",
+        "range": 1,
+        "storage": 0,
+        "yellowDice": 3,
+        "redDice": 1
+      },
+      {
+        "id": "037_B",
+        "name": "导弹",
+        "description": " · 曲射\r\n· 发射1枚MC-3“利剑”导弹。",
+        "type": "Projectile",
+        "size": "s",
+        "range": 3,
+        "storage": 2,
+        "yellowDice": 0,
+        "redDice": 0
+      }
+    ],
+    "projectile": [],
+    "isPD": false
   }
 ];
 
 export const rdlRightHand: Part[] = [
+
   {
     "id": "025",
     "name": "AC-32自动步枪",
@@ -2515,6 +4701,59 @@ export const rdlRightHand: Part[] = [
     "imgSrc": "",
     "tags": [],
     "keywords": []
+  },
+  {
+    "id": "027",
+    "name": "AC-32M射手步枪",
+    "type": "rightHand",
+    "score": 33,
+    "armor": 4,
+    "structure": 0,
+    "parray": 0,
+    "dodge": 0,
+    "electronic": 0,
+    "move": 0,
+    "description": "",
+    "hasImage": false,
+    "throwIndex": "28",
+    "keywords": [
+
+    ],
+    "action": [
+      {
+        "id": "27_A",
+        "name": "点射",
+        "description": "·【双手】+2射程。\r\n· {眼睛}视为{2轻击}。",
+        "type": "Firing",
+        "size": "m",
+        "range": 6,
+        "storage": 0,
+        "yellowDice": 1,
+        "redDice": 3
+      }
+    ],
+    "projectile": [],
+    "isPD": false
+  },
+  {
+    "id": "028",
+    "name": "AC-32M射手步枪（弃置）",
+    "type": "rightHand",
+    "score": 0,
+    "armor": 4,
+    "structure": 0,
+    "parray": 0,
+    "dodge": 0,
+    "electronic": 0,
+    "move": 0,
+    "description": "",
+    "hasImage": false,
+    "keywords": [
+      KEYWORD_LIST.zh.空手
+    ],
+    "action": [],
+    "projectile": [],
+    "isPD": false
   },
   {
     "id": "030",
@@ -3011,7 +5250,71 @@ export const rdlRightHand: Part[] = [
     "imgSrc": "",
     "tags": [],
     "keywords": []
-  }
+  },
+  {
+    "id": "536",
+    "name": "PC-6霰弹枪",
+    "type": "rightHand",
+    "score": 48,
+    "armor": 4,
+    "structure": 0,
+    "parray": 0,
+    "dodge": 0,
+    "electronic": 0,
+    "move": 0,
+    "description": "",
+    "hasImage": false,
+    "throwIndex": "537",
+    "keywords": [
+      KEYWORD_LIST.zh.近战射击
+    ],
+    "action": [
+      {
+        "id": "536_A",
+        "name": "点射",
+        "description": "· 近战射击",
+        "type": "Firing",
+        "size": "m",
+        "range": 6,
+        "storage": 0,
+        "yellowDice": 4,
+        "redDice": 1
+      },
+      {
+        "id": "536_B",
+        "name": "速射",
+        "description": "· 霰射\r\n· 近战射击",
+        "type": "Firing",
+        "size": "s",
+        "range": 3,
+        "storage": 0,
+        "yellowDice": 3,
+        "redDice": 1
+      }
+    ],
+    "projectile": [],
+    "isPD": false
+  },
+  {
+    "id": "537",
+    "name": "PC-6霰弹枪（弃置）",
+    "type": "rightHand",
+    "score": 0,
+    "armor": 4,
+    "structure": 0,
+    "parray": 0,
+    "dodge": 0,
+    "electronic": 0,
+    "move": 0,
+    "description": "",
+    "hasImage": false,
+    "keywords": [
+      KEYWORD_LIST.zh.空手
+    ],
+    "action": [],
+    "projectile": [],
+    "isPD": false
+  },
 ];
 
 export const rdlBackpack: Part[] = [
@@ -3264,8 +5567,382 @@ export const rdlBackpack: Part[] = [
       "522"
     ],
     "keywords": [KEYWORD_LIST.zh.曲射, KEYWORD_LIST.zh.静默, KEYWORD_LIST.zh.投掷]
+  },
+  {
+    "id": "532",
+    "name": "ECS-3外置冷却器",
+    "type": "backpack",
+    "score": 33,
+    "armor": 3,
+    "structure": 0,
+    "parray": 0,
+    "dodge": 1,
+    "electronic": 0,
+    "move": 0,
+    "description": "",
+    "keywords": [],
+    "hasImage": false,
+    "action": [
+      {
+        "id": "532_A",
+        "name": "系统冷却",
+        "description": "· 在攻击姿态下执行射击动作时，每{3R}，+{1R}。",
+        "type": "Passive",
+        "size": "m",
+        "range": 0,
+        "storage": 0,
+        "yellowDice": 0,
+        "redDice": 0
+      }
+    ],
+    "projectile": [],
+    "isPD": false
   }
 ];
+
+export const rdlProjectiles: Projectile[] = [
+  {
+    "id": "70",
+    "name": "GA-3 高爆榴弹",
+    "armor": 0,
+    "structure": 0,
+    "parray": 0,
+    "dodge": 4,
+    "electronic": 0,
+    "stance": "mobility",
+    "keywords": [
+      {
+        "name": "抛射物"
+      },
+      {
+        "name": "榴弹"
+      }
+    ],
+    "actions": [
+      {
+        "id": "70_A",
+        "name": "延时引爆",
+        "description": "· 在当前位置引爆。\n· 引爆时，对相邻的所有单位造成爆炸伤害。",
+        "type": "Tactic",
+        "speed": "passive",
+        "range": 0,
+        "storage": 0,
+        "yellowDice": 3,
+        "redDice": 0
+      }
+    ]
+  },
+  {
+    "id": "71",
+    "name": "MC-3 “利剑”导弹",
+    "armor": 0,
+    "structure": 0,
+    "parray": 0,
+    "dodge": 6,
+    "electronic": 1,
+    "stance": "mobility",
+    "keywords": [
+      {
+        "name": "抛射物"
+      },
+      {
+        "name": "导弹"
+      }
+    ],
+    "actions": [
+      {
+        "id": "71_A",
+        "name": "制导攻击",
+        "description": "· 以范围内1个敌方单位为目标，飞行进入目标格并引爆。\n· 引爆时，对目标造成爆炸伤害。",
+        "type": "Tactic",
+        "speed": "passive",
+        "range": 3,
+        "storage": 0,
+        "yellowDice": 1,
+        "redDice": 3
+      }
+    ]
+  },
+  {
+    "id": "72",
+    "name": "MES信标",
+    "armor": 1,
+    "structure": 0,
+    "parray": 0,
+    "dodge": 0,
+    "electronic": 1,
+    "stance": "mobility",
+    "keywords": [
+      {
+        "name": "设置物"
+      },
+      {
+        "name": "信标"
+      }
+    ],
+    "actions": [
+      {
+        "id": "72_A",
+        "name": "诱饵",
+        "description": "· 光环\n· 范围内的友军单位获得低特征。",
+        "type": "Passive",
+        "speed": "passive",
+        "range": 1,
+        "storage": 0,
+        "yellowDice": 0,
+        "redDice": 0
+      }
+    ]
+  },
+  {
+    "id": "73",
+    "name": "MR-9 “猎鹰”导弹",
+    "armor": 0,
+    "structure": 0,
+    "parray": 0,
+    "dodge": 4,
+    "electronic": 1,
+    "stance": "mobility",
+    "keywords": [
+      {
+        "name": "抛射物"
+      },
+      {
+        "name": "导弹"
+      }
+    ],
+    "actions": [
+      {
+        "id": "73_A",
+        "name": "制导攻击",
+        "description": "· 以范围内1个敌方单位为目标，飞行进入目标格并引爆。\n· 引爆时，对目标造成爆炸伤害。",
+        "type": "Tactic",
+        "speed": "passive",
+        "range": 6,
+        "storage": 0,
+        "yellowDice": 3,
+        "redDice": 0
+      }
+    ]
+  },
+  {
+    "id": "74",
+    "name": "GM-35 反装甲地雷",
+    "armor": 2,
+    "structure": 0,
+    "parray": 0,
+    "dodge": 0,
+    "electronic": 0,
+    "stance": "mobility",
+    "keywords": [
+      {
+        "name": "设置物"
+      },
+      {
+        "name": "地雷"
+      }
+    ],
+    "actions": [
+      {
+        "id": "74_A",
+        "name": "触发",
+        "description": "· 地面单位进入地雷所在格时，无需碾压，但总会引爆地雷。\n· 引爆时，对格内所有地面单位造成爆炸伤害。",
+        "type": "Passive",
+        "speed": "passive",
+        "range": 0,
+        "storage": 0,
+        "yellowDice": 1,
+        "redDice": 3
+      }
+    ]
+  },
+  {
+    "id": "75",
+    "name": "B3/1 链接信标",
+    "armor": 2,
+    "structure": 0,
+    "parray": 0,
+    "dodge": 0,
+    "electronic": 3,
+    "stance": "mobility",
+    "keywords": [
+      {
+        "name": "设置物"
+      },
+      {
+        "name": "信标"
+      }
+    ],
+    "actions": [
+      {
+        "id": "75_A",
+        "name": "链接支援",
+        "description": "· 范围内的所有友军机甲，恢复1链接值。",
+        "type": "Tactic",
+        "speed": "passive",
+        "range": 3,
+        "storage": 0,
+        "yellowDice": 0,
+        "redDice": 0
+      }
+    ]
+  },
+  {
+    "id": "76",
+    "name": "B3/2 诱饵信标",
+    "armor": 2,
+    "structure": 2,
+    "parray": 0,
+    "dodge": 0,
+    "electronic": 3,
+    "stance": "mobility",
+    "keywords": [
+      {
+        "name": "设置物"
+      },
+      {
+        "name": "信标"
+      }
+    ],
+    "actions": [
+      {
+        "id": "76_A",
+        "name": "诱饵",
+        "description": "·本信标为高亮目标。",
+        "type": "Passive",
+        "speed": "passive",
+        "range": 0,
+        "storage": 0,
+        "yellowDice": 0,
+        "redDice": 0
+      }
+    ]
+  },
+  {
+    "id": "77",
+    "name": "B3/3 战术信标",
+    "armor": 2,
+    "structure": 0,
+    "parray": 0,
+    "dodge": 0,
+    "electronic": 3,
+    "stance": "mobility",
+    "keywords": [
+      {
+        "name": "设置物"
+      },
+      {
+        "name": "信标"
+      }
+    ],
+    "actions": [
+      {
+        "id": "77_A",
+        "name": "辅助计算",
+        "description": "·光环\n·范围内的友军机甲所有动作获得灵活时机。",
+        "type": "Passive",
+        "speed": "passive",
+        "range": 3,
+        "storage": 0,
+        "yellowDice": 0,
+        "redDice": 0
+      }
+    ]
+  },
+  {
+    "id": "267",
+    "name": "RA-81火箭弹",
+    "armor": 0,
+    "structure": 0,
+    "parray": 0,
+    "dodge": 4,
+    "electronic": 0,
+    "stance": "mobility",
+    "keywords": [
+      {
+        "name": "抛射物"
+      },
+      {
+        "name": "火箭"
+      }
+    ],
+    "actions": [
+      {
+        "id": "267_A",
+        "name": "多级串联战斗部",
+        "description": "· 以落点格的1个敌方单位为目标，立即引爆。\n· 引爆时，对目标造成爆炸伤害。",
+        "type": "Tactic",
+        "speed": "passive",
+        "range": 0,
+        "storage": 0,
+        "yellowDice": 0,
+        "redDice": 3
+      }
+    ]
+  },
+  {
+    "id": "268",
+    "name": "GS-2 烟幕弹",
+    "armor": 0,
+    "structure": 0,
+    "parray": 0,
+    "dodge": 4,
+    "electronic": 0,
+    "stance": "mobility",
+    "keywords": [
+      {
+        "name": "抛射物"
+      },
+      {
+        "name": "烟幕弹"
+      }
+    ],
+    "actions": [
+      {
+        "id": "268_A",
+        "name": "发烟",
+        "description": "· 立即引爆。\n· 引爆时，以所在格为起点，相连放置最多3烟幕。",
+        "type": "Tactic",
+        "speed": "passive",
+        "range": 0,
+        "storage": 0,
+        "yellowDice": 0,
+        "redDice": 0
+      }
+    ]
+  },
+  {
+    "id": "521",
+    "name": "MR-10 “红隼”导弹",
+    "armor": 0,
+    "structure": 0,
+    "parray": 0,
+    "dodge": 4,
+    "electronic": 1,
+    "stance": "mobility",
+    "keywords": [
+      {
+        "name": "抛射物"
+      },
+      {
+        "name": "导弹"
+      }
+    ],
+    "actions": [
+      {
+        "id": "521_A",
+        "name": "制导攻击",
+        "description": "· 以范围内1个敌方单位为目标，飞行进入目标格并引爆。\n· 引爆时，对目标造成爆炸伤害。",
+        "type": "Tactic",
+        "speed": "passive",
+        "range": 6,
+        "storage": 0,
+        "yellowDice": 0,
+        "redDice": 2
+      }
+    ]
+  }
+]
 
 export const rdlDrones: Drone[] = [
   {
@@ -3332,6 +6009,170 @@ export const rdlDrones: Drone[] = [
 ];
 
 export const unTorso: Part[] = [
+  {
+    "id": "TM31RS",
+    "name": "TM31RS “黑猫” 辅助核心",
+    "type": "torso",
+    "score": 60,
+    "armor": 4,
+    "structure": 4,
+    "parray": 0,
+    "dodge": 1,
+    "electronic": 4,
+    "move": 0,
+    "description": "· 静默：执行本动作时不会解除光学迷彩与低特征。",
+    "keywords": [KEYWORD_LIST.zh.电子支援, KEYWORD_LIST.zh.静默],
+    "hasImage": false,
+    "action": [
+      {
+        "id": "TM31RS_A",
+        "name": "协同观测",
+        "description": "· 友军在射击本机可见的目标时，可以重投攻击骰中的{眼睛}。",
+        "type": "Passive",
+        "size": "m",
+        "range": 0,
+        "storage": 0,
+        "yellowDice": 0,
+        "redDice": 0
+      },
+      {
+        "id": "TM31RS_B",
+        "name": "快速清理",
+        "description": "· 电子支援 · 静默\r\n· 移除范围内1个友军单位的1枚正方形标记。",
+        "type": "Tactic",
+        "size": "s",
+        "range": 6,
+        "storage": 0,
+        "yellowDice": 0,
+        "redDice": 0
+      }
+    ],
+    "projectile": [],
+    "isPD": false
+  },
+  {
+    "id": "TM35NA",
+    "name": "TM35NA “尼罗鳄” 电战核心",
+    "type": "torso",
+    "score": 84,
+    "armor": 5,
+    "structure": 4,
+    "parray": 0,
+    "dodge": 1,
+    "electronic": 5,
+    "move": 0,
+    "description": "· KC装甲：当本机受击时，可消耗本部件的充能标记，将受击骰结果中的{闪电}视为{防御}。\r\n· 静默：执行本动作时不会解除光学迷彩与低特征。",
+    "keywords": [KEYWORD_LIST.zh.KC装甲, KEYWORD_LIST.zh.电子攻击, KEYWORD_LIST.zh.静默],
+    "hasImage": false,
+    "action": [
+      {
+        "id": "TM35NA_A",
+        "name": "KC装甲",
+        "description": "· KC装甲",
+        "type": "Passive",
+        "size": "m",
+        "range": 0,
+        "storage": 0,
+        "yellowDice": 0,
+        "redDice": 0
+      },
+      {
+        "id": "TM35NA_B",
+        "name": "红舞鞋",
+        "description": "· 电子攻击 · 静默\r\n· 与范围内的1个敌方机甲/无人机进行电子对抗投骰，成功则控制其执行一次调整移动或移动动作。",
+        "type": "Tactic",
+        "size": "m",
+        "range": 6,
+        "storage": 0,
+        "yellowDice": 0,
+        "redDice": 0
+      }
+    ],
+    "projectile": [],
+    "isPD": false
+  },
+  {
+    "id": "TM39D",
+    "name": "TM39D “眼镜蛇” 战术核心",
+    "type": "torso",
+    "score": 63,
+    "armor": 3,
+    "structure": 3,
+    "parray": 0,
+    "dodge": 1,
+    "electronic": 3,
+    "move": 0,
+    "description": "· 静默：执行本动作时不会解除光学迷彩与低特征。\r\n· 监视射击标记：在延迟阶段的最后，移除本标记，本单位可执行1个射击动作。",
+    "keywords": [KEYWORD_LIST.zh.低特征, KEYWORD_LIST.zh.静默, KEYWORD_LIST.zh.监视射击],
+    "hasImage": false,
+    "action": [
+      {
+        "id": "TM39D_A",
+        "name": "伏击",
+        "description": "· 本机获得低特征标记。\r\n· 静默",
+        "type": "Tactic",
+        "size": "s",
+        "range": 0,
+        "storage": 0,
+        "yellowDice": 0,
+        "redDice": 0
+      },
+      {
+        "id": "TM39D_B",
+        "name": "监视射击",
+        "description": "· 本机获得1枚监视射击标记并结束本次行动机会。\r\n· 本动作可以在射击时机作为起手动作。",
+        "type": "Tactic",
+        "size": "s",
+        "range": 0,
+        "storage": 0,
+        "yellowDice": 0,
+        "redDice": 0
+      }
+    ],
+    "projectile": [],
+    "isPD": false
+  },
+  {
+    "id": "539",
+    "name": "TM31Q “野猫” 主战核心",
+    "type": "torso",
+    "score": 63,
+    "armor": 4,
+    "structure": 4,
+    "parray": 0,
+    "dodge": 1,
+    "electronic": 4,
+    "move": 0,
+    "description": "·指令生成X：指令阶段开始时，本机自动生成X枚指令标记。",
+    "keywords": [KEYWORD_LIST.zh.指令生成X],
+    "hasImage": false,
+    "action": [
+      {
+        "id": "539_A",
+        "name": "协同观测",
+        "description": "· 友军在射击本机可见的目标时，可以重投攻击骰中的{眼睛}。",
+        "type": "Passive",
+        "size": "m",
+        "range": 0,
+        "storage": 0,
+        "yellowDice": 0,
+        "redDice": 0
+      },
+      {
+        "id": "539_B",
+        "name": "KN型数据链",
+        "description": "· 指令生成2",
+        "type": "Passive",
+        "size": "m",
+        "range": 0,
+        "storage": 0,
+        "yellowDice": 0,
+        "redDice": 0
+      }
+    ],
+    "projectile": [],
+    "isPD": false
+  },
   {
     "id": "091",
     "name": "TM31C 灰狼 主战核心",
@@ -3451,7 +6292,89 @@ export const unTorso: Part[] = [
     "description": "",
     "imgSrc": "",
     "tags": [],
-    "keywords": []
+    "keywords": [KEYWORD_LIST.zh.KC装甲]
+  },
+  {
+    "id": "093",
+    "name": "TM31KC “灰狼”KC型实验核心",
+    "type": "torso",
+    "score": 60,
+    "armor": 4,
+    "structure": 4,
+    "parray": 0,
+    "dodge": 1,
+    "electronic": 3,
+    "move": 0,
+    "description": "·曲射：本动作不需要对落点或目标有视线。",
+    "keywords": [KEYWORD_LIST.zh.曲射, KEYWORD_LIST.zh.KC装甲],
+    "hasImage": false,
+    "action": [
+      {
+        "id": "093_A",
+        "name": "闪光弹",
+        "description": "· 曲射\r\n· 发射1枚M9闪光弹。",
+        "type": "Projectile",
+        "size": "s",
+        "range": 3,
+        "storage": 1,
+        "yellowDice": 0,
+        "redDice": 0
+      },
+      {
+        "id": "093_B",
+        "name": "KC装甲",
+        "description": "· KC装甲",
+        "type": "Passive",
+        "size": "m",
+        "range": 0,
+        "storage": 0,
+        "yellowDice": 0,
+        "redDice": 0
+      }
+    ],
+    "projectile": ["155"],
+    "isPD": false
+  },
+  {
+    "id": "095",
+    "name": "TM39B “蝮蛇II” 低征核心",
+    "type": "torso",
+    "score": 63,
+    "armor": 3,
+    "structure": 3,
+    "parray": 0,
+    "dodge": 1,
+    "electronic": 5,
+    "move": 0,
+    "description": "· 静默：执行本动作时不会解除光学迷彩与低特征。",
+    "keywords": [KEYWORD_LIST.zh.低特征, KEYWORD_LIST.zh.静默],
+    "hasImage": false,
+    "action": [
+      {
+        "id": "095_A",
+        "name": "伏击",
+        "description": "· 本机获得低特征标记。\r\n· 静默",
+        "type": "Tactic",
+        "size": "s",
+        "range": 0,
+        "storage": 0,
+        "yellowDice": 0,
+        "redDice": 0
+      },
+      {
+        "id": "095_B",
+        "name": "响应式跟踪",
+        "description": "· 本机以拥有高亮目标的单位为目标执行射击动作时，无视地形保护和单位保护。",
+        "type": "Passive",
+        "size": "m",
+        "range": 0,
+        "storage": 0,
+        "yellowDice": 0,
+        "redDice": 0
+      }
+    ],
+    "projectile": [],
+    "isPD": false
   }
 ];
 
@@ -3519,6 +6442,124 @@ export const unChasis: Part[] = [
 ];
 
 export const unLeftHand: Part[] = [
+  {
+    "id": "S100+R6SS-L",
+    "name": "S100大盾 + R6SS肩炮（左）",
+    "type": "leftHand",
+    "score": 63,
+    "armor": 5,
+    "structure": 0,
+    "parray": 2,
+    "dodge": 0,
+    "electronic": 0,
+    "move": 0,
+    "description": "",
+    "hasImage": false,
+    "keywords": [
+      KEYWORD_LIST.zh.激光武器, KEYWORD_LIST.zh.静止
+    ],
+    "action": [
+      {
+        "id": "S100+R6SS-L_A",
+        "name": "扫射",
+        "description": "· 激光武器\r\n·【静止】+1{Y}。",
+        "type": "Firing",
+        "size": "s",
+        "range": 4,
+        "storage": 0,
+        "yellowDice": 4,
+        "redDice": 0
+      },
+      {
+        "id": "S100+R6SS-L_B",
+        "name": "机动防御",
+        "description": "· 本机可以指定本部件受击。",
+        "type": "Passive",
+        "size": "m",
+        "range": 0,
+        "storage": 0,
+        "yellowDice": 0,
+        "redDice": 0
+      }
+    ],
+    "projectile": [],
+    "isPD": false,
+    "throwIndex": "S100+R6SS-L-T"
+  },
+  {
+    "id": "S100+R6SS-L-T",
+    "name": "S100大盾 + R6SS肩炮（抛弃卡）",
+    "type": "leftHand",
+    "score": 0,
+    "armor": 4,
+    "structure": 0,
+    "parray": 2,
+    "dodge": 0,
+    "electronic": 0,
+    "move": 0,
+    "description": "",
+    "hasImage": false,
+    "keywords": [
+      KEYWORD_LIST.zh.空手
+    ],
+    "action": [
+      {
+        "id": "S100+R6SS-L-T_A",
+        "name": "扫射",
+        "description": "· 激光武器\r\n·【静止】+1{Y}。",
+        "type": "Firing",
+        "size": "s",
+        "range": 4,
+        "storage": 0,
+        "yellowDice": 4,
+        "redDice": 0
+      }
+    ],
+    "projectile": [],
+    "isPD": false
+  },
+  {
+    "id": "540",
+    "name": "S9“流星”盾 + IGX106离子炮",
+    "type": "leftHand",
+    "score": 69,
+    "armor": 4,
+    "structure": 0,
+    "parray": 2,
+    "dodge": 1,
+    "electronic": 0,
+    "move": 0,
+    "description": "",
+    "hasImage": false,
+    "keywords": [KEYWORD_LIST.zh.空手, KEYWORD_LIST.zh.震撼, KEYWORD_LIST.zh.毁伤, KEYWORD_LIST.zh.霰射, KEYWORD_LIST.zh.离子武器, KEYWORD_LIST.zh.近战射击
+    ],
+    "action": [
+      {
+        "id": "540_A",
+        "name": "盾击",
+        "description": "· 震撼",
+        "type": "Melee",
+        "size": "s",
+        "range": 1,
+        "storage": 0,
+        "yellowDice": 5,
+        "redDice": 0
+      },
+      {
+        "id": "540_B",
+        "name": "点射",
+        "description": "· [充能]获得毁伤。\r\n· 霰射\r\n· 离子武器\r\n· 近战射击",
+        "type": "Firing",
+        "size": "s",
+        "range": 3,
+        "storage": 0,
+        "yellowDice": 3,
+        "redDice": 1
+      }
+    ],
+    "projectile": [],
+    "isPD": false
+  },
   {
     "id": "103",
     "name": "S9流星盾 + M5刺桩",
@@ -3865,6 +6906,196 @@ export const unLeftHand: Part[] = [
 ];
 
 export const unRightHand: Part[] = [
+  {
+    "id": "R33S",
+    "name": "R33S静默狙击枪",
+    "type": "rightHand",
+    "score": 45,
+    "armor": 3,
+    "structure": 0,
+    "parray": 0,
+    "dodge": 0,
+    "electronic": 0,
+    "move": 0,
+    "description": "",
+    "hasImage": false,
+    "keywords": [KEYWORD_LIST.zh.空手, KEYWORD_LIST.zh.激光武器, KEYWORD_LIST.zh.静止, KEYWORD_LIST.zh.狙击, KEYWORD_LIST.zh.静默
+    ],
+    "action": [
+      {
+        "id": "R33S_A",
+        "name": "点射",
+        "description": "· 激光武器\r\n· [静止] 获得狙击。\r\n· 静默",
+        "type": "Firing",
+        "size": "m",
+        "range": 12,
+        "storage": 0,
+        "yellowDice": 4,
+        "redDice": 0
+      }
+    ],
+    "projectile": [],
+    "isPD": false
+  },
+  {
+    "id": "K21",
+    "name": "K21重型钉刺枪",
+    "type": "rightHand",
+    "score": 42,
+    "armor": 3,
+    "structure": 0,
+    "parray": 0,
+    "dodge": 0,
+    "electronic": 0,
+    "move": 0,
+    "description": "",
+    "hasImage": false,
+    "keywords": [
+      KEYWORD_LIST.zh.火控干扰, KEYWORD_LIST.zh.静默
+
+    ],
+    "action": [
+      {
+        "id": "K21_A",
+        "name": "点射",
+        "description": "· [命中]被击中的目标获得1枚火控干扰标记。\r\n· 静默",
+        "type": "Firing",
+        "size": "m",
+        "range": 12,
+        "storage": 0,
+        "yellowDice": 2,
+        "redDice": 2
+      },
+      {
+        "id": "K21_B",
+        "name": "钉刺",
+        "description": "· 静默\r\n· [命中]扣除对方1点链接值。",
+        "type": "Firing",
+        "size": "s",
+        "range": 8,
+        "storage": 0,
+        "yellowDice": 1,
+        "redDice": 2
+      }
+    ],
+    "projectile": [],
+    "isPD": false,
+    "throwIndex": "K21-T"
+  },
+  {
+    "id": "K21-T",
+    "name": "K21重型钉刺枪（抛弃卡）",
+    "type": "rightHand",
+    "score": 0,
+    "armor": 3,
+    "structure": 0,
+    "parray": 0,
+    "dodge": 0,
+    "electronic": 0,
+    "move": 0,
+    "description": "",
+    "hasImage": false,
+    "keywords": [
+      KEYWORD_LIST.zh.空手
+    ],
+    "action": [],
+    "projectile": [],
+    "isPD": false
+  },
+  {
+    "id": "XTC",
+    "name": "XTC右臂",
+    "type": "rightHand",
+    "score": 45,
+    "armor": 3,
+    "structure": 0,
+    "parray": 0,
+    "dodge": 0,
+    "electronic": 0,
+    "move": 0,
+    "description": "",
+    "hasImage": false,
+    "keywords": [KEYWORD_LIST.zh.空手, KEYWORD_LIST.zh.电子攻击, KEYWORD_LIST.zh.静默
+    ],
+    "action": [
+      {
+        "id": "XTC_A",
+        "name": "超载注入",
+        "description": "· 电子攻击 · 静默\r\n· 与范围内的1个无人机/抛射物进行电子对抗投骰，成功则将其摧毁。",
+        "type": "Tactic",
+        "size": "m",
+        "range": 6,
+        "storage": 0,
+        "yellowDice": 0,
+        "redDice": 0
+      }
+    ],
+    "projectile": [],
+    "isPD": false
+  },
+  {
+    "id": "541",
+    "name": "R7K战术步枪",
+    "type": "rightHand",
+    "score": 52,
+    "armor": 3,
+    "structure": 0,
+    "parray": 0,
+    "dodge": 0,
+    "electronic": 0,
+    "move": 0,
+    "description": "",
+    "hasImage": false,
+    "throwIndex": "542",
+    "keywords": [KEYWORD_LIST.zh.激光武器
+    ],
+    "action": [
+      {
+        "id": "541_A",
+        "name": "点射",
+        "description": "· 激光武器\r\n· [双手] +2射程。",
+        "type": "Firing",
+        "size": "m",
+        "range": 8,
+        "storage": 0,
+        "yellowDice": 5,
+        "redDice": 0
+      },
+      {
+        "id": "541_B",
+        "name": "速射",
+        "description": "· 激光武器",
+        "type": "Firing",
+        "size": "s",
+        "range": 4,
+        "storage": 0,
+        "yellowDice": 4,
+        "redDice": 0
+      }
+    ],
+    "projectile": [],
+    "isPD": false
+  },
+  {
+    "id": "542",
+    "name": "R7K战术步枪（抛弃卡）",
+    "type": "rightHand",
+    "score": 0,
+    "armor": 3,
+    "structure": 0,
+    "parray": 0,
+    "dodge": 0,
+    "electronic": 0,
+    "move": 0,
+    "description": "",
+    "hasImage": false,
+    "keywords": [
+      KEYWORD_LIST.zh.空手
+    ],
+    "action": [],
+    "projectile": [],
+    "isPD": false
+  },
   {
     "id": "152",
     "name": "RHX23暴雨突击手枪（右）",
@@ -4277,11 +7508,11 @@ export const unRightHand: Part[] = [
     "dodge": 0,
     "electronic": 0,
     "type": "rightHand",
-    "description":"",
+    "description": "",
     "imgSrc": "",
     "tags": [],
     "throwIndex": "557",
-    "keywords": []
+    "keywords": [KEYWORD_LIST.zh.激光武器, KEYWORD_LIST.zh.多目标X, KEYWORD_LIST.zh.压制]
   },
   {
     "id": "557",
@@ -4291,7 +7522,7 @@ export const unRightHand: Part[] = [
     "structure": 0,
     "parray": 0,
     "dodge": 0,
-    "description":"",
+    "description": "",
     "electronic": 0,
     "type": "rightHand",
     "imgSrc": "",
@@ -4302,6 +7533,70 @@ export const unRightHand: Part[] = [
 ];
 
 export const unBackpack: Part[] = [
+  {
+    "id": "538",
+    "name": "JP5机动提升包",
+    "type": "backpack",
+    "score": 60,
+    "armor": 3,
+    "structure": 0,
+    "parray": 0,
+    "dodge": 2,
+    "electronic": 0,
+    "move": 0,
+    "description": "",
+    "keywords": [KEYWORD_LIST.zh.负载],
+    "hasImage": false,
+    "action": [
+      {
+        "id": "538_A",
+        "name": "滑跃",
+        "description": "· 本机调整移动距离+1。\r\n· 本部件无法作为负载。",
+        "type": "Passive",
+        "size": "m",
+        "range": 0,
+        "storage": 0,
+        "yellowDice": 0,
+        "redDice": 0
+      }
+    ],
+    "projectile": [],
+    "isPD": false
+  },
+  {
+    "id": "300",
+    "name": "OCS85 黑箱携带挂架",
+    "type": "backpack",
+    "score": 21,
+    "armor": 3,
+    "structure": 0,
+    "parray": 0,
+    "dodge": 0,
+    "electronic": 0,
+    "move": 0,
+    "description": "",
+    "hasImage": false,
+    "keywords": [
+      {
+        "name": "任务"
+      }
+    ],
+    "action": [
+      {
+        "id": "300_A",
+        "name": "黑箱保护",
+        "description": "· 在黑箱争夺任务中，本机携带的黑箱额外提供1胜利点，如果本部件被摧毁则减1胜利点。",
+        "type": "Passive",
+        "size": "m",
+        "range": 0,
+        "storage": 0,
+        "yellowDice": 0,
+        "redDice": 0
+      }
+    ],
+    "projectile": [],
+    "isPD": false
+  },
   {
     "id": "081",
     "name": "EBS/X40护甲充能器",
@@ -4476,201 +7771,337 @@ export const unProjectiles: Projectile[] = [
   {
     "id": "154",
     "name": "M7手雷",
-    "structure": 0,
     "armor": 0,
+    "structure": 0,
     "parray": 0,
     "dodge": 2,
     "electronic": 0,
-    "stance": "offensive",
-    "imgSrc": "",
-    "keywords": []
+    "stance": "mobility",
+    "keywords": [
+      {
+        "name": "抛射物"
+      },
+      {
+        "name": "榴弹"
+      }
+    ],
+    "actions": [
+      {
+        "id": "154_A",
+        "name": "引爆",
+        "description": "· 立即引爆。\n· 引爆时，对所在格的所有单位造成爆炸伤害。",
+        "type": "Tactic",
+        "speed": "passive",
+        "range": 0,
+        "storage": 0,
+        "yellowDice": 3,
+        "redDice": 1
+      }
+    ]
   },
   {
     "id": "155",
     "name": "M9闪光弹",
-    "structure": 0,
     "armor": 0,
+    "structure": 0,
     "parray": 0,
     "dodge": 2,
     "electronic": 0,
-    "stance": "offensive",
-    "imgSrc": "",
-    "keywords": []
+    "stance": "mobility",
+    "keywords": [
+      {
+        "name": "抛射物"
+      },
+      {
+        "name": "榴弹"
+      }
+    ],
+    "actions": [
+      {
+        "id": "155_A",
+        "name": "引爆",
+        "description": "· 立即引爆。\n· 引爆时，范围内所有对本单位有视线的单位均获得1枚火控干扰标记。",
+        "type": "Tactic",
+        "speed": "passive",
+        "range": 1,
+        "storage": 0,
+        "yellowDice": 0,
+        "redDice": 0
+      }
+    ]
   },
   {
     "id": "156",
-    "name": "SGM2幽灵蛛自行地雷",
-    "structure": 0,
+    "name": "SGM2“幽灵蛛”自行地雷",
     "armor": 0,
+    "structure": 0,
     "parray": 0,
     "dodge": 2,
     "electronic": 2,
-    "stance": "offensive",
-    "imgSrc": "",
-    "keywords": []
+    "stance": "mobility",
+    "keywords": [
+      {
+        "name": "抛射物"
+      },
+      {
+        "name": "自行地雷"
+      }
+    ],
+    "actions": [
+      {
+        "id": "156_A",
+        "name": "展开",
+        "description": "· 将本单位替换为SGM2“幽灵蛛”自行地雷(展开）。\n· 替换后，如果所在格被占据，直接引爆。",
+        "type": "Tactic",
+        "speed": "passive",
+        "range": 0,
+        "storage": 0,
+        "yellowDice": 0,
+        "redDice": 0
+      }
+    ]
   },
   {
     "id": "157",
     "name": "RKG70导弹组",
-    "structure": 0,
     "armor": 0,
+    "structure": 0,
     "parray": 0,
     "dodge": 3,
     "electronic": 1,
-    "stance": "offensive",
-    "imgSrc": "",
-    "keywords": []
+    "stance": "mobility",
+    "keywords": [
+      {
+        "name": "抛射物"
+      },
+      {
+        "name": "导弹"
+      }
+    ],
+    "actions": [
+      {
+        "id": "157_A",
+        "name": "制导攻击",
+        "description": "· 以范围内1个敌方单位为目标，飞行进入目标格并引爆。\n· 引爆时，对目标造成爆炸伤害。\n· 导弹组3",
+        "type": "Tactic",
+        "speed": "passive",
+        "range": 2,
+        "storage": 0,
+        "yellowDice": 1,
+        "redDice": 2
+      }
+    ]
   },
   {
     "id": "158",
-    "name": "DBP龟壳机动掩体",
-    "structure": 0,
+    "name": "DBP“龟壳”机动掩体",
     "armor": 5,
+    "structure": 0,
     "parray": 0,
     "dodge": 0,
     "electronic": 0,
-    "stance": "offensive",
-    "imgSrc": "",
-    "keywords": []
+    "stance": "defensive",
+    "keywords": [
+      {
+        "name": "设置物"
+      },
+      {
+        "name": "机动掩体"
+      }
+    ],
+    "actions": [
+      {
+        "id": "158_A",
+        "name": "机动掩体",
+        "description": "· 机动掩体\n· 此单位不可被碾压。",
+        "type": "Passive",
+        "speed": "passive",
+        "range": 0,
+        "storage": 0,
+        "yellowDice": 0,
+        "redDice": 0
+      }
+    ]
   }
 ];
 
-export const unDrones: Drone[] = [
-  {
-    "id": "159",
-    "name": "AMDS210翠雀自动防御系统",
-    "score": 0,
-    "structure": 0,
-    "armor": 2,
-    "parray": 0,
-    "dodge": 0,
-    "electronic": 2,
-    "type": "small",
-    "move": 0,
-    "stance": "offensive",
-    "description": "",
-    "keywords": []
-  },
-  {
-    "id": "160",
-    "name": "ADK15D近防型豪猪",
-    "score": 48,
-    "structure": 2,
-    "armor": 4,
-    "parray": 0,
-    "dodge": 0,
-    "electronic": 2,
-    "type": "medium",
-    "move": 0,
-    "stance": "offensive",
-    "description": "",
-    "keywords": [KEYWORD_LIST.zh.激光武器,KEYWORD_LIST.zh.拦截X,KEYWORD_LIST.zh.全向射击,KEYWORD_LIST.zh.近战射击]
-  },
-  {
-    "id": "161",
-    "name": "ADK15/MAS 微波型豪猪",
-    "score": 30,
-    "structure": 2,
-    "armor": 4,
-    "parray": 0,
-    "dodge": 0,
-    "electronic": 2,
-    "type": "medium",
-    "move": 0,
-    "stance": "offensive",
-    "description": "",
-    "keywords": []
-  },
-  {
-    "id": "162",
-    "name": "ADK30C 运载型狼蛛",
-    "score": 12,
-    "structure": 0,
-    "armor": 4,
-    "parray": 0,
-    "dodge": 5,
-    "electronic": 2,
-    "type": "medium",
-    "move": 0,
-    "stance": "offensive",
-    "description": "",
-    "keywords": [KEYWORD_LIST.zh.负载]
-  },
-  {
-    "id": "163",
-    "name": "ADK30F 火力型狼蛛",
-    "score": 33,
-    "structure": 0,
-    "armor": 4,
-    "parray": 0,
-    "dodge": 5,
-    "electronic": 2,
-    "type": "medium",
-    "move": 0,
-    "stance": "offensive",
-    "description": "",
-    "keywords": [KEYWORD_LIST.zh.激光武器,KEYWORD_LIST.zh.拦截X,KEYWORD_LIST.zh.全向射击,KEYWORD_LIST.zh.近战射击]
-  },
-  {
-    "id": "164",
-    "name": "ADK60R 侦查型渡鸦",
-    "score": 33,
-    "structure": 0,
-    "armor": 1,
-    "parray": 0,
-    "dodge": 7,
-    "electronic": 3,
-    "type": "medium",
-    "move": 0,
-    "stance": "offensive",
-    "description": "",
-    "keywords": []
-  },
-  {
-    "id": "165",
-    "name": "ADK60EC 电战型渡鸦",
-    "score": 33,
-    "structure": 0,
-    "armor": 1,
-    "parray": 0,
-    "dodge": 7,
-    "electronic": 3,
-    "type": "medium",
-    "move": 0,
-    "stance": "offensive",
-    "description": "",
-    "keywords": [KEYWORD_LIST.zh.中继器]
-  },
-  {
-    "id": "166",
-    "name": "ADK60S 干扰型渡鸦",
-    "score": 51,
-    "structure": 0,
-    "armor": 1,
-    "parray": 0,
-    "dodge": 7,
-    "electronic": 3,
-    "type": "medium",
-    "move": 0,
-    "stance": "offensive",
-    "description": "",
-    "keywords": [KEYWORD_LIST.zh.电子攻击,KEYWORD_LIST.zh.火控干扰]
-  },
-  {
-    "id": "167",
-    "name": "SGM2幽灵蛛自行地雷(展开）",
-    "score": 0,
-    "structure": 0,
-    "armor": 0,
-    "parray": 0,
-    "dodge": 2,
-    "electronic": 2,
-    "type": "small",
-    "move": 0,
-    "stance": "offensive",
-    "description": "",
-    "keywords": []
-  }
+export const unDrones: Drone[] = [{
+  "id": "543",
+  "name": "ADK15P离子型豪猪",
+  "type": "medium",
+  "score": 70,
+  "armor": 4,
+  "structure": 2,
+  "parray": 0,
+  "dodge": 0,
+  "electronic": 2,
+  "move": 5,
+  "stance": "defensive",
+  "description": "",
+  "projectile": [],
+  "isPD": false,
+  "keywords": [KEYWORD_LIST.zh.毁伤, KEYWORD_LIST.zh.离子武器],
+  "hasImage": false,
+  "actions": [
+    {
+      "id": "543_A",
+      "name": "点射",
+      "description": "· [充能]获得毁伤。\r\n· 离子武器",
+      "type": "Firing",
+      "speed": "auto",
+      "range": 12,
+      "storage": 0,
+      "yellowDice": 0,
+      "redDice": 4
+    },
+    {
+      "id": "543_B",
+      "name": "充能",
+      "description": "· 为本机进行充能。",
+      "type": "Tactic",
+      "speed": "command",
+      "range": 0,
+      "storage": 0,
+      "yellowDice": 0,
+      "redDice": 0
+    }
+  ]
+},
+{
+  "id": "159",
+  "name": "AMDS210翠雀自动防御系统",
+  "score": 0,
+  "structure": 0,
+  "armor": 2,
+  "parray": 0,
+  "dodge": 0,
+  "electronic": 2,
+  "type": "small",
+  "move": 0,
+  "stance": "offensive",
+  "description": "",
+  "keywords": []
+},
+{
+  "id": "160",
+  "name": "ADK15D近防型豪猪",
+  "score": 48,
+  "structure": 2,
+  "armor": 4,
+  "parray": 0,
+  "dodge": 0,
+  "electronic": 2,
+  "type": "medium",
+  "move": 0,
+  "stance": "offensive",
+  "description": "",
+  "keywords": [KEYWORD_LIST.zh.激光武器, KEYWORD_LIST.zh.拦截X, KEYWORD_LIST.zh.全向射击, KEYWORD_LIST.zh.近战射击]
+},
+{
+  "id": "161",
+  "name": "ADK15/MAS 微波型豪猪",
+  "score": 30,
+  "structure": 2,
+  "armor": 4,
+  "parray": 0,
+  "dodge": 0,
+  "electronic": 2,
+  "type": "medium",
+  "move": 0,
+  "stance": "offensive",
+  "description": "",
+  "keywords": []
+},
+{
+  "id": "162",
+  "name": "ADK30C 运载型狼蛛",
+  "score": 12,
+  "structure": 0,
+  "armor": 4,
+  "parray": 0,
+  "dodge": 5,
+  "electronic": 2,
+  "type": "medium",
+  "move": 0,
+  "stance": "offensive",
+  "description": "",
+  "keywords": [KEYWORD_LIST.zh.负载]
+},
+{
+  "id": "163",
+  "name": "ADK30F 火力型狼蛛",
+  "score": 33,
+  "structure": 0,
+  "armor": 4,
+  "parray": 0,
+  "dodge": 5,
+  "electronic": 2,
+  "type": "medium",
+  "move": 0,
+  "stance": "offensive",
+  "description": "",
+  "keywords": [KEYWORD_LIST.zh.激光武器, KEYWORD_LIST.zh.拦截X, KEYWORD_LIST.zh.全向射击, KEYWORD_LIST.zh.近战射击]
+},
+{
+  "id": "164",
+  "name": "ADK60R 侦查型渡鸦",
+  "score": 33,
+  "structure": 0,
+  "armor": 1,
+  "parray": 0,
+  "dodge": 7,
+  "electronic": 3,
+  "type": "medium",
+  "move": 0,
+  "stance": "offensive",
+  "description": "",
+  "keywords": []
+},
+{
+  "id": "165",
+  "name": "ADK60EC 电战型渡鸦",
+  "score": 33,
+  "structure": 0,
+  "armor": 1,
+  "parray": 0,
+  "dodge": 7,
+  "electronic": 3,
+  "type": "medium",
+  "move": 0,
+  "stance": "offensive",
+  "description": "",
+  "keywords": [KEYWORD_LIST.zh.中继器]
+},
+{
+  "id": "166",
+  "name": "ADK60S 干扰型渡鸦",
+  "score": 51,
+  "structure": 0,
+  "armor": 1,
+  "parray": 0,
+  "dodge": 7,
+  "electronic": 3,
+  "type": "medium",
+  "move": 0,
+  "stance": "offensive",
+  "description": "",
+  "keywords": [KEYWORD_LIST.zh.电子攻击, KEYWORD_LIST.zh.火控干扰]
+},
+{
+  "id": "167",
+  "name": "SGM2幽灵蛛自行地雷(展开）",
+  "score": 0,
+  "structure": 0,
+  "armor": 0,
+  "parray": 0,
+  "dodge": 2,
+  "electronic": 2,
+  "type": "small",
+  "move": 0,
+  "stance": "offensive",
+  "description": "",
+  "keywords": []
+}
 ];
 
 export const allTacticCards: TacticCard[] = [

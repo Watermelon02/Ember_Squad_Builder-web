@@ -1,8 +1,9 @@
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
+import { Mech } from "../../types";
 
 interface MechImageProps {
-  mech: any;
+  mech: Mech;
   tabsrc: string;
   translation: any;
 }
@@ -35,6 +36,7 @@ export const MechImage: React.FC<MechImageProps> = ({ mech, tabsrc, translation 
   }, [mech]);
 
   const hasTorso = !!mech.parts.torso?.id;
+  const hasPartImg = (mech.parts.torso?.hasImage === undefined || mech.parts.torso.hasImage);
   const pilot = mech.pilot;
 
   return (
@@ -59,24 +61,43 @@ export const MechImage: React.FC<MechImageProps> = ({ mech, tabsrc, translation 
     >
       {/* 核心 Torso */}
       {hasTorso ? (
-        <motion.img
-        loading="lazy"
-          key={mech.parts.torso.id}
-          src={`${tabsrc}/${mech.parts.torso.id}.png`}
-          alt="torso"
-          style={{
-            position: "absolute",
-            top: 0,
-            left: 0,
-            width: "100%",
-            height: "100%",
-            objectFit: "contain",
-          }}
-          initial={{ y: 0 }}
-          animate={{ y: hovered ? -containerSize : 0 }}
-          transition={{ duration: 0.3 }}
-        />
-      ) : (
+        hasPartImg ?
+          <motion.img
+            loading="lazy"
+            key={mech.parts.torso.id}
+            src={`${tabsrc}/${mech.parts.torso.id}.png`
+            }
+            alt="torso"
+            style={{
+              position: "absolute",
+              top: 0,
+              left: 0,
+              width: "100%",
+              height: "100%",
+              objectFit: "contain",
+            }}
+            initial={{ y: 0 }}
+            animate={{ y: hovered ? -containerSize : 0 }}
+            transition={{ duration: 0.3 }}
+          />
+          : <motion.div
+            style={{
+              position: "absolute",
+              top: 0,
+              left: 0,
+              width: "100%",
+              height: "100%",
+              display: "flex",
+              justifyContent: "center",
+              alignItems: "center",
+              fontSize: "0.5vh"
+            }}
+            initial={{ y: 0 }}
+            animate={{ y: hovered ? -containerSize : 0 }}
+            transition={{ duration: 0.3 }}
+          >
+            UNRELEASED
+          </motion.div>) : (
         <motion.div
           style={{
             position: "absolute",

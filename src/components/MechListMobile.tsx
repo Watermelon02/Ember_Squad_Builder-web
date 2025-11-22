@@ -21,6 +21,7 @@ import { COLOR_GLOBAL, COLOR_GREY, COLOR_WHITE } from '../styles/color';
 import { MechStatusMobile } from './custom/MechStatusMobile';
 import * as htmlToImage from "html-to-image";
 import PilotStats from './custom/PilotStats';
+import { exportTextTeamData } from '../util/TextUtil';
 
 interface MechListMobileProps {
   team?: Team;
@@ -128,80 +129,6 @@ export function MechListMobile({
         console.warn("⚠️ Google Analytics 未初始化，跳过事件:", eventName);
       }
       resolve();
-    });
-  };
-
-
-  const exportTextTeamData = (team: Team) => {
-    sendGtagEvent("导出文件军表", "次数", "1");
-
-    let clipboardContent = `┏ ${team.name}[${translations.t72}：${team.totalScore}${translations.t71}]\n`;
-
-    team.mechs.forEach((mech) => {
-      const mechScore = getMechTotalScore(mech);
-      clipboardContent += `┣┳ ${mech.name}[M.A.P：${mechScore}${translations.t71}]\n`;
-
-      if (mech.parts["torso"]) {
-        clipboardContent += `┃┣ ${PART_TYPE_NAMES[lang]["torso"]}：${mech.parts["torso"].name}\n`;
-      }
-      if (mech.parts["chasis"]) {
-        clipboardContent += `┃┣ ${PART_TYPE_NAMES[lang]["chasis"]}：${mech.parts["chasis"].name}\n`;
-      }
-      if (mech.parts["leftHand"]) {
-        clipboardContent += `┃┣ ${PART_TYPE_NAMES[lang]["leftHand"]}：${mech.parts["leftHand"].name}\n`;
-      }
-      if (mech.parts["rightHand"]) {
-        clipboardContent += `┃┣ ${PART_TYPE_NAMES[lang]["rightHand"]}：${mech.parts["rightHand"].name}\n`;
-      }
-      if (mech.parts["backpack"]) {
-        clipboardContent += `┃┣ ${PART_TYPE_NAMES[lang]["backpack"]}：${mech.parts["backpack"].name}\n`;
-      }
-      if (mech.pilot) {
-        clipboardContent += `┃┗ ${translations.t69}：${mech.pilot.name}\n`;
-      }
-    });
-    let droneIndex = 0;
-    if (team.drones.length > 0) {
-      clipboardContent += `┗┳ [${translations.t70}：${team.drones.reduce((sum, drone) => sum + drone.score + (drone.backpack?.score || 0), 0)}${translations.t71}]\n`;
-      team.drones.forEach((drone) => {
-        if (team.tacticCards && team.tacticCards.length > 0) {
-          if (droneIndex == team.drones.length - 1) {
-            clipboardContent += `┃┗ ${drone.name}\n`;
-          } else {
-            clipboardContent += `┃┣ ${drone.name}\n`;
-          }
-        } else {
-          if (droneIndex == team.drones.length - 1) {
-            clipboardContent += `　┗ ${drone.name}\n`;
-          } else {
-            clipboardContent += `　┣ ${drone.name}\n`;
-          }
-        }
-
-        if (drone.backpack) {
-          clipboardContent += `    ┃  ┗ ${drone.backpack.name}\n`;
-        }
-        droneIndex++;
-      });
-    }
-
-    let tacticCardIndex = 0;
-    if (team.tacticCards && team.tacticCards.length > 0) {
-      clipboardContent += `┗┳ [${translations.t90}：${team.tacticCards.reduce((sum, tacticCard) => sum + tacticCard.score + (tacticCard.backpack?.score || 0), 0)}${translations.t71}]\n`;
-      team.tacticCards.forEach((tacticCard) => {
-        if (tacticCardIndex == team.tacticCards.length - 1) {
-          clipboardContent += `　┗ ${tacticCard.name}\n`;
-        } else {
-          clipboardContent += `　┣ ${tacticCard.name}\n`;
-        }
-        tacticCardIndex++;
-      });
-    }
-
-    navigator.clipboard.writeText(clipboardContent).then(() => {
-      alert(translations.t1);
-    }).catch((err) => {
-      alert(translations.t2);
     });
   };
 
@@ -499,10 +426,6 @@ export function MechListMobile({
     });
   };
 
-  const getMechTotalScore = (mech: Mech) =>
-    Object.values(mech.parts).reduce((sum, part) => sum + (part?.score || 0), 0) +
-    (mech.pilot?.score || 0);
-
   if (!team) {
     return <div className="h-full flex items-center justify-center text-muted-foreground">{translations.t21}</div>;
   }
@@ -724,7 +647,7 @@ export function MechListMobile({
                   className="w-full"
                   variant="outline"
                   size="sm"
-                  onClick={() => team && exportTextTeamData(team)}
+                  onClick={() => team && exportTextTeamData(team,translations,lang)}
                 >
                   <Table2 className="w-4 h-4 mr-1" />
                   {translations.t6}
@@ -1208,7 +1131,6 @@ export function MechListMobile({
                         updateMechName={updateMechName}
                         copyMech={copyMech}
                         deleteMech={deleteMech}
-                        getMechTotalScore={getMechTotalScore}
                         getColorByAttr={getColorByAttr}
                         style={{ flex: '2' }}
                         isMobile={mobileOrTablet} />

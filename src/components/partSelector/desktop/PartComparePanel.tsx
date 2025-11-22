@@ -8,7 +8,10 @@ interface PartComparePanelProps {
     imageSrc: string;
     compareMode: boolean;
     viewMode: string;
-    showKeyword:boolean;
+    showKeyword: boolean;
+    faction: string
+    tabsrc: string
+    data:any
 }
 export default function PartComparePanel({
     lastPartId,
@@ -17,13 +20,15 @@ export default function PartComparePanel({
     imageSrc,
     compareMode,
     viewMode,
-    showKeyword
+    showKeyword,
+    faction,
+    tabsrc,data
 }: PartComparePanelProps) {
     return (
         <div
             className="flex-shrink-0 flex flex-row gap-4"
             style={{
-                width: (compareMode&&lastPartId!=="")?"40vw":"20vw",
+                width: (compareMode && lastPartId !== "") ? "50vw" : "44vh",
                 padding: "0.5rem",
                 backgroundColor: "rgba(255,255,255,0.3)",
                 borderRight: "1px solid rgba(255,255,255,0.1)",
@@ -33,21 +38,29 @@ export default function PartComparePanel({
             }}
         >
             {/* 左侧：当前装备 */}
-            {(compareMode&&lastPartId!=="")&& <PartPreview
+            {(compareMode && lastPartId !== "") && <PartPreview
                 partId={lastPartId}
                 factionParts={factionParts}
                 imageSrc={imageSrc}
                 compareMode={compareMode}
                 showKeyword={showKeyword}
+                faction={faction}
+                tabsrc={tabsrc}
+                hasLeft={compareMode && lastPartId !== ""}
+                data={data}
             />}
 
             {/* 右侧：悬浮预览 */}
             <PartPreview
-                partId={(!compareMode&&hoverId==="")?lastPartId:hoverId}
+                partId={(!compareMode && hoverId === "") ? lastPartId : hoverId}
                 factionParts={factionParts}
                 imageSrc={imageSrc}
                 compareMode={compareMode}
                 showKeyword={showKeyword}
+                faction={faction}
+                tabsrc={tabsrc}
+                hasLeft={compareMode && lastPartId !== ""}
+                data={data}
             />
         </div>
     );

@@ -1,7 +1,11 @@
 import React, { useState, useRef } from "react";
-import { Part } from "../../../types";
+import { Part, Projectile } from "../../../types";
 import { Button } from "../../ui/button";
 import { AnimatePresence, motion } from "framer-motion";
+import { PartCard } from "../../customCard/partCard/PartCard";
+import { gofBackpack, gofChasis, gofLeftHand, gofProjectiles, gofRightHand, gofTorso, rdlTorso } from "../../../data";
+import { ProjectileCard } from "../../customCard/projectileCard/ProjectileCard";
+import { checkWhiteDwarf } from "../../../util/CustomCardUtil";
 
 interface PartPreviewProps {
   partId: string;
@@ -9,12 +13,16 @@ interface PartPreviewProps {
   imageSrc: string;
   compareMode?: boolean;
   showKeyword: boolean;
+  faction: string;
+  tabsrc: string
+  hasLeft: boolean;
+  data: any
 }
 
 export default function PartPreview({
   partId,
   factionParts,
-  imageSrc, showKeyword
+  imageSrc, showKeyword, faction, tabsrc, compareMode, hasLeft, data
 }: PartPreviewProps) {
   const part = factionParts.find((p) => p.id === partId);
 
@@ -23,8 +31,51 @@ export default function PartPreview({
   const [lensBgPos, setLensBgPos] = useState({ x: 0, y: 0 });
   const [lensImage, setLensImage] = useState<string | null>(null);
 
-  const lensSize = 250; // 放大镜直径
-  const zoom = 2; // 放大倍数
+  const lensSize = 250;
+  const zoom = 2;
+
+  function getPartByFactionAndType(): Part[] {
+    switch (faction) {
+      case "GOF": {
+        switch (part?.type) {
+          case "torso": return data.gofTorso;
+          case 'backpack': return data.gofBackpack;
+          case 'chasis': return data.gofChasis;
+          case 'leftHand': return data.gofLeftHand;
+          case 'rightHand': return data.gofRightHand;
+        }
+      }
+      case "UN": {
+        switch (part?.type) {
+          case "torso": return data.unTorso;
+          case 'backpack': return data.unBackpack;
+          case 'chasis': return data.unChasis;
+          case 'leftHand': return data.unLeftHand;
+          case 'rightHand': return data.unRightHand;
+        }
+      }
+      case "UN": {
+        switch (part?.type) {
+          case "torso": return data.rdlTorso;
+          case 'backpack': return data.rdlBackpack;
+          case 'chasis': return data.rdlChasis;
+          case 'leftHand': return data.rdlLeftHand;
+          case 'rightHand': return data.rdlRightHand;
+        }
+      }
+      default: return rdlTorso;
+    }
+  }
+
+  function getProjectileByFaction(isPd: boolean): Projectile[] {
+    if (isPd) return data.pdProjectiles;
+    switch (faction) {
+      case "GOF": return data.gofProjectiles;
+      case "UN": return data.unProjectiles;
+      case "RDL": return data.rdlProjectiles;
+      default: return data.gofProjectiles;
+    }
+  }
 
   const handleMouseMove = (
     e: React.MouseEvent<HTMLImageElement, MouseEvent>
@@ -48,6 +99,7 @@ export default function PartPreview({
         position: "relative",
         scrollbarWidth: "none",
         msOverflowStyle: "none",
+        gap: "2vh"
       }}
     >
       <style>
@@ -58,7 +110,7 @@ export default function PartPreview({
     `}
       </style>
 
-      <AnimatePresence mode="wait">
+      {part && <AnimatePresence mode="wait">
         {!partId ? (
           <motion.div
             key={part?.id}
@@ -66,7 +118,7 @@ export default function PartPreview({
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -100 }}
             transition={{ duration: 0.2 }}
-            style={{ width: "100%", height: "25vw" }}
+            style={{ height: "25vw" }}
           />
         ) : (
           <motion.div
@@ -75,24 +127,33 @@ export default function PartPreview({
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: -100, scale: 0.97 }}
             transition={{ duration: 0.2 }}
-            style={{ width: "100%" }}
           >
             {/* 主图 */}
-            <div style={{ position: "relative", display: "flex", alignItems: "center", flexDirection: "column" }}>
-              <img
+            <div style={{
+              position: "relative",
+              display: "flex",
+              // 🚀 修改点 1: 让内容靠右对齐
+              alignItems: "flex-start",
+              flexDirection: "column",
+              marginBottom: "2vh"
+            }}>
+              {(faction !== "GOF" && (part.hasImage === undefined || part.hasImage) || !checkWhiteDwarf(part.id)) ? <img
                 src={`${imageSrc}/${partId}.png`}
                 alt="current part"
                 style={{
-                  width: "100%",
+                  maxWidth: "25vh",
                   objectFit: "contain",
                   borderRadius: 8,
                 }}
-              />
+                loading="lazy"
+              /> :
+                <div style={{ scale: "0.92" }}>
+                  <PartCard faction={faction} part={part} tabsrc={tabsrc} isThrowCard={false} />
+                </div>}
               {/* 🔽 关键词展示区域 🔽 */}
               {showKeyword && part?.keywords && part.keywords.length > 0 && (
                 <motion.div
                   style={{
-                    width: "90%",
                     padding: "0.4vh 0.5vw",
                     backdropFilter: "blur(16px)",
                     WebkitBackdropFilter: "blur(16px)",
@@ -124,8 +185,6 @@ export default function PartPreview({
          1px  1px 1px #000
       `,
                         lineHeight: "2.2vh",
-                        marginTop: "0.7vh",
-                        marginBottom: "0.7vh",
                         marginLeft: "0.5vw",
                         marginRight: "0.5vw",
                         display: "block",
@@ -161,8 +220,8 @@ export default function PartPreview({
                   variant="secondary"
                   style={{
                     position: "absolute",
-                    top: "1vh",
-                    left: "1vh",
+                    top: "0",
+
                     height: "3vh",
                     width: "3vh",
                     fontSize: "2vh",
@@ -189,41 +248,62 @@ export default function PartPreview({
             {/* projectile + throwIndex */}
             {part && (
               <div style={{ display: "flex", flexDirection: "column" }}>
-                {/* projectile 区域 */}
-                <div style={{ display: "flex", flexWrap: "wrap" }}>
-                  {part.projectile?.map((proj, idx) => (
-                    <div key={idx} style={{ position: "relative" }}>
-                      <img
-                        src={`${imageSrc}/${proj}.png`}
-                        alt={`projectile-${idx}`}
-                        style={{
-                          width: "25vw",
-                          objectFit: "contain",
-                          borderRadius: 4,
-                        }}
-                        onMouseMove={(e) => {
-                          handleMouseMove(e);
-                          setLensImage(`${imageSrc}/${proj}.png`);
-                        }}
-                        onMouseEnter={() => setLensVisible(true)}
-                        onMouseLeave={() => setLensVisible(false)}
-                      />
-                    </div>
-                  ))}
-                </div>
+                {part.projectile && part.projectile.length > 0 &&
+                  <div style={{ display: "flex", flexWrap: "wrap", gap: "2vh" }}>
+                    {part.projectile?.map((proj, idx) => {
+                      const isPd = (part.isPD === undefined || !part.isPD) ? false : true;
+                      const currentProjectile = getProjectileByFaction(isPd).find((value) => {
+                        console.log(value.name)
+                        if (value.id === proj) return value;
+                      });
 
-                {/* throwIndex */}
+                      const shouldShowImage = (currentProjectile?.hasImage === undefined || currentProjectile?.hasImage);
+
+                      return (
+                        <div key={idx} style={{ position: "relative" }}>
+
+                          {shouldShowImage ? (
+                            <img
+                              src={`${imageSrc}/${proj}.png`}
+                              alt={`projectile-${idx}`}
+                              style={{
+                                width: "20vw",
+                                objectFit: "contain",
+                                borderRadius: 4,
+                              }}
+                              onMouseMove={(e) => {
+                                handleMouseMove(e);
+                                setLensImage(`${imageSrc}/${proj}.png`);
+                              }}
+                              onMouseEnter={() => setLensVisible(true)}
+                              onMouseLeave={() => setLensVisible(false)}
+                            />
+                          ) : (
+                            <ProjectileCard
+                              style={{ width: "20vh" }}
+                              faction={faction}
+                              projectile={currentProjectile}
+                              tabsrc={tabsrc}
+                            />
+                          )}
+                        </div>
+                      );
+                    })}
+                  </div>}
+
                 <div style={{ display: "flex", flexWrap: "wrap" }}>
-                  {part.throwIndex !== undefined && (
+                  {part.throwIndex && (
                     <div style={{ position: "relative" }}>
-                      <img
+                      {faction !== "GOF" && (part.hasImage === undefined || part.hasImage) ? <img
                         src={`${imageSrc}/${part.throwIndex}.png`}
                         alt={`throw-${part.throwIndex}`}
                         style={{
                           objectFit: "contain",
                           borderRadius: 4,
+                          maxWidth: "25vh"
                         }}
-                      />
+                        loading="lazy"
+                      /> : <div style={{ scale: "0.92" }}><PartCard faction={faction} part={getPartByFactionAndType().find((value) => { if (value.id === part.throwIndex) return value })} tabsrc={tabsrc} isThrowCard={true} /></div>}
                     </div>
                   )}
                 </div>
@@ -254,7 +334,7 @@ export default function PartPreview({
             )}
           </motion.div>
         )}
-      </AnimatePresence>
+      </AnimatePresence>}
     </div>
 
   );

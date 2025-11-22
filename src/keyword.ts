@@ -1,6 +1,6 @@
 export interface Keyword {
     name: string;
-    value: string;
+    value?: string;
 }
 
 export const KEYWORD_LIST = {
@@ -60,7 +60,11 @@ export const KEYWORD_LIST = {
         火控干扰: { name: "火控干扰", value: "携带火控干扰标记的单位不能执行射击动作，也不能进行拦截。有电子值的抛射物在获得火控干扰标记时直接被摧毁。" },
         脆弱: { name: "脆弱", value: "单位受击时-1白骰，该效果可以叠加。但投掷的白骰数量不会减少到小于1。" },
         禁足: { name: "禁足", value: "携带禁足标记的单位不能执行移动动作/调整移动（包括调整方向）。受击时不能投蓝骰。" },
-        标靶追踪: { name: "标靶追踪", value: "无人机执行自动动作时，可以优先选择持有此标记的目标，即使它不是最近目标。无人机以持有此标记的单位为目标执行攻击/电子攻击时，视为攻击姿态。" }
+        标靶追踪: { name: "标靶追踪", value: "无人机执行自动动作时，可以优先选择持有此标记的目标，即使它不是最近目标。无人机以持有此标记的单位为目标执行攻击/电子攻击时，视为攻击姿态。" },
+        冲锋X: { name: "冲锋X", value: "执行此动作前，可以额外移动X格。机甲下肢被摧毁时不生效。" },
+        监视射击: { name: "监视射击", value: "在延迟阶段的最后，移除本标记，本单位可执行1个射击动作。" },
+        空手: { name: "空手", value: "" },
+        遥控武器:{name:"遥控武器",value:"指令阶段，友军可以向本机发送指令，使本机执行此动作。本部件每回合只能接收1次指令"}
     },
     en: {
         不可阻挡: { name: "Unstoppable:", value: "Movement Actions with this Keyword can still be performed when Immobilized." },
@@ -118,7 +122,9 @@ export const KEYWORD_LIST = {
         火控干扰: { name: "Fire Control Interference", value: "Units bearing a Fire Control Interference Token cannot perform Firing Actions or Interception.Projectiles with an Electronic Values are destroyed immediately if they obtain a Fire Control Interference Token." },
         脆弱: { name: "Fragile", value: "Units bearing a Fragile Token have -1 Dice in their Defense Roll, and the effects from multiple Fragile tokens can be stacked." },
         禁足: { name: "Immobilized", value: "Units bearing an Immobilized Token are Immobilized and cannot perform Movement Actions or Maneuver (including changing facing).No Blue Dice can be rolled in the Defense Roll of a Unit bearing an Immobilized Token." },
-        标靶追踪: { name: "Target Tracer", value: "When a Drone performs Automatic Actions, it designate a Unit bearing a Target Tracer Token as the target even if it is not the closest Enemy Unit.When a Drone performs any Attack/Electronic Attack targeting a Unit bearing a Target Tracer Token, it is treated as being in the Offensive Stance." }
+        标靶追踪: { name: "Target Tracer", value: "When a Drone performs Automatic Actions, it designate a Unit bearing a Target Tracer Token as the target even if it is not the closest Enemy Unit.When a Drone performs any Attack/Electronic Attack targeting a Unit bearing a Target Tracer Token, it is treated as being in the Offensive Stance." },
+        空手: { name: "Freehand", value: "" },
+        冲锋X: { name: "Shock Attack X", value: "Before performing this Actioin, may move X grids. Mechs require a chasis to perform this Action." }
     },
     jp: {
         不可阻挡: { name: "阻止不能", value: "このアクションは「禁足」状態であっても実行できる" },

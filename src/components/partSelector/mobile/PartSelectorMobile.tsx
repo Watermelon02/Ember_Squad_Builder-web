@@ -51,7 +51,7 @@ export function PartSelectorMobile({
   onSelectTacticCard,
   translations,
   partTypeNames,
-  onSetShowKeyword,showKeyword,
+  onSetShowKeyword, showKeyword,
   imgsrc, tabsrc, tabSmallSrc, onSetHoverImg, onSetShowHoverImg, showHoverImg, mobileOrTablet, lastScore, lastPartId
 }: MobilePartSelectorMobileProps) {
   const [searchQuery, setSearchQuery] = useState('');
@@ -76,7 +76,7 @@ export function PartSelectorMobile({
         return false;
       }
 
-      if ((part.isPD === undefined) && containPD) {
+      if (((part.isPD === undefined || !part.isPD)) && containPD) {
         return false;
       }
 
@@ -109,7 +109,7 @@ export function PartSelectorMobile({
         return false;
       }
 
-      if ((drone.isPD === undefined) && containPD) {
+      if ((drone.isPD === undefined || !drone.isPD) && containPD) {
         return false;
       }
 
@@ -249,7 +249,7 @@ export function PartSelectorMobile({
         mobileOrTablet={mobileOrTablet}
         translations={translations}
         showKeyword={showKeyword}
-      onSetShowKeyword={onSetShowKeyword}
+        onSetShowKeyword={onSetShowKeyword}
       >
         <DroneListMobile
           filteredDrones={filteredDrones}

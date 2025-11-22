@@ -78,6 +78,7 @@ export default function PartPreviewMobile({
               }}
             >
               <img
+              loading="lazy"
                 src={`${imageSrc}/${partId}.png`}
                 alt="current part"
                 style={{
@@ -209,6 +210,7 @@ export default function PartPreviewMobile({
                     {part.projectile?.map((proj, idx) => (
                       <div key={idx} style={{ position: "relative" }}>
                         <img
+                        loading="lazy"
                           src={`${imageSrc}/${proj}.png`}
                           alt={`projectile-${idx}`}
                           style={{
@@ -226,6 +228,7 @@ export default function PartPreviewMobile({
                     {part.throwIndex !== undefined && (
                       <div style={{ position: "relative" }}>
                         <img
+                        loading="lazy"
                           src={`${imageSrc}/${part.throwIndex}.png`}
                           alt={`throw-${part.throwIndex}`}
                           style={{
@@ -255,6 +258,7 @@ export default function PartPreviewMobile({
                 flexDirection: "row"
               }}>
                 <img
+                loading="lazy"
                   src={`${imageSrc}/${partId}.png`}
                   alt="current part"
                   style={{
@@ -384,6 +388,7 @@ export default function PartPreviewMobile({
                     {part.projectile?.map((proj, idx) => (
                       <div key={idx} style={{ position: "relative" }}>
                         <img
+                        loading="lazy"
                           src={`${imageSrc}/${proj}.png`}
                           alt={`projectile-${idx}`}
                           style={{
@@ -399,6 +404,7 @@ export default function PartPreviewMobile({
                     {part.throwIndex !== undefined && (
                       <div style={{ position: "relative" }}>
                         <img
+                        loading="lazy"
                           src={`${imageSrc}/${part.throwIndex}.png`}
                           alt={`throw-${part.throwIndex}`}
                           style={{

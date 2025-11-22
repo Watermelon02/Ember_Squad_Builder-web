@@ -4,6 +4,7 @@ import { Copy, Trash2 } from "lucide-react";
 import { FACTION_COLORS, Mech } from "../../types";
 import { Button } from "../ui/button";
 import { Input } from "../ui/input";
+import { getMechTotalScore } from "../../util/ScoreUtil";
 
 interface MechStatusMobileProps {
     mech: Mech;
@@ -15,7 +16,6 @@ interface MechStatusMobileProps {
     updateMechName: (id: string, name: string) => void;
     copyMech: (mech: Mech) => void;
     deleteMech: (id: string) => void;
-    getMechTotalScore: (mech: Mech) => number;
     getColorByAttr: (type: "dodge" | "electronic", value: number) => string;
     style?: React.CSSProperties;
     isMobile: boolean
@@ -31,7 +31,6 @@ export const MechStatusMobile: React.FC<MechStatusMobileProps> = ({
     updateMechName,
     copyMech,
     deleteMech,
-    getMechTotalScore,
     getColorByAttr,
     style,
     isMobile

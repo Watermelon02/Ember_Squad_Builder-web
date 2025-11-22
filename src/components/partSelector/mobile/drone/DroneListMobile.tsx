@@ -24,7 +24,7 @@ const DroneListMobile: React.FC<DroneListMobileProps> = ({
   // 取消选中
   const resetSelection = () => setSelectedId(null);
   return (
-    <div className="flex flex-col" style={{ minHeight: "70vh" }}>
+    <div className="flex flex-col" style={{ minHeight: "65vh" }}>
       <div
         className="flex-1 overflow-y-auto space-y-3"
         style={{ paddingLeft: '2vw', paddingRight: '2vw' }}
@@ -37,13 +37,21 @@ const DroneListMobile: React.FC<DroneListMobileProps> = ({
             onClick={() => { onSelectDrone(drone); setSelectedId(drone.id) }}
           >
             {/* 背景图层 */}
-            <img
+            {(drone.hasImage === undefined || drone.hasImage) ? <img
               src={`${tabsrc}/${drone.id}.png`}
               alt=""
               className="absolute right-0 top-0 w-auto h-full object-contain pointer-events-none"
               style={{ opacity: 0.8 }}
               loading='lazy'
-            />
+            /> : <span
+              style={{
+                display: "flex",
+                position: "absolute",
+                right: 0,
+                padding: "1vh",
+                bottom: 0,
+                opacity: 0.8,
+              }}>{translations.t108}</span>}
 
 
             {/* 前景文字内容 */}

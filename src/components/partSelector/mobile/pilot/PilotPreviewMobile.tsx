@@ -91,6 +91,7 @@ export default function PilotPreviewMobile({
             display: "block",     // ★ 必须，让图片变 block
             margin: "0 auto",     // ★ 水平居中
           }}
+          loading="lazy"
           key={pilot.id}
           initial={{ opacity: 0, y: 100 }}
           animate={{ opacity: 1, y: 0 }}
