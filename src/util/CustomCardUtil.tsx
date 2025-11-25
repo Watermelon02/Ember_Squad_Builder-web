@@ -1,4 +1,4 @@
-import { DroneAction } from "../types";
+import { DroneAction } from "../data/types";
 
   export function checkWhiteDwarf(id: string): boolean {
     const numId = parseInt(id, 10);

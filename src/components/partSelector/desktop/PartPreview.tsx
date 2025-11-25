@@ -1,9 +1,9 @@
 import React, { useState, useRef } from "react";
-import { Part, Projectile } from "../../../types";
-import { Button } from "../../ui/button";
+import { Part, Projectile } from "../../../data/types";
+import { Button } from "../../radix-ui/button";
 import { AnimatePresence, motion } from "framer-motion";
 import { PartCard } from "../../customCard/partCard/PartCard";
-import { gofBackpack, gofChasis, gofLeftHand, gofProjectiles, gofRightHand, gofTorso, rdlTorso } from "../../../data";
+import { gofBackpack, gofChasis, gofLeftHand, gofProjectiles, gofRightHand, gofTorso, rdlTorso } from "../../../data/data_cn";
 import { ProjectileCard } from "../../customCard/projectileCard/ProjectileCard";
 import { checkWhiteDwarf } from "../../../util/CustomCardUtil";
 

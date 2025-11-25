@@ -1,5 +1,5 @@
 import React, { useState, useMemo } from 'react';
-import { Part, Drone, Pilot, Team, TacticCard } from '../../../types';
+import { Part, Drone, Pilot, Team, TacticCard } from '../../../data/types';
 
 import ListPanel from '../mobile/ListPanelMobile';
 

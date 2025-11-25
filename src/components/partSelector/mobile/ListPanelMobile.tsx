@@ -1,6 +1,6 @@
 import React from 'react';
-import { Label } from '../../ui/label';
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '../../ui/select';
+import { Label } from '../../radix-ui/label';
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '../../radix-ui/select';
 
 interface ListPanelMobileProps {
   // 搜索和排序相关

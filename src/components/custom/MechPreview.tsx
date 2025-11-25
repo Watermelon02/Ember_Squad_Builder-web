@@ -1,6 +1,6 @@
 import React, { useMemo } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Mech, Part } from '../../types';
+import { Mech, Part } from '../../data/types';
 
 interface MechPreviewProps {
   mech: { parts: Partial<Record<keyof Mech['parts'], Part>> };

@@ -2,7 +2,7 @@ import React from 'react';
 import { motion } from 'framer-motion';
 import { Shield, Activity, Zap, Wind, Move, Package, ArrowBigUp } from 'lucide-react';
 import './DroneCard.css';
-import { Action, Drone } from '../../../types';
+import { Action, Drone } from '../../../data/types';
 import { DroneOrProjectileActionItem } from '../DroneOrProjectileActionItem/ActionItem';
 import { TilingCrossPattern } from '../TilingCrossPattern';
 import { getDroneCardBackGroundClassName } from '../../../util/CustomCardUtil';

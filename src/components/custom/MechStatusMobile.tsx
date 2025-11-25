@@ -1,9 +1,9 @@
 import React from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import { Copy, Trash2 } from "lucide-react";
-import { FACTION_COLORS, Mech } from "../../types";
-import { Button } from "../ui/button";
-import { Input } from "../ui/input";
+import { FACTION_COLORS, Mech } from "../../data/types";
+import { Button } from "../radix-ui/button";
+import { Input } from "../radix-ui/input";
 import { getMechTotalScore } from "../../util/ScoreUtil";
 
 interface MechStatusMobileProps {

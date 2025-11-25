@@ -1,7 +1,7 @@
 // PilotPreview.tsx
 import React from "react";
-import { Pilot } from "../../../../types";
-import { Button } from "../../../ui/button";
+import { Pilot } from "../../../../data/types";
+import { Button } from "../../../radix-ui/button";
 import { AnimatePresence, motion } from "framer-motion";
 import PilotStatsColumnMobile from "./PilotStatusColumnMobile";
 

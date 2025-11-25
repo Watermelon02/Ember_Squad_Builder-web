@@ -1,9 +1,9 @@
 import React, { useState, useMemo } from 'react';
-import { Card } from '../../ui/card';
-import { Input } from '../../ui/input';
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '../../ui/select';
-import { Badge } from '../../ui/badge';
-import { Part, Drone, Pilot, Team, TacticCard } from '../../../types';
+import { Card } from '../../radix-ui/card';
+import { Input } from '../../radix-ui/input';
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '../../radix-ui/select';
+import { Badge } from '../../radix-ui/badge';
+import { Part, Drone, Pilot, Team, TacticCard } from '../../../data/types';
 import { AnimatePresence, motion } from 'framer-motion';
 
 interface PartSelectorProps {

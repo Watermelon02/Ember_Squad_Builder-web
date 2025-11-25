@@ -1,9 +1,9 @@
 import React, { useState, useRef } from "react";
-import { Drone, Part } from "../../../types";
-import { Button } from "../../ui/button";
+import { Drone, Part } from "../../../data/types";
+import { Button } from "../../radix-ui/button";
 import { AnimatePresence, motion } from "framer-motion";
 import { DroneCard } from "../../customCard/droneCard/DroneCard";
-import { gofProjectiles } from "../../../data";
+import { gofProjectiles } from "../../../data/data_cn";
 import { ProjectileCard } from "../../customCard/projectileCard/ProjectileCard";
 
 interface DronePreviewProps {

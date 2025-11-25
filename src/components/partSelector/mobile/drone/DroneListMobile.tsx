@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
-import { Card } from '../../../ui/card';
-import { Badge } from '../../../ui/badge';
+import { Card } from '../../../radix-ui/card';
+import { Badge } from '../../../radix-ui/badge';
 import { SelectableCard } from '../../../custom/SelectableCard';
 interface DroneListMobileProps {
   filteredDrones: any[];

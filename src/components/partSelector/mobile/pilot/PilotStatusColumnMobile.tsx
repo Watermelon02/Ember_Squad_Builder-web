@@ -1,5 +1,5 @@
 import { motion } from "framer-motion";
-import { Pilot } from "../../../../types";
+import { Pilot } from "../../../../data/types";
 import { COLOR_GREY } from "../../../../styles/color";
 import { useState, useEffect } from "react";
 

@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Mech, PART_TYPE_NAMES, Team } from "../types";
+import { Mech, PART_TYPE_NAMES, Team } from "../data/types";
 import { getImage } from "./ImageGetter";
 
 async function generateAndUploadMechImage(team: Team, mech: Mech, lang: string, tabsrc: string, mechImgSrc: string): Promise<string> {

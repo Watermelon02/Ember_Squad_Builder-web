@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { Mech } from "../../types";
+import { Mech } from "../../data/types";
 
 interface MechImageProps {
   mech: Mech;

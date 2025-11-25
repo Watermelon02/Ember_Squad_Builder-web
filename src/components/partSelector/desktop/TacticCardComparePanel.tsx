@@ -1,5 +1,5 @@
 // TacticCardComparePanel.jsx
-import { TacticCard, Part } from "../../../types";
+import { TacticCard, Part } from "../../../data/types";
 import TacticCardPreview from "./TacticCardPreview";
 interface TacticCardComparePanelProps {
     lastPartId: string;

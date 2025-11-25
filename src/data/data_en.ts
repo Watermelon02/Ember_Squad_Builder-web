@@ -1,4 +1,4 @@
-import { Part, Drone, Pilot, Projectile,TacticCard } from '../src/types';
+import { Part, Drone, Pilot, Projectile,TacticCard } from './types';
 import { KEYWORD_LIST } from './keyword';
 
 export const rdlTorso: Part[] = [

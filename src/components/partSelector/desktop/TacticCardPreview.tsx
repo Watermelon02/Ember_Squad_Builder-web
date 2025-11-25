@@ -1,5 +1,5 @@
-import { TacticCard } from "../../../types";
-import { Button } from "../../ui/button";
+import { TacticCard } from "../../../data/types";
+import { Button } from "../../radix-ui/button";
 import { AnimatePresence, motion } from "framer-motion";
 
 interface TacticCardPreviewProps {

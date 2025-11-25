@@ -1,5 +1,5 @@
 // PilotComparePanel.tsx
-import { Pilot } from "../../../../types";
+import { Pilot } from "../../../../data/types";
 import PilotPreviewMobile from "./PilotPreviewMobile";
 
 interface PilotComparePanelMobileProps {

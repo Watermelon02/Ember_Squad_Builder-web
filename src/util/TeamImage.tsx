@@ -1,4 +1,4 @@
-import { Part, Team } from "../types";
+import { Part, Team } from "../data/types";
 import extractChunks from "png-chunks-extract";
 import encodeChunks from "png-chunks-encode";
 import { getImage } from "./ImageGetter";

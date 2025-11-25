@@ -1,6 +1,6 @@
 // PartComparePanel.jsx
 
-import { Part } from "../../../../types";
+import { Part } from "../../../../data/types";
 import PartPreviewMobile from "./PartPreviewMobile";
 interface PartComparePanelMobileProps {
     lastPartId: string;

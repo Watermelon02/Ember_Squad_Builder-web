@@ -1,5 +1,5 @@
 import { motion } from "framer-motion";
-import { Pilot } from "../../types";
+import { Pilot } from "../../data/types";
 
 interface PilotStatsProps {
   pilot: Pilot;

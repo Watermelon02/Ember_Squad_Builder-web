@@ -2,7 +2,7 @@ import React, { useMemo } from 'react';
 import { motion } from 'framer-motion';
 import { Rocket } from 'lucide-react';
 import './PartCard.css';
-import { Action, Part } from '../../../types';
+import { Action, Part } from '../../../data/types';
 import { TilingCrossPattern } from '../TilingCrossPattern';
 import { getCardBackGroundClassName } from '../../../util/CustomCardUtil';
 import { translations } from '../../../i18n';

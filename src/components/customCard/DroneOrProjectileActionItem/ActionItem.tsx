@@ -1,5 +1,5 @@
 import { Rocket } from "lucide-react";
-import { DroneAction } from "../../../types";
+import { DroneAction } from "../../../data/types";
 import { motion } from 'framer-motion';
 import './ActionItem.css';
 import { getTypeIcon } from "../../../util/CustomCardUtil";

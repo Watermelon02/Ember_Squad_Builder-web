@@ -1,16 +1,16 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { Button } from './ui/button';
-import { Card } from './ui/card';
-import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from './ui/dialog';
+import { Button } from '../radix-ui/button';
+import { Card } from '../radix-ui/card';
+import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from '../radix-ui/dialog';
 import { Trash2, Plus, Copy, Download, Dice6, Sword, Upload, Trophy, Trash } from 'lucide-react';
-import { Team, FACTION_COLORS } from '../types';
-import { Badge } from './ui/badge';
-import { Input } from './ui/input';
+import { Team, FACTION_COLORS } from '../../data/types';
+import { Badge } from '../radix-ui/badge';
+import { Input } from '../radix-ui/input';
 import { AnimatePresence, motion } from 'framer-motion';
-import { TeamEligibility } from './ui/TeamEligibility';
-import { MechImage } from './custom/MechImage';
-import { DroneImage } from './custom/DroneImage';
-import { COLOR_GREY, COLOR_TEXT_GREY } from '../styles/color';
+import { TeamEligibility } from '../radix-ui/TeamEligibility';
+import { MechImage } from '../custom/MechImage';
+import { DroneImage } from '../custom/DroneImage';
+import { COLOR_GREY, COLOR_TEXT_GREY } from '../../styles/color';
 import extractChunks from 'png-chunks-extract';
 
 interface TeamListProps {

@@ -1,6 +1,6 @@
 import React, { useState, useRef, useEffect } from "react";
-import { Drone } from "../../../../types";
-import { Button } from "../../../ui/button";
+import { Drone } from "../../../../data/types";
+import { Button } from "../../../radix-ui/button";
 import { AnimatePresence, motion } from "framer-motion";
 
 interface DronePreviewMobileProps {

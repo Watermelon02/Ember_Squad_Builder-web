@@ -1,6 +1,6 @@
 import React, { useState, useRef, useEffect } from "react";
-import { Part } from "../../../../types";
-import { Button } from "../../../ui/button";
+import { Part } from "../../../../data/types";
+import { Button } from "../../../radix-ui/button";
 import { AnimatePresence, motion } from "framer-motion";
 
 interface PartPreviewMobileProps {

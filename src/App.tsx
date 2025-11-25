@@ -1,24 +1,22 @@
 import React, { useState, useEffect } from 'react';
-import { TeamList } from './components/TeamList';
-import { MechList } from './components/MechList';
+import { TeamList } from './components/teamList/TeamList';
+import { MechList } from './components/mechList/desktop/MechList';
 import { PartSelector } from './components/partSelector/desktop/PartSelector';
-import { Team, Mech, Part, Drone, Pilot, PART_TYPE_NAMES, FACTION_NAMES, TacticCard, calculateTotalScore } from './types';
+import { Team, Mech, Part, Drone, Pilot, PART_TYPE_NAMES, FACTION_NAMES, TacticCard, calculateTotalScore } from './data/types';
 
 import { translations } from './i18n';
-import { BACKGROUND_SRC, IMAGE_SRC, LOCAL_IMAGE_SRC, MECH_IMAGE_SRC, TAB_IMAGE_SRC, TAB_SMALL_IMAGE_SRC } from './resource';
-import * as zhData from './data';
-import * as enData from './data_en';
-import * as jpData from './data_jp';
-import { getDeviceFingerprint } from './remote';
+import { BACKGROUND_SRC, IMAGE_SRC, LOCAL_IMAGE_SRC, MECH_IMAGE_SRC, TAB_IMAGE_SRC, TAB_SMALL_IMAGE_SRC } from './data/resource';
+import * as zhData from './data/data_cn';
+import * as enData from './data/data_en';
+import * as jpData from './data/data_jp';
 
 import { motion, AnimatePresence } from "framer-motion";
 import { SlidePanel } from './components/custom/SlidePanel';
-import { TeamListMobile } from './components/TeamListMobile';
+import { TeamListMobile } from './components/teamList/TeamListMobile';
 
 import PartComparePanel from './components/partSelector/desktop/PartComparePanel';
 import DroneComparePanel from './components/partSelector/desktop/DroneComparePanel';
 
-import { Button } from './components/ui/button';
 import { ChevronDown, ChevronLeft, ChevronRight } from 'lucide-react';
 import PilotComparePanel from './components/partSelector/desktop/PilotComparePanel';
 import { PartSelectorMobile } from './components/partSelector/mobile/PartSelectorMobile';
@@ -27,7 +25,8 @@ import PartComparePanelMobile from './components/partSelector/mobile/part/PartCo
 import DroneComparePanelMobile from './components/partSelector/mobile/drone/DroneComparePanelMobile';
 import TacticCardComparePanel from './components/partSelector/desktop/TacticCardComparePanel';
 import TacticCardComparePanelMobile from './components/partSelector/mobile/tacticCard/TacticCardComparePanelMobile';
-import { MechListMobile } from './components/MechListMobile';
+import { MechListMobile } from './components/mechList/mobile/MechListMobile';
+import { getDeviceFingerprint } from './util/RemoteUtil';
 
 
 

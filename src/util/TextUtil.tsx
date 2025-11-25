@@ -1,4 +1,4 @@
-import { PART_TYPE_NAMES, Team } from "../types";
+import { PART_TYPE_NAMES, Team } from "../data/types";
 import { getMechTotalScore } from "./ScoreUtil";
 
 // 辅助函数：替换回车和换行符为空格

@@ -1,5 +1,5 @@
 // DroneComparePanel.jsx
-import { Drone } from "../../../types";
+import { Drone } from "../../../data/types";
 import DronePreview from "./DronePreview";
 interface DroneComparePanelProps {
     lastPartId: string;
