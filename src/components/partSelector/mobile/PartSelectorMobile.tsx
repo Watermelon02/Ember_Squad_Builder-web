@@ -207,6 +207,7 @@ export function PartSelectorMobile({
         translations={translations}
         lastScore={lastScore}
         selectedPartType={selectedPartType}
+        faction={team?.faction}
       />
     </ListPanel>
   </div>

@@ -434,7 +434,7 @@ export default function App() {
     switch (selectedTeam.faction) {
       case 'RDL': return mergePilots(rdlPilots, pdPilots);
       case 'UN': return mergePilots(unPilots, pdPilots);
-      case 'GOF': return gofPilots;
+      case 'GOF': return mergePilots(gofPilots, pdPilots);
       case 'PD': return pdPilots;
     }
   })();
@@ -1032,6 +1032,7 @@ export default function App() {
                           faction={selectedTeam.faction}
                           tabsrc={tabSrc}
                           data={data}
+                          lang={lang}
                         />}
 
                       {viewMode === "pilots" &&
@@ -1057,6 +1058,7 @@ export default function App() {
                           showKeyword={showKeyword}
                           tabsrc={tabSrc}
                           faction={selectedTeam.faction}
+                           lang={lang}
                         />}
 
                       {(viewMode === "tacticCards") &&

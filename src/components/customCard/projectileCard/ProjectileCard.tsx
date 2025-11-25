@@ -11,10 +11,11 @@ interface ProjectileCardProps extends React.ComponentProps<'div'> {
     projectile: Projectile;
     tabsrc: string;
     faction: string;
+    lang: string;
 }
 
 
-export const ProjectileCard: React.FC<ProjectileCardProps> = ({ projectile, faction, tabsrc, ...restProps }) => {
+export const ProjectileCard: React.FC<ProjectileCardProps> = ({ projectile, faction, tabsrc, lang, ...restProps }) => {
     const CARD_WIDTH_VH = 32;
     const LEFT_OFFSET_VH = 5;
     const RIGHT_OFFSET_VH = 7;
@@ -107,7 +108,7 @@ export const ProjectileCard: React.FC<ProjectileCardProps> = ({ projectile, fact
                         </div>
                         <div className="action-items-wrapper">
                             {projectile.actions?.map((action, index) => (
-                                <DroneOrProjectileActionItem key={action.id} action={action} index={index} tabsrc={tabsrc} />
+                                <DroneOrProjectileActionItem key={action.id} action={action} index={index} tabsrc={tabsrc} lang={lang} />
                             ))}
                         </div>
                     </div>

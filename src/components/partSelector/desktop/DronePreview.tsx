@@ -13,13 +13,14 @@ interface DronePreviewProps {
   compareMode?: boolean;
   showKeyword: boolean;
   faction: string;
-  tabsrc: string
+  tabsrc: string;
+  lang:string;
 }
 
 export default function DronePreview({
   droneId,
   factionDrones,
-  imageSrc, showKeyword, faction, tabsrc
+  imageSrc, showKeyword, faction, tabsrc,lang
 }: DronePreviewProps) {
   const drone = factionDrones.find((dr) => { if (dr.id === droneId) { return dr } });
 
@@ -73,7 +74,7 @@ export default function DronePreview({
         ) : (
           <div key={`last-${droneId}`} style={{ width: "100%", display: "flex", alignItems: "center", flexDirection: "column" }}>
             {/* 主图 */}
-            {drone?.hasImage===undefined || drone.hasImage ? <img
+            {drone?.hasImage===undefined  ? <img
               src={`${imageSrc}/${droneId}.png`}
               loading="lazy"
               alt="current part"
@@ -84,7 +85,7 @@ export default function DronePreview({
 
               }}
 
-            /> : <DroneCard drone={drone} tabsrc={tabsrc} faction={faction}/>}
+            /> : <DroneCard drone={drone} tabsrc={tabsrc} faction={faction} lang={lang}/>}
 
             {/* 🔽 关键词展示区域 🔽 */}
             {showKeyword && drone?.keywords && drone.keywords.length > 0 && (
@@ -92,6 +93,7 @@ export default function DronePreview({
                 style={{
                   width: "95%",
                   padding: "0.4vh 0.5vw",
+                  marginTop:"1vh",
                   backdropFilter: "blur(16px)",
                   WebkitBackdropFilter: "blur(16px)",
                   background: "rgba(255,255,255,0.14)",
@@ -215,6 +217,7 @@ export default function DronePreview({
                               projectile={currentProjectile}
                               tabsrc={tabsrc}
                               faction={faction}
+                               lang={lang}
                             />
                           )
                         )}

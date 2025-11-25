@@ -366,7 +366,7 @@ export const rdlLeftHand: Part[] = [
     "description": "",
     "imgSrc": "",
     "tags": [],
-    "keywords": [KEYWORD_LIST.en.直射, KEYWORD_LIST.en.静默]
+    "keywords": [KEYWORD_LIST.en.静止, KEYWORD_LIST.en.穿甲X]
   },
   {
     "id": "034",
@@ -3614,7 +3614,7 @@ export const gofChasis: Part[] = [
       "parray": 0,
       "dodge": 3,
       "electronic": 0,
-      "move": 0,
+      "move": 1,
       "description": "",
       "keywords": [],
       "action": [
@@ -3622,16 +3622,17 @@ export const gofChasis: Part[] = [
           "id": "179_A",
           "name": "Sprint",
           "description": "",
-          "type": "Tactic",
+          "type": "Moving",
           "size": "m",
-          "range": 0,
+          "range": 4,
           "storage": 0,
           "yellowDice": 0,
           "redDice": 0
         }
       ],
       "projectile": [],
-      "isPD": false
+      "isPD": false,
+      "hasImage":true,
     },
     {
       "id": "180",
@@ -3643,7 +3644,7 @@ export const gofChasis: Part[] = [
       "parray": 0,
       "dodge": 4,
       "electronic": 0,
-      "move": 0,
+      "move": 1,
       "description": "· Silence: Optical Camouflage and Low Profile will not be removed when this action is performed.",
       "keywords": [KEYWORD_LIST.en.静默],
       "action": [
@@ -3651,9 +3652,9 @@ export const gofChasis: Part[] = [
           "id": "180_A",
           "name": "Sprint",
           "description": "",
-          "type": "Tactic",
+          "type": "Moving",
           "size": "m",
-          "range": 0,
+          "range": 3,
           "storage": 0,
           "yellowDice": 0,
           "redDice": 0
@@ -3671,7 +3672,8 @@ export const gofChasis: Part[] = [
         }
       ],
       "projectile": [],
-      "isPD": false
+      "isPD": false,
+      "hasImage":true,
     },
     {
       "id": "181",
@@ -3683,17 +3685,17 @@ export const gofChasis: Part[] = [
       "parray": 0,
       "dodge": 3,
       "electronic": 0,
-      "move": 0,
+      "move": 2,
       "description": "·Unstoppable: Movement Actions with this Keyword can still be performed when Immobilized.\n·Non-humanoid X: When performing this Action, -X Link Value.\n·Push X: Move the target X grids in straight line in the direction this unit is facing, then this unit performs the same movement.",
       "keywords": [KEYWORD_LIST.en.异形X, KEYWORD_LIST.en.不可阻挡, KEYWORD_LIST.en.推动X],
       "action": [
         {
           "id": "181_A",
           "name": "Run",
-          "description": "",
-          "type": "Tactic",
+          "description": "· Non-humanoid 1\n· Unstoppable\n· If there is an Enemy Ground Unit in the adjacent grid in front of the Mech after performing this Action, may cause Push 1.",
+          "type": "Moving",
           "size": "m",
-          "range": 0,
+          "range": 5,
           "storage": 0,
           "yellowDice": 0,
           "redDice": 0
@@ -3711,7 +3713,8 @@ export const gofChasis: Part[] = [
         }
       ],
       "projectile": [],
-      "isPD": false
+      "isPD": false,
+      "hasImage":true,
     },
     {
       "id": "182",
@@ -3723,7 +3726,7 @@ export const gofChasis: Part[] = [
       "parray": 0,
       "dodge": 3,
       "electronic": 0,
-      "move": 0,
+      "move": 1,
       "description": "·Push X: Move the target X grids in straight line in the direction this unit is facing, then this unit performs the same movement.",
      "keywords": [KEYWORD_LIST.en.推动X],
       "action": [
@@ -3731,9 +3734,9 @@ export const gofChasis: Part[] = [
           "id": "182_A",
           "name": "Sprint",
           "description": "",
-          "type": "Tactic",
+          "type": "Moving",
           "size": "m",
-          "range": 0,
+          "range": 4,
           "storage": 0,
           "yellowDice": 0,
           "redDice": 0
@@ -3751,7 +3754,8 @@ export const gofChasis: Part[] = [
         }
       ],
       "projectile": [],
-      "isPD": false
+      "isPD": false,
+      "hasImage":true,
     }
   ]
 
@@ -3787,14 +3791,15 @@ export const gofLeftHand: Part[] = [
           "description": "· Concussion",
           "type": "Melee",
           "size": "s",
-          "range": 1,
+          "range": -1,
           "storage": 0,
           "yellowDice": 5,
           "redDice": 0
         }
       ],
       "projectile": [],
-      "isPD": false
+      "isPD": false,
+      "hasImage":true,
     },
     {
       "id": "ZHLA-102",
@@ -3836,10 +3841,12 @@ export const gofLeftHand: Part[] = [
       "projectile": [
         "ZHAM-001A"
       ],
-      "isPD": false
+    "throwIndex": "ZHLA-102-T",
+      "isPD": false,
+      "hasImage":true,
     },
     {
-      "id": "ZHLA-102",
+      "id": "ZHLA-102-T",
       "name": "Dual \"Swift\" Launcher (D)",
       "type": "leftHand",
       "score": 0,
@@ -3867,7 +3874,8 @@ export const gofLeftHand: Part[] = [
         }
       ],
       "projectile": [],
-      "isPD": false
+      "isPD": false,
+      "hasImage":false,
     },
     {
       "id": "ZHLA-201",
@@ -3910,10 +3918,12 @@ export const gofLeftHand: Part[] = [
         "ZHAM-003",
         "ZHAM-004"
       ],
-      "isPD": false
+      "isPD": false,
+      "hasImage":true,
+      "throwIndex": "ZHLA-201-T",
     },
     {
-      "id": "ZHLA-201",
+      "id": "ZHLA-201-T",
       "name": "GSD7 Mortar (D)",
       "type": "leftHand",
       "score": 0,
@@ -3941,7 +3951,8 @@ export const gofLeftHand: Part[] = [
         }
       ],
       "projectile": [],
-      "isPD": false
+      "isPD": false,
+      "hasImage":false,
     },
     {
       "id": "ZHLA-202",
@@ -3965,7 +3976,7 @@ export const gofLeftHand: Part[] = [
           "description": "· [On hit], target gains 1 Fragile Token.",
           "type": "Melee",
           "size": "s",
-          "range": 1,
+          "range": -1,
           "storage": 0,
           "yellowDice": 5,
           "redDice": 0
@@ -3983,7 +3994,8 @@ export const gofLeftHand: Part[] = [
         }
       ],
       "projectile": [],
-      "isPD": false
+      "isPD": false,
+      "hasImage":true,
     },
     {
       "id": "ZHLA-301",
@@ -3998,6 +4010,7 @@ export const gofLeftHand: Part[] = [
       "move": 0,
       "description": "",
       "keywords": [],
+      "throwIndex": "ZHLA-301-T",
       "action": [
         {
           "id": "ZHLA-301_A",
@@ -4023,10 +4036,11 @@ export const gofLeftHand: Part[] = [
         }
       ],
       "projectile": [],
-      "isPD": false
+      "isPD": false,
+      "hasImage":true,
     },
     {
-      "id": "ZHLA-301",
+      "id": "ZHLA-301-T",
       "name": "SS30 Heavy Shield (D)",
       "type": "leftHand",
       "score": 0,
@@ -4042,7 +4056,8 @@ export const gofLeftHand: Part[] = [
       ],
       "action": [],
       "projectile": [],
-      "isPD": false
+      "isPD": false,
+      "hasImage":false,
     },
     {
       "id": "ZHLA-302",
@@ -4057,6 +4072,7 @@ export const gofLeftHand: Part[] = [
       "move": 0,
       "description": "",
       "keywords": [KEYWORD_LIST.en.霰射, KEYWORD_LIST.en.近战射击],
+      "throwIndex": "ZHLA-302-T",
       "action": [
         {
           "id": "ZHLA-302_A",
@@ -4082,10 +4098,11 @@ export const gofLeftHand: Part[] = [
         }
       ],
       "projectile": [],
-      "isPD": false
+      "isPD": false,
+      "hasImage":true,
     },
     {
-      "id": "ZHLA-302",
+      "id": "ZHLA-302-T",
       "name": "MR870 Shotgun (D)",
       "type": "leftHand",
       "score": 0,
@@ -4101,7 +4118,8 @@ export const gofLeftHand: Part[] = [
       ],
       "action": [],
       "projectile": [],
-      "isPD": false
+      "isPD": false,
+      "hasImage":false,
     },
     {
       "id": "ZHLA-303",
@@ -4132,7 +4150,8 @@ export const gofLeftHand: Part[] = [
         }
       ],
       "projectile": [],
-      "isPD": false
+      "isPD": false,
+      "hasImage":true,
     },
     {
       "id": "ZHLA-304",
@@ -4147,6 +4166,7 @@ export const gofLeftHand: Part[] = [
       "move": 0,
       "description": "",
       "keywords": [KEYWORD_LIST.en.顺劈, KEYWORD_LIST.en.毁伤],
+      "throwIndex": "ZHLA-304-T",
       "action": [
         {
           "id": "ZHLA-304_A",
@@ -4154,7 +4174,7 @@ export const gofLeftHand: Part[] = [
           "description": "· Cleaving",
           "type": "Melee",
           "size": "s",
-          "range": 1,
+          "range": -1,
           "storage": 0,
           "yellowDice": 5,
           "redDice": 0
@@ -4165,17 +4185,18 @@ export const gofLeftHand: Part[] = [
           "description": "· [Two-Handed] Gains Mutilation.",
           "type": "Melee",
           "size": "l",
-          "range": 1,
+          "range": -1,
           "storage": 0,
           "yellowDice": 2,
           "redDice": 5
         }
       ],
       "projectile": [],
-      "isPD": false
+      "isPD": false,
+      "hasImage":true,
     },
     {
-      "id": "ZHLA-304",
+      "id": "ZHLA-304-T",
       "name": "MH-K1 Heat Heavy Sword (L)(D)",
       "type": "leftHand",
       "score": 0,
@@ -4191,7 +4212,8 @@ export const gofLeftHand: Part[] = [
       ],
       "action": [],
       "projectile": [],
-      "isPD": false
+      "isPD": false,
+      "hasImage":false,
     }
   ]
 
@@ -4209,6 +4231,7 @@ export const gofLeftHand: Part[] = [
       "move": 0,
       "description": "",
       "keywords": [KEYWORD_LIST.en.穿甲X, KEYWORD_LIST.en.双手],
+      "throwIndex": "ZHRA-101-T",
       "action": [
         {
           "id": "ZHRA-101_A",
@@ -4234,10 +4257,11 @@ export const gofLeftHand: Part[] = [
         }
       ],
       "projectile": [],
-      "isPD": false
+      "isPD": false,
+      "hasImage":true,
     },
     {
-      "id": "ZHRA-101",
+      "id": "ZHRA-101-T",
       "name": "MR14 Railgun (D)",
       "type": "rightHand",
       "score": 0,
@@ -4253,7 +4277,8 @@ export const gofLeftHand: Part[] = [
       ],
       "action": [],
       "projectile": [],
-      "isPD": false
+      "isPD": false,
+      "hasImage":false,
     },
     {
       "id": "ZHRA-102",
@@ -4268,6 +4293,7 @@ export const gofLeftHand: Part[] = [
       "move": 0,
       "description": "",
       "keywords": [KEYWORD_LIST.en.穿甲X],
+      "throwIndex": "ZHRA-102-T",
       "action": [
         {
           "id": "ZHRA-102_A",
@@ -4293,10 +4319,11 @@ export const gofLeftHand: Part[] = [
         }
       ],
       "projectile": [],
-      "isPD": false
+      "isPD": false,
+      "hasImage":true,
     },
     {
-      "id": "ZHRA-102",
+      "id": "ZHRA-102-T",
       "name": "MR16 Railgun (D)",
       "type": "rightHand",
       "score": 0,
@@ -4312,7 +4339,8 @@ export const gofLeftHand: Part[] = [
       ],
       "action": [],
       "projectile": [],
-      "isPD": false
+      "isPD": false,
+      "hasImage":false,
     },
     {
       "id": "ZHRA-103",
@@ -4327,6 +4355,7 @@ export const gofLeftHand: Part[] = [
       "move": 0,
       "description": "",
       "keywords": [KEYWORD_LIST.en.冲锋X, KEYWORD_LIST.en.毁伤],
+       "throwIndex": "ZHRA-103-T",
       "action": [
         {
           "id": "ZHRA-103_A",
@@ -4334,7 +4363,7 @@ export const gofLeftHand: Part[] = [
           "description": "· [Offensive Stance] gains Shock Attack 1.",
           "type": "Melee",
           "size": "m",
-          "range": 1,
+          "range": -1,
           "storage": 0,
           "yellowDice": 3,
           "redDice": 3
@@ -4345,17 +4374,18 @@ export const gofLeftHand: Part[] = [
           "description": "· [Two-Handed] Gains Mutilation.",
           "type": "Melee",
           "size": "l",
-          "range": 1,
+          "range": -1,
           "storage": 0,
           "yellowDice": 3,
           "redDice": 4
         }
       ],
       "projectile": [],
-      "isPD": false
+      "isPD": false,
+      "hasImage":true,
     },
     {
-      "id": "ZHRA-103",
+      "id": "ZHRA-103-T",
       "name": "M115 Spear (D)",
       "type": "rightHand",
       "score": 0,
@@ -4371,7 +4401,8 @@ export const gofLeftHand: Part[] = [
       ],
       "action": [],
       "projectile": [],
-      "isPD": false
+      "isPD": false,
+      "hasImage":false,
     },
     {
       "id": "ZHRA-201",
@@ -4386,6 +4417,7 @@ export const gofLeftHand: Part[] = [
       "move": 0,
       "description": "",
       "keywords": [KEYWORD_LIST.en.穿甲X, KEYWORD_LIST.en.指令协调X, KEYWORD_LIST.en.狙击, KEYWORD_LIST.en.毁伤],
+       "throwIndex": "ZHRA-201-T",
       "action": [
         {
           "id": "ZHRA-201_A",
@@ -4411,10 +4443,11 @@ export const gofLeftHand: Part[] = [
         }
       ],
       "projectile": [],
-      "isPD": false
+      "isPD": false,
+      "hasImage":true,
     },
     {
-      "id": "ZHRA-201",
+      "id": "ZHRA-201-T",
       "name": "MR21 Railgun (D)",
       "type": "rightHand",
       "score": 0,
@@ -4442,7 +4475,8 @@ export const gofLeftHand: Part[] = [
         }
       ],
       "projectile": [],
-      "isPD": false
+      "isPD": false,
+      "hasImage":false,
     },
     {
       "id": "ZHRA-202",
@@ -4457,6 +4491,7 @@ export const gofLeftHand: Part[] = [
       "move": 0,
       "description": "",
       "keywords": [KEYWORD_LIST.en.穿甲X, KEYWORD_LIST.en.静默, KEYWORD_LIST.en.指令协调X, KEYWORD_LIST.en.狙击, KEYWORD_LIST.en.毁伤],
+       "throwIndex": "ZHRA-202-T",
       "action": [
         {
           "id": "ZHRA-202_A",
@@ -4482,10 +4517,11 @@ export const gofLeftHand: Part[] = [
         }
       ],
       "projectile": [],
-      "isPD": false
+      "isPD": false,
+      "hasImage":true,
     },
     {
-      "id": "ZHRA-202",
+      "id": "ZHRA-202-T",
       "name": "MR24 Railigun (D)",
       "type": "rightHand",
       "score": 0,
@@ -4513,7 +4549,8 @@ export const gofLeftHand: Part[] = [
         }
       ],
       "projectile": [],
-      "isPD": false
+      "isPD": false,
+      "hasImage":false,
     },
     {
       "id": "ZHRA-301",
@@ -4528,6 +4565,7 @@ export const gofLeftHand: Part[] = [
       "move": 0,
       "description": "",
       "keywords": [KEYWORD_LIST.en.冲锋X, KEYWORD_LIST.en.近战射击],
+       "throwIndex": "ZHRA-301-T",
       "action": [
         {
           "id": "ZHRA-301_A",
@@ -4535,7 +4573,7 @@ export const gofLeftHand: Part[] = [
           "description": "· [Offensive Stance] gains Shock Attack 1.",
           "type": "Melee",
           "size": "m",
-          "range": 1,
+          "range": -1,
           "storage": 0,
           "yellowDice": 0,
           "redDice": 5
@@ -4553,10 +4591,11 @@ export const gofLeftHand: Part[] = [
         }
       ],
       "projectile": [],
-      "isPD": false
+      "isPD": false,
+      "hasImage":true,
     },
     {
-      "id": "ZHRA-301",
+      "id": "ZHRA-301-T",
       "name": "M100 Lance (D)",
       "type": "rightHand",
       "score": 0,
@@ -4572,7 +4611,8 @@ export const gofLeftHand: Part[] = [
       ],
       "action": [],
       "projectile": [],
-      "isPD": false
+      "isPD": false,
+      "hasImage":false,
     },
     {
       "id": "ZHRA-303",
@@ -4587,6 +4627,7 @@ export const gofLeftHand: Part[] = [
       "move": 0,
       "description": "",
       "keywords": [KEYWORD_LIST.en.冲锋X, KEYWORD_LIST.en.拖拽, KEYWORD_LIST.en.压制, KEYWORD_LIST.en.毁伤],
+      "throwIndex": "ZHRA-303-T",
       "action": [
         {
           "id": "ZHRA-303_A",
@@ -4594,7 +4635,7 @@ export const gofLeftHand: Part[] = [
           "description": "· [Offensive Stance] gains Shock Attack 1.\n· [On Hit] Causes Drag.",
           "type": "Melee",
           "size": "m",
-          "range": 1,
+          "range": -1,
           "storage": 0,
           "yellowDice": 3,
           "redDice": 3
@@ -4605,17 +4646,18 @@ export const gofLeftHand: Part[] = [
           "description": "· [Two-Handed] Gains Suppression and Mutilation.",
           "type": "Melee",
           "size": "l",
-          "range": 1,
+          "range": -1,
           "storage": 0,
           "yellowDice": 4,
           "redDice": 3
         }
       ],
       "projectile": [],
-      "isPD": false
+      "isPD": false,
+      "hasImage":true,
     },
     {
-      "id": "ZHRA-303",
+      "id": "ZHRA-303-T",
       "name": "M105 Halberd (D)",
       "type": "rightHand",
       "score": 0,
@@ -4631,7 +4673,8 @@ export const gofLeftHand: Part[] = [
       ],
       "action": [],
       "projectile": [],
-      "isPD": false
+      "isPD": false,
+      "hasImage":false,
     },
     {
       "id": "ZHRA-304",
@@ -4646,6 +4689,7 @@ export const gofLeftHand: Part[] = [
       "move": 0,
       "description": "",
       "keywords": [KEYWORD_LIST.en.顺劈, KEYWORD_LIST.en.毁伤],
+      "throwIndex": "ZHRA-304-T",
       "action": [
         {
           "id": "ZHRA-304_A",
@@ -4653,7 +4697,7 @@ export const gofLeftHand: Part[] = [
           "description": "· Cleaving",
           "type": "Melee",
           "size": "s",
-          "range": 1,
+          "range": -1,
           "storage": 0,
           "yellowDice": 5,
           "redDice": 0
@@ -4664,17 +4708,18 @@ export const gofLeftHand: Part[] = [
           "description": "· [Two-Handed] Gains Mutilation.",
           "type": "Melee",
           "size": "l",
-          "range": 1,
+          "range": -1,
           "storage": 0,
           "yellowDice": 2,
           "redDice": 5
         }
       ],
       "projectile": [],
-      "isPD": false
+      "isPD": false,
+      "hasImage":true,
     },
     {
-      "id": "ZHRA-304",
+      "id": "ZHRA-304-T",
       "name": "MH-K1 Heat Heavy Sword (R)(D)",
       "type": "rightHand",
       "score": 0,
@@ -4690,7 +4735,8 @@ export const gofLeftHand: Part[] = [
       ],
       "action": [],
       "projectile": [],
-      "isPD": false
+      "isPD": false,
+      "hasImage":false,
     }
   ]
 
@@ -4733,7 +4779,8 @@ export const gofLeftHand: Part[] = [
         }
       ],
       "projectile": [],
-      "isPD": false
+      "isPD": false,
+      "hasImage":true,
     },
     {
       "id": "ZYBP-102",
@@ -4908,7 +4955,7 @@ export const gofLeftHand: Part[] = [
 
   export const gofPilots: Pilot[] = [
     {
-      "id": "35",
+      "id": "ZPA-35",
       "name": "Chef",
       "score": 15,
       "LV": 4,
@@ -4923,7 +4970,7 @@ export const gofLeftHand: Part[] = [
       "traitDescription": "· When performing Melee Actions, may consume 1 Command Token to exchange {Eye} for {Heavy Hit}."
     },
     {
-      "id": "36",
+      "id": "ZPA-36",
       "name": "Aster",
       "score": 12,
       "LV": 4,
@@ -4938,7 +4985,7 @@ export const gofLeftHand: Part[] = [
       "traitDescription": "· Once per round, during the Command Phase, may consume 1 Cmmand Token to restore 1 Link to an Ally mech."
     },
     {
-      "id": "37",
+      "id": "ZPA-37",
       "name": "Foxhund",
       "score": 15,
       "LV": 4,
@@ -4953,7 +5000,7 @@ export const gofLeftHand: Part[] = [
       "traitDescription": "· If there are 2 or more Ally Drones that have line of sight to the target, Firing Actions of this Mech ignore Low Profile."
     },
     {
-      "id": "38",
+      "id": "ZPA-38",
       "name": "Firewatch",
       "score": 15,
       "LV": 4,
@@ -4968,7 +5015,7 @@ export const gofLeftHand: Part[] = [
       "traitDescription": "· When performing Electronic Counter Rolls, may consume 1 Link to exchange {Eye} for {Lightning}."
     },
     {
-      "id": "39",
+      "id": "ZPA-39",
       "name": "Cadaver",
       "score": 18,
       "LV": 4,
@@ -4983,7 +5030,7 @@ export const gofLeftHand: Part[] = [
       "traitDescription": "· When this Mech has less than 4 Parts, this Mech's Focus re-roll does not consume Link."
     },
     {
-      "id": "40",
+      "id": "ZPA-40",
       "name": "Shrike",
       "score": 12,
       "LV": 4,
@@ -4998,7 +5045,7 @@ export const gofLeftHand: Part[] = [
       "traitDescription": "· [Offensive Stance] When this Mech Destroys enemy Parts with Melee Actions, restore 1 Link."
     },
     {
-      "id": "43",
+      "id": "ZPA-43",
       "name": "Ranger-1",
       "score": 4,
       "LV": 4,
@@ -5013,7 +5060,7 @@ export const gofLeftHand: Part[] = [
       "traitDescription": "Trainee Ranger from 525 Squadron."
     },
     {
-      "id": "44",
+      "id": "ZPA-44",
       "name": "Ranger-2",
       "score": 4,
       "LV": 4,
@@ -5028,7 +5075,7 @@ export const gofLeftHand: Part[] = [
       "traitDescription": "Trainee Ranger from 525 Squadron."
     },
     {
-      "id": "45",
+      "id": "ZPA-45",
       "name": "Ranger-3",
       "score": 4,
       "LV": 4,
@@ -5043,7 +5090,7 @@ export const gofLeftHand: Part[] = [
       "traitDescription": "Trainee Ranger from 525 Squadron."
     },
     {
-      "id": "46",
+      "id": "ZPA-46",
       "name": "Grenadier-1",
       "score": 4,
       "LV": 4,
@@ -5058,7 +5105,7 @@ export const gofLeftHand: Part[] = [
       "traitDescription": "Trainee Grenadiers from 525 Squadron."
     },
     {
-      "id": "47",
+      "id": "ZPA-47",
       "name": "Grenadier-2",
       "score": 4,
       "LV": 4,
@@ -5073,7 +5120,7 @@ export const gofLeftHand: Part[] = [
       "traitDescription": "Trainee Grenadiers from 525 Squadron."
     },
     {
-      "id": "48",
+      "id": "ZPA-48",
       "name": "Grenadier-3",
       "score": 4,
       "LV": 4,
@@ -5088,7 +5135,7 @@ export const gofLeftHand: Part[] = [
       "traitDescription": "Trainee Grenadiers from 525 Squadron."
     },
     {
-      "id": "48",
+      "id": "ZPA-49",
       "name": "Grenadier-4",
       "score": 4,
       "LV": 4,
@@ -5114,6 +5161,7 @@ export const gofProjectiles: Projectile[]=[
       "dodge": 3,
       "electronic": 2,
       "stance": "mobility",
+      "hasImage": true,
       "keywords": [
         {
           "name": "Projectile"
@@ -5145,6 +5193,7 @@ export const gofProjectiles: Projectile[]=[
       "dodge": 6,
       "electronic": 1,
       "stance": "mobility",
+      "hasImage": true,
       "keywords": [
         {
           "name": "Projectile"
@@ -5176,6 +5225,7 @@ export const gofProjectiles: Projectile[]=[
       "dodge": 2,
       "electronic": 1,
       "stance": "mobility",
+      "hasImage": true,
       "keywords": [
         {
           "name": "Projectile"
@@ -5191,7 +5241,7 @@ export const gofProjectiles: Projectile[]=[
           "description": "· Target 1 Enemy Unit within range, Fly into target grid and undergo Detonation.\n· Prioritize Enemy Mechs as target.\n· On Detonation, cause Explosion damage to target.\n· Mutilation",
           "type": "Projectile",
           "speed": "passive",
-          "range": 1,
+          "range": -1,
           "storage": 0,
           "yellowDice": 0,
           "redDice": 3
@@ -5207,6 +5257,7 @@ export const gofProjectiles: Projectile[]=[
       "dodge": 2,
       "electronic": 0,
       "stance": "mobility",
+      "hasImage": true,
       "keywords": [
         {
           "name": "Projectile"
@@ -5222,7 +5273,7 @@ export const gofProjectiles: Projectile[]=[
           "description": "· Undergo Detonation at current grid.\n· On Detonation, cause Explosion damage to all units wihin range.",
           "type": "Projectile",
           "speed": "passive",
-          "range": 1,
+          "range": -1,
           "storage": 0,
           "yellowDice": 3,
           "redDice": 0
@@ -5249,6 +5300,7 @@ export const gofProjectiles: Projectile[]=[
         "ZHAM-002"
       ],
       "isPD": false,
+      "hasImage":true,
       "keywords": [KEYWORD_LIST.en.齐射X, KEYWORD_LIST.en.曲射],
       "actions": [
         {
@@ -5257,7 +5309,7 @@ export const gofProjectiles: Projectile[]=[
           "description": "· [On hit], target gains 1 Fragile Token.",
           "type": "Melee",
           "speed": "auto",
-          "range": 1,
+          "range": -1,
           "storage": 0,
           "yellowDice": 5,
           "redDice": 0
@@ -5290,6 +5342,7 @@ export const gofProjectiles: Projectile[]=[
       "description": "",
       "projectile": [],
       "isPD": false,
+      "hasImage":true,
       "keywords": [KEYWORD_LIST.en.光环],
       "actions": [
         {
@@ -5298,7 +5351,7 @@ export const gofProjectiles: Projectile[]=[
           "description": "· [On hit], target gains 1 Fragile Token.",
           "type": "Melee",
           "speed": "auto",
-          "range": 1,
+          "range": -1,
           "storage": 0,
           "yellowDice": 5,
           "redDice": 0
@@ -5331,6 +5384,7 @@ export const gofProjectiles: Projectile[]=[
       "description": "",
       "projectile": [],
       "isPD": false,
+      "hasImage":true,
       "keywords": [KEYWORD_LIST.en.空中移动],
       "actions": [
         {
@@ -5339,7 +5393,7 @@ export const gofProjectiles: Projectile[]=[
           "description": "· [On hit], target gains 1 Fragile Token.",
           "type": "Melee",
           "speed": "auto",
-          "range": 1,
+          "range": -1,
           "storage": 0,
           "yellowDice": 5,
           "redDice": 0
@@ -5372,6 +5426,7 @@ export const gofProjectiles: Projectile[]=[
       "description": "",
       "projectile": [],
       "isPD": false,
+      "hasImage":true,
       "keywords": [KEYWORD_LIST.en.全向射击, KEYWORD_LIST.en.近战射击, KEYWORD_LIST.en.光环],
       "actions": [
         {
@@ -5413,6 +5468,7 @@ export const gofProjectiles: Projectile[]=[
       "description": "",
       "projectile": [],
       "isPD": false,
+      "hasImage":true,
      "keywords": [KEYWORD_LIST.en.全向射击, KEYWORD_LIST.en.近战射击],
       "actions": [
         {
@@ -5454,6 +5510,7 @@ export const gofProjectiles: Projectile[]=[
       "description": "",
       "projectile": [],
       "isPD": false,
+      "hasImage":true,
       "keywords": [KEYWORD_LIST.en.自动盾牌],
       "actions": [
         {
@@ -5484,6 +5541,7 @@ export const gofProjectiles: Projectile[]=[
       "description": "",
       "projectile": [],
       "isPD": false,
+      "hasImage":true,
       "keywords": [KEYWORD_LIST.en.拦截X, KEYWORD_LIST.en.全向射击, KEYWORD_LIST.en.近战射击],
       "actions": [
         {
@@ -5514,6 +5572,7 @@ export const gofProjectiles: Projectile[]=[
       "description": "",
       "projectile": [],
       "isPD": false,
+      "hasImage":true,
       "keywords": [KEYWORD_LIST.en.全向射击, KEYWORD_LIST.en.近战射击],
       "actions": [
         {
@@ -5546,6 +5605,7 @@ export const gofProjectiles: Projectile[]=[
         "ZHAM-001A"
       ],
       "isPD": false,
+      "hasImage":true,
       "keywords": [KEYWORD_LIST.en.曲射],
       "actions": [
         {
@@ -5578,6 +5638,7 @@ export const gofProjectiles: Projectile[]=[
         "ZHAM-001A"
       ],
       "isPD": false,
+      "hasImage":true,
       "keywords": [KEYWORD_LIST.en.穿甲X, KEYWORD_LIST.en.近战射击, KEYWORD_LIST.en.曲射],
       "actions": [
         {
@@ -5619,6 +5680,7 @@ export const gofProjectiles: Projectile[]=[
       "description": "",
       "projectile": [],
       "isPD": false,
+      "hasImage":true,
       "keywords": [KEYWORD_LIST.en.压制],
       "actions": [
         {
@@ -5649,6 +5711,7 @@ export const gofProjectiles: Projectile[]=[
       "description": "",
       "projectile": [],
       "isPD": false,
+      "hasImage":true,
       "keywords": [KEYWORD_LIST.en.霰射, KEYWORD_LIST.en.近战射击, KEYWORD_LIST.en.击退X, KEYWORD_LIST.en.自动盾牌],
       "actions": [
         {
@@ -5690,6 +5753,7 @@ export const gofProjectiles: Projectile[]=[
       "description": "",
       "projectile": [],
       "isPD": false,
+      "hasImage":true,
       "keywords": [KEYWORD_LIST.en.禁足],
       "actions": [
         {
@@ -5698,7 +5762,7 @@ export const gofProjectiles: Projectile[]=[
           "description": "· [On Hit] target gains 1 Immobilized Token.",
           "type": "Melee",
           "speed": "command",
-          "range": 1,
+          "range": -1,
           "storage": 0,
           "yellowDice": 5,
           "redDice": 0
@@ -5731,6 +5795,7 @@ export const gofProjectiles: Projectile[]=[
       "description": "",
       "projectile": [],
       "isPD": false,
+      "hasImage":true,
       "keywords": [KEYWORD_LIST.en.低特征],
       "actions": [
         {
@@ -5761,6 +5826,7 @@ export const gofProjectiles: Projectile[]=[
       "description": "",
       "projectile": [],
       "isPD": false,
+      "hasImage":true,
       "keywords": [KEYWORD_LIST.en.电子攻击],
       "actions": [
         {
@@ -5791,6 +5857,7 @@ export const gofProjectiles: Projectile[]=[
       "description": "",
       "projectile": [],
       "isPD": false,
+      "hasImage":true,
       "keywords": [KEYWORD_LIST.en.静默, KEYWORD_LIST.en.电子支援],
       "actions": [
         {
@@ -5832,6 +5899,7 @@ export const gofProjectiles: Projectile[]=[
       "description": "",
       "projectile": [],
       "isPD": false,
+      "hasImage":true,
       "keywords": [KEYWORD_LIST.en.全向射击],
       "actions": [
         {
@@ -5872,6 +5940,7 @@ export const gofTorso: Part[] = [
       "dodge": 0,
       "electronic": 3,
       "move": 0,
+      "hasImage":true,
       "description": "·Command Generation X：This Unit generates X Command Tokens in the Command Phase.\n·Command Coordination X: After performing this Action, this Mech may issue 1 Command Token to X Ally Drones.",
       "keywords": [KEYWORD_LIST.en.指令生成X, KEYWORD_LIST.en.指令协调X],
       "action": [
@@ -5912,6 +5981,7 @@ export const gofTorso: Part[] = [
       "dodge": 0,
       "electronic": 3,
       "move": 0,
+      "hasImage":true,
       "description": "·Command Generation X：This Unit generates X Command Tokens in the Command Phase.",
       "keywords": [KEYWORD_LIST.en.指令生成X, KEYWORD_LIST.en.光环],
       "action": [
@@ -5952,6 +6022,7 @@ export const gofTorso: Part[] = [
       "dodge": 0,
       "electronic": 4,
       "move": 0,
+      "hasImage":true,
       "description": "·Command Generation X：At the beginning of each Command Phase, this Unit automatically generates X Command Tokens rather than 1.",
        "keywords": [KEYWORD_LIST.en.指令生成X],
       "action": [
@@ -5992,6 +6063,7 @@ export const gofTorso: Part[] = [
       "dodge": 0,
       "electronic": 2,
       "move": 0,
+      "hasImage":true,
       "description": "·Command Generation X：At the beginning of each Command Phase, this Unit automatically generates X Command Tokens rather than 1.",
       "keywords": [KEYWORD_LIST.en.指令生成X],
       "action": [
@@ -6032,6 +6104,7 @@ export const gofTorso: Part[] = [
       "dodge": 0,
       "electronic": 2,
       "move": 0,
+      "hasImage":true,
       "description": "·Command Generation X：At the beginning of each Command Phase, this Unit automatically generates X Command Tokens rather than 1.",
       "keywords": [KEYWORD_LIST.en.指令生成X],
       "action": [
@@ -6063,4 +6136,504 @@ export const gofTorso: Part[] = [
     }
   ]
 
+export const rdlProjectiles: Projectile[] = [
+  {
+    "id": "70",
+    "name": "GA-3 高爆榴弹",
+    "armor": 0,
+    "structure": 0,
+    "parray": 0,
+    "dodge": 4,
+    "electronic": 0,
+    "stance": "mobility",
+    "keywords": [
+      {
+        "name": "抛射物"
+      },
+      {
+        "name": "榴弹"
+      }
+    ],
+    "actions": [
+      {
+        "id": "70_A",
+        "name": "延时引爆",
+        "description": "· 在当前位置引爆。\n· 引爆时，对相邻的所有单位造成爆炸伤害。",
+        "type": "Tactic",
+        "speed": "passive",
+        "range": 0,
+        "storage": 0,
+        "yellowDice": 3,
+        "redDice": 0
+      }
+    ]
+  },
+  {
+    "id": "71",
+    "name": "MC-3 “利剑”导弹",
+    "armor": 0,
+    "structure": 0,
+    "parray": 0,
+    "dodge": 6,
+    "electronic": 1,
+    "stance": "mobility",
+    "keywords": [
+      {
+        "name": "抛射物"
+      },
+      {
+        "name": "导弹"
+      }
+    ],
+    "actions": [
+      {
+        "id": "71_A",
+        "name": "制导攻击",
+        "description": "· 以范围内1个敌方单位为目标，飞行进入目标格并引爆。\n· 引爆时，对目标造成爆炸伤害。",
+        "type": "Tactic",
+        "speed": "passive",
+        "range": 3,
+        "storage": 0,
+        "yellowDice": 1,
+        "redDice": 3
+      }
+    ]
+  },
+  {
+    "id": "72",
+    "name": "MES信标",
+    "armor": 1,
+    "structure": 0,
+    "parray": 0,
+    "dodge": 0,
+    "electronic": 1,
+    "stance": "mobility",
+    "keywords": [
+      {
+        "name": "设置物"
+      },
+      {
+        "name": "信标"
+      }
+    ],
+    "actions": [
+      {
+        "id": "72_A",
+        "name": "诱饵",
+        "description": "· 光环\n· 范围内的友军单位获得低特征。",
+        "type": "Passive",
+        "speed": "passive",
+        "range": -1,
+        "storage": 0,
+        "yellowDice": 0,
+        "redDice": 0
+      }
+    ]
+  },
+  {
+    "id": "73",
+    "name": "MR-9 “猎鹰”导弹",
+    "armor": 0,
+    "structure": 0,
+    "parray": 0,
+    "dodge": 4,
+    "electronic": 1,
+    "stance": "mobility",
+    "keywords": [
+      {
+        "name": "抛射物"
+      },
+      {
+        "name": "导弹"
+      }
+    ],
+    "actions": [
+      {
+        "id": "73_A",
+        "name": "制导攻击",
+        "description": "· 以范围内1个敌方单位为目标，飞行进入目标格并引爆。\n· 引爆时，对目标造成爆炸伤害。",
+        "type": "Tactic",
+        "speed": "passive",
+        "range": 6,
+        "storage": 0,
+        "yellowDice": 3,
+        "redDice": 0
+      }
+    ]
+  },
+  {
+    "id": "74",
+    "name": "GM-35 反装甲地雷",
+    "armor": 2,
+    "structure": 0,
+    "parray": 0,
+    "dodge": 0,
+    "electronic": 0,
+    "stance": "mobility",
+    "keywords": [
+      {
+        "name": "设置物"
+      },
+      {
+        "name": "地雷"
+      }
+    ],
+    "actions": [
+      {
+        "id": "74_A",
+        "name": "触发",
+        "description": "· 地面单位进入地雷所在格时，无需碾压，但总会引爆地雷。\n· 引爆时，对格内所有地面单位造成爆炸伤害。",
+        "type": "Passive",
+        "speed": "passive",
+        "range": 0,
+        "storage": 0,
+        "yellowDice": 1,
+        "redDice": 3
+      }
+    ]
+  },
+  {
+    "id": "75",
+    "name": "B3/1 链接信标",
+    "armor": 2,
+    "structure": 0,
+    "parray": 0,
+    "dodge": 0,
+    "electronic": 3,
+    "stance": "mobility",
+    "keywords": [
+      {
+        "name": "设置物"
+      },
+      {
+        "name": "信标"
+      }
+    ],
+    "actions": [
+      {
+        "id": "75_A",
+        "name": "链接支援",
+        "description": "· 范围内的所有友军机甲，恢复1链接值。",
+        "type": "Tactic",
+        "speed": "passive",
+        "range": 3,
+        "storage": 0,
+        "yellowDice": 0,
+        "redDice": 0
+      }
+    ]
+  },
+  {
+    "id": "76",
+    "name": "B3/2 诱饵信标",
+    "armor": 2,
+    "structure": 2,
+    "parray": 0,
+    "dodge": 0,
+    "electronic": 3,
+    "stance": "mobility",
+    "keywords": [
+      {
+        "name": "设置物"
+      },
+      {
+        "name": "信标"
+      }
+    ],
+    "actions": [
+      {
+        "id": "76_A",
+        "name": "诱饵",
+        "description": "·本信标为高亮目标。",
+        "type": "Passive",
+        "speed": "passive",
+        "range": 0,
+        "storage": 0,
+        "yellowDice": 0,
+        "redDice": 0
+      }
+    ]
+  },
+  {
+    "id": "77",
+    "name": "B3/3 战术信标",
+    "armor": 2,
+    "structure": 0,
+    "parray": 0,
+    "dodge": 0,
+    "electronic": 3,
+    "stance": "mobility",
+    "keywords": [
+      {
+        "name": "设置物"
+      },
+      {
+        "name": "信标"
+      }
+    ],
+    "actions": [
+      {
+        "id": "77_A",
+        "name": "辅助计算",
+        "description": "·光环\n·范围内的友军机甲所有动作获得灵活时机。",
+        "type": "Passive",
+        "speed": "passive",
+        "range": 3,
+        "storage": 0,
+        "yellowDice": 0,
+        "redDice": 0
+      }
+    ]
+  },
+  {
+    "id": "267",
+    "name": "RA-81火箭弹",
+    "armor": 0,
+    "structure": 0,
+    "parray": 0,
+    "dodge": 4,
+    "electronic": 0,
+    "stance": "mobility",
+    "keywords": [
+      {
+        "name": "抛射物"
+      },
+      {
+        "name": "火箭"
+      }
+    ],
+    "actions": [
+      {
+        "id": "267_A",
+        "name": "多级串联战斗部",
+        "description": "· 以落点格的1个敌方单位为目标，立即引爆。\n· 引爆时，对目标造成爆炸伤害。",
+        "type": "Tactic",
+        "speed": "passive",
+        "range": 0,
+        "storage": 0,
+        "yellowDice": 0,
+        "redDice": 3
+      }
+    ]
+  },
+  {
+    "id": "268",
+    "name": "GS-2 烟幕弹",
+    "armor": 0,
+    "structure": 0,
+    "parray": 0,
+    "dodge": 4,
+    "electronic": 0,
+    "stance": "mobility",
+    "keywords": [
+      {
+        "name": "抛射物"
+      },
+      {
+        "name": "烟幕弹"
+      }
+    ],
+    "actions": [
+      {
+        "id": "268_A",
+        "name": "发烟",
+        "description": "· 立即引爆。\n· 引爆时，以所在格为起点，相连放置最多3烟幕。",
+        "type": "Tactic",
+        "speed": "passive",
+        "range": 0,
+        "storage": 0,
+        "yellowDice": 0,
+        "redDice": 0
+      }
+    ]
+  },
+  {
+    "id": "521",
+    "name": "MR-10 “红隼”导弹",
+    "armor": 0,
+    "structure": 0,
+    "parray": 0,
+    "dodge": 4,
+    "electronic": 1,
+    "stance": "mobility",
+    "keywords": [
+      {
+        "name": "抛射物"
+      },
+      {
+        "name": "导弹"
+      }
+    ],
+    "actions": [
+      {
+        "id": "521_A",
+        "name": "制导攻击",
+        "description": "· 以范围内1个敌方单位为目标，飞行进入目标格并引爆。\n· 引爆时，对目标造成爆炸伤害。",
+        "type": "Tactic",
+        "speed": "passive",
+        "range": 6,
+        "storage": 0,
+        "yellowDice": 0,
+        "redDice": 2
+      }
+    ]
+  }
+]
 
+export const unProjectiles: Projectile[] = [
+  {
+    "id": "154",
+    "name": "M7手雷",
+    "armor": 0,
+    "structure": 0,
+    "parray": 0,
+    "dodge": 2,
+    "electronic": 0,
+    "stance": "mobility",
+    "keywords": [
+      {
+        "name": "抛射物"
+      },
+      {
+        "name": "榴弹"
+      }
+    ],
+    "actions": [
+      {
+        "id": "154_A",
+        "name": "引爆",
+        "description": "· 立即引爆。\n· 引爆时，对所在格的所有单位造成爆炸伤害。",
+        "type": "Tactic",
+        "speed": "passive",
+        "range": 0,
+        "storage": 0,
+        "yellowDice": 3,
+        "redDice": 1
+      }
+    ]
+  },
+  {
+    "id": "155",
+    "name": "M9闪光弹",
+    "armor": 0,
+    "structure": 0,
+    "parray": 0,
+    "dodge": 2,
+    "electronic": 0,
+    "stance": "mobility",
+    "keywords": [
+      {
+        "name": "抛射物"
+      },
+      {
+        "name": "榴弹"
+      }
+    ],
+    "actions": [
+      {
+        "id": "155_A",
+        "name": "引爆",
+        "description": "· 立即引爆。\n· 引爆时，范围内所有对本单位有视线的单位均获得1枚火控干扰标记。",
+        "type": "Tactic",
+        "speed": "passive",
+        "range": -1,
+        "storage": 0,
+        "yellowDice": 0,
+        "redDice": 0
+      }
+    ]
+  },
+  {
+    "id": "156",
+    "name": "SGM2“幽灵蛛”自行地雷",
+    "armor": 0,
+    "structure": 0,
+    "parray": 0,
+    "dodge": 2,
+    "electronic": 2,
+    "stance": "mobility",
+    "keywords": [
+      {
+        "name": "抛射物"
+      },
+      {
+        "name": "自行地雷"
+      }
+    ],
+    "actions": [
+      {
+        "id": "156_A",
+        "name": "展开",
+        "description": "· 将本单位替换为SGM2“幽灵蛛”自行地雷(展开）。\n· 替换后，如果所在格被占据，直接引爆。",
+        "type": "Tactic",
+        "speed": "passive",
+        "range": 0,
+        "storage": 0,
+        "yellowDice": 0,
+        "redDice": 0
+      }
+    ]
+  },
+  {
+    "id": "157",
+    "name": "RKG70导弹组",
+    "armor": 0,
+    "structure": 0,
+    "parray": 0,
+    "dodge": 3,
+    "electronic": 1,
+    "stance": "mobility",
+    "keywords": [
+      {
+        "name": "抛射物"
+      },
+      {
+        "name": "导弹"
+      }
+    ],
+    "actions": [
+      {
+        "id": "157_A",
+        "name": "制导攻击",
+        "description": "· 以范围内1个敌方单位为目标，飞行进入目标格并引爆。\n· 引爆时，对目标造成爆炸伤害。\n· 导弹组3",
+        "type": "Tactic",
+        "speed": "passive",
+        "range": 2,
+        "storage": 0,
+        "yellowDice": 1,
+        "redDice": 2
+      }
+    ]
+  },
+  {
+    "id": "158",
+    "name": "DBP“龟壳”机动掩体",
+    "armor": 5,
+    "structure": 0,
+    "parray": 0,
+    "dodge": 0,
+    "electronic": 0,
+    "stance": "defensive",
+    "keywords": [
+      {
+        "name": "设置物"
+      },
+      {
+        "name": "机动掩体"
+      }
+    ],
+    "actions": [
+      {
+        "id": "158_A",
+        "name": "机动掩体",
+        "description": "· 机动掩体\n· 此单位不可被碾压。",
+        "type": "Passive",
+        "speed": "passive",
+        "range": 0,
+        "storage": 0,
+        "yellowDice": 0,
+        "redDice": 0
+      }
+    ]
+  }
+];

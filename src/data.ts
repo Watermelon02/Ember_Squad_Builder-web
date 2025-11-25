@@ -4,7 +4,7 @@ import { KEYWORD_LIST } from './keyword';
 
 export const gofPilots: Pilot[] = [
   {
-    "id": "35",
+    "id": "ZPA-35",
     "name": "大厨",
     "score": 15,
     "LV": 4,
@@ -16,11 +16,11 @@ export const gofPilots: Pilot[] = [
     "moving": 6,
     "tactic": 7,
     "trait": "CQC",
-    "hasImage": true,
-    "traitDescription": "· 执行近战动作时，可以消耗1枚指令标记，将{眼睛}视为{重击}"
+    "traitDescription": "· 执行近战动作时，可以消耗1枚指令标记，将{眼睛}视为{重击}",
+    
   },
   {
-    "id": "36",
+    "id": "ZPA-36",
     "name": "紫苑",
     "score": 12,
     "LV": 4,
@@ -32,11 +32,10 @@ export const gofPilots: Pilot[] = [
     "moving": 3,
     "tactic": 4,
     "trait": "调整",
-    "hasImage": true,
     "traitDescription": "· 每回合1次，指令阶段可以消耗1枚指令标记，为1台友军机甲恢复1点链接值。"
   },
   {
-    "id": "37",
+    "id": "ZPA-37",
     "name": "猎狐犬",
     "score": 15,
     "LV": 4,
@@ -48,11 +47,10 @@ export const gofPilots: Pilot[] = [
     "moving": 5,
     "tactic": 5,
     "trait": "寻踪",
-    "hasImage": true,
     "traitDescription": "· 如果有2台以上的己方无人机对目标有视线，本机在射击时无视低特征。"
   },
   {
-    "id": "38",
+    "id": "ZPA-38",
     "name": "护林员",
     "score": 15,
     "LV": 4,
@@ -64,11 +62,10 @@ export const gofPilots: Pilot[] = [
     "moving": 7,
     "tactic": 3,
     "trait": "湿件优势",
-    "hasImage": true,
     "traitDescription": "· 执行电子对抗投骰时，可消耗1点链接值，将{眼睛}视为{闪电}。"
   },
   {
-    "id": "39",
+    "id": "ZPA-39",
     "name": "丧尸",
     "score": 18,
     "LV": 4,
@@ -80,11 +77,10 @@ export const gofPilots: Pilot[] = [
     "moving": 4,
     "tactic": 7,
     "trait": "求生意志",
-    "hasImage": true,
     "traitDescription": "· 本机部件少于4时，本机的专注重投不消耗链接值。"
   },
   {
-    "id": "40",
+    "id": "ZPA-40",
     "name": "伯劳",
     "score": 12,
     "LV": 4,
@@ -96,7 +92,6 @@ export const gofPilots: Pilot[] = [
     "moving": 4,
     "tactic": 4,
     "trait": "欢愉",
-    "hasImage": true,
     "traitDescription": "· [攻击姿态]以近战动作摧毁敌军部件时，恢复1点链接值。"
   },
   {
@@ -112,11 +107,10 @@ export const gofPilots: Pilot[] = [
     "moving": 6,
     "tactic": 8,
     "trait": "",
-    "hasImage": true,
     "traitDescription": "525中队的实习游骑兵。"
   },
   {
-    "id": "44",
+    "id": "ZPA-44",
     "name": "游骑兵2",
     "score": 4,
     "LV": 4,
@@ -128,11 +122,10 @@ export const gofPilots: Pilot[] = [
     "moving": 6,
     "tactic": 8,
     "trait": "",
-    "hasImage": true,
     "traitDescription": "525中队的实习游骑兵。"
   },
   {
-    "id": "45",
+    "id": "ZPA-45",
     "name": "游骑兵3",
     "score": 4,
     "LV": 4,
@@ -144,7 +137,6 @@ export const gofPilots: Pilot[] = [
     "moving": 6,
     "tactic": 8,
     "trait": "",
-    "hasImage": true,
     "traitDescription": "525中队的实习游骑兵。"
   },
   {
@@ -160,11 +152,10 @@ export const gofPilots: Pilot[] = [
     "moving": 3,
     "tactic": 2,
     "trait": "",
-    "hasImage": true,
     "traitDescription": "525中队的实习掷弹兵。"
   },
   {
-    "id": "47",
+    "id": "ZPA-47",
     "name": "掷弹兵2",
     "score": 4,
     "LV": 4,
@@ -176,11 +167,10 @@ export const gofPilots: Pilot[] = [
     "moving": 3,
     "tactic": 2,
     "trait": "",
-    "hasImage": true,
     "traitDescription": "525中队的实习掷弹兵。"
   },
   {
-    "id": "48",
+    "id": "ZPA-48",
     "name": "掷弹兵3",
     "score": 4,
     "LV": 4,
@@ -192,11 +182,10 @@ export const gofPilots: Pilot[] = [
     "moving": 3,
     "tactic": 2,
     "trait": "",
-    "hasImage": true,
     "traitDescription": "525中队的实习掷弹兵。"
   },
   {
-    "id": "48",
+    "id": "ZPA-49",
     "name": "掷弹兵4",
     "score": 4,
     "LV": 4,
@@ -208,7 +197,6 @@ export const gofPilots: Pilot[] = [
     "moving": 3,
     "tactic": 2,
     "trait": "",
-    "hasImage": true,
     "traitDescription": "525中队的实习掷弹兵。"
   }
 ];
@@ -318,7 +306,7 @@ export const rdlPilots: Pilot[] = [
   {
     "id": "FPA-04-2",
     "name": "锤头鲨-04 内务能手",
-    "score": 0,
+    "score": 18,
     "LV": 4,
     "faction": "RDL",
     "swift": 4,
@@ -874,7 +862,7 @@ export const gofDrones: Drone[] = [
         "description": "· [命中] 目标获得1枚脆弱标记",
         "type": "Melee",
         "speed": "auto",
-        "range": 1,
+        "range": -1,
         "storage": 0,
         "yellowDice": 5,
         "redDice": 0
@@ -916,7 +904,7 @@ export const gofDrones: Drone[] = [
         "description": "· [命中] 目标获得1枚脆弱标记",
         "type": "Melee",
         "speed": "auto",
-        "range": 1,
+        "range": -1,
         "storage": 0,
         "yellowDice": 5,
         "redDice": 0
@@ -958,7 +946,7 @@ export const gofDrones: Drone[] = [
         "description": "· [命中] 目标获得1枚脆弱标记",
         "type": "Melee",
         "speed": "auto",
-        "range": 1,
+        "range": -1,
         "storage": 0,
         "yellowDice": 5,
         "redDice": 0
@@ -1327,7 +1315,7 @@ export const gofDrones: Drone[] = [
         "description": "· [命中]使目标获得1枚禁足标记。",
         "type": "Melee",
         "speed": "command",
-        "range": 1,
+        "range": -1,
         "storage": 0,
         "yellowDice": 5,
         "redDice": 0
@@ -1871,7 +1859,7 @@ export const gofChasis: Part[] = [
     "parray": 0,
     "dodge": 3,
     "electronic": 0,
-    "move": 4,
+    "move": 1,
     "description": "",
     "keywords": [],
     "action": [{
@@ -1899,7 +1887,7 @@ export const gofChasis: Part[] = [
     "parray": 0,
     "dodge": 4,
     "electronic": 0,
-    "move": 3,
+    "move": 1,
     "description": "·静默：不会解除光学迷彩。",
     "keywords": [KEYWORD_LIST.zh.静默],
     "action": [
@@ -1940,7 +1928,7 @@ export const gofChasis: Part[] = [
     "parray": 0,
     "dodge": 3,
     "electronic": 0,
-    "move": 5,
+    "move": 2,
     "description": "`不可阻挡：本动作在禁足状态下也可以移动\r\n·异形X：执行本动作时，需要消耗X点链接值。\r\n·推动X：将目标沿本单位面朝方向，强制直线移动X格，然后本单位执行同样的移动。",
     "keywords": [KEYWORD_LIST.zh.异形X, KEYWORD_LIST.zh.不可阻挡, KEYWORD_LIST.zh.推动X],
     "action": [
@@ -1960,7 +1948,7 @@ export const gofChasis: Part[] = [
         "name": "奔跑",
         "description": "",
         "type": "Moving",
-        "size": "m",
+        "size": "s",
         "range": 2,
         "storage": 0,
         "yellowDice": 0,
@@ -1981,7 +1969,7 @@ export const gofChasis: Part[] = [
     "parray": 0,
     "dodge": 3,
     "electronic": 0,
-    "move": 4,
+    "move": 1,
     "description": "·推动X：将目标沿本单位面朝方向，强制直线移动X格，然后本单位执行同样的移动。",
     "keywords": [KEYWORD_LIST.zh.推动X],
     "action": [
@@ -2001,7 +1989,7 @@ export const gofChasis: Part[] = [
         "name": "踢击",
         "description": "·【命中】造成推动1。",
         "type": "Melee",
-        "size": "m",
+        "size": "s",
         "range": 1,
         "storage": 0,
         "yellowDice": 5,
@@ -2046,7 +2034,7 @@ export const gofLeftHand: Part[] = [
         "description": "· 震撼",
         "type": "Melee",
         "size": "s",
-        "range": 1,
+        "range": -1,
         "storage": 0,
         "yellowDice": 5,
         "redDice": 0
@@ -2069,7 +2057,6 @@ export const gofLeftHand: Part[] = [
     "move": 0,
     "description": "",
     "keywords": [KEYWORD_LIST.zh.齐射X, KEYWORD_LIST.zh.曲射, KEYWORD_LIST.zh.指令协调X],
-    "throwIndex": "ZHLA-102-T",
     "action": [
       {
         "id": "ZHLA-102_A",
@@ -2225,7 +2212,7 @@ export const gofLeftHand: Part[] = [
         "description": "· [命中] 目标获得1枚脆弱标记",
         "type": "Melee",
         "size": "s",
-        "range": 1,
+        "range": -1,
         "storage": 0,
         "yellowDice": 5,
         "redDice": 0
@@ -2346,7 +2333,7 @@ export const gofLeftHand: Part[] = [
     ],
     "projectile": [],
     "isPD": false,
-    "hasImage": false,
+    "hasImage": true,
   },
   {
     "id": "ZHLA-302-T",
@@ -2417,7 +2404,7 @@ export const gofLeftHand: Part[] = [
         "description": "· 顺劈",
         "type": "Melee",
         "size": "s",
-        "range": 1,
+        "range": -1,
         "storage": 0,
         "yellowDice": 5,
         "redDice": 0
@@ -2428,7 +2415,7 @@ export const gofLeftHand: Part[] = [
         "description": "· [双手] 获得毁伤。",
         "type": "Melee",
         "size": "l",
-        "range": 1,
+        "range": -1,
         "storage": 0,
         "yellowDice": 2,
         "redDice": 5
@@ -2604,7 +2591,7 @@ export const gofRightHand: Part[] = [
         "description": "· [攻击姿态]获得冲锋1。",
         "type": "Melee",
         "size": "m",
-        "range": 1,
+        "range": -1,
         "storage": 0,
         "yellowDice": 3,
         "redDice": 3
@@ -2615,7 +2602,7 @@ export const gofRightHand: Part[] = [
         "description": "· [双手] 获得毁伤。",
         "type": "Melee",
         "size": "l",
-        "range": 1,
+        "range": -1,
         "storage": 0,
         "yellowDice": 3,
         "redDice": 4
@@ -2814,7 +2801,7 @@ export const gofRightHand: Part[] = [
         "description": "· [攻击姿态]获得冲锋1。",
         "type": "Melee",
         "size": "m",
-        "range": 1,
+        "range": -1,
         "storage": 0,
         "yellowDice": 0,
         "redDice": 5
@@ -2877,7 +2864,7 @@ export const gofRightHand: Part[] = [
         "description": "· [攻击姿态]获得冲锋1。\r\n· [命中]造成拖拽。",
         "type": "Melee",
         "size": "m",
-        "range": 1,
+        "range": -1,
         "storage": 0,
         "yellowDice": 3,
         "redDice": 3
@@ -2888,7 +2875,7 @@ export const gofRightHand: Part[] = [
         "description": "· [双手] 获得压制，毁伤。",
         "type": "Melee",
         "size": "l",
-        "range": 1,
+        "range": -1,
         "storage": 0,
         "yellowDice": 4,
         "redDice": 3
@@ -2940,7 +2927,7 @@ export const gofRightHand: Part[] = [
         "description": "· 顺劈",
         "type": "Melee",
         "size": "s",
-        "range": 1,
+        "range": -1,
         "storage": 0,
         "yellowDice": 5,
         "redDice": 0
@@ -2951,7 +2938,7 @@ export const gofRightHand: Part[] = [
         "description": "· [双手] 获得毁伤。",
         "type": "Melee",
         "size": "l",
-        "range": 1,
+        "range": -1,
         "storage": 0,
         "yellowDice": 2,
         "redDice": 5
@@ -3290,7 +3277,7 @@ export const gofProjectiles: Projectile[] = [
         "description": "· 选取范围内最近敌方单位为目标，飞行进入目标格并引爆。\r\n· 优先选取敌方机甲为目标。\r\n· 引爆时，对目标造成爆炸伤害。\r\n· 毁伤",
         "type": "Tactic",
         "speed": "passive",
-        "range": 1,
+        "range": -1,
         "storage": 0,
         "yellowDice": 0,
         "redDice": 3
@@ -3322,7 +3309,7 @@ export const gofProjectiles: Projectile[] = [
         "description": "· 在当前位置引爆。\r\n· 引爆时，对范围内的所有单位造成爆炸伤害。",
         "type": "Tactic",
         "speed": "passive",
-        "range": 1,
+        "range": -1,
         "storage": 0,
         "yellowDice": 3,
         "redDice": 0
@@ -3383,7 +3370,7 @@ export const pdTorso: Part[] = [
         "description": "· 当本机被射击后，可在范围内放置2烟幕。",
         "type": "Passive",
         "size": "m",
-        "range": 1,
+        "range": -1,
         "storage": 1,
         "yellowDice": 0,
         "redDice": 0
@@ -3463,7 +3450,7 @@ export const pdChasis: Part[] = [
     "parray": 0,
     "dodge": 3,
     "electronic": 0,
-    "move": 4,
+    "move": 1,
     "description": "",
     "keywords": [],
     "action": [
@@ -3473,7 +3460,7 @@ export const pdChasis: Part[] = [
         "description": "",
         "type": "Moving",
         "size": "m",
-        "range": 0,
+        "range": 4,
         "storage": 0,
         "yellowDice": 0,
         "redDice": 0
@@ -3493,7 +3480,7 @@ export const pdChasis: Part[] = [
     "parray": 0,
     "dodge": 3,
     "electronic": 0,
-    "move": 4,
+    "move": 1,
     "description": "",
     "keywords": [],
     "action": [
@@ -3503,7 +3490,7 @@ export const pdChasis: Part[] = [
         "description": "",
         "type": "Moving",
         "size": "m",
-        "range": 0,
+        "range": 4,
         "storage": 0,
         "yellowDice": 0,
         "redDice": 0
@@ -4017,7 +4004,7 @@ export const rdlChasis: Part[] = [
     "parray": 0,
     "dodge": 3,
     "electronic": 0,
-    "move": 4,
+    "move": 1,
     "description": "",
     "keywords": [],
     "action": [{
@@ -4204,7 +4191,7 @@ export const rdlLeftHand: Part[] = [
     "description": "",
     "hasImage": false,
     "keywords": [
-      KEYWORD_LIST.zh.空手
+      KEYWORD_LIST.zh.空手,KEYWORD_LIST.zh.频闪武器
     ],
     "action": [
       {
@@ -4213,7 +4200,7 @@ export const rdlLeftHand: Part[] = [
         "description": "· 频闪武器",
         "type": "Melee",
         "size": "m",
-        "range": 1,
+        "range": -1,
         "storage": 0,
         "yellowDice": 2,
         "redDice": 4
@@ -4615,7 +4602,7 @@ export const rdlLeftHand: Part[] = [
         "description": "· 频闪武器",
         "type": "Melee",
         "size": "s",
-        "range": 1,
+        "range": -1,
         "storage": 0,
         "yellowDice": 1,
         "redDice": 3
@@ -4625,7 +4612,7 @@ export const rdlLeftHand: Part[] = [
     "isPD": false
   },
   {
-    "id": "037",
+    "id": "299",
     "name": "ML-32B双联发射器 + CC-3格斗刀",
     "type": "leftHand",
     "score": 33,
@@ -4642,18 +4629,18 @@ export const rdlLeftHand: Part[] = [
     ],
     "action": [
       {
-        "id": "037_A",
+        "id": "299_A",
         "name": "刺击",
         "description": "",
         "type": "Melee",
         "size": "s",
-        "range": 1,
+        "range": -1,
         "storage": 0,
         "yellowDice": 3,
         "redDice": 1
       },
       {
-        "id": "037_B",
+        "id": "299_B",
         "name": "导弹",
         "description": " · 曲射\r\n· 发射1枚MC-3“利剑”导弹。",
         "type": "Projectile",
@@ -4664,7 +4651,7 @@ export const rdlLeftHand: Part[] = [
         "redDice": 0
       }
     ],
-    "projectile": [],
+    "projectile": ["071"],
     "isPD": false
   }
 ];
@@ -5596,7 +5583,7 @@ export const rdlBackpack: Part[] = [
       }
     ],
     "projectile": [],
-    "isPD": false
+    "isPD": false  
   }
 ];
 
@@ -5687,7 +5674,7 @@ export const rdlProjectiles: Projectile[] = [
         "description": "· 光环\n· 范围内的友军单位获得低特征。",
         "type": "Passive",
         "speed": "passive",
-        "range": 1,
+        "range": -1,
         "storage": 0,
         "yellowDice": 0,
         "redDice": 0
@@ -6540,7 +6527,7 @@ export const unLeftHand: Part[] = [
         "description": "· 震撼",
         "type": "Melee",
         "size": "s",
-        "range": 1,
+        "range": -1,
         "storage": 0,
         "yellowDice": 5,
         "redDice": 0
@@ -7823,7 +7810,7 @@ export const unProjectiles: Projectile[] = [
         "description": "· 立即引爆。\n· 引爆时，范围内所有对本单位有视线的单位均获得1枚火控干扰标记。",
         "type": "Tactic",
         "speed": "passive",
-        "range": 1,
+        "range": -1,
         "storage": 0,
         "yellowDice": 0,
         "redDice": 0

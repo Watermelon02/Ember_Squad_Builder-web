@@ -3624,3 +3624,2533 @@ export const allTacticCards: TacticCard[] = [
     "score": 30
   },
 ]
+
+
+export const gofChasis: Part[] = [
+    {
+      "id": "179",
+      "name": "PL1 Standard Chassis",
+      "type": "chasis",
+      "score": 37,
+      "armor": 1,
+      "structure": 5,
+      "parray": 0,
+      "dodge": 3,
+      "electronic": 0,
+      "move": 4,
+      "description": "",
+      "keywords": [],
+      "action": [
+        {
+          "id": "179_A",
+          "name": "Sprint",
+          "description": "",
+          "type": "Moving",
+          "size": "m",
+          "range": 4,
+          "storage": 0,
+          "yellowDice": 0,
+          "redDice": 0
+        }
+      ],
+      "projectile": [],
+      "isPD": false,
+      "hasImage":true,
+    },
+    {
+      "id": "180",
+      "name": "PL29\r\n Stealth Chassis",
+      "type": "chasis",
+      "score": 61,
+      "armor": 1,
+      "structure": 5,
+      "parray": 0,
+      "dodge": 4,
+      "electronic": 0,
+      "move": 3,
+      "description": "· Silence: Optical Camouflage and Low Profile will not be removed when this action is performed.",
+      "keywords": [KEYWORD_LIST.en.静默],
+      "action": [
+        {
+          "id": "180_A",
+          "name": "Sprint",
+          "description": "",
+          "type": "Moving",
+          "size": "m",
+          "range": 3,
+          "storage": 0,
+          "yellowDice": 0,
+          "redDice": 0
+        },
+        {
+          "id": "180_B",
+          "name": "Stealth Movement",
+          "description": "· All Move Actions and Maneuver of this Part have Silence.",
+          "type": "Passive",
+          "size": "m",
+          "range": 0,
+          "storage": 0,
+          "yellowDice": 0,
+          "redDice": 0
+        }
+      ],
+      "projectile": [],
+      "isPD": false,
+      "hasImage":true,
+    },
+    {
+      "id": "181",
+      "name": "PLK400\n“Centaur”\nHigh-mobility Chassis",
+      "type": "chasis",
+      "score": 90,
+      "armor": 5,
+      "structure": 3,
+      "parray": 0,
+      "dodge": 3,
+      "electronic": 0,
+      "move": 5,
+      "description": "·Unstoppable: Movement Actions with this Keyword can still be performed when Immobilized.\n·Non-humanoid X: When performing this Action, -X Link Value.\n·Push X: Move the target X grids in straight line in the direction this unit is facing, then this unit performs the same movement.",
+      "keywords": [KEYWORD_LIST.en.异形X, KEYWORD_LIST.en.不可阻挡, KEYWORD_LIST.en.推动X],
+      "action": [
+        {
+          "id": "181_A",
+          "name": "Run",
+          "description": "· Non-humanoid 1\n· Unstoppable\n· If there is an Enemy Ground Unit in the adjacent grid in front of the Mech after performing this Action, may cause Push 1.",
+          "type": "Moving",
+          "size": "m",
+          "range": 5,
+          "storage": 0,
+          "yellowDice": 0,
+          "redDice": 0
+        },
+        {
+          "id": "181_B",
+          "name": "Sprint",
+          "description": "",
+          "type": "Moving",
+          "size": "s",
+          "range": 2,
+          "storage": 0,
+          "yellowDice": 0,
+          "redDice": 0
+        }
+      ],
+      "projectile": [],
+      "isPD": false,
+      "hasImage":true,
+    },
+    {
+      "id": "182",
+      "name": "PL35\nArmored Chassis",
+      "type": "chasis",
+      "score": 64,
+      "armor": 6,
+      "structure": 2,
+      "parray": 0,
+      "dodge": 3,
+      "electronic": 0,
+      "move": 4,
+      "description": "·Push X: Move the target X grids in straight line in the direction this unit is facing, then this unit performs the same movement.",
+     "keywords": [KEYWORD_LIST.en.推动X],
+      "action": [
+        {
+          "id": "182_A",
+          "name": "Sprint",
+          "description": "",
+          "type": "Moving",
+          "size": "m",
+          "range": 4,
+          "storage": 0,
+          "yellowDice": 0,
+          "redDice": 0
+        },
+        {
+          "id": "182_B",
+          "name": "Kick",
+          "description": "·[On Hit], Push 1.",
+          "type": "Melee",
+          "size": "s",
+          "range": 1,
+          "storage": 0,
+          "yellowDice": 5,
+          "redDice": 0
+        }
+      ],
+      "projectile": [],
+      "isPD": false,
+      "hasImage":true,
+    }
+  ]
+
+export const gofLeftHand: Part[] = [
+    {
+      "id": "ZHLA-101",
+      "name": "SS12 Buckler",
+      "type": "leftHand",
+      "score": 53,
+      "armor": 4,
+      "structure": 5,
+      "parray": 2,
+      "dodge": 0,
+      "electronic": 0,
+      "move": 0,
+      "description": "",
+      "keywords": [KEYWORD_LIST.en.空手, KEYWORD_LIST.en.震撼],
+      "action": [
+        {
+          "id": "ZHLA-101_A",
+          "name": "Defense Reaction",
+          "description": "· If Penetration occurs against any Part of this Mech, it may immediately change to Defensive Stance.",
+          "type": "Passive",
+          "size": "m",
+          "range": 0,
+          "storage": 0,
+          "yellowDice": 0,
+          "redDice": 0
+        },
+        {
+          "id": "ZHLA-101_B",
+          "name": "Shield Bash",
+          "description": "· Concussion",
+          "type": "Melee",
+          "size": "s",
+          "range": 1,
+          "storage": 0,
+          "yellowDice": 5,
+          "redDice": 0
+        }
+      ],
+      "projectile": [],
+      "isPD": false,
+      "hasImage":true,
+    },
+    {
+      "id": "ZHLA-102",
+      "name": "Dual \"Swift\" Launcher",
+      "type": "leftHand",
+      "score": 35,
+      "armor": 1,
+      "structure": 4,
+      "parray": 0,
+      "dodge": 0,
+      "electronic": 0,
+      "move": 0,
+      "description": "",
+      "keywords": [KEYWORD_LIST.en.齐射X, KEYWORD_LIST.en.曲射, KEYWORD_LIST.en.指令协调X],
+      "action": [
+        {
+          "id": "ZHLA-102_A",
+          "name": "Missile",
+          "description": "· Volley 2 · Fire in arc\n· Launch 1 M707 \"Swift\" Missile.\n· Command Coordination 1",
+          "type": "Projectile",
+          "size": "m",
+          "range": 3,
+          "storage": 2,
+          "yellowDice": 0,
+          "redDice": 0
+        },
+        {
+          "id": "ZHLA-102_B",
+          "name": "Command Coordination",
+          "description": "·  Give 1 Command Token to 1 Ally Drone.",
+          "type": "Tactic",
+          "size": "s",
+          "range": 0,
+          "storage": 0,
+          "yellowDice": 0,
+          "redDice": 0
+        }
+      ],
+      "projectile": [
+        "ZHAM-001A"
+      ],
+    "throwIndex": "ZHLA-102-T",
+      "isPD": false,
+      "hasImage":true,
+    },
+    {
+      "id": "ZHLA-102-T",
+      "name": "Dual \"Swift\" Launcher (D)",
+      "type": "leftHand",
+      "score": 0,
+      "armor": 1,
+      "structure": 4,
+      "parray": 0,
+      "dodge": 0,
+      "electronic": 0,
+      "move": 0,
+      "description": "",
+      "keywords": [
+        KEYWORD_LIST.en.空手
+      ],
+      "action": [
+        {
+          "id": "ZHLA-102_B",
+          "name": "Command Coordination",
+          "description": "·  Give 1 Command Token to 1 Ally Drone.",
+          "type": "Tactic",
+          "size": "s",
+          "range": 0,
+          "storage": 0,
+          "yellowDice": 0,
+          "redDice": 0
+        }
+      ],
+      "projectile": [],
+      "isPD": false,
+      "hasImage":false,
+    },
+    {
+      "id": "ZHLA-201",
+      "name": "GSD7 Mortar",
+      "type": "leftHand",
+      "score": 29,
+      "armor": 1,
+      "structure": 4,
+      "parray": 0,
+      "dodge": 0,
+      "electronic": 1,
+      "move": 0,
+      "description": "",
+      "keywords": [KEYWORD_LIST.en.曲射, KEYWORD_LIST.en.静止, KEYWORD_LIST.en.指令协调X],
+      "action": [
+        {
+          "id": "ZHLA-201_A",
+          "name": "Mortar",
+          "description": "· Fire in arc\n· Launch 1 PK3 Sensor-fused Munition or M25 Shrapnel Shell.\n· [Stationary] Range +1 grid。\n· Command Coordination 1",
+          "type": "Projectile",
+          "size": "m",
+          "range": 8,
+          "storage": 0,
+          "yellowDice": 0,
+          "redDice": 0
+        },
+        {
+          "id": "ZHLA-201_B",
+          "name": "Command Coordination",
+          "description": "·  Give 1 Command Token to 1 Ally Drone.",
+          "type": "Tactic",
+          "size": "s",
+          "range": 0,
+          "storage": 0,
+          "yellowDice": 0,
+          "redDice": 0
+        }
+      ],
+      "projectile": [
+        "ZHAM-003",
+        "ZHAM-004"
+      ],
+      "isPD": false,
+      "hasImage":true,
+      "throwIndex": "ZHLA-201-T",
+    },
+    {
+      "id": "ZHLA-201-T",
+      "name": "GSD7 Mortar (D)",
+      "type": "leftHand",
+      "score": 0,
+      "armor": 1,
+      "structure": 4,
+      "parray": 0,
+      "dodge": 0,
+      "electronic": 0,
+      "move": 0,
+      "description": "",
+      "keywords": [
+        KEYWORD_LIST.en.空手
+      ],
+      "action": [
+        {
+          "id": "ZHLA-201_B",
+          "name": "Command Coordination",
+          "description": "·  Give 1 Command Token to 1 Ally Drone.",
+          "type": "Tactic",
+          "size": "s",
+          "range": 0,
+          "storage": 0,
+          "yellowDice": 0,
+          "redDice": 0
+        }
+      ],
+      "projectile": [],
+      "isPD": false,
+      "hasImage":false,
+    },
+    {
+      "id": "ZHLA-202",
+      "name": "M4 Combat Claw",
+      "type": "leftHand",
+      "score": 65,
+      "armor": 1,
+      "structure": 5,
+      "parray": 3,
+      "dodge": 0,
+      "electronic": 0,
+      "move": 0,
+      "description": "",
+      "keywords": [
+        KEYWORD_LIST.en.空手
+      ],
+      "action": [
+        {
+          "id": "ZHLA-202_A",
+          "name": "Tear",
+          "description": "· [On hit], target gains 1 Fragile Token.",
+          "type": "Melee",
+          "size": "s",
+          "range": 1,
+          "storage": 0,
+          "yellowDice": 5,
+          "redDice": 0
+        },
+        {
+          "id": "ZHLA-202_B",
+          "name": "Reposte",
+          "description": "· On a Successful Parry with this part, the Attacker must immediately end the current Action Opportunity, and then the Defender may immediately perform a Melee Action.",
+          "type": "Passive",
+          "size": "m",
+          "range": 0,
+          "storage": 0,
+          "yellowDice": 0,
+          "redDice": 0
+        }
+      ],
+      "projectile": [],
+      "isPD": false,
+      "hasImage":true,
+    },
+    {
+      "id": "ZHLA-301",
+      "name": "SS30 Heavy Shield",
+      "type": "leftHand",
+      "score": 75,
+      "armor": 6,
+      "structure": 5,
+      "parray": 2,
+      "dodge": 0,
+      "electronic": 0,
+      "move": 0,
+      "description": "",
+      "keywords": [],
+      "throwIndex": "ZHLA-301-T",
+      "action": [
+        {
+          "id": "ZHLA-301_A",
+          "name": "Shield Up",
+          "description": "· This Mech may Designate this part to resolve damage in the Defensive Stance.",
+          "type": "Passive",
+          "size": "m",
+          "range": 0,
+          "storage": 0,
+          "yellowDice": 0,
+          "redDice": 0
+        },
+        {
+          "id": "ZHLA-301_B",
+          "name": "Defense Reaction",
+          "description": "· If Penetration occurs against any Part of this Mech, it may immediately change to Defensive Stance.",
+          "type": "Passive",
+          "size": "m",
+          "range": 0,
+          "storage": 0,
+          "yellowDice": 0,
+          "redDice": 0
+        }
+      ],
+      "projectile": [],
+      "isPD": false,
+      "hasImage":true,
+    },
+    {
+      "id": "ZHLA-301-T",
+      "name": "SS30 Heavy Shield (D)",
+      "type": "leftHand",
+      "score": 0,
+      "armor": 1,
+      "structure": 5,
+      "parray": 1,
+      "dodge": 0,
+      "electronic": 0,
+      "move": 0,
+      "description": "",
+      "keywords": [
+        KEYWORD_LIST.en.空手
+      ],
+      "action": [],
+      "projectile": [],
+      "isPD": false,
+      "hasImage":false,
+    },
+    {
+      "id": "ZHLA-302",
+      "name": "MR870 Shotgun",
+      "type": "leftHand",
+      "score": 56,
+      "armor": 1,
+      "structure": 5,
+      "parray": 1,
+      "dodge": 0,
+      "electronic": 0,
+      "move": 0,
+      "description": "",
+      "keywords": [KEYWORD_LIST.en.霰射, KEYWORD_LIST.en.近战射击],
+      "throwIndex": "ZHLA-302-T",
+      "action": [
+        {
+          "id": "ZHLA-302_A",
+          "name": "Burst Fire",
+          "description": "· Scatter-shot · Melee Firing",
+          "type": "Firing",
+          "size": "s",
+          "range": 4,
+          "storage": 0,
+          "yellowDice": 2,
+          "redDice": 1
+        },
+        {
+          "id": "ZHLA-302_B",
+          "name": "Power Shot",
+          "description": "· Scatter-shot · Melee Firing",
+          "type": "Firing",
+          "size": "l",
+          "range": 4,
+          "storage": 0,
+          "yellowDice": 6,
+          "redDice": 1
+        }
+      ],
+      "projectile": [],
+      "isPD": false,
+      "hasImage":true,
+    },
+    {
+      "id": "ZHLA-302-T",
+      "name": "MR870 Shotgun (D)",
+      "type": "leftHand",
+      "score": 0,
+      "armor": 1,
+      "structure": 5,
+      "parray": 1,
+      "dodge": 0,
+      "electronic": 0,
+      "move": 0,
+      "description": "",
+      "keywords": [
+        KEYWORD_LIST.en.空手
+      ],
+      "action": [],
+      "projectile": [],
+      "isPD": false,
+      "hasImage":false,
+    },
+    {
+      "id": "ZHLA-303",
+      "name": "Support Arm",
+      "type": "leftHand",
+      "score": 29,
+      "armor": 1,
+      "structure": 5,
+      "parray": 1,
+      "dodge": 0,
+      "electronic": 0,
+      "move": 0,
+      "description": "",
+      "keywords": [
+        KEYWORD_LIST.en.空手
+      ],
+      "action": [
+        {
+          "id": "ZHLA-303_A",
+          "name": "Melee Support",
+          "description": "· If this part is Designated as Freehand for Melee Action, that Action +1R.",
+          "type": "Passive",
+          "size": "m",
+          "range": 0,
+          "storage": 0,
+          "yellowDice": 0,
+          "redDice": 0
+        }
+      ],
+      "projectile": [],
+      "isPD": false,
+      "hasImage":true,
+    },
+    {
+      "id": "ZHLA-304",
+      "name": "MH-K1 Heat Heavy Sword (L)",
+      "type": "leftHand",
+      "score": 47,
+      "armor": 1,
+      "structure": 5,
+      "parray": 2,
+      "dodge": 0,
+      "electronic": 0,
+      "move": 0,
+      "description": "",
+      "keywords": [KEYWORD_LIST.en.顺劈, KEYWORD_LIST.en.毁伤],
+      "throwIndex": "ZHLA-304-T",
+      "action": [
+        {
+          "id": "ZHLA-304_A",
+          "name": "Chop",
+          "description": "· Cleaving",
+          "type": "Melee",
+          "size": "s",
+          "range": 1,
+          "storage": 0,
+          "yellowDice": 5,
+          "redDice": 0
+        },
+        {
+          "id": "ZHLA-304_B",
+          "name": "Slash",
+          "description": "· [Two-Handed] Gains Mutilation.",
+          "type": "Melee",
+          "size": "l",
+          "range": 1,
+          "storage": 0,
+          "yellowDice": 2,
+          "redDice": 5
+        }
+      ],
+      "projectile": [],
+      "isPD": false,
+      "hasImage":true,
+    },
+    {
+      "id": "ZHLA-304-T",
+      "name": "MH-K1 Heat Heavy Sword (L)(D)",
+      "type": "leftHand",
+      "score": 0,
+      "armor": 1,
+      "structure": 5,
+      "parray": 1,
+      "dodge": 0,
+      "electronic": 0,
+      "move": 0,
+      "description": "",
+      "keywords": [
+        KEYWORD_LIST.en.空手
+      ],
+      "action": [],
+      "projectile": [],
+      "isPD": false,
+      "hasImage":false,
+    }
+  ]
+
+  export const gofRightHand: Part[] = [
+    {
+      "id": "ZHRA-101",
+      "name": "MR14 Railgun",
+      "type": "rightHand",
+      "score": 29,
+      "armor": 1,
+      "structure": 4,
+      "parray": 0,
+      "dodge": 0,
+      "electronic": 0,
+      "move": 0,
+      "description": "",
+      "keywords": [KEYWORD_LIST.en.穿甲X, KEYWORD_LIST.en.双手],
+      "throwIndex": "ZHRA-101-T",
+      "action": [
+        {
+          "id": "ZHRA-101_A",
+          "name": "Burst Fire",
+          "description": "· Armor Piercing 1",
+          "type": "Firing",
+          "size": "m",
+          "range": 8,
+          "storage": 0,
+          "yellowDice": 2,
+          "redDice": 2
+        },
+        {
+          "id": "ZHRA-101_B",
+          "name": "Power Shot",
+          "description": "· Armour Piercing 1\n· [Two-Handed] Range +2 grids.",
+          "type": "Firing",
+          "size": "l",
+          "range": 8,
+          "storage": 0,
+          "yellowDice": 2,
+          "redDice": 3
+        }
+      ],
+      "projectile": [],
+      "isPD": false,
+      "hasImage":true,
+    },
+    {
+      "id": "ZHRA-101-T",
+      "name": "MR14 Railgun (D)",
+      "type": "rightHand",
+      "score": 0,
+      "armor": 1,
+      "structure": 4,
+      "parray": 0,
+      "dodge": 0,
+      "electronic": 0,
+      "move": 0,
+      "description": "",
+      "keywords": [
+        KEYWORD_LIST.en.空手
+      ],
+      "action": [],
+      "projectile": [],
+      "isPD": false,
+      "hasImage":false,
+    },
+    {
+      "id": "ZHRA-102",
+      "name": "MR16 Railgun",
+      "type": "rightHand",
+      "score": 32,
+      "armor": 1,
+      "structure": 4,
+      "parray": 0,
+      "dodge": 0,
+      "electronic": 0,
+      "move": 0,
+      "description": "",
+      "keywords": [KEYWORD_LIST.en.穿甲X],
+      "throwIndex": "ZHRA-102-T",
+      "action": [
+        {
+          "id": "ZHRA-102_A",
+          "name": "Burst Fire",
+          "description": "· Armor Piercing 1\n· [Offensive Stance] This action is considerd a Short Action.",
+          "type": "Firing",
+          "size": "m",
+          "range": 6,
+          "storage": 0,
+          "yellowDice": 5,
+          "redDice": 0
+        },
+        {
+          "id": "ZHRA-102_B",
+          "name": "Power Shot",
+          "description": "· Armor Piercing 1",
+          "type": "Firing",
+          "size": "l",
+          "range": 6,
+          "storage": 0,
+          "yellowDice": 3,
+          "redDice": 3
+        }
+      ],
+      "projectile": [],
+      "isPD": false,
+      "hasImage":true,
+    },
+    {
+      "id": "ZHRA-102-T",
+      "name": "MR16 Railgun (D)",
+      "type": "rightHand",
+      "score": 0,
+      "armor": 1,
+      "structure": 4,
+      "parray": 0,
+      "dodge": 0,
+      "electronic": 0,
+      "move": 0,
+      "description": "",
+      "keywords": [
+        KEYWORD_LIST.en.空手
+      ],
+      "action": [],
+      "projectile": [],
+      "isPD": false,
+      "hasImage":false,
+    },
+    {
+      "id": "ZHRA-103",
+      "name": "M115 Spear",
+      "type": "rightHand",
+      "score": 29,
+      "armor": 1,
+      "structure": 4,
+      "parray": 0,
+      "dodge": 0,
+      "electronic": 0,
+      "move": 0,
+      "description": "",
+      "keywords": [KEYWORD_LIST.en.冲锋X, KEYWORD_LIST.en.毁伤],
+       "throwIndex": "ZHRA-103-T",
+      "action": [
+        {
+          "id": "ZHRA-103_A",
+          "name": "Thrust",
+          "description": "· [Offensive Stance] gains Shock Attack 1.",
+          "type": "Melee",
+          "size": "m",
+          "range": 1,
+          "storage": 0,
+          "yellowDice": 3,
+          "redDice": 3
+        },
+        {
+          "id": "ZHRA-103_B",
+          "name": "Power Thrust",
+          "description": "· [Two-Handed] Gains Mutilation.",
+          "type": "Melee",
+          "size": "l",
+          "range": 1,
+          "storage": 0,
+          "yellowDice": 3,
+          "redDice": 4
+        }
+      ],
+      "projectile": [],
+      "isPD": false,
+      "hasImage":true,
+    },
+    {
+      "id": "ZHRA-103-T",
+      "name": "M115 Spear (D)",
+      "type": "rightHand",
+      "score": 0,
+      "armor": 1,
+      "structure": 4,
+      "parray": 0,
+      "dodge": 0,
+      "electronic": 0,
+      "move": 0,
+      "description": "",
+      "keywords": [
+        KEYWORD_LIST.en.空手
+      ],
+      "action": [],
+      "projectile": [],
+      "isPD": false,
+      "hasImage":false,
+    },
+    {
+      "id": "ZHRA-201",
+      "name": "MR21 Railgun",
+      "type": "rightHand",
+      "score": 68,
+      "armor": 1,
+      "structure": 4,
+      "parray": 0,
+      "dodge": 0,
+      "electronic": 1,
+      "move": 0,
+      "description": "",
+      "keywords": [KEYWORD_LIST.en.穿甲X, KEYWORD_LIST.en.指令协调X, KEYWORD_LIST.en.狙击, KEYWORD_LIST.en.毁伤],
+       "throwIndex": "ZHRA-201-T",
+      "action": [
+        {
+          "id": "ZHRA-201_A",
+          "name": "Single Shot",
+          "description": "· Armor Piercing 1\n· Command Coordination 1",
+          "type": "Firing",
+          "size": "m",
+          "range": 12,
+          "storage": 0,
+          "yellowDice": 0,
+          "redDice": 3
+        },
+        {
+          "id": "ZHRA-201_B",
+          "name": "Power Shot",
+          "description": "· Armor Piercing 1 · Snipe\n· [Two-Handed] Gains Mutilation.\n· [Offensive Stance]+{1R}.",
+          "type": "Firing",
+          "size": "l",
+          "range": 12,
+          "storage": 0,
+          "yellowDice": 0,
+          "redDice": 4
+        }
+      ],
+      "projectile": [],
+      "isPD": false,
+      "hasImage":true,
+    },
+    {
+      "id": "ZHRA-201-T",
+      "name": "MR21 Railgun (D)",
+      "type": "rightHand",
+      "score": 0,
+      "armor": 1,
+      "structure": 4,
+      "parray": 0,
+      "dodge": 0,
+      "electronic": 1,
+      "move": 0,
+      "description": "",
+      "keywords": [
+        KEYWORD_LIST.en.空手
+      ],
+      "action": [
+        {
+          "id": "ZHRA-201_B",
+          "name": "Command Coordination",
+          "description": "·  Give 1 Command Token to 1 Ally Drone.",
+          "type": "Tactic",
+          "size": "s",
+          "range": 0,
+          "storage": 0,
+          "yellowDice": 0,
+          "redDice": 0
+        }
+      ],
+      "projectile": [],
+      "isPD": false,
+      "hasImage":false,
+    },
+    {
+      "id": "ZHRA-202",
+      "name": "MR24 Railgun",
+      "type": "rightHand",
+      "score": 68,
+      "armor": 1,
+      "structure": 4,
+      "parray": 0,
+      "dodge": 0,
+      "electronic": 1,
+      "move": 0,
+      "description": "",
+      "keywords": [KEYWORD_LIST.en.穿甲X, KEYWORD_LIST.en.静默, KEYWORD_LIST.en.指令协调X, KEYWORD_LIST.en.狙击, KEYWORD_LIST.en.毁伤],
+       "throwIndex": "ZHRA-202-T",
+      "action": [
+        {
+          "id": "ZHRA-202_A",
+          "name": "Single Shot",
+          "description": "· Armor Piercing 1\n· Silence· Command Coordination 1",
+          "type": "Firing",
+          "size": "m",
+          "range": 12,
+          "storage": 0,
+          "yellowDice": 1,
+          "redDice": 2
+        },
+        {
+          "id": "ZHRA-202_B",
+          "name": "Power Shot",
+          "description": "· Armor Piercing 1 · Snipe\n· [Two-Handed] Gains Mutilation.",
+          "type": "Firing",
+          "size": "l",
+          "range": 12,
+          "storage": 0,
+          "yellowDice": 0,
+          "redDice": 4
+        }
+      ],
+      "projectile": [],
+      "isPD": false,
+      "hasImage":true,
+    },
+    {
+      "id": "ZHRA-202-T",
+      "name": "MR24 Railigun (D)",
+      "type": "rightHand",
+      "score": 0,
+      "armor": 1,
+      "structure": 4,
+      "parray": 0,
+      "dodge": 0,
+      "electronic": 1,
+      "move": 0,
+      "description": "",
+      "keywords": [
+        KEYWORD_LIST.en.空手
+      ],
+      "action": [
+        {
+          "id": "ZHRA-202_B",
+          "name": "Command Coordination",
+          "description": "·  Give 1 Command Token to 1 Ally Drone.",
+          "type": "Tactic",
+          "size": "s",
+          "range": 0,
+          "storage": 0,
+          "yellowDice": 0,
+          "redDice": 0
+        }
+      ],
+      "projectile": [],
+      "isPD": false,
+      "hasImage":false,
+    },
+    {
+      "id": "ZHRA-301",
+      "name": "M100 Lance",
+      "type": "rightHand",
+      "score": 56,
+      "armor": 1,
+      "structure": 5,
+      "parray": 1,
+      "dodge": 0,
+      "electronic": 0,
+      "move": 0,
+      "description": "",
+      "keywords": [KEYWORD_LIST.en.冲锋X, KEYWORD_LIST.en.近战射击],
+       "throwIndex": "ZHRA-301-T",
+      "action": [
+        {
+          "id": "ZHRA-301_A",
+          "name": "Thrust",
+          "description": "· [Offensive Stance] gains Shock Attack 1.",
+          "type": "Melee",
+          "size": "m",
+          "range": 1,
+          "storage": 0,
+          "yellowDice": 0,
+          "redDice": 5
+        },
+        {
+          "id": "ZHRA-301_B",
+          "name": "Single Shot",
+          "description": "· Melee Firing",
+          "type": "Firing",
+          "size": "l",
+          "range": 6,
+          "storage": 0,
+          "yellowDice": 3,
+          "redDice": 3
+        }
+      ],
+      "projectile": [],
+      "isPD": false,
+      "hasImage":true,
+    },
+    {
+      "id": "ZHRA-301-T",
+      "name": "M100 Lance (D)",
+      "type": "rightHand",
+      "score": 0,
+      "armor": 1,
+      "structure": 5,
+      "parray": 1,
+      "dodge": 0,
+      "electronic": 0,
+      "move": 0,
+      "description": "",
+      "keywords": [
+        KEYWORD_LIST.en.空手
+      ],
+      "action": [],
+      "projectile": [],
+      "isPD": false,
+      "hasImage":false,
+    },
+    {
+      "id": "ZHRA-303",
+      "name": "M105 Halberd",
+      "type": "rightHand",
+      "score": 38,
+      "armor": 1,
+      "structure": 4,
+      "parray": 0,
+      "dodge": 0,
+      "electronic": 0,
+      "move": 0,
+      "description": "",
+      "keywords": [KEYWORD_LIST.en.冲锋X, KEYWORD_LIST.en.拖拽, KEYWORD_LIST.en.压制, KEYWORD_LIST.en.毁伤],
+      "throwIndex": "ZHRA-303-T",
+      "action": [
+        {
+          "id": "ZHRA-303_A",
+          "name": "Thrust Pick",
+          "description": "· [Offensive Stance] gains Shock Attack 1.\n· [On Hit] Causes Drag.",
+          "type": "Melee",
+          "size": "m",
+          "range": 1,
+          "storage": 0,
+          "yellowDice": 3,
+          "redDice": 3
+        },
+        {
+          "id": "ZHRA-303_B",
+          "name": "Slash",
+          "description": "· [Two-Handed] Gains Suppression and Mutilation.",
+          "type": "Melee",
+          "size": "l",
+          "range": 1,
+          "storage": 0,
+          "yellowDice": 4,
+          "redDice": 3
+        }
+      ],
+      "projectile": [],
+      "isPD": false,
+      "hasImage":true,
+    },
+    {
+      "id": "ZHRA-303-T",
+      "name": "M105 Halberd (D)",
+      "type": "rightHand",
+      "score": 0,
+      "armor": 1,
+      "structure": 4,
+      "parray": 0,
+      "dodge": 0,
+      "electronic": 0,
+      "move": 0,
+      "description": "",
+      "keywords": [
+        KEYWORD_LIST.en.空手
+      ],
+      "action": [],
+      "projectile": [],
+      "isPD": false,
+      "hasImage":false,
+    },
+    {
+      "id": "ZHRA-304",
+      "name": "MH-K1 Heat Heavy Sword (R)",
+      "type": "rightHand",
+      "score": 47,
+      "armor": 1,
+      "structure": 5,
+      "parray": 2,
+      "dodge": 0,
+      "electronic": 0,
+      "move": 0,
+      "description": "",
+      "keywords": [KEYWORD_LIST.en.顺劈, KEYWORD_LIST.en.毁伤],
+      "throwIndex": "ZHRA-304-T",
+      "action": [
+        {
+          "id": "ZHRA-304_A",
+          "name": "Chop",
+          "description": "· Cleaving",
+          "type": "Melee",
+          "size": "s",
+          "range": 1,
+          "storage": 0,
+          "yellowDice": 5,
+          "redDice": 0
+        },
+        {
+          "id": "ZHRA-304_B",
+          "name": "Slash",
+          "description": "· [Two-Handed] Gains Mutilation.",
+          "type": "Melee",
+          "size": "l",
+          "range": 1,
+          "storage": 0,
+          "yellowDice": 2,
+          "redDice": 5
+        }
+      ],
+      "projectile": [],
+      "isPD": false,
+      "hasImage":true,
+    },
+    {
+      "id": "ZHRA-304-T",
+      "name": "MH-K1 Heat Heavy Sword (R)(D)",
+      "type": "rightHand",
+      "score": 0,
+      "armor": 1,
+      "structure": 5,
+      "parray": 1,
+      "dodge": 0,
+      "electronic": 0,
+      "move": 0,
+      "description": "",
+      "keywords": [
+        KEYWORD_LIST.en.空手
+      ],
+      "action": [],
+      "projectile": [],
+      "isPD": false,
+      "hasImage":false,
+    }
+  ]
+
+  export const gofBackpack: Part[] =  [
+    {
+      "id": "ZYBP-101",
+      "name": "DLSP Swarm Control Backpack",
+      "type": "backpack",
+      "score": 33,
+      "armor": 3,
+      "structure": 0,
+      "parray": 0,
+      "dodge": 1,
+      "electronic": 1,
+      "move": 0,
+      "description": "· Fire in arc: This action does not require visual to the landing point or the target.\r\n· Volley X: Fire or deploy up to X projectiles and consume an equal amount of Ammo Tokens.",
+      "keywords": [KEYWORD_LIST.en.曲射, KEYWORD_LIST.en.齐射X],
+      "action": [
+        {
+          "id": "ZYBP-101_A",
+          "name": "Nest Guardian Swarm",
+          "description": "· Fire in arc · Volley 2\n· Launch 1 Nest Guardian Swarm.",
+          "type": "Projectile",
+          "size": "s",
+          "range": 6,
+          "storage": 2,
+          "yellowDice": 0,
+          "redDice": 0
+        },
+        {
+          "id": "ZYBP-101_B",
+          "name": "Command Coordination",
+          "description": "·  Give 1 Command Token to 1 Ally Drone.",
+          "type": "Tactic",
+          "size": "s",
+          "range": 0,
+          "storage": 0,
+          "yellowDice": 0,
+          "redDice": 0
+        }
+      ],
+      "projectile": [],
+      "isPD": false,
+      "hasImage":true,
+    },
+    {
+      "id": "ZYBP-102",
+      "name": "Integrated Data Link Pod",
+      "type": "backpack",
+      "score": 33,
+      "armor": 3,
+      "structure": 0,
+      "parray": 0,
+      "dodge": 1,
+      "electronic": 1,
+      "move": 0,
+      "description": "·Command Coordination X: After this action is completed, may immediately give 1 Command Token to X Ally Drones.",
+       "keywords": [KEYWORD_LIST.en.指令协调X],
+      "action": [
+        {
+          "id": "ZYBP-102_A",
+          "name": "Distributed Collaboration",
+          "description": "· When this mech ends it's Action Opportunity, Command Coordination 1.",
+          "type": "Passive",
+          "size": "m",
+          "range": 0,
+          "storage": 0,
+          "yellowDice": 0,
+          "redDice": 0
+        }
+      ],
+      "projectile": [],
+      "isPD": false
+    },
+    {
+      "id": "ZYBP-201",
+      "name": "CSS20 “Cloak” Optical Camouflage System",
+      "type": "backpack",
+      "score": 45,
+      "armor": 3,
+      "structure": 0,
+      "parray": 0,
+      "dodge": 1,
+      "electronic": 0,
+      "move": 0,
+      "description": "· Stealth X: When the Optical Camouflage is released, the Mech may appear within X grids.",
+      "keywords": [KEYWORD_LIST.en.隐秘X],
+      "action": [
+        {
+          "id": "ZYBP-201_A",
+          "name": "Optical Camouflage",
+          "description": "· Activate Optical Camouflage, Stealth 0.",
+          "type": "Tactic",
+          "size": "s",
+          "range": 0,
+          "storage": 0,
+          "yellowDice": 0,
+          "redDice": 0
+        }
+      ],
+      "projectile": [],
+      "isPD": false
+    },
+    {
+      "id": "ZYBP-202",
+      "name": "ECP9 “Whistle” Drone Command System",
+      "type": "backpack",
+      "score": 48,
+      "armor": 3,
+      "structure": 0,
+      "parray": 0,
+      "dodge": 1,
+      "electronic": 1,
+      "move": 0,
+      "description": "",
+      "keywords": [KEYWORD_LIST.en.光环],
+      "action": [
+        {
+          "id": "ZYBP-202_A",
+          "name": "Convolution algorithm",
+          "description": "· Aura\n· When a Ally Drone within Range performs a roll, it may consume 1 Command Token from this Mech to re-roll.",
+          "type": "Passive",
+          "size": "m",
+          "range": 4,
+          "storage": 0,
+          "yellowDice": 0,
+          "redDice": 0
+        },
+        {
+          "id": "ZYBP-202_B",
+          "name": "Command Coordination",
+          "description": "·  Give 1 Command Token to 1 Ally Drone.",
+          "type": "Tactic",
+          "size": "s",
+          "range": 0,
+          "storage": 0,
+          "yellowDice": 0,
+          "redDice": 0
+        }
+      ],
+      "projectile": [],
+      "isPD": false
+    },
+    {
+      "id": "ZYBP-301",
+      "name": "MCP7 “Boomerang” Carry Rack",
+      "type": "backpack",
+      "score": 27,
+      "armor": 3,
+      "structure": 0,
+      "parray": 0,
+      "dodge": 1,
+      "electronic": 0,
+      "move": 0,
+      "description": "· Fire in arc: This action does not require visual to the landing point or the target.\r\n· Volley X: Fire or deploy up to X projectiles and consume an equal amount of Ammo Tokens.",
+      "keywords": [KEYWORD_LIST.en.曲射, KEYWORD_LIST.en.齐射X],
+      "action": [
+        {
+          "id": "ZYBP-301_A",
+          "name": "Missile",
+          "description": "· Fire in arc · Volley 2 \n· Launch 1 M60 “Boomerang” Missile.",
+          "type": "Projectile",
+          "size": "s",
+          "range": 3,
+          "storage": 2,
+          "yellowDice": 0,
+          "redDice": 0
+        }
+      ],
+      "projectile": [
+        "ZHAM-002"
+      ],
+      "isPD": false
+    },
+    {
+      "id": "ZYBP-302",
+      "name": "“Halo” Melee Collaboration System",
+      "type": "backpack",
+      "score": 39,
+      "armor": 3,
+      "structure": 0,
+      "parray": 0,
+      "dodge": 1,
+      "electronic": 0,
+      "move": 0,
+      "description": "",
+      "keywords": [],
+      "action": [
+        {
+          "id": "ZYBP-302_A",
+          "name": "Dodge Enhancement",
+          "description": "· {Dodge} may cancel 1 Attack Dice.",
+          "type": "Passive",
+          "size": "m",
+          "range": 0,
+          "storage": 0,
+          "yellowDice": 0,
+          "redDice": 0
+        },
+        {
+          "id": "ZYBP-302_B",
+          "name": "Melee Evasion",
+          "description": "· On Parry, gains 1 extra Dodge.",
+          "type": "Passive",
+          "size": "m",
+          "range": 0,
+          "storage": 0,
+          "yellowDice": 0,
+          "redDice": 0
+        }
+      ],
+      "projectile": [],
+      "isPD": false
+    }
+  ]
+
+  export const gofPilots: Pilot[] = [
+    {
+      "id": "ZPA-35",
+      "name": "Chef",
+      "score": 15,
+      "LV": 4,
+      "faction": "GOF",
+      "swift": 3,
+      "melee": 4,
+      "projectile": 4,
+      "firing": 6,
+      "moving": 6,
+      "tactic": 7,
+      "trait": "CQC",
+      "traitDescription": "· When performing Melee Actions, may consume 1 Command Token to exchange {Eye} for {Heavy Hit}."
+    },
+    {
+      "id": "ZPA-36",
+      "name": "Aster",
+      "score": 12,
+      "LV": 4,
+      "faction": "GOF",
+      "swift": 6,
+      "melee": 4,
+      "projectile": 5,
+      "firing": 3,
+      "moving": 3,
+      "tactic": 4,
+      "trait": "Adjustment",
+      "traitDescription": "· Once per round, during the Command Phase, may consume 1 Cmmand Token to restore 1 Link to an Ally mech."
+    },
+    {
+      "id": "ZPA-37",
+      "name": "Foxhund",
+      "score": 15,
+      "LV": 4,
+      "faction": "GOF",
+      "swift": 3,
+      "melee": 7,
+      "projectile": 6,
+      "firing": 2,
+      "moving": 5,
+      "tactic": 5,
+      "trait": "Trace",
+      "traitDescription": "· If there are 2 or more Ally Drones that have line of sight to the target, Firing Actions of this Mech ignore Low Profile."
+    },
+    {
+      "id": "ZPA-38",
+      "name": "Firewatch",
+      "score": 15,
+      "LV": 4,
+      "faction": "GOF",
+      "swift": 5,
+      "melee": 6,
+      "projectile": 7,
+      "firing": 4,
+      "moving": 7,
+      "tactic": 3,
+      "trait": "Wetware Advantages",
+      "traitDescription": "· When performing Electronic Counter Rolls, may consume 1 Link to exchange {Eye} for {Lightning}."
+    },
+    {
+      "id": "ZPA-39",
+      "name": "Cadaver",
+      "score": 18,
+      "LV": 4,
+      "faction": "GOF",
+      "swift": 4,
+      "melee": 3,
+      "projectile": 2,
+      "firing": 5,
+      "moving": 4,
+      "tactic": 7,
+      "trait": "Survival Willing",
+      "traitDescription": "· When this Mech has less than 4 Parts, this Mech's Focus re-roll does not consume Link."
+    },
+    {
+      "id": "ZPA-40",
+      "name": "Shrike",
+      "score": 12,
+      "LV": 4,
+      "faction": "GOF",
+      "swift": 5,
+      "melee": 2,
+      "projectile": 3,
+      "firing": 8,
+      "moving": 4,
+      "tactic": 4,
+      "trait": "Joy",
+      "traitDescription": "· [Offensive Stance] When this Mech Destroys enemy Parts with Melee Actions, restore 1 Link."
+    },
+    {
+      "id": "ZPA-43",
+      "name": "Ranger-1",
+      "score": 4,
+      "LV": 4,
+      "faction": "GOF",
+      "swift": 2,
+      "melee": 5,
+      "projectile": 4,
+      "firing": 6,
+      "moving": 6,
+      "tactic": 8,
+      "trait":"",
+      "traitDescription": "Trainee Ranger from 525 Squadron."
+    },
+    {
+      "id": "ZPA-44",
+      "name": "Ranger-2",
+      "score": 4,
+      "LV": 4,
+      "faction": "GOF",
+      "swift": 2,
+      "melee": 5,
+      "projectile": 4,
+      "firing": 6,
+      "moving": 6,
+      "tactic": 8,
+      "trait":"",
+      "traitDescription": "Trainee Ranger from 525 Squadron."
+    },
+    {
+      "id": "ZPA-45",
+      "name": "Ranger-3",
+      "score": 4,
+      "LV": 4,
+      "faction": "GOF",
+      "swift": 2,
+      "melee": 5,
+      "projectile": 4,
+      "firing": 6,
+      "moving": 6,
+      "tactic": 8,
+      "trait":"",
+      "traitDescription": "Trainee Ranger from 525 Squadron."
+    },
+    {
+      "id": "ZPA-46",
+      "name": "Grenadier-1",
+      "score": 4,
+      "LV": 4,
+      "faction": "GOF",
+      "swift": 8,
+      "melee": 4,
+      "projectile": 5,
+      "firing": 3,
+      "moving": 3,
+      "tactic": 2,
+      "trait":"",
+      "traitDescription": "Trainee Grenadiers from 525 Squadron."
+    },
+    {
+      "id": "ZPA-47",
+      "name": "Grenadier-2",
+      "score": 4,
+      "LV": 4,
+      "faction": "GOF",
+      "swift": 8,
+      "melee": 4,
+      "projectile": 5,
+      "firing": 3,
+      "moving": 3,
+      "tactic": 2,
+      "trait":"",
+      "traitDescription": "Trainee Grenadiers from 525 Squadron."
+    },
+    {
+      "id": "ZPA-48",
+      "name": "Grenadier-3",
+      "score": 4,
+      "LV": 4,
+      "faction": "GOF",
+      "swift": 8,
+      "melee": 4,
+      "projectile": 5,
+      "firing": 3,
+      "moving": 3,
+      "tactic": 2,
+      "trait":"",
+      "traitDescription": "Trainee Grenadiers from 525 Squadron."
+    },
+    {
+      "id": "ZPA-49",
+      "name": "Grenadier-4",
+      "score": 4,
+      "LV": 4,
+      "faction": "GOF",
+      "swift": 8,
+      "melee": 4,
+      "projectile": 5,
+      "firing": 3,
+      "moving": 3,
+      "tactic": 2,
+      "trait":"",
+      "traitDescription": "Trainee Grenadiers from 525 Squadron."
+    }
+  ]
+
+export const gofProjectiles: Projectile[]=[
+    {
+      "id": "ZHAM-001A",
+      "name": "M707 \"Swift\" Missile",
+      "armor": 0,
+      "structure": 0,
+      "parray": 0,
+      "dodge": 3,
+      "electronic": 2,
+      "stance": "mobility",
+      "keywords": [
+        {
+          "name": "Projectile"
+        },
+        {
+          "name": "Missile"
+        }
+      ],
+      "actions": [
+        {
+          "id": "ZHAM-001A_A",
+          "name": "Guided Attack",
+          "description": "· Target 1 Enemy Unit within range, Fly into target grid and undergo Detonation.\n· On Detonation, cause Explosion damage to target.\n· Cruising",
+          "type": "Projectile",
+          "speed": "passive",
+          "range": 6,
+          "storage": 0,
+          "yellowDice": 4,
+          "redDice": 0
+        }
+      ]
+    },
+    {
+      "id": "ZHAM-002",
+      "name": "M60 “Boomerang” Missile",
+      "armor": 0,
+      "structure": 0,
+      "parray": 0,
+      "dodge": 6,
+      "electronic": 1,
+      "stance": "mobility",
+      "keywords": [
+        {
+          "name": "Projectile"
+        },
+        {
+          "name": "Missile"
+        }
+      ],
+      "actions": [
+        {
+          "id": "ZHAM-002_A",
+          "name": "Guided Attack",
+          "description": "· Target 1 Enemy Unit within range, Fly into target grid and undergo Detonation.\n· On Detonation, cause Explosion damage to target.",
+          "type": "Projectile",
+          "speed": "passive",
+          "range": 3,
+          "storage": 0,
+          "yellowDice": 1,
+          "redDice": 3
+        }
+      ]
+    },
+    {
+      "id": "ZHAM-003",
+      "name": "PK3 Sensor-fused Munition",
+      "armor": 0,
+      "structure": 0,
+      "parray": 0,
+      "dodge": 2,
+      "electronic": 1,
+      "stance": "mobility",
+      "keywords": [
+        {
+          "name": "Projectile"
+        },
+        {
+          "name": "Sensor-fused Munition"
+        }
+      ],
+      "actions": [
+        {
+          "id": "ZHAM-003_A",
+          "name": "Delayed Detonation",
+          "description": "· Target 1 Enemy Unit within range, Fly into target grid and undergo Detonation.\n· Prioritize Enemy Mechs as target.\n· On Detonation, cause Explosion damage to target.\n· Mutilation",
+          "type": "Projectile",
+          "speed": "passive",
+          "range": 1,
+          "storage": 0,
+          "yellowDice": 0,
+          "redDice": 3
+        }
+      ]
+    },
+    {
+      "id": "ZHAM-004",
+      "name": "M25 Shrapnel Shell",
+      "armor": 0,
+      "structure": 0,
+      "parray": 0,
+      "dodge": 2,
+      "electronic": 0,
+      "stance": "mobility",
+      "keywords": [
+        {
+          "name": "Projectile"
+        },
+        {
+          "name": "Grenade"
+        }
+      ],
+      "actions": [
+        {
+          "id": "ZHAM-004_A",
+          "name": "Delayed Detonation",
+          "description": "· Undergo Detonation at current grid.\n· On Detonation, cause Explosion damage to all units wihin range.",
+          "type": "Projectile",
+          "speed": "passive",
+          "range": 1,
+          "storage": 0,
+          "yellowDice": 3,
+          "redDice": 0
+        }
+      ]
+    }
+  ]
+
+  export const gofDrones: Drone[] =[
+    {
+      "id": "ZHDR-201",
+      "name": "N31 Hound I “Beagle”",
+      "type": "medium",
+      "score": 40,
+      "armor": 6,
+      "structure": 0,
+      "parray": 2,
+      "dodge": 0,
+      "electronic": 2,
+      "move": 5,
+      "stance": "offensive",
+      "description": "",
+      "projectile": [
+        "ZHAM-002"
+      ],
+      "isPD": false,
+      "hasImage":true,
+      "keywords": [KEYWORD_LIST.en.齐射X, KEYWORD_LIST.en.曲射],
+      "actions": [
+        {
+          "id": "ZHDR-201_A",
+          "name": "Tear",
+          "description": "· [On hit], target gains 1 Fragile Token.",
+          "type": "Melee",
+          "speed": "auto",
+          "range": 1,
+          "storage": 0,
+          "yellowDice": 5,
+          "redDice": 0
+        },
+        {
+          "id": "ZHDR-201_B",
+          "name": "Missile",
+          "description": "· Volley 3 · Fire in arc\n· Fire 1 M60 “Boomerang” Missile.",
+          "type": "Projectile",
+          "speed": "command",
+          "range": 6,
+          "storage": 3,
+          "yellowDice": 0,
+          "redDice": 0
+        }
+      ]
+    },
+    {
+      "id": "ZHDR-202",
+      "name": "N31 Hound II “Watchdog”",
+      "type": "medium",
+      "score": 36,
+      "armor": 6,
+      "structure": 0,
+      "parray": 2,
+      "dodge": 0,
+      "electronic": 2,
+      "move": 5,
+      "stance": "offensive",
+      "description": "",
+      "projectile": [],
+      "isPD": false,
+      "hasImage":true,
+      "keywords": [KEYWORD_LIST.en.光环],
+      "actions": [
+        {
+          "id": "ZHDR-202_A",
+          "name": "Tear",
+          "description": "· [On hit], target gains 1 Fragile Token.",
+          "type": "Melee",
+          "speed": "auto",
+          "range": 1,
+          "storage": 0,
+          "yellowDice": 5,
+          "redDice": 0
+        },
+        {
+          "id": "ZHDR-202_B",
+          "name": "Electronic Warfare Weakening",
+          "description": "· Aura\n· When Enemy Units within range make Electronic Counter Rolls, Strength -1. This effect cannot be stacked.",
+          "type": "Passive",
+          "speed": "passive",
+          "range": 4,
+          "storage": 0,
+          "yellowDice": 0,
+          "redDice": 0
+        }
+      ]
+    },
+    {
+      "id": "ZHDR-203",
+      "name": "N31 Hound III “Bulldog”",
+      "type": "medium",
+      "score": 36,
+      "armor": 6,
+      "structure": 0,
+      "parray": 2,
+      "dodge": 0,
+      "electronic": 2,
+      "move": 5,
+      "stance": "offensive",
+      "description": "",
+      "projectile": [],
+      "isPD": false,
+      "hasImage":true,
+      "keywords": [KEYWORD_LIST.en.空中移动],
+      "actions": [
+        {
+          "id": "ZHDR-203_A",
+          "name": "Tear",
+          "description": "· [On hit], target gains 1 Fragile Token.",
+          "type": "Melee",
+          "speed": "auto",
+          "range": 1,
+          "storage": 0,
+          "yellowDice": 5,
+          "redDice": 0
+        },
+        {
+          "id": "ZHDR-203_B",
+          "name": "Jump",
+          "description": "· Airborne Movement",
+          "type": "Moving",
+          "speed": "command",
+          "range": 3,
+          "storage": 0,
+          "yellowDice": 0,
+          "redDice": 0
+        }
+      ]
+    },
+    {
+      "id": "ZHDR-303",
+      "name": "N503 “Valkyrie”",
+      "type": "medium",
+      "score": 72,
+      "armor": 2,
+      "structure": 4,
+      "parray": 0,
+      "dodge": 0,
+      "electronic": 3,
+      "move": 5,
+      "stance": "offensive",
+      "description": "",
+      "projectile": [],
+      "isPD": false,
+      "hasImage":true,
+      "keywords": [KEYWORD_LIST.en.全向射击, KEYWORD_LIST.en.近战射击, KEYWORD_LIST.en.光环],
+      "actions": [
+        {
+          "id": "ZHDR-303_A",
+          "name": "Single Shot",
+          "description": "· Omni-direction Firing\n· Melee Firing\n· {Lightning}  may make Target Mech switch into Shutdown Stance immediately.",
+          "type": "Firing",
+          "speed": "auto",
+          "range": 4,
+          "storage": 0,
+          "yellowDice": 1,
+          "redDice": 2
+        },
+        {
+          "id": "ZHDR-303_B",
+          "name": "Appease",
+          "description": "· Aura\n· At the end of each Round, all Ally Mechs within range recover 1 Link.",
+          "type": "Passive",
+          "speed": "passive",
+          "range": 2,
+          "storage": 0,
+          "yellowDice": 0,
+          "redDice": 0
+        }
+      ]
+    },
+    {
+      "id": "ZHDR-304",
+      "name": "N504 “Harpy”",
+      "type": "medium",
+      "score": 72,
+      "armor": 2,
+      "structure": 4,
+      "parray": 0,
+      "dodge": 0,
+      "electronic": 3,
+      "move": 5,
+      "stance": "offensive",
+      "description": "",
+      "projectile": [],
+      "isPD": false,
+      "hasImage":true,
+     "keywords": [KEYWORD_LIST.en.全向射击, KEYWORD_LIST.en.近战射击],
+      "actions": [
+        {
+          "id": "ZHDR-304_A",
+          "name": "Single Shot",
+          "description": "· Omni-direction Firing\n· Melee Firing\n· {Lightning}  may make Target Mech switch into Shutdown Stance immediately.",
+          "type": "Firing",
+          "speed": "auto",
+          "range": 4,
+          "storage": 0,
+          "yellowDice": 1,
+          "redDice": 2
+        },
+        {
+          "id": "ZHDR-304_B",
+          "name": "Air Transport",
+          "description": "· When performing Command Movement, may consume 1 extral Command Token to drag an adjacent Ally Unit.",
+          "type": "Passive",
+          "speed": "passive",
+          "range": 0,
+          "storage": 0,
+          "yellowDice": 0,
+          "redDice": 0
+        }
+      ]
+    },
+    {
+      "id": "ZHDR-101",
+      "name": "N11 Vanguard I “Scutum”",
+      "type": "medium",
+      "score": 36,
+      "armor": 5,
+      "structure": 3,
+      "parray": 0,
+      "dodge": 0,
+      "electronic": 2,
+      "move": 5,
+      "stance": "defensive",
+      "description": "",
+      "projectile": [],
+      "isPD": false,
+      "hasImage":true,
+      "keywords": [KEYWORD_LIST.en.自动盾牌],
+      "actions": [
+        {
+          "id": "ZHDR-101_A",
+          "name": "Mobile Bunker",
+          "description": "· May provide Unit Protection to Ally Units.\n· Automatic Shield",
+          "type": "Passive",
+          "speed": "passive",
+          "range": 0,
+          "storage": 0,
+          "yellowDice": 0,
+          "redDice": 0
+        }
+      ]
+    },
+    {
+      "id": "ZHDR-102",
+      "name": "N12 Vanguard II “Crossbow”",
+      "type": "medium",
+      "score": 24,
+      "armor": 4,
+      "structure": 0,
+      "parray": 0,
+      "dodge": 0,
+      "electronic": 2,
+      "move": 5,
+      "stance": "defensive",
+      "description": "",
+      "projectile": [],
+      "isPD": false,
+      "hasImage":true,
+      "keywords": [KEYWORD_LIST.en.拦截X, KEYWORD_LIST.en.全向射击, KEYWORD_LIST.en.近战射击],
+      "actions": [
+        {
+          "id": "ZHDR-102_A",
+          "name": "Full-auto",
+          "description": "· Intercept 1\n· Omni-direction Firing\n· Melee Firing",
+          "type": "Firing",
+          "speed": "auto",
+          "range": 6,
+          "storage": 0,
+          "yellowDice": 2,
+          "redDice": 1
+        }
+      ]
+    },
+    {
+      "id": "ZHDR-103",
+      "name": "N13 Vanguard III “Claymore”",
+      "type": "medium",
+      "score": 24,
+      "armor": 4,
+      "structure": 0,
+      "parray": 0,
+      "dodge": 0,
+      "electronic": 2,
+      "move": 5,
+      "stance": "defensive",
+      "description": "",
+      "projectile": [],
+      "isPD": false,
+      "hasImage":true,
+      "keywords": [KEYWORD_LIST.en.全向射击, KEYWORD_LIST.en.近战射击],
+      "actions": [
+        {
+          "id": "ZHDR-103_A",
+          "name": "Full-auto",
+          "description": "· Omni-direction Firing\n· Melee Firing",
+          "type": "Firing",
+          "speed": "auto",
+          "range": 4,
+          "storage": 0,
+          "yellowDice": 4,
+          "redDice": 0
+        }
+      ]
+    },
+    {
+      "id": "ZHDR-104",
+      "name": "N14 Vanguard IV “Javelin”",
+      "type": "medium",
+      "score": 24,
+      "armor": 4,
+      "structure": 0,
+      "parray": 0,
+      "dodge": 0,
+      "electronic": 2,
+      "move": 5,
+      "stance": "defensive",
+      "description": "",
+      "projectile": [
+        "ZHAM-001A"
+      ],
+      "isPD": false,
+      "hasImage":true,
+      "keywords": [KEYWORD_LIST.en.曲射],
+      "actions": [
+        {
+          "id": "ZHDR-104_A",
+          "name": "Missile",
+          "description": "· Fire in arc\n· Fire 1 M707 \"Swift\" Missile.",
+          "type": "Projectile",
+          "speed": "command",
+          "range": 6,
+          "storage": 2,
+          "yellowDice": 0,
+          "redDice": 0
+        }
+      ]
+    },
+    {
+      "id": "ZHDR-106",
+      "name": "N113 Aegis II “Ballista”",
+      "type": "medium",
+      "score": 72,
+      "armor": 3,
+      "structure": 6,
+      "parray": 0,
+      "dodge": 0,
+      "electronic": 2,
+      "move": 4,
+      "stance": "offensive",
+      "description": "",
+      "projectile": [
+        "ZHAM-001A"
+      ],
+      "isPD": false,
+      "hasImage":true,
+      "keywords": [KEYWORD_LIST.en.穿甲X, KEYWORD_LIST.en.近战射击, KEYWORD_LIST.en.曲射],
+      "actions": [
+        {
+          "id": "ZHDR-106_A",
+          "name": "Single Shot",
+          "description": "· Armor Piercing 1\n· Melee Firing",
+          "type": "Firing",
+          "speed": "command",
+          "range": 12,
+          "storage": 0,
+          "yellowDice": 0,
+          "redDice": 3
+        },
+        {
+          "id": "ZHDR-106_B",
+          "name": "Missile",
+          "description": "· Fire in arc\n· Fire 1 M707 \"Swift\" Missile.",
+          "type": "Projectile",
+          "speed": "command",
+          "range": 6,
+          "storage": 2,
+          "yellowDice": 0,
+          "redDice": 0
+        }
+      ]
+    },
+    {
+      "id": "ZHDR-107",
+      "name": "N113 Aegis III “Ram”",
+      "type": "medium",
+      "score": 60,
+      "armor": 3,
+      "structure": 6,
+      "parray": 0,
+      "dodge": 0,
+      "electronic": 2,
+      "move": 4,
+      "stance": "offensive",
+      "description": "",
+      "projectile": [],
+      "isPD": false,
+      "hasImage":true,
+      "keywords": [KEYWORD_LIST.en.压制],
+      "actions": [
+        {
+          "id": "ZHDR-107_A",
+          "name": "Full-auto",
+          "description": "· Suppression",
+          "type": "Firing",
+          "speed": "command",
+          "range": 6,
+          "storage": 0,
+          "yellowDice": 5,
+          "redDice": 0
+        }
+      ]
+    },
+    {
+      "id": "ZHDR-301",
+      "name": "N51 “Apologist”",
+      "type": "medium",
+      "score": 60,
+      "armor": 2,
+      "structure": 5,
+      "parray": 0,
+      "dodge": 0,
+      "electronic": 2,
+      "move": 5,
+      "stance": "defensive",
+      "description": "",
+      "projectile": [],
+      "isPD": false,
+      "hasImage":true,
+      "keywords": [KEYWORD_LIST.en.霰射, KEYWORD_LIST.en.近战射击, KEYWORD_LIST.en.击退X, KEYWORD_LIST.en.自动盾牌],
+      "actions": [
+        {
+          "id": "ZHDR-301_A",
+          "name": "Single Shot",
+          "description": "· Scatter-shot · Melee Firing\n· Knock Back 1",
+          "type": "Firing",
+          "speed": "command",
+          "range": 3,
+          "storage": 0,
+          "yellowDice": 3,
+          "redDice": 1
+        },
+        {
+          "id": "ZHDR-301_B",
+          "name": "Dense Armor Hand",
+          "description": "· When this Unit is attacked, may use {Defense} to offset {Heavy Hit}.\n· Automatic Shield.",
+          "type": "Passive",
+          "speed": "passive",
+          "range": 0,
+          "storage": 0,
+          "yellowDice": 0,
+          "redDice": 0
+        }
+      ]
+    },
+    {
+      "id": "ZHDR-302",
+      "name": "N52 “Zealot”",
+      "type": "medium",
+      "score": 60,
+      "armor": 2,
+      "structure": 5,
+      "parray": 1,
+      "dodge": 0,
+      "electronic": 2,
+      "move": 5,
+      "stance": "defensive",
+      "description": "",
+      "projectile": [],
+      "isPD": false,
+      "hasImage":true,
+      "keywords": [KEYWORD_LIST.en.禁足],
+      "actions": [
+        {
+          "id": "ZHDR-302_A",
+          "name": "Chop",
+          "description": "· [On Hit] target gains 1 Immobilized Token.",
+          "type": "Melee",
+          "speed": "command",
+          "range": 1,
+          "storage": 0,
+          "yellowDice": 5,
+          "redDice": 0
+        },
+        {
+          "id": "ZHDR-302_B",
+          "name": "Martyrdom",
+          "description": "· When this unit is destroyed, undergo Detonation immediately.\n· On Detonation, cause Explosion damage to all units within range.",
+          "type": "Passive",
+          "speed": "passive",
+          "range": 1,
+          "storage": 0,
+          "yellowDice": 2,
+          "redDice": 4
+        }
+      ]
+    },
+    {
+      "id": "ZHDR-204",
+      "name": "N305 Eagle I “Misty Eagle”",
+      "type": "medium",
+      "score": 36,
+      "armor": 2,
+      "structure": 0,
+      "parray": 0,
+      "dodge": 7,
+      "electronic": 3,
+      "move": 6,
+      "stance": "mobility",
+      "description": "",
+      "projectile": [],
+      "isPD": false,
+      "hasImage":true,
+      "keywords": [KEYWORD_LIST.en.低特征],
+      "actions": [
+        {
+          "id": "ZHDR-204_A",
+          "name": "Feature reduction",
+          "description": "· When Enemy Units within range perform a Firing Action, the target is considered to have Low Profile.",
+          "type": "Passive",
+          "speed": "passive",
+          "range": 5,
+          "storage": 0,
+          "yellowDice": 0,
+          "redDice": 0
+        }
+      ]
+    },
+    {
+      "id": "ZHDR-205",
+      "name": "N306 Eagle II “Roaring Eagle”",
+      "type": "medium",
+      "score": 36,
+      "armor": 2,
+      "structure": 0,
+      "parray": 0,
+      "dodge": 7,
+      "electronic": 3,
+      "move": 6,
+      "stance": "mobility",
+      "description": "",
+      "projectile": [],
+      "isPD": false,
+      "hasImage":true,
+      "keywords": [KEYWORD_LIST.en.电子攻击],
+      "actions": [
+        {
+          "id": "ZHDR-205_A",
+          "name": "Scream",
+          "description": "· Electronic Attack\n· Perform Electronic Counter Roll with all Enemy Mechs within range, Strength +1, reduce 1 Link of Target if successful.",
+          "type": "Tactic",
+          "speed": "auto",
+          "range": 4,
+          "storage": 0,
+          "yellowDice": 0,
+          "redDice": 0
+        }
+      ]
+    },
+    {
+      "id": "ZHDR-206",
+      "name": "N307 Eagle III “Patrol Eagle”",
+      "type": "medium",
+      "score": 36,
+      "armor": 2,
+      "structure": 0,
+      "parray": 0,
+      "dodge": 7,
+      "electronic": 3,
+      "move": 6,
+      "stance": "mobility",
+      "description": "",
+      "projectile": [],
+      "isPD": false,
+      "hasImage":true,
+      "keywords": [KEYWORD_LIST.en.静默, KEYWORD_LIST.en.电子支援],
+      "actions": [
+        {
+          "id": "ZHDR-206_A",
+          "name": "Dynamic Perception",
+          "description": "· All Actions of Enemy Units within range lose Silence.",
+          "type": "Passive",
+          "speed": "passive",
+          "range": 3,
+          "storage": 0,
+          "yellowDice": 0,
+          "redDice": 0
+        },
+        {
+          "id": "ZHDR-206_B",
+          "name": "Stance feedback",
+          "description": "· Electronic Support\n· May make an Ally Mech within range switch Stance, except if in Shutdown Stance.",
+          "type": "Tactic",
+          "speed": "command",
+          "range": 6,
+          "storage": 0,
+          "yellowDice": 0,
+          "redDice": 0
+        }
+      ]
+    },
+    {
+      "id": "ZYDR-108",
+      "name": "SU1 “Nest Guardian Swarm”",
+      "type": "medium",
+      "score": 0,
+      "armor": 1,
+      "structure": 0,
+      "parray": 0,
+      "dodge": 2,
+      "electronic": 1,
+      "move": 5,
+      "stance": "mobility",
+      "description": "",
+      "projectile": [],
+      "isPD": false,
+      "hasImage":true,
+      "keywords": [KEYWORD_LIST.en.全向射击],
+      "actions": [
+        {
+          "id": "ZYDR-108_A",
+          "name": "Single Shot",
+          "description": "· Omni-direction Firing",
+          "type": "Firing",
+          "speed": "auto",
+          "range": 2,
+          "storage": 0,
+          "yellowDice": 3,
+          "redDice": 0
+        },
+        {
+          "id": "ZYDR-108_B",
+          "name": "Armor Patch",
+          "description": "· Remove 1 Damaged Token from Ally Unit, then remove this Unit.",
+          "type": "Tactic",
+          "speed": "command",
+          "range": 2,
+          "storage": 0,
+          "yellowDice": 0,
+          "redDice": 0
+        }
+      ]
+    }
+  ]
+
+export const gofTorso: Part[] = [
+    {
+      "id": "172",
+      "name": "P7\n“Warrior”\nBattle Core",
+      "type": "torso",
+      "score": 76,
+      "armor": 5,
+      "structure": 3,
+      "parray": 0,
+      "dodge": 0,
+      "electronic": 3,
+      "move": 0,
+      "hasImage":true,
+      "description": "·Command Generation X：This Unit generates X Command Tokens in the Command Phase.\n·Command Coordination X: After performing this Action, this Mech may issue 1 Command Token to X Ally Drones.",
+      "keywords": [KEYWORD_LIST.en.指令生成X, KEYWORD_LIST.en.指令协调X],
+      "action": [
+        {
+          "id": "172_A",
+          "name": "N4 Data Link",
+          "description": "· Command Generation 4",
+          "type": "Passive",
+          "size": "m",
+          "range": 0,
+          "storage": 0,
+          "yellowDice": 0,
+          "redDice": 0
+        },
+        {
+          "id": "172_B",
+          "name": "Melee Synergy",
+          "description": "· Melee Actions by this Unit gain Command Coordination 1.",
+          "type": "Passive",
+          "size": "m",
+          "range": 0,
+          "storage": 0,
+          "yellowDice": 0,
+          "redDice": 0
+        }
+      ],
+      "projectile": [],
+      "isPD": false
+    },
+    {
+      "id": "173",
+      "name": "P7-A3\n“Centurion”\nNode Core",
+      "type": "torso",
+      "score": 79,
+      "armor": 5,
+      "structure": 3,
+      "parray": 0,
+      "dodge": 0,
+      "electronic": 3,
+      "move": 0,
+      "hasImage":true,
+      "description": "·Command Generation X：This Unit generates X Command Tokens in the Command Phase.",
+      "keywords": [KEYWORD_LIST.en.指令生成X, KEYWORD_LIST.en.光环],
+      "action": [
+        {
+          "id": "173_A",
+          "name": "N4 Data Link",
+          "description": "· Command Generation 4",
+          "type": "Passive",
+          "size": "m",
+          "range": 0,
+          "storage": 0,
+          "yellowDice": 0,
+          "redDice": 0
+        },
+        {
+          "id": "173_B",
+          "name": "Fire Control Planning",
+          "description": "· Aura\n· Ally Drones within Range performing Firing Actions gain Range + 2 grids.\nThis effect does not stack.",
+          "type": "Passive",
+          "size": "m",
+          "range": 4,
+          "storage": 0,
+          "yellowDice": 0,
+          "redDice": 0
+        }
+      ],
+      "projectile": [],
+      "isPD": false
+    },
+    {
+      "id": "174",
+      "name": "P22\n“Hunter”\nElectronic Warfare Core",
+      "type": "torso",
+      "score": 91,
+      "armor": 5,
+      "structure": 4,
+      "parray": 0,
+      "dodge": 0,
+      "electronic": 4,
+      "move": 0,
+      "hasImage":true,
+      "description": "·Command Generation X：At the beginning of each Command Phase, this Unit automatically generates X Command Tokens rather than 1.",
+       "keywords": [KEYWORD_LIST.en.指令生成X],
+      "action": [
+        {
+          "id": "174_A",
+          "name": "N4 Data Link",
+          "description": "· Command Generation 4",
+          "type": "Passive",
+          "size": "m",
+          "range": 0,
+          "storage": 0,
+          "yellowDice": 0,
+          "redDice": 0
+        },
+        {
+          "id": "174_B",
+          "name": "Target Tracing",
+          "description": "· When this mech is attacked by Melee/Firing Actions of Enemy Mech, may perfrom a Electronic Conter Roll with Attacker, reduce 1 Link of Target when successful.",
+          "type": "Passive",
+          "size": "m",
+          "range": 0,
+          "storage": 0,
+          "yellowDice": 0,
+          "redDice": 0
+        }
+      ],
+      "projectile": [],
+      "isPD": false
+    },
+    {
+      "id": "175",
+      "name": "P28\n“Dragoon”\nArmored Core",
+      "type": "torso",
+      "score": 97,
+      "armor": 5,
+      "structure": 4,
+      "parray": 0,
+      "dodge": 0,
+      "electronic": 2,
+      "move": 0,
+      "hasImage":true,
+      "description": "·Command Generation X：At the beginning of each Command Phase, this Unit automatically generates X Command Tokens rather than 1.",
+      "keywords": [KEYWORD_LIST.en.指令生成X],
+      "action": [
+        {
+          "id": "175_A",
+          "name": "A2 Data Link",
+          "description": "· Command Generation 2\n· When recieving Commands from this Mech, Ally Drones may perform Automatic Actions instead of Command Actions.",
+          "type": "Passive",
+          "size": "m",
+          "range": 0,
+          "storage": 0,
+          "yellowDice": 0,
+          "redDice": 0
+        },
+        {
+          "id": "175_B",
+          "name": "Dense Armor",
+          "description": "· When this Part is designated as the Target Part, may use {Defense} to offset {Heavy Hit}.",
+          "type": "Passive",
+          "size": "m",
+          "range": 0,
+          "storage": 0,
+          "yellowDice": 0,
+          "redDice": 0
+        }
+      ],
+      "projectile": [],
+      "isPD": false
+    },
+    {
+      "id": "176",
+      "name": "P24\n“Chariot”\nArmored Core",
+      "type": "torso",
+      "score": 94,
+      "armor": 5,
+      "structure": 4,
+      "parray": 0,
+      "dodge": 0,
+      "electronic": 2,
+      "move": 0,
+      "hasImage":true,
+      "description": "·Command Generation X：At the beginning of each Command Phase, this Unit automatically generates X Command Tokens rather than 1.",
+      "keywords": [KEYWORD_LIST.en.指令生成X],
+      "action": [
+        {
+          "id": "176_A",
+          "name": "M2 Data Link",
+          "description": "· Command Generation 2\n· When receiving Commands from this Mech, Ally Drones may move 1 grid before performing Actions.",
+          "type": "Passive",
+          "size": "m",
+          "range": 0,
+          "storage": 0,
+          "yellowDice": 0,
+          "redDice": 0
+        },
+        {
+          "id": "176_B",
+          "name": "Dense Armor",
+          "description": "· When this Part is designated as the Target Part, may use {Defense} to offset {Heavy Hit}.",
+          "type": "Passive",
+          "size": "m",
+          "range": 0,
+          "storage": 0,
+          "yellowDice": 0,
+          "redDice": 0
+        }
+      ],
+      "projectile": [],
+      "isPD": false
+    }
+  ]

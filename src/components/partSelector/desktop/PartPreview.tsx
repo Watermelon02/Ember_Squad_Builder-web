@@ -16,13 +16,14 @@ interface PartPreviewProps {
   faction: string;
   tabsrc: string
   hasLeft: boolean;
-  data: any
+  data: any;
+  lang:string;
 }
 
 export default function PartPreview({
   partId,
   factionParts,
-  imageSrc, showKeyword, faction, tabsrc, compareMode, hasLeft, data
+  imageSrc, showKeyword, faction, tabsrc, compareMode, hasLeft, data,lang
 }: PartPreviewProps) {
   const part = factionParts.find((p) => p.id === partId);
 
@@ -148,7 +149,7 @@ export default function PartPreview({
                 loading="lazy"
               /> :
                 <div style={{ scale: "0.92" }}>
-                  <PartCard faction={faction} part={part} tabsrc={tabsrc} isThrowCard={false} />
+                  <PartCard faction={faction} part={part} tabsrc={tabsrc} isThrowCard={false} lang={lang}/>
                 </div>}
               {/* 🔽 关键词展示区域 🔽 */}
               {showKeyword && part?.keywords && part.keywords.length > 0 && (
@@ -257,7 +258,7 @@ export default function PartPreview({
                         if (value.id === proj) return value;
                       });
 
-                      const shouldShowImage = (currentProjectile?.hasImage === undefined || currentProjectile?.hasImage);
+                      const shouldShowImage = (currentProjectile?.hasImage === undefined );
 
                       return (
                         <div key={idx} style={{ position: "relative" }}>
@@ -284,6 +285,7 @@ export default function PartPreview({
                               faction={faction}
                               projectile={currentProjectile}
                               tabsrc={tabsrc}
+                               lang={lang}
                             />
                           )}
                         </div>
@@ -303,7 +305,7 @@ export default function PartPreview({
                           maxWidth: "25vh"
                         }}
                         loading="lazy"
-                      /> : <div style={{ scale: "0.92" }}><PartCard faction={faction} part={getPartByFactionAndType().find((value) => { if (value.id === part.throwIndex) return value })} tabsrc={tabsrc} isThrowCard={true} /></div>}
+                      /> : <div style={{ scale: "0.92" }}><PartCard faction={faction} part={getPartByFactionAndType().find((value) => { if (value.id === part.throwIndex) return value })} tabsrc={tabsrc} isThrowCard={true} lang={lang}/></div>}
                     </div>
                   )}
                 </div>

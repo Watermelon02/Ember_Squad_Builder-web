@@ -13,7 +13,7 @@ interface PilotPreviewProps {
   tabSrc: string;
   lang?: string;
   compareMode: boolean;
-  leftPreviewExist:boolean;
+  leftPreviewExist: boolean;
 }
 
 export default function PilotPreview({
@@ -34,7 +34,7 @@ export default function PilotPreview({
     <div
       style={{
         display: "flex",
-        width: compareMode ? leftPreviewExist?"50%":"100%" : "100%",
+        width: compareMode ? leftPreviewExist ? "50%" : "100%" : "100%",
         flexDirection: "column",
         overflowY: "auto",
         position: "relative",
@@ -71,7 +71,7 @@ export default function PilotPreview({
       <AnimatePresence mode="wait">
 
         {/* PILOT IMAGE */}
-        <motion.img
+        {(pilot.hasImage === undefined ) ? <motion.img
           src={`${imageSrc}/${pilotId}.png`}
           alt={pilot.name}
           style={{
@@ -85,7 +85,14 @@ export default function PilotPreview({
           exit={{ opacity: 0, y: -100 }}
           transition={{ duration: 0.2 }}
           loading="lazy"
-        />
+        /> : <span style={{
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+          fontWeight: "800",
+          fontSize: "2.4vh",
+          height: "20vh",
+        }}>No IMAGE</span>}
       </AnimatePresence>
 
       {/* 🧊 毛玻璃 Trait 信息框 */}

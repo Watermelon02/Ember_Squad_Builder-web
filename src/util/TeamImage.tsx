@@ -100,7 +100,7 @@ const CONSTANTS = {
 // 根据每个Part或Projectile或Drone的hasImage判断，当{faction!=="GOF"&&(hasImage === undefined || hasImage)时，isGOF为false,否则为true
 const checkNoOfficialCard = (faction: string, hasImage?: boolean, isPD?: boolean): boolean => {
   if (isPD) return false;
-  const isOfficial = (hasImage === undefined || hasImage === true);
+  const isOfficial = faction !== "GOF" && (hasImage === undefined || hasImage === true);
   return !isOfficial;
 };
 
@@ -258,7 +258,7 @@ export const exportTeamImage = async (team: Team, lang: string, translations: an
       const img = await getImage(`${localImgsrc}/${part.id}.png`);
       return { part, img };
     }));
-    const validParts = partsInfo.filter((p): p is { part: Part, img: HTMLImageElement } => p !== null);
+    const validParts = partsInfo.filter((p): p is { part: Part,img: HTMLImageElement } => p !== null);
 
     const pilotImg = mech.pilot ? await getImage(`${localImgsrc}/${mech.pilot.id}.png`) : null;
 
@@ -411,7 +411,8 @@ export const exportTeamImage = async (team: Team, lang: string, translations: an
     if (pilotImg) {
       const scale = TARGET_HEIGHT / pilotImg.height;
       const drawWidth = pilotImg.width * scale;
-      const noOfficialCardPilot = checkNoOfficialCard(team.faction, mech.pilot?.hasImage, undefined);
+      //驾驶员不需要再画阴影了
+      const noOfficialCardPilot = false;
       drawItemImage(ctx, pilotImg, partDrawX, y + 20, drawWidth, TARGET_HEIGHT, noOfficialCardPilot);
     }
     y += mechRowHeight;
@@ -424,18 +425,18 @@ export const exportTeamImage = async (team: Team, lang: string, translations: an
     items.forEach((item, i) => {
       // @ts-ignore
       const img = item.img || item;
-      const width = img.width * (TARGET_HEIGHT / img.height);
-      const col = i % perRow;
-      const row = Math.floor(i / perRow);
-      const x = PADDING + col * (width + SPACING + 20);
-      const itemY = startY + row * rowHeight;
-      renderer(item, x, itemY, width, TARGET_HEIGHT);
+    const width = img.width * (TARGET_HEIGHT / img.height);
+    const col = i % perRow;
+    const row = Math.floor(i / perRow);
+    const x = PADDING + col * (width + SPACING + 20);
+    const itemY = startY + row * rowHeight;
+    renderer(item, x, itemY, width, TARGET_HEIGHT);
     });
     return startY + Math.ceil(items.length / perRow) * rowHeight;
   };
 
   y = drawGrid(droneData, CONSTANTS.DRONES_PER_ROW, y, (data, x, y, w, h) => {
-    const { drone, img, backpackImg } = data;
+    const {drone, img, backpackImg} = data;
 
     // ----------------------------
     // 渐变背景（无人机专属，径向随机版）
@@ -453,27 +454,27 @@ export const exportTeamImage = async (team: Team, lang: string, translations: an
 
     if (backpackImg) {
       ctx.save();
-      ctx.shadowColor = "rgba(0,0,0,0.4)";
-      ctx.shadowBlur = 10;
-      const backpackScale = 0.4;
-      ctx.drawImage(backpackImg, x + 80, y + 25, backpackImg.width * backpackScale, backpackImg.height * backpackScale);
-      ctx.restore();
+    ctx.shadowColor = "rgba(0,0,0,0.4)";
+    ctx.shadowBlur = 10;
+    const backpackScale = 0.4;
+    ctx.drawImage(backpackImg, x + 80, y + 25, backpackImg.width * backpackScale, backpackImg.height * backpackScale);
+    ctx.restore();
     }
   });
 
-  if (includeProjectile) {
+    if (includeProjectile) {
     // 绘制抛射物
-    const projItems = projectileImages.map(img => ({ img }));
+    const projItems = projectileImages.map(img => ({img}));
     y = drawGrid(projItems, CONSTANTS.DRONES_PER_ROW, y, (data, x, y, w, h) => {
       drawCardBackground(ctx, x, y, w + SPACING, h + 30, CONSTANTS.RADIUS, team.faction, 0.3);
-      const noOfficialCard = checkNoOfficialCard(team.faction, true, false);
-      drawItemImage(ctx, data.img, x, y, w, h, noOfficialCard);
+    const noOfficialCard = checkNoOfficialCard(team.faction, true, false);
+    drawItemImage(ctx, data.img, x, y, w, h, noOfficialCard);
     });
   }
 
   // 绘制战术卡
   drawGrid(tacticData, CONSTANTS.CARDS_PER_ROW, y, (data, x, y, w, h) => {
-    drawCardBackground(ctx, x, y, w + SPACING, h + 30, CONSTANTS.RADIUS, team.faction, 0.3);
+      drawCardBackground(ctx, x, y, w + SPACING, h + 30, CONSTANTS.RADIUS, team.faction, 0.3);
 
     ctx.save();
     setGlowText(ctx, 36, "#ffffff", fontFamily);
@@ -490,35 +491,35 @@ export const exportTeamImage = async (team: Team, lang: string, translations: an
 
   // 把 canvas 导出为 PNG
   const blob: Blob = await new Promise(resolve => canvas.toBlob(b => resolve(b!), "image/png"));
-  if (!blob) return;
+    if (!blob) return;
 
-  // 转成 ArrayBuffer
-  const buffer = new Uint8Array(await blob.arrayBuffer());
+    // 转成 ArrayBuffer
+    const buffer = new Uint8Array(await blob.arrayBuffer());
 
-  // 提取 PNG chunks
-  // @ts-ignore
-  const chunks = extractChunks(buffer);
+    // 提取 PNG chunks
+    // @ts-ignore
+    const chunks = extractChunks(buffer);
 
-  // 插入 JSON 数据
-  const jsonString = JSON.stringify(team);
-  // @ts-ignore
-  const customChunk = textChunk("TeamData", jsonString);
-  chunks.splice(-1, 0, customChunk); // 在 IEND 前插入
+    // 插入 JSON 数据
+    const jsonString = JSON.stringify(team);
+    // @ts-ignore
+    const customChunk = textChunk("TeamData", jsonString);
+    chunks.splice(-1, 0, customChunk); // 在 IEND 前插入
 
-  // 重新编码 PNG
-  // @ts-ignore
-  const outputBuffer = encodeChunks(chunks);
-  const outBlob = new Blob([outputBuffer], { type: "image/png" });
+    // 重新编码 PNG
+    // @ts-ignore
+    const outputBuffer = encodeChunks(chunks);
+    const outBlob = new Blob([outputBuffer], {type: "image/png" });
 
-  const blobUrl = URL.createObjectURL(outBlob);
-  const link = document.createElement("a");
-  link.download = `${team.name}.png`;
-  link.href = blobUrl;
+    const blobUrl = URL.createObjectURL(outBlob);
+    const link = document.createElement("a");
+    link.download = `${team.name}.png`;
+    link.href = blobUrl;
 
-  // 尝试在用户交互环境触发
-  document.body.appendChild(link);
-  link.click();
-  document.body.removeChild(link);
+    // 尝试在用户交互环境触发
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
 
   setTimeout(() => URL.revokeObjectURL(blobUrl), 500);
 };

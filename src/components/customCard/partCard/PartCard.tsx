@@ -4,14 +4,15 @@ import { Rocket } from 'lucide-react';
 import './PartCard.css';
 import { Action, Part } from '../../../types';
 import { TilingCrossPattern } from '../TilingCrossPattern';
-import { getCardBackGroundClassName, getTypeIcon } from '../../../util/CustomCardUtil';
+import { getCardBackGroundClassName } from '../../../util/CustomCardUtil';
 import { translations } from '../../../i18n';
 
 interface PartCardProps {
   part: Part;
   tabsrc: string;
   isThrowCard: boolean;
-  faction: string
+  faction: string;
+  lang: string;
 }
 
 // 静态常量与辅助函数移出组件外部
@@ -24,6 +25,28 @@ const TYPE_GRADIENTS: Record<string, string> = {
   Tactic: 'linear-gradient(90deg, #05aaa4 0%,#38BAA6f0 60%, #25B1A090 100%)',
   Passive: 'linear-gradient(135deg, #B9B4B6 0%, #909090 100%)',
   Default: 'linear-gradient(135deg, #94a3b8 0%, #64748b 100%)'
+};
+
+export const getTypeIcon = (type: Action['type'], tabsrc: string) => {
+  const commonProps = { size: "3vh", strokeWidth: 2.5 };
+  const commonStyle = {};
+
+  const getImg = (src: string, styleOverride = {}) =>
+    <img
+      src={src}
+      style={{ ...commonStyle, ...styleOverride }}
+      {...commonProps}
+    />;
+
+  switch (type) {
+    case 'Swift': return getImg(`${tabsrc}/icon_swift.png`);
+    case 'Melee': return getImg(`${tabsrc}/icon_melee.png`);
+    case 'Projectile': return getImg(`${tabsrc}/icon_projectile.png`);
+    case 'Firing': return getImg(`${tabsrc}/icon_firing.png`);
+    case 'Moving': return getImg(`${tabsrc}/icon_moving.png`);
+    case 'Tactic': return getImg(`${tabsrc}/icon_tactic.png`);
+    default: return getImg(`${tabsrc}/icon_passive.png`, { height: "1.8vh" });
+  }
 };
 
 const getTypeGradient = (type: Action['type']) => TYPE_GRADIENTS[type] || TYPE_GRADIENTS.Default;
@@ -74,7 +97,7 @@ const BG_PATTERN_STYLE = {
 };
 
 // --- 子组件：Action Item ---
-const PartActionItem: React.FC<{ action: Action; index: number, tabsrc: string }> = React.memo(({ action, index, tabsrc }) => {
+const PartActionItem: React.FC<{ action: Action; index: number, tabsrc: string, lang: string }> = React.memo(({ action, index, tabsrc, lang }) => {
   const sizeCount = getSizeCount(action.size);
   const hasStorage = action.storage > 0;
   const hasDice = !hasStorage && (action.redDice > 0 || action.yellowDice > 0);
@@ -122,7 +145,7 @@ const PartActionItem: React.FC<{ action: Action; index: number, tabsrc: string }
           </div>
         )}
 
-        <div className="action-name" style={nameStyle}>
+        <div className={lang === "zh" ? "action-name-cn" : "action-name-en"} style={nameStyle}>
           |{action.name}|
         </div>
       </div>
@@ -136,6 +159,15 @@ const PartActionItem: React.FC<{ action: Action; index: number, tabsrc: string }
                 <div className="range-label">R</div>
                 <div className={`range-value ${action.range === 0 ? 'striped' : ''}`}>
                   {action.range}
+                </div>
+              </div>
+            )}
+            {/* 近战 */}
+            {action.range === -1 && (
+              <div className="range-badge">
+                <div className="range-label">R</div>
+                <div className={`range-value `}>
+                  --
                 </div>
               </div>
             )}
@@ -187,7 +219,7 @@ const PartActionItem: React.FC<{ action: Action; index: number, tabsrc: string }
         </div>
 
         <div className="action-description">
-          <div className="description-text">{action.description}</div>
+          <div className={lang === "zh" ? "description-text-cn" : "description-text-en"}>{action.description}</div>
         </div>
       </div>
     </motion.div>
@@ -195,7 +227,7 @@ const PartActionItem: React.FC<{ action: Action; index: number, tabsrc: string }
 });
 
 // --- 主组件：PartCard ---
-export const PartCard: React.FC<PartCardProps> = React.memo(({ part, tabsrc, isThrowCard = false, faction }) => {
+export const PartCard: React.FC<PartCardProps> = React.memo(({ part, tabsrc, isThrowCard = false, faction, lang }) => {
   if (!part) return null;
 
   const mainImageClass = TYPE_CLASS_MAP[part.type] || "part-main-image-wrapper";
@@ -203,7 +235,7 @@ export const PartCard: React.FC<PartCardProps> = React.memo(({ part, tabsrc, isT
 
   return (
     <motion.div
-      className={`part-card ${getCardBackGroundClassName(faction,part.isPD)}`}
+      className={`part-card ${getCardBackGroundClassName(faction, part.isPD)}`}
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
@@ -214,18 +246,18 @@ export const PartCard: React.FC<PartCardProps> = React.memo(({ part, tabsrc, isT
       </div>
 
       {/* 派系 Logo */}
-      {/* <div className="absolute-logo-info action-part-logo-top">
+      <div className="absolute-logo-info action-part-logo-top">
         <img
           src={`${tabsrc}/icon_logo_${faction}.png`}
           alt={`${part.type} Icon_logo`}
           style={{ height: "3vh" }}
           loading="lazy"
         />
-      </div> */}
+      </div>
 
       {/* 主图 */}
       <div className={mainImageClass}>
-        {(part.hasImage === undefined || part.hasImage)? <img
+        {(part.hasImage === undefined || part.hasImage) ? <img
           src={`${tabsrc}/${part.id}.png`}
           alt={`${part.name} Main`}
           className="part-main-image"
@@ -306,6 +338,17 @@ export const PartCard: React.FC<PartCardProps> = React.memo(({ part, tabsrc, isT
                 <span>{part.electronic}</span>
               </motion.div>
             )}
+            {part.parray> 0 && (
+              <motion.div
+                className="stat-value parray-value"
+                initial={{ x: 20, opacity: 0 }}
+                animate={{ x: 0, opacity: 1 }}
+                transition={{ delay: 0.7 }}
+              >
+                <img loading="lazy" src={`${tabsrc}/icon_parray.png`} className="stat-value-icon" alt="parray" />
+                <span>{part.parray}</span>
+              </motion.div>
+            )}
           </div>
         </div>
 
@@ -317,7 +360,7 @@ export const PartCard: React.FC<PartCardProps> = React.memo(({ part, tabsrc, isT
         <div className="action-list">
           <div className="action-items-wrapper">
             {part.action?.map((action, index) => (
-              <PartActionItem key={action.id || index} action={action} index={index} tabsrc={tabsrc} />
+              <PartActionItem key={action.id || index} action={action} index={index} tabsrc={tabsrc} lang={lang} />
             ))}
           </div>
 

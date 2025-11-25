@@ -232,6 +232,9 @@
 .electronic-value {
   color: #eab308;
 }
+.parray-value {
+  color: #000000;
+}
 
 .type-label {
   grid-column: 3;
@@ -254,12 +257,13 @@
   display: flex;
   flex-direction: row;
   align-items: flex-start;
-  gap: 0.85vh;
+
   background: rgba(255, 255, 255, 0.4);
   border-radius: 0.85vh;
   backdrop-filter: blur(6.8px);
   border: 0.425px solid rgba(255, 255, 255, 0.5);
-  padding: 0.51vh;
+  padding-left: 0.5vh;
+  padding-right: 0.5vh;
   overflow: hidden;
 }
 
@@ -352,10 +356,24 @@
   box-shadow: 0 0.425px 0.85px rgba(0, 0, 0, 0.1);
 }
 
-.action-name {
+.action-name-cn {
   flex: 1;
   padding: 0.34vh 0.72vh;
   font-size: 1.19vh;
+  font-weight: 800;
+  color: white;
+  border-radius: 0.425vh;
+  text-transform: uppercase;
+  letter-spacing: 0.02125vh;
+  box-shadow: 0 0.2125vh 0.425vh rgba(0, 0, 0, 0.1),
+    inset 0 0.425px 0 rgba(255, 255, 255, 0.2);
+  text-shadow: 0 0.425px 0.85px rgba(0, 0, 0, 0.2);
+}
+
+.action-name-en {
+  flex: 1;
+  padding: 0.34vh 0.72vh;
+  font-size: 0.9vh;
   font-weight: 800;
   color: white;
   border-radius: 0.425vh;
@@ -486,12 +504,20 @@
   border-radius: 0.34vh;
   display: flex;
   flex-direction: column;
+  padding-bottom: 1vh;
 }
 
-.description-text {
+.description-text-cn {
   font-size: 1.105vh;
   color: #334155;
   position: relative;
+}
+
+.description-text-en {
+  font-size: 0.9vh;
+  color: #334155;
+  position: relative;
+  line-height: 1vh;
 }
 
 .action-description::before {
@@ -569,12 +595,21 @@
 
 /* Image Wrappers and Animations */
 .part-main-image-wrapper,
-.part-main-image-wrapper-hand,
 .part-main-image-wrapper-torso,
 .part-main-image-wrapper-chasis {
   position: absolute;
   width: 70%;
   height: 70%;
+  z-index: 1;
+  opacity: 0;
+  filter: grayscale(100%) brightness(1.1)
+    drop-shadow(0 0 1vh rgba(0, 0, 0, 0.1));
+}
+
+.part-main-image-wrapper-hand {
+  position: absolute;
+  width: 60%;
+  height: 60%;
   z-index: 1;
   opacity: 0;
   filter: grayscale(100%) brightness(1.1)
@@ -590,7 +625,7 @@
   animation: partImageSlideIn 0.5s cubic-bezier(0.2, 0.8, 0.5, 1) forwards;
 }
 .part-main-image-wrapper-hand {
-  top: 40%;
+  top: 35%;
   left: 50%;
   animation: partImageSlideInHand 0.4s ease-out forwards;
 }
@@ -609,7 +644,6 @@
 
 /* Shadows */
 .part-main-image-wrapper-shadow,
-.part-main-image-wrapper-shadow-hand,
 .part-main-image-wrapper-shadow-torso,
 .part-main-image-wrapper-shadow-chasis {
   position: absolute;
@@ -619,6 +653,15 @@
   filter: sepia(0.8) saturate(2.5) brightness(0.2) hue-rotate(15deg);
 }
 
+.part-main-image-wrapper-shadow-hand{
+  position: absolute;
+  width: 60%;
+  height: 60%;
+  opacity: 0;
+  filter: sepia(0.8) saturate(2.5) brightness(0.2) hue-rotate(15deg);
+}
+
+
 .part-main-image-wrapper-shadow {
   top: 39%;
   left: 45%;
@@ -627,7 +670,7 @@
   animation: partShadowSlideIn 0.6s cubic-bezier(0.2, 0.8, 0.5, 1) 0.1s forwards;
 }
 .part-main-image-wrapper-shadow-hand {
-  top: 39%;
+  top: 34%;
   left: 45%;
   animation: shadowSlideInHand 0.5s ease-out 0.05s forwards;
 }

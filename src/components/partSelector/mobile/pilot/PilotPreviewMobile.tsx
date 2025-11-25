@@ -81,11 +81,11 @@ export default function PilotPreviewMobile({
       <AnimatePresence mode="wait">
 
         {/* PILOT IMAGE */}
-        <motion.img
+        {(pilot.hasImage === undefined || pilot.hasImage) ? <motion.img
           src={`${tabSrc}/${pilotId}.png`}
           alt={pilot.name}
           style={{
-            width: compareMode ? !leftPreviewExist? "40%":"80%": "40%",
+            width: compareMode ? !leftPreviewExist ? "40%" : "80%" : "40%",
             objectFit: "contain",
             borderRadius: 8,
             display: "block",     // ★ 必须，让图片变 block
@@ -97,7 +97,16 @@ export default function PilotPreviewMobile({
           animate={{ opacity: 1, y: 0 }}
           exit={{ opacity: 0, y: -100 }}
           transition={{ duration: 0.2 }}
-        />
+        /> : <span style={{
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+          fontWeight: "800",
+          paddingLeft: "30%",
+          fontSize: "2.4vh",
+          width: compareMode ? !leftPreviewExist ? "40%" : "80%" : "40%",
+          height: "17vh",
+        }}>No IMAGE</span>}
       </AnimatePresence>
 
       {/* 🧊 毛玻璃 Trait 信息框 */}

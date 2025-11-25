@@ -5,7 +5,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from './ui/tabs';
 import { Plus, Trash2, Copy, ZoomIn, Rocket, Image, Table2, Loader2, Repeat, Settings, Globe, Gamepad2Icon } from 'lucide-react';
 import { Team, Mech, Part, PART_TYPE_NAMES, calculateTotalScore, Drone } from '../types';
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger, DialogClose } from './ui/dialog';
-import { rdlBackpack, rdlChasis, rdlLeftHand, rdlRightHand, rdlTorso, unBackpack, unChasis, unLeftHand, unRightHand, unTorso } from '../data';
+import { gofBackpack, gofChasis, gofLeftHand, gofRightHand, gofTorso, rdlBackpack, rdlChasis, rdlLeftHand, rdlRightHand, rdlTorso, unBackpack, unChasis, unLeftHand, unRightHand, unTorso } from '../data';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from './ui/select';
 import { VisuallyHidden } from "@radix-ui/react-visually-hidden";
 
@@ -60,9 +60,7 @@ export function MechListMobile({
   const [tacticCardPages, settacticCardPages] = React.useState<{ [index: number]: number }>({});
   const pageSize = 4; // 每页展示几个背包
   const [isExporting, setIsExporting] = useState(false);
-  const [isExportingTTS, setIsExportingTTS] = useState(false);
   const [showProjectileOption, setShowProjectileOption] = useState(false);
-  const [showTTSHint, setShowTTSHint] = useState(false);
   const [cPartType, setCPartType] = useState("");
   const [currentTab, setCurrentTab] = useState("mechs");
   const orderedPartTypes: (keyof typeof partTypeNames)[] = mobileOrTablet
@@ -108,12 +106,56 @@ export function MechListMobile({
     link.click();
   };
 
-  const setDronePage = (index: number, newPage: number) => {
-    setDronePages(prev => ({
-      ...prev,
-      [index]: newPage,
-    }));
-  };
+
+  function getDefaultPreviewParts(): {
+    leftHand: Part;
+    torso: Part;
+    rightHand: Part;
+    chasis: Part;
+    backpack: Part;
+  } {
+
+    switch (team?.faction) {
+      case "RDL": {
+        // 错误修复：使用花括号 {} 包裹返回的对象
+        return {
+          leftHand: rdlLeftHand[0],
+          torso: rdlTorso[0],
+          rightHand: rdlRightHand[0],
+          chasis: rdlChasis[1],
+          backpack: rdlBackpack[0],
+        };
+      }
+      case "UN": {
+        // 错误修复：使用花括号 {} 包裹返回的对象
+        return {
+          leftHand: unLeftHand[3],
+          torso: unTorso[5],
+          rightHand: unRightHand[8],
+          chasis: unChasis[0],
+          backpack: unBackpack[3],
+        };
+      }
+      case "GOF":
+        return {
+          leftHand: gofLeftHand[0],
+          torso: gofTorso[0],
+          rightHand: gofRightHand[0],
+          chasis: gofChasis[0],
+          backpack: gofBackpack[0],
+        };
+      default: {
+        // 默认情况，也返回一个完整的对象
+        return {
+          leftHand: unLeftHand[0],
+          torso: unTorso[0],
+          rightHand: unRightHand[2],
+          chasis: unChasis[0],
+          backpack: unBackpack[0],
+        };
+      }
+    }
+  }
 
 
   // 发送 gtag 事件的异步函数
@@ -144,213 +186,9 @@ export function MechListMobile({
     localStorage.setItem("includeProjectile", JSON.stringify(includeProjectile));
   }, [includeProjectile]);
 
-  async function generateAndUploadMechImage(team: Team, mech: Mech, lang: string): Promise<string> {
-    sendGtagEvent("导出图片", "次数", "1");
-
-
-    const partOrder: (keyof Mech['parts'])[] = ['leftHand', 'torso', 'chasis', 'rightHand', 'backpack'];
-    const targetSize = 800;
-
-    const canvas = document.createElement("canvas");
-    const ctx = canvas.getContext("2d");
-    if (!ctx) return "";
-
-    const padding = 0;
-    const canvasSize = targetSize + padding * 2;
-    canvas.width = canvasSize;
-    canvas.height = canvasSize;
-
-    // faction 渐变背景
-    const gradient = ctx.createLinearGradient(0, 0, 0, canvas.height);
-    if (team.faction === "RDL") {
-      gradient.addColorStop(0, `rgba(237,114,124,1)`);
-      gradient.addColorStop(1, `rgba(255,255,255,1)`);
-    } else {
-      gradient.addColorStop(0, `rgba(108,128,192,1)`);
-      gradient.addColorStop(1, `rgba(255,255,255,1)`);
-    }
-    ctx.fillStyle = gradient;
-    ctx.fillRect(0, 0, canvas.width, canvas.height);
-
-    // 加载部件图片
-    const partImgs = await Promise.all(
-      partOrder.map(async (k) => {
-        const id = mech.parts[k]?.id;
-        if (!id) return null;
-
-        // ✅ 如果是背包，且阵营为 UN，则从 tabsrc 加载
-        if (k === "backpack" && team.faction === "UN") {
-          return await getImage(`${tabsrc}/${id}.png`);
-        }
-
-        // ✅ 否则走 mechImgSrc 默认逻辑
-        return await getImage(`${mechImgSrc}/${id}.png`);
-      })
-    );
-
-
-    const torsoImg = partImgs[1];
-    const leftHandImg = partImgs[0];
-    const chasisImg = partImgs[2];
-    const rightHandImg = partImgs[3];
-
-
-    const drawPart = (img: HTMLImageElement | null, x: number, y: number) => {
-      if (!img) return;
-      ctx.drawImage(img, x, y, targetSize, targetSize);
-    };
-
-    // 绘制背包在左上角
-    if (team.faction == "RDL") {
-      const backpackImg = partImgs[4]
-      drawPart(backpackImg, padding, padding)
-    } else {
-      if (mech.parts.backpack?.id) {
-        const backpackImg = await getImage(`${tabsrc}/${mech.parts.backpack.id}.png`);
-
-        // 按比例缩小
-        const scale = 0.5; // 缩小为 1/3
-        const backpackWidth = backpackImg.width * scale;
-        const backpackHeight = backpackImg.height * scale;
-
-        const x = padding;
-        const y = canvas.height - padding - backpackHeight; // 左下角
-        ctx.drawImage(backpackImg, x, y, backpackWidth, backpackHeight);
-      }
-    }
-
-    // 按顺序叠加部件
-    drawPart(leftHandImg, padding, padding);
-    drawPart(torsoImg, padding, padding);
-    drawPart(chasisImg, padding, padding);
-    drawPart(rightHandImg, padding, padding);
-
-
-
-
-    // 生成 PNG Blob
-    const blob: Blob = await new Promise(resolve =>
-      canvas.toBlob(b => resolve(b!), "image/png")
-    );
-
-    // 生成时间戳，不然会导致路径重复（格式：YYYYMMDD_HHmmss）
-    const now = new Date();
-    const timestamp = now
-      .toISOString()
-      .replace(/[-T:.Z]/g, '')   // 去掉无关字符
-      .slice(0, 15)              // 保留 YYYYMMDDHHmmss
-      .replace(/(\d{8})(\d{6})/, '$1_$2'); // 加个下划线分隔日期和时间
-
-    // 示例：timestamp = "20251113_104530"
-
-    // 拼接文件名
-    const fileName = `mech_${mech.id}_${timestamp}.png`;
-
-    // 上传路径
-    const uploadUrl = `https://op-1307392056.cos.ap-guangzhou.myqcloud.com/mechs/${fileName}`;
-
-
-    await fetch(uploadUrl, {
-      method: 'PUT',
-      body: blob,
-    });
-
-    return uploadUrl; // ✅ 返回 URL
-  }
-  async function uploadTTSToCOS(jsonData: string, fileName: string): Promise<string> {
-    const blob = new Blob([jsonData], { type: 'application/txt' });
-    const uploadUrl = `https://op-1307392056.cos.ap-guangzhou.myqcloud.com/ttsURL/${fileName}`;
-
-    await fetch(uploadUrl, {
-      method: 'PUT',
-      body: blob,
-    });
-
-    return uploadUrl; // 返回可访问的 URL
-  }
-
-  async function exportTeamToTTS(team: Team, lang: string) {
-    const mechImageUrls: Record<string, string> = {};
-
-    // 生成每台机体图片
-    await Promise.all(
-      team.mechs.map(async mech => {
-        const url = await generateAndUploadMechImage(team, mech, lang);
-        mechImageUrls[mech.id] = url;
-      })
-    );
-
-
-    // 开始生成指令文本
-    let langCode = lang === "zh" ? "cn" : lang;
-    let ttsScript = `# Team ${team.name} [${team.id}] Faction: ${team.faction} Lang: ${langCode}\n\n`;
-
-
-    // 处理机体
-    for (const mech of team.mechs) {
-      const url = mechImageUrls[mech.id] || "";
-      ttsScript += `# Mech ${mech.name} ${mech.id} ${url}\n`;
-      ttsScript += `Pilot: ${mech.pilot?.id}\n`;
-
-      const parts = ["torso", "chasis", "leftHand", "rightHand", "backpack"] as const;
-      for (const key of parts) {
-        const part = mech.parts[key];
-        if (part) {
-          const throwText = part.throwIndex ? ` [throwIndex:${part.throwIndex}]` : "";
-          ttsScript += `${PART_TYPE_NAMES["en"][key]}: ${part.id}${throwText}\n`;
-        }
-      }
-
-      // 投射物
-      const projectiles: string[] = [];
-      parts.forEach(key => {
-        const part = mech.parts[key];
-        if (part?.projectile) projectiles.push(...part.projectile);
-      });
-      if (projectiles.length > 0) {
-        ttsScript += `Projectile: ${projectiles.join(",")}\n`;
-      }
-
-      ttsScript += "\n";
-    }
-
-    // 处理无人机
-    for (const drone of team.drones) {
-      ttsScript += `# Drone ${drone.name} ${drone.id}\n`;
-      if (drone.projectile && drone.projectile.length > 0) {
-        ttsScript += `Projectile: ${drone.projectile.join(",")}\n`;
-      }
-      ttsScript += "\n";
-    }
-
-    // 处理战术卡
-    if (team.tacticCards && team.tacticCards.length > 0) {
-      for (const tacticCard of team.tacticCards) {
-        ttsScript += `# TacticCard ${tacticCard.name} ${tacticCard.id}\n\n`;
-      }
-    }
-
-    // 上传到 COS
-    const fileName = `tts_${Date.now()}.txt`;
-    const cosUrl = await uploadTTSToCOS(ttsScript, fileName);
-
-    // 返回 TTS 指令
-    return `!spawn-team-tts-url ${cosUrl}`;
-  }
 
   const [open, setOpen] = useState(false);
   const [script, setScript] = useState("");
-
-  async function exportTTS(team: Team, lang: string) {
-    const result = await exportTeamToTTS(team, lang);
-    setScript(result);
-    setOpen(true);
-  }
-
-
-
-
-
 
 
   const deletePart = (mechId: string, partType: string) => {
@@ -550,271 +388,271 @@ export function MechListMobile({
 
         {/* 顶部工具栏 */}
         <div className="p-2 border-b border-border flex flex-col gap-2">
-            {/* 第 1 行：Tabs */}
-            <TabsList
-              className="relative flex"
-              style={{
-                backgroundColor: COLOR_WHITE,
-                borderRadius: "4px",
-                boxShadow: "0 2px 8px rgba(0,0,0,0.25)",
-                backdropFilter: "blur(6px)",
-                height: "4vh",
-                width: "100%",
-                padding: "0",
-              }}
-            >
-              {[
-                { key: "mechs", label: `${translations.t22} (${team.mechs.length})`, onClick: () => { setCPartType(""); onSetViewMode("parts"); } },
-                { key: "drones", label: `${translations.t23} (${team.drones.length})`, onClick: () => onSetViewMode("drones") },
-                { key: "tacticCards", label: `${translations.t87} (${team.tacticCards?.length})`, onClick: () => onSetViewMode("tacticCards") },
-              ].map((tab, index, arr) => (
-                <React.Fragment key={tab.key}>
+          {/* 第 1 行：Tabs */}
+          <TabsList
+            className="relative flex"
+            style={{
+              backgroundColor: COLOR_WHITE,
+              borderRadius: "4px",
+              boxShadow: "0 2px 8px rgba(0,0,0,0.25)",
+              backdropFilter: "blur(6px)",
+              height: "4vh",
+              width: "100%",
+              padding: "0",
+            }}
+          >
+            {[
+              { key: "mechs", label: `${translations.t22} (${team.mechs.length})`, onClick: () => { setCPartType(""); onSetViewMode("parts"); } },
+              { key: "drones", label: `${translations.t23} (${team.drones.length})`, onClick: () => onSetViewMode("drones") },
+              { key: "tacticCards", label: `${translations.t87} (${team.tacticCards?.length})`, onClick: () => onSetViewMode("tacticCards") },
+            ].map((tab, index, arr) => (
+              <React.Fragment key={tab.key}>
 
-                  {/* Tab 按钮 */}
-                  <TabsTrigger
-                    value={tab.key}
-                    onClick={() => setCurrentTab(tab.key)}
-                    style={{
-                      position: "relative",
-                      color: currentTab === tab.key ? COLOR_WHITE : COLOR_GREY,
-                      fontWeight: 500,
-                      padding: "8px 18px",
-                      borderRadius: "4px",
-                      transition: "color 0.25s ease",
-                      zIndex: 1,
-                    }}
-                  >
-                    {tab.label}
+                {/* Tab 按钮 */}
+                <TabsTrigger
+                  value={tab.key}
+                  onClick={() => setCurrentTab(tab.key)}
+                  style={{
+                    position: "relative",
+                    color: currentTab === tab.key ? COLOR_WHITE : COLOR_GREY,
+                    fontWeight: 500,
+                    padding: "8px 18px",
+                    borderRadius: "4px",
+                    transition: "color 0.25s ease",
+                    zIndex: 1,
+                  }}
+                >
+                  {tab.label}
 
-                    {/* ▼ 背景动画：只负责背景，不覆盖文字 */}
-                    {currentTab === tab.key && (
-                      <motion.div
-                        layoutId="tabBG"
-                        transition={{ duration: 0.25, ease: "easeInOut" }}
-                        style={{
-                          position: "absolute",
-                          top: 0,
-                          left: 0,
-                          right: 0,
-                          bottom: 0,
-                          background: COLOR_GREY,
-                          borderRadius: "4px",
-                          zIndex: -1,
-                        }}
-                      />
-                    )}
-                  </TabsTrigger>
-
-                  {/* ▼ 分隔竖线（当两边任意一个被选中 → 隐藏） */}
-                  {index < arr.length - 1 && (
-                    <div
+                  {/* ▼ 背景动画：只负责背景，不覆盖文字 */}
+                  {currentTab === tab.key && (
+                    <motion.div
+                      layoutId="tabBG"
+                      transition={{ duration: 0.25, ease: "easeInOut" }}
                       style={{
-                        width: "1.5px",
-                        height: "60%",
-                        backgroundColor:
-                          currentTab === tab.key || currentTab === arr[index + 1].key
-                            ? "transparent"
-                            : "rgba(0,0,0,0.25)",
-                        alignSelf: "center",
-                        transition: "background-color 0.25s ease",
+                        position: "absolute",
+                        top: 0,
+                        left: 0,
+                        right: 0,
+                        bottom: 0,
+                        background: COLOR_GREY,
+                        borderRadius: "4px",
+                        zIndex: -1,
                       }}
                     />
                   )}
-                </React.Fragment>
-              ))}
-            </TabsList>
+                </TabsTrigger>
 
-            {/* 第 2 行：语言切换 + 按钮 */}
-            <div className="flex gap-2">
-              {/* 语言选择 */}
-              <div className="flex-1">
-                <Select value={lang} onValueChange={(v) => setLanguage(v as "zh" | "en" | "jp")}>
-                  <SelectTrigger className="h-8 text-sm w-full">
-                    <Globe className="w-4 h-4 text-gray-600" />
-                    <SelectValue placeholder="选择语言" />
-                  </SelectTrigger>
-                  <SelectContent>
-                    <SelectItem value="zh">CN</SelectItem>
-                    <SelectItem value="en">EN</SelectItem>
-                    <SelectItem value="jp">JP</SelectItem>
-                  </SelectContent>
-                </Select>
-              </div>
+                {/* ▼ 分隔竖线（当两边任意一个被选中 → 隐藏） */}
+                {index < arr.length - 1 && (
+                  <div
+                    style={{
+                      width: "1.5px",
+                      height: "60%",
+                      backgroundColor:
+                        currentTab === tab.key || currentTab === arr[index + 1].key
+                          ? "transparent"
+                          : "rgba(0,0,0,0.25)",
+                      alignSelf: "center",
+                      transition: "background-color 0.25s ease",
+                    }}
+                  />
+                )}
+              </React.Fragment>
+            ))}
+          </TabsList>
 
-              {/* 导出文本按钮 */}
-              <div className="flex-1">
-                <Button
-                  className="w-full"
-                  variant="outline"
-                  size="sm"
-                  onClick={() => team && exportTextTeamData(team,translations,lang)}
-                >
-                  <Table2 className="w-4 h-4 mr-1" />
-                  {translations.t6}
-                </Button>
-              </div>
+          {/* 第 2 行：语言切换 + 按钮 */}
+          <div className="flex gap-2">
+            {/* 语言选择 */}
+            <div className="flex-1">
+              <Select value={lang} onValueChange={(v) => setLanguage(v as "zh" | "en" | "jp")}>
+                <SelectTrigger className="h-8 text-sm w-full">
+                  <Globe className="w-4 h-4 text-gray-600" />
+                  <SelectValue placeholder="选择语言" />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="zh">CN</SelectItem>
+                  <SelectItem value="en">EN</SelectItem>
+                  <SelectItem value="jp">JP</SelectItem>
+                </SelectContent>
+              </Select>
+            </div>
 
-              {/* 导出图片按钮 */}
-              <div className="flex-1 relative">
-                <Button
-                  className="w-full"
-                  variant="outline"
-                  size="sm"
-                  disabled={isExporting}
-                  onClick={async () => {
-                    setIsExporting(true);
-                    try {
-                      await exportTeamImage(team, lang, translations, tabsrc, localImgsrc, imgsrc, includeProjectile);
-                      const msg = document.createElement("div");
-                      msg.textContent = `✅ ${translations.t76}`;
-                      Object.assign(msg.style, {
-                        position: "fixed",
-                        bottom: "40px",
-                        left: "50%",
-                        transform: "translateX(-50%)",
-                        background: "rgba(0,0,0,0.75)",
-                        color: "white",
-                        padding: "8px 16px",
-                        borderRadius: "8px",
-                        fontSize: "14px",
-                        opacity: "0",
-                        transition: "opacity 0.3s",
-                        zIndex: 9999,
-                      });
-                      document.body.appendChild(msg);
-                      requestAnimationFrame(() => (msg.style.opacity = "1"));
-                      setTimeout(() => {
-                        msg.style.opacity = "0";
-                        setTimeout(() => msg.remove(), 300);
-                      }, 2000);
-                    } catch (err) {
-                      console.error(`${translations.t77}`, err);
-                      alert(`${translations.t78}`);
-                    } finally {
-                      setIsExporting(false);
-                    }
-                  }}
-                >
-                  <div className="flex items-center gap-2 justify-center">
-                    <AnimatePresence>
-                      {isExporting && (
-                        <motion.div
-                          key="loader"
-                          initial={{ opacity: 0 }}
-                          animate={{ opacity: 1, rotate: [0, 360] }}
-                          exit={{ opacity: 0 }}
-                          transition={{
-                            rotate: { repeat: Infinity, duration: 1, ease: "linear" },
-                            opacity: { duration: 0.2 },
-                          }}
-                        >
-                          <Loader2 className="w-4 h-4" />
-                        </motion.div>
-                      )}
-                    </AnimatePresence>
-                    {isExporting ? (
-                      <span>{translations.t79}</span>
-                    ) : (
-                      <div className="flex items-center gap-1">
-                        <Image className="w-4 h-4" />
-                        <span>{translations.t24}</span>
-                      </div>
-                    )}
-                  </div>
-                </Button>
-              </div>
+            {/* 导出文本按钮 */}
+            <div className="flex-1">
+              <Button
+                className="w-full"
+                variant="outline"
+                size="sm"
+                onClick={() => team && exportTextTeamData(team, translations, lang)}
+              >
+                <Table2 className="w-4 h-4 mr-1" />
+                {translations.t6}
+              </Button>
+            </div>
 
-
-              {/* 小齿轮按钮 + 悬浮层 */}
-              <div className="relative flex-1">
-                <Button
-                  className="w-full"
-                  variant="outline"
-                  size="sm"
-                  onClick={() => setShowProjectileOption((v) => !v)}
-                  disabled={isExporting}
-                >
-                  <div className="flex items-center gap-1">
-                    <Settings className="w-4 h-4" />
-                    <span>{translations.t99}</span>
-                  </div>
-                </Button>
-
-                {/* 悬浮选项浮层 */}
-                <AnimatePresence>
-                  {showProjectileOption && (
-                    <motion.div
-                      key="checkbox-popup"
-                      initial={{ opacity: 0, y: -5 }}
-                      animate={{ opacity: 1, y: 0 }}
-                      exit={{ opacity: 0, y: -5 }}
-                      transition={{ duration: 0.2 }}
-                      className="absolute top-full left-1/2 -translate-x-1/2 bg-white border border-gray-300 rounded-lg shadow-lg px-3 py-1.5 flex items-center gap-2 text-sm z-10 max-w-[200px] sm:max-w-[250px] break-words"
-                      style={{
-                        backgroundColor: 'white',
-                      }}
-                    >
-                      <input
-                        type="checkbox"
-                        id="include-projectile"
-                        checked={includeProjectile}
-                        onChange={(e) => setIncludeProjectile(e.target.checked)}
-                        className="h-4 w-4"
-                      />
-                      <label
-                        htmlFor="include-projectile"
-                        className="cursor-pointer select-none whitespace-normal"
-                        style={{
-                          color: 'black',
-                          WebkitTextStroke: '0.5px white', // 黑字白边
+            {/* 导出图片按钮 */}
+            <div className="flex-1 relative">
+              <Button
+                className="w-full"
+                variant="outline"
+                size="sm"
+                disabled={isExporting}
+                onClick={async () => {
+                  setIsExporting(true);
+                  try {
+                    await exportTeamImage(team, lang, translations, tabsrc, localImgsrc, imgsrc, includeProjectile);
+                    const msg = document.createElement("div");
+                    msg.textContent = `✅ ${translations.t76}`;
+                    Object.assign(msg.style, {
+                      position: "fixed",
+                      bottom: "40px",
+                      left: "50%",
+                      transform: "translateX(-50%)",
+                      background: "rgba(0,0,0,0.75)",
+                      color: "white",
+                      padding: "8px 16px",
+                      borderRadius: "8px",
+                      fontSize: "14px",
+                      opacity: "0",
+                      transition: "opacity 0.3s",
+                      zIndex: 9999,
+                    });
+                    document.body.appendChild(msg);
+                    requestAnimationFrame(() => (msg.style.opacity = "1"));
+                    setTimeout(() => {
+                      msg.style.opacity = "0";
+                      setTimeout(() => msg.remove(), 300);
+                    }, 2000);
+                  } catch (err) {
+                    console.error(`${translations.t77}`, err);
+                    alert(`${translations.t78}`);
+                  } finally {
+                    setIsExporting(false);
+                  }
+                }}
+              >
+                <div className="flex items-center gap-2 justify-center">
+                  <AnimatePresence>
+                    {isExporting && (
+                      <motion.div
+                        key="loader"
+                        initial={{ opacity: 0 }}
+                        animate={{ opacity: 1, rotate: [0, 360] }}
+                        exit={{ opacity: 0 }}
+                        transition={{
+                          rotate: { repeat: Infinity, duration: 1, ease: "linear" },
+                          opacity: { duration: 0.2 },
                         }}
                       >
-                        {translations.t91}
-                      </label>
-                    </motion.div>
-
+                        <Loader2 className="w-4 h-4" />
+                      </motion.div>
+                    )}
+                  </AnimatePresence>
+                  {isExporting ? (
+                    <span>{translations.t79}</span>
+                  ) : (
+                    <div className="flex items-center gap-1">
+                      <Image className="w-4 h-4" />
+                      <span>{translations.t24}</span>
+                    </div>
                   )}
-                </AnimatePresence>
-
-              </div>
-
+                </div>
+              </Button>
             </div>
 
 
+            {/* 小齿轮按钮 + 悬浮层 */}
+            <div className="relative flex-1">
+              <Button
+                className="w-full"
+                variant="outline"
+                size="sm"
+                onClick={() => setShowProjectileOption((v) => !v)}
+                disabled={isExporting}
+              >
+                <div className="flex items-center gap-1">
+                  <Settings className="w-4 h-4" />
+                  <span>{translations.t99}</span>
+                </div>
+              </Button>
 
-            {/* 第 3 行：统计信息 */}
-            <div className="grid grid-cols-5 gap-2" >
-              {/* 动画数字单元格 */}
-              {[
-                { label: translations.t7, value: team.totalScore, highlight: team.totalScore > 900 },
-                { label: translations.t8, value: team.mechCount },
-                { label: translations.t9, value: team.largeDroneCount },
-                { label: translations.t10, value: team.mediumDroneCount },
-                { label: translations.t11, value: team.smallDroneCount },
-              ].map((stat, idx) => (
-                <div key={idx} className="text-center">
-                  <div className="text-muted-foreground" style={{
-                    fontSize: 12
-                  }}>{stat.label}</div>
-                  <AnimatePresence mode="popLayout">
-                    <motion.div
-                      key={stat.value} // 数字变化时触发动画
-                      initial={{ scale: 0.9, y: 5, opacity: 0 }}
-                      animate={{ scale: 1, y: 0, opacity: 1 }}
-                      exit={{ scale: 0.9, y: -5, opacity: 0 }}
-                      transition={{ duration: 0.3, type: "spring", stiffness: 300, damping: 20 }}
+              {/* 悬浮选项浮层 */}
+              <AnimatePresence>
+                {showProjectileOption && (
+                  <motion.div
+                    key="checkbox-popup"
+                    initial={{ opacity: 0, y: -5 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    exit={{ opacity: 0, y: -5 }}
+                    transition={{ duration: 0.2 }}
+                    className="absolute top-full left-1/2 -translate-x-1/2 bg-white border border-gray-300 rounded-lg shadow-lg px-3 py-1.5 flex items-center gap-2 text-sm z-10 max-w-[200px] sm:max-w-[250px] break-words"
+                    style={{
+                      backgroundColor: 'white',
+                    }}
+                  >
+                    <input
+                      type="checkbox"
+                      id="include-projectile"
+                      checked={includeProjectile}
+                      onChange={(e) => setIncludeProjectile(e.target.checked)}
+                      className="h-4 w-4"
+                    />
+                    <label
+                      htmlFor="include-projectile"
+                      className="cursor-pointer select-none whitespace-normal"
                       style={{
-                        color: stat.highlight ? '#dc2626' : '#111', // 高亮逻辑
-                        fontSize: 12
+                        color: 'black',
+                        WebkitTextStroke: '0.5px white', // 黑字白边
                       }}
                     >
-                      {stat.value}
-                    </motion.div>
-                  </AnimatePresence>
-                </div>
-              ))}
+                      {translations.t91}
+                    </label>
+                  </motion.div>
+
+                )}
+              </AnimatePresence>
+
             </div>
+
           </div>
+
+
+
+          {/* 第 3 行：统计信息 */}
+          <div className="grid grid-cols-5 gap-2" >
+            {/* 动画数字单元格 */}
+            {[
+              { label: translations.t7, value: team.totalScore, highlight: team.totalScore > 900 },
+              { label: translations.t8, value: team.mechCount },
+              { label: translations.t9, value: team.largeDroneCount },
+              { label: translations.t10, value: team.mediumDroneCount },
+              { label: translations.t11, value: team.smallDroneCount },
+            ].map((stat, idx) => (
+              <div key={idx} className="text-center">
+                <div className="text-muted-foreground" style={{
+                  fontSize: 12
+                }}>{stat.label}</div>
+                <AnimatePresence mode="popLayout">
+                  <motion.div
+                    key={stat.value} // 数字变化时触发动画
+                    initial={{ scale: 0.9, y: 5, opacity: 0 }}
+                    animate={{ scale: 1, y: 0, opacity: 1 }}
+                    exit={{ scale: 0.9, y: -5, opacity: 0 }}
+                    transition={{ duration: 0.3, type: "spring", stiffness: 300, damping: 20 }}
+                    style={{
+                      color: stat.highlight ? '#dc2626' : '#111', // 高亮逻辑
+                      fontSize: 12
+                    }}
+                  >
+                    {stat.value}
+                  </motion.div>
+                </AnimatePresence>
+              </div>
+            ))}
+          </div>
+        </div>
 
         {/* 机体列表 */}
         <TabsContent ref={exportRef} value="mechs" className="flex-1 overflow-y-auto p-1 space-y-4 ">
@@ -842,7 +680,7 @@ export function MechListMobile({
                     style={{
                       display: 'grid',
                       width: '100%',
-                      gap: '0.5vh', 
+                      gap: '0.5vh',
                       gridTemplateColumns: mobileOrTablet ? 'repeat(3, 1fr)' : 'repeat(5, 1fr)',
                     }}
                   >
@@ -851,8 +689,8 @@ export function MechListMobile({
                       <AnimatePresence mode="wait">
                         <motion.div
                           key={mech.parts[partType]?.id || partType}
-                          initial={{ opacity: 0, y: -10}}
-                          animate={{ opacity: 1, y: 0}}
+                          initial={{ opacity: 0, y: -10 }}
+                          animate={{ opacity: 1, y: 0 }}
                           exit={{ opacity: 0, y: 10, }}
                           transition={{ duration: 0.1 }}
 
@@ -1141,16 +979,7 @@ export function MechListMobile({
                         height="16vh"
                         scaleOverrides={{ chasis: 1, backpack: 2 }}
                         cropLeftPercent={13}
-                        defaultParts={team.faction === "RDL" ? {
-                          leftHand: rdlLeftHand[0],
-                          torso: rdlTorso[0],
-                          rightHand: rdlRightHand[0],
-                          chasis: rdlChasis[0],
-                          backpack: rdlBackpack[0],
-                        } : {
-                          leftHand: unLeftHand[0],
-                          torso: unTorso[0], rightHand: unRightHand[2], chasis: unChasis[0], backpack: unBackpack[0],
-                        }}
+                        defaultParts={getDefaultPreviewParts()}
                         championMode={championMode}
                         style={{ flex: '1' }}
                       />

@@ -10,11 +10,12 @@ import { getDroneCardBackGroundClassName } from '../../../util/CustomCardUtil';
 interface DroneCardProps {
     drone: Drone;
     tabsrc: string;
-    faction:string;
+    faction: string;
+    lang: string;
 }
 
 
-export const DroneCard: React.FC<DroneCardProps> = ({ drone, tabsrc,faction }) => {
+export const DroneCard: React.FC<DroneCardProps> = ({ drone, tabsrc, faction, lang }) => {
     const CARD_WIDTH_VH = 21;
     const LEFT_OFFSET_VH = 0;
     const RIGHT_OFFSET_VH = 0;
@@ -23,7 +24,7 @@ export const DroneCard: React.FC<DroneCardProps> = ({ drone, tabsrc,faction }) =
     const AVAILABLE_HEIGHT_PERCENT = '80%'; // 限制图案的高度
     return (
         <motion.div
-            className={`drone-card ${getDroneCardBackGroundClassName(faction,drone.isPD)}`}
+            className={`drone-card ${getDroneCardBackGroundClassName(faction, drone.isPD)}`}
             initial={{ opacity: 0, scale: 0.95 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{ duration: 0.5, ease: "easeOut" }}
@@ -89,6 +90,10 @@ export const DroneCard: React.FC<DroneCardProps> = ({ drone, tabsrc,faction }) =
                         {drone.structure > 0 && <div className="stat-item stat-structure">
                             <span className="stat-val">{drone.structure}</span>
                         </div>}
+                       {drone.parray > 0 && <div className="stat-item stat-parray">
+                        <img className="icon-top-left" loading='lazy' src={`${tabsrc}/icon_parray.png`} />
+                            <span className="stat-val">{drone.parray}</span>
+                        </div>}
                     </div>
 
                     {/* Middle: Actions */}
@@ -102,7 +107,7 @@ export const DroneCard: React.FC<DroneCardProps> = ({ drone, tabsrc,faction }) =
                         </div>
                         <div className="action-items-wrapper">
                             {drone.actions?.map((action, index) => (
-                                <DroneOrProjectileActionItem key={action.id} action={action} index={index} tabsrc={tabsrc} />
+                                <DroneOrProjectileActionItem key={action.id} action={action} index={index} tabsrc={tabsrc} lang={lang} />
                             ))}
                         </div>
                     </div>

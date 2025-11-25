@@ -11,6 +11,7 @@ interface DroneComparePanelProps {
     showKeyword: boolean;
     faction:string;
     tabsrc:string;
+    lang:string;
 }
 export default function DroneComparePanel({
     lastPartId,
@@ -21,7 +22,7 @@ export default function DroneComparePanel({
     viewMode,
     showKeyword,
     faction,
-    tabsrc
+    tabsrc,lang
 }: DroneComparePanelProps) {
     return (
         <div
@@ -46,6 +47,7 @@ export default function DroneComparePanel({
                 showKeyword={showKeyword}
                 tabsrc={tabsrc}
                 faction={faction}
+                 lang={lang}
             />}
 
             {/* 右侧：悬浮预览 */}
@@ -57,6 +59,7 @@ export default function DroneComparePanel({
                 showKeyword={showKeyword}
                 tabsrc={tabsrc}
                 faction={faction}
+                 lang={lang}
             />
         </div>
     );

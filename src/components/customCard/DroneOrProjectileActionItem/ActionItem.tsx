@@ -13,7 +13,7 @@ const getTypeGradient = (type: DroneAction['type']) => {
 
 
 
-export const DroneOrProjectileActionItem: React.FC<{ action: DroneAction; index: number, tabsrc: string }> = ({ action, index, tabsrc }) => {
+export const DroneOrProjectileActionItem: React.FC<{ action: DroneAction; index: number, tabsrc: string, lang: string }> = ({ action, index, tabsrc, lang }) => {
   const hasStorage = action.storage > 0;
   const hasDice = !hasStorage && (action.redDice > 0 || action.yellowDice > 0);
 
@@ -26,33 +26,33 @@ export const DroneOrProjectileActionItem: React.FC<{ action: DroneAction; index:
 
   return (
     <motion.div
-      className="action-item"
+      className="drone-action-item"
       initial={{ opacity: 0, x: -10 }}
       animate={{ opacity: 1, x: 0 }}
       transition={{ delay: index * 0.1, duration: 0.3 }}
       whileHover={{ scale: 1.01, backgroundColor: "rgba(255,255,255,0.9)" }}
     >
       {/* Row 1: 时机，动作长度，名字 */}
-      <div className="action-row-1">
-        <div className="action-type-wrapper">
-          <div className="action-type-icon">{getTypeIcon(action.type, tabsrc)}</div>
+      <div className="drone-action-row-1">
+        <div className="drone-action-type-wrapper">
+          <div className="drone-action-type-icon">{getTypeIcon(action.type, tabsrc)}</div>
         </div>
 
         {/* 动速：指令、自动 */}
         {action.speed !== "passive" ?
-          <div className="drone-action-speed vertical">
+          <div className="drone-drone-action-speed vertical">
 
-            {action.speed === 'auto' &&
+            {action.speed === 'command' &&
               <span className="speed-text">?</span>
             }
 
-            {action.speed === 'command'
+            {action.speed === 'auto'
               && <span className="speed-text">!</span>
             }
-          </div> : <div className="drone-action-speed-passive vertical"></div>}
+          </div> : <div className="drone-drone-action-speed-passive vertical"></div>}
 
         <div
-          className="drone-action-name"
+          className={lang === "en" ? "drone-drone-action-name-en" : "drone-drone-action-name-zh"}
           style={{ background: getTypeGradient(action.type) }}
         >
           |{action.name}|
@@ -60,22 +60,31 @@ export const DroneOrProjectileActionItem: React.FC<{ action: DroneAction; index:
       </div>
 
       {/* Row 2: Content */}
-      <div className="action-row-2">
+      <div className="drone-action-row-2">
         {/* Left Column: Stats */}
-        <div className="action-content-left">
+        <div className="drone-action-content-left">
           {/* Range Row */}
-          <div className="action-stat-row range-row">
+          <div className="drone-action-stat-row range-row">
             {action.range > 0 && <div className="range-badge">
               <div className="range-label">R</div>
               <div className={`range-value ${action.range === 0 ? 'striped' : ''}`}>
                 {action.range > 0 && action.range}
               </div>
             </div>}
+            {/* 近战 */}
+            {action.range === -1 && (
+              <div className="range-badge">
+                <div className="range-label">R</div>
+                <div className={`range-value `}>
+                  --
+                </div>
+              </div>
+            )}
           </div>
 
           {/* Storage Row */}
           {hasStorage && (
-            <div className="action-stat-row storage-row">
+            <div className="drone-action-stat-row storage-row">
               {Array.from({ length: action.storage }).map((_, i) => (
                 <motion.div
                   key={i}
@@ -91,8 +100,8 @@ export const DroneOrProjectileActionItem: React.FC<{ action: DroneAction; index:
 
           {/* Dice Row (Only if no storage) */}
           {hasDice && (
-            <div className="action-stat-row dice-row">
-              {dice.slice(0, 4).map((color, i) => (
+            <div className="drone-action-stat-row dice-row">
+              {dice.slice(0, 3).map((color, i) => (
                 <motion.div
                   key={i}
                   className={`skeuomorphic-dice dice-${color}`}
@@ -104,7 +113,7 @@ export const DroneOrProjectileActionItem: React.FC<{ action: DroneAction; index:
             </div>
           )}
           {hasDice && dice.length > 3 && (
-            <div className="action-stat-row dice-row">
+            <div className="drone-action-stat-row dice-row">
               {dice.slice(4, 8).map((color, i) => (
                 <motion.div
                   key={i + 4}
@@ -119,8 +128,8 @@ export const DroneOrProjectileActionItem: React.FC<{ action: DroneAction; index:
         </div>
 
         {/* Right Column: Description */}
-        <div className="drone-action-description">
-          <div className="drone-description-text">
+        <div className="drone-drone-action-description">
+          <div className={lang === "zh" ? "drone-description-text-cn" : "drone-description-text-en"}>
             {action.description}
           </div>
         </div>

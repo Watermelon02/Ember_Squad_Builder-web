@@ -9,9 +9,10 @@ interface PartComparePanelProps {
     compareMode: boolean;
     viewMode: string;
     showKeyword: boolean;
-    faction: string
-    tabsrc: string
-    data:any
+    faction: string;
+    tabsrc: string;
+    data:any;
+    lang:string;
 }
 export default function PartComparePanel({
     lastPartId,
@@ -22,7 +23,7 @@ export default function PartComparePanel({
     viewMode,
     showKeyword,
     faction,
-    tabsrc,data
+    tabsrc,data,lang
 }: PartComparePanelProps) {
     return (
         <div
@@ -48,6 +49,7 @@ export default function PartComparePanel({
                 tabsrc={tabsrc}
                 hasLeft={compareMode && lastPartId !== ""}
                 data={data}
+                lang={lang}
             />}
 
             {/* 右侧：悬浮预览 */}
@@ -61,6 +63,7 @@ export default function PartComparePanel({
                 tabsrc={tabsrc}
                 hasLeft={compareMode && lastPartId !== ""}
                 data={data}
+                lang={lang}
             />
         </div>
     );

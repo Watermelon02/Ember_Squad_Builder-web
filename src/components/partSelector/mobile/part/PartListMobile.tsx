@@ -11,12 +11,13 @@ interface PartListMobileProps {
   translations: any;
   lastScore: number;
   selectedPartType: string;
+  faction:string|undefined;
 }
 
 const PartListMobile: React.FC<PartListMobileProps> = ({
   filteredParts,
   onSelectPart,
-
+  faction,
   tabsrc,
   translations,
   lastScore,
@@ -41,7 +42,7 @@ const PartListMobile: React.FC<PartListMobileProps> = ({
           onClick={() => { onSelectPart(part); setSelectedId(part.id) }}
         >
           {/* 背景图 */}
-          {(part.hasImage === undefined || part.hasImage) ? <img
+          {(faction&&faction==="GOF") ||(part.hasImage === undefined || part.hasImage) ? <img
             src={`${tabsrc}/${part.id}.png`}
             alt=""
             className="absolute right-0 top-0 w-auto h-full object-contain pointer-events-none"

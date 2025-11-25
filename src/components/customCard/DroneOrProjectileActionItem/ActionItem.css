@@ -1,9 +1,9 @@
-.action-item {
-  display: flex;
+.drone-action-item {
+
   flex-direction: column;
 
   gap: 0.425vh;
-  padding: 0.51vh;
+
   border-radius: 0.51vh;
   transition: background-color 0.2s, transform 0.2s;
   /* 条纹背景 —— 45 度斜条纹，可调 */
@@ -18,19 +18,19 @@
   overflow: hidden;
 }
 
-.action-item:hover {
+.drone-action-item:hover {
   transform: translateX(0.085vh);
 }
 
 /* Action Row 1 */
-.action-row-1 {
+.drone-action-row-1 {
   display: flex;
   align-items: center;
 
   background-color: rgb(255, 255, 255);
 }
 
-.action-type-wrapper {
+.drone-action-type-wrapper {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -40,7 +40,7 @@
 }
 
 /* 容器样式保持不变 */
-.drone-action-speed.vertical {
+.drone-drone-action-speed.vertical {
   display: flex;
   width: 2vh;
   height: 2vh;
@@ -51,7 +51,7 @@
   border-radius: 0.3vh;
 }
 
-.drone-action-speed-passive.vertical {
+.drone-drone-action-speed-passive.vertical {
   display: flex;
   width: 2vh;
   height: 2vh;
@@ -69,7 +69,22 @@
   z-index: 9999; /* 确保不被遮挡 */
 }
 
-.drone-action-name {
+.drone-drone-action-name-en {
+  flex: 1;
+  padding: 0.1vh 0.72vh;
+  font-size: 0.8vh; /* 0.595vh * 2 */
+  font-weight: 800;
+  color: white;
+  border-bottom-right-radius: 0.5vh;
+  border-top-right-radius: 0.5vh;
+  text-transform: uppercase;
+  letter-spacing: 0.02125vh;
+  box-shadow: 0 0.2125vh 0.425vh rgba(0, 0, 0, 0.1),
+    inset 0 0.425px 0 rgba(255, 255, 255, 0.2);
+  text-shadow: 0 0.425px 0.85px rgba(0, 0, 0, 0.2);
+}
+
+.drone-drone-action-name-zh {
   flex: 1;
   padding: 0.1vh 0.72vh;
   font-size: 1.19vh; /* 0.595vh * 2 */
@@ -85,12 +100,12 @@
 }
 
 /* Action Row 2 */
-.action-row-2 {
+.drone-action-row-2 {
   display: flex;
   align-items: flex-start;
 }
 
-.action-content-left {
+.drone-action-content-left {
   width: 4;
   display: flex;
   flex-direction: column;
@@ -203,7 +218,7 @@
 }
 
 /* Description */
-.drone-action-description {
+.drone-drone-action-description {
   flex: 1;
   position: relative;
   overflow: hidden;
@@ -212,20 +227,28 @@
   flex-direction: column;
 }
 
-.drone-description-text {
+.drone-description-text-cn {
   font-size: 1.105vh;
   color: #334155;
   position: relative;
   z-index: 1; /* 文字在最上层 */
 }
 
+.drone-description-text-en {
+  font-size: 1vh;
+  color: #334155;
+  position: relative;
+  z-index: 1; /* 文字在最上层 */
+  line-height: 1vh;
+}
+
 /* 条纹背景层 */
-.drone-action-description::before {
+.drone-drone-action-description::before {
   content: "";
   position: absolute;
   inset: 0;
   z-index: 0;
-
+  
   pointer-events: none; /* 不挡鼠标事件 */
 }
 

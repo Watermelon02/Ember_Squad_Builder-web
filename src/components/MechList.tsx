@@ -832,146 +832,11 @@ export function MechList({
                                     width: "100%",
                                     height: "100%",
                                   }}>
-                                    <PartCard isThrowCard={false} faction={team.faction} part={mech.parts[partType]} tabsrc={tabsrc} />
+                                    <PartCard isThrowCard={false} faction={team.faction} part={rdlLeftHand.find((c)=>{if(c.id==="299")return c})} tabsrc={tabsrc} lang={lang} />
                                   </div>}
                               </div>
 
-                              {/* 删除按钮 */}
-                              <Button
-                                variant="ghost"
-                                size="sm"
-                                onClick={() => deletePart(mech.id, partType)}
-                                className="absolute top-0 right-0 text-white shadow-lg shadow-gray-500 rounded-lg hover:text-destructive z-[100]"
-                              >
-                                <Trash2 className="w-4 h-4" />
-                              </Button>
-
-                              {/* 放大预览 Dialog */}
-                              {team.faction !== "GOF" && <Dialog>
-                                <DialogTrigger asChild>
-                                  <Button
-                                    variant="ghost"
-                                    size="sm"
-                                    className="absolute top-0 left-0 text-white shadow-lg shadow-gray-500 rounded-lg bg-blue-500/80"
-                                  >
-                                    <ZoomIn className="w-3 h-3 text-gray-700" />
-                                  </Button>
-                                </DialogTrigger>
-                                <DialogContent className="border-0 shadow-none bg-transparent p-0">
-                                  {mech.parts[partType] && (
-                                    <img
-                                      key={mech.parts[partType]!.id}
-                                      src={`${imgsrc}/${mech.parts[partType]!.id}.png`}
-                                      alt={mech.parts[partType]!.name}
-                                      className="w-full h-auto object-contain rounded-lg"
-                                      initial={{ opacity: 0, y: -20, scale: 0.95 }}
-                                      animate={{ opacity: 1, y: 0, scale: 1 }}
-                                      exit={{ opacity: 0, y: 20, scale: 0.95 }}
-                                      transition={{ duration: 0.3 }}
-                                    />
-                                  )}
-                                </DialogContent>
-                              </Dialog>
-                              }
-
-                              {/* 分数按钮 */}
-                              <Button
-                                variant="secondary"
-                                className="h-6 w-8 flex absolute bottom-0 left-0 m-1 text-xs shadow-lg shadow-gray-500 rounded-lg bg-blue-500/80 "
-                                style={{ color: 'white', textShadow: '0 0 4px rgba(0,0,0,0.7)' }}
-                              >
-                                {mech.parts[partType]?.score}
-                              </Button>
-
-                              {/* 底部的抛射物卡 */}
-                              <div className="absolute bottom-0 right-0 flex flex-col-reverse items-end gap-0.5">
-
-                                {!!mech.parts[partType]?.throwIndex && (
-                                  <Dialog>
-                                    <DialogTrigger asChild>
-                                      <Button
-                                        variant="secondary"
-                                        className="h-6 w-8 flex bottom-0 left-0 m-1 text-xs shadow-lg shadow-gray-500 rounded-lg bg-blue-500/80"
-                                      >
-                                        <Repeat className="w-4 h-4" />
-                                      </Button>
-                                    </DialogTrigger>
-                                    <DialogContent className="border-0 shadow-none bg-transparent p-0">
-                                      <img
-                                        src={`${imgsrc}/${mech.parts[partType]?.throwIndex}.png`}
-                                        alt={mech.parts[partType]!.name}
-                                        className="w-full h-auto object-contain rounded-lg"
-                                      />
-                                    </DialogContent>
-                                  </Dialog>
-
-                                )}
-
-                                {/* 上方的：发射 */}
-                                {Array.isArray(mech.parts[partType]?.projectile) &&
-                                  mech.parts[partType]!.projectile!.length > 0 && (
-                                    <Dialog>
-                                      <DialogTrigger asChild>
-                                        <Button
-                                          variant="secondary"
-                                          className="h-6 w-8 flex bottom-0 left-0 m-1 text-xs shadow-lg shadow-gray-500 rounded-lg bg-blue-500/80"
-                                        >
-                                          <Rocket className="w-4 h-4" />
-                                        </Button>
-                                      </DialogTrigger>
-
-                                      <DialogContent
-                                        style={{
-                                          border: 0,
-                                          boxShadow: "none",
-                                          background: "transparent",
-                                          padding: "24px",
-                                          maxHeight: "90vh", // 限制弹窗高度
-                                          overflowY: "auto", // 竖向滑动
-                                        }}
-                                      >
-                                        <DialogHeader>
-                                          <DialogTitle>
-                                            <VisuallyHidden>Projectile Images</VisuallyHidden>
-                                          </DialogTitle>
-                                          <DialogClose
-                                            className="absolute top-2 right-2 text-gray-500 hover:text-gray-900"
-                                            aria-label="Close"
-                                          >
-                                            ✕
-                                          </DialogClose>
-                                        </DialogHeader>
-
-                                        <div
-                                          style={{
-                                            display: "flex",
-                                            flexDirection: "column",
-                                            gap: "24px",
-                                            alignItems: "center",
-                                          }}
-                                        >
-                                          {mech.parts[partType]!.projectile!.map((proj, idx) => (
-                                            <img
-                                              key={idx}
-                                              src={`${imgsrc}/${proj}.png`}
-                                              alt={`Projectile ${proj}`}
-                                              style={{
-                                                width: "90vw",       // 移动端自适应
-                                                maxWidth: "500px",   // 桌面端最大宽度
-                                                height: "auto",
-                                                objectFit: "contain",
-                                                borderRadius: "0.5rem",
-                                                boxShadow: "0 4px 6px rgba(0,0,0,0.1)",
-                                              }}
-                                            />
-                                          ))}
-                                        </div>
-                                      </DialogContent>
-                                    </Dialog>
-                                  )}
-
-
-                              </div>
+                       
                             </>
                           ) : (
                             <div
@@ -1125,7 +990,7 @@ export function MechList({
                               transition={{ duration: 0.3 }}
                               style={{ width: '100%', height: '100%', position: 'relative', zIndex: 1 }}
                             >
-                              {team.faction !== "GOF" && (mech.pilot.hasImage || mech.pilot.hasImage === undefined) ? <img
+                              <img
                                 src={`${tabsrc}/${mech.pilot.id}.png`}
                                 alt={mech.pilot.name}
                                 style={{
@@ -1135,17 +1000,7 @@ export function MechList({
                                   objectPosition: 'center',
                                   transform: 'translate(10%, 0%)', // ✅ 这里百分比就生效
                                 }}
-                              /> : <span style={{
-                                display: "flex",
-                                justifyContent: "center",
-                                alignItems: "center",
-                                fontWeight: "800",
-                                paddingLeft: "30%",
-                                fontSize: "2.4vh",
-                                width: "80%",
-                                height: "100%",
-                                color: selectedMechId === mech.id ? "white" : COLOR_GREY
-                              }}>No IMAGE</span>}
+                              />
                             </motion.div>
 
 
@@ -1249,7 +1104,7 @@ export function MechList({
                           leftHand: rdlLeftHand[0],
                           torso: rdlTorso[0],
                           rightHand: rdlRightHand[0],
-                          chasis: rdlChasis[0],
+                          chasis: rdlChasis[1],
                           backpack: rdlBackpack[0],
                         }}
                         championMode={championMode}
@@ -1257,7 +1112,7 @@ export function MechList({
 
                     )}
 
-                    {!mobileOrTablet && (team.faction === 'UN') && (
+                    {!mobileOrTablet && (team.faction == 'UN') && (
                       <MechPreview
                         mech={mech}
                         mechImgSrc={mechImgSrc}
@@ -1271,8 +1126,8 @@ export function MechList({
                           torso: 1,
                         }}
                         defaultParts={{
-                          leftHand: unLeftHand[0],
-                          torso: unTorso[0], rightHand: unRightHand[2], chasis: unChasis[0], backpack: unBackpack[0],
+                          leftHand: unLeftHand[3],
+                          torso: unTorso[5], rightHand: unRightHand[8], chasis: unChasis[0], backpack: unBackpack[3],
                         }}
                         championMode={championMode}
                       />
@@ -1509,13 +1364,13 @@ export function MechList({
                     <Trash2 className="w-4 h-4" />
                   </Button>
 
-                  {(((drone?.hasImage === undefined || drone.hasImage)) || !animationCardMode) ? <img
+                  {(((drone?.hasImage === undefined)) || !animationCardMode) ? <img
                     src={`${imgsrc}/${drone.id}.png`}
                     alt={drone.name}
                     className="shadow-lg shadow-gray-500 rounded-lg"
                     style={{ width: '100%', height: '100%', objectFit: 'contain' }}
                     draggable={false}
-                  /> : <DroneCard drone={drone} tabsrc={tabsrc} faction={team.faction} />}
+                  /> : <DroneCard drone={drone} tabsrc={tabsrc} faction={team.faction} lang={lang}/>}
 
 
 
