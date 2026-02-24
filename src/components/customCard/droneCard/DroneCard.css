@@ -1,5 +1,3 @@
-@import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;800&family=JetBrains+Mono:wght@400;700&display=swap");
-
 :root {
   /* 原值 / 1.90476 (近似 80/42) 或 * 0.525 (精确) */
   --spacing-xs: 0.26vh; /* 0.5 * 0.525 */
@@ -194,6 +192,27 @@
 .stat-structure {
   color: #ffffff;
   background-color: #bfbfbf;
+}
+
+.stat-valueless {
+  color: white; /* 保持文字为白色 */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 3.675vh; /* 7vh * 0.525 */
+  height: 2vh; 
+  border-radius: var(--radius-sm);
+  box-shadow: 0 0.525vh 1.05vh -0.2625vh rgba(0, 0, 0, 0.06),
+    /* 1vh*0.525, 2vh*0.525, 0.5vh*0.525 */ 0 0 0 1px rgba(0, 0, 0, 0.04);
+  background: black;
+  position: relative;
+}
+
+.stat-val-valueless {
+  font-size: 1vh;
+  font-weight: 800;
+ line-height: 1;
 }
 
 .stat-val {

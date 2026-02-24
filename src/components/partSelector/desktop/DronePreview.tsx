@@ -1,10 +1,12 @@
 import React, { useState, useRef } from "react";
-import { Drone, Part } from "../../../data/types";
+import { Drone, FACTION_COLORS, Part, Projectile } from "../../../data/types";
 import { Button } from "../../radix-ui/button";
 import { AnimatePresence, motion } from "framer-motion";
 import { DroneCard } from "../../customCard/droneCard/DroneCard";
-import { gofProjectiles } from "../../../data/data_cn";
+
 import { ProjectileCard } from "../../customCard/projectileCard/ProjectileCard";
+import { BOX_COVER_SRC } from "../../../data/resource";
+import { translations } from "../../../i18n";
 
 interface DronePreviewProps {
   droneId: string;
@@ -14,13 +16,15 @@ interface DronePreviewProps {
   showKeyword: boolean;
   faction: string;
   tabsrc: string;
-  lang:string;
+  lang: string;
+  showSourceBox: boolean;
+  gofProjectiles: Projectile[];
 }
 
 export default function DronePreview({
   droneId,
   factionDrones,
-  imageSrc, showKeyword, faction, tabsrc,lang
+  imageSrc, showKeyword, faction, tabsrc, lang, showSourceBox, gofProjectiles
 }: DronePreviewProps) {
   const drone = factionDrones.find((dr) => { if (dr.id === droneId) { return dr } });
 
@@ -74,7 +78,7 @@ export default function DronePreview({
         ) : (
           <div key={`last-${droneId}`} style={{ width: "100%", display: "flex", alignItems: "center", flexDirection: "column" }}>
             {/* 主图 */}
-            {drone?.hasImage===undefined  ? <img
+            {drone?.hasImage === undefined ? <img
               src={`${imageSrc}/${droneId}.png`}
               loading="lazy"
               alt="current part"
@@ -85,7 +89,7 @@ export default function DronePreview({
 
               }}
 
-            /> : <DroneCard drone={drone} tabsrc={tabsrc} faction={faction} lang={lang}/>}
+            /> : <DroneCard drone={drone} tabsrc={tabsrc} faction={faction} lang={lang} />}
 
             {/* 🔽 关键词展示区域 🔽 */}
             {showKeyword && drone?.keywords && drone.keywords.length > 0 && (
@@ -93,7 +97,7 @@ export default function DronePreview({
                 style={{
                   width: "95%",
                   padding: "0.4vh 0.5vw",
-                  marginTop:"1vh",
+                  marginTop: "1vh",
                   backdropFilter: "blur(16px)",
                   WebkitBackdropFilter: "blur(16px)",
                   background: "rgba(255,255,255,0.14)",
@@ -153,33 +157,7 @@ export default function DronePreview({
               </motion.div>
             )}
 
-            {drone && <Button
-              variant="secondary"
-              style={{
-                position: "absolute",
-                top: "1vh",
-                left: "1vh",
-                height: "3vh",
-                width: "3vh",
-                fontSize: "2vh",
-                color: "#fff",                       // 白色文字
-                textShadow: `
-      0 0 2px #000,                      // 黑色描边
-      0 0 4px #000,
-      0 0 6px #000
-    `,
-                backdropFilter: "blur(4px)",          // 背景模糊
-                WebkitBackdropFilter: "blur(4px)",    // Safari 支持
-                backgroundColor: "rgba(255,255,255,0.1)", // 半透明背景
-                borderRadius: 6,
-                display: "flex",
-                alignItems: "center",
-                justifyContent: "center",
-                boxShadow: "0 2px 6px rgba(0,0,0,0.3)",
-              }}
-            >
-              {drone.score}
-            </Button>}
+
             {/* projectile + throwIndex */}
             {drone && (
               <div
@@ -217,7 +195,7 @@ export default function DronePreview({
                               projectile={currentProjectile}
                               tabsrc={tabsrc}
                               faction={faction}
-                               lang={lang}
+                              lang={lang}
                             />
                           )
                         )}
@@ -227,7 +205,96 @@ export default function DronePreview({
                 </div>
               </div>
             )}
+            {drone && showSourceBox &&
 
+              <div style={{
+                display: "flex",
+                flexDirection: "column",
+                gap: "0.5vh",
+                flex: 1,
+                marginTop: "0.5vh"
+              }}>
+                {/*右侧：盒子来源区域 (New Box Sources) */}
+                <span style={{
+                  fontSize: "1.2vh",
+                  color: "#fff",
+                  fontWeight: "bold",
+                  letterSpacing: "0.1em",
+                  borderBottom: "1px solid rgba(255,255,255,0.1)",
+                  paddingBottom: "2px",
+                  marginBottom: "4px"
+                }}>
+                  {translations[lang].t118}
+                </span>
+                {drone.containedIn?.map((src, idx) => (
+                  <div
+                    key={idx}
+                    // 鼠标移入时，通过修改子元素的 grid-template-rows 来实现展开
+                    onMouseEnter={(e) => {
+                      const drawer = e.currentTarget.querySelector('.img-drawer') as HTMLElement;
+                      if (drawer) drawer.style.gridTemplateRows = "1fr";
+                    }}
+                    onMouseLeave={(e) => {
+                      const drawer = e.currentTarget.querySelector('.img-drawer') as HTMLElement;
+                      if (drawer) drawer.style.gridTemplateRows = "0fr";
+                    }}
+                    style={{
+                      padding: "0.6vh 0.6vw",
+                      backgroundColor: "rgba(255,255,255,0.08)",
+                      borderRadius: "4px",
+                      border: "1px solid rgba(255,255,255,0.1)",
+                      display: "flex",
+                      flexDirection: "column",
+                      cursor: "pointer",
+                      overflow: "hidden", // 确保折叠时内容不溢出
+                      transition: "background-color 0.2s"
+                    }}
+                  >
+                    {/* 1. 标题文字行 */}
+                    <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
+                      <span style={{
+                        fontSize: "1.3vh",
+                        width: "25vw",
+                        color: "white",
+                        lineHeight: "1.4",
+                        fontWeight: 500
+                      }}>
+                        {src.box.name[lang]}
+                      </span>
+                      {src.quantityPerBox > 1 && (
+                        <span style={{ fontSize: "1vh", color: FACTION_COLORS[src.box.faction], fontWeight: "bold" }}>
+                          × {src.quantityPerBox}
+                        </span>
+                      )}
+                    </div>
+
+                    {/* 2. 图片展开抽屉 */}
+                    <div
+                      className="img-drawer"
+                      style={{
+                        display: "grid",
+                        gridTemplateRows: "0fr", // 默认高度为 0
+                        transition: "grid-template-rows 0.3s ease-out", // 平滑展开动画
+                      }}
+                    >
+                      <div style={{ minHeight: 0, overflow: "hidden" }}>
+                        {src.box.hasImage && <img
+                          src={`${BOX_COVER_SRC[lang]}/${src.box.id}.webp`}
+                          alt={src.box.name[lang]}
+                          loading="lazy"
+                          style={{
+                            width: "100%",
+                            marginTop: "0.8vh",
+                            borderRadius: "4px",
+                            boxShadow: "0 4px 12px rgba(0,0,0,0.3)",
+                            border: "1px solid rgba(255,255,255,0.1)"
+                          }}
+                        />}
+                      </div>
+                    </div>
+                  </div>
+                ))}
+              </div>}
           </div>
         )}
       </motion.div>

@@ -54,14 +54,7 @@ export const ProjectileCard: React.FC<ProjectileCardProps> = ({ projectile, fact
                 /> : <span className='placeholder'>{projectile.name}</span>}
             </div>
 
-            <div className="projectile-main-image-wrapper-shadow">
-                {projectile.hasImage === undefined || projectile.hasImage && <img
-                    src={`${tabsrc}/${projectile.id}.png`}
-                    alt={`${projectile.name} Main Image`}
-                    className="projectile-main-image-shadow"
-                    loading='lazy'
-                />}
-            </div>
+           
             <div className='card-overlay'>
                 <div className="projectile-card-content">
                     {/* Left: Name */}
@@ -121,11 +114,6 @@ export const ProjectileCard: React.FC<ProjectileCardProps> = ({ projectile, fact
                             <span className="stance-text">{projectile.stance}</span>
                         </div>
 
-                        {/* Move */}
-                        <div className="move-label">
-                            <ArrowBigUp size="3vh" className="move-icon" />
-                            <span>{projectile.move}</span>
-                        </div>
                     </div>
                 </div>
             </div>

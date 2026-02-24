@@ -1,6 +1,6 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { TabsList, TabsTrigger } from '../../radix-ui/tabs'; // Adjust path
-import { Loader2, Image, Gamepad2Icon, Zap, Table2, Globe } from 'lucide-react';
+import { Loader2, Image, Gamepad2Icon, Zap, Table2, Globe, Store } from 'lucide-react';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '../../radix-ui/select';
 import { motion, AnimatePresence } from 'framer-motion';
 import { AnimatedButton } from '../../custom/AnimatedButton'; // Adjust path
@@ -27,22 +27,27 @@ interface MechListHeaderProps {
     // TTS States
     isExportingTTS: boolean;
     handleExportTTS: () => void;
-    showTTSHint: boolean;
-    setShowTTSHint: (val: boolean) => void;
+    //设置已购盒弹窗
+    showBoxList: boolean;
+    setShowBoxList: (val: boolean) => void;
     // Animation States
     animationCardMode: boolean;
     setAnimationCardMode: (val: boolean) => void;
-    showAnimationHint: boolean;
-    setShowAnimationHint: (val: boolean) => void;
+    setBoxListDialogOpen: (val: boolean) => void;
 }
 
 export const MechListHeader: React.FC<MechListHeaderProps> = ({
     team, translations, lang, setLanguage,
     currentTab, setCurrentTab, onSetViewMode, setCPartType,
     isExporting, handleExportImage, includeProjectile, setIncludeProjectile, showProjectileOption, setShowProjectileOption,
-    isExportingTTS, handleExportTTS, showTTSHint, setShowTTSHint,
-    animationCardMode, setAnimationCardMode, showAnimationHint, setShowAnimationHint
+    isExportingTTS, handleExportTTS,
+    animationCardMode, setAnimationCardMode, setBoxListDialogOpen
 }) => {
+    const [showTTSHint, setShowTTSHint] = useState(false);
+    const [showAnimationHint, setShowAnimationHint] = useState(false);
+    const [showBoxHint, setShowBoxHint] = useState(false);
+
+
     return (
         <div className="p-4 border-b border-border flex items-center justify-between relative">
             {/* 左侧按钮组 */}
@@ -116,6 +121,16 @@ export const MechListHeader: React.FC<MechListHeaderProps> = ({
                         )}
                     </AnimatePresence>
                 </div>
+
+                {/* 设置已购盒 按钮 */}
+                <div style={{ position: "relative" }} onMouseEnter={() => setShowBoxHint(true)} onMouseLeave={() => setShowBoxHint(false)}>
+                    <AnimatedButton fontSize={"0.7vw"} onClick={() => setBoxListDialogOpen(true)}>
+                        <div style={{ display: "flex", alignItems: "center", gap: 4 }}>
+                            <Store style={{ width: 16, height: 16 }} /><span>{translations.t111}</span>
+                        </div>
+                    </AnimatedButton>
+                </div>
+
             </div>
 
             {/* 中间 Tabs */}

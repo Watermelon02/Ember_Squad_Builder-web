@@ -64,7 +64,10 @@ export const KEYWORD_LIST = {
         冲锋X: { name: "冲锋X", value: "执行此动作前，可以额外移动X格。机甲下肢被摧毁时不生效。" },
         监视射击: { name: "监视射击", value: "在延迟阶段的最后，移除本标记，本单位可执行1个射击动作。" },
         空手: { name: "空手", value: "" },
-        遥控武器:{name:"遥控武器",value:"指令阶段，友军可以向本机发送指令，使本机执行此动作。本部件每回合只能接收1次指令"}
+        遥控武器:{name:"遥控武器",value:"指令阶段，友军可以向本机发送指令，使本机执行此动作。本部件每回合只能接收1次指令"},
+        追击标记:{name:"追击标记",value:"追击标记（双面红色）：攻击方攻击此单位时优先命中此部件。"},
+        致密装甲:{name:"致密装甲",value:"{防御}可抵消{重击}。"},
+        额外的标识:{name:"额外的标识",value:"额外的标识可以被抵消/移除或兑换，如同是一枚投出此结果的骰子，但不能被任何一方重投。"}
     },
     en: {
         不可阻挡: { name: "Unstoppable:", value: "Movement Actions with this Keyword can still be performed when Immobilized." },

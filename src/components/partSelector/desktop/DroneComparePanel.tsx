@@ -1,5 +1,5 @@
 // DroneComparePanel.jsx
-import { Drone } from "../../../data/types";
+import { Drone, Part, Projectile } from "../../../data/types";
 import DronePreview from "./DronePreview";
 interface DroneComparePanelProps {
     lastPartId: string;
@@ -9,9 +9,11 @@ interface DroneComparePanelProps {
     compareMode: boolean;
     viewMode: string;
     showKeyword: boolean;
-    faction:string;
-    tabsrc:string;
-    lang:string;
+    faction: string;
+    tabsrc: string;
+    lang: string;
+    showSourceBox: boolean;
+    gofProjectiles:Projectile[];
 }
 export default function DroneComparePanel({
     lastPartId,
@@ -22,7 +24,7 @@ export default function DroneComparePanel({
     viewMode,
     showKeyword,
     faction,
-    tabsrc,lang
+    tabsrc, lang, showSourceBox,gofProjectiles
 }: DroneComparePanelProps) {
     return (
         <div
@@ -30,7 +32,7 @@ export default function DroneComparePanel({
             style={{
                 width: (compareMode && lastPartId !== "") ? "60vw" : "30vw",
                 padding: "0.5rem",
-                height: "100vh",
+                height: "90vh",
                 backgroundColor: "rgba(255,255,255,0.3)",
                 borderRight: "1px solid rgba(255,255,255,0.1)",
                 borderRadius: "0.375rem 0 0 0.375rem",
@@ -47,7 +49,9 @@ export default function DroneComparePanel({
                 showKeyword={showKeyword}
                 tabsrc={tabsrc}
                 faction={faction}
-                 lang={lang}
+                lang={lang}
+                showSourceBox={showSourceBox}
+                gofProjectiles={gofProjectiles}
             />}
 
             {/* 右侧：悬浮预览 */}
@@ -59,7 +63,9 @@ export default function DroneComparePanel({
                 showKeyword={showKeyword}
                 tabsrc={tabsrc}
                 faction={faction}
-                 lang={lang}
+                lang={lang}
+                showSourceBox={showSourceBox}
+                gofProjectiles={gofProjectiles}
             />
         </div>
     );

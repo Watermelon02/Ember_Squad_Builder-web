@@ -5,7 +5,7 @@ import { PartSelector } from './components/partSelector/desktop/PartSelector';
 import { Team, Mech, Part, Drone, Pilot, PART_TYPE_NAMES, FACTION_NAMES, TacticCard, calculateTotalScore } from './data/types';
 
 import { translations } from './i18n';
-import { BACKGROUND_SRC, IMAGE_SRC, LOCAL_IMAGE_SRC, MECH_IMAGE_SRC, TAB_IMAGE_SRC, TAB_SMALL_IMAGE_SRC } from './data/resource';
+import { BACKGROUND_SRC, BOX_COVER_SRC, IMAGE_SRC, LOCAL_IMAGE_SRC, MECH_IMAGE_SRC, TAB_IMAGE_SRC, TAB_SMALL_IMAGE_SRC } from './data/resource';
 import * as zhData from './data/data_cn';
 import * as enData from './data/data_en';
 import * as jpData from './data/data_jp';
@@ -36,16 +36,34 @@ export default function App() {
     return (localStorage.getItem("lang") as "en" | "zh" | "jp") || "zh";
   });
   const t = translations[lang];
-
+  const DATA_VERSION = "3"
   // ------------------ 队伍状态 ------------------
   const [teams, setTeams] = useState<Team[]>(() => {
     const v = localStorage.getItem("version");
-    if (v !== "3") {
+    if (v !== DATA_VERSION) {
       localStorage.clear();
-      localStorage.setItem("version", "3");
+      localStorage.setItem("version", DATA_VERSION);
     }
     const saved = localStorage.getItem('teams');
     return saved ? JSON.parse(saved) : [];  // 空数组而不是默认队伍
+  });
+
+  // ------------------ 用户已经购入的盒 状态 ------------------
+  const [inventory, setInventory] = useState<Record<number, number>>(() => {
+    const v = localStorage.getItem("version");
+    if (v !== DATA_VERSION) {
+      localStorage.clear();
+      localStorage.setItem("version", DATA_VERSION);
+    }
+    const saved = localStorage.getItem('inventory');
+    try {
+      return saved ? JSON.parse(saved) : {};
+    } catch (e) {
+      return {};
+    }
+  });
+  const [inventoryMode, setInventoryMode] = useState<boolean>(() => {
+    return (localStorage.getItem("inventoryMode") === "true");
   });
 
 
@@ -67,6 +85,12 @@ export default function App() {
   const [compareMode, setCompareMode] = useState<boolean>(() => {
     // 初始化时从 localStorage 获取
     const stored = localStorage.getItem("compareMode");
+    return stored !== null ? JSON.parse(stored) : true;
+  });
+  //是否显示所属扩展包
+    const [showSourceBox, setShowSourceBox] = useState<boolean>(() => {
+    // 初始化时从 localStorage 获取
+    const stored = localStorage.getItem("showSourceBox");
     return stored !== null ? JSON.parse(stored) : true;
   });
   const [showTeamHintText, setShowTeamHintText] = useState(false);
@@ -99,6 +123,7 @@ export default function App() {
   const tabSmallSrc = TAB_SMALL_IMAGE_SRC[lang];
   const localImgsrc = LOCAL_IMAGE_SRC[lang];
   const mechImgsrc = MECH_IMAGE_SRC[lang];
+  const boxCoverSrc = BOX_COVER_SRC[lang];
   const backgroundImgsrc = BACKGROUND_SRC[lang];
 
 
@@ -158,6 +183,11 @@ export default function App() {
 
 
   if (isMobileOrTablet === null) return null; // 或者显示 loading
+
+    // 当 compareMode 变化时，自动写入 localStorage
+  useEffect(() => {
+    localStorage.setItem("showSourceBox", JSON.stringify(compareMode));
+  }, [showSourceBox]);
 
 
 
@@ -227,12 +257,21 @@ export default function App() {
     }
   }, [isMobileOrTablet]);
 
+  // 增加：当 inventory 改变时持久化到本地
+  useEffect(() => {
+    localStorage.setItem('inventory', JSON.stringify(inventory));
+  }, [inventory]);
+
+  useEffect(() => {
+    localStorage.setItem('inventoryMode', JSON.stringify(inventoryMode));
+  }, [inventoryMode]);
+
 
   if (!data) return <div>加载中...</div>;
 
   const {
-    gofBackpack, gofChasis, gofDrones, gofLeftHand, gofPilots, gofRightHand, gofTorso,
-    pdBackpack, pdChasis, pdDrones, pdLeftHand, pdPilots, pdRightHand, pdTorso,pdProjectiles,
+    gofBackpack, gofChasis, gofDrones, gofLeftHand, gofPilots, gofRightHand, gofTorso,gofProjectiles,
+    pdBackpack, pdChasis, pdDrones, pdLeftHand, pdPilots, pdRightHand, pdTorso, pdProjectiles,
     rdlBackpack, rdlChasis, rdlDrones, rdlLeftHand, rdlPilots, rdlRightHand, rdlTorso,
     unBackpack, unChasis, unDrones, unLeftHand, unPilots, unRightHand, unTorso, allTacticCards
   } = data;
@@ -618,6 +657,30 @@ export default function App() {
 
   }
 
+  // 处理拖拽重新排序
+  const handleReorderTeam = (startIndex: number, endIndex: number) => {
+    setTeams(prevTeams => {
+      const newTeams = [...prevTeams];
+
+      // 确保索引有效
+      if (startIndex < 0 || startIndex >= newTeams.length ||
+        endIndex < 0 || endIndex >= newTeams.length) {
+        return prevTeams;
+      }
+
+      // 1. 移除被拖拽的元素
+      const [removed] = newTeams.splice(startIndex, 1);
+
+      // 2. 将元素插入到新的位置
+      newTeams.splice(endIndex, 0, removed);
+
+      // 返回新的数组，这将触发组件重新渲染并保存到 localStorage
+      return newTeams;
+    });
+  };
+
+
+
   // ------------------ 渲染 ------------------
   return (
     <div
@@ -714,7 +777,7 @@ export default function App() {
               onClose={() => setCollapsedLeft(true)}
               position="left"
               width="80%"
-              height="100vh"
+              height="100%"
               panelBgColor="#F9FAFB"
             >
               <TeamListMobile
@@ -731,6 +794,7 @@ export default function App() {
                 tabsrc={tabSrc}
                 championMode={isChampionMode}
                 onChampionModeChange={isChampion => setChampionMode(isChampion)}
+                onReorderTeam={handleReorderTeam}
               />
             </SlidePanel>
           ) : (
@@ -764,7 +828,7 @@ export default function App() {
                 tabsrc={tabSrc}
                 championMode={isChampionMode}
                 onChampionModeChange={isChampion => setChampionMode(isChampion)}
-
+                onReorderTeam={handleReorderTeam}
               />
             </div>
 
@@ -785,6 +849,7 @@ export default function App() {
 
           {!isMobileOrTablet && <MechList
             team={selectedTeam}
+            inventory={inventory}
             selectedMechId={selectedMechId}
             onSelectMech={setSelectedMechId}
             onSelectPartType={setSelectedPartType}
@@ -792,8 +857,11 @@ export default function App() {
             onSetViewMode={handleSetViewMode}
             translations={t}
             partTypeNames={typePartNames}
+            inventoryMode={inventoryMode}
+            onsetInventoryMode={setInventoryMode}
             imgsrc={imageSrc}
             localImgsrc={localImgsrc}
+            boxCoverSrc={boxCoverSrc}
             lang={lang}
             tabsrc={tabSrc}
             mobileOrTablet={isMobileOrTablet}
@@ -802,8 +870,9 @@ export default function App() {
             mechImgSrc={mechImgsrc}
             onSetIsChangingPart={(changingPart) => { setIsChangingPart(changingPart) }}
             onSelectDrone={(d) => { setLastPartId(d.id) }}
-            animationCardMode = {animationCardMode}
+            animationCardMode={animationCardMode}
             setAnimationCardMode={setAnimationCardMode}
+            onUpdateInventory={setInventory}
           />}
 
           {isMobileOrTablet && <MechListMobile
@@ -901,6 +970,7 @@ export default function App() {
                           viewMode={viewMode}
                           showKeyword={showKeyword}
                           lang={lang}
+                          translations={translations}
                         />
                       )}
 
@@ -1032,6 +1102,7 @@ export default function App() {
                           tabsrc={tabSrc}
                           data={data}
                           lang={lang}
+                          showSourceBox={showSourceBox}
                         />}
 
                       {viewMode === "pilots" &&
@@ -1057,7 +1128,9 @@ export default function App() {
                           showKeyword={showKeyword}
                           tabsrc={tabSrc}
                           faction={selectedTeam.faction}
-                           lang={lang}
+                          lang={lang}
+                          showSourceBox={showSourceBox}
+                          gofProjectiles={gofProjectiles}
                         />}
 
                       {(viewMode === "tacticCards") &&
@@ -1080,6 +1153,7 @@ export default function App() {
                       >
                         <PartSelector
                           viewMode={viewMode}
+                          inventory={inventory}
                           team={selectedTeam}
                           selectedPartType={selectedPartType}
                           parts={factionParts}
@@ -1093,16 +1167,19 @@ export default function App() {
                           onSetHoverImg={handleHoverImg}
                           onSetShowHoverImg={setCompareMode}
                           onSetShowKeyword={setShowKeyword}
+                          onSetShowSourceBox={setShowSourceBox}
                           showHoverImg={compareMode}
                           mobileOrTablet={false}
                           lastScore={lastScore}
                           lastPartId={lastPartId}
                           lang={lang}
                           showKeyword={showKeyword}
+                          showSourceBox={showSourceBox}
                           onSelectPart={handleSelectPart}
                           onSelectDrone={handleSelectDrone}
                           onSelectTacticCard={handleSelectTacticCard}
                           onSelectPilot={handleSelectPilot}
+                          inventoryMode={inventoryMode}
                         />
                       </div>
                     </motion.div>

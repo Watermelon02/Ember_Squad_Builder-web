@@ -5,7 +5,7 @@ import { Trash2 } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { MechStatusMobile } from '../../custom/MechStatusMobile';
 import { MechPreview } from '../../custom/MechPreview';
-import { Mech, PART_TYPE_NAMES } from '../../../data/types';
+import { Mech, MechPartType, PART_TYPE_NAMES } from '../../../data/types';
 
 interface MechListMobileItemProps {
   mech: Mech;
@@ -21,7 +21,7 @@ interface MechListMobileItemProps {
   mobileOrTablet: boolean;
   imgsrc: string;
   tabsrc: string;
-  lang: string;
+  lang: 'zh'|'en'|'jp';
   mechImgSrc: string;
   championMode: boolean;
   translations: any;
@@ -59,7 +59,7 @@ export const MechListMobileItem: React.FC<MechListMobileItemProps> = ({
       >
         <div>
           <div style={{ display: 'grid', width: '100%', gap: '0.5vh', gridTemplateColumns: mobileOrTablet ? 'repeat(3, 1fr)' : 'repeat(5, 1fr)' }}>
-            {orderedPartTypes.map((partType) => (
+            {orderedPartTypes.map((partType:MechPartType) => (
               <AnimatePresence mode="wait" key={partType}>
                 <motion.div
                   key={mech.parts[partType]?.id || partType}

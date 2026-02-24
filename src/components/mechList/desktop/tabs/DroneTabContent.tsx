@@ -5,9 +5,10 @@ import { Dialog, DialogContent, DialogTrigger, DialogHeader, DialogTitle, Dialog
 import { Trash2, Plus, Rocket, ZoomIn } from 'lucide-react';
 import { motion } from 'framer-motion';
 import { Team, Drone, calculateTotalScore } from '../../../../data/types';
-import { unBackpack } from '../../../../data/data_cn';
+import { gofDrones, gofProjectiles, unBackpack } from '../../../../data/data_cn';
 import { DroneCard } from '../../../customCard/droneCard/DroneCard';
 import { VisuallyHidden } from "@radix-ui/react-visually-hidden";
+import { ProjectileCard } from '../../../customCard/projectileCard/ProjectileCard';
 
 interface DroneTabContentProps {
   team: Team;
@@ -22,14 +23,13 @@ interface DroneTabContentProps {
   animationCardMode: boolean;
   lang: string;
   onUpdateTeam: (id: string, data: any) => void;
-  isDialogOpen: boolean;
-  setIsDialogOpen: (val: boolean) => void;
 }
 
 export const DroneTabContent: React.FC<DroneTabContentProps> = ({
   team, mobileOrTablet, imgsrc, tabsrc, translations, onSetViewMode, onSetIsChangingPart,
-  onSelectDrone, deleteDrone, animationCardMode, lang, onUpdateTeam, isDialogOpen, setIsDialogOpen
+  onSelectDrone, deleteDrone, animationCardMode, lang, onUpdateTeam,
 }) => {
+  const [openDialogIndex, setOpenDialogIndex] = React.useState<number | null>(null);
   return (
     <TabsContent value="drones" className="flex-1 overflow-y-auto p-4 space-y-0">
       <div style={{ display: "grid", gridTemplateColumns: mobileOrTablet ? "repeat(2, 1fr)" : "repeat(3, 1fr)", gap: "16px" }}>
@@ -46,9 +46,12 @@ export const DroneTabContent: React.FC<DroneTabContentProps> = ({
             onMouseLeave={(e) => { (e.currentTarget as HTMLDivElement).style.transform = 'scale(1)'; (e.currentTarget as HTMLDivElement).style.boxShadow = '0 4px 6px rgba(0,0,0,0.05), 0 1px 3px rgba(0,0,0,0.1)'; }}
           >
             {drone.id === "162" && (
-              <Dialog>
+              <Dialog open={openDialogIndex === index}
+                onOpenChange={(val) => setOpenDialogIndex(val ? index : null)}>
                 <DialogTrigger asChild>
-                  <div onClick={(e) => { e.stopPropagation(); }} className="absolute bottom-0 left-0 flex items-center justify-center bg-blue-500/50 shadow-md rounded-lg cursor-pointer z-10 hover:bg-blue-500/70" style={{ width: '6vw', height: 'auto', aspectRatio: '1' }}>
+                  <div onClick={(e) => {
+                    e.stopPropagation(); setOpenDialogIndex(index);
+                  }} className="absolute bottom-0 left-0 flex items-center justify-center bg-blue-500/50 shadow-md rounded-lg cursor-pointer z-10 hover:bg-blue-500/70" style={{ width: '6vw', height: 'auto', aspectRatio: '1' }}>
                     {drone.backpack ? (
                       <img src={`${imgsrc}/${drone.backpack.id}.png`} alt={drone.backpack.name} style={{ width: '100%', height: 'auto', objectFit: 'contain' }} draggable={false} />
                     ) : (
@@ -56,9 +59,9 @@ export const DroneTabContent: React.FC<DroneTabContentProps> = ({
                     )}
                   </div>
                 </DialogTrigger>
-                <DialogContent className="max-w-5xl w-[90vw]" open={isDialogOpen} onOpenChange={setIsDialogOpen}>
+                <DialogContent style={{ maxWidth: "60vw", }} >
                   <DialogHeader><DialogTitle>{translations.t103} {drone.name} {translations.t68}</DialogTitle></DialogHeader>
-                  <div style={{ maxHeight: '60vh', overflowY: 'auto', paddingRight: '8px', display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: '12px' }}>
+                  <div style={{ maxHeight: '80vh', overflowY: 'auto', paddingRight: '8px', display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '12px' }}>
                     {unBackpack.map((bp: any) => (
                       <button
                         key={bp.id} type="button" className="relative h-28 cursor-pointer hover:bg-muted rounded-lg flex items-center justify-center p-2"
@@ -68,11 +71,11 @@ export const DroneTabContent: React.FC<DroneTabContentProps> = ({
                           updatedDrones[index] = { ...drone, backpack: bp };
                           const totalScore = calculateTotalScore(updatedDrones, team.tacticCards, team.mechs);
                           onUpdateTeam(team.id, { drones: updatedDrones, totalScore });
-                          setIsDialogOpen(false);
+                          setOpenDialogIndex(null);
                         }}
                         style={{ backgroundColor: 'rgba(255,255,255,0.1)' }}
                       >
-                        <img src={`${imgsrc}/${bp.id}.png`} alt={bp.name} style={{ width: '20vw', height: 'auto', objectFit: 'contain', borderRadius: '8px', boxShadow: '0 2px 6px rgba(0,0,0,0.2)' }} draggable={false} />
+                        <img src={`${imgsrc}/${bp.id}.png`} alt={bp.name} style={{ width: '15vw', height: 'auto', objectFit: 'contain', borderRadius: '8px', boxShadow: '0 2px 6px rgba(0,0,0,0.2)' }} draggable={false} />
                         <Button variant="secondary" className="absolute bg-blue-500/50 left-0 bottom-0 shadow-lg shadow-gray-500 rounded-lg" style={{ color: 'white', textShadow: '0 0 4px rgba(0,0,0,0.7)' }}>{bp?.score}</Button>
                       </button>
                     ))}
@@ -85,7 +88,7 @@ export const DroneTabContent: React.FC<DroneTabContentProps> = ({
             <Button variant="ghost" size="sm" onClick={(e) => { e.stopPropagation(); deleteDrone(index); }} className="absolute top-0 right-0 shadow-lg shadow-gray-500 rounded-lg text-destructive hover:text-destructive z-10"><Trash2 className="w-4 h-4" /></Button>
 
             {(((drone?.hasImage === undefined)) || !animationCardMode) ?
-              <img src={`${imgsrc}/${drone.id}.png`} alt={drone.name} className="shadow-lg shadow-gray-500 rounded-lg" style={{ width: '100%', height: '100%', objectFit: 'contain' }} draggable={false} />
+              <img src={`${imgsrc}/${drone.id}.png?v=2`} alt={drone.name} className="shadow-lg shadow-gray-500 rounded-lg" style={{ width: '100%', height: '100%', objectFit: 'contain' }} draggable={false} />
               : <DroneCard drone={drone} tabsrc={tabsrc} faction={team.faction} lang={lang} />
             }
 

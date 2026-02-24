@@ -38,100 +38,128 @@ const ListPanelMobile: React.FC<ListPanelMobileProps> = ({
   translations,
   children,
   showKeyword,
-  onSetShowKeyword
+  onSetShowKeyword,
 }) => {
   return (
     <div className="min-h-0 flex flex-col" style={{ height: '100%' }}>
-      <div className="space-y-4" style={{
-        paddingTop: "1vh",
-        paddingLeft: "3vw", paddingRight: "2vw", position: 'sticky', top: 0, zIndex: 10,
-        backgroundColor: "rgb(0,0,0,0.05)",
-        backdropFilter: "blur(16px)",
-        WebkitBackdropFilter: "blur(16px)",
-        backgroundSize: "150% auto",
-        backgroundPosition: "center center"
-      }}>
+      {/* 头部：搜索、排序和过滤选项 - 应用 Glassmorphism 样式 */}
+      <div
+        className="space-y-4 flex-shrink-0"
+        style={{
+          paddingTop: 14,
+          paddingBottom: 14,
+          paddingLeft: 16,
+          paddingRight: 16,
+          // Glassmorphism 样式
+          backgroundColor: 'rgba(255, 255, 255, 0.4)', // 更透明
+          backdropFilter: 'blur(12px)', // 模糊背景
+          WebkitBackdropFilter: 'blur(12px)',
+          borderBottom: '1px solid rgba(255, 255, 255, 0.2)', // 浅色边框
+          boxShadow: '0 4px 12px rgba(0, 0, 0, 0.1)', // 更明显的阴影
+          borderRadius: '0 0 16px 16px', // 底部圆角
+          margin: '0 -1px', // 避免边框被裁剪
+          position: 'sticky', // 粘性定位
+          top: 0,
+          zIndex: 10,
+        }}
+      >
+        {/* 搜索框和排序下拉框 */}
+        <div className="flex space-x-2 items-center">
+          <input
+            type="text"
+            placeholder={translations.t41}
+            value={searchQuery}
+            onChange={(e) => setSearchQuery(e.target.value)}
+            style={{
+              flex: 1,
+              padding: '0.5rem',
+              borderRadius: '8px',
+              border: '1px solid rgba(0, 0, 0, 0.1)',
+              backgroundColor: 'rgba(255, 255, 255, 0.7)', // 稍微不那么透明以便输入
+              color: 'black',
+            }}
+          />
 
-        {/* 排序 / 筛选栏 */}
-        <div
-          className="flex items-center justify-between space-x-4 "
-          style={{ paddingBottom: '1vh' }}
-        >
-          {/* 排序选择 */}
-          <div className="flex items-center space-x-2" >
-            <Label>{translations.t36}</Label>
-            <Select
-              value={sortOrder}
-              onValueChange={(value: 'score_desc' | 'score_asc') =>
-                setSortOrder(value)
-              }
+          <Select value={sortOrder} onValueChange={setSortOrder as (value: string) => void}>
+            <SelectTrigger
+              className="w-[100px] flex-shrink-0"
+              style={{
+                borderRadius: '8px',
+                border: '1px solid rgba(0, 0, 0, 0.1)',
+                backgroundColor: 'rgba(255, 255, 255, 0.7)',
+              }}
             >
-              <SelectTrigger style={{ height: "4vh",backgroundColor: "rgb(255,255,255,1)",}}>
-                <SelectValue />
-              </SelectTrigger>
-              <SelectContent>
-                <SelectItem value="score_desc">{translations.t58}</SelectItem>
-                <SelectItem value="score_asc">{translations.t59}</SelectItem>
-              </SelectContent>
-            </Select>
+              <SelectValue placeholder={translations.t42} />
+            </SelectTrigger>
+            <SelectContent>
+              <SelectItem value="score_desc">{translations.t37}</SelectItem>
+              <SelectItem value="score_asc">{translations.t38}</SelectItem>
+            </SelectContent>
+          </Select>
+        </div>
+
+        {/* 额外过滤选项 */}
+        <div className="flex flex-wrap gap-x-4 gap-y-2 text-gray-700">
+
+          <div className="flex items-center space-x-2">
+            <input
+              type="checkbox"
+              id="show-hover-img"
+              checked={showHoverImg}
+              className="h-4 w-4"
+              onChange={(e) => onSetShowHoverImg(e.target.checked)}
+              style={{ accentColor: '#718096' }}
+            />
+            <label htmlFor="show-hover-img" className="text-sm font-medium">
+              {translations.t92}
+            </label>
           </div>
 
-          <div className="flex items-center" style={{ gap: "1vw" }}>
-            {!mobileOrTablet && (
-              <div className="flex items-center space-x-2">
-                <input
-                  type="checkbox"
-                  id="show-hover-img"
-                  checked={showHoverImg}
-                  onChange={(e) => onSetShowHoverImg(e.target.checked)}
-                  className="h-4 w-4"
-                  style={{ accentColor: '#ffffff' }}
-                />
-                <label htmlFor="show-hover-img" className="text-sm">
-                  {translations.t92}
-                </label>
-              </div>
-            )}
 
-
-            {showKeyword !== undefined && <div className="flex items-center space-x-2">
+          {showKeyword !== undefined && (
+            <div className="flex items-center space-x-2">
               <input
                 type="checkbox"
                 id="show-keyword"
                 checked={showKeyword}
                 className="h-4 w-4"
-                onChange={(e) => { if (onSetShowKeyword !== undefined) onSetShowKeyword(e.target.checked) }}
-                style={{ accentColor: "#ffffff" }} // 灰色勾选
+                onChange={(e) => {
+                  if (onSetShowKeyword !== undefined) onSetShowKeyword(e.target.checked);
+                }}
+                style={{ accentColor: '#718096' }}
               />
-              <label htmlFor="show-keyword" className="text-sm">
+              <label htmlFor="show-keyword" className="text-sm font-medium">
                 {translations.t104}
               </label>
-            </div>}
-
-            {/* 星环过滤 */}
-            <div className="flex items-center space-x-2">
-              <input
-                type="checkbox"
-                id="contain-pd"
-                checked={containPD}
-                onChange={(e) => setContainPD(e.target.checked)}
-                className="h-4 w-4"
-                style={{ accentColor: '#ffffff' }}
-              />
-              <label htmlFor="contain-pd" className="text-sm">
-                {translations.t67}
-              </label>
             </div>
-          </div>
+          )}
 
+          <div className="flex items-center space-x-2">
+            <input
+              type="checkbox"
+              id="contain-pd"
+              checked={containPD}
+              onChange={(e) => setContainPD(e.target.checked)}
+              className="h-4 w-4"
+              style={{ accentColor: '#718096' }}
+            />
+            <label htmlFor="contain-pd" className="text-sm font-medium">
+              {translations.t67}
+            </label>
+          </div>
         </div>
       </div>
 
-      {/* 内部列表内容区域（灵活） */}
-      <div className="flex-1 min-h-0 " style={{
-        backgroundColor: "rgba(0,0,0,0.05)",
-
-      }}>{children}</div>
+      {/* 内部列表内容区域（灵活） - 保持透明背景，并增加顶部间距 */}
+      <div
+        className="flex-1 min-h-0"
+        style={{
+          backgroundColor: 'transparent',
+          paddingTop: 8,
+        }}
+      >
+        {children}
+      </div>
     </div>
   );
 };

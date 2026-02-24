@@ -13,6 +13,7 @@ interface PartComparePanelProps {
     tabsrc: string;
     data:any;
     lang:string;
+    showSourceBox:boolean;
 }
 export default function PartComparePanel({
     lastPartId,
@@ -23,7 +24,7 @@ export default function PartComparePanel({
     viewMode,
     showKeyword,
     faction,
-    tabsrc,data,lang
+    tabsrc,data,lang,showSourceBox
 }: PartComparePanelProps) {
     return (
         <div
@@ -50,6 +51,7 @@ export default function PartComparePanel({
                 hasLeft={compareMode && lastPartId !== ""}
                 data={data}
                 lang={lang}
+                showSourceBox={showSourceBox}
             />}
 
             {/* 右侧：悬浮预览 */}
@@ -64,6 +66,7 @@ export default function PartComparePanel({
                 hasLeft={compareMode && lastPartId !== ""}
                 data={data}
                 lang={lang}
+                showSourceBox={showSourceBox}
             />
         </div>
     );

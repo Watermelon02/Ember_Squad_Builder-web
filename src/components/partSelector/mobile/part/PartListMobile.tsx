@@ -11,8 +11,181 @@ interface PartListMobileProps {
   translations: any;
   lastScore: number;
   selectedPartType: string;
-  faction:string|undefined;
+  faction: string | undefined;
 }
+
+const MemoizedPartCard = React.memo(({
+  part,
+  isSelected,
+  onSelect,
+  tabsrc,
+  translations,
+  lastScore,
+  faction
+}: any) => {
+  return (
+    <SelectableCard
+      className="relative p-3 cursor-pointer hover:bg-accent/50 transition overflow-hidden shadow-sm"
+      selected={isSelected}
+      onClick={() => onSelect(part)}
+    >
+      {/* 背景图 */}
+      {(faction && faction === "GOF") || (part.hasImage === undefined || part.hasImage) ? <img
+        src={`${tabsrc}/${part.id}.png`}
+        alt=""
+        className="absolute right-0 top-0 w-auto h-full object-contain pointer-events-none"
+        style={{ opacity: 0.8 }}
+        loading="lazy"
+      /> : <span
+        style={{
+          display: "flex",
+          position: "absolute",
+          right: 0,
+          padding: "1vh",
+          bottom: 0,
+          opacity: 0.8,
+        }}>{translations.t108}</span>}
+
+      {/* 内容 */}
+      <div className="relative z-10 space-y-2">
+        {/* 名称和分数 */}
+        <div className="flex items-center gap-2">
+          <Badge variant="outline" className="shrink-0 relative">
+            {part.score}
+            {part.score !== lastScore && (
+              <span
+                style={{
+                  position: 'absolute',
+                  top: 0,
+                  left: 2,
+                  fontSize: 8,
+                  opacity: 0.5,
+                }}
+              >
+                {part.score > lastScore ? '▲' : '▼'}
+              </span>
+            )}
+          </Badge>
+          <h4 className="font-medium truncate">{part.name}</h4>
+        </div>
+
+        {/* 属性 */}
+        <div className="flex items-center gap-2">
+          {(part.armor !== 0 || part.structure !== 0) && (
+            <div className="flex flex-col items-center px-1 py-0.5 border rounded-md shadow-sm">
+              <div className="flex items-center gap-1">
+                <img
+                  src={`${tabsrc}/icon_armor.png`}
+                  alt="armor"
+                  className="w-4 h-4"
+                  loading="lazy"
+                />
+                <div
+                  style={{
+                    fontSize: '12px',
+                    color: 'var(--muted-foreground)',
+                  }}
+                >
+                  {part.structure === 0
+                    ? translations.t39
+                    : `${translations.t39}/${translations.t40}`}
+                </div>
+              </div>
+              <div
+                style={{
+                  fontSize: '16px',
+                  color:
+                    part.armor < 0 || part.structure < 0 ? 'red' : 'inherit',
+                }}
+              >
+                {part.structure === 0
+                  ? part.armor
+                  : `${part.armor} / ${part.structure}`}
+              </div>
+            </div>
+          )}
+
+          {[
+            { label: translations.t41, value: part.parray, icon: 'icon_parray' },
+            {
+              label: translations.t42,
+              value: part.dodge,
+              icon: 'icon_dodge',
+              color: (() => {
+                const v = Math.min(Math.max(part.dodge, 1), 6);
+                const opacity = 0.2 + v * 0.08;
+                return `rgba(0,120,255,${opacity})`;
+              })(),
+            },
+            {
+              label: translations.t43,
+              value: part.electronic,
+              icon: 'icon_electronic',
+              color: (() => {
+                const v = Math.min(Math.max(part.electronic, 1), 6);
+                const opacity = 0.2 + v * 0.08;
+                return `rgba(255,180,0,${opacity})`;
+              })(),
+            },
+          ]
+            .filter(attr => attr.value !== 0)
+            .map(attr => (
+              <div
+                key={attr.label}
+                className="flex flex-col items-center px-1 py-0.5 border rounded-md shadow-sm"
+              >
+                <div className="flex items-center gap-1">
+                  <img
+                    src={`${tabsrc}/${attr.icon}.png`}
+                    alt={attr.label}
+                    className="w-4 h-4"
+                    loading="lazy"
+                  />
+                  <div
+                    style={{
+                      fontSize: '12px',
+                      color: 'var(--muted-foreground)',
+                    }}
+                  >
+                    {attr.label}
+                  </div>
+                </div>
+                <div
+                  style={{
+                    fontSize: '16px',
+                    color: attr.value < 0 ? 'red' : attr.color || 'inherit',
+                  }}
+                >
+                  {attr.value}
+                </div>
+              </div>
+            ))}
+        </div>
+
+        {/* 描述 */}
+        {/* {part.description && (
+              <p className="text-sm text-muted-foreground line-clamp-2">
+                {part.description}
+              </p>
+            )} */}
+
+        {/* 标签 */}
+        {part.tags?.length > 0 && (
+          <div className="flex flex-wrap gap-1">
+            {part.tags.map(tag => (
+              <Badge key={tag} variant="secondary" className="text-xs">
+                {tag}
+              </Badge>
+            ))}
+          </div>
+        )}
+      </div>
+    </SelectableCard>
+  );
+}, (prevProps, nextProps) => {
+  // 只有当选中状态改变，或者部件 ID 改变时才重新渲染
+  return prevProps.isSelected === nextProps.isSelected && prevProps.part.id === nextProps.part.id;
+});
 
 const PartListMobile: React.FC<PartListMobileProps> = ({
   filteredParts,
@@ -25,174 +198,27 @@ const PartListMobile: React.FC<PartListMobileProps> = ({
 }) => {
   const [selectedId, setSelectedId] = useState<string | null>(null);
 
-  // 取消选中
-  const resetSelection = () => setSelectedId(null);
+  const handleSelect = React.useCallback((part: any) => {
+    onSelectPart(part);
+    setSelectedId(part.id);
+  }, [onSelectPart]);
   return (
     <div
       key={selectedPartType}
       className="flex-1 overflow-y-auto space-y-3"
-      style={{ paddingLeft: '2vw', paddingRight: '2vw' ,height:"60vh"}}
+      style={{ paddingLeft: '2vw', paddingRight: '2vw', height: "60vh" }}
     >
       {filteredParts.map((part) => (
-        <SelectableCard
+        <MemoizedPartCard
           key={part.id}
-          className="relative p-3 cursor-pointer hover:bg-accent/50 transition overflow-hidden shadow-sm"
-          selected={selectedId === part.id}
-
-          onClick={() => { onSelectPart(part); setSelectedId(part.id) }}
-        >
-          {/* 背景图 */}
-          {(faction&&faction==="GOF") ||(part.hasImage === undefined || part.hasImage) ? <img
-            src={`${tabsrc}/${part.id}.png`}
-            alt=""
-            className="absolute right-0 top-0 w-auto h-full object-contain pointer-events-none"
-            style={{ opacity: 0.8 }}
-            loading="lazy"
-          /> : <span
-            style={{
-              display: "flex",
-              position: "absolute",
-              right: 0,
-              padding: "1vh",
-              bottom: 0,
-              opacity: 0.8,
-            }}>{translations.t108}</span>}
-
-          {/* 内容 */}
-          <div className="relative z-10 space-y-2">
-            {/* 名称和分数 */}
-            <div className="flex items-center gap-2">
-              <Badge variant="outline" className="shrink-0 relative">
-                {part.score}
-                {part.score !== lastScore && (
-                  <span
-                    style={{
-                      position: 'absolute',
-                      top: 0,
-                      left: 2,
-                      fontSize: 8,
-                      opacity: 0.5,
-                    }}
-                  >
-                    {part.score > lastScore ? '▲' : '▼'}
-                  </span>
-                )}
-              </Badge>
-              <h4 className="font-medium truncate">{part.name}</h4>
-            </div>
-
-            {/* 属性 */}
-            <div className="flex items-center gap-2">
-              {(part.armor !== 0 || part.structure !== 0) && (
-                <div className="flex flex-col items-center px-1 py-0.5 border rounded-md shadow-sm">
-                  <div className="flex items-center gap-1">
-                    <img
-                      src={`${tabsrc}/icon_armor.png`}
-                      alt="armor"
-                      className="w-4 h-4"
-                      loading="lazy"
-                    />
-                    <div
-                      style={{
-                        fontSize: '12px',
-                        color: 'var(--muted-foreground)',
-                      }}
-                    >
-                      {part.structure === 0
-                        ? translations.t39
-                        : `${translations.t39}/${translations.t40}`}
-                    </div>
-                  </div>
-                  <div
-                    style={{
-                      fontSize: '16px',
-                      color:
-                        part.armor < 0 || part.structure < 0 ? 'red' : 'inherit',
-                    }}
-                  >
-                    {part.structure === 0
-                      ? part.armor
-                      : `${part.armor} / ${part.structure}`}
-                  </div>
-                </div>
-              )}
-
-              {[
-                { label: translations.t41, value: part.parray, icon: 'icon_parray' },
-                {
-                  label: translations.t42,
-                  value: part.dodge,
-                  icon: 'icon_dodge',
-                  color: (() => {
-                    const v = Math.min(Math.max(part.dodge, 1), 6);
-                    const opacity = 0.2 + v * 0.08;
-                    return `rgba(0,120,255,${opacity})`;
-                  })(),
-                },
-                {
-                  label: translations.t43,
-                  value: part.electronic,
-                  icon: 'icon_electronic',
-                  color: (() => {
-                    const v = Math.min(Math.max(part.electronic, 1), 6);
-                    const opacity = 0.2 + v * 0.08;
-                    return `rgba(255,180,0,${opacity})`;
-                  })(),
-                },
-              ]
-                .filter(attr => attr.value !== 0)
-                .map(attr => (
-                  <div
-                    key={attr.label}
-                    className="flex flex-col items-center px-1 py-0.5 border rounded-md shadow-sm"
-                  >
-                    <div className="flex items-center gap-1">
-                      <img
-                        src={`${tabsrc}/${attr.icon}.png`}
-                        alt={attr.label}
-                        className="w-4 h-4"
-                        loading="lazy"
-                      />
-                      <div
-                        style={{
-                          fontSize: '12px',
-                          color: 'var(--muted-foreground)',
-                        }}
-                      >
-                        {attr.label}
-                      </div>
-                    </div>
-                    <div
-                      style={{
-                        fontSize: '16px',
-                        color: attr.value < 0 ? 'red' : attr.color || 'inherit',
-                      }}
-                    >
-                      {attr.value}
-                    </div>
-                  </div>
-                ))}
-            </div>
-
-            {/* 描述 */}
-            {/* {part.description && (
-              <p className="text-sm text-muted-foreground line-clamp-2">
-                {part.description}
-              </p>
-            )} */}
-
-            {/* 标签 */}
-            {part.tags?.length > 0 && (
-              <div className="flex flex-wrap gap-1">
-                {part.tags.map(tag => (
-                  <Badge key={tag} variant="secondary" className="text-xs">
-                    {tag}
-                  </Badge>
-                ))}
-              </div>
-            )}
-          </div>
-        </SelectableCard>
+          part={part}
+          isSelected={selectedId === part.id}
+          onSelect={handleSelect}
+          tabsrc={tabsrc}
+          translations={translations}
+          lastScore={lastScore}
+          faction={faction}
+        />
       ))}
 
       {filteredParts.length === 0 && (

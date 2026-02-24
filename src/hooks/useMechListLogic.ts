@@ -15,6 +15,7 @@ interface UseMechListLogicProps {
   imgsrc: string;
   tabsrc: string;
   localImgsrc: string;
+  onUpdateInventory?: (inventory: Record<number, number>) => void;
 }
 
 export const useMechListLogic = ({
@@ -27,24 +28,22 @@ export const useMechListLogic = ({
   mechImgSrc,
   imgsrc,
   tabsrc,
-  localImgsrc
+  localImgsrc,
+  onUpdateInventory
 }: UseMechListLogicProps) => {
   const [editingMechId, setEditingMechId] = useState<string>('');
   const [isExporting, setIsExporting] = useState(false);
   const [isExportingTTS, setIsExportingTTS] = useState(false);
   const [showProjectileOption, setShowProjectileOption] = useState(false);
-  const [showTTSHint, setShowTTSHint] = useState(false);
   const [cPartType, setCPartType] = useState("");
   const [currentTab, setCurrentTab] = useState("mechs");
-  const [open, setOpen] = useState(false);
+  const [TTSDialogOpen, setTTSDialogOpen] = useState(false);
+  const [boxListDialogOpen, setBoxListDialogOpen] = useState(false);
   const [script, setScript] = useState("");
-  const [showAnimationHint, setShowAnimationHint] = useState(false);
   const exportRef = useRef<HTMLDivElement>(null);
-  const [isDialogOpen, setIsDialogOpen] = useState(false);
-
   const [includeProjectile, setIncludeProjectile] = useState<boolean>(() => {
     const saved = localStorage.getItem("includeProjectile");
-    return saved ? JSON.parse(saved) : false; 
+    return saved ? JSON.parse(saved) : false;
   });
 
   useEffect(() => {
@@ -61,7 +60,7 @@ export const useMechListLogic = ({
 
     node.style.overflow = "visible";
     node.style.height = "auto";
-    node.style.background = "#e5e7eb"; 
+    node.style.background = "#e5e7eb";
 
     await new Promise((r) => setTimeout(r, 50));
 
@@ -97,10 +96,10 @@ export const useMechListLogic = ({
   const handleExportTTS = async () => {
     setIsExportingTTS(true);
     try {
-        if (!team) return;
+      if (!team) return;
       const result = await exportTTS(team, lang, tabsrc, mechImgSrc);
       setScript(result);
-      setOpen(true);
+      setTTSDialogOpen(true);
       showToast(`✅ ${translations.t76}`);
     } catch (err) {
       console.error(`${translations.t77}`, err);
@@ -140,7 +139,7 @@ export const useMechListLogic = ({
     const updatedMechs = team.mechs.map((mech) => {
       if (mech.id === mechId) {
         const updatedParts = { ...mech.parts };
-        delete updatedParts[partType]; 
+        delete updatedParts[partType];
         return { ...mech, parts: updatedParts };
       }
       return mech;
@@ -199,18 +198,24 @@ export const useMechListLogic = ({
     });
   };
 
+const updateInventory = (params: { inventory: Record<number, number> }) => {
+    if (onUpdateInventory) {
+      onUpdateInventory(params.inventory);
+    } else {
+      console.warn("onUpdateInventory 未定义，库存更新失败");
+    }
+  };
+
   return {
     editingMechId, setEditingMechId,
     isExporting, isExportingTTS,
     showProjectileOption, setShowProjectileOption,
-    showTTSHint, setShowTTSHint,
     cPartType, setCPartType,
     currentTab, setCurrentTab,
-    open, setOpen,
+    TTSDialogOpen, setTTSDialogOpen,
     script, setScript,
-    showAnimationHint, setShowAnimationHint,
+    boxListDialogOpen, setBoxListDialogOpen,
     exportRef,
-    isDialogOpen, setIsDialogOpen,
     includeProjectile, setIncludeProjectile,
     exportWebAsImage,
     handleExportImage,
@@ -221,6 +226,6 @@ export const useMechListLogic = ({
     updateMechName,
     copyMech,
     deleteDrone,
-    deleteTacticCard
+    deleteTacticCard,updateInventory
   };
 };

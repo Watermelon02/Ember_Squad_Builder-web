@@ -1,6 +1,6 @@
 // PartComparePanel.jsx
 
-import { Part } from "../../../../data/types";
+import { Part } from "../../../../types";
 import PartPreviewMobile from "./PartPreviewMobile";
 interface PartComparePanelMobileProps {
     lastPartId: string;
@@ -29,7 +29,7 @@ export default function PartComparePanelMobile({
             style={{
                 height: "35vh",
                 width: "100%",
-                padding: "0.5rem",
+
                 backgroundColor: "rgba(255,255,255,0.3)",
                 borderRight: "1px solid rgba(255,255,255,0.1)",
 

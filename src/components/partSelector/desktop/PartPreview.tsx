@@ -1,11 +1,13 @@
 import React, { useState, useRef } from "react";
-import { Part, Projectile } from "../../../data/types";
+import { FACTION_COLORS, Part, Projectile } from "../../../data/types";
 import { Button } from "../../radix-ui/button";
 import { AnimatePresence, motion } from "framer-motion";
 import { PartCard } from "../../customCard/partCard/PartCard";
 import { gofBackpack, gofChasis, gofLeftHand, gofProjectiles, gofRightHand, gofTorso, rdlTorso } from "../../../data/data_cn";
 import { ProjectileCard } from "../../customCard/projectileCard/ProjectileCard";
 import { checkWhiteDwarf } from "../../../util/CustomCardUtil";
+import { BOX_COVER_SRC } from "../../../data/resource";
+import { translations } from "../../../i18n";
 
 interface PartPreviewProps {
   partId: string;
@@ -17,13 +19,14 @@ interface PartPreviewProps {
   tabsrc: string
   hasLeft: boolean;
   data: any;
-  lang:string;
+  lang: string;
+  showSourceBox: boolean;
 }
 
 export default function PartPreview({
   partId,
   factionParts,
-  imageSrc, showKeyword, faction, tabsrc, compareMode, hasLeft, data,lang
+  imageSrc, showKeyword, faction, tabsrc, compareMode, hasLeft, data, lang, showSourceBox
 }: PartPreviewProps) {
   const part = factionParts.find((p) => p.id === partId);
 
@@ -111,17 +114,8 @@ export default function PartPreview({
     `}
       </style>
 
-      {part && <AnimatePresence mode="wait">
-        {!partId ? (
-          <motion.div
-            key={part?.id}
-            initial={{ opacity: 0, y: 100 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -100 }}
-            transition={{ duration: 0.2 }}
-            style={{ height: "25vw" }}
-          />
-        ) : (
+      {part && (
+        <AnimatePresence mode="wait">
           <motion.div
             key={part?.id}
             initial={{ opacity: 0, y: 100, scale: 0.97 }}
@@ -129,122 +123,190 @@ export default function PartPreview({
             exit={{ opacity: 0, y: -100, scale: 0.97 }}
             transition={{ duration: 0.2 }}
           >
-            {/* 主图 */}
             <div style={{
-              position: "relative",
               display: "flex",
-              // 🚀 修改点 1: 让内容靠右对齐
+              flexDirection: "row", // 水平排列图片和所属的包的信息
               alignItems: "flex-start",
-              flexDirection: "column",
-              marginBottom: "2vh"
+              gap: "1vw",
+
+              position: "relative"
             }}>
-              {(faction !== "GOF" && (part.hasImage === undefined || part.hasImage) || !checkWhiteDwarf(part.id)) ? <img
-                src={`${imageSrc}/${partId}.png`}
-                alt="current part"
-                style={{
-                  maxWidth: "25vh",
-                  objectFit: "contain",
-                  borderRadius: 8,
-                }}
-                loading="lazy"
-              /> :
-                <div style={{ scale: "0.92" }}>
-                  <PartCard faction={faction} part={part} tabsrc={tabsrc} isThrowCard={false} lang={lang}/>
-                </div>}
-              {/* 🔽 关键词展示区域 🔽 */}
-              {showKeyword && part?.keywords && part.keywords.length > 0 && (
-                <motion.div
-                  style={{
-                    padding: "0.4vh 0.5vw",
-                    backdropFilter: "blur(16px)",
-                    WebkitBackdropFilter: "blur(16px)",
-                    background: "rgba(255,255,255,0.14)",
-                    borderRadius: 10,
-                    boxShadow: "0 0 8px rgba(0,0,0,0.4) inset",
-                    display: "flex",
-                    flexDirection: "column",
-                    alignItems: "start",
-                    textAlign: "start",
-                    color: "white",
-                    zIndex: 2,
-                  }}
-                  initial={{ opacity: 0, y: 100 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  exit={{ opacity: 0, y: -100 }}
-                  transition={{ duration: 0.1 }}
-                >
-                  {part.keywords.map((kw, index) => (
-                    <span
-                      key={index}
+
+              {/* 左侧：主图区域 */}
+              <div style={{ position: "relative", flexShrink: 0 }}>
+                {(faction !== "GOF" && (part.hasImage === undefined || part.hasImage) || !checkWhiteDwarf(part.id)) ? (
+                  <img
+                    src={`${imageSrc}/${partId}.png`}
+                    alt="current part"
+                    style={{
+                      maxWidth: "25vh",
+                      objectFit: "contain",
+                      borderRadius: 8,
+                    }}
+                    loading="lazy"
+                  />
+                ) : (
+                  <div style={{ scale: "0.92" }}>
+                    <PartCard faction={faction} part={part} tabsrc={tabsrc} isThrowCard={false} lang={lang} />
+                  </div>
+                )}
+
+                
+              </div>
+
+              {showSourceBox &&
+
+                <div style={{
+                  display: "flex",
+                  flexDirection: "column",
+                  gap: "0.5vh",
+                  flex: 1,
+                  marginTop: "0.5vh"
+                }}>
+                  {/*右侧：盒子来源区域 (New Box Sources) */}
+                  <span style={{
+                    fontSize: "1.2vh",
+                    color: "#fff",
+                    fontWeight: "bold",
+                    letterSpacing: "0.1em",
+                    borderBottom: "1px solid rgba(255,255,255,0.1)",
+                    paddingBottom: "2px",
+                    marginBottom: "4px"
+                  }}>
+                    {translations[lang].t118}
+                  </span>
+                  {part.containedIn?.map((src, idx) => (
+                    <div
+                      key={idx}
+                      // 鼠标移入时，通过修改子元素的 grid-template-rows 来实现展开
+                      onMouseEnter={(e) => {
+                        const drawer = e.currentTarget.querySelector('.img-drawer') as HTMLElement;
+                        if (drawer) drawer.style.gridTemplateRows = "1fr";
+                      }}
+                      onMouseLeave={(e) => {
+                        const drawer = e.currentTarget.querySelector('.img-drawer') as HTMLElement;
+                        if (drawer) drawer.style.gridTemplateRows = "0fr";
+                      }}
                       style={{
-                        fontSize: "1.3vh",
-                        color: "white",
-                        textShadow: `
+                        padding: "0.6vh 0.6vw",
+                        backgroundColor: "rgba(255,255,255,0.08)",
+                        borderRadius: "4px",
+                        border: "1px solid rgba(255,255,255,0.1)",
+                        display: "flex",
+                        flexDirection: "column",
+                        cursor: "pointer",
+                        overflow: "hidden", // 确保折叠时内容不溢出
+                        transition: "background-color 0.2s"
+                      }}
+                    >
+                      {/* 1. 标题文字行 */}
+                      <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
+                        <span style={{
+                          fontSize: "1.3vh",
+                          color: "white",
+                          lineHeight: "1.4",
+                          fontWeight: 500
+                        }}>
+                          {src.box.name[lang]}
+                        </span>
+                        {src.quantityPerBox > 1 && (
+                          <span style={{ fontSize: "1vh", color: FACTION_COLORS[src.box.faction], fontWeight: "bold" }}>
+                            × {src.quantityPerBox}
+                          </span>
+                        )}
+                      </div>
+
+                      {/* 2. 图片展开抽屉 */}
+                      <div
+                        className="img-drawer"
+                        style={{
+                          display: "grid",
+                          gridTemplateRows: "0fr", // 默认高度为 0
+                          transition: "grid-template-rows 0.3s ease-out", // 平滑展开动画
+                        }}
+                      >
+                        <div style={{ minHeight: 0, overflow: "hidden" }}>
+                          {src.box.hasImage && <img
+                            src={`${BOX_COVER_SRC[lang]}/${src.box.id}.webp`}
+                            alt={src.box.name[lang]}
+                            loading="lazy"
+                            style={{
+                              width: "100%",
+                              marginTop: "0.8vh",
+                              borderRadius: "4px",
+                              boxShadow: "0 4px 12px rgba(0,0,0,0.3)",
+                              border: "1px solid rgba(255,255,255,0.1)"
+                            }}
+                          />}
+                        </div>
+                      </div>
+                    </div>
+                  ))}
+                </div>}
+            </div>
+
+            {/* 🔽 关键词展示区域 (移到图片和盒子列表下方) 🔽 */}
+            {showKeyword && part?.keywords && part.keywords.length > 0 && (
+              <motion.div
+                style={{
+                  padding: "0.4vh 0.5vw",
+                  backdropFilter: "blur(16px)",
+                  background: "rgba(255,255,255,0.14)",
+                  borderRadius: 10,
+                  boxShadow: "0 0 8px rgba(0,0,0,0.4) inset",
+                  display: "flex",
+                  flexDirection: "column",
+                  alignItems: "start",
+                  color: "white",
+                  zIndex: 2,
+                  marginBottom: "2vh"
+                }}
+              // ... motion props
+              >
+                {part.keywords.map((kw, index) => (
+                  <span
+                    key={index}
+                    style={{
+                      fontSize: "1.3vh",
+                      color: "white",
+                      textShadow: `
         -1px -1px 1px #000,
          1px -1px 1px #000,
         -1px  1px 1px #000,
          1px  1px 1px #000
       `,
-                        lineHeight: "2.2vh",
-                        marginLeft: "0.5vw",
-                        marginRight: "0.5vw",
-                        display: "block",
+                      lineHeight: "2.2vh",
+                      marginLeft: "0.5vw",
+                      marginRight: "0.5vw",
+                      display: "block",
+                    }}
+                  >
+                    <span
+                      style={{
+                        fontSize: "1.5vh",
+                        fontWeight: 600,
+                        textDecoration: "underline",
+
+                        /* 🟦 名称样式 */
+                        color: "black",
+
+                        padding: "0 0.3vw",                    // ⭐ 背景左右留白
+                        borderRadius: "4px",                   // ⭐ 小圆角
+                        /* 去除描边，否则黑字会发白 */
+                        textShadow: "none",
                       }}
                     >
-                      <span
-                        style={{
-                          fontSize: "1.5vh",
-                          fontWeight: 600,
-                          textDecoration: "underline",
-
-                          /* 🟦 名称样式 */
-                          color: "black",
-
-                          padding: "0 0.3vw",                    // ⭐ 背景左右留白
-                          borderRadius: "4px",                   // ⭐ 小圆角
-                          /* 去除描边，否则黑字会发白 */
-                          textShadow: "none",
-                        }}
-                      >
-                        {kw.name}
-                      </span>
-                      {kw.value}
+                      {kw.name}
                     </span>
-                  ))}
+                    {kw.value}
+                  </span>
+                ))}
 
-                </motion.div>
-              )}
+              </motion.div>
+            )}
 
 
-              {part && (
-                <Button
-                  variant="secondary"
-                  style={{
-                    position: "absolute",
-                    top: "0",
 
-                    height: "3vh",
-                    width: "3vh",
-                    fontSize: "2vh",
-                    color: "#fff",
-                    textShadow: `
-      0 0 2px #000,
-      0 0 4px #000,
-      0 0 6px #000
-    `,
-                    backdropFilter: "blur(4px)",
-                    WebkitBackdropFilter: "blur(4px)",
-                    backgroundColor: "rgba(255,255,255,0.1)",
-                    borderRadius: 6,
-                    display: "flex",
-                    alignItems: "center",
-                    justifyContent: "center",
-                  }}
-                >
-                  {part.score}
-                </Button>
-              )}
-            </div>
 
             {/* projectile + throwIndex */}
             {part && (
@@ -258,7 +320,7 @@ export default function PartPreview({
                         if (value.id === proj) return value;
                       });
 
-                      const shouldShowImage = (currentProjectile?.hasImage === undefined );
+                      const shouldShowImage = (currentProjectile?.hasImage === undefined);
 
                       return (
                         <div key={idx} style={{ position: "relative" }}>
@@ -285,7 +347,7 @@ export default function PartPreview({
                               faction={faction}
                               projectile={currentProjectile}
                               tabsrc={tabsrc}
-                               lang={lang}
+                              lang={lang}
                             />
                           )}
                         </div>
@@ -305,7 +367,7 @@ export default function PartPreview({
                           maxWidth: "25vh"
                         }}
                         loading="lazy"
-                      /> : <div style={{ scale: "0.92" }}><PartCard faction={faction} part={getPartByFactionAndType().find((value) => { if (value.id === part.throwIndex) return value })} tabsrc={tabsrc} isThrowCard={true} lang={lang}/></div>}
+                      /> : <div style={{ scale: "0.92" }}><PartCard faction={faction} part={getPartByFactionAndType().find((value) => { if (value.id === part.throwIndex) return value })} tabsrc={tabsrc} isThrowCard={true} lang={lang} /></div>}
                     </div>
                   )}
                 </div>
@@ -334,9 +396,9 @@ export default function PartPreview({
                 }}
               />
             )}
-          </motion.div>
-        )}
-      </AnimatePresence>}
+          </motion.div></AnimatePresence>
+      )}
+
     </div>
 
   );

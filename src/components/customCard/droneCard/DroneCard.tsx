@@ -114,6 +114,9 @@ export const DroneCard: React.FC<DroneCardProps> = ({ drone, tabsrc, faction, la
 
                     {/* Footer */}
                     <div className="drone-footer">
+                         {drone.valueLess && <div className="stat-valueless">
+                            <span className="stat-val-valueless">{"低价值"}</span>
+                        </div>}
                         {/* Stance */}
                         <div className={`drone-stance-bar drone-stance-${drone.stance}`}>
                             <div className="drone-stance-indicator" />

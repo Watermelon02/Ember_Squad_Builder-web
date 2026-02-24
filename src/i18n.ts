@@ -75,8 +75,10 @@ export const translations = {
     t91: "图片含抛射物",
     t92: "对比", t93: "不可参赛", t94: "空",
     t95: "TTS指令", t96: "生成TTS指令，可以一键导入Tabletop Simulator中使用", t97: "TTS指令已复制到剪贴板。进入TTS的黑曜协议Mod后，先按 Enter 打开聊天框，然后粘贴指令（Ctrl+V）并按回车，即可导入小队:",
-    t98: "状态", t99: "设置", t100: "删除", t101: "上一页", t102: "下一页", t103: "为",t104:"词条",t105:"切换小队/选择派系",t106:"动画模式",t107:"启用/禁用卡片入场动画",
-    t108:"未发售",t109:"手持",t110:"空手"
+    t98: "状态", t99: "设置", t100: "删除", t101: "上一页", t102: "下一页", t103: "为", t104: "词条", t105: "切换小队/选择派系", t106: "动画模式", t107: "启用/禁用卡片入场动画",
+    t108: "未发售", t109: "手持", t110: "空手",
+    t111: "仓库", t112: "仓库管理", t113: "根据你拥有的扩展包，按照真实拥有的部件数量，限制写表器中可用的部件数量", t114: "显示全部",
+    t115: "启用仓库", t116: "开启", t117: "关闭", t118: "所属", t119: "空"
   },
 
   en: {
@@ -167,9 +169,18 @@ export const translations = {
     t97: "The TTS command has been copied to your clipboard. In the TTS Obsidian Protocol mod, press Enter to open the chat box, paste the command (Ctrl+V), and press Enter again to import the squad:",
     t98: "Status", t99: "Setting", t100: "delete", t101: "Previous Page",
     t102: "Next Page",
-    t103: "Set for",t104:"Keyword",t105:"Switch Squad / Choose Faction",t106:"Animation Mode",t107:"Enable/Disable Card Entrance Animation",
-    t108:"Unreleased",t109:"Handheld",t110:"FreeHand"
+    t103: "Set for", t104: "Keyword", t105: "Switch Squad / Choose Faction", t106: "Animation Mode", t107: "Enable/Disable Card Entrance Animation",
+    t108: "Unreleased", t109: "Handheld", t110: "FreeHand",
 
+    t111: "Inventory",
+    t112: "Inventory Management",
+    t113: "Limit available parts in the list builder based on the expansions you own and the actual number of parts you have",
+    t114: "Show All",
+    t115: "Enable Inventory",
+    t116: "On",
+    t117: "Off",
+    t118: "Affiliation",
+    t119: "None"
   }, jp: {
     t1: "データがクリップボードにコピーされました！",
     t2: "エクスポートに失敗しました。もう一度お試しください。",
@@ -257,8 +268,17 @@ export const translations = {
     t101: "前のページ",
     t102: "次のページ",
     t103: "設定対象：",
-    t104:"キーワード",t105:"部隊を切り替え / 派閥を選択",t106:"アニモ",t107:"カード入場アニメーションの有効化/無効化",
-    t108:"未発売",t109:"手持ち",t110:"空き"
+    t104: "キーワード", t105: "部隊を切り替え / 派閥を選択", t106: "アニモ", t107: "カード入場アニメーションの有効化/無効化",
+    t108: "未発売", t109: "手持ち", t110: "空き",
+    t111: "倉庫",
+    t112: "倉庫管理",
+    t113: "所持している拡張パックに基づき、実際に所持しているパーツ数に応じて写表器内で使用可能なパーツ数を制限します",
+    t114: "すべて表示",
+    t115: "倉庫を有効化",
+    t116: "オン",
+    t117: "オフ",
+    t118: "所属",
+    t119: "なし"
   },
 
 };

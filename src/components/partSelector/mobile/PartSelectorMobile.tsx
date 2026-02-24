@@ -8,9 +8,7 @@ import PilotListMobile from './pilot/PilotListMobile';
 import DroneListMobile from './drone/DroneListMobile';
 import TacticCardListMobile from './tacticCard/TacticCardListMobile';
 
-
-
-//手机端部件选择
+// 手机端部件选择
 interface MobilePartSelectorMobileProps {
   viewMode: 'parts' | 'drones' | 'pilots' | 'tacticCards';
   team?: Team;
@@ -23,9 +21,11 @@ interface MobilePartSelectorMobileProps {
   onSelectDrone: (drone: Drone) => void;
   onSelectPilot: (pilot: Pilot) => void;
   onSelectTacticCard: (tacticCard: TacticCard) => void;
-  translations: any,
-  partTypeNames: any,
-  imgsrc: string, tabsrc: string, tabSmallSrc: string
+  translations: any;
+  partTypeNames: any;
+  imgsrc: string;
+  tabsrc: string;
+  tabSmallSrc: string;
   onSetHoverImg: (img: string | null) => void;
   onSetShowHoverImg: (show: boolean) => void;
   showHoverImg: boolean;
@@ -34,7 +34,6 @@ interface MobilePartSelectorMobileProps {
   lastPartId: string;
   showKeyword?: boolean;
   onSetShowKeyword: (show: boolean) => void;
-
 }
 
 export function PartSelectorMobile({
@@ -51,240 +50,182 @@ export function PartSelectorMobile({
   onSelectTacticCard,
   translations,
   partTypeNames,
-  onSetShowKeyword, showKeyword,
-  imgsrc, tabsrc, tabSmallSrc, onSetHoverImg, onSetShowHoverImg, showHoverImg, mobileOrTablet, lastScore, lastPartId
+  onSetShowKeyword,
+  showKeyword,
+  imgsrc,
+  tabsrc,
+  tabSmallSrc,
+  onSetHoverImg,
+  onSetShowHoverImg,
+  showHoverImg,
+  mobileOrTablet,
+  lastScore,
+  lastPartId,
 }: MobilePartSelectorMobileProps) {
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedTags, setSelectedTags] = useState<string[]>([]);
   const [containPD, setContainPD] = useState<boolean>(false);
   const [sortOrder, setSortOrder] = useState<'score_desc' | 'score_asc'>('score_asc');
 
-  // 过滤部件
+  // --- 过滤逻辑保持不变（已使用 useMemo 优化） ---
   const filteredParts = useMemo(() => {
-    let filtered = parts.filter(part => {
-      // 类型过滤
+    let filtered = parts.filter((part) => {
       if (part.type !== selectedPartType) return false;
-
       if (part.id === lastPartId) return false;
-
-      // 搜索过滤
-      if (searchQuery && !part.name.toLowerCase().includes(searchQuery.toLowerCase())) {
-        return false;
-      }
-
-      if (part.isPD && !containPD) {
-        return false;
-      }
-
-      if (((part.isPD === undefined || !part.isPD)) && containPD) {
-        return false;
-      }
-
-      // 标签过滤
+      if (searchQuery && !part.name.toLowerCase().includes(searchQuery.toLowerCase())) return false;
+      if (part.isPD && !containPD) return false;
+      if ((part.isPD === undefined || !part.isPD) && containPD) return false;
       if (selectedTags.length > 0) {
-        const hasSelectedTag = selectedTags.some(tag => part.tags?.includes(tag));
+        const hasSelectedTag = selectedTags.some((tag) => part.tags?.includes(tag));
         if (!hasSelectedTag) return false;
       }
-
-      // ⬇️ 过滤掉带 "弃置" 的
       if (part.score == 0) return false;
-
       return true;
     });
+    return filtered.sort((a, b) => (sortOrder === 'score_desc' ? b.score - a.score : a.score - b.score));
+  }, [parts, selectedPartType, searchQuery, selectedTags, sortOrder, containPD, lastPartId]);
 
-    // 排序
-    return filtered.sort((a, b) => {
-      return sortOrder === 'score_desc' ? b.score - a.score : a.score - b.score;
-    });
-  }, [parts, selectedPartType, searchQuery, selectedTags, sortOrder, containPD]);
-
-  // 过滤无人机
   const filteredDrones = useMemo(() => {
-    let filtered = drones.filter(drone => {
-      if (searchQuery && !drone.name.toLowerCase().includes(searchQuery.toLowerCase())) {
-        return false;
-      }
-      // 如果是星环无人机 且 当前不包含星环 => 过滤掉
-      if (drone.isPD && !containPD) {
-        return false;
-      }
-
-      if ((drone.isPD === undefined || !drone.isPD) && containPD) {
-        return false;
-      }
-
-      // ⬇️ 过滤低价值无人机
+    let filtered = drones.filter((drone) => {
+      if (searchQuery && !drone.name.toLowerCase().includes(searchQuery.toLowerCase())) return false;
+      if (drone.isPD && !containPD) return false;
+      if ((drone.isPD === undefined || !drone.isPD) && containPD) return false;
       if (drone.score == 0) return false;
       return true;
-
-
     });
-
-    return filtered.sort((a, b) => {
-      return sortOrder === 'score_desc' ? b.score - a.score : a.score - b.score;
-    });
+    return filtered.sort((a, b) => (sortOrder === 'score_desc' ? b.score - a.score : a.score - b.score));
   }, [drones, searchQuery, sortOrder, containPD]);
 
   const filteredTacticCards = useMemo(() => {
     if (!tacticCards) return [];
-
-    // 获取队伍中已使用的战术卡 id
     const usedTacticIds = new Set<string>();
     team?.tacticCards?.forEach((tactic) => {
-      if (tactic?.id) {
-        usedTacticIds.add(tactic.id);
-      }
+      if (tactic?.id) usedTacticIds.add(tactic.id);
     });
-
     return tacticCards.filter((tacticCard) => {
-      // 搜索过滤
-      if (searchQuery && !tacticCard.name.toLowerCase().includes(searchQuery.toLowerCase())) {
-        return false;
-      }
-
-      // ⬇️ 过滤掉队伍中已经存在的战术卡
-      if (usedTacticIds.has(tacticCard.id)) {
-        return false;
-      }
-
+      if (searchQuery && !tacticCard.name.toLowerCase().includes(searchQuery.toLowerCase())) return false;
+      if (usedTacticIds.has(tacticCard.id)) return false;
       return true;
     });
   }, [tacticCards, team, searchQuery]);
 
-
-
-  // 过滤驾驶员
   const filteredPilots = useMemo(() => {
-    // 获取队伍中已用驾驶员的 id
     const usedPilotIds = new Set<string>();
-    team?.mechs.forEach(mech => {
-      if (mech.pilot) {
-        usedPilotIds.add(mech.pilot.id);
-      }
+    team?.mechs.forEach((mech) => {
+      if (mech.pilot) usedPilotIds.add(mech.pilot.id);
     });
-
-    let filtered = pilots.filter(pilot => {
-      // 搜索过滤
-      if (searchQuery && !pilot.name.toLowerCase().includes(searchQuery.toLowerCase())) {
-        return false;
-      }
-
-      // 星环动力 (PD) 筛选
-      if (pilot.faction === "PD" && !containPD) return false;
-      if (pilot.faction !== "PD" && containPD) return false;
-
-      // ⬇️ 过滤掉已使用的驾驶员
+    let filtered = pilots.filter((pilot) => {
+      if (searchQuery && !pilot.name.toLowerCase().includes(searchQuery.toLowerCase())) return false;
+      if (pilot.faction === 'PD' && !containPD) return false;
+      if (pilot.faction !== 'PD' && containPD) return false;
       if (usedPilotIds.has(pilot.id)) return false;
-
       return true;
     });
-
-    return filtered.sort((a, b) => {
-      return sortOrder === 'score_desc' ? b.score - a.score : a.score - b.score;
-    });
+    return filtered.sort((a, b) => (sortOrder === 'score_desc' ? b.score - a.score : a.score - b.score));
   }, [pilots, team, searchQuery, containPD, sortOrder]);
 
-
-  return <div ><div style={{ display: viewMode === 'parts' ? 'block' : 'none' }}>
-    <ListPanel
-      searchQuery={searchQuery}
-      setSearchQuery={setSearchQuery}
-      sortOrder={sortOrder}
-      setSortOrder={setSortOrder}
-      containPD={containPD}
-      setContainPD={setContainPD}
-      showHoverImg={showHoverImg}
-      onSetShowHoverImg={onSetShowHoverImg}
-      mobileOrTablet={mobileOrTablet}
-      translations={translations}
-      showKeyword={showKeyword}
-      onSetShowKeyword={onSetShowKeyword}
-    >
-      <PartListMobile
-        filteredParts={filteredParts}
-        onSelectPart={onSelectPart}
-        tabsrc={tabSmallSrc}
-        translations={translations}
-        lastScore={lastScore}
-        selectedPartType={selectedPartType}
-        faction={team?.faction}
-      />
-    </ListPanel>
-  </div>
-
-    <div style={{ display: viewMode === 'pilots' ? 'block' : 'none' }}>
-      <ListPanel
-        searchQuery={searchQuery}
-        setSearchQuery={setSearchQuery}
-        sortOrder={sortOrder}
-        setSortOrder={setSortOrder}
-        containPD={containPD}
-        setContainPD={setContainPD}
-        showHoverImg={showHoverImg}
-        onSetShowHoverImg={onSetShowHoverImg}
-        mobileOrTablet={mobileOrTablet}
-        translations={translations}
-      >
-        <PilotListMobile
-          filteredPilots={filteredPilots}
-          onSelectPilot={onSelectPilot}
-          onSetHoverImg={onSetHoverImg}
-          tabsrc={tabsrc}
-          imgsrc={imgsrc}
+  // --- 渲染部分：采用条件渲染代替 display:none ---
+  return (
+    <div>
+      {viewMode === 'parts' && (
+        <ListPanel
+          searchQuery={searchQuery}
+          setSearchQuery={setSearchQuery}
+          sortOrder={sortOrder}
+          setSortOrder={setSortOrder}
+          containPD={containPD}
+          setContainPD={setContainPD}
+          showHoverImg={showHoverImg}
+          onSetShowHoverImg={onSetShowHoverImg}
+          mobileOrTablet={mobileOrTablet}
           translations={translations}
-          lastScore={lastScore}
-        />
-      </ListPanel>
-    </div>
+          showKeyword={showKeyword}
+          onSetShowKeyword={onSetShowKeyword}
+        >
+          <PartListMobile
+            filteredParts={filteredParts}
+            onSelectPart={onSelectPart}
+            tabsrc={tabSmallSrc}
+            translations={translations}
+            lastScore={lastScore}
+            selectedPartType={selectedPartType}
+            faction={team?.faction}
+          />
+        </ListPanel>
+      )}
 
-    <div style={{ display: viewMode === 'drones' ? 'block' : 'none' }}>
-      <ListPanel
-        searchQuery={searchQuery}
-        setSearchQuery={setSearchQuery}
-        sortOrder={sortOrder}
-        setSortOrder={setSortOrder}
-        containPD={containPD}
-        setContainPD={setContainPD}
-        showHoverImg={showHoverImg}
-        onSetShowHoverImg={onSetShowHoverImg}
-        mobileOrTablet={mobileOrTablet}
-        translations={translations}
-        showKeyword={showKeyword}
-        onSetShowKeyword={onSetShowKeyword}
-      >
-        <DroneListMobile
-          filteredDrones={filteredDrones}
-          onSelectDrone={onSelectDrone}
-          onSetHoverImg={onSetHoverImg}
-          tabsrc={tabsrc}
-          imgsrc={imgsrc}
+      {viewMode === 'pilots' && (
+        <ListPanel
+          searchQuery={searchQuery}
+          setSearchQuery={setSearchQuery}
+          sortOrder={sortOrder}
+          setSortOrder={setSortOrder}
+          containPD={containPD}
+          setContainPD={setContainPD}
+          showHoverImg={showHoverImg}
+          onSetShowHoverImg={onSetShowHoverImg}
+          mobileOrTablet={mobileOrTablet}
           translations={translations}
-        />
-      </ListPanel>
+        >
+          <PilotListMobile
+            filteredPilots={filteredPilots}
+            onSelectPilot={onSelectPilot}
+            onSetHoverImg={onSetHoverImg}
+            tabsrc={tabsrc}
+            imgsrc={imgsrc}
+            translations={translations}
+            lastScore={lastScore}
+          />
+        </ListPanel>
+      )}
+
+      {viewMode === 'drones' && (
+        <ListPanel
+          searchQuery={searchQuery}
+          setSearchQuery={setSearchQuery}
+          sortOrder={sortOrder}
+          setSortOrder={setSortOrder}
+          containPD={containPD}
+          setContainPD={setContainPD}
+          showHoverImg={showHoverImg}
+          onSetShowHoverImg={onSetShowHoverImg}
+          mobileOrTablet={mobileOrTablet}
+          translations={translations}
+          showKeyword={showKeyword}
+          onSetShowKeyword={onSetShowKeyword}
+        >
+          <DroneListMobile
+            filteredDrones={filteredDrones}
+            onSelectDrone={onSelectDrone}
+            onSetHoverImg={onSetHoverImg}
+            tabsrc={tabsrc}
+            imgsrc={imgsrc}
+            translations={translations}
+          />
+        </ListPanel>
+      )}
+
+      {viewMode === 'tacticCards' && (
+        <ListPanel
+          searchQuery={searchQuery}
+          setSearchQuery={setSearchQuery}
+          sortOrder={sortOrder}
+          setSortOrder={setSortOrder}
+          containPD={containPD}
+          setContainPD={setContainPD}
+          showHoverImg={showHoverImg}
+          onSetShowHoverImg={onSetShowHoverImg}
+          mobileOrTablet={mobileOrTablet}
+          translations={translations}
+        >
+          <TacticCardListMobile
+            filteredTacticCards={filteredTacticCards}
+            onSelectTacticCard={onSelectTacticCard}
+            onSetHoverImg={onSetHoverImg}
+            imgsrc={imgsrc}
+          />
+        </ListPanel>
+      )}
     </div>
-
-    <div style={{ display: viewMode === 'tacticCards' ? 'block' : 'none' }}>
-      <ListPanel
-        searchQuery={searchQuery}
-        setSearchQuery={setSearchQuery}
-        sortOrder={sortOrder}
-        setSortOrder={setSortOrder}
-        containPD={containPD}
-        setContainPD={setContainPD}
-        showHoverImg={showHoverImg}
-        onSetShowHoverImg={onSetShowHoverImg}
-        mobileOrTablet={mobileOrTablet}
-        translations={translations}
-      >
-        <TacticCardListMobile
-          filteredTacticCards={filteredTacticCards}
-          onSelectTacticCard={onSelectTacticCard}
-          onSetHoverImg={onSetHoverImg}
-          imgsrc={imgsrc}
-        />
-      </ListPanel>
-    </div>
-  </div>
-
-
+  );
 }

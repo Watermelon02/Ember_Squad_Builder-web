@@ -114,9 +114,22 @@ export const DroneOrProjectileActionItem: React.FC<{ action: DroneAction; index:
           )}
           {hasDice && dice.length > 3 && (
             <div className="drone-action-stat-row dice-row">
-              {dice.slice(4, 8).map((color, i) => (
+              {dice.slice(3, 6).map((color, i) => (
                 <motion.div
-                  key={i + 4}
+                  key={i + 3}
+                  className={`skeuomorphic-dice dice-${color}`}
+                  initial={{ scale: 0, rotate: -180 }}
+                  animate={{ scale: 1, rotate: 0 }}
+                  transition={{ type: "spring", stiffness: 260, damping: 20, delay: 0.35 + i * 0.05 }}
+                />
+              ))}
+            </div>
+          )}
+          {hasDice && dice.length > 6 && (
+            <div className="drone-action-stat-row dice-row">
+              {dice.slice(6, 9).map((color, i) => (
+                <motion.div
+                  key={i + 6}
                   className={`skeuomorphic-dice dice-${color}`}
                   initial={{ scale: 0, rotate: -180 }}
                   animate={{ scale: 1, rotate: 0 }}

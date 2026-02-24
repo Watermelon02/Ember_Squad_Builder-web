@@ -1,9 +1,10 @@
 import { Keyword } from "./keyword";
+export type FactionType = "RDL" | "UN" | "GOF" | "PD" | "COLLABORATION";
 
 export interface Team {
   id: string;
   name: string;
-  faction: 'RDL' | 'UN' | 'GOF' | 'PD';
+  faction: FactionType;
   mechs: Mech[];
   drones: Drone[];
   totalScore: number;
@@ -71,7 +72,8 @@ export interface Part {
   isPD?: boolean,
   keywords?: Keyword[];
   action?: Action[]
-  hasImage?:boolean;
+  hasImage?: boolean;
+  containedIn: SourceInfo[];
 }
 
 export interface Projectile {
@@ -85,9 +87,9 @@ export interface Projectile {
   stance: 'offensive' | 'defensive' | 'mobility';
   imgSrc?: string;
   keywords?: Keyword[];
-  actions?:DroneAction[];
-  hasImage?:boolean;
-  isPD?:boolean;
+  actions?: DroneAction[];
+  hasImage?: boolean;
+  isPD?: boolean;
 }
 
 export interface Drone {
@@ -108,7 +110,9 @@ export interface Drone {
   backpack?: Part;
   keywords?: Keyword[];
   actions?: DroneAction[];
-  hasImage?:boolean;
+  hasImage?: boolean;
+  containedIn: SourceInfo[];
+  valueLess?:boolean;
 }
 
 export interface Pilot {
@@ -125,7 +129,8 @@ export interface Pilot {
   tactic: number;
   trait: string;
   traitDescription: string;
-  hasImage?:boolean;
+  hasImage?: boolean;
+  box: Box;
 }
 
 export interface TacticCard {
@@ -135,13 +140,52 @@ export interface TacticCard {
   score: number;
 }
 
+//用于描述该 部件\驾驶员\无人机 在哪个盒里，有几份。
+export interface SourceInfo {
+  box: Box;
+  quantityPerBox: number; // 每个盒子里包含该物品的数量
+}
 
+//用于描述该 部件\驾驶员\无人机 在哪个盒里，有几份。
+export interface Box {
+  id: number;
+  faction: FactionType[];
+  name: { zh: string; en: string; jp: string; };
+  hasImage: boolean
+}
+
+export const BOXES: Record<string, Box> = {
+  UNSALE: { id: 0, faction: ["PD"], name: { zh: "未售卖内容", en: "Unsale Content", jp: "未販売コンテンツ" }, hasImage: false },
+  RDL_CORE: { id: 1, faction: ["RDL"], name: { zh: "核心", en: "Core", jp: "コア" }, hasImage: true },
+  RDL_CAVALRY: { id: 2, faction: ["RDL"], name: { zh: "铁骑", en: "Cavalry", jp: "カブリ" }, hasImage: true },
+  RDL_HEAVY_METAL: { id: 3, faction: ["RDL"], name: { zh: "重金属", en: "Heavy Metal", jp: "ヘビーメタル" }, hasImage: true },
+  UN_CORE: { id: 4, faction: ["UN"], name: { zh: "核心", en: "Core", jp: "コア" }, hasImage: true },
+  UN_SCALPEL: { id: 5, faction: ["UN"], name: { zh: "手术刀", en: "Scalpel", jp: "スカルペル" }, hasImage: true },
+  UN_DOORBREAKER: { id: 6, faction: ["UN"], name: { zh: "破门锤", en: "Doorbreaker", jp: "ドアブレイカー" }, hasImage: true },
+  GOF_CORE: { id: 7, faction: ["GOF"], name: { zh: "核心", en: "Core", jp: "GOFコア" }, hasImage: false },
+  GOF_JUSTICE: { id: 8, faction: ["GOF"], name: { zh: "正义", en: "Justice", jp: "ジャスティス" }, hasImage: false },
+  GOF_HUNTERS: { id: 9, faction: ["GOF"], name: { zh: "猎人", en: "Hunter", jp: "ハンターズ" }, hasImage: false },
+  LAB_RDL_GENJI_AND_MALLARD: { id: 10, faction: ["RDL"], name: { zh: "野鸭蚰蜒", en: "Genji and Mallard", jp: "ゲンジとマラード" }, hasImage: true },
+  LAB_WHITE_DWARF: { id: 11, faction: ["COLLABORATION"], name: { zh: "白矮星", en: "White Dwarf", jp: "ホワイトドワーフ" }, hasImage: true },
+  LAB_TRIAL_UN_OCTOPUS: { id: 12, faction: ["UN"], name: { zh: "LAB 试作章鱼", en: "Trial Octopus", jp: "トライアル UN オクトパス" }, hasImage: true },
+  LAB_PD_REAPER_TYPE_1: { id: 13, faction: ["PD"], name: { zh: "收割者轻型", en: "Reaper Type 1", jp: "リーパー タイプ1" }, hasImage: true },
+  LAB_PD_REAPER_TYPE_2: { id: 14, faction: ["PD"], name: { zh: "收割者重型", en: "Reaper Type 2", jp: "リーパー タイプ2" }, hasImage: true },
+  LAB_PD_REAPER_TYPE_E: { id: 15, faction: ["PD"], name: { zh: "收割者工兵型", en: "Reaper Type E", jp: "リーパー タイプE" }, hasImage: true },
+  SINGLE_RDL_DUNE: { id: 16, faction: ["RDL"], name: { zh: "单机包-沙丘", en: "Single Pack Dune", jp: "シングル デューン" }, hasImage: true },
+  SINGLE_UN_TAURUS: { id: 17, faction: ["UN"], name: { zh: "单机包-金牛", en: "Single Pack Taurus", jp: "シングル タウラス" }, hasImage: true },
+  COMBAT_RAID: { id: 18, faction: ["RDL", "UN"], name: { zh: "对战包-突袭", en: "Combat Pack Raid", jp: "コンバットレイド" }, hasImage: false },
+  GAME_PACK: { id: 19, faction: ["RDL", "UN"], name: { zh: "游戏包", en: "Game Pack", jp: "ゲームパック" }, hasImage: false },
+  LAB_PD_CRISIS: { id: 20, faction: ["PD"], name: { zh: "危机", en: "Crisis", jp: "クライシス" }, hasImage: false },
+  LAB_PD_Vigilant_Bombing_Support: { id: 21, faction: ["PD"], name: { zh: "\"警惕\" 轰炸&支援型", en: "\"Vigilant\" Bombing & Support type", jp: "ヴィジラント」爆撃&支援型" }, hasImage: true },
+  LAB_PD_Vigilant_Autocannon_MG: { id: 22, faction: ["PD"], name: { zh: "\"警惕\" 机炮&机枪型", en: "\"Vigilant\" Autocannon & MG type", jp: "ヴィジラント」オートキャノン&機関銃型" }, hasImage: true },
+}
 
 export const FACTION_COLORS: { [key: string]: string } = {
   RDL: '#EA6D76',
   UN: '#65a2d8',
   GOF: '#E1D07E',
-  PD: '#006CB6',
+  PD: '#666666',
+  COLLABORATION: '#666666',
 };
 
 

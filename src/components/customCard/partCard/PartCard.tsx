@@ -17,7 +17,7 @@ interface PartCardProps {
 
 // 静态常量与辅助函数移出组件外部
 const TYPE_GRADIENTS: Record<string, string> = {
-  Swift: 'linear-gradient(135deg, #e1f56d 0%, #b4c457 100%)',
+  Swift: 'linear-gradient(90deg, #FFF56F 0%,  #E2EBAC 100%)',
   Melee: 'linear-gradient(90deg, #f8b845 0%, #E7B67Ef0 90%,#E7B67E90 100%)',
   Projectile: 'linear-gradient(90deg, #ED8571 0%, #EE7375 90%,#E7B67E90 100%)',
   Firing: 'linear-gradient(90deg, #E6422D 0%,#E75A39 60%, #D6B882 100%)',
