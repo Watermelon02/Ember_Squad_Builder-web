@@ -117,7 +117,11 @@ export function MechList({
 
         {/* tts导出消息弹窗 */}
         <Dialog open={logic.TTSDialogOpen} onOpenChange={logic.setTTSDialogOpen}>
-          <DialogContent>
+          <DialogContent style={{
+              maxWidth: '60vw',
+              width: '60vw',
+              height: '50vh',
+            }}>
             <DialogHeader><DialogTitle>{translations.t97}</DialogTitle></DialogHeader>
             <pre className="bg-muted p-4 rounded text-sm overflow-auto">{logic.script}</pre>
             <motion.div style={{ display: 'flex', flexWrap: 'wrap', gap: `2px` }}>

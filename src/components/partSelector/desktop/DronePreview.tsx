@@ -156,7 +156,33 @@ export default function DronePreview({
 
               </motion.div>
             )}
-
+ {drone && <Button
+              variant="secondary"
+              style={{
+                position: "absolute",
+                top: "1vh",
+                left: "1vh",
+                height: "3vh",
+                width: "3vh",
+                fontSize: "2vh",
+                color: "#fff",                       // 白色文字
+                textShadow: `
+      0 0 2px #000,                      // 黑色描边
+      0 0 4px #000,
+      0 0 6px #000
+    `,
+                backdropFilter: "blur(4px)",          // 背景模糊
+                WebkitBackdropFilter: "blur(4px)",    // Safari 支持
+                backgroundColor: "rgba(255,255,255,0.1)", // 半透明背景
+                borderRadius: 6,
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+                boxShadow: "0 2px 6px rgba(0,0,0,0.3)",
+              }}
+            >
+              {drone.score}
+            </Button>}
 
             {/* projectile + throwIndex */}
             {drone && (

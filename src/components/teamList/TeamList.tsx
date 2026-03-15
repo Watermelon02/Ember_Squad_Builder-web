@@ -4,7 +4,7 @@ import { DragDropContext, Droppable, Draggable, DropResult } from 'react-beautif
 import { Button } from '../radix-ui/button';
 import { Card } from '../radix-ui/card';
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from '../radix-ui/dialog';
-import { Plus, Copy, Download, Dice6, Sword, Upload, Trophy, Trash } from 'lucide-react';
+import { Plus, Copy, Download, Dice6, Sword, Upload, Trophy, Trash, Calculator } from 'lucide-react';
 import { Team, FACTION_COLORS } from '../../data/types';
 import { Badge } from '../radix-ui/badge';
 import { Input } from '../radix-ui/input';
@@ -147,11 +147,16 @@ export function TeamList({
         >
           {/** 动画图标组件 */}
           {[
-            { icon: <Trophy className="w-4 h-4" />, onClick: () => onChampionModeChange(!championMode) },
             {
-              icon: <Dice6 className="w-4 h-4" />, onClick: () => {
+              icon: <Calculator className="w-4 h-4" />, onClick: () => {
                 if (lang === "zh") { window.open("https://emberdice.site/index.html", "_blank") }
                 else { window.open("https://watermelon02.github.io/ember-dice/", "_blank") }
+              }
+            },
+            {
+              icon: <Dice6 className="w-4 h-4" />, onClick: () => {
+                if (lang === "zh") { window.open("https://ember-dice-simulator.site/", "_blank") }
+                else { window.open("https://watermelon02.github.io/dice-simulator/", "_blank") }
               }
             },
             { icon: <Sword className="w-4 h-4" />, onClick: () => window.open("https://random0v0.github.io/AmadeusEmber/AmadeusEmber_web/", "_blank") },
@@ -433,7 +438,7 @@ export function TeamList({
                                 }}
                                 style={{ color: 'gray', fontWeight: 500 }}
                               >
-                                {team.name}
+                                {team.name || "1"}
                               </span>
                             )}
                           </div>

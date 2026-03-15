@@ -7,6 +7,7 @@ import { Part, Drone, Pilot, Team, TacticCard } from '../../../data/types';
 import { AnimatePresence, motion } from 'framer-motion';
 import { getAllDroneRemainingCounts, getAllPartRemainingCounts, getDroneRemainingCount } from '../../../util/BoxContentUtil';
 import { DRONE_SHARED_POOLS, getPoolId } from '../../../data/dronePools';
+import { IMAGE_PILOT_VERSION } from '../../../data/resource';
 
 
 interface PartSelectorProps {
@@ -565,7 +566,7 @@ export function PartSelector({
                   <div
                     className="absolute inset-0 bg-cover bg-left-top"
                     style={{
-                      backgroundImage: `url(${tabsrc}/${pilot.id}.png)`,
+                      backgroundImage: `url(${tabsrc}/${pilot.id}.png?v=${IMAGE_PILOT_VERSION})`,
                       backgroundSize: 'contain',
                       backgroundRepeat: 'no-repeat',
                       backgroundPosition: 'right top',

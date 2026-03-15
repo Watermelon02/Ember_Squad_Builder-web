@@ -1,8 +1,8 @@
-import React, { useState } from 'react';
+import React, { useState, useCallback } from 'react';
+import { VirtuosoGrid } from 'react-virtuoso'; // 引入 VirtuosoGrid
 import { Card } from '../../../radix-ui/card';
 import { Badge } from '../../../radix-ui/badge';
 import { SelectableCard } from '../../../custom/SelectableCard';
-
 
 interface PartListMobileProps {
   filteredParts: any[];
@@ -14,6 +14,7 @@ interface PartListMobileProps {
   faction: string | undefined;
 }
 
+// 删除了容易导致点击失效的自定义比较函数
 const MemoizedPartCard = React.memo(({
   part,
   isSelected,
@@ -25,29 +26,37 @@ const MemoizedPartCard = React.memo(({
 }: any) => {
   return (
     <SelectableCard
-      className="relative p-3 cursor-pointer hover:bg-accent/50 transition overflow-hidden shadow-sm"
+      // 增加 h-full 确保在网格中等高；适当缩小 padding 适应窄卡片
+      className="relative p-2 h-full cursor-pointer hover:bg-accent/50 transition overflow-hidden shadow-sm flex flex-col"
       selected={isSelected}
       onClick={() => onSelect(part)}
     >
-      {/* 背景图 */}
-      {(faction && faction === "GOF") || (part.hasImage === undefined || part.hasImage) ? <img
-        src={`${tabsrc}/${part.id}.png`}
-        alt=""
-        className="absolute right-0 top-0 w-auto h-full object-contain pointer-events-none"
-        style={{ opacity: 0.8 }}
-        loading="lazy"
-      /> : <span
-        style={{
-          display: "flex",
-          position: "absolute",
-          right: 0,
-          padding: "1vh",
-          bottom: 0,
-          opacity: 0.8,
-        }}>{translations.t108}</span>}
+      {(faction && faction === "GOF") || (part.hasImage === undefined || part.hasImage) ? (
+        <img
+          src={`${tabsrc}/${part.id}.png`}
+          alt=""
+          className="absolute right-0 top-0 w-auto h-full max-w-[80%] object-contain pointer-events-none"
+          style={{ opacity: 0.8 }}
+          loading="lazy"
+          decoding="async"
+        />
+      ) : (
+        <span
+          style={{
+            display: "flex",
+            position: "absolute",
+            right: 0,
+            padding: "1vh",
+            bottom: 0,
+            opacity: 0.8,
+          }}
+        >
+          {translations.t108}
+        </span>
+      )}
 
-      {/* 内容 */}
-      <div className="relative z-10 space-y-2">
+      {/* 内容层 */}
+      <div className="relative z-10 space-y-2 flex-1 flex flex-col">
         {/* 名称和分数 */}
         <div className="flex items-center gap-2">
           <Badge variant="outline" className="shrink-0 relative">
@@ -66,26 +75,23 @@ const MemoizedPartCard = React.memo(({
               </span>
             )}
           </Badge>
-          <h4 className="font-medium truncate">{part.name}</h4>
+          {/* 加入 line-clamp 避免名称过长破坏布局 */}
+          <h4 className="font-medium text-sm line-clamp-2">{part.name}</h4>
         </div>
 
-        {/* 属性 */}
-        <div className="flex items-center gap-2">
+        {/* 属性 - 加上 flex-wrap，在一行显示不下时自动折行 */}
+        <div className="flex flex-wrap items-center gap-1.5 mt-auto">
           {(part.armor !== 0 || part.structure !== 0) && (
-            <div className="flex flex-col items-center px-1 py-0.5 border rounded-md shadow-sm">
+            <div className="flex flex-col items-center px-1 py-0.5 border rounded-md bg-background/50 shadow-sm">
               <div className="flex items-center gap-1">
                 <img
                   src={`${tabsrc}/icon_armor.png`}
                   alt="armor"
-                  className="w-4 h-4"
+                  className="w-3 h-3"
                   loading="lazy"
+                  decoding="async"
                 />
-                <div
-                  style={{
-                    fontSize: '12px',
-                    color: 'var(--muted-foreground)',
-                  }}
-                >
+                <div style={{ fontSize: '10px', color: 'var(--muted-foreground)' }}>
                   {part.structure === 0
                     ? translations.t39
                     : `${translations.t39}/${translations.t40}`}
@@ -93,14 +99,14 @@ const MemoizedPartCard = React.memo(({
               </div>
               <div
                 style={{
-                  fontSize: '16px',
-                  color:
-                    part.armor < 0 || part.structure < 0 ? 'red' : 'inherit',
+                  fontSize: '14px',
+                  fontWeight: 500,
+                  color: part.armor < 0 || part.structure < 0 ? 'red' : 'inherit',
                 }}
               >
                 {part.structure === 0
                   ? part.armor
-                  : `${part.armor} / ${part.structure}`}
+                  : `${part.armor}/${part.structure}`}
               </div>
             </div>
           )}
@@ -108,23 +114,17 @@ const MemoizedPartCard = React.memo(({
           {[
             { label: translations.t41, value: part.parray, icon: 'icon_parray' },
             {
-              label: translations.t42,
               value: part.dodge,
               icon: 'icon_dodge',
               color: (() => {
-                const v = Math.min(Math.max(part.dodge, 1), 6);
-                const opacity = 0.2 + v * 0.08;
-                return `rgba(0,120,255,${opacity})`;
+                return `rgba(0,120,255)`;
               })(),
             },
             {
-              label: translations.t43,
               value: part.electronic,
               icon: 'icon_electronic',
               color: (() => {
-                const v = Math.min(Math.max(part.electronic, 1), 6);
-                const opacity = 0.2 + v * 0.08;
-                return `rgba(255,180,0,${opacity})`;
+                return `rgba(255,180,0)`;
               })(),
             },
           ]
@@ -132,27 +132,24 @@ const MemoizedPartCard = React.memo(({
             .map(attr => (
               <div
                 key={attr.label}
-                className="flex flex-col items-center px-1 py-0.5 border rounded-md shadow-sm"
+                className="flex flex-col items-center px-1 py-0.5 border rounded-md bg-background/50 shadow-sm"
               >
                 <div className="flex items-center gap-1">
                   <img
                     src={`${tabsrc}/${attr.icon}.png`}
                     alt={attr.label}
-                    className="w-4 h-4"
+                    className="w-3 h-3"
                     loading="lazy"
+                    decoding="async"
                   />
-                  <div
-                    style={{
-                      fontSize: '12px',
-                      color: 'var(--muted-foreground)',
-                    }}
-                  >
+                  <div style={{ fontSize: '10px', color: 'var(--muted-foreground)' }}>
                     {attr.label}
                   </div>
                 </div>
                 <div
                   style={{
-                    fontSize: '16px',
+                    fontSize: '14px',
+                    fontWeight: 500,
                     color: attr.value < 0 ? 'red' : attr.color || 'inherit',
                   }}
                 >
@@ -162,18 +159,11 @@ const MemoizedPartCard = React.memo(({
             ))}
         </div>
 
-        {/* 描述 */}
-        {/* {part.description && (
-              <p className="text-sm text-muted-foreground line-clamp-2">
-                {part.description}
-              </p>
-            )} */}
-
-        {/* 标签 */}
+        {/* 标签 - 同样允许换行 */}
         {part.tags?.length > 0 && (
-          <div className="flex flex-wrap gap-1">
+          <div className="flex flex-wrap gap-1 mt-1">
             {part.tags.map(tag => (
-              <Badge key={tag} variant="secondary" className="text-xs">
+              <Badge key={tag} variant="secondary" className="text-[10px] px-1 py-0">
                 {tag}
               </Badge>
             ))}
@@ -182,9 +172,6 @@ const MemoizedPartCard = React.memo(({
       </div>
     </SelectableCard>
   );
-}, (prevProps, nextProps) => {
-  // 只有当选中状态改变，或者部件 ID 改变时才重新渲染
-  return prevProps.isSelected === nextProps.isSelected && prevProps.part.id === nextProps.part.id;
 });
 
 const PartListMobile: React.FC<PartListMobileProps> = ({
@@ -198,34 +185,61 @@ const PartListMobile: React.FC<PartListMobileProps> = ({
 }) => {
   const [selectedId, setSelectedId] = useState<string | null>(null);
 
-  const handleSelect = React.useCallback((part: any) => {
+  const handleSelect = useCallback((part: any) => {
     onSelectPart(part);
     setSelectedId(part.id);
   }, [onSelectPart]);
-  return (
-    <div
-      key={selectedPartType}
-      className="flex-1 overflow-y-auto space-y-3"
-      style={{ paddingLeft: '2vw', paddingRight: '2vw', height: "60vh" }}
-    >
-      {filteredParts.map((part) => (
-        <MemoizedPartCard
-          key={part.id}
-          part={part}
-          isSelected={selectedId === part.id}
-          onSelect={handleSelect}
-          tabsrc={tabsrc}
-          translations={translations}
-          lastScore={lastScore}
-          faction={faction}
-        />
-      ))}
 
-      {filteredParts.length === 0 && (
-        <div className="text-center text-muted-foreground py-8">
-          {translations.t44}
-        </div>
-      )}
+  // 空状态处理
+  if (filteredParts.length === 0) {
+    return (
+      <div className="text-center text-muted-foreground py-8">
+        {translations.t44}
+      </div>
+    );
+  }
+
+  return (
+    <div key={selectedPartType} style={{ height: "60vh" }}>
+      <VirtuosoGrid
+        data={filteredParts}
+        overscan={window.innerHeight * 0.8}
+        components={{
+          // 容器：使用 CSS Grid 定义一行两列
+          List: React.forwardRef(({ style, children, ...props }, ref) => (
+            <div
+              ref={ref}
+              {...props}
+              style={{
+                display: 'grid',
+                gridTemplateColumns: 'repeat(2, 1fr)', // 核心：一行分为同等的两列
+                gap: '8px', // 卡片之间的间距
+                padding: '10px 2vw',
+                ...style,
+              }}
+            >
+              {children}
+            </div>
+          )),
+          // 列表项：确保高度拉伸以填满 Grid
+          Item: ({ children, ...props }) => (
+            <div {...props} style={{ display: 'flex', flexDirection: 'column' }}>
+              {children}
+            </div>
+          )
+        }}
+        itemContent={(index, part) => (
+          <MemoizedPartCard
+            part={part}
+            isSelected={selectedId === part.id}
+            onSelect={handleSelect}
+            tabsrc={tabsrc}
+            translations={translations}
+            lastScore={lastScore}
+            faction={faction}
+          />
+        )}
+      />
     </div>
   );
 };

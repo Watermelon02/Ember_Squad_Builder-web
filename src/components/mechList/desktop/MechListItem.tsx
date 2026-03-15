@@ -12,6 +12,7 @@ import PilotStats from '../../custom/PilotStats';
 import { Mech, PART_TYPE_NAMES, MechPartType, Team } from '../../../data/types';
 import { checkWhiteDwarf } from '../../../util/CustomCardUtil';
 import { gofBackpack, gofChasis, gofLeftHand, gofRightHand, gofTorso, rdlBackpack, rdlChasis, rdlLeftHand, rdlRightHand, rdlTorso, unBackpack, unChasis, unLeftHand, unRightHand, unTorso } from '../../../data/data_cn';
+import { IMAGE_PART_THROW_VERSION, IMAGE_PART_VERSION, TAB_PILOT_VERSION } from '../../../data/resource';
 
 interface MechListItemProps {
   mech: Mech;
@@ -112,7 +113,7 @@ export const MechListItem: React.FC<MechListItemProps> = ({
                         {((!animationCardMode || (mech.parts[partType].hasImage === undefined) || !checkWhiteDwarf(mech.parts[partType]!.id))) ?
                           <img
                             key={mech.parts[partType]!.id}
-                            src={`${imgsrc}/${mech.parts[partType]!.id}.png`}
+                            src={`${imgsrc}/${mech.parts[partType]!.id}.png?v=${IMAGE_PART_VERSION}`}
                             alt={mech.parts[partType]!.name}
                             loading="lazy"
                             className="w-full h-auto object-contain rounded-lg"
@@ -135,7 +136,7 @@ export const MechListItem: React.FC<MechListItemProps> = ({
                         </DialogTrigger>
                         <DialogContent className="border-0 shadow-none bg-transparent p-0">
                           {mech.parts[partType] && (
-                            <img src={`${imgsrc}/${mech.parts[partType]!.id}.png`} alt={mech.parts[partType]!.name} className="w-full h-auto object-contain rounded-lg" />
+                            <img src={`${imgsrc}/${mech.parts[partType]!.id}.png?${IMAGE_PART_VERSION}`} alt={mech.parts[partType]!.name} loading='lazy' className="w-full h-auto object-contain rounded-lg" />
                           )}
                         </DialogContent>
                       </Dialog>}
@@ -154,7 +155,7 @@ export const MechListItem: React.FC<MechListItemProps> = ({
                               </Button>
                             </DialogTrigger>
                             <DialogContent className="border-0 shadow-none bg-transparent p-0">
-                              <img src={`${imgsrc}/${mech.parts[partType]?.throwIndex}.png`} alt={mech.parts[partType]!.name} className="w-full h-auto object-contain rounded-lg" />
+                              <img loading='lazy' src={`${imgsrc}/${mech.parts[partType]?.throwIndex}.png?v=${IMAGE_PART_THROW_VERSION}`} alt={mech.parts[partType]!.name} className="w-full h-auto object-contain rounded-lg" />
                             </DialogContent>
                           </Dialog>
                         )}
@@ -206,7 +207,7 @@ export const MechListItem: React.FC<MechListItemProps> = ({
                 <AnimatePresence mode="wait">
                   {mech.pilot ? (
                     <motion.div key={mech.pilot.id} initial={{ opacity: 0, x: 20, scale: 0.97 }} animate={{ opacity: 1, x: 0, scale: 1 }} exit={{ opacity: 0, x: 20, scale: 0.97 }} transition={{ duration: 0.3 }} style={{ width: '100%', height: '100%', position: 'relative', zIndex: 1 }}>
-                      <img src={`${tabsrc}/${mech.pilot.id}.png`} alt={mech.pilot.name} style={{ width: '100%', height: '100%', objectFit: 'cover', objectPosition: 'center', transform: 'translate(10%, 0%)' }} />
+                      <img src={`${tabsrc}/${mech.pilot.id}.png?v=${TAB_PILOT_VERSION}`} alt={mech.pilot.name} style={{ width: '100%', height: '100%', objectFit: 'cover', objectPosition: 'center', transform: 'translate(10%, 0%)' }} />
                     </motion.div>
                   ) : (
                     <span style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100%', color: '#9ca3af', fontSize: '0.875rem', textAlign: 'center', position: 'relative', zIndex: 1 }}>

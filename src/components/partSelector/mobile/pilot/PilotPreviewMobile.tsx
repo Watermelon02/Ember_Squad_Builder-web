@@ -4,6 +4,7 @@ import { Pilot } from "../../../../data/types";
 import { Button } from "../../../radix-ui/button";
 import { AnimatePresence, motion } from "framer-motion";
 import PilotStatsColumnMobile from "./PilotStatusColumnMobile";
+import { TAB_PILOT_VERSION } from "../../../../data/resource";
 
 interface PilotPreviewMobileProps {
   pilotId: string;
@@ -65,8 +66,6 @@ export default function PilotPreviewMobile({
           0 0 4px #000,
           0 0 6px #000
         `,
-          backdropFilter: "blur(4px)",
-          WebkitBackdropFilter: "blur(4px)",
           backgroundColor: "rgba(255,255,255,0.12)",
           borderRadius: 6,
           display: "flex",
@@ -78,11 +77,11 @@ export default function PilotPreviewMobile({
       >
         {pilot.score}
       </Button>
-      <AnimatePresence mode="wait">
+      <div>
 
         {/* PILOT IMAGE */}
-        {(pilot.hasImage === undefined || pilot.hasImage) ? <motion.img
-          src={`${tabSrc}/${pilotId}.png`}
+        {(pilot.hasImage === undefined || pilot.hasImage) ? <img
+          src={`${tabSrc}/${pilotId}.png?v=${TAB_PILOT_VERSION}`}
           alt={pilot.name}
           style={{
             width: compareMode ? !leftPreviewExist ? "40%" : "80%" : "40%",
@@ -93,10 +92,6 @@ export default function PilotPreviewMobile({
           }}
           loading="lazy"
           key={pilot.id}
-          initial={{ opacity: 0, y: 100 }}
-          animate={{ opacity: 1, y: 0 }}
-          exit={{ opacity: 0, y: -100 }}
-          transition={{ duration: 0.2 }}
         /> : <span style={{
           display: "flex",
           justifyContent: "center",
@@ -107,9 +102,9 @@ export default function PilotPreviewMobile({
           width: compareMode ? !leftPreviewExist ? "40%" : "80%" : "40%",
           height: "17vh",
         }}>No IMAGE</span>}
-      </AnimatePresence>
+      </div>
 
-      {/* 🧊 毛玻璃 Trait 信息框 */}
+      {/* 🧊 Trait 信息框 */}
       <div
         style={{
           width: "100%",
@@ -117,8 +112,6 @@ export default function PilotPreviewMobile({
           padding: "0.8vh 3vw",
 
           marginBottom: "1vh",
-          backdropFilter: "blur(16px)",
-          WebkitBackdropFilter: "blur(16px)",
           background: "rgba(255,255,255,0.14)",
           borderRadius: 10,
           boxShadow: "0 0 8px rgba(0,0,0,0.4) inset",

@@ -1,14 +1,12 @@
-import { motion } from "framer-motion";
 import { Pilot } from "../../../../data/types";
 import { COLOR_GREY } from "../../../../styles/color";
-import { useState, useEffect } from "react";
 
 interface PilotStatsColumnMobileProps {
   pilot: Pilot;
   comparePilot?: Pilot;
   tabsrc: string;
   style?: React.CSSProperties;
-  compareMode:boolean;
+  compareMode: boolean;
 }
 
 export const PilotStatsColumnMobile: React.FC<PilotStatsColumnMobileProps> = ({
@@ -29,16 +27,6 @@ export const PilotStatsColumnMobile: React.FC<PilotStatsColumnMobileProps> = ({
 
   const mainColor = COLOR_GREY;
 
-  const [prevValues, setPrevValues] = useState<Record<string, number>>({});
-
-  useEffect(() => {
-    const newValues: Record<string, number> = {};
-    stats.forEach((attr) => {
-      newValues[attr.key] = attr.value;
-    });
-    setPrevValues(newValues);
-  }, [pilot]);
-
   return (
     <div
       style={{
@@ -47,8 +35,6 @@ export const PilotStatsColumnMobile: React.FC<PilotStatsColumnMobileProps> = ({
         flexDirection: "column",
         gap: "0.5rem",
         padding: "0.5rem 0",
-        backdropFilter: "blur(16px)",
-        WebkitBackdropFilter: "blur(16px)",
         background: "rgba(255,255,255,0.14)",
         borderRadius: 10,
         boxShadow: "0 0 8px rgba(0,0,0,0.4) inset",
@@ -67,10 +53,7 @@ export const PilotStatsColumnMobile: React.FC<PilotStatsColumnMobileProps> = ({
         const diff = attr.value - compareValue;
         const diffWidth = !isEqual && diff > 0 ? (diff / 10) * 100 : 0;
 
-        const prevValue = prevValues[attr.key] ?? attr.value;
-        const delta = attr.value - prevValue;
-
-        // 优化后的文字和阴影颜色
+        // 颜色逻辑保持一致
         const textColor = isEqual ? "#ffffff" : isAdvantage ? "#00ff00" : "#ff4444";
         const shadowColor = "rgba(0,0,0,0.7)";
 
@@ -80,7 +63,7 @@ export const PilotStatsColumnMobile: React.FC<PilotStatsColumnMobileProps> = ({
             style={{
               display: "flex",
               alignItems: "center",
-              paddingLeft:compareMode?"1vw":"2vw",
+              paddingLeft: compareMode ? "1vw" : "2vw",
               gap: "0.3rem",
             }}
           >
@@ -89,8 +72,8 @@ export const PilotStatsColumnMobile: React.FC<PilotStatsColumnMobileProps> = ({
               src={`${tabsrc}/icon_${attr.key}.png`}
               alt={attr.key}
               style={{
-                height:"2vh",
-                scale:compareMode?"1.2":"2",
+                height: "2vh",
+                scale: compareMode ? "1.2" : "2",
                 objectFit: "contain",
                 filter: `drop-shadow(0 0 6px ${mainColor})`,
               }}
@@ -107,12 +90,10 @@ export const PilotStatsColumnMobile: React.FC<PilotStatsColumnMobileProps> = ({
                 overflow: "visible",
               }}
             >
-              {/* 主柱 */}
-              <motion.div
-                initial={{ width: 0 }}
-                animate={{ width: `${barLength}%` }}
-                transition={{ duration: 0.6 }}
+              {/* 主柱 - 替换为普通 div */}
+              <div
                 style={{
+                  width: `${barLength}%`, // 直接设置宽度
                   height: "100%",
                   background: isEqual
                     ? mainColor
@@ -120,37 +101,28 @@ export const PilotStatsColumnMobile: React.FC<PilotStatsColumnMobileProps> = ({
                       ? "rgba(0,255,0,0.6)"
                       : mainColor,
                   borderRadius: "0.6vh",
-
-                  /* ⭐⭐ 加入毛玻璃核心 ⭐⭐ */
                   backdropFilter: "blur(6px) saturate(160%)",
                   WebkitBackdropFilter: "blur(6px) saturate(160%)",
-
-                  /* HUD 玻璃渐变，让柱子像透明能量条 */
                   backgroundImage: `
-    linear-gradient(
-      90deg,
-      rgba(255,255,255,0.28),
-      rgba(255,255,255,0.05)
-    )
-  `,
-
-                  /* 玻璃能量辉光 */
+                    linear-gradient(
+                      90deg,
+                      rgba(255,255,255,0.28),
+                      rgba(255,255,255,0.05)
+                    )
+                  `,
                   boxShadow: isEqual
                     ? `0 0 8px ${mainColor}, 0 0 18px ${mainColor}66 inset`
                     : isAdvantage
                       ? undefined
                       : `0 0 8px ${mainColor}, 0 0 18px ${mainColor}66 inset`,
                 }}
-
               />
 
-              {/* 红色差值 */}
+              {/* 红色差值 - 替换为普通 div */}
               {!isEqual && !isAdvantage && diff > 0 && (
-                <motion.div
-                  initial={{ width: 0 }}
-                  animate={{ width: `${diffWidth}%` }}
-                  transition={{ duration: 0.6 }}
+                <div
                   style={{
+                    width: `${diffWidth}%`, // 直接设置宽度
                     height: "100%",
                     background: "rgba(255,0,0,0.6)",
                     position: "absolute",
@@ -161,19 +133,14 @@ export const PilotStatsColumnMobile: React.FC<PilotStatsColumnMobileProps> = ({
                 />
               )}
 
-              {/* 数字动画：柱子顶部玻璃质感 */}
-              <motion.div
+              {/* 数字标签 - 替换为普通 div，移除初始位移效果 */}
+               <div
                 key={attr.value}
-                initial={{
-                  x: delta < 0 ? 20 : delta > 0 ? -20 : 0,
-                  opacity: 0,
-                }}
-                animate={{ x: 0, opacity: 1 }}
-                transition={{ duration: 0.4 }}
+
                 style={{
                   position: "absolute",
                   top: "-0.3vh", // 上移，更突出
-                  left: `${barLength}%`,
+                  left: `${barLength+4}%`,
                   transform: "translateX(-50%)",
                   fontSize: "1.2vh",
                   fontWeight: "bold",
@@ -191,7 +158,7 @@ export const PilotStatsColumnMobile: React.FC<PilotStatsColumnMobileProps> = ({
                 }}
               >
                 {attr.value}
-              </motion.div>
+              </div>
             </div>
           </div>
         );

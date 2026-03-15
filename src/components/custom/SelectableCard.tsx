@@ -37,7 +37,8 @@ export function SelectableCard({
           : "linear-gradient(145deg, rgba(255,255,255,0.15), rgba(255,255,255,0.05))",
         transition: "all 0.25s ease",
         padding: "0.75rem 1rem",
-         willChange: 'transform' 
+        willChange: 'transform', // 告诉浏览器提前做好硬件加速准备
+        WebkitBackfaceVisibility: 'hidden' // 防止某些手机浏览器闪烁
       }}
       onClick={onClick}
       onMouseEnter={(e) => {

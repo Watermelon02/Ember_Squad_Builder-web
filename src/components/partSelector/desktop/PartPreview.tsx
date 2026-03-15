@@ -6,7 +6,7 @@ import { PartCard } from "../../customCard/partCard/PartCard";
 import { gofBackpack, gofChasis, gofLeftHand, gofProjectiles, gofRightHand, gofTorso, rdlTorso } from "../../../data/data_cn";
 import { ProjectileCard } from "../../customCard/projectileCard/ProjectileCard";
 import { checkWhiteDwarf } from "../../../util/CustomCardUtil";
-import { BOX_COVER_SRC } from "../../../data/resource";
+import { BOX_COVER_SRC, IMAGE_PART_THROW_VERSION, IMAGE_PART_VERSION, IMAGE_PROJECTILE_VERSION } from "../../../data/resource";
 import { translations } from "../../../i18n";
 
 interface PartPreviewProps {
@@ -136,7 +136,7 @@ export default function PartPreview({
               <div style={{ position: "relative", flexShrink: 0 }}>
                 {(faction !== "GOF" && (part.hasImage === undefined || part.hasImage) || !checkWhiteDwarf(part.id)) ? (
                   <img
-                    src={`${imageSrc}/${partId}.png`}
+                    src={`${imageSrc}/${partId}.png?v=${IMAGE_PART_VERSION}`}
                     alt="current part"
                     style={{
                       maxWidth: "25vh",
@@ -305,6 +305,35 @@ export default function PartPreview({
               </motion.div>
             )}
 
+            {part && (
+                            <Button
+                              variant="secondary"
+                              style={{
+                                position: "absolute",
+                                top: "0",
+            
+                                height: "3vh",
+                                width: "3vh",
+                                fontSize: "2vh",
+                                color: "#fff",
+                                textShadow: `
+                  0 0 2px #000,
+                  0 0 4px #000,
+                  0 0 6px #000
+                `,
+                                backdropFilter: "blur(4px)",
+                                WebkitBackdropFilter: "blur(4px)",
+                                backgroundColor: "rgba(255,255,255,0.1)",
+                                borderRadius: 6,
+                                display: "flex",
+                                alignItems: "center",
+                                justifyContent: "center",
+                              }}
+                            >
+                              {part.score}
+                            </Button>
+                          )}
+
 
 
 
@@ -327,7 +356,7 @@ export default function PartPreview({
 
                           {shouldShowImage ? (
                             <img
-                              src={`${imageSrc}/${proj}.png`}
+                              src={`${imageSrc}/${proj}.png?v=${IMAGE_PROJECTILE_VERSION}`}
                               alt={`projectile-${idx}`}
                               style={{
                                 width: "20vw",
@@ -359,7 +388,7 @@ export default function PartPreview({
                   {part.throwIndex && (
                     <div style={{ position: "relative" }}>
                       {faction !== "GOF" && (part.hasImage === undefined || part.hasImage) ? <img
-                        src={`${imageSrc}/${part.throwIndex}.png`}
+                        src={`${imageSrc}/${part.throwIndex}.png?v=${IMAGE_PART_THROW_VERSION}`}
                         alt={`throw-${part.throwIndex}`}
                         style={{
                           objectFit: "contain",

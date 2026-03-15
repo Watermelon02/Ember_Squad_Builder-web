@@ -9,7 +9,7 @@ import { BACKGROUND_SRC, BOX_COVER_SRC, IMAGE_SRC, LOCAL_IMAGE_SRC, MECH_IMAGE_S
 import * as zhData from './data/data_cn';
 import * as enData from './data/data_en';
 import * as jpData from './data/data_jp';
-
+import axios from "axios";
 import { motion, AnimatePresence } from "framer-motion";
 import { SlidePanel } from './components/custom/SlidePanel';
 import { TeamListMobile } from './components/teamList/TeamListMobile';
@@ -210,11 +210,11 @@ export default function App() {
   // ------------------ 保存到 localStorage & 服务器 ------------------
   async function saveTeam(team: Team) {
     team.deviceID = await getDeviceFingerprint()
-    // try {
-    //   await axios.post("https://4watermelon.fun/api/teams/save", team);
-    // } catch (err) {
-    //   console.error("保存失败:", err);
-    // }
+    try {
+      axios.post("https://server.emberdice.site/api/teams/save", team);
+    } catch (err) {
+      console.error("保存失败:", err);
+    }
   }
 
   useEffect(() => {
@@ -486,12 +486,12 @@ export default function App() {
   const deleteTeam = async (teamId: string) => {
     const team = teams.find(t => t.id === teamId);
     if (!team) return;
-    // try {
-    //   team.deviceID = await getDeviceFingerprint();
-    //   await axios.post("https://4watermelon.fun/api/teams/delete", team);
-    // } catch (err) {
-    //   console.error("删除失败:", err);
-    // }
+    try {
+      team.deviceID = await getDeviceFingerprint();
+      axios.post("https://server.emberdice.site/api/teams/delete", team);
+    } catch (err) {
+      console.error("删除失败:", err);
+    }
     setTeams(prev => {
       const filtered = prev.filter(t => t.id !== teamId);
       // 如果删除的是当前选中的队伍
@@ -901,31 +901,22 @@ export default function App() {
         <AnimatePresence>
           {isMobileOrTablet ? (
 
-            <AnimatePresence>
+            <div>
               {isChangingPart && (
                 <>
                   {/* 遮罩 */}
-                  <motion.div
+                  <div
                     className="fixed inset-0 z-50 flex items-center justify-center"
-                    initial={{ opacity: 0 }}
-                    animate={{ opacity: 1 }}
-                    exit={{ opacity: 0 }}
-                    transition={{ duration: 0.25, ease: "easeOut" }}
                     style={{ backgroundColor: "rgba(0,0,0,0.5)" }}
                     onClick={() => setIsChangingPart(false)}
                   >
 
                     {/* 弹窗主体 */}
-                    <motion.div
+                    <div
                       className="relative flex rounded-lg overflow-hidden shadow-xl"
-                      initial={{ opacity: 0 }}
-                      animate={{ opacity: 1 }}
-                      exit={{ opacity: 0 }}
-                      transition={{ duration: 0.25, ease: "easeOut" }}
                       style={{
                         height: "100%",
                         width: "100%",
-
                         border: "1px solid rgba(255,255,255,0.1)",
                         display: "flex",
                         flexDirection: "column",
@@ -1044,12 +1035,12 @@ export default function App() {
                           onSetShowKeyword={setShowKeyword}
                         />
                       </div>
-                    </motion.div>
+                    </div>
 
-                  </motion.div>
+                  </div>
                 </>
               )}
-            </AnimatePresence>
+            </div>
           ) : (
             // 桌面端：Dialog 弹窗
             <AnimatePresence>

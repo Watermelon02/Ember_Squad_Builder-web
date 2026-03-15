@@ -4,12 +4,11 @@ import { DragDropContext, Droppable, Draggable, DropResult } from 'react-beautif
 import { Button } from '../radix-ui/button';
 import { Card } from '../radix-ui/card';
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from '../radix-ui/dialog';
-import { Plus, Copy, Download, Dice6, Sword, Upload, Trophy, Trash } from 'lucide-react';
+import { Plus, Copy, Download, Dice6, Sword, Upload, Trophy, Trash, Calculator } from 'lucide-react';
 import { Team, FACTION_COLORS } from '../../data/types';
 import { Badge } from '../radix-ui/badge';
 import { Input } from '../radix-ui/input';
 import extractChunks from "png-chunks-extract";
-import { AnimatePresence, motion } from 'framer-motion';
 import { MechImage } from '../custom/MechImage';
 import { DroneImage } from '../custom/DroneImage';
 import { TeamEligibility } from '../radix-ui/TeamEligibility';
@@ -160,16 +159,21 @@ export function TeamListMobile({
         >
           {/** 动画图标组件 */}
           {[
-            { icon: <Trophy className="w-4 h-4" />, onClick: () => onChampionModeChange(!championMode) },
             {
-              icon: <Dice6 className="w-4 h-4" />, onClick: () => {
+              icon: <Calculator className="w-4 h-4" />, onClick: () => {
                 if (lang === "zh") { window.open("https://emberdice.site/index.html", "_blank") }
                 else { window.open("https://watermelon02.github.io/ember-dice/", "_blank") }
               }
             },
+            {
+              icon: <Dice6 className="w-4 h-4" />, onClick: () => {
+                if (lang === "zh") { window.open("https://ember-dice-simulator.site/", "_blank") }
+                else { window.open("https://watermelon02.github.io/dice-simulator/", "_blank") }
+              }
+            },
             { icon: <Sword className="w-4 h-4" />, onClick: () => window.open("https://random0v0.github.io/AmadeusEmber/AmadeusEmber_web/", "_blank") },
           ].map((btn, idx) => (
-            <motion.div
+            <div
               key={idx}
               onClick={btn.onClick}
               style={{
@@ -184,12 +188,9 @@ export function TeamListMobile({
                 cursor: "pointer",
                 boxShadow: "0 2px 6px rgba(0,0,0,0.1)",
               }}
-              whileHover={{ scale: 1.1, backgroundColor: "rgba(255,255,255,0.35)" }}
-              whileTap={{ scale: 0.95, backgroundColor: "rgba(255,255,255,0.25)" }}
-              transition={{ type: "spring", stiffness: 300, damping: 20 }}
             >
               {btn.icon}
-            </motion.div>
+            </div>
           ))}
           <QQGroupButton lang={lang} />
 
@@ -246,7 +247,7 @@ export function TeamListMobile({
                   border: "none",
                   outline: "none",
                   cursor: "pointer",
-                  transition: "transform 0.25s ease",
+
                   padding: "4px 0",
                   transform: hoverIndex === index ? "scale(1.05)" : "scale(1)",
                 }}
@@ -265,7 +266,6 @@ export function TeamListMobile({
                     height: "60%",
                     alignSelf: "center",
                     backgroundColor: "rgba(50,50,50,0.2)",
-                    transition: "background-color 0.25s ease",
                   }}
                 />
               )}
@@ -377,7 +377,7 @@ export function TeamListMobile({
                         boxShadow: selectedTeamId === team.id
                           ? `0 4px 12px rgba(0,0,0,0.2), 0 0 12px ${FACTION_COLORS[team.faction]}88, 0 0 24px ${FACTION_COLORS[team.faction]}44`
                           : (snapshot.isDragging ? "0 15px 30px rgba(0,0,0,0.3)" : "0 2px 6px rgba(0,0,0,0.1)"), // 拖拽时的浮动阴影
-                        transition: 'box-shadow 0.3s, transform 0.2s',
+
                         padding: '0.5rem 1rem',
 
                         // 确保拖拽时 item 浮在最上层
@@ -402,7 +402,6 @@ export function TeamListMobile({
                                     ? `0 4px 12px rgba(0,0,0,0.2), 0 0 12px ${FACTION_COLORS[team.faction]}88, 0 0 24px ${FACTION_COLORS[team.faction]}44`
                                     : "0 2px 6px rgba(0,0,0,0.1)",
                                 cursor: "default",
-                                transition: "box-shadow 0.3s, transform 0.2s",
                                 display: "inline-block",
                               }}
                               onMouseEnter={e => {
@@ -445,7 +444,7 @@ export function TeamListMobile({
                                 }}
                                 style={{ color: 'gray', fontWeight: 500 }}
                               >
-                                {team.name}
+                                {team.name || "1"}
                               </span>
                             )}
 
@@ -463,24 +462,17 @@ export function TeamListMobile({
                           ].map((stat, idx) => (
                             <div key={idx}>
                               <div style={{ color: 'gray', fontSize: '0.875rem' }}>{stat.label}</div>
-                              <AnimatePresence mode="popLayout">
-                                <motion.div
-                                  key={stat.value}
-                                  initial={{ scale: 0.9, y: 5, opacity: 0 }}
-                                  animate={{ scale: 1, y: 0, opacity: 1 }}
-                                  exit={{ scale: 0.9, y: -5, opacity: 0 }}
-                                  transition={{ duration: 0.3, type: "spring", stiffness: 300, damping: 20 }}
-                                  style={{ color: stat.highlight ? '#dc2626' : 'gray' }}
-                                >
-                                  {stat.value}
-                                </motion.div>
-                              </AnimatePresence>
+                              <div
+                                key={stat.value}
+                                style={{ color: stat.highlight ? '#dc2626' : 'gray' }}
+                              >
+                                {stat.value}
+                              </div>
                             </div>
                           ))}
                         </div>
 
-                        {/* Mech + Drone 显示 (保持不变) */}
-                        <div // 替换 motion.div 为 div
+                        <div
                           ref={containerRef}
                           style={{
                             display: 'flex',
@@ -488,31 +480,19 @@ export function TeamListMobile({
                             gap: `${gap}px`,
                           }}
                         >
-                          <AnimatePresence mode="popLayout">
-                            {team.mechs.map((mech, index) => (
-                              <motion.div
-                                key={`mech-${mech.id ?? index}`}
-                                initial={{ opacity: 0, scale: 0.8, y: -10 }}
-                                animate={{ opacity: 1, scale: 1, y: 0 }}
-                                exit={{ opacity: 0, scale: 0.8, y: 10 }}
-                                transition={{ duration: 0.2 }}
-                              >
-                                <MechImage mech={mech} tabsrc={tabsrc} translation={translations} />
-                              </motion.div>
-                            ))}
 
-                            {team.drones.map((drone, index) => (
-                              <motion.div
-                                key={`drone-${drone.id}-${index}`}
-                                initial={{ opacity: 0, scale: 0.8, y: -10 }}
-                                animate={{ opacity: 1, scale: 1, y: 0 }}
-                                exit={{ opacity: 0, scale: 0.8, y: 10 }}
-                                transition={{ duration: 0.2 }}
-                              >
-                                <DroneImage drone={drone} tabsrc={tabsrc} />
-                              </motion.div>
-                            ))}
-                          </AnimatePresence>
+                          {team.mechs.map((mech, index) => (
+                            <div key={`mech-${mech.id ?? index}`}>
+                              <MechImage mech={mech} tabsrc={tabsrc} translation={translations} />
+                            </div>
+                          ))}
+
+                          {team.drones.map((drone, index) => (
+                            <div key={`drone-${drone.id}-${index}`}>
+                              <DroneImage drone={drone} tabsrc={tabsrc} />
+                            </div>
+                          ))}
+
 
                           {/* 占位条纹填满一行 */}
                           {(() => {
@@ -580,7 +560,7 @@ export function TeamListMobile({
                     fontWeight: 600,
                     boxShadow: "0 4px 12px rgba(0,0,0,0.15)",
                     cursor: "pointer",
-                    transition: "transform 0.2s, box-shadow 0.3s",
+
                   }}
                   onMouseEnter={e => {
                     const btn = e.currentTarget as HTMLButtonElement;

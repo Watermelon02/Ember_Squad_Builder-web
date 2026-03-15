@@ -50,10 +50,7 @@ const ListPanelMobile: React.FC<ListPanelMobileProps> = ({
           paddingBottom: 14,
           paddingLeft: 16,
           paddingRight: 16,
-          // Glassmorphism 样式
-          backgroundColor: 'rgba(255, 255, 255, 0.4)', // 更透明
-          backdropFilter: 'blur(12px)', // 模糊背景
-          WebkitBackdropFilter: 'blur(12px)',
+          backgroundColor: 'rgba(255, 255, 255, 1)',
           borderBottom: '1px solid rgba(255, 255, 255, 0.2)', // 浅色边框
           boxShadow: '0 4px 12px rgba(0, 0, 0, 0.1)', // 更明显的阴影
           borderRadius: '0 0 16px 16px', // 底部圆角
@@ -75,7 +72,7 @@ const ListPanelMobile: React.FC<ListPanelMobileProps> = ({
               padding: '0.5rem',
               borderRadius: '8px',
               border: '1px solid rgba(0, 0, 0, 0.1)',
-              backgroundColor: 'rgba(255, 255, 255, 0.7)', // 稍微不那么透明以便输入
+              backgroundColor: 'rgba(255, 255, 255)',
               color: 'black',
             }}
           />
@@ -86,7 +83,7 @@ const ListPanelMobile: React.FC<ListPanelMobileProps> = ({
               style={{
                 borderRadius: '8px',
                 border: '1px solid rgba(0, 0, 0, 0.1)',
-                backgroundColor: 'rgba(255, 255, 255, 0.7)',
+                backgroundColor: 'rgba(255, 255, 255)',
               }}
             >
               <SelectValue placeholder={translations.t42} />
@@ -150,12 +147,11 @@ const ListPanelMobile: React.FC<ListPanelMobileProps> = ({
         </div>
       </div>
 
-      {/* 内部列表内容区域（灵活） - 保持透明背景，并增加顶部间距 */}
+      {/* 内部列表内容区域（灵活）*/}
       <div
         className="flex-1 min-h-0"
         style={{
           backgroundColor: 'transparent',
-          paddingTop: 8,
         }}
       >
         {children}

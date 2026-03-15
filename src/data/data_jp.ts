@@ -1,5 +1,5 @@
 import { KEYWORD_LIST } from "./keyword";
-import { BOXES, Drone, Part, Pilot, Projectile,TacticCard } from "./types";
+import { BOXES, Drone, Part, Pilot, Projectile, TacticCard } from "./types";
 
 export const rdlTorso: Part[] = [
   {
@@ -15,7 +15,7 @@ export const rdlTorso: Part[] = [
     "description": "",
     "imgSrc": "",
     "tags": [],
-        "containedIn": [{ "box": BOXES.RDL_CORE, "quantityPerBox": 4 },{ "box": BOXES.COMBAT_RAID, "quantityPerBox": 1 }],
+    "containedIn": [{ "box": BOXES.RDL_CORE, "quantityPerBox": 4 }, { "box": BOXES.COMBAT_RAID, "quantityPerBox": 1 }],
   },
   {
     "id": "014",
@@ -31,7 +31,7 @@ export const rdlTorso: Part[] = [
     "imgSrc": "",
     "tags": [],
     "keywords": [KEYWORD_LIST.jp.光环, KEYWORD_LIST.jp.灵活时机],
-    "containedIn": [{ "box": BOXES.RDL_CORE, "quantityPerBox": 1 },{ "box": BOXES.SINGLE_RDL_DUNE, "quantityPerBox": 1 },{ "box": BOXES.COMBAT_RAID, "quantityPerBox": 1 }],
+    "containedIn": [{ "box": BOXES.RDL_CORE, "quantityPerBox": 1 }, { "box": BOXES.SINGLE_RDL_DUNE, "quantityPerBox": 1 }, { "box": BOXES.COMBAT_RAID, "quantityPerBox": 1 }],
   },
   {
     "id": "015",
@@ -97,7 +97,7 @@ export const rdlTorso: Part[] = [
     "imgSrc": "",
     "tags": [],
     "projectile": ["268"],
-    "keywords":[KEYWORD_LIST.jp.直射],
+    "keywords": [KEYWORD_LIST.jp.直射],
     "containedIn": [{ "box": BOXES.RDL_CAVALRY, "quantityPerBox": 1 }],
   },
   {
@@ -215,7 +215,7 @@ export const rdlChasis: Part[] = [
     "description": "",
     "imgSrc": "",
     "tags": [],
-    "containedIn": [{ "box": BOXES.RDL_CORE, "quantityPerBox": 3 },{ "box": BOXES.COMBAT_RAID, "quantityPerBox": 1 }],
+    "containedIn": [{ "box": BOXES.RDL_CORE, "quantityPerBox": 3 }, { "box": BOXES.COMBAT_RAID, "quantityPerBox": 1 }],
   },
   {
     "id": "021",
@@ -231,7 +231,7 @@ export const rdlChasis: Part[] = [
     "imgSrc": "",
     "tags": [],
     "keywords": [KEYWORD_LIST.jp.直线移动],
-    "containedIn": [{ "box": BOXES.RDL_CORE, "quantityPerBox": 2 },{ "box": BOXES.SINGLE_RDL_DUNE, "quantityPerBox": 1 }],
+    "containedIn": [{ "box": BOXES.RDL_CORE, "quantityPerBox": 2 }, { "box": BOXES.SINGLE_RDL_DUNE, "quantityPerBox": 1 }],
   },
   {
     "id": "022",
@@ -359,6 +359,7 @@ export const rdlLeftHand: Part[] = [
     "keywords": [KEYWORD_LIST.jp.齐射X, KEYWORD_LIST.jp.曲射],
     "containedIn": [{ "box": BOXES.RDL_CORE, "quantityPerBox": 2 }],
   },
+
   {
     "id": "032",
     "name": "R-20 肩掛けレールガン(L)",
@@ -373,7 +374,7 @@ export const rdlLeftHand: Part[] = [
     "imgSrc": "",
     "tags": [],
     "keywords": [KEYWORD_LIST.jp.直射, KEYWORD_LIST.jp.静默],
-    "containedIn": [{ "box": BOXES.RDL_CORE, "quantityPerBox": 1 },{ "box": BOXES.COMBAT_RAID, "quantityPerBox": 1 }],
+    "containedIn": [{ "box": BOXES.RDL_CORE, "quantityPerBox": 1 }, { "box": BOXES.COMBAT_RAID, "quantityPerBox": 1 }],
   },
   {
     "id": "034",
@@ -389,7 +390,7 @@ export const rdlLeftHand: Part[] = [
     "imgSrc": "",
     "tags": [],
     "keywords": [KEYWORD_LIST.jp.指定X],
-    "containedIn": [{ "box": BOXES.RDL_CORE, "quantityPerBox": 2 },{ "box": BOXES.SINGLE_RDL_DUNE, "quantityPerBox": 1 }],
+    "containedIn": [{ "box": BOXES.RDL_CORE, "quantityPerBox": 2 }, { "box": BOXES.SINGLE_RDL_DUNE, "quantityPerBox": 1 }],
   },
   {
     "id": "035",
@@ -405,6 +406,25 @@ export const rdlLeftHand: Part[] = [
     "imgSrc": "",
     "tags": [],
     "containedIn": [{ "box": BOXES.RDL_CORE, "quantityPerBox": 2 }],
+  },
+  {
+    "id": "037",
+    "name": "CC-4 クリーバー(L)",
+    "type": "leftHand",
+    "score": 39,
+    "armor": 4,
+    "structure": 0,
+    "parray": 1,
+    "dodge": 0,
+    "electronic": 0,
+    "move": 0,
+    "description": "",
+    "containedIn": [{ "box": BOXES.RDL_CORE, "quantityPerBox": 2 }],
+    "keywords": [
+      KEYWORD_LIST.zh.空手, KEYWORD_LIST.zh.频闪武器
+    ],
+    "projectile": [],
+    "isPD": false
   },
   {
     "id": "040",
@@ -655,6 +675,25 @@ export const rdlLeftHand: Part[] = [
     "containedIn": [{ "box": BOXES.UNSALE, "quantityPerBox": 0 }],
   },
   {
+    "id": "299",
+    "name": "ML-32B デュアルランチャー+ CC-3 ダガー",
+    "type": "leftHand",
+    "score": 33,
+    "armor": 4,
+    "structure": 0,
+    "parray": 1,
+    "dodge": 0,
+    "electronic": 0,
+    "move": 0,
+    "description": "",
+    "containedIn": [{ "box": BOXES.GAME_PACK, "quantityPerBox": 2 }],
+    "keywords": [
+      KEYWORD_LIST.zh.空手
+    ],
+    "projectile": ["071"],
+    "isPD": false
+  },
+  {
     "id": "510",
     "name": "55型シールド + PC-9Kショットガン(L)",
     "score": 63,
@@ -779,7 +818,7 @@ export const rdlRightHand: Part[] = [
     "description": "",
     "imgSrc": "",
     "tags": [],
-    "containedIn": [{ "box": BOXES.GAME_PACK, "quantityPerBox": 1 }],
+    "containedIn": [{ "box": BOXES.GAME_PACK, "quantityPerBox": 2 }],
   },
   {
     "id": "028",
@@ -841,7 +880,7 @@ export const rdlRightHand: Part[] = [
     "imgSrc": "",
     "tags": [],
     "keywords": [KEYWORD_LIST.jp.静止, KEYWORD_LIST.jp.穿甲X],
-    "containedIn": [{ "box": BOXES.RDL_CORE, "quantityPerBox": 1 },{ "box": BOXES.COMBAT_RAID, "quantityPerBox": 1 }],
+    "containedIn": [{ "box": BOXES.RDL_CORE, "quantityPerBox": 1 }, { "box": BOXES.COMBAT_RAID, "quantityPerBox": 1 }],
   },
   {
     "id": "036",
@@ -857,7 +896,7 @@ export const rdlRightHand: Part[] = [
     "imgSrc": "",
     "tags": [],
     "keywords": [KEYWORD_LIST.jp.频闪武器],
-    "containedIn": [{ "box": BOXES.RDL_CORE, "quantityPerBox": 2 },{ "box": BOXES.GAME_PACK, "quantityPerBox": 1 },{ "box": BOXES.SINGLE_RDL_DUNE, "quantityPerBox": 1 }],
+    "containedIn": [{ "box": BOXES.RDL_CORE, "quantityPerBox": 2 }, { "box": BOXES.GAME_PACK, "quantityPerBox": 1 }, { "box": BOXES.SINGLE_RDL_DUNE, "quantityPerBox": 1 }],
   },
   {
     "id": "038",
@@ -1277,7 +1316,7 @@ export const rdlRightHand: Part[] = [
     "imgSrc": "",
     "tags": [],
     "keywords": [KEYWORD_LIST.jp.双手, KEYWORD_LIST.jp.霰射, KEYWORD_LIST.jp.近战射击],
-    "containedIn": [{ "box": BOXES.LAB_RDL_GENJI_AND_MALLARD ,"quantityPerBox": 1 }],
+    "containedIn": [{ "box": BOXES.LAB_RDL_GENJI_AND_MALLARD, "quantityPerBox": 1 }],
   },
   {
     "id": "519",
@@ -1292,7 +1331,7 @@ export const rdlRightHand: Part[] = [
     "description": "",
     "imgSrc": "",
     "tags": [],
-    "containedIn": [{ "box": BOXES.LAB_RDL_GENJI_AND_MALLARD ,"quantityPerBox": 1 }],
+    "containedIn": [{ "box": BOXES.LAB_RDL_GENJI_AND_MALLARD, "quantityPerBox": 1 }],
   }
 ];
 
@@ -1327,7 +1366,7 @@ export const rdlBackpack: Part[] = [
     "imgSrc": "",
     "tags": [],
     "keywords": [KEYWORD_LIST.jp.X姿态],
-    "containedIn": [{ "box": BOXES.RDL_CORE, "quantityPerBox": 1 },{ "box": BOXES.SINGLE_RDL_DUNE, "quantityPerBox": 1 }],
+    "containedIn": [{ "box": BOXES.RDL_CORE, "quantityPerBox": 1 }, { "box": BOXES.SINGLE_RDL_DUNE, "quantityPerBox": 1 }],
   },
   {
     "id": "003",
@@ -1343,7 +1382,7 @@ export const rdlBackpack: Part[] = [
     "imgSrc": "",
     "tags": [],
     "keywords": [KEYWORD_LIST.jp.拦截X],
-    "containedIn": [{ "box": BOXES.RDL_CORE, "quantityPerBox": 1 },{ "box": BOXES.SINGLE_RDL_DUNE, "quantityPerBox": 1 },{ "box": BOXES.COMBAT_RAID, "quantityPerBox": 1 }],
+    "containedIn": [{ "box": BOXES.RDL_CORE, "quantityPerBox": 1 }, { "box": BOXES.SINGLE_RDL_DUNE, "quantityPerBox": 1 }, { "box": BOXES.COMBAT_RAID, "quantityPerBox": 1 }],
   },
   {
     "id": "004",
@@ -1487,7 +1526,7 @@ export const rdlBackpack: Part[] = [
     "imgSrc": "",
     "tags": [],
     "keywords": [KEYWORD_LIST.jp.拦截X],
-    "containedIn": [{ "box": BOXES.UNSALE ,"quantityPerBox": 1 }],
+    "containedIn": [{ "box": BOXES.UNSALE, "quantityPerBox": 1 }],
   },
   {
     "id": "286",
@@ -1503,7 +1542,7 @@ export const rdlBackpack: Part[] = [
     "imgSrc": "",
     "tags": [],
     "keywords": [KEYWORD_LIST.jp.拦截X],
-    "containedIn": [{ "box": BOXES.UNSALE ,"quantityPerBox": 1 }],
+    "containedIn": [{ "box": BOXES.UNSALE, "quantityPerBox": 1 }],
   },
   {
     "id": "500",
@@ -1518,7 +1557,7 @@ export const rdlBackpack: Part[] = [
     "description": "任务",
     "imgSrc": "",
     "tags": [],
-    "containedIn": [{ "box": BOXES.LAB_RDL_GENJI_AND_MALLARD ,"quantityPerBox": 1 }],
+    "containedIn": [{ "box": BOXES.LAB_RDL_GENJI_AND_MALLARD, "quantityPerBox": 1 }],
   },
   {
     "id": "501",
@@ -1537,7 +1576,7 @@ export const rdlBackpack: Part[] = [
       "521"
     ],
     "keywords": [KEYWORD_LIST.jp.齐射X, KEYWORD_LIST.jp.曲射],
-    "containedIn": [{ "box": BOXES.LAB_RDL_GENJI_AND_MALLARD ,"quantityPerBox": 1 }],
+    "containedIn": [{ "box": BOXES.LAB_RDL_GENJI_AND_MALLARD, "quantityPerBox": 1 }],
   },
   {
     "id": "502",
@@ -1556,7 +1595,7 @@ export const rdlBackpack: Part[] = [
       "522"
     ],
     "keywords": [KEYWORD_LIST.jp.曲射, KEYWORD_LIST.jp.静默, KEYWORD_LIST.jp.投掷],
-    "containedIn": [{ "box": BOXES.LAB_RDL_GENJI_AND_MALLARD ,"quantityPerBox": 1 }],
+    "containedIn": [{ "box": BOXES.LAB_RDL_GENJI_AND_MALLARD, "quantityPerBox": 1 }],
   }
 ];
 
@@ -1780,6 +1819,41 @@ export const unTorso: Part[] = [
     "containedIn": [{ "box": BOXES.UN_SCALPEL, "quantityPerBox": 2 }]
   },
   {
+    "id": "093",
+    "name": "TM31KC「グレーウルフ」KC実験型コア",
+    "type": "torso",
+    "score": 60,
+    "armor": 4,
+    "structure": 4,
+    "parray": 0,
+    "dodge": 1,
+    "electronic": 3,
+    "move": 0,
+    "description": "·曲射：本动作不需要对落点或目标有视线。",
+    "keywords": [KEYWORD_LIST.zh.曲射, KEYWORD_LIST.zh.KC装甲],
+    "projectile": ["155"],
+    "isPD": false,
+    "containedIn": [{ "box": BOXES.GAME_PACK, "quantityPerBox": 2 }],
+  },
+  {
+    "id": "095",
+    "name": "TM39B「ヴァイパーII」低姿勢コア",
+    "type": "torso",
+    "score": 63,
+    "armor": 3,
+    "structure": 3,
+    "parray": 0,
+    "dodge": 1,
+    "electronic": 5,
+    "move": 0,
+    "description": "· 静默：执行本动作时不会解除光学迷彩与低特征。",
+    "keywords": [KEYWORD_LIST.zh.低特征, KEYWORD_LIST.zh.静默],
+
+    "projectile": [],
+    "isPD": false,
+    "containedIn": [{ "box": BOXES.GAME_PACK, "quantityPerBox": 2 }],
+  },
+  {
     "id": "096",
     "name": "TM641 「オクトパス」ステルスコア",
     "score": 81,
@@ -1841,7 +1915,7 @@ export const unTorso: Part[] = [
     "imgSrc": "",
     "tags": [],
     "keywords": [KEYWORD_LIST.jp.低特征, KEYWORD_LIST.jp.静默, KEYWORD_LIST.jp.隐秘X],
-    "containedIn": [{ "box": BOXES.LAB_TRIAL_UN_OCTOPUS ,"quantityPerBox": 1 }],
+    "containedIn": [{ "box": BOXES.LAB_TRIAL_UN_OCTOPUS, "quantityPerBox": 1 }],
   },
   {
     "id": "555",
@@ -1853,10 +1927,10 @@ export const unTorso: Part[] = [
     "dodge": 1,
     "electronic": 4,
     "type": "torso",
-     "description": "",
+    "description": "",
     "imgSrc": "",
     "tags": [],
-    "containedIn": [{ "box": BOXES.SINGLE_UN_TAURUS ,"quantityPerBox": 1 }],
+    "containedIn": [{ "box": BOXES.SINGLE_UN_TAURUS, "quantityPerBox": 1 }],
   }
 ];
 
@@ -1874,7 +1948,7 @@ export const unChasis: Part[] = [
     "description": "",
     "imgSrc": "",
     "tags": [],
-    "containedIn": [{ "box": BOXES.UN_CORE, "quantityPerBox": 4 },{ "box": BOXES.SINGLE_UN_TAURUS, "quantityPerBox": 1 },{ "box": BOXES.COMBAT_RAID, "quantityPerBox": 1 }]
+    "containedIn": [{ "box": BOXES.UN_CORE, "quantityPerBox": 4 }, { "box": BOXES.SINGLE_UN_TAURUS, "quantityPerBox": 1 }, { "box": BOXES.COMBAT_RAID, "quantityPerBox": 1 }]
   },
   {
     "id": "100",
@@ -1921,7 +1995,7 @@ export const unChasis: Part[] = [
     "imgSrc": "",
     "tags": [],
     "keywords": [KEYWORD_LIST.jp.静默],
-    "containedIn": [{ "box": BOXES.LAB_TRIAL_UN_OCTOPUS ,"quantityPerBox": 1 }],
+    "containedIn": [{ "box": BOXES.LAB_TRIAL_UN_OCTOPUS, "quantityPerBox": 1 }],
   }
 ];
 
@@ -1956,7 +2030,7 @@ export const unLeftHand: Part[] = [
     "imgSrc": "",
     "tags": [],
     "keywords": [KEYWORD_LIST.jp.齐射X, KEYWORD_LIST.jp.曲射],
-    "containedIn": [{ "box": BOXES.UN_CORE, "quantityPerBox": 2 },{ "box": BOXES.SINGLE_UN_TAURUS, "quantityPerBox": 1 }]
+    "containedIn": [{ "box": BOXES.UN_CORE, "quantityPerBox": 2 }, { "box": BOXES.SINGLE_UN_TAURUS, "quantityPerBox": 1 }]
   },
   {
     "id": "108",
@@ -1987,7 +2061,7 @@ export const unLeftHand: Part[] = [
     "imgSrc": "",
     "tags": [],
     "keywords": [KEYWORD_LIST.jp.全向射击],
-    "containedIn": [{ "box": BOXES.UN_CORE, "quantityPerBox": 2 },{ "box": BOXES.SINGLE_UN_TAURUS, "quantityPerBox": 1 }]
+    "containedIn": [{ "box": BOXES.UN_CORE, "quantityPerBox": 2 }, { "box": BOXES.SINGLE_UN_TAURUS, "quantityPerBox": 1 }]
   },
   {
     "id": "112",
@@ -2018,7 +2092,7 @@ export const unLeftHand: Part[] = [
     "imgSrc": "",
     "tags": [],
     "keywords": [KEYWORD_LIST.jp.激光武器, KEYWORD_LIST.jp.静止],
-    "containedIn": [{ "box": BOXES.UN_CORE, "quantityPerBox": 1 },{ "box": BOXES.UN_DOORBREAKER, "quantityPerBox": 1 }]
+    "containedIn": [{ "box": BOXES.UN_CORE, "quantityPerBox": 1 }, { "box": BOXES.UN_DOORBREAKER, "quantityPerBox": 1 }]
   },
   {
     "id": "118",
@@ -2033,7 +2107,7 @@ export const unLeftHand: Part[] = [
     "description": "",
     "imgSrc": "",
     "tags": [],
-    "containedIn": [{ "box": BOXES.UN_CORE, "quantityPerBox": 1 },{ "box": BOXES.UN_DOORBREAKER, "quantityPerBox": 1 }]
+    "containedIn": [{ "box": BOXES.UN_CORE, "quantityPerBox": 1 }, { "box": BOXES.UN_DOORBREAKER, "quantityPerBox": 1 }]
   },
   {
     "id": "121",
@@ -2236,7 +2310,7 @@ export const unLeftHand: Part[] = [
     "imgSrc": "",
     "tags": [],
     "keywords": [KEYWORD_LIST.jp.全向射击, KEYWORD_LIST.jp.压制],
-    "containedIn": [{ "box": BOXES.UN_DOORBREAKER, "quantityPerBox": 1 },{ "box": BOXES.UN_CORE, "quantityPerBox": 1 }]
+    "containedIn": [{ "box": BOXES.UN_DOORBREAKER, "quantityPerBox": 1 }, { "box": BOXES.UN_CORE, "quantityPerBox": 1 }]
   },
   {
     "id": "151",
@@ -2251,7 +2325,7 @@ export const unLeftHand: Part[] = [
     "description": "",
     "imgSrc": "",
     "tags": [],
-    "containedIn": [{ "box": BOXES.UN_DOORBREAKER, "quantityPerBox": 1 },{ "box": BOXES.UN_CORE, "quantityPerBox": 1 }]
+    "containedIn": [{ "box": BOXES.UN_DOORBREAKER, "quantityPerBox": 1 }, { "box": BOXES.UN_CORE, "quantityPerBox": 1 }]
   },
   {
     "id": "256",
@@ -2426,7 +2500,7 @@ export const unRightHand: Part[] = [
     "imgSrc": "",
     "tags": [],
     "keywords": [KEYWORD_LIST.jp.激光武器, KEYWORD_LIST.jp.静止],
-    "containedIn": [{ "box": BOXES.UN_CORE, "quantityPerBox": 1 },{ "box": BOXES.UN_DOORBREAKER, "quantityPerBox": 1 }]
+    "containedIn": [{ "box": BOXES.UN_CORE, "quantityPerBox": 1 }, { "box": BOXES.UN_DOORBREAKER, "quantityPerBox": 1 }]
   },
   {
     "id": "120",
@@ -2441,7 +2515,7 @@ export const unRightHand: Part[] = [
     "description": "",
     "imgSrc": "",
     "tags": [],
-    "containedIn": [{ "box": BOXES.UN_CORE, "quantityPerBox": 1 },{ "box": BOXES.UN_DOORBREAKER, "quantityPerBox": 1 }]
+    "containedIn": [{ "box": BOXES.UN_CORE, "quantityPerBox": 1 }, { "box": BOXES.UN_DOORBREAKER, "quantityPerBox": 1 }]
   },
   {
     "id": "122",
@@ -2660,7 +2734,7 @@ export const unRightHand: Part[] = [
     "imgSrc": "",
     "tags": [],
     "keywords": [KEYWORD_LIST.jp.全向射击, KEYWORD_LIST.jp.压制],
-    "containedIn": [{ "box": BOXES.UN_CORE, "quantityPerBox": 1 },{ "box": BOXES.UN_DOORBREAKER, "quantityPerBox": 1 }]
+    "containedIn": [{ "box": BOXES.UN_CORE, "quantityPerBox": 1 }, { "box": BOXES.UN_DOORBREAKER, "quantityPerBox": 1 }]
   },
   {
     "id": "153",
@@ -2675,7 +2749,7 @@ export const unRightHand: Part[] = [
     "description": "",
     "imgSrc": "",
     "tags": [],
-    "containedIn": [{ "box": BOXES.UN_CORE, "quantityPerBox": 1 },{ "box": BOXES.UN_DOORBREAKER, "quantityPerBox": 1 }]
+    "containedIn": [{ "box": BOXES.UN_CORE, "quantityPerBox": 1 }, { "box": BOXES.UN_DOORBREAKER, "quantityPerBox": 1 }]
   },
   {
     "id": "257",
@@ -2706,8 +2780,8 @@ export const unRightHand: Part[] = [
     "imgSrc": "",
     "description": "",
     "tags": [],
-    "throwIndex":"557",
-    "containedIn": [{ "box": BOXES.SINGLE_UN_TAURUS ,"quantityPerBox": 1 }]
+    "throwIndex": "557",
+    "containedIn": [{ "box": BOXES.SINGLE_UN_TAURUS, "quantityPerBox": 1 }]
 
   },
   {
@@ -2723,7 +2797,7 @@ export const unRightHand: Part[] = [
     "type": "rightHand",
     "imgSrc": "",
     "tags": [],
-    "containedIn": [{ "box": BOXES.SINGLE_UN_TAURUS ,"quantityPerBox": 1 }]
+    "containedIn": [{ "box": BOXES.SINGLE_UN_TAURUS, "quantityPerBox": 1 }]
   }
 ];
 
@@ -2832,7 +2906,7 @@ export const unBackpack: Part[] = [
     "imgSrc": "",
     "tags": [],
     "keywords": [KEYWORD_LIST.jp.激光武器],
-    "containedIn": [{ "box": BOXES.UN_CORE, "quantityPerBox": 3 },{ "box": BOXES.SINGLE_UN_TAURUS, "quantityPerBox": 1 }]
+    "containedIn": [{ "box": BOXES.UN_CORE, "quantityPerBox": 3 }, { "box": BOXES.SINGLE_UN_TAURUS, "quantityPerBox": 1 }]
   },
   {
     "id": "084",
@@ -2877,7 +2951,7 @@ export const unBackpack: Part[] = [
     "description": "",
     "imgSrc": "",
     "tags": [],
-    "containedIn": [{ "box": BOXES.UN_SCALPEL,"quantityPerBox": 1 }]
+    "containedIn": [{ "box": BOXES.UN_SCALPEL, "quantityPerBox": 1 }]
   },
   {
     "id": "087",
@@ -2958,7 +3032,28 @@ export const unBackpack: Part[] = [
     "tags": [],
     "keywords": [KEYWORD_LIST.jp.KC装甲],
     "containedIn": [{ "box": BOXES.LAB_TRIAL_UN_OCTOPUS, "quantityPerBox": 1 }]
-  }
+  },
+  {
+    "id": "300",
+    "name": "OCS85 ブラックボックスキャリングラック",
+    "type": "backpack",
+    "score": 21,
+    "armor": 3,
+    "structure": 0,
+    "parray": 0,
+    "dodge": 0,
+    "electronic": 0,
+    "move": 0,
+    "description": "",
+    "keywords": [
+      {
+        "name": "任务"
+      }
+    ],
+    "projectile": [],
+    "isPD": false,
+    "containedIn": [{ "box": BOXES.GAME_PACK, "quantityPerBox": 2 }]
+  },
 ];
 
 export const unDrones: Drone[] = [
@@ -2975,7 +3070,7 @@ export const unDrones: Drone[] = [
     "move": 0,
     "stance": "offensive",
     "description": "",
-  "containedIn": [{ "box": BOXES.UN_SCALPEL, "quantityPerBox": 2 }]
+    "containedIn": [{ "box": BOXES.UN_SCALPEL, "quantityPerBox": 2 }]
   },
   {
     "id": "160",
@@ -2990,8 +3085,8 @@ export const unDrones: Drone[] = [
     "move": 0,
     "stance": "offensive",
     "description": "",
-    "keywords": [KEYWORD_LIST.jp.激光武器,KEYWORD_LIST.jp.拦截X,KEYWORD_LIST.jp.全向射击,KEYWORD_LIST.jp.近战射击],
-  "containedIn": [{ "box": BOXES.UN_DOORBREAKER, "quantityPerBox": 2 }]
+    "keywords": [KEYWORD_LIST.jp.激光武器, KEYWORD_LIST.jp.拦截X, KEYWORD_LIST.jp.全向射击, KEYWORD_LIST.jp.近战射击],
+    "containedIn": [{ "box": BOXES.UN_DOORBREAKER, "quantityPerBox": 2 }]
   },
   {
     "id": "161",
@@ -3006,7 +3101,7 @@ export const unDrones: Drone[] = [
     "move": 0,
     "stance": "offensive",
     "description": "",
-  "containedIn": [{ "box": BOXES.UN_DOORBREAKER, "quantityPerBox": 2 }]
+    "containedIn": [{ "box": BOXES.UN_DOORBREAKER, "quantityPerBox": 2 }]
   },
   {
     "id": "162",
@@ -3022,7 +3117,7 @@ export const unDrones: Drone[] = [
     "stance": "offensive",
     "description": "",
     "keywords": [KEYWORD_LIST.jp.负载],
-  "containedIn": [{ "box": BOXES.UN_DOORBREAKER, "quantityPerBox": 2 }, { "box": BOXES.UN_CORE, "quantityPerBox": 2 }, { "box": BOXES.UN_SCALPEL, "quantityPerBox": 2 }],
+    "containedIn": [{ "box": BOXES.UN_DOORBREAKER, "quantityPerBox": 2 }, { "box": BOXES.UN_CORE, "quantityPerBox": 2 }, { "box": BOXES.UN_SCALPEL, "quantityPerBox": 2 }],
   },
   {
     "id": "163",
@@ -3037,8 +3132,8 @@ export const unDrones: Drone[] = [
     "move": 0,
     "stance": "offensive",
     "description": "",
-    "keywords": [KEYWORD_LIST.jp.激光武器,KEYWORD_LIST.jp.拦截X,KEYWORD_LIST.jp.全向射击,KEYWORD_LIST.jp.近战射击],
-  "containedIn": [{ "box": BOXES.UN_DOORBREAKER, "quantityPerBox": 2 }, { "box": BOXES.UN_CORE, "quantityPerBox": 2 }, { "box": BOXES.UN_SCALPEL, "quantityPerBox": 2 }]
+    "keywords": [KEYWORD_LIST.jp.激光武器, KEYWORD_LIST.jp.拦截X, KEYWORD_LIST.jp.全向射击, KEYWORD_LIST.jp.近战射击],
+    "containedIn": [{ "box": BOXES.UN_DOORBREAKER, "quantityPerBox": 2 }, { "box": BOXES.UN_CORE, "quantityPerBox": 2 }, { "box": BOXES.UN_SCALPEL, "quantityPerBox": 2 }]
   },
   {
     "id": "164",
@@ -3053,7 +3148,7 @@ export const unDrones: Drone[] = [
     "move": 0,
     "stance": "offensive",
     "description": "",
-  "containedIn": [{ "box": BOXES.UN_CORE, "quantityPerBox": 2 }, { "box": BOXES.UN_SCALPEL, "quantityPerBox": 2 }]
+    "containedIn": [{ "box": BOXES.UN_CORE, "quantityPerBox": 2 }, { "box": BOXES.UN_SCALPEL, "quantityPerBox": 2 }]
   },
   {
     "id": "165",
@@ -3069,7 +3164,7 @@ export const unDrones: Drone[] = [
     "stance": "offensive",
     "description": "",
     "keywords": [KEYWORD_LIST.jp.中继器],
-  "containedIn": [{ "box": BOXES.UN_CORE, "quantityPerBox": 2 }]
+    "containedIn": [{ "box": BOXES.UN_CORE, "quantityPerBox": 2 }]
   },
   {
     "id": "166",
@@ -3084,8 +3179,8 @@ export const unDrones: Drone[] = [
     "move": 0,
     "stance": "offensive",
     "description": "",
-    "keywords": [KEYWORD_LIST.jp.电子攻击,KEYWORD_LIST.jp.火控干扰],
-  "containedIn": [{ "box": BOXES.UN_CORE, "quantityPerBox": 2 }]
+    "keywords": [KEYWORD_LIST.jp.电子攻击, KEYWORD_LIST.jp.火控干扰],
+    "containedIn": [{ "box": BOXES.UN_CORE, "quantityPerBox": 2 }]
   },
   {
     "id": "167",
@@ -3100,7 +3195,7 @@ export const unDrones: Drone[] = [
     "move": 0,
     "stance": "offensive",
     "description": "",
-  "containedIn": [{ "box": BOXES.UN_DOORBREAKER, "quantityPerBox": 2 }]
+    "containedIn": [{ "box": BOXES.UN_DOORBREAKER, "quantityPerBox": 2 }]
   }
 ];
 
@@ -3119,7 +3214,7 @@ export const unPilots: Pilot[] = [
     "tactic": 6,
     "trait": "冷静",
     "traitDescription": "· ターン終了したとき、リンク値１回復する。",
-    "box":BOXES.UN_CORE
+    "box": BOXES.UN_CORE
   },
   {
     "id": "LPA-20",
@@ -3135,7 +3230,7 @@ export const unPilots: Pilot[] = [
     "tactic": 6,
     "trait": "ブロック",
     "traitDescription": "敵ユニットが本機の近接ロックから離脱する場合、追加で移動力1またはリンク値1を支払わなければない。",
-    "box":BOXES.UN_CORE
+    "box": BOXES.UN_CORE
   },
   {
     "id": "LPA-21",
@@ -3151,7 +3246,7 @@ export const unPilots: Pilot[] = [
     "tactic": 5,
     "trait": "ステルス",
     "traitDescription": "本機が光学迷彩を発動している場合、または低姿勢である場合、本機はほかのユニットをすり抜けて移動できる。",
-    "box":BOXES.UN_SCALPEL
+    "box": BOXES.UN_SCALPEL
   },
   {
     "id": "LPA-22",
@@ -3167,7 +3262,7 @@ export const unPilots: Pilot[] = [
     "tactic": 1,
     "trait": "挑発",
     "traitDescription": "本機が電子戦対抗ロールに成功した場合、対抗ロールを行った敵機甲を攻撃態勢へ変更させられる。",
-    "box":BOXES.UN_DOORBREAKER
+    "box": BOXES.UN_DOORBREAKER
   },
   {
     "id": "LPA-23",
@@ -3183,7 +3278,7 @@ export const unPilots: Pilot[] = [
     "tactic": 4,
     "trait": "不屈",
     "traitDescription": "本機は大型ユニットをクラッシュできる。",
-    "box":BOXES.UN_DOORBREAKER
+    "box": BOXES.UN_DOORBREAKER
   },
   {
     "id": "LPA-24",
@@ -3199,7 +3294,7 @@ export const unPilots: Pilot[] = [
     "tactic": 3,
     "trait": "チェース",
     "traitDescription": "脆弱トークン付いてるユニットを攻撃する場合、攻撃ロール出目{目}は{重撃}になる。",
-    "box":BOXES.UN_SCALPEL
+    "box": BOXES.UN_SCALPEL
   },
   {
     "id": "LPA-27",
@@ -3215,7 +3310,7 @@ export const unPilots: Pilot[] = [
     "tactic": 5,
     "trait": "",
     "traitDescription": "303中隊のトレーナーチャージャー。",
-    "box":BOXES.UN_CORE
+    "box": BOXES.UN_CORE
   },
   {
     "id": "LPA-28",
@@ -3231,7 +3326,7 @@ export const unPilots: Pilot[] = [
     "tactic": 5,
     "trait": "",
     "traitDescription": "303中隊のトレーナーチャージャー。",
-    "box":BOXES.UN_CORE
+    "box": BOXES.UN_CORE
   },
   {
     "id": "LPA-29",
@@ -3247,7 +3342,7 @@ export const unPilots: Pilot[] = [
     "tactic": 5,
     "trait": "",
     "traitDescription": "303中隊のトレーナーチャージャー。",
-    "box":BOXES.UN_SCALPEL
+    "box": BOXES.UN_SCALPEL
   },
   {
     "id": "LPA-30",
@@ -3263,7 +3358,7 @@ export const unPilots: Pilot[] = [
     "tactic": 5,
     "trait": "",
     "traitDescription": "303中隊のトレーナーチャージャー。",
-    "box":BOXES.UN_SCALPEL
+    "box": BOXES.UN_SCALPEL
   },
   {
     "id": "LPA-31",
@@ -3279,7 +3374,7 @@ export const unPilots: Pilot[] = [
     "tactic": 6,
     "trait": "",
     "traitDescription": "303中隊のトレーナーライフルマン。",
-    "box":BOXES.UN_CORE
+    "box": BOXES.UN_CORE
   },
   {
     "id": "LPA-32",
@@ -3295,7 +3390,7 @@ export const unPilots: Pilot[] = [
     "tactic": 6,
     "trait": "",
     "traitDescription": "303中隊のトレーナーライフルマン。",
-    "box":BOXES.UN_CORE
+    "box": BOXES.UN_CORE
   },
   {
     "id": "LPA-33",
@@ -3311,7 +3406,7 @@ export const unPilots: Pilot[] = [
     "tactic": 6,
     "trait": "",
     "traitDescription": "303中隊のトレーナーライフルマン。",
-    "box":BOXES.UN_DOORBREAKER
+    "box": BOXES.UN_DOORBREAKER
   },
   {
     "id": "LPA-34",
@@ -3327,7 +3422,7 @@ export const unPilots: Pilot[] = [
     "tactic": 6,
     "trait": "",
     "traitDescription": "303中隊のトレーナーライフルマン。",
-    "box":BOXES.UN_DOORBREAKER
+    "box": BOXES.UN_DOORBREAKER
   },
   {
     "id": "LPA-66",
@@ -3343,7 +3438,7 @@ export const unPilots: Pilot[] = [
     "tactic": 5,
     "trait": "",
     "traitDescription": "303中隊のトレーナーライフルマン。",
-    "box":BOXES.SINGLE_UN_TAURUS
+    "box": BOXES.SINGLE_UN_TAURUS
   }
 ];
 
@@ -3362,7 +3457,7 @@ export const rdlPilots: Pilot[] = [
     "tactic": 2,
     "trait": "変化",
     "traitDescription": "· 戦術タイミングでは、任意タイミングのアクションでリードアクションを実行してもよい。",
-    "box":BOXES.RDL_CORE
+    "box": BOXES.RDL_CORE
   },
   {
     "id": "FPA-02",
@@ -3378,7 +3473,7 @@ export const rdlPilots: Pilot[] = [
     "tactic": 5,
     "trait": "鷹の目",
     "traitDescription": "· 射撃アクション、常に装甲貫通1を得る。",
-    "box":BOXES.RDL_CORE
+    "box": BOXES.RDL_CORE
   },
   {
     "id": "FPA-03",
@@ -3394,7 +3489,7 @@ export const rdlPilots: Pilot[] = [
     "tactic": 4,
     "trait": "頑健",
     "traitDescription": "·搭乗している機甲がパーツを失うことに、リンク値が減らない。",
-    "box":BOXES.RDL_HEAVY_METAL
+    "box": BOXES.RDL_HEAVY_METAL
   },
   {
     "id": "FPA-04",
@@ -3410,7 +3505,7 @@ export const rdlPilots: Pilot[] = [
     "tactic": 6,
     "trait": "猛攻",
     "traitDescription": "·[攻撃態勢] 近接アクション は{Eye}を{Light Hit}.と見なしてもよい。",
-    "box":BOXES.RDL_HEAVY_METAL
+    "box": BOXES.RDL_HEAVY_METAL
   },
   {
     "id": "FPA-05",
@@ -3426,7 +3521,7 @@ export const rdlPilots: Pilot[] = [
     "tactic": 4,
     "trait": "スタミナ",
     "traitDescription": "·搭乗した機甲の下肢に構造値がなければ、構造値2を持っているように扱う。",
-    "box":BOXES.RDL_CAVALRY
+    "box": BOXES.RDL_CAVALRY
   },
   {
     "id": "FPA-06",
@@ -3442,7 +3537,7 @@ export const rdlPilots: Pilot[] = [
     "tactic": 7,
     "trait": "増幅",
     "traitDescription": "・搭乗した機甲のオーラ、電子攻撃と電子サポートの射程が+1グリッド。",
-    "box":BOXES.RDL_CAVALRY
+    "box": BOXES.RDL_CAVALRY
   },
   {
     "id": "FPA-09",
@@ -3458,7 +3553,7 @@ export const rdlPilots: Pilot[] = [
     "tactic": 4,
     "trait": "",
     "traitDescription": "試験評価中隊066の新米隊員",
-    "box":BOXES.RDL_CORE
+    "box": BOXES.RDL_CORE
   },
   {
     "id": "FPA-10",
@@ -3474,7 +3569,7 @@ export const rdlPilots: Pilot[] = [
     "tactic": 4,
     "trait": "",
     "traitDescription": "試験評価中隊066の新米隊員",
-    "box":BOXES.RDL_CORE
+    "box": BOXES.RDL_CORE
   },
   {
     "id": "FPA-11",
@@ -3490,7 +3585,7 @@ export const rdlPilots: Pilot[] = [
     "tactic": 4,
     "trait": "",
     "traitDescription": "試験評価中隊066の新米隊員",
-    "box":BOXES.RDL_CORE
+    "box": BOXES.RDL_CORE
   },
   {
     "id": "FPA-12",
@@ -3506,7 +3601,7 @@ export const rdlPilots: Pilot[] = [
     "tactic": 4,
     "trait": "",
     "traitDescription": "試験評価中隊066の新米隊員",
-    "box":BOXES.RDL_HEAVY_METAL
+    "box": BOXES.RDL_HEAVY_METAL
   },
   {
     "id": "FPA-13",
@@ -3522,7 +3617,7 @@ export const rdlPilots: Pilot[] = [
     "tactic": 4,
     "trait": "",
     "traitDescription": "試験評価中隊066の新米隊員",
-    "box":BOXES.RDL_HEAVY_METAL
+    "box": BOXES.RDL_HEAVY_METAL
   },
   {
     "id": "FPA-14",
@@ -3538,7 +3633,7 @@ export const rdlPilots: Pilot[] = [
     "tactic": 3,
     "trait": "",
     "traitDescription": "試験評価隊066の新米スカウト",
-    "box":BOXES.RDL_CORE
+    "box": BOXES.RDL_CORE
   },
   {
     "id": "FPA-15",
@@ -3554,7 +3649,7 @@ export const rdlPilots: Pilot[] = [
     "tactic": 3,
     "trait": "",
     "traitDescription": "試験評価隊066の新米スカウト",
-    "box":BOXES.RDL_CORE
+    "box": BOXES.RDL_CORE
   },
   {
     "id": "FPA-16",
@@ -3570,7 +3665,7 @@ export const rdlPilots: Pilot[] = [
     "tactic": 3,
     "trait": "",
     "traitDescription": "試験評価隊066の新米スカウト",
-    "box":BOXES.RDL_CAVALRY
+    "box": BOXES.RDL_CAVALRY
   },
   {
     "id": "FPA-17",
@@ -3586,7 +3681,7 @@ export const rdlPilots: Pilot[] = [
     "tactic": 3,
     "trait": "",
     "traitDescription": "試験評価隊066の新米スカウト",
-    "box":BOXES.RDL_CAVALRY
+    "box": BOXES.RDL_CAVALRY
   },
   {
     "id": "FPA-18",
@@ -3602,7 +3697,7 @@ export const rdlPilots: Pilot[] = [
     "tactic": 3,
     "trait": "",
     "traitDescription": "試験評価隊066の新米スカウト",
-    "box":BOXES.RDL_CAVALRY
+    "box": BOXES.RDL_CAVALRY
   },
   {
     "id": "FPA-06-2",
@@ -3618,7 +3713,7 @@ export const rdlPilots: Pilot[] = [
     "tactic": 7,
     "trait": "隠れた",
     "traitDescription": "·搭乗しているメックが味方のオーラ範囲内にいる場合、低姿勢を獲得します。",
-    "box":BOXES.SINGLE_RDL_DUNE
+    "box": BOXES.SINGLE_RDL_DUNE
   },
   // {
   //   "id": "FPA-63",
@@ -3651,7 +3746,7 @@ export const pdDrones: Drone[] = [
     "move": 6,
     "stance": "defensive",
     "description": "",
-    "isPD":true,"projectile": [
+    "isPD": true, "projectile": [
       "PDAM-001"
     ],
     "keywords": [KEYWORD_LIST.jp.齐射X, KEYWORD_LIST.jp.曲射, KEYWORD_LIST.jp.拦截X],
@@ -3670,7 +3765,7 @@ export const pdDrones: Drone[] = [
     "move": 6,
     "stance": "defensive",
     "description": "",
-    "isPD":true,"projectile": [
+    "isPD": true, "projectile": [
       "PDAM-001"
     ],
     "keywords": [KEYWORD_LIST.jp.齐射X, KEYWORD_LIST.jp.曲射, KEYWORD_LIST.jp.火控干扰],
@@ -3689,7 +3784,7 @@ export const pdDrones: Drone[] = [
     "move": 6,
     "stance": "defensive",
     "description": "",
-    "isPD":true,
+    "isPD": true,
     "containedIn": [{ "box": BOXES.LAB_PD_REAPER_TYPE_1, "quantityPerBox": 1 }]
   },
   {
@@ -3705,7 +3800,7 @@ export const pdDrones: Drone[] = [
     "move": 6,
     "stance": "defensive",
     "description": "",
-    "isPD":true,
+    "isPD": true,
     "keywords": [KEYWORD_LIST.jp.火控干扰],
     "containedIn": [{ "box": BOXES.LAB_PD_REAPER_TYPE_1, "quantityPerBox": 1 }]
   },
@@ -3722,8 +3817,8 @@ export const pdDrones: Drone[] = [
     "move": 6,
     "stance": "defensive",
     "description": "",
-    "isPD":true,"projectile": [
-      "PDAM-003","PDAM-004"
+    "isPD": true, "projectile": [
+      "PDAM-003", "PDAM-004"
     ],
     "keywords": [KEYWORD_LIST.jp.直射],
     "containedIn": [{ "box": BOXES.LAB_PD_REAPER_TYPE_E, "quantityPerBox": 2 }]
@@ -3741,7 +3836,7 @@ export const pdDrones: Drone[] = [
     "move": 6,
     "stance": "mobility",
     "description": "",
-    "isPD":true,
+    "isPD": true,
     "keywords": [KEYWORD_LIST.jp.全向射击, KEYWORD_LIST.jp.近战射击, KEYWORD_LIST.jp.空中移动],
     "containedIn": [{ "box": BOXES.LAB_PD_Vigilant_Autocannon_MG, "quantityPerBox": 1 }],
   },
@@ -3758,7 +3853,7 @@ export const pdDrones: Drone[] = [
     "move": 6,
     "stance": "mobility",
     "description": "",
-    "isPD":true,
+    "isPD": true,
     "keywords": [KEYWORD_LIST.jp.高亮目标, KEYWORD_LIST.jp.空中移动, KEYWORD_LIST.jp.全向射击, KEYWORD_LIST.jp.近战射击],
     "containedIn": [{ "box": BOXES.LAB_PD_Vigilant_Autocannon_MG, "quantityPerBox": 1 }],
   },
@@ -3775,7 +3870,7 @@ export const pdDrones: Drone[] = [
     "move": 6,
     "stance": "mobility",
     "description": "",
-    "isPD":true, "projectile": [
+    "isPD": true, "projectile": [
       "PDAM-005"
     ],
     "keywords": [KEYWORD_LIST.jp.空中移动, KEYWORD_LIST.jp.曲射, KEYWORD_LIST.jp.齐射X],
@@ -3794,8 +3889,8 @@ export const pdDrones: Drone[] = [
     "move": 6,
     "stance": "mobility",
     "description": "",
-    "isPD":true,"projectile": [
-      "PDAM-005","PDAM-006"
+    "isPD": true, "projectile": [
+      "PDAM-005", "PDAM-006"
     ],
     "keywords": [KEYWORD_LIST.jp.曲射, KEYWORD_LIST.jp.齐射X, KEYWORD_LIST.jp.直射],
     "containedIn": [{ "box": BOXES.LAB_PD_Vigilant_Bombing_Support, "quantityPerBox": 1 }],
@@ -3823,27 +3918,27 @@ export const allTacticCards: TacticCard[] = [
     "name": "追加指令",
     "description": "",
     "score": 30
-  },{
+  }, {
     "id": "275",
     "name": "戰場復㷌",
     "description": "",
     "score": 30
-  },{
+  }, {
     "id": "276",
     "name": "一擊離脱",
     "description": "",
     "score": 30
-  },{
+  }, {
     "id": "277",
     "name": "緊急修理",
     "description": "",
     "score": 30
-  },{
+  }, {
     "id": "278",
     "name": "協調指揮",
     "description": "",
     "score": 30
-  },{
+  }, {
     "id": "279",
     "name": "遠隔再起動",
     "description": "",
@@ -3941,7 +4036,7 @@ export const gofChasis: Part[] = [
     "move": 2,
     "description": "·Unstoppable: Movement Actions with this Keyword can still be performed when Immobilized.\n·Non-humanoid X: When performing this Action, -X Link Value.\n·Push X: Move the target X grids in straight line in the direction this unit is facing, then this unit performs the same movement.",
     "keywords": [KEYWORD_LIST.en.异形X, KEYWORD_LIST.en.不可阻挡, KEYWORD_LIST.en.推动X],
-    "containedIn": [{ "box": BOXES.GOF_JUSTICE, "quantityPerBox": 1 }],
+    "containedIn": [{ "box": BOXES.GOF_JUSTICE, "quantityPerBox": 1 },{ "box": BOXES.LAB_GOF_CENTAUR, "quantityPerBox": 1 }],
     "action": [
       {
         "id": "181_A",
@@ -4432,7 +4527,7 @@ export const gofLeftHand: Part[] = [
     "move": 0,
     "description": "",
     "keywords": [KEYWORD_LIST.en.顺劈, KEYWORD_LIST.en.毁伤],
-    "containedIn": [{ "box": BOXES.GOF_JUSTICE, "quantityPerBox": 1 }],
+    "containedIn": [{ "box": BOXES.GOF_JUSTICE, "quantityPerBox": 1 },{ "box": BOXES.LAB_GOF_CENTAUR, "quantityPerBox": 1 }],
     "throwIndex": "ZHLA-304-T",
     "action": [
       {
@@ -4972,7 +5067,7 @@ export const gofRightHand: Part[] = [
     "description": "",
     "keywords": [KEYWORD_LIST.en.顺劈, KEYWORD_LIST.en.毁伤],
     "throwIndex": "ZHRA-304-T",
-    "containedIn": [{ "box": BOXES.GOF_JUSTICE, "quantityPerBox": 2 }],
+    "containedIn": [{ "box": BOXES.GOF_JUSTICE, "quantityPerBox": 2 },{ "box": BOXES.LAB_GOF_CENTAUR, "quantityPerBox": 1 }],
     "action": [
       {
         "id": "ZHRA-304_A",
@@ -5700,7 +5795,7 @@ export const gofDrones: Drone[] = [
     "isPD": false,
     "hasImage": true,
     "keywords": [KEYWORD_LIST.en.空中移动],
-     "containedIn": [{ "box": BOXES.GOF_HUNTERS, "quantityPerBox": 2 }],
+    "containedIn": [{ "box": BOXES.GOF_HUNTERS, "quantityPerBox": 2 }],
     "actions": [
       {
         "id": "ZHDR-203_A",
@@ -5927,7 +6022,7 @@ export const gofDrones: Drone[] = [
     "isPD": false,
     "hasImage": true,
     "keywords": [KEYWORD_LIST.en.曲射],
-     "containedIn": [{ "box": BOXES.GOF_CORE, "quantityPerBox": 3 }],
+    "containedIn": [{ "box": BOXES.GOF_CORE, "quantityPerBox": 3 }],
     "actions": [
       {
         "id": "ZHDR-104_A",
@@ -5961,7 +6056,7 @@ export const gofDrones: Drone[] = [
     "isPD": false,
     "hasImage": true,
     "keywords": [KEYWORD_LIST.en.穿甲X, KEYWORD_LIST.en.近战射击, KEYWORD_LIST.en.曲射],
-     "containedIn": [{ "box": BOXES.GOF_CORE, "quantityPerBox": 1 }],
+    "containedIn": [{ "box": BOXES.GOF_CORE, "quantityPerBox": 1 }],
     "actions": [
       {
         "id": "ZHDR-106_A",
@@ -6122,7 +6217,7 @@ export const gofDrones: Drone[] = [
     "isPD": false,
     "hasImage": true,
     "keywords": [KEYWORD_LIST.en.低特征],
-     "containedIn": [{ "box": BOXES.GOF_HUNTERS, "quantityPerBox": 2 }],
+    "containedIn": [{ "box": BOXES.GOF_HUNTERS, "quantityPerBox": 2 }],
     "actions": [
       {
         "id": "ZHDR-204_A",
@@ -6314,7 +6409,7 @@ export const gofTorso: Part[] = [
     "hasImage": true,
     "description": "·Command Generation X：This Unit generates X Command Tokens in the Command Phase.",
     "keywords": [KEYWORD_LIST.en.指令生成X, KEYWORD_LIST.en.光环],
-    "containedIn": [{ "box": BOXES.GOF_CORE, "quantityPerBox": 2 }],
+    "containedIn": [{ "box": BOXES.GOF_CORE, "quantityPerBox": 2 },{ "box": BOXES.LAB_GOF_CENTAUR, "quantityPerBox": 1 }],
     "action": [
       {
         "id": "173_A",

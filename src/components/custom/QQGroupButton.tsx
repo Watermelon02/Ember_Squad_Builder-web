@@ -3,13 +3,16 @@ import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from 
 import { Button } from '../radix-ui/button';
 import { Users, Copy, Check } from 'lucide-react'; // 引入图标
 import { motion } from 'framer-motion';
-const QQ_GROUP_STORAGE_VERSION = 'has_clicked_qq_btn';
+const QQ_GROUP_STORAGE_VERSION = 'has_clicked_qq_btn_2';
 
 // 定义QQ群数据
 const QQ_GROUPS = [
     { name: "四川", id: "957942659" },
     { name: "湖南", id: "542981741" },
     { name: "江苏", id: "602408963" },
+    { name: "上海", id: "1087268491" },
+    { name: "大连", id: "700473050" },
+    { name: "广州", id: "1084868523" },
     {name:"网络对战群",id:"1061138517"}
 ];
 

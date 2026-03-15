@@ -2,7 +2,6 @@ import React from 'react';
 import { Tabs } from '../../radix-ui/tabs';
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from '../../radix-ui/dialog';
 import { Button } from '../../radix-ui/button';
-import { motion, AnimatePresence } from 'framer-motion';
 import { Team, Drone } from '../../../data/types';
 import { MechImage } from '../../custom/MechImage';
 import { DroneImage } from '../../custom/DroneImage';
@@ -70,20 +69,18 @@ export function MechListMobile({
           <DialogContent >
             <DialogHeader><DialogTitle>{translations.t97}</DialogTitle></DialogHeader>
             <pre className="bg-muted p-4 rounded text-sm overflow-auto">{logic.script}</pre>
-            <motion.div style={{ display: 'flex', flexWrap: 'wrap', gap: `2px` }}>
-              <AnimatePresence mode="popLayout">
+            <div style={{ display: 'flex', flexWrap: 'wrap', gap: `2px` }}>
                 {team.mechs.map((mech, index) => (
-                  <motion.div key={`mech-${mech.id ?? index}`} initial={{ opacity: 0, scale: 0.8, y: -10 }} animate={{ opacity: 1, scale: 1, y: 0 }} exit={{ opacity: 0, scale: 0.8, y: 10 }} transition={{ duration: 0.2 }}>
+                  <div key={`mech-${mech.id ?? index}`}>
                     <MechImage mech={mech} tabsrc={tabsrc} translation={translations} />
-                  </motion.div>
+                  </div>
                 ))}
                 {team.drones.map((drone, index) => (
-                  <motion.div key={`drone-${drone.id}-${index}`} initial={{ opacity: 0, scale: 0.8, y: -10 }} animate={{ opacity: 1, scale: 1, y: 0 }} exit={{ opacity: 0, scale: 0.8, y: 10 }} transition={{ duration: 0.2 }}>
+                  <div key={`drone-${drone.id}-${index}`}>
                     <DroneImage drone={drone} tabsrc={tabsrc} />
-                  </motion.div>
+                  </div>
                 ))}
-              </AnimatePresence>
-            </motion.div>
+            </div>
             <Button variant="outline" onClick={() => navigator.clipboard.writeText(logic.script)}>
               {translations.t4}
             </Button>

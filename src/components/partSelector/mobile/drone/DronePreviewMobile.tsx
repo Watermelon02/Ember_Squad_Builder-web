@@ -25,8 +25,7 @@ export default function DronePreviewMobile({
   }, [droneId]);
 
   return (
-    <AnimatePresence mode="wait">
-      <motion.div
+      <div
         style={{
           overflowY: "auto",
           flex: 1,
@@ -35,10 +34,6 @@ export default function DronePreviewMobile({
           msOverflowStyle: "none",
         }}
         key={drone?.id}
-        initial={{ opacity: 0, y: 100 }}
-        animate={{ opacity: 1, y: 0 }}
-        exit={{ opacity: 0, y: -100 }}
-        transition={{ duration: 0.2 }}
       >
         <style>
           {`
@@ -96,7 +91,7 @@ export default function DronePreviewMobile({
 
             {/* 词条 */}
             {showKeyword && drone?.keywords && drone?.keywords.length > 0 && (
-              <motion.div
+              <div
                 style={{
                   position: "absolute",
                   top: "3vh",
@@ -106,9 +101,6 @@ export default function DronePreviewMobile({
                   gap: "0.5vh",
                   zIndex: 20,
                 }}
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, y: 20 }}
               >
                 {drone.keywords.map((kw, index) => (
                   <Button
@@ -140,10 +132,7 @@ export default function DronePreviewMobile({
                 ))}
 
                 {activeKeyword && activeKeyword.length > 0 && (
-                  <motion.div
-                    initial={{ opacity: 0, scale: 0.9, y: 5 }}
-                    animate={{ opacity: 1, scale: 1, y: 0 }}
-                    exit={{ opacity: 0, scale: 0.9, y: 5 }}
+                  <div
                     style={{
                       position: "absolute",
                       right: "-31vw",
@@ -167,9 +156,9 @@ export default function DronePreviewMobile({
                     }}
                   >
                     {drone.keywords.find((kw) => kw.name === activeKeyword)?.value}
-                  </motion.div>
+                  </div>
                 )}
-              </motion.div>
+              </div>
             )}
 
             {/* projectile + throwIndex */}
@@ -200,7 +189,6 @@ export default function DronePreviewMobile({
 
           </div>
         )}
-      </motion.div>
-    </AnimatePresence>
+      </div>
   );
 }

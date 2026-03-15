@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Mech } from "../../data/types";
+import { TAB_PILOT_VERSION } from "../../data/resource";
 
 interface MechImageProps {
   mech: Mech;
@@ -149,7 +150,7 @@ export const MechImage: React.FC<MechImageProps> = ({ mech, tabsrc, translation 
       {pilot?.id && (!animatingPart || animatingPart.key !== "pilot") ? (
         <motion.img
           key={pilot.id}
-          src={`${tabsrc}/${pilot.id}.png`}
+          src={`${tabsrc}/${pilot.id}.png?v=${TAB_PILOT_VERSION}`}
           alt="pilot"
           style={{
             position: "absolute",

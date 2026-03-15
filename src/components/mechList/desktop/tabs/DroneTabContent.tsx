@@ -9,6 +9,7 @@ import { gofDrones, gofProjectiles, unBackpack } from '../../../../data/data_cn'
 import { DroneCard } from '../../../customCard/droneCard/DroneCard';
 import { VisuallyHidden } from "@radix-ui/react-visually-hidden";
 import { ProjectileCard } from '../../../customCard/projectileCard/ProjectileCard';
+import { IMAGE_DRONE_VERSION } from '../../../../data/resource';
 
 interface DroneTabContentProps {
   team: Team;
@@ -88,7 +89,7 @@ export const DroneTabContent: React.FC<DroneTabContentProps> = ({
             <Button variant="ghost" size="sm" onClick={(e) => { e.stopPropagation(); deleteDrone(index); }} className="absolute top-0 right-0 shadow-lg shadow-gray-500 rounded-lg text-destructive hover:text-destructive z-10"><Trash2 className="w-4 h-4" /></Button>
 
             {(((drone?.hasImage === undefined)) || !animationCardMode) ?
-              <img src={`${imgsrc}/${drone.id}.png?v=2`} alt={drone.name} className="shadow-lg shadow-gray-500 rounded-lg" style={{ width: '100%', height: '100%', objectFit: 'contain' }} draggable={false} />
+              <img src={`${imgsrc}/${drone.id}.png?v=${IMAGE_DRONE_VERSION}`} alt={drone.name} className="shadow-lg shadow-gray-500 rounded-lg" style={{ width: '100%', height: '100%', objectFit: 'contain' }} draggable={false} />
               : <DroneCard drone={drone} tabsrc={tabsrc} faction={team.faction} lang={lang} />
             }
 

@@ -423,6 +423,38 @@ export const rdlLeftHand: Part[] = [
     "tags": [],
     "containedIn": [{ "box": BOXES.RDL_CORE, "quantityPerBox": 2 }],
   },
+{
+    "id": "037",
+    "name": "CC-4 Cleaver (L)",
+    "type": "leftHand",
+    "score": 39,
+    "armor": 4,
+    "structure": 0,
+    "parray": 1,
+    "dodge": 0,
+    "electronic": 0,
+    "move": 0,
+    "description": "",
+    "containedIn": [{ "box": BOXES.RDL_CORE, "quantityPerBox": 2 }],
+    "keywords": [
+      KEYWORD_LIST.zh.空手, KEYWORD_LIST.zh.频闪武器
+    ],
+    "action": [
+      {
+        "id": "37_A",
+        "name": "劈砍",
+        "description": "· 频闪武器",
+        "type": "Melee",
+        "size": "m",
+        "range": -1,
+        "storage": 0,
+        "yellowDice": 2,
+        "redDice": 4
+      }
+    ],
+    "projectile": [],
+    "isPD": false
+  },
   {
     "id": "040",
     "name": "SPHX-3 Supporting Arm",
@@ -762,6 +794,49 @@ export const rdlLeftHand: Part[] = [
     "tags": [],
     "keywords": [KEYWORD_LIST.en.震撼],
     "containedIn": [{ "box": BOXES.LAB_RDL_GENJI_AND_MALLARD, "quantityPerBox": 0 }],
+  },
+  {
+    "id": "299",
+    "name": "ML-32B Dual Launcher + CC-3 Dagger",
+    "type": "leftHand",
+    "score": 33,
+    "armor": 4,
+    "structure": 0,
+    "parray": 1,
+    "dodge": 0,
+    "electronic": 0,
+    "move": 0,
+    "description": "",
+    "containedIn": [{ "box": BOXES.GAME_PACK, "quantityPerBox": 2 }],
+    "keywords": [
+      KEYWORD_LIST.zh.空手
+    ],
+    "action": [
+      {
+        "id": "299_A",
+        "name": "刺击",
+        "description": "",
+        "type": "Melee",
+        "size": "s",
+        "range": -1,
+        "storage": 0,
+        "yellowDice": 3,
+        "redDice": 1
+      },
+      {
+        "id": "299_B",
+        "name": "导弹",
+        "description": " · 曲射\r\n· 发射1枚MC-3“利剑”导弹。",
+        "type": "Projectile",
+        "size": "s",
+        "range": 3,
+        "storage": 2,
+        "yellowDice": 0,
+        "redDice": 0
+      }
+    ],
+    "projectile": ["071"],
+    "isPD": false
   }
 ];
 
@@ -797,6 +872,46 @@ export const rdlRightHand: Part[] = [
     "imgSrc": "",
     "tags": [],
     "containedIn": [{ "box": BOXES.RDL_CORE, "quantityPerBox": 4 }],
+  },
+   {
+    "id": "027",
+    "name": "AC-32M Marksman Rifle",
+    "type": "rightHand",
+    "score": 33,
+    "armor": 4,
+    "structure": 0,
+    "parray": 0,
+    "dodge": 0,
+    "electronic": 0,
+    "move": 0,
+    "description": "",
+    "throwIndex": "28",
+    "keywords": [
+
+    ],
+    "projectile": [],
+    "isPD": false,
+    "containedIn": [{ "box": BOXES.GAME_PACK, "quantityPerBox": 2 }],
+  },
+  {
+    "id": "028",
+    "name": "AC-32M Marksman Rifle (D)",
+    "type": "rightHand",
+    "score": 0,
+    "armor": 4,
+    "structure": 0,
+    "parray": 0,
+    "dodge": 0,
+    "electronic": 0,
+    "move": 0,
+    "description": "",
+    "keywords": [
+      KEYWORD_LIST.zh.空手
+    ],
+    "action": [],
+    "projectile": [],
+    "isPD": false,
+    "containedIn": [{ "box": BOXES.GAME_PACK, "quantityPerBox": 1 }],
   },
   {
     "id": "030",
@@ -1777,6 +1892,88 @@ export const unTorso: Part[] = [
     "description": "",
     "tags": [],
     "containedIn": [{ "box": BOXES.SINGLE_UN_TAURUS, "quantityPerBox": 1 }],
+  },
+  {
+    "id": "093",
+    "name": "TM31KC Gray Wolf KC Experimental Core",
+    "type": "torso",
+    "score": 60,
+    "armor": 4,
+    "structure": 4,
+    "parray": 0,
+    "dodge": 1,
+    "electronic": 3,
+    "move": 0,
+    "description": "·曲射：本动作不需要对落点或目标有视线。",
+    "keywords": [KEYWORD_LIST.zh.曲射, KEYWORD_LIST.zh.KC装甲],
+    "action": [
+      {
+        "id": "093_A",
+        "name": "闪光弹",
+        "description": "· 曲射\r\n· 发射1枚M9闪光弹。",
+        "type": "Projectile",
+        "size": "s",
+        "range": 3,
+        "storage": 1,
+        "yellowDice": 0,
+        "redDice": 0
+      },
+      {
+        "id": "093_B",
+        "name": "KC装甲",
+        "description": "· KC装甲",
+        "type": "Passive",
+        "size": "m",
+        "range": 0,
+        "storage": 0,
+        "yellowDice": 0,
+        "redDice": 0
+      }
+    ],
+    "projectile": ["155"],
+    "isPD": false,
+    "containedIn": [{ "box": BOXES.GAME_PACK, "quantityPerBox": 2 }],
+  },
+  {
+    "id": "095",
+    "name": "TM39B Viper II Low Profile Core",
+    "type": "torso",
+    "score": 63,
+    "armor": 3,
+    "structure": 3,
+    "parray": 0,
+    "dodge": 1,
+    "electronic": 5,
+    "move": 0,
+    "description": "· 静默：执行本动作时不会解除光学迷彩与低特征。",
+    "keywords": [KEYWORD_LIST.zh.低特征, KEYWORD_LIST.zh.静默],
+    "action": [
+      {
+        "id": "095_A",
+        "name": "伏击",
+        "description": "· 本机获得低特征标记。\r\n· 静默",
+        "type": "Swift",
+        "size": "s",
+        "range": 0,
+        "storage": 0,
+        "yellowDice": 0,
+        "redDice": 0
+      },
+      {
+        "id": "095_B",
+        "name": "响应式跟踪",
+        "description": "· 本机以拥有高亮目标的单位为目标执行射击动作时，无视地形保护和单位保护。",
+        "type": "Passive",
+        "size": "m",
+        "range": 0,
+        "storage": 0,
+        "yellowDice": 0,
+        "redDice": 0
+      }
+    ],
+    "projectile": [],
+    "isPD": false,
+    "containedIn": [{ "box": BOXES.GAME_PACK, "quantityPerBox": 2 }],
   }
 ];
 
@@ -2862,7 +3059,28 @@ export const unBackpack: Part[] = [
     "tags": [],
     "keywords": [KEYWORD_LIST.en.负载],
     "containedIn": [{ "box": BOXES.UN_DOORBREAKER, "quantityPerBox": 2 }]
-  }
+  },
+  {
+    "id": "300",
+    "name": "OCS85 Black Box Carrying Pack",
+    "type": "backpack",
+    "score": 21,
+    "armor": 3,
+    "structure": 0,
+    "parray": 0,
+    "dodge": 0,
+    "electronic": 0,
+    "move": 0,
+    "description": "",
+    "keywords": [
+      {
+        "name": "任务"
+      }
+    ],
+    "projectile": [],
+    "isPD": false,
+    "containedIn": [{ "box": BOXES.GAME_PACK, "quantityPerBox": 2 }]
+  },
 ];
 
 export const unDrones: Drone[] = [
@@ -3920,7 +4138,7 @@ export const gofChasis: Part[] = [
     "move": 2,
     "description": "·Unstoppable: Movement Actions with this Keyword can still be performed when Immobilized.\n·Non-humanoid X: When performing this Action, -X Link Value.\n·Push X: Move the target X grids in straight line in the direction this unit is facing, then this unit performs the same movement.",
     "keywords": [KEYWORD_LIST.en.异形X, KEYWORD_LIST.en.不可阻挡, KEYWORD_LIST.en.推动X],
-    "containedIn": [{ "box": BOXES.GOF_JUSTICE, "quantityPerBox": 1 }],
+    "containedIn": [{ "box": BOXES.GOF_JUSTICE, "quantityPerBox": 1 },{ "box": BOXES.LAB_GOF_CENTAUR, "quantityPerBox": 1 }],
     "action": [
       {
         "id": "181_A",
@@ -4411,7 +4629,7 @@ export const gofLeftHand: Part[] = [
     "move": 0,
     "description": "",
     "keywords": [KEYWORD_LIST.en.顺劈, KEYWORD_LIST.en.毁伤],
-    "containedIn": [{ "box": BOXES.GOF_JUSTICE, "quantityPerBox": 1 }],
+    "containedIn": [{ "box": BOXES.GOF_JUSTICE, "quantityPerBox": 1 },{ "box": BOXES.LAB_GOF_CENTAUR, "quantityPerBox": 1 }],
     "throwIndex": "ZHLA-304-T",
     "action": [
       {
@@ -4951,7 +5169,7 @@ export const gofRightHand: Part[] = [
     "description": "",
     "keywords": [KEYWORD_LIST.en.顺劈, KEYWORD_LIST.en.毁伤],
     "throwIndex": "ZHRA-304-T",
-    "containedIn": [{ "box": BOXES.GOF_JUSTICE, "quantityPerBox": 2 }],
+    "containedIn": [{ "box": BOXES.GOF_JUSTICE, "quantityPerBox": 2 },{ "box": BOXES.LAB_GOF_CENTAUR, "quantityPerBox": 1 }],
     "action": [
       {
         "id": "ZHRA-304_A",
@@ -6293,7 +6511,7 @@ export const gofTorso: Part[] = [
     "hasImage": true,
     "description": "·Command Generation X：This Unit generates X Command Tokens in the Command Phase.",
     "keywords": [KEYWORD_LIST.en.指令生成X, KEYWORD_LIST.en.光环],
-    "containedIn": [{ "box": BOXES.GOF_CORE, "quantityPerBox": 2 }],
+    "containedIn": [{ "box": BOXES.GOF_CORE, "quantityPerBox": 2 },{ "box": BOXES.LAB_GOF_CENTAUR, "quantityPerBox": 1 }],
     "action": [
       {
         "id": "173_A",

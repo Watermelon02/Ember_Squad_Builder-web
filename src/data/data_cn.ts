@@ -1776,7 +1776,7 @@ export const gofTorso: Part[] = [
     "description": "·指令生成X：指令阶段开始时，本机自动生成X枚指令标记。",
     "keywords": [KEYWORD_LIST.zh.指令生成X, KEYWORD_LIST.zh.光环],
     "hasImage": true,
-    "containedIn": [{ "box": BOXES.GOF_CORE, "quantityPerBox": 2 }],
+    "containedIn": [{ "box": BOXES.GOF_CORE, "quantityPerBox": 2 },{ "box": BOXES.LAB_GOF_CENTAUR, "quantityPerBox": 1 }],
     "action": [
       {
         "id": "173_A",
@@ -2015,7 +2015,7 @@ export const gofChasis: Part[] = [
     "dodge": 3,
     "electronic": 0,
     "move": 2,
-    "containedIn": [{ "box": BOXES.GOF_JUSTICE, "quantityPerBox": 1 }],
+    "containedIn": [{ "box": BOXES.GOF_JUSTICE, "quantityPerBox": 1 },{ "box": BOXES.LAB_GOF_CENTAUR, "quantityPerBox": 1 }],
     "description": "`不可阻挡：本动作在禁足状态下也可以移动\r\n·异形X：执行本动作时，需要消耗X点链接值。\r\n·推动X：将目标沿本单位面朝方向，强制直线移动X格，然后本单位执行同样的移动。",
     "keywords": [KEYWORD_LIST.zh.异形X, KEYWORD_LIST.zh.不可阻挡, KEYWORD_LIST.zh.推动X],
     "action": [
@@ -2537,7 +2537,7 @@ export const gofLeftHand: Part[] = [
     "description": "",
     "keywords": [KEYWORD_LIST.zh.顺劈, KEYWORD_LIST.zh.毁伤],
     "throwIndex": "ZHLA-304-T",
-    "containedIn": [{ "box": BOXES.GOF_JUSTICE, "quantityPerBox": 1 }],
+    "containedIn": [{ "box": BOXES.GOF_JUSTICE, "quantityPerBox": 1 },{ "box": BOXES.LAB_GOF_CENTAUR, "quantityPerBox": 1 }],
     "action": [
       {
         "id": "ZHLA-304_A",
@@ -3074,7 +3074,7 @@ export const gofRightHand: Part[] = [
     "description": "",
     "keywords": [KEYWORD_LIST.zh.顺劈, KEYWORD_LIST.zh.毁伤],
     "throwIndex": "ZHRA-304-T",
-    "containedIn": [{ "box": BOXES.GOF_JUSTICE, "quantityPerBox": 2 }],
+    "containedIn": [{ "box": BOXES.GOF_JUSTICE, "quantityPerBox": 2 },{ "box": BOXES.LAB_GOF_CENTAUR, "quantityPerBox": 1 }],
     "action": [
       {
         "id": "ZHRA-304_A",
@@ -4452,7 +4452,6 @@ export const rdlLeftHand: Part[] = [
     "electronic": 0,
     "move": 0,
     "description": "",
-    "hasImage": false,
     "containedIn": [{ "box": BOXES.RDL_CORE, "quantityPerBox": 2 }],
     "keywords": [
       KEYWORD_LIST.zh.空手, KEYWORD_LIST.zh.频闪武器
@@ -4911,8 +4910,7 @@ export const rdlLeftHand: Part[] = [
     "electronic": 0,
     "move": 0,
     "description": "",
-    "hasImage": false,
-    "containedIn": [{ "box": BOXES.RDL_CORE, "quantityPerBox": 0 }],
+    "containedIn": [{ "box": BOXES.GAME_PACK, "quantityPerBox": 2 }],
     "keywords": [
       KEYWORD_LIST.zh.空手
     ],
@@ -4992,7 +4990,6 @@ export const rdlRightHand: Part[] = [
     "electronic": 0,
     "move": 0,
     "description": "",
-    "hasImage": false,
     "throwIndex": "28",
     "keywords": [
 
@@ -5012,7 +5009,7 @@ export const rdlRightHand: Part[] = [
     ],
     "projectile": [],
     "isPD": false,
-    "containedIn": [{ "box": BOXES.GAME_PACK, "quantityPerBox": 1 }],
+    "containedIn": [{ "box": BOXES.GAME_PACK, "quantityPerBox": 2 }],
   },
   {
     "id": "028",
@@ -5026,7 +5023,6 @@ export const rdlRightHand: Part[] = [
     "electronic": 0,
     "move": 0,
     "description": "",
-    "hasImage": false,
     "keywords": [
       KEYWORD_LIST.zh.空手
     ],
@@ -6654,7 +6650,6 @@ export const unTorso: Part[] = [
     "move": 0,
     "description": "·曲射：本动作不需要对落点或目标有视线。",
     "keywords": [KEYWORD_LIST.zh.曲射, KEYWORD_LIST.zh.KC装甲],
-    "hasImage": false,
     "action": [
       {
         "id": "093_A",
@@ -6681,7 +6676,7 @@ export const unTorso: Part[] = [
     ],
     "projectile": ["155"],
     "isPD": false,
-    "containedIn": [{ "box": BOXES.GAME_PACK, "quantityPerBox": 1 }],
+    "containedIn": [{ "box": BOXES.GAME_PACK, "quantityPerBox": 2 }],
   },
   {
     "id": "095",
@@ -6696,7 +6691,6 @@ export const unTorso: Part[] = [
     "move": 0,
     "description": "· 静默：执行本动作时不会解除光学迷彩与低特征。",
     "keywords": [KEYWORD_LIST.zh.低特征, KEYWORD_LIST.zh.静默],
-    "hasImage": false,
     "action": [
       {
         "id": "095_A",
@@ -6723,7 +6717,7 @@ export const unTorso: Part[] = [
     ],
     "projectile": [],
     "isPD": false,
-    "containedIn": [{ "box": BOXES.GAME_PACK, "quantityPerBox": 1 }],
+    "containedIn": [{ "box": BOXES.GAME_PACK, "quantityPerBox": 2 }],
   }
 ];
 
@@ -7988,7 +7982,6 @@ export const unBackpack: Part[] = [
     "electronic": 0,
     "move": 0,
     "description": "",
-    "hasImage": false,
     "keywords": [
       {
         "name": "任务"
@@ -8009,7 +8002,7 @@ export const unBackpack: Part[] = [
     ],
     "projectile": [],
     "isPD": false,
-    "containedIn": [{ "box": BOXES.GAME_PACK, "quantityPerBox": 1 }]
+    "containedIn": [{ "box": BOXES.GAME_PACK, "quantityPerBox": 2 }]
   },
   {
     "id": "081",

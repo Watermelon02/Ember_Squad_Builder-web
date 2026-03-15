@@ -4,6 +4,7 @@ import { Pilot } from "../../../data/types";
 import { Button } from "../../radix-ui/button";
 import PilotStatsColumn from "../../custom/PilotStatusColumn";
 import { AnimatePresence, motion } from "framer-motion";
+import { IMAGE_PILOT_VERSION } from "../../../data/resource";
 
 interface PilotPreviewProps {
   pilotId: string;
@@ -72,7 +73,7 @@ export default function PilotPreview({
 
         {/* PILOT IMAGE */}
         {(pilot.hasImage === undefined ) ? <motion.img
-          src={`${imageSrc}/${pilotId}.png`}
+          src={`${imageSrc}/${pilotId}.png?v=${IMAGE_PILOT_VERSION}`}
           alt={pilot.name}
           style={{
             width: "100%",

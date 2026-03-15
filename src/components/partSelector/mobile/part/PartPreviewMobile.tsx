@@ -1,7 +1,7 @@
 import React, { useState, useRef, useEffect } from "react";
 import { Part } from "../../../../data/types";
 import { Button } from "../../../radix-ui/button";
-import { AnimatePresence, motion } from "framer-motion";
+import { IMAGE_PART_THROW_VERSION, IMAGE_PART_VERSION, IMAGE_PROJECTILE_VERSION } from "../../../../data/resource";
 
 interface PartPreviewMobileProps {
   partId: string;
@@ -64,23 +64,15 @@ export default function PartPreviewMobile({
     `}
       </style>
 
-      <AnimatePresence mode="wait">
+      <div>
         {!partId ? (
-          <motion.div
+          <div
             key={part?.id}
-            initial={{ opacity: 0, y: 100 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -100 }}
-            transition={{ duration: 0.2 }}
             style={{ width: "100%", height: "25vw" }}
           />
         ) : (
-          <motion.div
+          <div
             key={part?.id}
-            initial={{ opacity: 0, y: 100, scale: 0.97 }}
-            animate={{ opacity: 1, y: 0, scale: 1 }}
-            exit={{ opacity: 0, y: -100, scale: 0.97 }}
-            transition={{ duration: 0.2 }}
             style={{
               width: "100%",
               display: "flex",
@@ -102,7 +94,7 @@ export default function PartPreviewMobile({
               >
                 <img
                   loading="lazy"
-                  src={`${imageSrc}/${partId}.png`}
+                  src={`${imageSrc}/${partId}.png?v=${IMAGE_PART_VERSION}`}
                   alt="current part"
                   style={{
                     width: "100%",
@@ -141,7 +133,7 @@ export default function PartPreviewMobile({
                 )}
 
                 {showKeyword && part?.keywords && part?.keywords.length > 0 && (
-                  <motion.div
+                  <div
                     style={{
                       position: "absolute",
                       top: "4vh",
@@ -151,9 +143,6 @@ export default function PartPreviewMobile({
                       gap: "0.5vh",
                       zIndex: 20,
                     }}
-                    initial={{ opacity: 0, y: 20 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    exit={{ opacity: 0, y: 20 }}
                   >
                     {part.keywords.map((kw, index) => (
                       <Button
@@ -192,10 +181,7 @@ export default function PartPreviewMobile({
                     ))}
 
                     {activeKeyword && activeKeyword.length > 0 && (
-                      <motion.div
-                        initial={{ opacity: 0, scale: 0.9, y: 5 }}
-                        animate={{ opacity: 1, scale: 1, y: 0 }}
-                        exit={{ opacity: 0, scale: 0.9, y: 5 }}
+                      <div
                         style={{
                           position: "absolute",
                           right: "-31vw",
@@ -222,9 +208,9 @@ export default function PartPreviewMobile({
                           part.keywords.find((kw) => kw.name === activeKeyword)
                             ?.value
                         }
-                      </motion.div>
+                      </div>
                     )}
-                  </motion.div>
+                  </div>
                 )}
 
                 {part && (
@@ -253,7 +239,7 @@ export default function PartPreviewMobile({
                         <div style={{ position: "relative" }}>
                           <img
                             loading="lazy"
-                            src={`${imageSrc}/${part.throwIndex}.png`}
+                            src={`${imageSrc}/${part.throwIndex}.png?v=${IMAGE_PART_THROW_VERSION}`}
                             alt={`throw-${part.throwIndex}`}
                             style={{
                               objectFit: "contain",
@@ -296,7 +282,7 @@ export default function PartPreviewMobile({
                   >
                     <img
                       loading="lazy"
-                      src={`${imageSrc}/${partId}.png`}
+                      src={`${imageSrc}/${partId}.png?v=${IMAGE_PART_VERSION}`}
                       alt="current part"
                       style={{
                         width: "100%",
@@ -341,7 +327,7 @@ export default function PartPreviewMobile({
                     !compareMode &&
                     part?.keywords &&
                     part.keywords.length > 0 && (
-                      <motion.div
+                      <div
                         style={{
                           position: "relative", // 确保弹窗相对于此 div 定位
                           width: "40%",
@@ -352,9 +338,7 @@ export default function PartPreviewMobile({
                           paddingLeft: "1vw",
                           paddingTop: "4vh",
                         }}
-                        initial={{ opacity: 0, y: 20 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        exit={{ opacity: 0, y: 20 }}
+
                       >
                         {part.keywords.map((kw, index) => (
                           <Button
@@ -394,7 +378,7 @@ export default function PartPreviewMobile({
 
                         {/* 弹窗根据 activeKeywordTop 定位，并放置在左侧以防止溢出屏幕 */}
                         {activeKeyword && (
-                          <motion.div
+                          <div
                             initial={{ opacity: 0, scale: 0.9, y: 5 }}
                             animate={{ opacity: 1, scale: 1, y: 0 }}
                             exit={{ opacity: 0, scale: 0.9, y: 5 }}
@@ -425,9 +409,9 @@ export default function PartPreviewMobile({
                                 (kw) => kw.name === activeKeyword
                               )?.value
                             }
-                          </motion.div>
+                          </div>
                         )}
-                      </motion.div>
+                      </div>
                     )}
                 </div>
 
@@ -445,7 +429,7 @@ export default function PartPreviewMobile({
                         <div key={idx} style={{ position: "relative" }}>
                           <img
                             loading="lazy"
-                            src={`${imageSrc}/${proj}.png`}
+                            src={`${imageSrc}/${proj}.png?v=${IMAGE_PROJECTILE_VERSION}`}
                             alt={`projectile-${idx}`}
                             style={{
                               width: "100%",
@@ -467,7 +451,7 @@ export default function PartPreviewMobile({
                         <div style={{ position: "relative" }}>
                           <img
                             loading="lazy"
-                            src={`${imageSrc}/${part.throwIndex}.png`}
+                            src={`${imageSrc}/${part.throwIndex}.png?v=${IMAGE_PART_THROW_VERSION}`}
                             alt={`throw-${part.throwIndex}`}
                             style={{
                               objectFit: "contain",
@@ -483,9 +467,9 @@ export default function PartPreviewMobile({
                 )}
               </div>
             )}
-          </motion.div>
+          </div>
         )}
-      </AnimatePresence>
+      </div>
     </div>
   );
 }
