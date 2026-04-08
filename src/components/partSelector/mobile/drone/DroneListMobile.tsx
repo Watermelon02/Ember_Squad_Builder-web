@@ -38,7 +38,7 @@ const DroneListMobile: React.FC<DroneListMobileProps> = ({
           >
             {/* 背景图层 */}
             {(drone.hasImage === undefined || drone.hasImage) ? <img
-              src={`${tabsrc}/${drone.id}.png`}
+              src={`${tabsrc}/${drone.id}.webp`}
               alt=""
               className="absolute right-0 top-0 w-auto h-full object-contain pointer-events-none"
               style={{ opacity: 0.8 }}
@@ -71,7 +71,7 @@ const DroneListMobile: React.FC<DroneListMobileProps> = ({
                     <div className="flex items-center gap-1">
                       <img
                         loading="lazy"
-                        src={`${tabsrc}/icon_armor.png`}
+                        src={`${tabsrc}/icon_armor.webp`}
                         alt="armor"
                         className="w-4 h-4"
                       />
@@ -127,7 +127,7 @@ const DroneListMobile: React.FC<DroneListMobileProps> = ({
                       <div className="flex items-center gap-1">
                         <img
                           loading="lazy"
-                          src={`${tabsrc}/${attr.icon}.png`}
+                          src={`${tabsrc}/${attr.icon}.webp`}
                           alt={attr.label}
                           className="w-4 h-4"
                         />

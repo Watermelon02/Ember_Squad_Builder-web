@@ -88,7 +88,7 @@ export default function App() {
     return stored !== null ? JSON.parse(stored) : true;
   });
   //是否显示所属扩展包
-    const [showSourceBox, setShowSourceBox] = useState<boolean>(() => {
+  const [showSourceBox, setShowSourceBox] = useState<boolean>(() => {
     // 初始化时从 localStorage 获取
     const stored = localStorage.getItem("showSourceBox");
     return stored !== null ? JSON.parse(stored) : true;
@@ -141,6 +141,19 @@ export default function App() {
   const [lastSelectDrone, setLastSelectDrone] = useState<Drone>()
   const [lastSelectTacticCard, setLastSelectTacticCard] = useState<TacticCard>()
 
+  //比赛弹窗
+  const showCompetitionDialog =true;
+  const BANNER_ID = 'competition_v2';
+  const [competitionDialogOpen, setCompetitionDialogOpen] = useState(() => {
+    return localStorage.getItem(`has_closed_${BANNER_ID}`) !== 'true';
+  });
+  const handleCompetitionDialogOpenChange = (open: boolean) => {
+    setCompetitionDialogOpen(open);
+    if (!open) {
+      localStorage.setItem(`has_closed_${BANNER_ID}`, 'true');
+    }
+  };
+
 
   useEffect(() => {
     if (!sessionStorage.getItem('sw_cleared')) {
@@ -184,7 +197,7 @@ export default function App() {
 
   if (isMobileOrTablet === null) return null; // 或者显示 loading
 
-    // 当 compareMode 变化时，自动写入 localStorage
+  // 当 compareMode 变化时，自动写入 localStorage
   useEffect(() => {
     localStorage.setItem("showSourceBox", JSON.stringify(compareMode));
   }, [showSourceBox]);
@@ -270,7 +283,7 @@ export default function App() {
   if (!data) return <div>加载中...</div>;
 
   const {
-    gofBackpack, gofChasis, gofDrones, gofLeftHand, gofPilots, gofRightHand, gofTorso,gofProjectiles,
+    gofBackpack, gofChasis, gofDrones, gofLeftHand, gofPilots, gofRightHand, gofTorso, gofProjectiles,
     pdBackpack, pdChasis, pdDrones, pdLeftHand, pdPilots, pdRightHand, pdTorso, pdProjectiles,
     rdlBackpack, rdlChasis, rdlDrones, rdlLeftHand, rdlPilots, rdlRightHand, rdlTorso,
     unBackpack, unChasis, unDrones, unLeftHand, unPilots, unRightHand, unTorso, allTacticCards
@@ -829,6 +842,9 @@ export default function App() {
                 championMode={isChampionMode}
                 onChampionModeChange={isChampion => setChampionMode(isChampion)}
                 onReorderTeam={handleReorderTeam}
+                competitionDialogOpen={competitionDialogOpen}
+                onOpenCompetitionDialog={() => setCompetitionDialogOpen(true)}
+                showCompetitionDialog={showCompetitionDialog}
               />
             </div>
 
@@ -873,6 +889,9 @@ export default function App() {
             animationCardMode={animationCardMode}
             setAnimationCardMode={setAnimationCardMode}
             onUpdateInventory={setInventory}
+            competitionDialogOpen={competitionDialogOpen}
+            setCompetitionDialogOpen={handleCompetitionDialogOpenChange}
+            showCompetitionDialog={showCompetitionDialog}
           />}
 
           {isMobileOrTablet && <MechListMobile

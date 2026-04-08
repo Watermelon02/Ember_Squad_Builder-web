@@ -38,6 +38,8 @@ export const useMechListLogic = ({
   const [cPartType, setCPartType] = useState("");
   const [currentTab, setCurrentTab] = useState("mechs");
   const [TTSDialogOpen, setTTSDialogOpen] = useState(false);
+  
+
   const [boxListDialogOpen, setBoxListDialogOpen] = useState(false);
   const [script, setScript] = useState("");
   const exportRef = useRef<HTMLDivElement>(null);
@@ -108,6 +110,8 @@ export const useMechListLogic = ({
       setIsExportingTTS(false);
     }
   };
+
+  
 
   const showToast = (message: string) => {
     const msg = document.createElement("div");

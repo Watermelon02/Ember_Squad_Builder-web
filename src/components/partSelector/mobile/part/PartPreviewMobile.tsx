@@ -94,7 +94,7 @@ export default function PartPreviewMobile({
               >
                 <img
                   loading="lazy"
-                  src={`${imageSrc}/${partId}.png?v=${IMAGE_PART_VERSION}`}
+                  src={`${imageSrc}/${partId}.webp?v=${IMAGE_PART_VERSION}`}
                   alt="current part"
                   style={{
                     width: "100%",
@@ -221,7 +221,7 @@ export default function PartPreviewMobile({
                         <div key={idx} style={{ position: "relative" }}>
                           <img
                             loading="lazy"
-                            src={`${imageSrc}/${proj}.png`}
+                            src={`${imageSrc}/${proj}.webp`}
                             alt={`projectile-${idx}`}
                             style={{
                               width: "100%",
@@ -239,7 +239,7 @@ export default function PartPreviewMobile({
                         <div style={{ position: "relative" }}>
                           <img
                             loading="lazy"
-                            src={`${imageSrc}/${part.throwIndex}.png?v=${IMAGE_PART_THROW_VERSION}`}
+                            src={`${imageSrc}/${part.throwIndex}.webp?v=${IMAGE_PART_THROW_VERSION}`}
                             alt={`throw-${part.throwIndex}`}
                             style={{
                               objectFit: "contain",
@@ -282,7 +282,7 @@ export default function PartPreviewMobile({
                   >
                     <img
                       loading="lazy"
-                      src={`${imageSrc}/${partId}.png?v=${IMAGE_PART_VERSION}`}
+                      src={`${imageSrc}/${partId}.webp?v=${IMAGE_PART_VERSION}`}
                       alt="current part"
                       style={{
                         width: "100%",
@@ -429,7 +429,7 @@ export default function PartPreviewMobile({
                         <div key={idx} style={{ position: "relative" }}>
                           <img
                             loading="lazy"
-                            src={`${imageSrc}/${proj}.png?v=${IMAGE_PROJECTILE_VERSION}`}
+                            src={`${imageSrc}/${proj}.webp?v=${IMAGE_PROJECTILE_VERSION}`}
                             alt={`projectile-${idx}`}
                             style={{
                               width: "100%",
@@ -451,7 +451,7 @@ export default function PartPreviewMobile({
                         <div style={{ position: "relative" }}>
                           <img
                             loading="lazy"
-                            src={`${imageSrc}/${part.throwIndex}.png?v=${IMAGE_PART_THROW_VERSION}`}
+                            src={`${imageSrc}/${part.throwIndex}.webp?v=${IMAGE_PART_THROW_VERSION}`}
                             alt={`throw-${part.throwIndex}`}
                             style={{
                               objectFit: "contain",

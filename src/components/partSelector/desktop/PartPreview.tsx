@@ -136,7 +136,7 @@ export default function PartPreview({
               <div style={{ position: "relative", flexShrink: 0 }}>
                 {(faction !== "GOF" && (part.hasImage === undefined || part.hasImage) || !checkWhiteDwarf(part.id)) ? (
                   <img
-                    src={`${imageSrc}/${partId}.png?v=${IMAGE_PART_VERSION}`}
+                    src={`${imageSrc}/${partId}.webp?v=${IMAGE_PART_VERSION}`}
                     alt="current part"
                     style={{
                       maxWidth: "25vh",
@@ -345,7 +345,6 @@ export default function PartPreview({
                     {part.projectile?.map((proj, idx) => {
                       const isPd = (part.isPD === undefined || !part.isPD) ? false : true;
                       const currentProjectile = getProjectileByFaction(isPd).find((value) => {
-                        console.log(value.name)
                         if (value.id === proj) return value;
                       });
 
@@ -356,7 +355,7 @@ export default function PartPreview({
 
                           {shouldShowImage ? (
                             <img
-                              src={`${imageSrc}/${proj}.png?v=${IMAGE_PROJECTILE_VERSION}`}
+                              src={`${imageSrc}/${proj}.webp?v=${IMAGE_PROJECTILE_VERSION}`}
                               alt={`projectile-${idx}`}
                               style={{
                                 width: "20vw",
@@ -365,7 +364,7 @@ export default function PartPreview({
                               }}
                               onMouseMove={(e) => {
                                 handleMouseMove(e);
-                                setLensImage(`${imageSrc}/${proj}.png`);
+                                setLensImage(`${imageSrc}/${proj}.webp`);
                               }}
                               onMouseEnter={() => setLensVisible(true)}
                               onMouseLeave={() => setLensVisible(false)}
@@ -388,7 +387,7 @@ export default function PartPreview({
                   {part.throwIndex && (
                     <div style={{ position: "relative" }}>
                       {faction !== "GOF" && (part.hasImage === undefined || part.hasImage) ? <img
-                        src={`${imageSrc}/${part.throwIndex}.png?v=${IMAGE_PART_THROW_VERSION}`}
+                        src={`${imageSrc}/${part.throwIndex}.webp?v=${IMAGE_PART_THROW_VERSION}`}
                         alt={`throw-${part.throwIndex}`}
                         style={{
                           objectFit: "contain",

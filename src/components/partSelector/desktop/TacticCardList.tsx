@@ -28,7 +28,7 @@ const TacticCardListMobile: React.FC<TacticCardListMobileProps> = ({
               className="relative cursor-pointer hover:bg-accent/50 transition shadow-sm overflow-hidden"
               onClick={() => onSelectTacticCard(tacticCard)}
               onMouseEnter={(e) => {
-                onSetHoverImg(`${imgsrc}/${tacticCard.id}.png`);
+                onSetHoverImg(`${imgsrc}/${tacticCard.id}.webp`);
                 e.currentTarget.style.transform = 'scale(1.05)';
                 e.currentTarget.style.boxShadow = '0 6px 10px rgba(0,0,0,0.1)';
               }}
@@ -42,7 +42,7 @@ const TacticCardListMobile: React.FC<TacticCardListMobileProps> = ({
               {/* 图片容器 */}
               <div className="relative flex justify-center items-center h-[200px] w-full">
                 <img
-                  src={`${imgsrc}/${tacticCard.id}.png`}
+                  src={`${imgsrc}/${tacticCard.id}.webp`}
                   alt={tacticCard.name}
                   className="max-h-full w-auto pointer-events-none transition-transform duration-300"
                   loading="lazy"

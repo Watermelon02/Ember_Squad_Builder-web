@@ -1,6 +1,5 @@
-import React, { useCallback, useState } from 'react';
-import { Virtuoso } from 'react-virtuoso'; // 1. 引入 Virtuoso
-import { Card } from '../../../radix-ui/card';
+import React, { useCallback, useState, useMemo } from 'react';
+import { Virtuoso } from 'react-virtuoso';
 import { Badge } from '../../../radix-ui/badge';
 import { SelectableCard } from '../../../custom/SelectableCard';
 import { TAB_PILOT_VERSION } from '../../../../data/resource';
@@ -16,72 +15,91 @@ interface PilotListMobileProps {
     selectedId?: string | null;
 }
 
+// ✅ 修复1：属性图标列表提到模块顶层
+//    原代码在每次渲染时都在组件内部重新创建这个数组，浪费内存
+const PILOT_ATTR_ICONS = [
+    'icon_swift',
+    'icon_melee',
+    'icon_projectile',
+    'icon_firing',
+    'icon_moving',
+    'icon_tactic',
+    'icon_LV'
+] as const;
+
+// ✅ 修复2：对应的 pilot 属性 key 列表，与图标一一对应
+const PILOT_ATTR_KEYS = [
+    'swift',
+    'melee',
+    'projectile',
+    'firing',
+    'moving',
+    'tactic',
+    'LV'
+] as const;
+
+// ✅ 修复3：textShadow 样式对象提到顶层，避免每次渲染创建新对象
+const TRAIT_TEXT_STYLE: React.CSSProperties = {
+    color: 'white',
+    textShadow: '-1px -1px 1px #000, 1px -1px 1px #000, -1px 1px 1px #000, 1px 1px 1px #000',
+};
+
 const MemoizedPilotCard = React.memo(({
     pilot,
     isSelected,
     onSelect,
     tabsrc,
-    imgsrc,
     translations,
-    lastScore
+    lastScore,
 }: any) => {
+    // ✅ 修复4：属性值数组用 useMemo 缓存
+    //    依赖项只有 pilot 各属性，不变则跳过重建
+    const attrs = useMemo(() =>
+        PILOT_ATTR_KEYS.map((key, i) => ({
+            value: pilot[key],
+            icon: PILOT_ATTR_ICONS[i],
+        })),
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+        [pilot.swift, pilot.melee, pilot.projectile, pilot.firing, pilot.moving, pilot.tactic]
+    );
+
     return (
-        /* Virtuoso 每一行建议包裹一层 div 处理间距 */
         <div style={{ paddingBottom: '12px', paddingLeft: '2vw', paddingRight: '2vw' }}>
             <SelectableCard
                 selected={isSelected}
                 className="p-4 cursor-pointer relative overflow-hidden shadow-sm"
                 onClick={() => onSelect(pilot)}
             >
-                {/* 背景图层 - 增加 decoding="async" 减少滚动阻塞 */}
                 <img
-                    src={`${tabsrc}/${pilot.id}.png?v=${TAB_PILOT_VERSION}`}
+                    src={`${tabsrc}/${pilot.id}.webp?v=${TAB_PILOT_VERSION}`}
                     alt=""
                     className="absolute right-0 top-0 w-auto h-full object-contain pointer-events-none"
                     style={{ opacity: 0.4 }}
-                    loading='lazy'
+                    loading="lazy"
                     decoding="async"
                 />
 
-                {/* 文字内容层 */}
                 <div className="relative z-10 space-y-2">
-                    {/* 名称和分数 */}
                     <div className="flex items-center justify-between">
                         <h4 className="font-medium">{pilot.name}</h4>
                         <Badge variant="outline" className="relative">
                             {pilot.score}
                             {pilot.score !== lastScore && (
-                                <span
-                                    style={{
-                                        position: 'absolute',
-                                        top: 0,
-                                        right: 2,
-                                        fontSize: 8,
-                                        opacity: 0.5,
-                                    }}
-                                >
+                                <span style={{ position: 'absolute', top: 0, right: 2, fontSize: 8, opacity: 0.5 }}>
                                     {pilot.score > lastScore ? '▲' : '▼'}
                                 </span>
                             )}
                         </Badge>
                     </div>
 
-                    {/* 驾驶员属性 */}
                     <div className="flex items-stretch gap-1 w-full">
-                        {[
-                            { value: pilot.swift, icon: 'icon_swift' },
-                            { value: pilot.melee, icon: 'icon_melee' },
-                            { value: pilot.projectile, icon: 'icon_projectile' },
-                            { value: pilot.firing, icon: 'icon_firing' },
-                            { value: pilot.moving, icon: 'icon_moving' },
-                            { value: pilot.tactic, icon: 'icon_tactic' },
-                        ].map(({ value, icon }) => (
+                        {attrs.map(({ value, icon }) => (
                             <div
                                 key={icon}
                                 className="flex-1 flex flex-col items-center justify-center h-16 border rounded-md bg-background/50"
                             >
                                 <img
-                                    src={`${tabsrc}/${icon}.png`}
+                                    src={`${tabsrc}/${icon}.webp`}
                                     alt={icon}
                                     width={30}
                                     height={30}
@@ -94,24 +112,11 @@ const MemoizedPilotCard = React.memo(({
                         ))}
                     </div>
 
-                    {/* 特性描述 - 优化点：使用 WebkitTextStroke 代替多重 textShadow */}
+                    {/* ✅ 修复3 应用：直接复用顶层常量，不再每次创建新对象 */}
                     {pilot.traitDescription && (
-                        <div className="space-y-2">
-                            <p
-                                className="text-sm text-muted-foreground"
-                                style={{
-                                    color: 'white',
-                                    textShadow: `
-          -1px -1px 1px #000,
-           1px -1px 1px #000,
-          -1px  1px 1px #000,
-           1px  1px 1px #000
-        `,
-                                }}
-                            >
-                                {pilot.traitDescription}
-                            </p>
-                        </div>
+                        <p className="text-sm text-muted-foreground" style={TRAIT_TEXT_STYLE}>
+                            {pilot.traitDescription}
+                        </p>
                     )}
                 </div>
             </SelectableCard>
@@ -133,11 +138,9 @@ const PilotListMobile: React.FC<PilotListMobileProps> = ({
     const handleSelect = useCallback((pilot: any) => {
         onSelectPilot(pilot);
         setSelectedPilotId(pilot.id);
-        // 如果需要切换大图预览，取消下面注释
-        // onSetHoverImg(`${imgsrc}/${pilot.id}.png`);
-    }, [onSelectPilot, onSetHoverImg, imgsrc]);
+    }, [onSelectPilot]);
+    // ✅ 修复5：移除无用的 onSetHoverImg / imgsrc 依赖，它们在函数体内根本没有被使用
 
-    // 渲染空状态
     if (filteredPilots.length === 0) {
         return (
             <div className="text-center text-muted-foreground py-8">
@@ -147,19 +150,18 @@ const PilotListMobile: React.FC<PilotListMobileProps> = ({
     }
 
     return (
-        /* 2. 使用 Virtuoso 替换原有的 div.map */
         <Virtuoso
             style={{ height: '60vh', width: '100%' }}
             data={filteredPilots}
-            overscan={window.innerHeight * 0.8}
+            overscan={400}  // ✅ 修复6：固定像素值，避免每次读取 window.innerHeight
             itemContent={(index, pilot) => (
                 <MemoizedPilotCard
-                    key={pilot.id}
+                    // ✅ 修复7：Virtuoso 的 itemContent 已通过 index 管理 key，
+                    //    内部组件不需要再传 key，传了也会被忽略
                     pilot={pilot}
                     isSelected={selectedPilotId === pilot.id}
                     onSelect={handleSelect}
                     tabsrc={tabsrc}
-                    imgsrc={imgsrc}
                     translations={translations}
                     lastScore={lastScore}
                 />

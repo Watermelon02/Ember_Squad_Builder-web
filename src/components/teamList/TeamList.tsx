@@ -15,6 +15,7 @@ import { DroneImage } from '../custom/DroneImage';
 import { COLOR_TEXT_GREY } from '../../styles/color';
 import extractChunks from 'png-chunks-extract';
 import { QQGroupButton } from '../custom/QQGroupButton';
+import { TeamCard } from './TeamCard';
 
 interface TeamListProps {
   teams: Team[];
@@ -31,6 +32,9 @@ interface TeamListProps {
   tabsrc: string;
   championMode: boolean;
   onChampionModeChange: (isChampion: boolean) => void;
+  competitionDialogOpen: boolean;
+  onOpenCompetitionDialog: () => void;
+  showCompetitionDialog: boolean;
 }
 
 const LIST_GAP = 16;
@@ -46,7 +50,7 @@ export function TeamList({
   onReorderTeam,
   translations,
   factionNames, lang, tabsrc, championMode,
-  onChampionModeChange
+  onChampionModeChange, competitionDialogOpen, onOpenCompetitionDialog, showCompetitionDialog
 }: TeamListProps) {
   const [isDialogOpen, setIsDialogOpen] = useState(false);
   const [editingTeamId, setEditingTeamId] = useState<string>('');
@@ -105,20 +109,29 @@ export function TeamList({
   const gap = 4;
 
   const [itemsPerRow, setItemsPerRow] = useState(1);
-  const containerRef = useRef<HTMLDivElement>(null);
+const measureRef = React.useCallback((node: HTMLDivElement | null) => {
+  if (node !== null) {
+    const update = () => {
+      // 1. 获取容器的总宽度
+      const containerWidth = node.offsetWidth;
+      
+      // 2. 减去 TeamCard 的左右 padding (1rem * 2 = 32px) 
+      // 以及左右边框 (1px * 2 = 2px)
+      const horizontalPadding = 34; 
+      const availableWidth = containerWidth - horizontalPadding;
 
-  useEffect(() => {
-    const updateItemsPerRow = () => {
-      if (!containerRef.current) return;
-      const containerWidth = containerRef.current.offsetWidth;
-      const perRow = Math.floor((containerWidth + gap) / (itemSize + gap));
+      // 3. 使用剩余的可用宽度计算
+      const perRow = Math.floor((availableWidth + gap) / (itemSize + gap));
+      
+      console.log("可用宽度:", availableWidth, "每行实际可容纳:", perRow);
       setItemsPerRow(perRow || 1);
     };
 
-    updateItemsPerRow();
-    window.addEventListener("resize", updateItemsPerRow);
-    return () => window.removeEventListener("resize", updateItemsPerRow);
-  }, []);
+    update();
+    const resizeObserver = new ResizeObserver(() => update());
+    resizeObserver.observe(node);
+  }
+}, [gap, itemSize]);
 
 
   return (
@@ -138,6 +151,30 @@ export function TeamList({
         }}
       >
         <h2 style={{ color: COLOR_TEXT_GREY, fontSize: "2vh", fontWeight: "600" }}>{translations.t3}</h2>
+
+        {/* 比赛报名按钮 */}
+        {showCompetitionDialog && lang === "zh" &&
+          <motion.div
+            onClick={onOpenCompetitionDialog}
+            style={{
+              display: "flex",
+              alignItems: "center",
+              gap: "4px",
+              padding: "2px 10px",
+              borderRadius: "999px",
+              background: "rgba(239, 159, 39, 0.15)", // 橙黄色调呼应比赛
+              border: "1px solid rgba(239, 159, 39, 0.4)",
+              cursor: "pointer",
+              color: "#633806",
+            }}
+            whileHover={{ scale: 1.05, background: "rgba(239, 159, 39, 0.25)" }}
+            whileTap={{ scale: 0.95 }}
+          >
+            <Trophy className="w-3 h-3" style={{ color: "#EF9F27" }} />
+            <span style={{ fontSize: "12px", fontWeight: 600 }}>线上比赛</span>
+          </motion.div>}
+
+
 
         <Card
           className="flex flex-row-reverse gap-0 "
@@ -325,17 +362,16 @@ export function TeamList({
       </div>
 
       {/* 小队列表 - 使用 DragDropContext 包裹 */}
+      {/* 小队列表 */}
       <DragDropContext onDragEnd={handleDragEnd}>
-        {/* === 关键修改：添加 direction="vertical" === */}
         <Droppable droppableId="teamList" direction="vertical">
-          {(provided, snapshot) => (
+          {(provided) => (
             <div
               {...provided.droppableProps}
-              ref={provided.innerRef}
+              ref={measureRef}
               style={{
                 flex: 1,
                 overflowY: 'auto',
-                WebkitOverflowScrolling: 'touch',
                 display: 'flex',
                 flexDirection: 'column',
                 gap: LIST_GAP,
@@ -345,191 +381,27 @@ export function TeamList({
             >
               {teams.map((team, index) => (
                 <Draggable key={team.id} draggableId={team.id} index={index}>
-                  {(provided, snapshot) => (
-                    <div
-                      ref={provided.innerRef}
-                      {...provided.draggableProps}
-                      {...provided.dragHandleProps}
-                      style={{
-                        userSelect: 'none',
-                        ...provided.draggableProps.style,
-                        flexShrink: 0,
-                        borderRadius: '16px',
-                        overflow: 'hidden',
-                        backdropFilter: 'blur(16px)',
-                        WebkitBackdropFilter: 'blur(16px)',
-                        backgroundColor: 'rgba(255,255,255,0.3)',
-                        border: '1px solid rgba(255,255,255,0.15)',
-                        cursor: 'grab',
-                        boxShadow: selectedTeamId === team.id
-                          ? `0 4px 12px rgba(0,0,0,0.2),
-           0 0 12px ${FACTION_COLORS[team.faction]}88,
-           0 0 24px ${FACTION_COLORS[team.faction]}44`
-                          : (snapshot.isDragging ? "0 15px 30px rgba(0,0,0,0.3)" : "0 2px 6px rgba(0,0,0,0.1)"),
-                        transition: 'box-shadow 0.3s, transform 0.2s',
-                        padding: '0.5rem 1rem',
-                      }}
-                      onClick={() => onSelectTeam(team.id)}
-                    >
-                      {/* 内部内容 (保持不变) */}
-                      <div className="space-y-2">
-                        {/* 标题行 */}
-                        <div className="flex items-center justify-between">
-                          <div className="flex items-center gap-2">
-                            <Badge
-                              style={{
-                                background: `linear-gradient(to right, ${FACTION_COLORS[team.faction]}, ${FACTION_COLORS[team.faction]}33)`,
-                                color: "white",
-                                border: "none",
-                                borderRadius: "8px",
-                                padding: "0.25rem 0.5rem",
-                                fontWeight: 600,
-                                boxShadow:
-                                  selectedTeamId === team.id
-                                    ? `0 4px 12px rgba(0,0,0,0.2),
-                     0 0 12px ${FACTION_COLORS[team.faction]}88,
-                     0 0 24px ${FACTION_COLORS[team.faction]}44`
-                                    : "0 2px 6px rgba(0,0,0,0.1)",
-                                cursor: "default",
-                                transition: "box-shadow 0.3s, transform 0.2s",
-                                display: "inline-block",
-                              }}
-                              onMouseEnter={e => {
-                                const badge = e.currentTarget as HTMLSpanElement;
-                                badge.style.transform = "translateY(-1px)";
-                                badge.style.boxShadow =
-                                  `0 4px 12px rgba(0,0,0,0.2),
-                 0 0 12px ${FACTION_COLORS[team.faction]}88,
-                 0 0 24px ${FACTION_COLORS[team.faction]}44`;
-                              }}
-                              onMouseLeave={e => {
-                                const badge = e.currentTarget as HTMLSpanElement;
-                                badge.style.transform = "translateY(0)";
-                                badge.style.boxShadow =
-                                  selectedTeamId === team.id
-                                    ? `0 4px 12px rgba(0,0,0,0.2),
-                     0 0 12px ${FACTION_COLORS[team.faction]}88,
-                     0 0 24px ${FACTION_COLORS[team.faction]}44`
-                                    : "0 2px 6px rgba(0,0,0,0.1)";
-                              }}
-                            >
-                              {factionNames[team.faction]}
-                            </Badge>
-
-                            <TeamEligibility team={team} translations={translations} />
-
-                            {editingTeamId === team.id ? (
-                              <Input
-                                value={team.name}
-                                onChange={(e) => onUpdateTeam(team.id, { name: e.target.value })}
-                                onBlur={() => setEditingTeamId('')}
-                                onKeyDown={(e) => {
-                                  if (e.key === 'Enter') setEditingTeamId('');
-                                }}
-                                autoFocus
-                                onClick={(e) => e.stopPropagation()}
-                                style={{ color: 'gray' }}
-                              />
-                            ) : (
-                              <span
-                                onDoubleClick={(e) => {
-                                  e.stopPropagation();
-                                  setEditingTeamId(team.id);
-                                }}
-                                style={{ color: 'gray', fontWeight: 500 }}
-                              >
-                                {team.name || "1"}
-                              </span>
-                            )}
-                          </div>
-                        </div>
-
-                        {/* 数据行 */}
-                        <div className="grid grid-cols-5 gap-2 text-center">
-                          {[
-                            { label: translations.t7, value: team.totalScore, highlight: team.totalScore > 900 },
-                            { label: translations.t8, value: team.mechCount },
-                            { label: translations.t9, value: team.largeDroneCount },
-                            { label: translations.t10, value: team.mediumDroneCount },
-                            { label: translations.t11, value: team.smallDroneCount },
-                          ].map((stat, idx) => (
-                            <div key={idx}>
-                              <div style={{ color: 'gray', fontSize: '0.875rem' }}>{stat.label}</div>
-                              <AnimatePresence mode="popLayout">
-                                <motion.div
-                                  key={stat.value}
-                                  initial={{ scale: 0.9, y: 5, opacity: 0 }}
-                                  animate={{ scale: 1, y: 0, opacity: 1 }}
-                                  exit={{ scale: 0.9, y: -5, opacity: 0 }}
-                                  transition={{ duration: 0.3, type: "spring", stiffness: 300, damping: 20 }}
-                                  style={{ color: stat.highlight ? '#dc2626' : 'gray' }}
-                                >
-                                  {stat.value}
-                                </motion.div>
-                              </AnimatePresence>
-                            </div>
-                          ))}
-                        </div>
-
-                        {/* Mech + Drone 显示 */}
-                        <div
-                          ref={containerRef}
-                          style={{
-                            display: 'flex',
-                            flexWrap: 'wrap',
-                            gap: `${gap}px`,
-                          }}
-                        >
-                          <AnimatePresence mode="popLayout">
-                            {team.mechs.map((mech, index) => (
-                              <motion.div
-                                key={`mech-${mech.id ?? index}`}
-                                initial={{ opacity: 0, scale: 0.8, y: -10 }}
-                                animate={{ opacity: 1, scale: 1, y: 0 }}
-                                exit={{ opacity: 0, scale: 0.8, y: 10 }}
-                                transition={{ duration: 0.2 }}
-                              >
-                                <MechImage mech={mech} tabsrc={tabsrc} translation={translations} />
-                              </motion.div>
-                            ))}
-
-                            {team.drones.map((drone, index) => (
-                              <motion.div
-                                key={`drone-${drone.id}-${index}`}
-                                initial={{ opacity: 0, scale: 0.8, y: -10 }}
-                                animate={{ opacity: 1, scale: 1, y: 0 }}
-                                exit={{ opacity: 0, scale: 0.8, y: 10 }}
-                                transition={{ duration: 0.2 }}
-                              >
-                                <DroneImage drone={drone} tabsrc={tabsrc} />
-                              </motion.div>
-                            ))}
-                          </AnimatePresence>
-
-                          {/* 占位条纹填满一行 */}
-                          {(() => {
-                            const totalItems = team.mechs.length + team.drones.length;
-                            const remainder = totalItems % itemsPerRow;
-                            const placeholders = remainder === 0 ? 0 : itemsPerRow - remainder;
-                            return Array.from({ length: placeholders }).map((_, idx) => (
-                              <div
-                                key={`placeholder-${idx}`}
-                                style={{
-                                  width: `${itemSize}px`,
-                                  height: `${itemSize}px`,
-                                  borderRadius: '8px',
-                                  backgroundImage: 'repeating-linear-gradient(45deg, #eee, #eee 4px, #ddd 4px, #ddd 8px)',
-                                }}
-                              />
-                            ));
-                          })()}
-                        </div>
-                      </div>
-                    </div>
+                  {(p, s) => (
+                    <TeamCard
+                      team={team}
+                      index={index}
+                      provided={p}
+                      snapshot={s}
+                      isSelected={selectedTeamId === team.id}
+                      isEditing={editingTeamId === team.id}
+                      onSelect={onSelectTeam}
+                      onUpdateName={(id, name) => onUpdateTeam(id, { name })}
+                      setEditingId={setEditingTeamId}
+                      translations={translations}
+                      factionNames={factionNames}
+                      tabsrc={tabsrc}
+                      itemsPerRow={itemsPerRow}
+                      itemSize={itemSize}
+                      gap={gap}
+                    />
                   )}
                 </Draggable>
               ))}
-
               {provided.placeholder}
             </div>
           )}
@@ -589,6 +461,6 @@ export function TeamList({
           </div>
         </DialogContent>
       </Dialog>
-    </div>
+    </div >
   );
 }

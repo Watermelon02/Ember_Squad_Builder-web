@@ -48,7 +48,7 @@ export default function TacticCardPreview({
          <div key={`last-${tacticCardId}`} style={{ width: "100%" }}>
            {/* 主图 */}
            <img
-             src={`${imageSrc}/${tacticCardId}.png`}
+             src={`${imageSrc}/${tacticCardId}.webp`}
              alt="current part"
              style={{
                width: "100%",

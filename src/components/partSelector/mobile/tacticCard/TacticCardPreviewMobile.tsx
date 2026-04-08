@@ -55,7 +55,7 @@ export default function TacticCardPreviewMobile({
           >
             {/* 主图 */}
             <img
-              src={`${imageSrc}/${tacticCardId}.png`}
+              src={`${imageSrc}/${tacticCardId}.webp`}
               alt="current part"
               style={{
                 display: "block",

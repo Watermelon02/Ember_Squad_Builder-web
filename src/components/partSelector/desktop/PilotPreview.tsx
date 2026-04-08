@@ -73,7 +73,7 @@ export default function PilotPreview({
 
         {/* PILOT IMAGE */}
         {(pilot.hasImage === undefined ) ? <motion.img
-          src={`${imageSrc}/${pilotId}.png?v=${IMAGE_PILOT_VERSION}`}
+          src={`${imageSrc}/${pilotId}.webp?v=${IMAGE_PILOT_VERSION}`}
           alt={pilot.name}
           style={{
             width: "100%",

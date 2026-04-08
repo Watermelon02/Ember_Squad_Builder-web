@@ -60,91 +60,76 @@ const ListPanelMobile: React.FC<ListPanelMobileProps> = ({
           zIndex: 10,
         }}
       >
-        {/* 搜索框和排序下拉框 */}
-        <div className="flex space-x-2 items-center">
-          <input
-            type="text"
-            placeholder={translations.t41}
-            value={searchQuery}
-            onChange={(e) => setSearchQuery(e.target.value)}
-            style={{
-              flex: 1,
-              padding: '0.5rem',
-              borderRadius: '8px',
-              border: '1px solid rgba(0, 0, 0, 0.1)',
-              backgroundColor: 'rgba(255, 255, 255)',
-              color: 'black',
-            }}
-          />
+       {/* 搜索框 + 排序：独立一行，搜索框弹性填满，排序固定宽度 */}
+<div className="grid gap-2" style={{ gridTemplateColumns: '1fr auto' }}>
+  <input
+    type="text"
+    placeholder={translations.t35}
+    value={searchQuery}
+    onChange={(e) => setSearchQuery(e.target.value)}
+    style={{
+      height: 34,
+      padding: '0 10px',
+      borderRadius: 8,
+      border: '0.5px solid rgba(0,0,0,0.15)',
+      backgroundColor: 'rgba(0,0,0,0.04)',
+      fontSize: 13,
+      color: 'inherit',
+    }}
+  />
+  <Select value={sortOrder} onValueChange={setSortOrder as (value: string) => void}>
+    <SelectTrigger
+      style={{ width: 110, height: 34, borderRadius: 8,
+               border: '0.5px solid rgba(0,0,0,0.15)',
+               backgroundColor: 'rgba(0,0,0,0.04)', fontSize: 13 }}>
+      <SelectValue placeholder={translations.t42} />
+    </SelectTrigger>
+    <SelectContent>
+      <SelectItem value="score_desc">{translations.t37}</SelectItem>
+      <SelectItem value="score_asc">{translations.t38}</SelectItem>
+    </SelectContent>
+  </Select>
+</div>
 
-          <Select value={sortOrder} onValueChange={setSortOrder as (value: string) => void}>
-            <SelectTrigger
-              className="w-[100px] flex-shrink-0"
-              style={{
-                borderRadius: '8px',
-                border: '1px solid rgba(0, 0, 0, 0.1)',
-                backgroundColor: 'rgba(255, 255, 255)',
-              }}
-            >
-              <SelectValue placeholder={translations.t42} />
-            </SelectTrigger>
-            <SelectContent>
-              <SelectItem value="score_desc">{translations.t37}</SelectItem>
-              <SelectItem value="score_asc">{translations.t38}</SelectItem>
-            </SelectContent>
-          </Select>
-        </div>
-
-        {/* 额外过滤选项 */}
-        <div className="flex flex-wrap gap-x-4 gap-y-2 text-gray-700">
-
-          <div className="flex items-center space-x-2">
-            <input
-              type="checkbox"
-              id="show-hover-img"
-              checked={showHoverImg}
-              className="h-4 w-4"
-              onChange={(e) => onSetShowHoverImg(e.target.checked)}
-              style={{ accentColor: '#718096' }}
-            />
-            <label htmlFor="show-hover-img" className="text-sm font-medium">
-              {translations.t92}
-            </label>
-          </div>
-
-
-          {showKeyword !== undefined && (
-            <div className="flex items-center space-x-2">
-              <input
-                type="checkbox"
-                id="show-keyword"
-                checked={showKeyword}
-                className="h-4 w-4"
-                onChange={(e) => {
-                  if (onSetShowKeyword !== undefined) onSetShowKeyword(e.target.checked);
-                }}
-                style={{ accentColor: '#718096' }}
-              />
-              <label htmlFor="show-keyword" className="text-sm font-medium">
-                {translations.t104}
-              </label>
-            </div>
-          )}
-
-          <div className="flex items-center space-x-2">
-            <input
-              type="checkbox"
-              id="contain-pd"
-              checked={containPD}
-              onChange={(e) => setContainPD(e.target.checked)}
-              className="h-4 w-4"
-              style={{ accentColor: '#718096' }}
-            />
-            <label htmlFor="contain-pd" className="text-sm font-medium">
-              {translations.t67}
-            </label>
-          </div>
-        </div>
+{/* 筛选项：三列均匀网格，每项带背景框 */}
+<div
+  style={{
+    display: 'grid',
+    gridTemplateColumns: 'repeat(3, 1fr)',
+    gap: 6,
+  }}
+>
+  {[
+    { id: 'show-hover-img', checked: showHoverImg, onChange: onSetShowHoverImg, label: translations.t92 },
+    ...(showKeyword !== undefined
+      ? [{ id: 'show-keyword', checked: showKeyword, onChange: onSetShowKeyword, label: translations.t104 }]
+      : []),
+    { id: 'contain-pd', checked: containPD, onChange: setContainPD, label: translations.t121 },
+  ].map(({ id, checked, onChange, label }) => (
+    <label
+      key={id}
+      htmlFor={id}
+      style={{
+        display: 'flex', alignItems: 'center', gap: 6,
+        backgroundColor: 'rgba(0,0,0,0.04)',
+        border: '0.5px solid rgba(0,0,0,0.08)',
+        borderRadius: 8, padding: '6px 10px', cursor: 'pointer',
+      }}
+    >
+      <input
+        type="checkbox"
+        id={id}
+        checked={checked}
+        onChange={(e) => onChange?.(e.target.checked)}
+        style={{ width: 14, height: 14, flexShrink: 0, accentColor: '#718096' }}
+      />
+      <span style={{ fontSize: 12, color: '#4a5568', overflow: 'hidden',
+                     textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
+        {label}
+      </span>
+    </label>
+  ))}
+</div>
       </div>
 
       {/* 内部列表内容区域（灵活）*/}

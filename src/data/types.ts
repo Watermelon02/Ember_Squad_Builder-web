@@ -173,9 +173,10 @@ export const BOXES: Record<string, Box> = {
   LAB_PD_REAPER_TYPE_E: { id: 15, faction: ["PD"], name: { zh: "收割者工兵型", en: "Reaper Type E", jp: "リーパー タイプE" }, hasImage: true },
   SINGLE_RDL_DUNE: { id: 16, faction: ["RDL"], name: { zh: "单机包-沙丘", en: "Single Pack Dune", jp: "シングル デューン" }, hasImage: true },
   SINGLE_UN_TAURUS: { id: 17, faction: ["UN"], name: { zh: "单机包-金牛", en: "Single Pack Taurus", jp: "シングル タウラス" }, hasImage: true },
-  COMBAT_RAID: { id: 18, faction: ["RDL", "UN"], name: { zh: "对战包-突袭", en: "Combat Pack Raid", jp: "コンバットレイド" }, hasImage: false },
+  COMBAT_RAID: { id: 18, faction: ["RDL", "UN"], name: { zh: "对战包-突袭", en: "Combat Pack Raid", jp: "コンバットレイド" }, hasImage: true },
   GAME_PACK: { id: 19, faction: ["RDL", "UN"], name: { zh: "游戏包", en: "Game Pack", jp: "ゲームパック" }, hasImage: true },
-  LAB_PD_CRISIS: { id: 20, faction: ["PD"], name: { zh: "危机", en: "Crisis", jp: "クライシス" }, hasImage: false },
+  LAB_PD_CRISIS1: { id: 20, faction: ["PD"], name: { zh: "危机 I", en: "Crisis I", jp: "クライシス I" }, hasImage: false },
+  LAB_PD_CRISIS2: { id: 24, faction: ["PD"], name: { zh: "危机 II", en: "Crisis II", jp: "クライシス II" }, hasImage: true },
   LAB_PD_Vigilant_Bombing_Support: { id: 21, faction: ["PD"], name: { zh: "\"警惕\" 轰炸&支援型", en: "\"Vigilant\" Bombing & Support type", jp: "ヴィジラント」爆撃&支援型" }, hasImage: true },
   LAB_PD_Vigilant_Autocannon_MG: { id: 22, faction: ["PD"], name: { zh: "\"警惕\" 机炮&机枪型", en: "\"Vigilant\" Autocannon & MG type", jp: "ヴィジラント」オートキャノン&機関銃型" }, hasImage: true },
   LAB_GOF_CENTAUR: { id: 23, faction: ["GOF"], name: { zh: "半人马SK", en: "Centaur SK", jp: "セントール" }, hasImage: true },
@@ -206,7 +207,7 @@ export const FACTION_NAMES = {
   }, jp: {
     RDL: 'RDL',
     UN: 'UN',
-    // GOF: '自由卫士',
+    GOF: 'GOF',
     // PD: '星环动力',
     //没有卡片数据
   }

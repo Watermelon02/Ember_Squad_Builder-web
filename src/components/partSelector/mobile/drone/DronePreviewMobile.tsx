@@ -49,7 +49,7 @@ export default function DronePreviewMobile({
           <div key={`last-${droneId}`} >
             {/* 主图 */}
             <img
-              src={`${imageSrc}/${droneId}.png`}
+              src={`${imageSrc}/${droneId}.webp`}
               alt="current part"
               style={{
                 width: "100%",
@@ -172,7 +172,7 @@ export default function DronePreviewMobile({
                     <div key={idx} style={{ position: "relative" }}>
                       <img
                       loading="lazy"
-                        src={`${imageSrc}/${proj}.png`}
+                        src={`${imageSrc}/${proj}.webp`}
                         alt={`projectile-${idx}`}
                         style={{
                           width: "100%",

@@ -210,7 +210,27 @@ export const rdlTorso: Part[] = [
     "imgSrc": "",
     "tags": [],
     "containedIn": [{ "box": BOXES.LAB_RDL_GENJI_AND_MALLARD, "quantityPerBox": 1 }],
-  }
+  },
+  {
+    "id": "533",
+    "name": "RTX-06SR Mire SR Battle Core",
+    "type": "torso",
+    "score": 32,
+    "armor": 6,
+    "structure": 2,
+    "parray": 0,
+    "dodge": 0,
+    "electronic": 2,
+    "move": 0,
+    "description": "",
+    "keywords": [],
+    "action": [
+
+    ],
+    "projectile": [],
+    "isPD": false,
+    "containedIn": [{ "box": BOXES.COMBAT_RAID, "quantityPerBox": 1 }],
+  },
 ];
 
 export const rdlChasis: Part[] = [
@@ -320,7 +340,25 @@ export const rdlChasis: Part[] = [
     "imgSrc": "",
     "tags": [],
     "containedIn": [{ "box": BOXES.LAB_RDL_GENJI_AND_MALLARD, "quantityPerBox": 1 }],
-  }
+  },
+  {
+    "id": "534",
+    "name": "RL-08C Armored Chassis",
+    "type": "chasis",
+    "score": 24,
+    "armor": 5,
+    "structure": 1,
+    "parray": 0,
+    "dodge": 3,
+    "electronic": 0,
+    "move": 1,
+    "description": "",
+    "keywords": [],
+    "action": [],
+    "projectile": [],
+    "isPD": false,
+    "containedIn": [{ "box": BOXES.COMBAT_RAID, "quantityPerBox": 1 }]
+  },
 ];
 
 export const rdlLeftHand: Part[] = [
@@ -423,7 +461,7 @@ export const rdlLeftHand: Part[] = [
     "tags": [],
     "containedIn": [{ "box": BOXES.RDL_CORE, "quantityPerBox": 2 }],
   },
-{
+  {
     "id": "037",
     "name": "CC-4 Cleaver (L)",
     "type": "leftHand",
@@ -437,7 +475,7 @@ export const rdlLeftHand: Part[] = [
     "description": "",
     "containedIn": [{ "box": BOXES.RDL_CORE, "quantityPerBox": 2 }],
     "keywords": [
-      KEYWORD_LIST.zh.空手, KEYWORD_LIST.zh.频闪武器
+      KEYWORD_LIST.en.空手, KEYWORD_LIST.en.频闪武器
     ],
     "action": [
       {
@@ -809,7 +847,7 @@ export const rdlLeftHand: Part[] = [
     "description": "",
     "containedIn": [{ "box": BOXES.GAME_PACK, "quantityPerBox": 2 }],
     "keywords": [
-      KEYWORD_LIST.zh.空手
+      KEYWORD_LIST.en.空手
     ],
     "action": [
       {
@@ -837,7 +875,25 @@ export const rdlLeftHand: Part[] = [
     ],
     "projectile": ["071"],
     "isPD": false
-  }
+  },
+  {
+    "id": "535",
+    "name": "CC-7 Cleaver (L)",
+    "type": "leftHand",
+    "score": 39,
+    "armor": 4,
+    "structure": 0,
+    "parray": 1,
+    "dodge": 0,
+    "electronic": 0,
+    "move": 0,
+    "description": "",
+    "keywords": [KEYWORD_LIST.en.空手, KEYWORD_LIST.en.频闪武器,
+    ],
+    "projectile": [],
+    "isPD": false,
+    "containedIn": [{ "box": BOXES.COMBAT_RAID, "quantityPerBox": 1 }],
+  },
 ];
 
 export const rdlRightHand: Part[] = [
@@ -873,7 +929,7 @@ export const rdlRightHand: Part[] = [
     "tags": [],
     "containedIn": [{ "box": BOXES.RDL_CORE, "quantityPerBox": 4 }],
   },
-   {
+  {
     "id": "027",
     "name": "AC-32M Marksman Rifle",
     "type": "rightHand",
@@ -906,7 +962,7 @@ export const rdlRightHand: Part[] = [
     "move": 0,
     "description": "",
     "keywords": [
-      KEYWORD_LIST.zh.空手
+      KEYWORD_LIST.en.空手
     ],
     "action": [],
     "projectile": [],
@@ -975,7 +1031,7 @@ export const rdlRightHand: Part[] = [
     "imgSrc": "",
     "tags": [],
     "keywords": [KEYWORD_LIST.en.频闪武器],
-    "containedIn": [{ "box": BOXES.RDL_CORE, "quantityPerBox": 2 },{ "box": BOXES.GAME_PACK, "quantityPerBox": 1 }, { "box": BOXES.SINGLE_RDL_DUNE, "quantityPerBox": 1 }],
+    "containedIn": [{ "box": BOXES.RDL_CORE, "quantityPerBox": 2 }, { "box": BOXES.GAME_PACK, "quantityPerBox": 1 }, { "box": BOXES.SINGLE_RDL_DUNE, "quantityPerBox": 1 }],
   },
   {
     "id": "038",
@@ -1430,7 +1486,48 @@ export const rdlRightHand: Part[] = [
     "imgSrc": "",
     "tags": [],
     "containedIn": [{ "box": BOXES.LAB_RDL_GENJI_AND_MALLARD, "quantityPerBox": 1 }],
-  }
+  },
+  {
+    "id": "536",
+    "name": "PC-6 Shotgun",
+    "type": "rightHand",
+    "score": 48,
+    "armor": 4,
+    "structure": 0,
+    "parray": 0,
+    "dodge": 0,
+    "electronic": 0,
+    "move": 0,
+    "description": "",
+    "throwIndex": "537",
+    "keywords": [
+      KEYWORD_LIST.en.近战射击
+    ],
+    "projectile": [],
+    "isPD": false,
+    "containedIn": [{ "box": BOXES.COMBAT_RAID, "quantityPerBox": 1 }],
+  },
+  {
+    "id": "537",
+    "name": "PC-6 Shotgun (D)）",
+    "type": "rightHand",
+    "score": 0,
+    "armor": 4,
+    "structure": 0,
+    "parray": 0,
+    "dodge": 0,
+    "electronic": 0,
+    "move": 0,
+    "description": "",
+    "hasImage": false,
+    "keywords": [
+      KEYWORD_LIST.en.空手
+    ],
+    "action": [],
+    "projectile": [],
+    "isPD": false,
+    "containedIn": [{ "box": BOXES.COMBAT_RAID, "quantityPerBox": 1 }],
+  },
 ];
 
 export const rdlBackpack: Part[] = [
@@ -1692,6 +1789,23 @@ export const rdlBackpack: Part[] = [
     ],
     "keywords": [KEYWORD_LIST.en.曲射, KEYWORD_LIST.en.静默, KEYWORD_LIST.en.投掷],
     "containedIn": [{ "box": BOXES.LAB_RDL_GENJI_AND_MALLARD, "quantityPerBox": 1 }],
+  },
+  {
+    "id": "532",
+    "name": "ECS-3 External Cooler",
+    "type": "backpack",
+    "score": 33,
+    "armor": 3,
+    "structure": 0,
+    "parray": 0,
+    "dodge": 1,
+    "electronic": 0,
+    "move": 0,
+    "description": "",
+    "keywords": [],
+    "projectile": [],
+    "isPD": false,
+    "containedIn": [{ "box": BOXES.COMBAT_RAID, "quantityPerBox": 1 }],
   }
 ];
 
@@ -1711,7 +1825,7 @@ export const rdlDrones: Drone[] = [
     "description": "",
     "keywords": [KEYWORD_LIST.en.拦截X, KEYWORD_LIST.en.全向射击, KEYWORD_LIST.en.近战射击],
     "containedIn": [{ "box": BOXES.RDL_CORE, "quantityPerBox": 2 }, { "box": BOXES.RDL_CAVALRY, "quantityPerBox": 1 }, { "box": BOXES.RDL_HEAVY_METAL, "quantityPerBox": 1 }],
-    
+
   },
   {
     "id": "079",
@@ -1905,7 +2019,7 @@ export const unTorso: Part[] = [
     "electronic": 3,
     "move": 0,
     "description": "·曲射：本动作不需要对落点或目标有视线。",
-    "keywords": [KEYWORD_LIST.zh.曲射, KEYWORD_LIST.zh.KC装甲],
+    "keywords": [KEYWORD_LIST.en.曲射, KEYWORD_LIST.en.KC装甲],
     "action": [
       {
         "id": "093_A",
@@ -1946,7 +2060,7 @@ export const unTorso: Part[] = [
     "electronic": 5,
     "move": 0,
     "description": "· 静默：执行本动作时不会解除光学迷彩与低特征。",
-    "keywords": [KEYWORD_LIST.zh.低特征, KEYWORD_LIST.zh.静默],
+    "keywords": [KEYWORD_LIST.en.低特征, KEYWORD_LIST.en.静默],
     "action": [
       {
         "id": "095_A",
@@ -1974,7 +2088,24 @@ export const unTorso: Part[] = [
     "projectile": [],
     "isPD": false,
     "containedIn": [{ "box": BOXES.GAME_PACK, "quantityPerBox": 2 }],
-  }
+  },
+  {
+    "id": "539",
+    "name": "TM31Q Wild Cat Battle Core",
+    "type": "torso",
+    "score": 63,
+    "armor": 4,
+    "structure": 4,
+    "parray": 0,
+    "dodge": 1,
+    "electronic": 4,
+    "move": 0,
+    "description": "·指令生成X：指令阶段开始时，本机自动生成X枚指令标记。",
+    "keywords": [KEYWORD_LIST.en.指令生成X],
+    "projectile": [],
+    "isPD": false,
+    "containedIn": [{ "box": BOXES.COMBAT_RAID, "quantityPerBox": 1 }],
+  },
 ];
 
 export const unChasis: Part[] = [
@@ -2042,6 +2173,24 @@ export const unChasis: Part[] = [
 ];
 
 export const unLeftHand: Part[] = [
+  {
+    "id": "540",
+    "name": "S9 Meteor Shield + IGX106 Ion Shotgun",
+    "type": "leftHand",
+    "score": 69,
+    "armor": 4,
+    "structure": 0,
+    "parray": 2,
+    "dodge": 1,
+    "electronic": 0,
+    "move": 0,
+    "description": "",
+    "keywords": [KEYWORD_LIST.en.空手, KEYWORD_LIST.en.震撼, KEYWORD_LIST.en.毁伤, KEYWORD_LIST.en.霰射, KEYWORD_LIST.en.离子武器, KEYWORD_LIST.en.近战射击
+    ],
+    "projectile": [],
+    "isPD": false,
+    "containedIn": [{ "box": BOXES.COMBAT_RAID, "quantityPerBox": 1 }]
+  },
   {
     "id": "103",
     "name": "S9 Meteor Shield + M5 Pile Bunker",
@@ -2875,7 +3024,47 @@ export const unRightHand: Part[] = [{
   "description": "",
   "tags": [],
   "containedIn": [{ "box": BOXES.SINGLE_UN_TAURUS, "quantityPerBox": 1 }]
-}
+},
+{
+  "id": "541",
+  "name": "R7K Tactical Rifle",
+  "type": "rightHand",
+  "score": 52,
+  "armor": 3,
+  "structure": 0,
+  "parray": 0,
+  "dodge": 0,
+  "electronic": 0,
+  "move": 0,
+  "description": "",
+  "throwIndex": "542",
+  "keywords": [KEYWORD_LIST.en.激光武器
+  ],
+  "projectile": [],
+  "isPD": false,
+  "containedIn": [{ "box": BOXES.COMBAT_RAID, "quantityPerBox": 1 }]
+},
+{
+  "id": "542",
+  "name": "R7K Tactical Rifle (D)",
+  "type": "rightHand",
+  "score": 0,
+  "armor": 3,
+  "structure": 0,
+  "parray": 0,
+  "dodge": 0,
+  "electronic": 0,
+  "move": 0,
+  "description": "",
+  "hasImage": false,
+  "keywords": [
+    KEYWORD_LIST.en.空手
+  ],
+  "action": [],
+  "projectile": [],
+  "isPD": false,
+  "containedIn": [{ "box": BOXES.COMBAT_RAID, "quantityPerBox": 1 }]
+},
 ];
 
 export const unBackpack: Part[] = [
@@ -2924,7 +3113,7 @@ export const unBackpack: Part[] = [
     "imgSrc": "",
     "tags": [],
     "projectile": [
-      "156"
+      "156", "167"
     ],
     "keywords": [KEYWORD_LIST.en.曲射, KEYWORD_LIST.en.投掷, KEYWORD_LIST.en.静默],
     "containedIn": [{ "box": BOXES.UN_CORE, "quantityPerBox": 2 }]
@@ -3081,9 +3270,44 @@ export const unBackpack: Part[] = [
     "isPD": false,
     "containedIn": [{ "box": BOXES.GAME_PACK, "quantityPerBox": 2 }]
   },
+  {
+    "id": "538",
+    "name": "JP5 Mobility Enhancement Pack",
+    "type": "backpack",
+    "score": 60,
+    "armor": 3,
+    "structure": 0,
+    "parray": 0,
+    "dodge": 2,
+    "electronic": 0,
+    "move": 0,
+    "description": "",
+    "keywords": [KEYWORD_LIST.en.负载],
+    "projectile": [],
+    "isPD": false,
+    "containedIn": [{ "box": BOXES.COMBAT_RAID, "quantityPerBox": 1 }]
+  },
 ];
 
 export const unDrones: Drone[] = [
+  {
+    "id": "543",
+    "name": "ADK15P Porcupine Ion Type",
+    "type": "medium",
+    "score": 70,
+    "armor": 4,
+    "structure": 2,
+    "parray": 0,
+    "dodge": 0,
+    "electronic": 2,
+    "move": 5,
+    "stance": "defensive",
+    "description": "",
+    "projectile": [],
+    "isPD": false,
+    "keywords": [KEYWORD_LIST.en.毁伤, KEYWORD_LIST.en.离子武器],
+    "containedIn": [{ "box": BOXES.COMBAT_RAID, "quantityPerBox": 1 }],
+  },
   {
     "id": "159",
     "name": "AMDS210 Delphinium Automatic Defense System",
@@ -3097,7 +3321,7 @@ export const unDrones: Drone[] = [
     "move": 0,
     "stance": "offensive",
     "description": "",
-  "containedIn": [{ "box": BOXES.UN_SCALPEL, "quantityPerBox": 2 }]
+    "containedIn": [{ "box": BOXES.UN_SCALPEL, "quantityPerBox": 2 }]
   },
   {
     "id": "160",
@@ -3113,7 +3337,7 @@ export const unDrones: Drone[] = [
     "stance": "offensive",
     "description": "",
     "keywords": [KEYWORD_LIST.en.激光武器, KEYWORD_LIST.en.拦截X, KEYWORD_LIST.en.全向射击, KEYWORD_LIST.en.近战射击],
-  "containedIn": [{ "box": BOXES.UN_DOORBREAKER, "quantityPerBox": 2 }]
+    "containedIn": [{ "box": BOXES.UN_DOORBREAKER, "quantityPerBox": 2 }]
   },
   {
     "id": "161",
@@ -3128,7 +3352,7 @@ export const unDrones: Drone[] = [
     "move": 0,
     "stance": "offensive",
     "description": "",
-  "containedIn": [{ "box": BOXES.UN_DOORBREAKER, "quantityPerBox": 2 }]
+    "containedIn": [{ "box": BOXES.UN_DOORBREAKER, "quantityPerBox": 2 }]
   },
   {
     "id": "162",
@@ -3144,7 +3368,7 @@ export const unDrones: Drone[] = [
     "stance": "offensive",
     "description": "",
     "keywords": [KEYWORD_LIST.en.负载],
-  "containedIn": [{ "box": BOXES.UN_DOORBREAKER, "quantityPerBox": 2 }, { "box": BOXES.UN_CORE, "quantityPerBox": 2 }, { "box": BOXES.UN_SCALPEL, "quantityPerBox": 2 }],
+    "containedIn": [{ "box": BOXES.UN_DOORBREAKER, "quantityPerBox": 2 }, { "box": BOXES.UN_CORE, "quantityPerBox": 2 }, { "box": BOXES.UN_SCALPEL, "quantityPerBox": 2 }],
   },
   {
     "id": "163",
@@ -3160,7 +3384,7 @@ export const unDrones: Drone[] = [
     "stance": "offensive",
     "description": "",
     "keywords": [KEYWORD_LIST.en.激光武器, KEYWORD_LIST.en.拦截X, KEYWORD_LIST.en.全向射击, KEYWORD_LIST.en.近战射击],
-  "containedIn": [{ "box": BOXES.UN_DOORBREAKER, "quantityPerBox": 2 }, { "box": BOXES.UN_CORE, "quantityPerBox": 2 }, { "box": BOXES.UN_SCALPEL, "quantityPerBox": 2 }]
+    "containedIn": [{ "box": BOXES.UN_DOORBREAKER, "quantityPerBox": 2 }, { "box": BOXES.UN_CORE, "quantityPerBox": 2 }, { "box": BOXES.UN_SCALPEL, "quantityPerBox": 2 }]
   },
   {
     "id": "164",
@@ -3175,7 +3399,7 @@ export const unDrones: Drone[] = [
     "move": 0,
     "stance": "offensive",
     "description": "",
-  "containedIn": [{ "box": BOXES.UN_CORE, "quantityPerBox": 2 }, { "box": BOXES.UN_SCALPEL, "quantityPerBox": 2 }]
+    "containedIn": [{ "box": BOXES.UN_CORE, "quantityPerBox": 2 }, { "box": BOXES.UN_SCALPEL, "quantityPerBox": 2 }]
   },
   {
     "id": "165",
@@ -3191,7 +3415,7 @@ export const unDrones: Drone[] = [
     "stance": "offensive",
     "description": "",
     "keywords": [KEYWORD_LIST.en.中继器],
-  "containedIn": [{ "box": BOXES.UN_CORE, "quantityPerBox": 2 }]
+    "containedIn": [{ "box": BOXES.UN_CORE, "quantityPerBox": 2 }]
   },
   {
     "id": "166",
@@ -3207,7 +3431,7 @@ export const unDrones: Drone[] = [
     "stance": "offensive",
     "description": "",
     "keywords": [KEYWORD_LIST.en.电子攻击, KEYWORD_LIST.en.火控干扰],
-  "containedIn": [{ "box": BOXES.UN_CORE, "quantityPerBox": 2 }]
+    "containedIn": [{ "box": BOXES.UN_CORE, "quantityPerBox": 2 }]
   },
   {
     "id": "167",
@@ -3222,7 +3446,7 @@ export const unDrones: Drone[] = [
     "move": 0,
     "stance": "offensive",
     "description": "",
-  "containedIn": [{ "box": BOXES.UN_DOORBREAKER, "quantityPerBox": 2 }]
+    "containedIn": [{ "box": BOXES.UN_DOORBREAKER, "quantityPerBox": 2 }]
   }
 ];
 
@@ -3455,6 +3679,22 @@ export const rdlPilots: Pilot[] = [
     "trait": "Onslaught",
     "traitDescription": "· [Offensive Stance] Melee Action may exchange {Eye} for {Light Hit}.",
     "box": BOXES.RDL_HEAVY_METAL
+  },
+  {
+    "id": "FPA-04-2",
+    "name": "Hammerhead Domestic Expert",
+    "score": 19,
+    "LV": 4,
+    "faction": "RDL",
+    "swift": 4,
+    "melee": 3,
+    "projectile": 2,
+    "firing": 5,
+    "moving": 2,
+    "tactic": 6,
+    "trait": "Pest Control",
+    "traitDescription": "·  [Offensive Stance] During piloted Mech's Action Opportunity, piloted Mech may consume up to 1 Link and gain 1 Action Tick.",
+    "box": BOXES.COMBAT_RAID
   },
   {
     "id": "FPA-05",
@@ -3748,6 +3988,22 @@ export const unPilots: Pilot[] = [
     "box": BOXES.UN_DOORBREAKER
   },
   {
+    "id": "LPA-23-2",
+    "name": "Onyx Mellow Chord",
+    "score": 24,
+    "LV": 4,
+    "faction": "UN",
+    "swift": 6,
+    "melee": 2,
+    "projectile": 3,
+    "firing": 5,
+    "moving": 4,
+    "tactic": 4,
+    "trait": "Ornament",
+    "traitDescription": "· When piloted Mech performs a Firing Action, if the target is within 3 grids, this Firing Action +1Y.",
+    "box": BOXES.COMBAT_RAID
+  },
+  {
     "id": "LPA-24",
     "name": "Sealock",
     "score": 21,
@@ -3924,6 +4180,26 @@ export const pdTorso: Part[] = [
     "projectile": ["288"],
     "isPD": true,
     "containedIn": [{ "box": BOXES.LAB_WHITE_DWARF, "quantityPerBox": 1 }],
+  }, {
+    "id": "547",
+    "name": "H2-B Crisis II",
+    "type": "torso",
+    "score": 63,
+    "armor": 5,
+    "structure": 3,
+    "parray": 0,
+    "dodge": 0,
+    "electronic": 2,
+    "move": 0,
+    "description": "",
+    "keywords": [
+      KEYWORD_LIST.en.多目标X
+    ],
+
+    "projectile": [],
+
+    "isPD": true,
+    "containedIn": [{ "box": BOXES.LAB_PD_CRISIS2, "quantityPerBox": 1 }],
   }
 ];
 
@@ -3941,7 +4217,42 @@ export const pdChasis: Part[] = [
     "description": "",
     "isPD": true,
     "containedIn": [{ "box": BOXES.LAB_WHITE_DWARF, "quantityPerBox": 1 }],
-  }
+  },
+  {
+    "id": "548",
+    "name": "HL2 Crisis Chassis",
+    "type": "chasis",
+    "score": 21,
+    "armor": 5,
+    "structure": 0,
+    "parray": 0,
+    "dodge": 3,
+    "electronic": 0,
+    "move": 1,
+    "description": "",
+    "keywords": [],
+    "projectile": [],
+    "isPD": true,
+    "containedIn": [{ "box": BOXES.LAB_PD_CRISIS2, "quantityPerBox": 1 }],
+  },
+  // {
+  //   "id": "549",
+  //   "name": "HL2-M  Crisis Chassis M",
+  //   "type": "chasis",
+  //   "score": 32,
+  //   "armor": 5,
+  //   "structure": 2,
+  //   "parray": 0,
+  //   "dodge": 3,
+  //   "electronic": 0,
+  //   "move": 1,
+  //   "description": "",
+  //   "keywords": [],
+  //   "projectile": [],
+  //   "isPD": true,
+  //   "hasImage":false,
+  //   "containedIn": [{ "box": BOXES.LAB_PD_CRISIS2, "quantityPerBox": 1 }],
+  // }
 ];
 
 export const pdLeftHand: Part[] = [{
@@ -3958,7 +4269,24 @@ export const pdLeftHand: Part[] = [{
   "isPD": true,
   "keywords": [KEYWORD_LIST.en.近战射击, KEYWORD_LIST.en.脆弱],
   "containedIn": [{ "box": BOXES.LAB_WHITE_DWARF, "quantityPerBox": 1 }],
-}
+},
+{
+  "id": "550",
+  "name": "Ls197R Autocannon (L)",
+  "type": "leftHand",
+  "score": 48,
+  "armor": 3,
+  "structure": 0,
+  "parray": 0,
+  "dodge": 0,
+  "electronic": 0,
+  "move": 0,
+  "description": "",
+  "keywords": [KEYWORD_LIST.en.遥控武器],
+  "projectile": [],
+  "isPD": true,
+  "containedIn": [{ "box": BOXES.LAB_PD_CRISIS2, "quantityPerBox": 1 }],
+},
 ];
 
 export const pdRightHand: Part[] = [
@@ -3978,6 +4306,23 @@ export const pdRightHand: Part[] = [
     "keywords": [KEYWORD_LIST.en.近战射击, KEYWORD_LIST.en.毁伤],
     "containedIn": [{ "box": BOXES.LAB_WHITE_DWARF, "quantityPerBox": 1 }],
   }
+  , {
+    "id": "551",
+    "name": "Ls197R Autocannon (R)",
+    "type": "rightHand",
+    "score": 48,
+    "armor": 3,
+    "structure": 0,
+    "parray": 0,
+    "dodge": 0,
+    "electronic": 0,
+    "move": 0,
+    "description": "",
+    "keywords": [KEYWORD_LIST.en.遥控武器],
+    "projectile": [],
+    "isPD": true,
+    "containedIn": [{ "box": BOXES.LAB_PD_CRISIS2, "quantityPerBox": 1 }],
+  },
 ];
 
 export const pdBackpack: Part[] = [
@@ -3995,6 +4340,22 @@ export const pdBackpack: Part[] = [
     "projectile": ["293", "294", "295"],
     "isPD": true,
     "containedIn": [{ "box": BOXES.LAB_WHITE_DWARF, "quantityPerBox": 1 }],
+  }, {
+    "id": "545",
+    "name": "Ls297 Dual Autocannon",
+    "type": "backpack",
+    "score": 48,
+    "armor": 3,
+    "structure": 0,
+    "parray": 0,
+    "dodge": 0,
+    "electronic": 0,
+    "move": 0,
+    "description": "·压制：被本动作宣布为目标的机甲会立刻切换为防御姿态（处于宕机姿态的单位不受此影响）。",
+    "keywords": [KEYWORD_LIST.en.压制],
+    "projectile": [],
+    "isPD": true,
+    "containedIn": [{ "box": BOXES.LAB_PD_CRISIS2, "quantityPerBox": 1 }],
   }
 ];
 
@@ -4014,7 +4375,23 @@ export const pdPilots: Pilot[] = [
     "trait": "Synesthesia",
     "traitDescription": "· When a \"White Dwarf\" Bit performs a roll, it may consume Link from this Mech to re-roll.",
     "box": BOXES.LAB_WHITE_DWARF
-  }
+  },
+  {
+    "id": "XPA-60",
+    "name": "Combatant A-102",
+    "score": 10,
+    "LV": 5,
+    "faction": "PD",
+    "swift": 8,
+    "melee": 4,
+    "projectile": 5,
+    "firing": 3,
+    "moving": 3,
+    "tactic": 2,
+    "trait": "",
+    "traitDescription": "The transport aircraft carrying both combatants and LUKAS typically serves as air support, hovering above the battlefield to ensure the lowest possible latency.",
+    "box": BOXES.LAB_PD_CRISIS2
+  },
 ];
 
 export const allTacticCards: TacticCard[] = [
@@ -4138,7 +4515,7 @@ export const gofChasis: Part[] = [
     "move": 2,
     "description": "·Unstoppable: Movement Actions with this Keyword can still be performed when Immobilized.\n·Non-humanoid X: When performing this Action, -X Link Value.\n·Push X: Move the target X grids in straight line in the direction this unit is facing, then this unit performs the same movement.",
     "keywords": [KEYWORD_LIST.en.异形X, KEYWORD_LIST.en.不可阻挡, KEYWORD_LIST.en.推动X],
-    "containedIn": [{ "box": BOXES.GOF_JUSTICE, "quantityPerBox": 1 },{ "box": BOXES.LAB_GOF_CENTAUR, "quantityPerBox": 1 }],
+    "containedIn": [{ "box": BOXES.GOF_JUSTICE, "quantityPerBox": 1 }, { "box": BOXES.LAB_GOF_CENTAUR, "quantityPerBox": 1 }],
     "action": [
       {
         "id": "181_A",
@@ -4196,7 +4573,7 @@ export const gofChasis: Part[] = [
       {
         "id": "182_B",
         "name": "Kick",
-        "description": "·[On Hit], Push 1.",
+        "description": "· [On Hit] Knock Back 1.",
         "type": "Melee",
         "size": "s",
         "range": 1,
@@ -4258,7 +4635,7 @@ export const gofLeftHand: Part[] = [
     "id": "ZHLA-102",
     "name": "Dual \"Swift\" Launcher",
     "type": "leftHand",
-    "score": 35,
+    "score": 38,
     "armor": 1,
     "structure": 4,
     "parray": 0,
@@ -4336,7 +4713,7 @@ export const gofLeftHand: Part[] = [
     "id": "ZHLA-201",
     "name": "GSD7 Mortar",
     "type": "leftHand",
-    "score": 29,
+    "score": 32,
     "armor": 1,
     "structure": 4,
     "parray": 0,
@@ -4436,8 +4813,8 @@ export const gofLeftHand: Part[] = [
         "size": "s",
         "range": -1,
         "storage": 0,
-        "yellowDice": 5,
-        "redDice": 0
+        "yellowDice": 3,
+        "redDice": 2
       },
       {
         "id": "ZHLA-202_B",
@@ -4459,7 +4836,7 @@ export const gofLeftHand: Part[] = [
     "id": "ZHLA-301",
     "name": "SS30 Heavy Shield",
     "type": "leftHand",
-    "score": 75,
+    "score": 69,
     "armor": 6,
     "structure": 5,
     "parray": 2,
@@ -4537,7 +4914,7 @@ export const gofLeftHand: Part[] = [
     "action": [
       {
         "id": "ZHLA-302_A",
-        "name": "Burst Fire",
+        "name": "Marking Shot",
         "description": "· Scatter-shot · Melee Firing",
         "type": "Firing",
         "size": "s",
@@ -4620,7 +4997,7 @@ export const gofLeftHand: Part[] = [
     "id": "ZHLA-304",
     "name": "MH-K1 Heat Heavy Sword (L)",
     "type": "leftHand",
-    "score": 47,
+    "score": 56,
     "armor": 1,
     "structure": 5,
     "parray": 2,
@@ -4629,7 +5006,7 @@ export const gofLeftHand: Part[] = [
     "move": 0,
     "description": "",
     "keywords": [KEYWORD_LIST.en.顺劈, KEYWORD_LIST.en.毁伤],
-    "containedIn": [{ "box": BOXES.GOF_JUSTICE, "quantityPerBox": 1 },{ "box": BOXES.LAB_GOF_CENTAUR, "quantityPerBox": 1 }],
+    "containedIn": [{ "box": BOXES.GOF_JUSTICE, "quantityPerBox": 1 }, { "box": BOXES.LAB_GOF_CENTAUR, "quantityPerBox": 1 }],
     "throwIndex": "ZHLA-304-T",
     "action": [
       {
@@ -4687,7 +5064,7 @@ export const gofRightHand: Part[] = [
     "id": "ZHRA-101",
     "name": "MR14 Railgun",
     "type": "rightHand",
-    "score": 29,
+    "score": 32,
     "armor": 1,
     "structure": 4,
     "parray": 0,
@@ -4707,8 +5084,8 @@ export const gofRightHand: Part[] = [
         "size": "m",
         "range": 8,
         "storage": 0,
-        "yellowDice": 2,
-        "redDice": 2
+        "yellowDice": 0,
+        "redDice": 4
       },
       {
         "id": "ZHRA-101_B",
@@ -4751,7 +5128,7 @@ export const gofRightHand: Part[] = [
     "id": "ZHRA-102",
     "name": "MR16 Railgun",
     "type": "rightHand",
-    "score": 32,
+    "score": 35,
     "armor": 1,
     "structure": 4,
     "parray": 0,
@@ -4815,7 +5192,7 @@ export const gofRightHand: Part[] = [
     "id": "ZHRA-103",
     "name": "M115 Spear",
     "type": "rightHand",
-    "score": 29,
+    "score": 38,
     "armor": 1,
     "structure": 4,
     "parray": 0,
@@ -5031,7 +5408,7 @@ export const gofRightHand: Part[] = [
     "id": "ZHRA-301",
     "name": "M100 Lance",
     "type": "rightHand",
-    "score": 56,
+    "score": 53,
     "armor": 1,
     "structure": 5,
     "parray": 1,
@@ -5059,9 +5436,9 @@ export const gofRightHand: Part[] = [
         "name": "Single Shot",
         "description": "· Melee Firing",
         "type": "Firing",
-        "size": "l",
+        "size": "s",
         "range": 6,
-        "storage": 0,
+        "storage": 1,
         "yellowDice": 3,
         "redDice": 3
       }
@@ -5095,7 +5472,7 @@ export const gofRightHand: Part[] = [
     "id": "ZHRA-303",
     "name": "M105 Halberd",
     "type": "rightHand",
-    "score": 38,
+    "score": 41,
     "armor": 1,
     "structure": 4,
     "parray": 0,
@@ -5121,7 +5498,7 @@ export const gofRightHand: Part[] = [
       {
         "id": "ZHRA-303_B",
         "name": "Slash",
-        "description": "· [Two-Handed] Gains Suppression and Mutilation.",
+        "description": "· [Two-Handed] Gains Suppression.",
         "type": "Melee",
         "size": "l",
         "range": -1,
@@ -5159,7 +5536,7 @@ export const gofRightHand: Part[] = [
     "id": "ZHRA-304",
     "name": "MH-K1 Heat Heavy Sword (R)",
     "type": "rightHand",
-    "score": 47,
+    "score": 56,
     "armor": 1,
     "structure": 5,
     "parray": 2,
@@ -5169,7 +5546,7 @@ export const gofRightHand: Part[] = [
     "description": "",
     "keywords": [KEYWORD_LIST.en.顺劈, KEYWORD_LIST.en.毁伤],
     "throwIndex": "ZHRA-304-T",
-    "containedIn": [{ "box": BOXES.GOF_JUSTICE, "quantityPerBox": 2 },{ "box": BOXES.LAB_GOF_CENTAUR, "quantityPerBox": 1 }],
+    "containedIn": [{ "box": BOXES.GOF_JUSTICE, "quantityPerBox": 2 }, { "box": BOXES.LAB_GOF_CENTAUR, "quantityPerBox": 1 }],
     "action": [
       {
         "id": "ZHRA-304_A",
@@ -5413,13 +5790,13 @@ export const gofBackpack: Part[] = [
     "electronic": 0,
     "move": 0,
     "description": "",
-    "keywords": [],
+    "keywords": [KEYWORD_LIST.en.额外的标识],
     "containedIn": [{ "box": BOXES.GOF_CORE, "quantityPerBox": 1 }, { "box": BOXES.GOF_CORE, "quantityPerBox": 2 }],
     "action": [
       {
         "id": "ZYBP-302_A",
         "name": "Dodge Enhancement",
-        "description": "· {Dodge} may cancel 1 Attack Dice.",
+        "description": "· When this Mech is hit, may spent 1 Command Token, make each {Dodge} offset 1 Attack die.",
         "type": "Passive",
         "size": "m",
         "range": 0,
@@ -5430,7 +5807,7 @@ export const gofBackpack: Part[] = [
       {
         "id": "ZYBP-302_B",
         "name": "Melee Evasion",
-        "description": "· On Parry, gains 1 extra Dodge.",
+        "description": "· On Parry, this mech may spent 1 Command Token to gain 1 additional {Dodge}.",
         "type": "Passive",
         "size": "m",
         "range": 0,
@@ -5523,7 +5900,7 @@ export const gofPilots: Pilot[] = [
     "moving": 4,
     "tactic": 7,
     "trait": "Survival Willing",
-    "traitDescription": "· When this Mech has less than 4 Parts, this Mech's Focus re-roll does not consume Link.",
+    "traitDescription": "· When this Mech has less than or equal to 3 Parts, this Mech's Focus re-roll does not consume Link.",
     "box": BOXES.GOF_JUSTICE
   },
   {
@@ -5693,12 +6070,12 @@ export const gofProjectiles: Projectile[] = [
   {
     "id": "ZHAM-002",
     "name": "M60 “Boomerang” Missile",
-    "armor": 0,
+    "armor": 3,
     "structure": 0,
     "parray": 0,
-    "dodge": 6,
+    "dodge": 0,
     "electronic": 1,
-    "stance": "mobility",
+    "stance": "offensive",
     "hasImage": true,
     "isPD": false,
     "keywords": [
@@ -5716,7 +6093,7 @@ export const gofProjectiles: Projectile[] = [
         "description": "· Target 1 Enemy Unit within range, Fly into target grid and undergo Detonation.\n· On Detonation, cause Explosion damage to target.",
         "type": "Projectile",
         "speed": "passive",
-        "range": 3,
+        "range": 2,
         "storage": 0,
         "yellowDice": 1,
         "redDice": 3
@@ -5797,8 +6174,8 @@ export const gofDrones: Drone[] = [
     "name": "N31 Hound I “Beagle”",
     "type": "medium",
     "score": 40,
-    "armor": 6,
-    "structure": 0,
+    "armor": 3,
+    "structure": 3,
     "parray": 2,
     "dodge": 0,
     "electronic": 2,
@@ -5842,8 +6219,8 @@ export const gofDrones: Drone[] = [
     "name": "N31 Hound II “Watchdog”",
     "type": "medium",
     "score": 36,
-    "armor": 6,
-    "structure": 0,
+    "armor": 3,
+    "structure": 3,
     "parray": 2,
     "dodge": 0,
     "electronic": 2,
@@ -5885,8 +6262,8 @@ export const gofDrones: Drone[] = [
     "name": "N31 Hound III “Bulldog”",
     "type": "medium",
     "score": 36,
-    "armor": 6,
-    "structure": 0,
+    "armor": 3,
+    "structure": 3,
     "parray": 2,
     "dodge": 0,
     "electronic": 2,
@@ -5940,7 +6317,7 @@ export const gofDrones: Drone[] = [
     "isPD": false,
     "hasImage": true,
     "keywords": [KEYWORD_LIST.en.全向射击, KEYWORD_LIST.en.近战射击, KEYWORD_LIST.en.光环],
-     "containedIn": [{ "box": BOXES.GOF_JUSTICE, "quantityPerBox": 2 }],
+    "containedIn": [{ "box": BOXES.GOF_JUSTICE, "quantityPerBox": 2 }],
     "actions": [
       {
         "id": "ZHDR-303_A",
@@ -5999,7 +6376,7 @@ export const gofDrones: Drone[] = [
       {
         "id": "ZHDR-304_B",
         "name": "Air Transport",
-        "description": "· When performing Command Movement, may consume 1 extral Command Token to drag an adjacent Ally Unit.",
+        "description": "· When performing a Command Movement, may consume 1 additional Command Token and -2 Movement to drag 1 adjacent Ally Mech or Ally Drone.",
         "type": "Passive",
         "speed": "passive",
         "range": 0,
@@ -6025,8 +6402,9 @@ export const gofDrones: Drone[] = [
     "projectile": [],
     "isPD": false,
     "hasImage": true,
+    "valueLess": true,
     "keywords": [KEYWORD_LIST.en.自动盾牌],
-     "containedIn": [{ "box": BOXES.GOF_CORE, "quantityPerBox": 6 }],
+    "containedIn": [{ "box": BOXES.GOF_CORE, "quantityPerBox": 6 }],
     "actions": [
       {
         "id": "ZHDR-101_A",
@@ -6057,6 +6435,7 @@ export const gofDrones: Drone[] = [
     "projectile": [],
     "isPD": false,
     "hasImage": true,
+    "valueLess": true,
     "keywords": [KEYWORD_LIST.en.拦截X, KEYWORD_LIST.en.全向射击, KEYWORD_LIST.en.近战射击],
     "containedIn": [{ "box": BOXES.GOF_CORE, "quantityPerBox": 6 }],
     "actions": [
@@ -6089,6 +6468,7 @@ export const gofDrones: Drone[] = [
     "projectile": [],
     "isPD": false,
     "hasImage": true,
+    "valueLess": true,
     "keywords": [KEYWORD_LIST.en.全向射击, KEYWORD_LIST.en.近战射击],
     "containedIn": [{ "box": BOXES.GOF_CORE, "quantityPerBox": 3 }],
     "actions": [
@@ -6118,13 +6498,14 @@ export const gofDrones: Drone[] = [
     "move": 5,
     "stance": "defensive",
     "description": "",
+    "valueLess": true,
     "projectile": [
       "ZHAM-001A"
     ],
     "isPD": false,
     "hasImage": true,
     "keywords": [KEYWORD_LIST.en.曲射],
-     "containedIn": [{ "box": BOXES.GOF_CORE, "quantityPerBox": 3 }],
+    "containedIn": [{ "box": BOXES.GOF_CORE, "quantityPerBox": 3 }],
     "actions": [
       {
         "id": "ZHDR-104_A",
@@ -6501,7 +6882,7 @@ export const gofTorso: Part[] = [
     "id": "173",
     "name": "P7-A3\n“Centurion”\nNode Core",
     "type": "torso",
-    "score": 79,
+    "score": 85,
     "armor": 5,
     "structure": 3,
     "parray": 0,
@@ -6511,7 +6892,7 @@ export const gofTorso: Part[] = [
     "hasImage": true,
     "description": "·Command Generation X：This Unit generates X Command Tokens in the Command Phase.",
     "keywords": [KEYWORD_LIST.en.指令生成X, KEYWORD_LIST.en.光环],
-    "containedIn": [{ "box": BOXES.GOF_CORE, "quantityPerBox": 2 },{ "box": BOXES.LAB_GOF_CENTAUR, "quantityPerBox": 1 }],
+    "containedIn": [{ "box": BOXES.GOF_CORE, "quantityPerBox": 2 }, { "box": BOXES.LAB_GOF_CENTAUR, "quantityPerBox": 1 }],
     "action": [
       {
         "id": "173_A",
@@ -6530,7 +6911,7 @@ export const gofTorso: Part[] = [
         "description": "· Aura\n· Ally Drones within Range performing Firing Actions gain Range + 2 grids.\nThis effect does not stack.",
         "type": "Passive",
         "size": "m",
-        "range": 4,
+        "range": 6,
         "storage": 0,
         "yellowDice": 0,
         "redDice": 0
@@ -6569,7 +6950,7 @@ export const gofTorso: Part[] = [
       {
         "id": "174_B",
         "name": "Target Tracing",
-        "description": "· When this mech is attacked by Melee/Firing Actions of Enemy Mech, may perfrom a Electronic Conter Roll with Attacker, reduce 1 Link of Target when successful.",
+        "description": "· When this mech is attacked by an Enemy Mech’s Melee/Firing Action, it may spend 1 Command Token to perform an Electronic Counter Roll against the Attacker. If successful, the Attacker loses 1 Link.",
         "type": "Passive",
         "size": "m",
         "range": 0,
@@ -6594,7 +6975,7 @@ export const gofTorso: Part[] = [
     "move": 0,
     "hasImage": true,
     "description": "·Command Generation X：At the beginning of each Command Phase, this Unit automatically generates X Command Tokens rather than 1.",
-    "keywords": [KEYWORD_LIST.en.指令生成X],
+    "keywords": [KEYWORD_LIST.en.指令生成X, KEYWORD_LIST.en.致密装甲],
     "containedIn": [{ "box": BOXES.GOF_JUSTICE, "quantityPerBox": 1 }],
     "action": [
       {
@@ -6611,7 +6992,7 @@ export const gofTorso: Part[] = [
       {
         "id": "175_B",
         "name": "Dense Armor",
-        "description": "· When this Part is designated as the Target Part, may use {Defense} to offset {Heavy Hit}.",
+        "description": "· When this part is hit, may spend 1 Command Token, gains Dense Armor for this attack.",
         "type": "Passive",
         "size": "m",
         "range": 0,
@@ -6636,7 +7017,7 @@ export const gofTorso: Part[] = [
     "move": 0,
     "hasImage": true,
     "description": "·Command Generation X：At the beginning of each Command Phase, this Unit automatically generates X Command Tokens rather than 1.",
-    "keywords": [KEYWORD_LIST.en.指令生成X],
+    "keywords": [KEYWORD_LIST.en.指令生成X, KEYWORD_LIST.en.致密装甲],
     "containedIn": [{ "box": BOXES.GOF_JUSTICE, "quantityPerBox": 1 }],
     "action": [
       {
@@ -6653,7 +7034,7 @@ export const gofTorso: Part[] = [
       {
         "id": "176_B",
         "name": "Dense Armor",
-        "description": "· When this Part is designated as the Target Part, may use {Defense} to offset {Heavy Hit}.",
+        "description": "· When this part is hit, may spend 1 Command Token, gains Dense Armor for this attack.",
         "type": "Passive",
         "size": "m",
         "range": 0,

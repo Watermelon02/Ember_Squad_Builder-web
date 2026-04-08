@@ -2,7 +2,7 @@ import React, { useState, useCallback } from 'react';
 import { VirtuosoGrid } from 'react-virtuoso'; // 引入 VirtuosoGrid
 import { Card } from '../../../radix-ui/card';
 import { Badge } from '../../../radix-ui/badge';
-import { SelectableCard } from '../../../custom/SelectableCard';
+import { SelectableCardMobile } from '../../../custom/SelectableCardMobile';
 
 interface PartListMobileProps {
   filteredParts: any[];
@@ -25,7 +25,7 @@ const MemoizedPartCard = React.memo(({
   faction
 }: any) => {
   return (
-    <SelectableCard
+    <SelectableCardMobile
       // 增加 h-full 确保在网格中等高；适当缩小 padding 适应窄卡片
       className="relative p-2 h-full cursor-pointer hover:bg-accent/50 transition overflow-hidden shadow-sm flex flex-col"
       selected={isSelected}
@@ -33,7 +33,7 @@ const MemoizedPartCard = React.memo(({
     >
       {(faction && faction === "GOF") || (part.hasImage === undefined || part.hasImage) ? (
         <img
-          src={`${tabsrc}/${part.id}.png`}
+          src={`${tabsrc}/${part.id}.webp`}
           alt=""
           className="absolute right-0 top-0 w-auto h-full max-w-[80%] object-contain pointer-events-none"
           style={{ opacity: 0.8 }}
@@ -80,18 +80,12 @@ const MemoizedPartCard = React.memo(({
         </div>
 
         {/* 属性 - 加上 flex-wrap，在一行显示不下时自动折行 */}
-        <div className="flex flex-wrap items-center gap-1.5 mt-auto">
+        <div className="flex flex-wrap items-center gap-1 mt-auto">
           {(part.armor !== 0 || part.structure !== 0) && (
             <div className="flex flex-col items-center px-1 py-0.5 border rounded-md bg-background/50 shadow-sm">
               <div className="flex items-center gap-1">
-                <img
-                  src={`${tabsrc}/icon_armor.png`}
-                  alt="armor"
-                  className="w-3 h-3"
-                  loading="lazy"
-                  decoding="async"
-                />
-                <div style={{ fontSize: '10px', color: 'var(--muted-foreground)' }}>
+              
+                <div style={{ fontSize: '8px', color: 'var(--muted-foreground)' }}>
                   {part.structure === 0
                     ? translations.t39
                     : `${translations.t39}/${translations.t40}`}
@@ -136,7 +130,7 @@ const MemoizedPartCard = React.memo(({
               >
                 <div className="flex items-center gap-1">
                   <img
-                    src={`${tabsrc}/${attr.icon}.png`}
+                    src={`${tabsrc}/${attr.icon}.webp`}
                     alt={attr.label}
                     className="w-3 h-3"
                     loading="lazy"
@@ -170,7 +164,7 @@ const MemoizedPartCard = React.memo(({
           </div>
         )}
       </div>
-    </SelectableCard>
+    </SelectableCardMobile>
   );
 });
 
@@ -203,7 +197,7 @@ const PartListMobile: React.FC<PartListMobileProps> = ({
     <div key={selectedPartType} style={{ height: "60vh" }}>
       <VirtuosoGrid
         data={filteredParts}
-        overscan={window.innerHeight * 0.8}
+        overscan={window.innerHeight * 0.3}
         components={{
           // 容器：使用 CSS Grid 定义一行两列
           List: React.forwardRef(({ style, children, ...props }, ref) => (
@@ -214,7 +208,7 @@ const PartListMobile: React.FC<PartListMobileProps> = ({
                 display: 'grid',
                 gridTemplateColumns: 'repeat(2, 1fr)', // 核心：一行分为同等的两列
                 gap: '8px', // 卡片之间的间距
-                padding: '10px 2vw',
+                padding: '10px 1vw',
                 ...style,
               }}
             >

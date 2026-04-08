@@ -53,10 +53,15 @@ export const MechListMobileHeader: React.FC<MechListMobileHeaderProps> = ({
       </TabsList>
 
       {/* 第 2 行：语言切换 + 按钮 */}
-      <div className="flex gap-2">
-        <div className="flex-1">
+      <div className="flex gap-1">
+
+        {/* 语言选择器：固定宽度 */}
+        <div className="w-16 shrink-0">
           <Select value={lang} onValueChange={(v) => setLanguage(v as "zh" | "en" | "jp")}>
-            <SelectTrigger className="h-8 text-sm w-full"><Globe className="w-4 h-4 text-gray-600" /><SelectValue placeholder="选择语言" /></SelectTrigger>
+            <SelectTrigger className="h-8 text-sm w-full">
+              <Globe className="w-4 h-4 text-gray-600 shrink-0" />
+              <SelectValue placeholder="CN" />
+            </SelectTrigger>
             <SelectContent>
               <SelectItem value="zh">CN</SelectItem>
               <SelectItem value="en">EN</SelectItem>
@@ -64,42 +69,69 @@ export const MechListMobileHeader: React.FC<MechListMobileHeaderProps> = ({
             </SelectContent>
           </Select>
         </div>
-        <div className="flex-1">
-          <Button className="w-full" variant="outline" size="sm" onClick={() => team && exportTextTeamData(team, translations, lang)}>
-            <Table2 className="w-4 h-4 mr-1" />{translations.t6}
+
+        {/* 三个按钮平分剩余空间 */}
+        <div className="flex-1 min-w-0">
+          <Button className="w-full h-8 px-1" variant="outline" size="sm"
+            onClick={() => team && exportTextTeamData(team, translations, lang)}>
+            <Table2 className="w-3.5 h-3.5 shrink-0" />
+            <span className="text-[10px] whitespace-nowrap ml-0.5">{translations.t6}</span>
           </Button>
         </div>
-        <div className="flex-1 relative">
-          <Button className="w-full" variant="outline" size="sm" disabled={isExporting} onClick={handleExportImage}>
-            <div className="flex items-center gap-2 justify-center">
+
+        <div className="flex-1 min-w-0 relative">
+          <Button className="w-full h-8 px-1" variant="outline" size="sm"
+            disabled={isExporting} onClick={handleExportImage}>
+            <div className="flex items-center gap-1 justify-center w-full">
               <AnimatePresence>
                 {isExporting && (
-                  <motion.div key="loader" initial={{ opacity: 0 }} animate={{ opacity: 1, rotate: [0, 360] }} exit={{ opacity: 0 }} transition={{ rotate: { repeat: Infinity, duration: 1, ease: "linear" }, opacity: { duration: 0.2 } }}>
-                    <Loader2 className="w-4 h-4" />
+                  <motion.div key="loader" initial={{ opacity: 0 }}
+                    animate={{ opacity: 1, rotate: [0, 360] }} exit={{ opacity: 0 }}
+                    transition={{ rotate: { repeat: Infinity, duration: 1, ease: "linear" }, opacity: { duration: 0.2 } }}>
+                    <Loader2 className="w-3.5 h-3.5 shrink-0" />
                   </motion.div>
                 )}
               </AnimatePresence>
-              {isExporting ? <span>{translations.t79}</span> : <div className="flex items-center gap-1"><Image className="w-4 h-4" /><span>{translations.t24}</span></div>}
+              {isExporting
+                ? <span className="text-[10px] whitespace-nowrap">{translations.t79}</span>
+                : <>
+                  <Image className="w-3.5 h-3.5 shrink-0" />
+                  <span className="text-[10px] whitespace-nowrap">{translations.t24}</span>
+                </>
+              }
             </div>
           </Button>
         </div>
-        <div className="relative flex-1">
-          <Button className="w-full" variant="outline" size="sm" onClick={() => setShowProjectileOption((v: boolean) => !v)} disabled={isExporting}>
-            <div className="flex items-center gap-1"><Settings className="w-4 h-4" /><span>{translations.t99}</span></div>
+
+        <div className="flex-1 min-w-0 relative">
+          <Button className="w-full h-8 px-1" variant="outline" size="sm"
+            onClick={() => setShowProjectileOption((v: boolean) => !v)} disabled={isExporting}>
+            <Settings className="w-3.5 h-3.5 shrink-0" />
+            <span className="text-[10px] whitespace-nowrap ml-0.5">{translations.t99}</span>
           </Button>
           <AnimatePresence>
             {showProjectileOption && (
-              <motion.div key="checkbox-popup" initial={{ opacity: 0, y: -5 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -5 }} transition={{ duration: 0.2 }} className="absolute top-full left-1/2 -translate-x-1/2 bg-white border border-gray-300 rounded-lg shadow-lg px-3 py-1.5 flex items-center gap-2 text-sm z-10 max-w-[200px] sm:max-w-[250px] break-words" style={{ backgroundColor: 'white' }}>
-                <input type="checkbox" id="include-projectile" checked={includeProjectile} onChange={(e) => setIncludeProjectile(e.target.checked)} className="h-4 w-4" />
-                <label htmlFor="include-projectile" className="cursor-pointer select-none whitespace-normal" style={{ color: 'black', WebkitTextStroke: '0.5px white' }}>{translations.t91}</label>
+              <motion.div key="checkbox-popup"
+                initial={{ opacity: 0, y: -5 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -5 }}
+                transition={{ duration: 0.2 }}
+                className="absolute top-full left-1/2 -translate-x-1/2 bg-white border border-gray-300 rounded-lg shadow-lg px-3 py-1.5 flex items-center gap-2 text-sm z-10 max-w-[200px] sm:max-w-[250px] break-words"
+                style={{ backgroundColor: 'white' }}>
+                <input type="checkbox" id="include-projectile" checked={includeProjectile}
+                  onChange={(e) => setIncludeProjectile(e.target.checked)} className="h-4 w-4" />
+                <label htmlFor="include-projectile"
+                  className="cursor-pointer select-none whitespace-normal"
+                  style={{ color: 'black', WebkitTextStroke: '0.5px white' }}>
+                  {translations.t91}
+                </label>
               </motion.div>
             )}
           </AnimatePresence>
         </div>
+
       </div>
 
       {/* 第 3 行：统计信息 */}
-      <div className="grid grid-cols-5 gap-2">
+      <div style={{ display: "flex", justifyContent: "space-between", gap: "1.5vw" }}>
         {[
           { label: translations.t7, value: team.totalScore, highlight: team.totalScore > 900 },
           { label: translations.t8, value: team.mechCount },
@@ -107,10 +139,38 @@ export const MechListMobileHeader: React.FC<MechListMobileHeaderProps> = ({
           { label: translations.t10, value: team.mediumDroneCount },
           { label: translations.t11, value: team.smallDroneCount },
         ].map((stat, idx) => (
-          <div key={idx} className="text-center">
-            <div className="text-muted-foreground" style={{ fontSize: 12 }}>{stat.label}</div>
+          <div
+            key={idx}
+            style={{
+              flex: 1,
+              height: "5vh",
+              padding: "0 0.25vw",
+              backgroundColor: "#f9fafb",
+              borderRadius: "0.5rem",
+              textAlign: "center",
+              display: "flex",
+              flexDirection: "column",
+              justifyContent: "center",
+              alignItems: "center",
+              boxShadow: "inset 0 0 8px rgba(0,0,0,0.1)",
+            }}
+          >
+            <div style={{ fontSize: "1.2vh", color: "#6b7280"}}>
+              {stat.label}
+            </div>
             <AnimatePresence mode="popLayout">
-              <motion.div key={stat.value} initial={{ scale: 0.9, y: 5, opacity: 0 }} animate={{ scale: 1, y: 0, opacity: 1 }} exit={{ scale: 0.9, y: -5, opacity: 0 }} transition={{ duration: 0.3, type: "spring", stiffness: 300, damping: 20 }} style={{ color: stat.highlight ? '#dc2626' : '#111', fontSize: 12 }}>
+              <motion.div
+                key={stat.value}
+                initial={{ scale: 1, y: 0, opacity: 0 }}
+                animate={{ y: [-5, 0], opacity: 1 }}
+                exit={{ y: 5, opacity: 0 }}
+                transition={{ duration: 0.3 }}
+                style={{
+                  fontSize: "3vw",
+                  fontWeight: 500,
+                  color: stat.highlight ? "#dc2626" : "#111",
+                }}
+              >
                 {stat.value}
               </motion.div>
             </AnimatePresence>

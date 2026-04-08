@@ -343,7 +343,7 @@ export function PartSelector({
                             <div
                               className="absolute inset-0 bg-contain"
                               style={{
-                                backgroundImage: `url(${tabsrc}/${part.id}.png)`,
+                                backgroundImage: `url(${tabsrc}/${part.id}.webp)`,
                                 backgroundSize: 'contain',
                                 backgroundRepeat: 'no-repeat',
                                 backgroundPosition: 'right top',
@@ -394,7 +394,7 @@ export function PartSelector({
                               {(part.armor !== 0 || part.structure !== 0) && (
                                 <div className="flex flex-col items-center px-1 py-0.5 border rounded-md shadow-sm bg-background/50">
                                   <div className="flex items-center gap-1">
-                                    <img loading="lazy" src={`${tabsrc}/icon_armor.png`} alt="armor" className="w-4 h-4" />
+                                    <img loading="lazy" src={`${tabsrc}/icon_armor.webp`} alt="armor" className="w-4 h-4" />
                                     <div style={{ fontSize: '12px', color: 'var(--muted-foreground)' }}>
                                       {part.structure === 0 ? translations.t39 : `${translations.t39}/${translations.t40}`}
                                     </div>
@@ -424,7 +424,7 @@ export function PartSelector({
                                 .map(attr => (
                                   <div key={attr.label} className="flex flex-col items-center px-1 py-0.5 border rounded-md shadow-sm bg-background/50">
                                     <div className="flex items-center gap-1">
-                                      <img loading="lazy" src={`${tabsrc}/${attr.icon}.png`} alt={attr.label} className="w-4 h-4" />
+                                      <img loading="lazy" src={`${tabsrc}/${attr.icon}.webp`} alt={attr.label} className="w-4 h-4" />
                                       <div style={{ fontSize: '12px', color: 'var(--muted-foreground)' }}>{attr.label}</div>
                                     </div>
                                     <div style={{ fontSize: '16px', color: attr.value < 0 ? 'red' : attr.color || 'inherit' }}>
@@ -566,7 +566,7 @@ export function PartSelector({
                   <div
                     className="absolute inset-0 bg-cover bg-left-top"
                     style={{
-                      backgroundImage: `url(${tabsrc}/${pilot.id}.png?v=${IMAGE_PILOT_VERSION})`,
+                      backgroundImage: `url(${tabsrc}/${pilot.id}.webp?v=${IMAGE_PILOT_VERSION})`,
                       backgroundSize: 'contain',
                       backgroundRepeat: 'no-repeat',
                       backgroundPosition: 'right top',
@@ -623,13 +623,14 @@ export function PartSelector({
                         { value: pilot.firing, icon: 'icon_firing' },
                         { value: pilot.moving, icon: 'icon_moving' },
                         { value: pilot.tactic, icon: 'icon_tactic' },
+                        { value: pilot.LV, icon: 'icon_LV' },
                       ].map(({ value, icon }) => (
                         <div
                           key={icon}
                           className="flex-1 flex flex-col items-center justify-center h-16 border rounded-md shadow-sm"
                         >
                           <img
-                            src={`${tabsrc}/${icon}.png`}
+                            src={`${tabsrc}/${icon}.webp`}
                             alt={icon}
                             width={30}
                             height={30}
@@ -822,7 +823,7 @@ export function PartSelector({
                       <div
                         className="absolute inset-0 bg-contain"
                         style={{
-                          backgroundImage: `url(${tabsrc}/${drone.id}.png)`,
+                          backgroundImage: `url(${tabsrc}/${drone.id}.webp)`,
                           backgroundSize: 'contain',
                           backgroundRepeat: 'no-repeat',
                           backgroundPosition: 'right top',
@@ -866,7 +867,7 @@ export function PartSelector({
                         {(drone.armor !== 0 || drone.structure !== 0) && (
                           <div className="flex flex-col items-center px-1 py-0.5 border rounded-md shadow-sm bg-background/50">
                             <div className="flex items-center gap-1">
-                              <img loading="lazy" src={`${tabsrc}/icon_armor.png`} alt="armor" className="w-4 h-4" />
+                              <img loading="lazy" src={`${tabsrc}/icon_armor.webp`} alt="armor" className="w-4 h-4" />
                               <div style={{ fontSize: '12px', color: 'var(--muted-foreground)' }}>
                                 {drone.structure === 0 ? translations.t39 : `${translations.t39}/${translations.t40}`}
                               </div>
@@ -897,7 +898,7 @@ export function PartSelector({
                           .map(attr => (
                             <div key={attr.label} className="flex flex-col items-center px-1 py-0.5 border rounded-md shadow-sm bg-background/50">
                               <div className="flex items-center gap-1">
-                                <img loading="lazy" src={`${tabsrc}/${attr.icon}.png`} alt={attr.label} className="w-4 h-4" />
+                                <img loading="lazy" src={`${tabsrc}/${attr.icon}.webp`} alt={attr.label} className="w-4 h-4" />
                                 <div style={{ fontSize: '12px', color: 'var(--muted-foreground)' }}>{attr.label}</div>
                               </div>
                               <div style={{ fontSize: '16px', color: attr.value < 0 ? 'red' : attr.color || 'inherit' }}>
@@ -974,7 +975,7 @@ export function PartSelector({
                     {/* 图片容器：相对定位 */}
                     <div className="relative flex justify-center items-center h-[200px] w-full">
                       <img
-                        src={`${imgsrc}/${tacticCard.id}.png`}
+                        src={`${imgsrc}/${tacticCard.id}.webp`}
                         alt={tacticCard.name}
                         className="max-h-full w-auto pointer-events-none transition-transform duration-300"
                         loading="lazy"

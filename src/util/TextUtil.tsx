@@ -1,83 +1,102 @@
-import { PART_TYPE_NAMES, Team } from "../data/types";
+import { PART_TYPE_NAMES, Team, Drone } from "../data/types";
 import { getMechTotalScore } from "./ScoreUtil";
 
-// 辅助函数：替换回车和换行符为空格
-const sanitizeName = (name: string) => {
-    return name.replace(/[\r\n]/g, ' ');
+const sanitizeName = (name: string) => name.replace(/[\r\n]/g, ' ');
+
+// 将无人机列表合并为分组（相同 id + 相同背包视为同一种）
+interface DroneGroup {
+    drone: Drone;
+    count: number;
+    totalScore: number;
+}
+
+const groupDrones = (drones: Drone[]): DroneGroup[] => {
+    const map = new Map<string, DroneGroup>();
+    drones.forEach(drone => {
+        const key = `${drone.id}__${drone.backpack?.id ?? ''}`;
+        if (map.has(key)) {
+            const group = map.get(key)!;
+            group.count += 1;
+            group.totalScore += drone.score + (drone.backpack?.score ?? 0);
+        } else {
+            map.set(key, {
+                drone,
+                count: 1,
+                totalScore: drone.score + (drone.backpack?.score ?? 0),
+            });
+        }
+    });
+    return Array.from(map.values());
 };
 
 export const exportTextTeamData = (team: Team, translations: any, lang: string) => {
+    const hasDrones = team.drones.length > 0;
+    const hasTacticCards = !!(team.tacticCards && team.tacticCards.length > 0);
+    const hasTrailingSection = hasDrones || hasTacticCards;
 
-    let clipboardContent = `┏ ${sanitizeName(team.name)}[${translations.t72}：${team.totalScore}${translations.t71}]\n`;
+    let out = `┏━ ${sanitizeName(team.name)}【${translations.t72}：${team.totalScore}${translations.t71}】\n`;
 
-    team.mechs.forEach((mech) => {
-        const mechScore = getMechTotalScore(mech);
-        clipboardContent += `┣┳ ${sanitizeName(mech.name)}[M.A.P：${mechScore}${translations.t71}]\n`;
+    team.mechs.forEach((mech, mechIdx) => {
+        const isLastMech = mechIdx === team.mechs.length - 1 && !hasTrailingSection;
+        const mechBranch = isLastMech ? '┗┳' : '┣┳';
+        const mechVLine  = isLastMech ? '　' : '┃';
 
-        if (mech.parts["torso"]) {
-            clipboardContent += `┃┣ ${PART_TYPE_NAMES[lang]["torso"]}：${sanitizeName(mech.parts["torso"].name)}\n`;
+        out += `${mechBranch} ${sanitizeName(mech.name)}【M.A.P：${getMechTotalScore(mech)}${translations.t71}】\n`;
+
+        const partKeys = (['torso', 'chasis', 'leftHand', 'rightHand', 'backpack'] as const)
+            .filter(k => mech.parts[k]);
+        const hasPilot = !!mech.pilot;
+
+        partKeys.forEach((key, i) => {
+            const isLast = !hasPilot && i === partKeys.length - 1;
+            out += `${mechVLine}${isLast ? '┗' : '┣'} ${PART_TYPE_NAMES[lang][key]}：${sanitizeName(mech.parts[key]!.name)}\n`;
+        });
+
+        if (hasPilot) {
+            out += `${mechVLine}┗ ${translations.t69}：${sanitizeName(mech.pilot!.name)}\n`;
         }
-        if (mech.parts["chasis"]) {
-            clipboardContent += `┃┣ ${PART_TYPE_NAMES[lang]["chasis"]}：${sanitizeName(mech.parts["chasis"].name)}\n`;
-        }
-        if (mech.parts["leftHand"]) {
-            clipboardContent += `┃┣ ${PART_TYPE_NAMES[lang]["leftHand"]}：${sanitizeName(mech.parts["leftHand"].name)}\n`;
-        }
-        if (mech.parts["rightHand"]) {
-            clipboardContent += `┃┣ ${PART_TYPE_NAMES[lang]["rightHand"]}：${sanitizeName(mech.parts["rightHand"].name)}\n`;
-        }
-        if (mech.parts["backpack"]) {
-            clipboardContent += `┃┣ ${PART_TYPE_NAMES[lang]["backpack"]}：${sanitizeName(mech.parts["backpack"].name)}\n`;
-        }
-        if (mech.pilot) {
-            clipboardContent += `┃┗ ${translations.t69}：${sanitizeName(mech.pilot.name)}\n`;
+
+        if (!isLastMech) {
+            out += `┃\n`;
         }
     });
-    let droneIndex = 0;
-    if (team.drones.length > 0) {
-        clipboardContent += `┗┳ [${translations.t70}：${team.drones.reduce((sum, drone) => sum + drone.score + (drone.backpack?.score || 0), 0)}${translations.t71}]\n`;
-        team.drones.forEach((drone) => {
+
+    // 无人机
+    if (hasDrones) {
+        const droneScore = team.drones.reduce((s, d) => s + d.score + (d.backpack?.score ?? 0), 0);
+        const droneBranch = hasTacticCards ? '┣┳' : '┗┳';
+        const droneVLine  = hasTacticCards ? '┃' : '　';
+
+        out += `${droneBranch}【${translations.t70}：${droneScore}${translations.t71}】\n`;
+
+        const groups = groupDrones(team.drones);
+        groups.forEach((group, i) => {
+            const { drone, count } = group;
+            const isLast = i === groups.length - 1;
             const droneName = sanitizeName(drone.name);
-            const backpackName = drone.backpack ? sanitizeName(drone.backpack.name) : null;
-            
-            if (team.tacticCards && team.tacticCards.length > 0) {
-                if (droneIndex == team.drones.length - 1) {
-                    clipboardContent += `┃┗ ${droneName}\n`;
-                } else {
-                    clipboardContent += `┃┣ ${droneName}\n`;
-                }
-            } else {
-                if (droneIndex == team.drones.length - 1) {
-                    clipboardContent += `　┗ ${droneName}\n`;
-                } else {
-                    clipboardContent += `　┣ ${droneName}\n`;
-                }
-            }
+            const countStr  = count > 1 ? ` x${count}` : '';
 
-            if (backpackName) {
-                clipboardContent += `    ┃  ┗ ${backpackName}\n`;
+            out += `${droneVLine}${isLast ? '┗' : '┣'} ${droneName}${countStr}\n`;
+
+            if (drone.backpack) {
+                const innerVLine = isLast ? '　　' : `${droneVLine}　`;
+                out += `${innerVLine}┗ ${sanitizeName(drone.backpack.name)}\n`;
             }
-            droneIndex++;
         });
     }
 
-    let tacticCardIndex = 0;
-    if (team.tacticCards && team.tacticCards.length > 0) {
-        clipboardContent += `┗┳ [${translations.t90}：${team.tacticCards.reduce((sum, tacticCard) => sum + tacticCard.score + (tacticCard.backpack?.score || 0), 0)}${translations.t71}]\n`;
-        team.tacticCards.forEach((tacticCard) => {
-            const tacticCardName = sanitizeName(tacticCard.name);
-            if (tacticCardIndex == team.tacticCards.length - 1) {
-                clipboardContent += `　┗ ${tacticCardName}\n`;
-            } else {
-                clipboardContent += `　┣ ${tacticCardName}\n`;
-            }
-            tacticCardIndex++;
+    // 战术卡
+    if (hasTacticCards) {
+        const tacticScore = team.tacticCards!.reduce((s, tc) => s + tc.score, 0);
+        out += `┗┳【${translations.t90}：${tacticScore}${translations.t71}】\n`;
+
+        team.tacticCards!.forEach((tc, i) => {
+            const isLast = i === team.tacticCards!.length - 1;
+            out += `　${isLast ? '┗' : '┣'} ${sanitizeName(tc.name)}\n`;
         });
     }
 
-    navigator.clipboard.writeText(clipboardContent).then(() => {
-        alert(translations.t1);
-    }).catch((err) => {
-        alert(translations.t2);
-    });
+    navigator.clipboard.writeText(out)
+        .then(() => alert(translations.t1))
+        .catch(() => alert(translations.t2));
 };

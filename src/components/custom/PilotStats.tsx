@@ -15,6 +15,7 @@ export const PilotStats: React.FC<PilotStatsProps> = ({ pilot, tabsrc, style }) 
     { key: 'firing', value: pilot.firing, color: '#DB5C4B' },
     { key: 'moving', value: pilot.moving, color: '#18ACDC' },
     { key: 'tactic', value: pilot.tactic, color: '#8AC4A5' },
+    { key: 'LV', value: pilot.LV, color: '#A569BD' },
   ];
 
   return (

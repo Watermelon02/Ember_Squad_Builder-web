@@ -6,6 +6,7 @@ import { Action, Drone } from '../../../data/types';
 import { DroneOrProjectileActionItem } from '../DroneOrProjectileActionItem/ActionItem';
 import { TilingCrossPattern } from '../TilingCrossPattern';
 import { getDroneCardBackGroundClassName } from '../../../util/CustomCardUtil';
+import { translations } from '../../../i18n';
 
 interface DroneCardProps {
     drone: Drone;
@@ -115,7 +116,7 @@ export const DroneCard: React.FC<DroneCardProps> = ({ drone, tabsrc, faction, la
                     {/* Footer */}
                     <div className="drone-footer">
                          {drone.valueLess && <div className="stat-valueless">
-                            <span className="stat-val-valueless">{"低价值"}</span>
+                            <span className="stat-val-valueless">{translations[lang].t120}</span>
                         </div>}
                         {/* Stance */}
                         <div className={`drone-stance-bar drone-stance-${drone.stance}`}>

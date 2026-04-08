@@ -23,6 +23,7 @@ export const PilotStatsColumnMobile: React.FC<PilotStatsColumnMobileProps> = ({
     { key: "firing", value: pilot.firing },
     { key: "moving", value: pilot.moving },
     { key: "tactic", value: pilot.tactic },
+    { key: "LV", value: pilot.LV },
   ];
 
   const mainColor = COLOR_GREY;
@@ -48,8 +49,12 @@ export const PilotStatsColumnMobile: React.FC<PilotStatsColumnMobileProps> = ({
           : 0;
         const noCompare = !comparePilot;
 
+        // LV 越高越好
+        const isLV = attr.key === "LV";
         const isEqual = noCompare || attr.value === compareValue;
-        const isAdvantage = !noCompare && attr.value < compareValue;
+         const isAdvantage = !noCompare && (
+          isLV ? attr.value > compareValue : attr.value < compareValue
+        );
         const diff = attr.value - compareValue;
         const diffWidth = !isEqual && diff > 0 ? (diff / 10) * 100 : 0;
 
@@ -69,7 +74,7 @@ export const PilotStatsColumnMobile: React.FC<PilotStatsColumnMobileProps> = ({
           >
             {/* 图标 */}
             <img
-              src={`${tabsrc}/icon_${attr.key}.png`}
+              src={`${tabsrc}/icon_${attr.key}.webp`}
               alt={attr.key}
               style={{
                 height: "2vh",

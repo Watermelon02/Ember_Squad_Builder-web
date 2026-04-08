@@ -23,6 +23,15 @@ const partOrder: (keyof Mech['parts'])[] = [
   'rightHand',
 ];
 
+//星环的渲染顺序不同，需要单独处理
+const pdPartOrder: (keyof Mech['parts'])[] = [
+  'leftHand',
+  'chasis',
+  'torso',
+
+  'rightHand',
+];
+
 
 export const MechPreview: React.FC<MechPreviewProps> = ({
   mech,
@@ -36,10 +45,11 @@ export const MechPreview: React.FC<MechPreviewProps> = ({
   style,
 
 }) => {
+  const renderOrder = mech.parts.chasis?.isPD ? pdPartOrder : partOrder;
   // 自动生成“替换历史”
   const replaceHistory = useMemo(() => {
     const list: string[] = [];
-    partOrder.forEach((key) => {
+    renderOrder.forEach((key) => {
       const real = mech.parts[key];
       const def = defaultParts[key];
 
@@ -79,58 +89,59 @@ export const MechPreview: React.FC<MechPreviewProps> = ({
       }}
     >
       {/* 零件图层（不显示 backpack） */}
-      {partOrder.map((partKey) => {
-        const isRealPart = !!mech.parts[partKey]?.id;
-        const part = isRealPart ? mech.parts[partKey] : defaultParts[partKey];
-        if (!part?.id) return null;
+      {
+        renderOrder.map((partKey) => {
+          const isRealPart = !!mech.parts[partKey]?.id;
+          const part = isRealPart ? mech.parts[partKey] : defaultParts[partKey];
+          if (!part?.id) return null;
 
-        const scale = scaleOverrides[partKey] ?? 1;
-        const opacity = isRealPart ? 1 : 0.35;
+          const scale = scaleOverrides[partKey] ?? 1;
+          const opacity = isRealPart ? 1 : 0.35;
 
-        const initialPos = (() => {
-          switch (partKey) {
-            case 'torso': return { y: -20, opacity: 0 };
-            case 'leftHand': return { x: 20, opacity: 0 };
-            case 'rightHand': return { x: -20, opacity: 0 };
-            case 'chasis': return { y: 20, opacity: 0 };
-            default: return { opacity: 0 };
-          }
-        })();
+          const initialPos = (() => {
+            switch (partKey) {
+              case 'torso': return { y: -20, opacity: 0 };
+              case 'leftHand': return { x: 20, opacity: 0 };
+              case 'rightHand': return { x: -20, opacity: 0 };
+              case 'chasis': return { y: 20, opacity: 0 };
+              default: return { opacity: 0 };
+            }
+          })();
 
-        return (
-          <AnimatePresence key={partKey} mode="wait">
-            <motion.div
-              key={part.id}
-              style={{
-                position: 'absolute',
-                top: 0,
-                left: `-${cropLeftPercent}%`,
-                width: `${100 + cropLeftPercent}%`,
-                height: '100%',
-                overflow: 'hidden',
-                pointerEvents: 'none',
-              }}
-              initial={{ ...initialPos, scale: 0.95 }}
-              animate={{ x: 0, y: 0, opacity, scale }}
-              exit={{ ...initialPos, scale: 0.95, opacity: 0 }}
-              transition={{ duration: 0.3 }}
-            >
-              {(part.hasImage === undefined || part.hasImage) && <img
-                loading='lazy'
-                src={`${mechImgSrc}/${part.id}.png`}
-                alt={part.name}
+          return (
+            <AnimatePresence key={partKey} mode="wait">
+              <motion.div
+                key={part.id}
                 style={{
-                  width: '100%',
+                  position: 'absolute',
+                  top: 0,
+                  left: `-${cropLeftPercent}%`,
+                  width: `${100 + cropLeftPercent}%`,
                   height: '100%',
-                  objectFit: 'contain',
+                  overflow: 'hidden',
                   pointerEvents: 'none',
-                  transformOrigin: 'center center',
                 }}
-              />}
-            </motion.div>
-          </AnimatePresence>
-        );
-      })}
+                initial={{ ...initialPos, scale: 0.95 }}
+                animate={{ x: 0, y: 0, opacity, scale }}
+                exit={{ ...initialPos, scale: 0.95, opacity: 0 }}
+                transition={{ duration: 0.3 }}
+              >
+                {(part.hasImage === undefined || part.hasImage) && <img
+                  loading='lazy'
+                  src={`${mechImgSrc}/${part.id}.png`}
+                  alt={part.name}
+                  style={{
+                    width: '100%',
+                    height: '100%',
+                    objectFit: 'contain',
+                    pointerEvents: 'none',
+                    transformOrigin: 'center center',
+                  }}
+                />}
+              </motion.div>
+            </AnimatePresence>
+          );
+        })}
 
       {/* 左下角黑色小点（固定顺序） */}
       <div

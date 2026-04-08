@@ -81,7 +81,7 @@ export default function PilotPreviewMobile({
 
         {/* PILOT IMAGE */}
         {(pilot.hasImage === undefined || pilot.hasImage) ? <img
-          src={`${tabSrc}/${pilotId}.png?v=${TAB_PILOT_VERSION}`}
+          src={`${tabSrc}/${pilotId}.webp?v=${TAB_PILOT_VERSION}`}
           alt={pilot.name}
           style={{
             width: compareMode ? !leftPreviewExist ? "40%" : "80%" : "40%",

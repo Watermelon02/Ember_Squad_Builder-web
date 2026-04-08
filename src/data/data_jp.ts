@@ -198,7 +198,27 @@ export const rdlTorso: Part[] = [
     "tags": [],
     "keywords": [],
     "containedIn": [{ "box": BOXES.LAB_RDL_GENJI_AND_MALLARD, "quantityPerBox": 1 }],
-  }
+  },
+  {
+    "id": "533",
+    "name": "RTX-06 SR「マイア SR」戦闘コア",
+    "type": "torso",
+    "score": 32,
+    "armor": 6,
+    "structure": 2,
+    "parray": 0,
+    "dodge": 0,
+    "electronic": 2,
+    "move": 0,
+    "description": "",
+    "keywords": [],
+    "action": [
+
+    ],
+    "projectile": [],
+    "isPD": false,
+    "containedIn": [{ "box": BOXES.COMBAT_RAID, "quantityPerBox": 1 }],
+  },
 ];
 
 export const rdlChasis: Part[] = [
@@ -308,7 +328,25 @@ export const rdlChasis: Part[] = [
     "imgSrc": "",
     "tags": [],
     "containedIn": [{ "box": BOXES.LAB_RDL_GENJI_AND_MALLARD, "quantityPerBox": 1 }],
-  }
+  },
+  {
+    "id": "534",
+    "name": "RL-08C 装甲下肢",
+    "type": "chasis",
+    "score": 24,
+    "armor": 5,
+    "structure": 1,
+    "parray": 0,
+    "dodge": 3,
+    "electronic": 0,
+    "move": 1,
+    "description": "",
+    "keywords": [],
+    "action": [],
+    "projectile": [],
+    "isPD": false,
+    "containedIn": [{ "box": BOXES.COMBAT_RAID, "quantityPerBox": 1 }]
+  },
 ];
 
 export const rdlLeftHand: Part[] = [
@@ -421,7 +459,7 @@ export const rdlLeftHand: Part[] = [
     "description": "",
     "containedIn": [{ "box": BOXES.RDL_CORE, "quantityPerBox": 2 }],
     "keywords": [
-      KEYWORD_LIST.zh.空手, KEYWORD_LIST.zh.频闪武器
+      KEYWORD_LIST.jp.空手, KEYWORD_LIST.jp.频闪武器
     ],
     "projectile": [],
     "isPD": false
@@ -688,7 +726,7 @@ export const rdlLeftHand: Part[] = [
     "description": "",
     "containedIn": [{ "box": BOXES.GAME_PACK, "quantityPerBox": 2 }],
     "keywords": [
-      KEYWORD_LIST.zh.空手
+      KEYWORD_LIST.jp.空手
     ],
     "projectile": ["071"],
     "isPD": false
@@ -770,7 +808,79 @@ export const rdlLeftHand: Part[] = [
     "tags": [],
     "keywords": [KEYWORD_LIST.jp.震撼],
     "containedIn": [{ "box": BOXES.LAB_RDL_GENJI_AND_MALLARD, "quantityPerBox": 0 }],
-  }
+  },
+  {
+    "id": "535",
+    "name": "CC-7 クリーバー(L)",
+    "type": "leftHand",
+    "score": 39,
+    "armor": 4,
+    "structure": 0,
+    "parray": 1,
+    "dodge": 0,
+    "electronic": 0,
+    "move": 0,
+    "description": "",
+    "keywords": [KEYWORD_LIST.jp.空手, KEYWORD_LIST.jp.频闪武器,
+    ],
+    "action": [
+      {
+        "id": "535_A",
+        "name": "劈砍",
+        "description": "· 频闪武器",
+        "type": "Melee",
+        "size": "s",
+        "range": -1,
+        "storage": 0,
+        "yellowDice": 1,
+        "redDice": 3
+      }
+    ],
+    "projectile": [],
+    "isPD": false,
+    "containedIn": [{ "box": BOXES.COMBAT_RAID, "quantityPerBox": 1 }],
+  },
+  {
+    "id": "536",
+    "name": "PC-6ショットガン",
+    "type": "rightHand",
+    "score": 48,
+    "armor": 4,
+    "structure": 0,
+    "parray": 0,
+    "dodge": 0,
+    "electronic": 0,
+    "move": 0,
+    "description": "",
+    "throwIndex": "537",
+    "keywords": [
+      KEYWORD_LIST.jp.近战射击
+    ],
+    "projectile": [],
+    "isPD": false,
+    "containedIn": [{ "box": BOXES.COMBAT_RAID, "quantityPerBox": 1 }],
+  },
+  {
+    "id": "537",
+    "name": "PC-6ショットガン (D)",
+    "type": "rightHand",
+    "score": 0,
+    "armor": 4,
+    "structure": 0,
+    "parray": 0,
+    "dodge": 0,
+    "electronic": 0,
+    "move": 0,
+    "description": "",
+    "hasImage": false,
+    "keywords": [
+      KEYWORD_LIST.jp.空手
+    ],
+    "action": [],
+    "projectile": [],
+    "isPD": false,
+    "containedIn": [{ "box": BOXES.COMBAT_RAID, "quantityPerBox": 1 }],
+  },
 ];
 
 export const rdlRightHand: Part[] = [
@@ -1596,6 +1706,23 @@ export const rdlBackpack: Part[] = [
     ],
     "keywords": [KEYWORD_LIST.jp.曲射, KEYWORD_LIST.jp.静默, KEYWORD_LIST.jp.投掷],
     "containedIn": [{ "box": BOXES.LAB_RDL_GENJI_AND_MALLARD, "quantityPerBox": 1 }],
+  },
+  {
+    "id": "532",
+    "name": "ECS-3 外部クーラー",
+    "type": "backpack",
+    "score": 33,
+    "armor": 3,
+    "structure": 0,
+    "parray": 0,
+    "dodge": 1,
+    "electronic": 0,
+    "move": 0,
+    "description": "",
+    "keywords": [],
+    "projectile": [],
+    "isPD": false,
+    "containedIn": [{ "box": BOXES.COMBAT_RAID, "quantityPerBox": 1 }],
   }
 ];
 
@@ -1830,7 +1957,7 @@ export const unTorso: Part[] = [
     "electronic": 3,
     "move": 0,
     "description": "·曲射：本动作不需要对落点或目标有视线。",
-    "keywords": [KEYWORD_LIST.zh.曲射, KEYWORD_LIST.zh.KC装甲],
+    "keywords": [KEYWORD_LIST.jp.曲射, KEYWORD_LIST.jp.KC装甲],
     "projectile": ["155"],
     "isPD": false,
     "containedIn": [{ "box": BOXES.GAME_PACK, "quantityPerBox": 2 }],
@@ -1847,7 +1974,7 @@ export const unTorso: Part[] = [
     "electronic": 5,
     "move": 0,
     "description": "· 静默：执行本动作时不会解除光学迷彩与低特征。",
-    "keywords": [KEYWORD_LIST.zh.低特征, KEYWORD_LIST.zh.静默],
+    "keywords": [KEYWORD_LIST.jp.低特征, KEYWORD_LIST.jp.静默],
 
     "projectile": [],
     "isPD": false,
@@ -1931,7 +2058,24 @@ export const unTorso: Part[] = [
     "imgSrc": "",
     "tags": [],
     "containedIn": [{ "box": BOXES.SINGLE_UN_TAURUS, "quantityPerBox": 1 }],
-  }
+  },
+  {
+    "id": "539",
+    "name": "TM31Q「ワイルドキャット」戦闘コア",
+    "type": "torso",
+    "score": 63,
+    "armor": 4,
+    "structure": 4,
+    "parray": 0,
+    "dodge": 1,
+    "electronic": 4,
+    "move": 0,
+    "description": "·指令生成X：指令阶段开始时，本机自动生成X枚指令标记。",
+    "keywords": [KEYWORD_LIST.jp.指令生成X],
+    "projectile": [],
+    "isPD": false,
+    "containedIn": [{ "box": BOXES.COMBAT_RAID, "quantityPerBox": 1 }],
+  },
 ];
 
 export const unChasis: Part[] = [
@@ -2000,6 +2144,24 @@ export const unChasis: Part[] = [
 ];
 
 export const unLeftHand: Part[] = [
+  {
+    "id": "540",
+    "name": "S9 「メテオ」シールド + IGX106 イオンショットガン",
+    "type": "leftHand",
+    "score": 69,
+    "armor": 4,
+    "structure": 0,
+    "parray": 2,
+    "dodge": 1,
+    "electronic": 0,
+    "move": 0,
+    "description": "",
+    "keywords": [KEYWORD_LIST.jp.空手, KEYWORD_LIST.jp.震撼, KEYWORD_LIST.jp.毁伤, KEYWORD_LIST.jp.霰射, KEYWORD_LIST.jp.离子武器, KEYWORD_LIST.jp.近战射击
+    ],
+    "projectile": [],
+    "isPD": false,
+    "containedIn": [{ "box": BOXES.COMBAT_RAID, "quantityPerBox": 1 }]
+  },
   {
     "id": "103",
     "name": "S9 「メテオ」シールド + M5 パイルバンカー",
@@ -2798,7 +2960,47 @@ export const unRightHand: Part[] = [
     "imgSrc": "",
     "tags": [],
     "containedIn": [{ "box": BOXES.SINGLE_UN_TAURUS, "quantityPerBox": 1 }]
-  }
+  },
+  {
+    "id": "541",
+    "name": "R7K 戦術ライフル",
+    "type": "rightHand",
+    "score": 52,
+    "armor": 3,
+    "structure": 0,
+    "parray": 0,
+    "dodge": 0,
+    "electronic": 0,
+    "move": 0,
+    "description": "",
+    "throwIndex": "542",
+    "keywords": [KEYWORD_LIST.jp.激光武器
+    ],
+    "projectile": [],
+    "isPD": false,
+    "containedIn": [{ "box": BOXES.COMBAT_RAID, "quantityPerBox": 1 }]
+  },
+  {
+    "id": "542",
+    "name": "R7K 戦術ライフル (D)",
+    "type": "rightHand",
+    "score": 0,
+    "armor": 3,
+    "structure": 0,
+    "parray": 0,
+    "dodge": 0,
+    "electronic": 0,
+    "move": 0,
+    "description": "",
+    "hasImage": false,
+    "keywords": [
+      KEYWORD_LIST.jp.空手
+    ],
+    "action": [],
+    "projectile": [],
+    "isPD": false,
+    "containedIn": [{ "box": BOXES.COMBAT_RAID, "quantityPerBox": 1 }]
+  },
 ];
 
 export const unProjectiles: Projectile[] = [
@@ -2889,6 +3091,7 @@ export const unBackpack: Part[] = [
     "description": "",
     "imgSrc": "",
     "tags": [],
+    "projectile": ["156", "167"],
     "keywords": [KEYWORD_LIST.jp.曲射, KEYWORD_LIST.jp.投掷, KEYWORD_LIST.jp.静默],
     "containedIn": [{ "box": BOXES.UN_CORE, "quantityPerBox": 2 }]
   },
@@ -3054,9 +3257,44 @@ export const unBackpack: Part[] = [
     "isPD": false,
     "containedIn": [{ "box": BOXES.GAME_PACK, "quantityPerBox": 2 }]
   },
+  {
+    "id": "538",
+    "name": "JP5 モビリティ強化パック",
+    "type": "backpack",
+    "score": 60,
+    "armor": 3,
+    "structure": 0,
+    "parray": 0,
+    "dodge": 2,
+    "electronic": 0,
+    "move": 0,
+    "description": "",
+    "keywords": [KEYWORD_LIST.jp.负载],
+    "projectile": [],
+    "isPD": false,
+    "containedIn": [{ "box": BOXES.COMBAT_RAID, "quantityPerBox": 1 }]
+  },
 ];
 
 export const unDrones: Drone[] = [
+  {
+    "id": "543",
+    "name": "ADK15P 「ヤマアラシ」イオン型",
+    "type": "medium",
+    "score": 70,
+    "armor": 4,
+    "structure": 2,
+    "parray": 0,
+    "dodge": 0,
+    "electronic": 2,
+    "move": 5,
+    "stance": "defensive",
+    "description": "",
+    "projectile": [],
+    "isPD": false,
+    "keywords": [KEYWORD_LIST.jp.毁伤, KEYWORD_LIST.jp.离子武器],
+    "containedIn": [{ "box": BOXES.COMBAT_RAID, "quantityPerBox": 1 }],
+  },
   {
     "id": "159",
     "name": "AMDS210 「デルフィニウム」自動防衛システム",
@@ -3279,6 +3517,22 @@ export const unPilots: Pilot[] = [
     "trait": "不屈",
     "traitDescription": "本機は大型ユニットをクラッシュできる。",
     "box": BOXES.UN_DOORBREAKER
+  },
+  {
+    "id": "LPA-23-2",
+    "name": "オニキス 柔らかいコード",
+    "score": 24,
+    "LV": 4,
+    "faction": "UN",
+    "swift": 6,
+    "melee": 2,
+    "projectile": 3,
+    "firing": 5,
+    "moving": 4,
+    "tactic": 4,
+    "trait": "装飾音",
+    "traitDescription": "· 本機が射撃アクションを実行する際、対象が3グリッド以内にいる場合、この射撃アクションに+1Yを加える。",
+    "box": BOXES.COMBAT_RAID
   },
   {
     "id": "LPA-24",
@@ -3508,6 +3762,22 @@ export const rdlPilots: Pilot[] = [
     "box": BOXES.RDL_HEAVY_METAL
   },
   {
+    "id": "FPA-04-2",
+    "name": "ハンマーヘッド 家事の達人",
+    "score": 18,
+    "LV": 4,
+    "faction": "RDL",
+    "swift": 4,
+    "melee": 3,
+    "projectile": 2,
+    "firing": 5,
+    "moving": 2,
+    "tactic": 6,
+    "trait": "虫除け",
+    "traitDescription": "· [攻撃態勢] 搭乗している機甲がアクション機会を得るとき、最大1までリンク値を費やすたび、アクションティック1つを得る。",
+    "box": BOXES.COMBAT_RAID
+  },
+  {
     "id": "FPA-05",
     "name": "アンサー",
     "score": 15,
@@ -3732,6 +4002,673 @@ export const rdlPilots: Pilot[] = [
   // }
 ];
 
+export const gofDrones: Drone[] = [
+  {
+    "id": "ZHDR-201",
+    "name": "N31 ハウンドI 「ビーグル」",
+    "type": "medium",
+    "score": 40,
+    "armor": 3,
+    "structure": 3,
+    "parray": 2,
+    "dodge": 0,
+    "electronic": 2,
+    "move": 5,
+    "stance": "offensive",
+    "description": "",
+    "projectile": [
+      "ZHAM-002"
+    ],
+    "containedIn": [{ "box": BOXES.GOF_HUNTERS, "quantityPerBox": 2 }],
+    "isPD": false,
+    "hasImage": true,
+    "keywords": [KEYWORD_LIST.jp.齐射X, KEYWORD_LIST.jp.曲射],
+    "actions": [
+      {
+        "id": "ZHDR-201_A",
+        "name": "ミサイル",
+        "description": "· [命中] 対象は脆弱トークン1つを得る。",
+        "type": "Melee",
+        "speed": "auto",
+        "range": -1,
+        "storage": 0,
+        "yellowDice": 5,
+        "redDice": 0
+      },
+      {
+        "id": "ZHDR-201_B",
+        "name": "ミサイル",
+        "description": "· 斉射3 · 曲射\n·  M60「ブーメラン」ミサイルを1つ発射する。",
+        "type": "Projectile",
+        "speed": "command",
+        "range": 6,
+        "storage": 3,
+        "yellowDice": 0,
+        "redDice": 0
+      }
+    ]
+  },
+  {
+    "id": "ZHDR-202",
+    "name": "N31 ハウンドII 「ウォッチドッグ」",
+    "type": "medium",
+    "score": 36,
+    "armor": 3,
+    "structure": 3,
+    "parray": 2,
+    "dodge": 0,
+    "electronic": 2,
+    "move": 5,
+    "stance": "offensive",
+    "description": "",
+    "projectile": [],
+    "isPD": false,
+    "hasImage": true,
+    "keywords": [KEYWORD_LIST.jp.光环],
+    "containedIn": [{ "box": BOXES.GOF_HUNTERS, "quantityPerBox": 2 }],
+    "actions": [
+      {
+        "id": "ZHDR-202_A",
+        "name": "引き裂く",
+        "description": "· [命中] 対象は脆弱トークン1つを得る。",
+        "type": "Melee",
+        "speed": "auto",
+        "range": -1,
+        "storage": 0,
+        "yellowDice": 5,
+        "redDice": 0
+      },
+      {
+        "id": "ZHDR-202_B",
+        "name": "電子戦弱体化",
+        "description": "· オーラ\n· 範囲内にいる敵ユニットが電子戦対抗ロールを行う時、強度-1。この効果重複しない。",
+        "type": "Passive",
+        "speed": "passive",
+        "range": 4,
+        "storage": 0,
+        "yellowDice": 0,
+        "redDice": 0
+      }
+    ]
+  },
+  {
+    "id": "ZHDR-203",
+    "name": "N31 ハウンドIII 「ブルドッグ」",
+    "type": "medium",
+    "score": 36,
+    "armor": 3,
+    "structure": 3,
+    "parray": 2,
+    "dodge": 0,
+    "electronic": 2,
+    "move": 5,
+    "stance": "offensive",
+    "description": "",
+    "projectile": [],
+    "isPD": false,
+    "hasImage": true,
+    "keywords": [KEYWORD_LIST.jp.空中移动],
+    "containedIn": [{ "box": BOXES.GOF_HUNTERS, "quantityPerBox": 2 }],
+    "actions": [
+      {
+        "id": "ZHDR-203_A",
+        "name": "引き裂く",
+        "description": "· [命中] 対象は脆弱トークン1つを得る。",
+        "type": "Melee",
+        "speed": "auto",
+        "range": -1,
+        "storage": 0,
+        "yellowDice": 5,
+        "redDice": 0
+      },
+      {
+        "id": "ZHDR-203_B",
+        "name": "ジャンプ",
+        "description": "· 空中移動",
+        "type": "Moving",
+        "speed": "command",
+        "range": 3,
+        "storage": 0,
+        "yellowDice": 0,
+        "redDice": 0
+      }
+    ]
+  },
+  {
+    "id": "ZHDR-303",
+    "name": "N503 「ヴァルキュリア」",
+    "type": "large",
+    "score": 72,
+    "armor": 2,
+    "structure": 4,
+    "parray": 0,
+    "dodge": 0,
+    "electronic": 3,
+    "move": 5,
+    "stance": "offensive",
+    "description": "",
+    "projectile": [],
+    "isPD": false,
+    "hasImage": true,
+    "keywords": [KEYWORD_LIST.jp.全向射击, KEYWORD_LIST.jp.近战射击, KEYWORD_LIST.jp.光环],
+    "containedIn": [{ "box": BOXES.GOF_JUSTICE, "quantityPerBox": 2 }],
+    "actions": [
+      {
+        "id": "ZHDR-303_A",
+        "name": "単発射撃",
+        "description": "· 全方向射撃\n· 近接射撃\n· {稲妻} 対象機甲は直ちにダウン態勢に切り替える。",
+        "type": "Firing",
+        "speed": "auto",
+        "range": 4,
+        "storage": 0,
+        "yellowDice": 1,
+        "redDice": 2
+      },
+      {
+        "id": "ZHDR-303_B",
+        "name": "慰め",
+        "description": "· オーラ\n· ターン終了時、範囲内にいるすべての味方機甲はリンク値1点を回復する。",
+        "type": "Passive",
+        "speed": "passive",
+        "range": 2,
+        "storage": 0,
+        "yellowDice": 0,
+        "redDice": 0
+      }
+    ]
+  },
+  {
+    "id": "ZHDR-304",
+    "name": "N504 「ハーピィ」",
+    "type": "large",
+    "score": 72,
+    "armor": 2,
+    "structure": 4,
+    "parray": 0,
+    "dodge": 0,
+    "electronic": 3,
+    "move": 5,
+    "stance": "offensive",
+    "description": "",
+    "projectile": [],
+    "isPD": false,
+    "hasImage": true,
+    "containedIn": [{ "box": BOXES.GOF_JUSTICE, "quantityPerBox": 2 }],
+    "keywords": [KEYWORD_LIST.jp.全向射击, KEYWORD_LIST.jp.近战射击],
+    "actions": [
+      {
+        "id": "ZHDR-304_A",
+        "name": "単発射撃",
+        "description": "· 全方向射撃\n· 近接射撃\n· {稲妻} 対象機甲は直ちにダウン態勢に切り替える。",
+        "type": "Firing",
+        "speed": "auto",
+        "range": 4,
+        "storage": 0,
+        "yellowDice": 1,
+        "redDice": 2
+      },
+      {
+        "id": "ZHDR-304_B",
+        "name": "空中輸送",
+        "description": "· 执行指令移动时，可以额外消耗1指令标记并-2移动力，拖拽1个相邻的友军机甲或友军无人机。コマンド移動を実行する際、追加でコマンドトークン1つを消費して移動力を2減少することで、隣接している味方機甲または味方ドローンを引寄せる。（移動した後に移動を実行する前に隣接していた味方機甲または味方ドローンを引寄せる？）",
+        "type": "Passive",
+        "speed": "passive",
+        "range": 0,
+        "storage": 0,
+        "yellowDice": 0,
+        "redDice": 0
+      }
+    ]
+  },
+  {
+    "id": "ZHDR-101",
+    "name": "N11 ヴァンガードI 「スクートゥム」",
+    "type": "medium",
+    "score": 36,
+    "armor": 5,
+    "structure": 3,
+    "parray": 0,
+    "dodge": 0,
+    "electronic": 2,
+    "move": 5,
+    "stance": "defensive",
+    "description": "",
+    "projectile": [],
+    "isPD": false,
+    "hasImage": true,
+    "valueLess": true,
+    "containedIn": [{ "box": BOXES.GOF_CORE, "quantityPerBox": 6 }],
+    "keywords": [KEYWORD_LIST.jp.自动盾牌],
+    "actions": [
+      {
+        "id": "ZHDR-101_A",
+        "name": "機動バリケード",
+        "description": "· このユニットは味方へユニット保護を提供できる。\n· 自動シールド",
+        "type": "Passive",
+        "speed": "passive",
+        "range": 0,
+        "storage": 0,
+        "yellowDice": 0,
+        "redDice": 0
+      }
+    ]
+  },
+  {
+    "id": "ZHDR-102",
+    "name": "N12 ヴァンガードII 「クロスボウ」",
+    "type": "medium",
+    "score": 24,
+    "armor": 4,
+    "structure": 0,
+    "parray": 0,
+    "dodge": 0,
+    "electronic": 2,
+    "move": 5,
+    "stance": "defensive",
+    "description": "",
+    "projectile": [],
+    "isPD": false,
+    "hasImage": true,
+    "valueLess": true,
+    "containedIn": [{ "box": BOXES.GOF_CORE, "quantityPerBox": 6 }],
+    "keywords": [KEYWORD_LIST.jp.拦截X, KEYWORD_LIST.jp.全向射击, KEYWORD_LIST.jp.近战射击],
+    "actions": [
+      {
+        "id": "ZHDR-102_A",
+        "name": "掃射",
+        "description": "· 迎撃1\n· 全方向射撃\n· 近接射撃",
+        "type": "Firing",
+        "speed": "auto",
+        "range": 6,
+        "storage": 0,
+        "yellowDice": 2,
+        "redDice": 1
+      }
+    ]
+  },
+  {
+    "id": "ZHDR-103",
+    "name": "N13 ヴァンガードIII 「クレイモア」",
+    "type": "medium",
+    "score": 24,
+    "armor": 4,
+    "structure": 0,
+    "parray": 0,
+    "dodge": 0,
+    "electronic": 2,
+    "move": 5,
+    "stance": "defensive",
+    "description": "",
+    "projectile": [],
+    "isPD": false,
+    "hasImage": true,
+    "valueLess": true,
+    "containedIn": [{ "box": BOXES.GOF_CORE, "quantityPerBox": 3 }],
+    "keywords": [KEYWORD_LIST.jp.全向射击, KEYWORD_LIST.jp.近战射击],
+    "actions": [
+      {
+        "id": "ZHDR-103_A",
+        "name": "掃射",
+        "description": "· 全方向射撃\n· 近接射撃",
+        "type": "Firing",
+        "speed": "auto",
+        "range": 4,
+        "storage": 0,
+        "yellowDice": 4,
+        "redDice": 0
+      }
+    ]
+  },
+  {
+    "id": "ZHDR-104",
+    "name": "N14 ヴァンガードIV 「ジャベリン」",
+    "type": "medium",
+    "score": 24,
+    "armor": 4,
+    "structure": 0,
+    "parray": 0,
+    "dodge": 0,
+    "electronic": 2,
+    "move": 5,
+    "stance": "defensive",
+    "description": "",
+    "projectile": [
+      "ZHAM-001A"
+    ],
+    "isPD": false,
+    "hasImage": true,
+    "valueLess": true,
+    "containedIn": [{ "box": BOXES.GOF_CORE, "quantityPerBox": 3 }],
+    "keywords": [KEYWORD_LIST.jp.曲射],
+    "actions": [
+      {
+        "id": "ZHDR-104_A",
+        "name": "ミサイル",
+        "description": "· 曲射\n· M707「スウィフト」ミサイル1つを発射する。",
+        "type": "Projectile",
+        "speed": "command",
+        "range": 6,
+        "storage": 2,
+        "yellowDice": 0,
+        "redDice": 0
+      }
+    ]
+  },
+  {
+    "id": "ZHDR-106",
+    "name": "N113 イージスII 「バリスタ」",
+    "type": "large",
+    "score": 72,
+    "armor": 3,
+    "structure": 6,
+    "parray": 0,
+    "dodge": 0,
+    "electronic": 2,
+    "move": 4,
+    "stance": "offensive",
+    "description": "",
+    "projectile": [
+      "ZHAM-001A"
+    ],
+    "containedIn": [{ "box": BOXES.GOF_CORE, "quantityPerBox": 1 }],
+    "isPD": false,
+    "hasImage": true,
+    "keywords": [KEYWORD_LIST.jp.穿甲X, KEYWORD_LIST.jp.近战射击, KEYWORD_LIST.jp.曲射],
+    "actions": [
+      {
+        "id": "ZHDR-106_A",
+        "name": "単発射撃",
+        "description": "· 装甲貫通1\n· 近接射撃",
+        "type": "Firing",
+        "speed": "command",
+        "range": 12,
+        "storage": 0,
+        "yellowDice": 0,
+        "redDice": 3
+      },
+      {
+        "id": "ZHDR-106_B",
+        "name": "ミサイル",
+        "description": "· 曲射\n· M707「スウィフト」ミサイル1つを発射する。",
+        "type": "Projectile",
+        "speed": "command",
+        "range": 6,
+        "storage": 2,
+        "yellowDice": 0,
+        "redDice": 0
+      }
+    ]
+  },
+  {
+    "id": "ZHDR-107",
+    "name": "N113 イージスIII 「ラム」",
+    "type": "large",
+    "score": 60,
+    "armor": 3,
+    "structure": 6,
+    "parray": 0,
+    "dodge": 0,
+    "electronic": 2,
+    "move": 4,
+    "stance": "offensive",
+    "description": "",
+    "projectile": [],
+    "isPD": false,
+    "hasImage": true,
+    "containedIn": [{ "box": BOXES.GOF_CORE, "quantityPerBox": 1 }, { "box": BOXES.GOF_JUSTICE, "quantityPerBox": 1 }],
+    "keywords": [KEYWORD_LIST.jp.压制],
+    "actions": [
+      {
+        "id": "ZHDR-107_A",
+        "name": "掃射",
+        "description": "· 制圧",
+        "type": "Firing",
+        "speed": "command",
+        "range": 6,
+        "storage": 0,
+        "yellowDice": 5,
+        "redDice": 0
+      }
+    ]
+  },
+  {
+    "id": "ZHDR-301",
+    "name": "N51 「アポロジスト」",
+    "type": "large",
+    "score": 60,
+    "armor": 2,
+    "structure": 5,
+    "parray": 0,
+    "dodge": 0,
+    "electronic": 2,
+    "move": 5,
+    "stance": "defensive",
+    "description": "",
+    "projectile": [],
+    "isPD": false,
+    "hasImage": true,
+    "keywords": [KEYWORD_LIST.jp.霰射, KEYWORD_LIST.jp.近战射击, KEYWORD_LIST.jp.击退X, KEYWORD_LIST.jp.自动盾牌],
+    "containedIn": [{ "box": BOXES.GOF_JUSTICE, "quantityPerBox": 2 }],
+    "actions": [
+      {
+        "id": "ZHDR-301_A",
+        "name": "単発射撃",
+        "description": "· 散弾ショット · 近接射撃\n· 押出1",
+        "type": "Firing",
+        "speed": "command",
+        "range": 3,
+        "storage": 0,
+        "yellowDice": 3,
+        "redDice": 1
+      },
+      {
+        "id": "ZHDR-301_B",
+        "name": "高密度シールド",
+        "description": "· このユニットが命中されるとき、出目の｛防御｝は｛重撃｝を相殺できる。\n· 自動シールド",
+        "type": "Passive",
+        "speed": "passive",
+        "range": 0,
+        "storage": 0,
+        "yellowDice": 0,
+        "redDice": 0
+      }
+    ]
+  },
+  {
+    "id": "ZHDR-302",
+    "name": "N52 「ゼアロット」",
+    "type": "large",
+    "score": 60,
+    "armor": 2,
+    "structure": 5,
+    "parray": 1,
+    "dodge": 0,
+    "electronic": 2,
+    "move": 5,
+    "stance": "defensive",
+    "description": "",
+    "projectile": [],
+    "isPD": false,
+    "hasImage": true,
+    "keywords": [KEYWORD_LIST.jp.禁足],
+    "containedIn": [{ "box": BOXES.GOF_JUSTICE, "quantityPerBox": 2 }],
+    "actions": [
+      {
+        "id": "ZHDR-302_A",
+        "name": "スラッシュ",
+        "description": "· [命中] 対象は禁足トークン1つを得る。",
+        "type": "Melee",
+        "speed": "command",
+        "range": -1,
+        "storage": 0,
+        "yellowDice": 5,
+        "redDice": 0
+      },
+      {
+        "id": "ZHDR-302_B",
+        "name": "殉教",
+        "description": "· このユニットが破壊されると、直ちに誘爆される。\n· 誘爆されると、範囲内にいるすべてのユニットに爆発ダメージを与える。（可以合并成一句话吗）",
+        "type": "Passive",
+        "speed": "passive",
+        "range": 1,
+        "storage": 0,
+        "yellowDice": 2,
+        "redDice": 4
+      }
+    ]
+  },
+  {
+    "id": "ZHDR-204",
+    "name": "N305 イーグルI 「ミスティーイーグル」",
+    "type": "medium",
+    "score": 36,
+    "armor": 2,
+    "structure": 0,
+    "parray": 0,
+    "dodge": 7,
+    "electronic": 3,
+    "move": 6,
+    "stance": "mobility",
+    "description": "",
+    "projectile": [],
+    "isPD": false,
+    "hasImage": true,
+    "keywords": [KEYWORD_LIST.jp.低特征],
+    "containedIn": [{ "box": BOXES.GOF_HUNTERS, "quantityPerBox": 2 }],
+    "actions": [
+      {
+        "id": "ZHDR-204_A",
+        "name": "特徴減少",
+        "description": "· 範囲内にいる敵ユニットが射撃アクションを行うとき、対象は低姿勢を持っていると見なす。",
+        "type": "Passive",
+        "speed": "passive",
+        "range": 5,
+        "storage": 0,
+        "yellowDice": 0,
+        "redDice": 0
+      }
+    ]
+  },
+  {
+    "id": "ZHDR-205",
+    "name": "N306 イーグルII 「ロアリンクイーグル」",
+    "type": "medium",
+    "score": 36,
+    "armor": 2,
+    "structure": 0,
+    "parray": 0,
+    "dodge": 7,
+    "electronic": 3,
+    "move": 6,
+    "stance": "mobility",
+    "description": "",
+    "projectile": [],
+    "isPD": false,
+    "hasImage": true,
+    "keywords": [KEYWORD_LIST.jp.电子攻击],
+    "containedIn": [{ "box": BOXES.GOF_HUNTERS, "quantityPerBox": 2 }],
+    "actions": [
+      {
+        "id": "ZHDR-205_A",
+        "name": "スクリーミング",
+        "description": "· 電子攻撃\n· 範囲内にいるすべての敵機甲と電子戦対抗ロールを行い、成功すると対象のリンク値を1減らす。（失敗した敵機甲のリンク値を1減らす。）",
+        "type": "Tactic",
+        "speed": "auto",
+        "range": 4,
+        "storage": 0,
+        "yellowDice": 0,
+        "redDice": 0
+      }
+    ]
+  },
+  {
+    "id": "ZHDR-206",
+    "name": "N307 イーグルIII 「パトロールイーグル」",
+    "type": "medium",
+    "score": 36,
+    "armor": 2,
+    "structure": 0,
+    "parray": 0,
+    "dodge": 7,
+    "electronic": 3,
+    "move": 6,
+    "stance": "mobility",
+    "description": "",
+    "projectile": [],
+    "isPD": false,
+    "hasImage": true,
+    "keywords": [KEYWORD_LIST.jp.静默, KEYWORD_LIST.jp.电子支援],
+    "containedIn": [{ "box": BOXES.GOF_HUNTERS, "quantityPerBox": 2 }],
+    "actions": [
+      {
+        "id": "ZHDR-206_A",
+        "name": "動態察知",
+        "description": "· 範囲内にいる敵ユニットが行うすべてのアクションはサイレンスを失う。",
+        "type": "Passive",
+        "speed": "passive",
+        "range": 3,
+        "storage": 0,
+        "yellowDice": 0,
+        "redDice": 0
+      },
+      {
+        "id": "ZHDR-206_B",
+        "name": "スタンスフィードバック",
+        "description": "· 電子サポート\n· 範囲内にいるダウン態勢以外の味方機甲に態勢を切り替えさせる。",
+        "type": "Tactic",
+        "speed": "command",
+        "range": 6,
+        "storage": 0,
+        "yellowDice": 0,
+        "redDice": 0
+      }
+    ]
+  },
+  {
+    "id": "ZYDR-108",
+    "name": "SU1「ネストガーディアンスワーム」",
+    "type": "small",
+    "score": 0,
+    "armor": 1,
+    "structure": 0,
+    "parray": 0,
+    "dodge": 2,
+    "electronic": 1,
+    "move": 5,
+    "stance": "mobility",
+    "description": "低价值",
+    "projectile": [],
+    "isPD": false,
+    "hasImage": true,
+    "keywords": [KEYWORD_LIST.jp.全向射击],
+    "containedIn": [{ "box": BOXES.GOF_HUNTERS, "quantityPerBox": 2 }],
+    "actions": [
+      {
+        "id": "ZYDR-108_A",
+        "name": "点射",
+        "description": "· 全方向射撃",
+        "type": "Firing",
+        "speed": "auto",
+        "range": 2,
+        "storage": 0,
+        "yellowDice": 3,
+        "redDice": 0
+      },
+      {
+        "id": "ZYDR-108_B",
+        "name": "アーマーパッチ",
+        "description": "· 味方ユニットにある破損トークン1つを取り除く。その後このユニットを取り除く。",
+        "type": "Tactic",
+        "speed": "command",
+        "range": 2,
+        "storage": 0,
+        "yellowDice": 0,
+        "redDice": 0
+      }
+    ]
+  }
+];
+
 export const pdDrones: Drone[] = [
   {
     "id": "PRDR-101",
@@ -3896,20 +4833,140 @@ export const pdDrones: Drone[] = [
     "containedIn": [{ "box": BOXES.LAB_PD_Vigilant_Bombing_Support, "quantityPerBox": 1 }],
   }
 ];
-
-export const pdLeftHand: Part[] = [
-];
-
-export const pdRightHand: Part[] = [
-];
 export const pdTorso: Part[] = [
+  {
+    "id": "547",
+    "name": "H2-B「クライシス」II型",
+    "type": "torso",
+    "score": 63,
+    "armor": 5,
+    "structure": 3,
+    "parray": 0,
+    "dodge": 0,
+    "electronic": 2,
+    "move": 0,
+    "description": "",
+    "keywords": [
+      KEYWORD_LIST.jp.多目标X
+    ],
+
+    "projectile": [],
+
+    "isPD": true,
+    "containedIn": [{ "box": BOXES.LAB_PD_CRISIS2, "quantityPerBox": 1 }],
+  }
 ];
-export const pdChasis: Part[] = [
+export const pdChasis: Part[] = [{
+  "id": "548",
+  "name": "HL2 Crisis Chassis",
+  "type": "chasis",
+  "score": 21,
+  "armor": 5,
+  "structure": 0,
+  "parray": 0,
+  "dodge": 3,
+  "electronic": 0,
+  "move": 1,
+  "description": "",
+  "keywords": [],
+  "projectile": [],
+  "isPD": true,
+  "containedIn": [{ "box": BOXES.LAB_PD_CRISIS2, "quantityPerBox": 1 }],
+},
+  //   {
+  //   "id": "549",
+  //   "name": "HL2-M「クライシス」下肢M",
+  //   "type": "chasis",
+  //   "score": 32,
+  //   "armor": 5,
+  //   "structure": 2,
+  //   "parray": 0,
+  //   "dodge": 3,
+  //   "electronic": 0,
+  //   "move": 1,
+  //   "description": "",
+  //   "keywords": [],
+  //   "projectile": [],
+  //   "isPD": true,
+  //   "containedIn": [{ "box": BOXES.LAB_PD_CRISIS2, "quantityPerBox": 1 }],
+  // }
 ];
-export const pdBackpack: Part[] = [
+export const pdLeftHand: Part[] = [
+  {
+    "id": "550",
+    "name": "Ls197Rオートキャノン（L）",
+    "type": "leftHand",
+    "score": 48,
+    "armor": 3,
+    "structure": 0,
+    "parray": 0,
+    "dodge": 0,
+    "electronic": 0,
+    "move": 0,
+    "description": "",
+    "keywords": [KEYWORD_LIST.jp.遥控武器],
+    "projectile": [],
+    "isPD": true,
+    "containedIn": [{ "box": BOXES.LAB_PD_CRISIS2, "quantityPerBox": 1 }],
+  },
+];
+
+export const pdRightHand: Part[] = [{
+  "id": "551",
+  "name": "Ls197Rオートキャノン（R）",
+  "type": "rightHand",
+  "score": 48,
+  "armor": 3,
+  "structure": 0,
+  "parray": 0,
+  "dodge": 0,
+  "electronic": 0,
+  "move": 0,
+  "description": "",
+  "keywords": [KEYWORD_LIST.jp.遥控武器],
+  "projectile": [],
+  "isPD": true,
+  "containedIn": [{ "box": BOXES.LAB_PD_CRISIS2, "quantityPerBox": 1 }],
+},
+];
+
+
+export const pdBackpack: Part[] = [{
+  "id": "545",
+  "name": "LS297デュアルオートキャノン",
+  "type": "backpack",
+  "score": 48,
+  "armor": 3,
+  "structure": 0,
+  "parray": 0,
+  "dodge": 0,
+  "electronic": 0,
+  "move": 0,
+  "description": "·压制：被本动作宣布为目标的机甲会立刻切换为防御姿态（处于宕机姿态的单位不受此影响）。",
+  "keywords": [KEYWORD_LIST.jp.压制],
+  "projectile": [],
+  "isPD": true,
+  "containedIn": [{ "box": BOXES.LAB_PD_CRISIS2, "quantityPerBox": 1 }],
+}
 ];
 
 export const pdPilots: Pilot[] = [
+  {
+    "id": "XPA-60",
+    "name": "戦闘員 A-102",
+    "score": 10,
+    "LV": 5,
+    "faction": "PD",
+    "swift": 8,
+    "melee": 4,
+    "projectile": 5,
+    "firing": 3,
+    "moving": 3,
+    "tactic": 2,
+    "trait": "",
+    "traitDescription": "戦闘員およびLUKASを搭載した輸送機は、戦場上空を旋回しながら航空支援として行動し、可能な限り低い遅延を確保します。",
+    "box": BOXES.LAB_PD_CRISIS2
+  },
 ];
 
 export const allTacticCards: TacticCard[] = [
@@ -3949,10 +5006,223 @@ export const allTacticCards: TacticCard[] = [
 
 
 
+export const gofTorso: Part[] = [
+  {
+    "id": "172",
+    "name": "P7\n「ウォリアーズ」\n戦闘コア",
+    "type": "torso",
+    "score": 76,
+    "armor": 5,
+    "structure": 3,
+    "parray": 0,
+    "dodge": 0,
+    "electronic": 3,
+    "move": 0,
+    "description": "·指令生成X：指令阶段开始时，本机自动生成X枚指令标记。\r\n· 指令协调X：本动作执行结束后，可以立即向X台己方无人机发送1枚指令标记。 ",
+    "keywords": [KEYWORD_LIST.jp.指令生成X, KEYWORD_LIST.jp.指令协调X],
+    "hasImage": true,
+    "containedIn": [{ "box": BOXES.GOF_CORE, "quantityPerBox": 2 }],
+    "action": [
+      {
+        "id": "172_A",
+        "name": "N4データリンク",
+        "description": "· コマンド生成4",
+        "type": "Passive",
+        "size": "m",
+        "range": 0,
+        "storage": 0,
+        "yellowDice": 0,
+        "redDice": 0
+      },
+      {
+        "id": "172_B",
+        "name": "近接シナジー",
+        "description": "· この機体の近接アクションはコマンド連携1を得る。",
+        "type": "Passive",
+        "size": "m",
+        "range": 0,
+        "storage": 0,
+        "yellowDice": 0,
+        "redDice": 0
+      }
+    ],
+    "projectile": [],
+    "isPD": false
+  },
+  {
+    "id": "173",
+    "name": "P7A3\n「ケントゥリオ」\nノードコア",
+    "type": "torso",
+    "score": 85,
+    "armor": 5,
+    "structure": 3,
+    "parray": 0,
+    "dodge": 0,
+    "electronic": 3,
+    "move": 0,
+    "description": "·指令生成X：指令阶段开始时，本机自动生成X枚指令标记。",
+    "keywords": [KEYWORD_LIST.jp.指令生成X, KEYWORD_LIST.jp.光环],
+    "hasImage": true,
+    "containedIn": [{ "box": BOXES.GOF_CORE, "quantityPerBox": 2 }, { "box": BOXES.LAB_GOF_CENTAUR, "quantityPerBox": 1 }],
+    "action": [
+      {
+        "id": "173_A",
+        "name": "N4データリンク",
+        "description": "· コマンド生成4",
+        "type": "Passive",
+        "size": "m",
+        "range": 0,
+        "storage": 0,
+        "yellowDice": 0,
+        "redDice": 0
+      },
+      {
+        "id": "173_B",
+        "name": "FCSプランニング",
+        "description": "· オーラ\n· 範囲内にいる味方ドローンが射撃アクションを実行する際、その射撃アクションの範囲は+2される。この効果は重複しない。",
+        "type": "Passive",
+        "size": "m",
+        "range": 6,
+        "storage": 0,
+        "yellowDice": 0,
+        "redDice": 0
+      }
+    ],
+    "projectile": [],
+    "isPD": false
+  },
+  {
+    "id": "174",
+    "name": "P22\n「ハンター」\n電子戦コア",
+    "type": "torso",
+    "score": 91,
+    "armor": 5,
+    "structure": 4,
+    "parray": 0,
+    "dodge": 0,
+    "electronic": 4,
+    "move": 0,
+    "description": "·指令生成X：指令阶段开始时，本机自动生成X枚指令标记。",
+    "keywords": [KEYWORD_LIST.jp.指令生成X],
+    "containedIn": [{ "box": BOXES.GOF_HUNTERS, "quantityPerBox": 2 }],
+    "action": [
+      {
+        "id": "174_A",
+        "name": "N4データリンク",
+        "description": "コマンド生成44",
+        "type": "Passive",
+        "size": "m",
+        "range": 0,
+        "storage": 0,
+        "yellowDice": 0,
+        "redDice": 0
+      },
+      {
+        "id": "174_B",
+        "name": "ターゲットトレース",
+        "description": "· この機体が敵機甲に近接攻撃または射撃された後、コマンドトークンを1つ消費して攻撃側へ電子戦対抗ロールを発起できる。成功すると対象のリンク値を1減らす。",
+        "type": "Passive",
+        "size": "m",
+        "range": 0,
+        "storage": 0,
+        "yellowDice": 0,
+        "redDice": 0
+      }
+    ],
+    "projectile": [],
+    "isPD": false
+  },
+  {
+    "id": "175",
+    "name": "P28\n「ドラグーン」\n重装甲コア",
+    "type": "torso",
+    "score": 97,
+    "armor": 5,
+    "structure": 4,
+    "parray": 0,
+    "dodge": 0,
+    "electronic": 2,
+    "move": 0,
+    "description": "·指令生成X：指令阶段开始时，本机自动生成X枚指令标记。",
+    "keywords": [KEYWORD_LIST.jp.指令生成X, KEYWORD_LIST.jp.致密装甲],
+    "hasImage": true,
+    "containedIn": [{ "box": BOXES.GOF_JUSTICE, "quantityPerBox": 1 }],
+    "action": [
+      {
+        "id": "175_A",
+        "name": "A2データリンク",
+        "description": "· コマンド生成2\n· 味方ドローンがこの機体のコマンドを受けるとき、自動アクションを実行できる。",
+        "type": "Passive",
+        "size": "m",
+        "range": 0,
+        "storage": 0,
+        "yellowDice": 0,
+        "redDice": 0
+      },
+      {
+        "id": "175_B",
+        "name": "高密度アーマー",
+        "description": "· このパーツが攻撃を受ける時、コマンドトークンを1つ消費して高密度アーマーを得る。",
+        "type": "Passive",
+        "size": "m",
+        "range": 0,
+        "storage": 0,
+        "yellowDice": 0,
+        "redDice": 0
+      }
+    ],
+    "projectile": [],
+    "isPD": false
+  },
+  {
+    "id": "176",
+    "name": "P24\n「チャリオット」\n重装甲コア",
+    "type": "torso",
+    "score": 94,
+    "armor": 5,
+    "structure": 4,
+    "parray": 0,
+    "dodge": 0,
+    "electronic": 2,
+    "move": 0,
+    "description": "·指令生成X：指令阶段开始时，本机自动生成X枚指令标记。",
+    "keywords": [KEYWORD_LIST.jp.指令生成X, KEYWORD_LIST.jp.致密装甲],
+    "hasImage": true,
+    "containedIn": [{ "box": BOXES.GOF_JUSTICE, "quantityPerBox": 1 }],
+    "action": [
+      {
+        "id": "176_A",
+        "name": "M2データリンク",
+        "description": "· コマンド生成2\n· 味方ドローンがこの機体のコマンドを受けるとき、アクションを実行する前に1グリッド移動できる。",
+        "type": "Passive",
+        "size": "m",
+        "range": 0,
+        "storage": 0,
+        "yellowDice": 0,
+        "redDice": 0
+      },
+      {
+        "id": "176_B",
+        "name": "高密度アーマー",
+        "description": "· このパーツが攻撃を受ける時、コマンドトークンを1つ消費して高密度アーマーを得る。",
+        "type": "Passive",
+        "size": "m",
+        "range": 0,
+        "storage": 0,
+        "yellowDice": 0,
+        "redDice": 0
+      }
+    ],
+    "projectile": [],
+    "isPD": false,
+
+  }
+];
+
 export const gofChasis: Part[] = [
   {
     "id": "179",
-    "name": "PL1 Standard Chassis",
+    "name": "PL1\n標準下肢",
     "type": "chasis",
     "score": 37,
     "armor": 1,
@@ -3964,26 +5234,24 @@ export const gofChasis: Part[] = [
     "description": "",
     "keywords": [],
     "containedIn": [{ "box": BOXES.GOF_CORE, "quantityPerBox": 4 }],
-    "action": [
-      {
-        "id": "179_A",
-        "name": "Sprint",
-        "description": "",
-        "type": "Moving",
-        "size": "m",
-        "range": 4,
-        "storage": 0,
-        "yellowDice": 0,
-        "redDice": 0
-      }
-    ],
+    "action": [{
+      "id": "179_A",
+      "name": "スプリント",
+      "description": "",
+      "type": "Moving",
+      "size": "m",
+      "range": 4,
+      "storage": 0,
+      "yellowDice": 0,
+      "redDice": 0
+    }],
     "projectile": [],
     "isPD": false,
     "hasImage": true,
   },
   {
     "id": "180",
-    "name": "PL29\r\n Stealth Chassis",
+    "name": "PL29\n 隠密下肢",
     "type": "chasis",
     "score": 61,
     "armor": 1,
@@ -3992,13 +5260,13 @@ export const gofChasis: Part[] = [
     "dodge": 4,
     "electronic": 0,
     "move": 1,
-    "description": "· Silence: Optical Camouflage and Low Profile will not be removed when this action is performed.",
-    "keywords": [KEYWORD_LIST.en.静默],
+    "description": "·静默：不会解除光学迷彩。",
+    "keywords": [KEYWORD_LIST.jp.静默],
     "containedIn": [{ "box": BOXES.GOF_HUNTERS, "quantityPerBox": 1 }],
     "action": [
       {
         "id": "180_A",
-        "name": "Sprint",
+        "name": "スプリント",
         "description": "",
         "type": "Moving",
         "size": "m",
@@ -4009,8 +5277,8 @@ export const gofChasis: Part[] = [
       },
       {
         "id": "180_B",
-        "name": "Stealth Movement",
-        "description": "· All Move Actions and Maneuver of this Part have Silence.",
+        "name": "隠密移動",
+        "description": "· このパーツによるすべての移動とマニューバーはサイレンス効果を得る。",
         "type": "Passive",
         "size": "m",
         "range": 0,
@@ -4025,7 +5293,7 @@ export const gofChasis: Part[] = [
   },
   {
     "id": "181",
-    "name": "PLK400\n“Centaur”\nHigh-mobility Chassis",
+    "name": "PLK400\n「ケンタウロス」\n高機動下肢",
     "type": "chasis",
     "score": 90,
     "armor": 5,
@@ -4034,14 +5302,14 @@ export const gofChasis: Part[] = [
     "dodge": 3,
     "electronic": 0,
     "move": 2,
-    "description": "·Unstoppable: Movement Actions with this Keyword can still be performed when Immobilized.\n·Non-humanoid X: When performing this Action, -X Link Value.\n·Push X: Move the target X grids in straight line in the direction this unit is facing, then this unit performs the same movement.",
-    "keywords": [KEYWORD_LIST.en.异形X, KEYWORD_LIST.en.不可阻挡, KEYWORD_LIST.en.推动X],
-    "containedIn": [{ "box": BOXES.GOF_JUSTICE, "quantityPerBox": 1 },{ "box": BOXES.LAB_GOF_CENTAUR, "quantityPerBox": 1 }],
+    "containedIn": [{ "box": BOXES.GOF_JUSTICE, "quantityPerBox": 1 }, { "box": BOXES.LAB_GOF_CENTAUR, "quantityPerBox": 1 }],
+    "description": "`不可阻挡：本动作在禁足状态下也可以移动\r\n·异形X：执行本动作时，需要消耗X点链接值。\r\n·推动X：将目标沿本单位面朝方向，强制直线移动X格，然后本单位执行同样的移动。",
+    "keywords": [KEYWORD_LIST.jp.异形X, KEYWORD_LIST.jp.不可阻挡, KEYWORD_LIST.jp.推动X],
     "action": [
       {
         "id": "181_A",
-        "name": "Run",
-        "description": "· Non-humanoid 1\n· Unstoppable\n· If there is an Enemy Ground Unit in the adjacent grid in front of the Mech after performing this Action, may cause Push 1.",
+        "name": "猛進",
+        "description": "· 異形1\n· 阻止不能\n· このメカが移動した後、前方の隣接グリッドに敵の地上ユニットが存在する場合、そのユニットに対してプッシュ１を与えることができます。",
         "type": "Moving",
         "size": "m",
         "range": 5,
@@ -4051,7 +5319,7 @@ export const gofChasis: Part[] = [
       },
       {
         "id": "181_B",
-        "name": "Sprint",
+        "name": "スプリント",
         "description": "",
         "type": "Moving",
         "size": "s",
@@ -4067,7 +5335,7 @@ export const gofChasis: Part[] = [
   },
   {
     "id": "182",
-    "name": "PL35\nArmored Chassis",
+    "name": "PL35\n重装甲下肢",
     "type": "chasis",
     "score": 64,
     "armor": 6,
@@ -4076,13 +5344,13 @@ export const gofChasis: Part[] = [
     "dodge": 3,
     "electronic": 0,
     "move": 1,
-    "description": "·Push X: Move the target X grids in straight line in the direction this unit is facing, then this unit performs the same movement.",
-    "keywords": [KEYWORD_LIST.en.推动X],
+    "description": "·推动X：将目标沿本单位面朝方向，强制直线移动X格，然后本单位执行同样的移动。",
+    "keywords": [KEYWORD_LIST.jp.击退X],
     "containedIn": [{ "box": BOXES.GOF_JUSTICE, "quantityPerBox": 1 }],
     "action": [
       {
         "id": "182_A",
-        "name": "Sprint",
+        "name": "スプリント",
         "description": "",
         "type": "Moving",
         "size": "m",
@@ -4093,8 +5361,8 @@ export const gofChasis: Part[] = [
       },
       {
         "id": "182_B",
-        "name": "Kick",
-        "description": "·[On Hit], Push 1.",
+        "name": "蹴り",
+        "description": "·[命中] プッシュ1.",
         "type": "Melee",
         "size": "s",
         "range": 1,
@@ -4106,13 +5374,14 @@ export const gofChasis: Part[] = [
     "projectile": [],
     "isPD": false,
     "hasImage": true,
-  }
-]
+  },
+
+];
 
 export const gofLeftHand: Part[] = [
   {
     "id": "ZHLA-101",
-    "name": "SS12 Buckler",
+    "name": "SS12バックラー",
     "type": "leftHand",
     "score": 53,
     "armor": 4,
@@ -4122,13 +5391,13 @@ export const gofLeftHand: Part[] = [
     "electronic": 0,
     "move": 0,
     "description": "",
-    "keywords": [KEYWORD_LIST.en.空手, KEYWORD_LIST.en.震撼],
     "containedIn": [{ "box": BOXES.GOF_CORE, "quantityPerBox": 2 }],
+    "keywords": [KEYWORD_LIST.jp.空手, KEYWORD_LIST.jp.震撼],
     "action": [
       {
         "id": "ZHLA-101_A",
-        "name": "Defense Reaction",
-        "description": "· If Penetration occurs against any Part of this Mech, it may immediately change to Defensive Stance.",
+        "name": "防御リアクション",
+        "description": "· この機体の任意のパーツが貫通された時、この機体は直ちに防御態勢に切り替えられる。",
         "type": "Passive",
         "size": "m",
         "range": 0,
@@ -4138,8 +5407,8 @@ export const gofLeftHand: Part[] = [
       },
       {
         "id": "ZHLA-101_B",
-        "name": "Shield Bash",
-        "description": "· Concussion",
+        "name": "シールドバッシュ",
+        "description": "· 衝撃",
         "type": "Melee",
         "size": "s",
         "range": -1,
@@ -4154,9 +5423,9 @@ export const gofLeftHand: Part[] = [
   },
   {
     "id": "ZHLA-102",
-    "name": "Dual \"Swift\" Launcher",
+    "name": "二連装【スウィフト】ランチャー",
     "type": "leftHand",
-    "score": 35,
+    "score": 38,
     "armor": 1,
     "structure": 4,
     "parray": 0,
@@ -4165,12 +5434,12 @@ export const gofLeftHand: Part[] = [
     "move": 0,
     "description": "",
     "containedIn": [{ "box": BOXES.GOF_CORE, "quantityPerBox": 4 }],
-    "keywords": [KEYWORD_LIST.en.齐射X, KEYWORD_LIST.en.曲射, KEYWORD_LIST.en.指令协调X],
+    "keywords": [KEYWORD_LIST.jp.齐射X, KEYWORD_LIST.jp.曲射, KEYWORD_LIST.jp.指令协调X],
     "action": [
       {
         "id": "ZHLA-102_A",
-        "name": "Missile",
-        "description": "· Volley 2 · Fire in arc\n· Launch 1 M707 \"Swift\" Missile.\n· Command Coordination 1",
+        "name": "ミサイル",
+        "description": "· 斉射2 · 曲射\n· M707【スウィフト】ミサイル1発を発射する。\n· コマンド連携1",
         "type": "Projectile",
         "size": "m",
         "range": 3,
@@ -4180,8 +5449,8 @@ export const gofLeftHand: Part[] = [
       },
       {
         "id": "ZHLA-102_B",
-        "name": "Command Coordination",
-        "description": "·  Give 1 Command Token to 1 Ally Drone.",
+        "name": "コマンド連携",
+        "description": "· 味方ドローン1つへコマンドトークン1つを発行する。",
         "type": "Tactic",
         "size": "s",
         "range": 0,
@@ -4193,13 +5462,12 @@ export const gofLeftHand: Part[] = [
     "projectile": [
       "ZHAM-001A"
     ],
-    "throwIndex": "ZHLA-102-T",
     "isPD": false,
     "hasImage": true,
   },
   {
     "id": "ZHLA-102-T",
-    "name": "Dual \"Swift\" Launcher (D)",
+    "name": "二連装【スウィフト】ランチャー（廃棄）",
     "type": "leftHand",
     "score": 0,
     "armor": 1,
@@ -4209,14 +5477,13 @@ export const gofLeftHand: Part[] = [
     "electronic": 0,
     "move": 0,
     "description": "",
-    "keywords": [
-      KEYWORD_LIST.en.空手
-    ],
+    "containedIn": [{ "box": BOXES.GOF_CORE, "quantityPerBox": 4 }],
+    "keywords": [KEYWORD_LIST.jp.空手],
     "action": [
       {
         "id": "ZHLA-102_B",
-        "name": "Command Coordination",
-        "description": "·  Give 1 Command Token to 1 Ally Drone.",
+        "name": "コマンド連携",
+        "description": "· 味方ドローン1つへコマンドトークン1つを発行する。",
         "type": "Tactic",
         "size": "s",
         "range": 0,
@@ -4225,16 +5492,15 @@ export const gofLeftHand: Part[] = [
         "redDice": 0
       }
     ],
-    "containedIn": [{ "box": BOXES.GOF_CORE, "quantityPerBox": 4 }],
     "projectile": [],
     "isPD": false,
     "hasImage": false,
   },
   {
     "id": "ZHLA-201",
-    "name": "GSD7 Mortar",
+    "name": "GSD7迫撃砲",
     "type": "leftHand",
-    "score": 29,
+    "score": 32,
     "armor": 1,
     "structure": 4,
     "parray": 0,
@@ -4242,13 +5508,14 @@ export const gofLeftHand: Part[] = [
     "electronic": 1,
     "move": 0,
     "description": "",
-    "keywords": [KEYWORD_LIST.en.曲射, KEYWORD_LIST.en.静止, KEYWORD_LIST.en.指令协调X],
+    "keywords": [KEYWORD_LIST.jp.曲射, KEYWORD_LIST.jp.静止, KEYWORD_LIST.jp.指令协调X],
+    "throwIndex": "ZHLA-201-T",
     "containedIn": [{ "box": BOXES.GOF_HUNTERS, "quantityPerBox": 2 }],
     "action": [
       {
         "id": "ZHLA-201_A",
-        "name": "Mortar",
-        "description": "· Fire in arc\n· Launch 1 PK3 Sensor-fused Munition or M25 Shrapnel Shell.\n· [Stationary] Range +1 grid。\n· Command Coordination 1",
+        "name": "迫撃砲",
+        "description": "· 曲射\n· PK3センサーフューズド徹甲弾1発またはM25榴散弾1発を発射する。\n· [静止] +1範囲。\n· コマンド連携1",
         "type": "Projectile",
         "size": "m",
         "range": 8,
@@ -4258,8 +5525,8 @@ export const gofLeftHand: Part[] = [
       },
       {
         "id": "ZHLA-201_B",
-        "name": "Command Coordination",
-        "description": "·  Give 1 Command Token to 1 Ally Drone.",
+        "name": "コマンド連携",
+        "description": "· 味方ドローン1つへコマンドトークン1つを発行する。",
         "type": "Tactic",
         "size": "s",
         "range": 0,
@@ -4274,11 +5541,10 @@ export const gofLeftHand: Part[] = [
     ],
     "isPD": false,
     "hasImage": true,
-    "throwIndex": "ZHLA-201-T",
   },
   {
     "id": "ZHLA-201-T",
-    "name": "GSD7 Mortar (D)",
+    "name": "GSD7迫撃砲（廃棄）",
     "type": "leftHand",
     "score": 0,
     "armor": 1,
@@ -4288,15 +5554,13 @@ export const gofLeftHand: Part[] = [
     "electronic": 0,
     "move": 0,
     "description": "",
+    "keywords": [KEYWORD_LIST.jp.空手],
     "containedIn": [{ "box": BOXES.GOF_HUNTERS, "quantityPerBox": 2 }],
-    "keywords": [
-      KEYWORD_LIST.en.空手
-    ],
     "action": [
       {
-        "id": "ZHLA-201_B",
-        "name": "Command Coordination",
-        "description": "·  Give 1 Command Token to 1 Ally Drone.",
+        "id": "ZHLA-201-T_B",
+        "name": "コマンド連携",
+        "description": "· 味方ドローン1つへコマンドトークン1つを発行する。",
         "type": "Tactic",
         "size": "s",
         "range": 0,
@@ -4311,7 +5575,7 @@ export const gofLeftHand: Part[] = [
   },
   {
     "id": "ZHLA-202",
-    "name": "M4 Combat Claw",
+    "name": "M4コンバットクロー",
     "type": "leftHand",
     "score": 65,
     "armor": 1,
@@ -4321,26 +5585,24 @@ export const gofLeftHand: Part[] = [
     "electronic": 0,
     "move": 0,
     "description": "",
+    "keywords": [KEYWORD_LIST.jp.空手],
     "containedIn": [{ "box": BOXES.GOF_HUNTERS, "quantityPerBox": 2 }],
-    "keywords": [
-      KEYWORD_LIST.en.空手
-    ],
     "action": [
       {
         "id": "ZHLA-202_A",
-        "name": "Tear",
-        "description": "· [On hit], target gains 1 Fragile Token.",
+        "name": "引き裂く",
+        "description": "· [命中] 対象は脆弱トークン1つを得る。",
         "type": "Melee",
         "size": "s",
         "range": -1,
         "storage": 0,
-        "yellowDice": 5,
-        "redDice": 0
+        "yellowDice": 3,
+        "redDice": 1
       },
       {
         "id": "ZHLA-202_B",
-        "name": "Reposte",
-        "description": "· On a Successful Parry with this part, the Attacker must immediately end the current Action Opportunity, and then the Defender may immediately perform a Melee Action.",
+        "name": "カウンター",
+        "description": "· このパーツによってパリィ成功すると、攻撃側は直ちにアクション機会を終了する。その後にこの機体は即座に近接アクション1つを実行する。",
         "type": "Passive",
         "size": "m",
         "range": 0,
@@ -4355,9 +5617,9 @@ export const gofLeftHand: Part[] = [
   },
   {
     "id": "ZHLA-301",
-    "name": "SS30 Heavy Shield",
+    "name": "SS30ヘビーシールド",
     "type": "leftHand",
-    "score": 75,
+    "score": 69,
     "armor": 6,
     "structure": 5,
     "parray": 2,
@@ -4371,8 +5633,8 @@ export const gofLeftHand: Part[] = [
     "action": [
       {
         "id": "ZHLA-301_A",
-        "name": "Shield Up",
-        "description": "· This Mech may Designate this part to resolve damage in the Defensive Stance.",
+        "name": "シールド防御",
+        "description": "· 防御態勢であれば、この機体はこのパーツを命中パーツとして指定できる。",
         "type": "Passive",
         "size": "m",
         "range": 0,
@@ -4382,8 +5644,8 @@ export const gofLeftHand: Part[] = [
       },
       {
         "id": "ZHLA-301_B",
-        "name": "Defense Reaction",
-        "description": "· If Penetration occurs against any Part of this Mech, it may immediately change to Defensive Stance.",
+        "name": "防御リアクション",
+        "description": "· この機体の任意のパーツが貫通された時、この機体は直ちに防御態勢に切り替えられる。",
         "type": "Passive",
         "size": "m",
         "range": 0,
@@ -4398,7 +5660,7 @@ export const gofLeftHand: Part[] = [
   },
   {
     "id": "ZHLA-301-T",
-    "name": "SS30 Heavy Shield (D)",
+    "name": "SS30ヘビーシールド（廃棄）",
     "type": "leftHand",
     "score": 0,
     "armor": 1,
@@ -4408,18 +5670,16 @@ export const gofLeftHand: Part[] = [
     "electronic": 0,
     "move": 0,
     "description": "",
-    "keywords": [
-      KEYWORD_LIST.en.空手
-    ],
+    "keywords": [KEYWORD_LIST.jp.空手],
+    "containedIn": [{ "box": BOXES.GOF_JUSTICE, "quantityPerBox": 1 }],
     "action": [],
     "projectile": [],
     "isPD": false,
     "hasImage": false,
-    "containedIn": [{ "box": BOXES.GOF_JUSTICE, "quantityPerBox": 1 }],
   },
   {
     "id": "ZHLA-302",
-    "name": "MR870 Shotgun",
+    "name": "MR870霰弹枪",
     "type": "leftHand",
     "score": 56,
     "armor": 1,
@@ -4429,14 +5689,14 @@ export const gofLeftHand: Part[] = [
     "electronic": 0,
     "move": 0,
     "description": "",
-    "keywords": [KEYWORD_LIST.en.霰射, KEYWORD_LIST.en.近战射击],
     "containedIn": [{ "box": BOXES.GOF_JUSTICE, "quantityPerBox": 3 }],
+    "keywords": [KEYWORD_LIST.jp.霰射, KEYWORD_LIST.jp.近战射击, KEYWORD_LIST.jp.追击标记],
     "throwIndex": "ZHLA-302-T",
     "action": [
       {
         "id": "ZHLA-302_A",
-        "name": "Burst Fire",
-        "description": "· Scatter-shot · Melee Firing",
+        "name": "マーキング射撃",
+        "description": "· 近接射撃\n· 【命中】命中パーツは追撃トークンを得る。",
         "type": "Firing",
         "size": "s",
         "range": 4,
@@ -4446,8 +5706,8 @@ export const gofLeftHand: Part[] = [
       },
       {
         "id": "ZHLA-302_B",
-        "name": "Power Shot",
-        "description": "· Scatter-shot · Melee Firing",
+        "name": "単発射撃",
+        "description": "· 散弾ショット · 近接射撃",
         "type": "Firing",
         "size": "l",
         "range": 4,
@@ -4462,7 +5722,7 @@ export const gofLeftHand: Part[] = [
   },
   {
     "id": "ZHLA-302-T",
-    "name": "MR870 Shotgun (D)",
+    "name": "MR870ショットガン（廃棄）",
     "type": "leftHand",
     "score": 0,
     "armor": 1,
@@ -4473,9 +5733,7 @@ export const gofLeftHand: Part[] = [
     "move": 0,
     "description": "",
     "containedIn": [{ "box": BOXES.GOF_JUSTICE, "quantityPerBox": 3 }],
-    "keywords": [
-      KEYWORD_LIST.en.空手
-    ],
+    "keywords": [KEYWORD_LIST.jp.空手],
     "action": [],
     "projectile": [],
     "isPD": false,
@@ -4483,7 +5741,7 @@ export const gofLeftHand: Part[] = [
   },
   {
     "id": "ZHLA-303",
-    "name": "Support Arm",
+    "name": "レフトサポートアーム",
     "type": "leftHand",
     "score": 29,
     "armor": 1,
@@ -4494,14 +5752,12 @@ export const gofLeftHand: Part[] = [
     "move": 0,
     "description": "",
     "containedIn": [{ "box": BOXES.GOF_CORE, "quantityPerBox": 1 }, { "box": BOXES.GOF_JUSTICE, "quantityPerBox": 1 }],
-    "keywords": [
-      KEYWORD_LIST.en.空手
-    ],
+    "keywords": [KEYWORD_LIST.jp.空手],
     "action": [
       {
         "id": "ZHLA-303_A",
-        "name": "Melee Support",
-        "description": "· If this part is Designated as Freehand for Melee Action, that Action +1R.",
+        "name": "近接戦アシスト",
+        "description": "·  【両手】キーワードを持つ近接アクションがこのパーツをフリーハンドとして指定する場合、このアクション+1R。",
         "type": "Passive",
         "size": "m",
         "range": 0,
@@ -4516,9 +5772,9 @@ export const gofLeftHand: Part[] = [
   },
   {
     "id": "ZHLA-304",
-    "name": "MH-K1 Heat Heavy Sword (L)",
+    "name": "MHK1ヒートブロードソード（L）",
     "type": "leftHand",
-    "score": 47,
+    "score": 56,
     "armor": 1,
     "structure": 5,
     "parray": 2,
@@ -4526,14 +5782,14 @@ export const gofLeftHand: Part[] = [
     "electronic": 0,
     "move": 0,
     "description": "",
-    "keywords": [KEYWORD_LIST.en.顺劈, KEYWORD_LIST.en.毁伤],
-    "containedIn": [{ "box": BOXES.GOF_JUSTICE, "quantityPerBox": 1 },{ "box": BOXES.LAB_GOF_CENTAUR, "quantityPerBox": 1 }],
+    "keywords": [KEYWORD_LIST.jp.顺劈, KEYWORD_LIST.jp.毁伤],
     "throwIndex": "ZHLA-304-T",
+    "containedIn": [{ "box": BOXES.GOF_JUSTICE, "quantityPerBox": 1 }, { "box": BOXES.LAB_GOF_CENTAUR, "quantityPerBox": 1 }],
     "action": [
       {
         "id": "ZHLA-304_A",
-        "name": "Chop",
-        "description": "· Cleaving",
+        "name": "チョップ",
+        "description": "· クリーヴ",
         "type": "Melee",
         "size": "s",
         "range": -1,
@@ -4543,8 +5799,8 @@ export const gofLeftHand: Part[] = [
       },
       {
         "id": "ZHLA-304_B",
-        "name": "Slash",
-        "description": "· [Two-Handed] Gains Mutilation.",
+        "name": "スラッシュ",
+        "description": "·[両手]切断を得る。",
         "type": "Melee",
         "size": "l",
         "range": -1,
@@ -4559,7 +5815,7 @@ export const gofLeftHand: Part[] = [
   },
   {
     "id": "ZHLA-304-T",
-    "name": "MH-K1 Heat Heavy Sword (L)(D)",
+    "name": "MHK1ヒートブロードソード（L）（廃棄）",
     "type": "leftHand",
     "score": 0,
     "armor": 1,
@@ -4569,23 +5825,21 @@ export const gofLeftHand: Part[] = [
     "electronic": 0,
     "move": 0,
     "description": "",
-    "keywords": [
-      KEYWORD_LIST.en.空手
-    ],
+    "keywords": [KEYWORD_LIST.jp.空手],
     "action": [],
     "projectile": [],
     "isPD": false,
     "hasImage": false,
-    "containedIn": [{ "box": BOXES.GOF_JUSTICE, "quantityPerBox": 1 }],
+    "containedIn": [{ "box": BOXES.GOF_JUSTICE, "quantityPerBox": 0 }],
   }
-]
+];
 
 export const gofRightHand: Part[] = [
   {
     "id": "ZHRA-101",
-    "name": "MR14 Railgun",
+    "name": "MR14レールガン",
     "type": "rightHand",
-    "score": 29,
+    "score": 32,
     "armor": 1,
     "structure": 4,
     "parray": 0,
@@ -4593,25 +5847,25 @@ export const gofRightHand: Part[] = [
     "electronic": 0,
     "move": 0,
     "description": "",
-    "keywords": [KEYWORD_LIST.en.穿甲X, KEYWORD_LIST.en.双手],
     "containedIn": [{ "box": BOXES.GOF_CORE, "quantityPerBox": 2 }],
+    "keywords": [KEYWORD_LIST.jp.穿甲X, KEYWORD_LIST.jp.双手],
     "throwIndex": "ZHRA-101-T",
     "action": [
       {
         "id": "ZHRA-101_A",
-        "name": "Burst Fire",
-        "description": "· Armor Piercing 1",
+        "name": "バースト射撃",
+        "description": "· 装甲貫通1",
         "type": "Firing",
         "size": "m",
         "range": 8,
         "storage": 0,
-        "yellowDice": 2,
-        "redDice": 2
+        "yellowDice": 0,
+        "redDice": 4
       },
       {
         "id": "ZHRA-101_B",
-        "name": "Power Shot",
-        "description": "· Armour Piercing 1\n· [Two-Handed] Range +2 grids.",
+        "name": "単発射撃",
+        "description": "· 装甲貫通1\n· [両手] +2範囲。",
         "type": "Firing",
         "size": "l",
         "range": 8,
@@ -4626,7 +5880,7 @@ export const gofRightHand: Part[] = [
   },
   {
     "id": "ZHRA-101-T",
-    "name": "MR14 Railgun (D)",
+    "name": "MR14レールガン（廃棄）",
     "type": "rightHand",
     "score": 0,
     "armor": 1,
@@ -4638,7 +5892,7 @@ export const gofRightHand: Part[] = [
     "description": "",
     "containedIn": [{ "box": BOXES.GOF_CORE, "quantityPerBox": 2 }],
     "keywords": [
-      KEYWORD_LIST.en.空手
+      KEYWORD_LIST.jp.空手
     ],
     "action": [],
     "projectile": [],
@@ -4647,9 +5901,9 @@ export const gofRightHand: Part[] = [
   },
   {
     "id": "ZHRA-102",
-    "name": "MR16 Railgun",
+    "name": "MR16レールガン",
     "type": "rightHand",
-    "score": 32,
+    "score": 35,
     "armor": 1,
     "structure": 4,
     "parray": 0,
@@ -4657,14 +5911,14 @@ export const gofRightHand: Part[] = [
     "electronic": 0,
     "move": 0,
     "description": "",
-    "keywords": [KEYWORD_LIST.en.穿甲X],
     "throwIndex": "ZHRA-102-T",
+    "keywords": [KEYWORD_LIST.jp.穿甲X],
     "containedIn": [{ "box": BOXES.GOF_CORE, "quantityPerBox": 2 }],
     "action": [
       {
         "id": "ZHRA-102_A",
-        "name": "Burst Fire",
-        "description": "· Armor Piercing 1\n· [Offensive Stance] This action is considerd a Short Action.",
+        "name": "バースト射撃",
+        "description": "· 装甲貫通1\n· [攻撃態勢]このアクションは短アクションと見なす。",
         "type": "Firing",
         "size": "m",
         "range": 6,
@@ -4674,8 +5928,8 @@ export const gofRightHand: Part[] = [
       },
       {
         "id": "ZHRA-102_B",
-        "name": "Power Shot",
-        "description": "· Armor Piercing 1",
+        "name": "単発射撃",
+        "description": "· 装甲貫通1",
         "type": "Firing",
         "size": "l",
         "range": 6,
@@ -4690,7 +5944,7 @@ export const gofRightHand: Part[] = [
   },
   {
     "id": "ZHRA-102-T",
-    "name": "MR16 Railgun (D)",
+    "name": "MR16レールガン（廃棄）",
     "type": "rightHand",
     "score": 0,
     "armor": 1,
@@ -4702,7 +5956,7 @@ export const gofRightHand: Part[] = [
     "description": "",
     "containedIn": [{ "box": BOXES.GOF_CORE, "quantityPerBox": 2 }],
     "keywords": [
-      KEYWORD_LIST.en.空手
+      KEYWORD_LIST.jp.空手
     ],
     "action": [],
     "projectile": [],
@@ -4711,9 +5965,9 @@ export const gofRightHand: Part[] = [
   },
   {
     "id": "ZHRA-103",
-    "name": "M115 Spear",
+    "name": "M115スピアー",
     "type": "rightHand",
-    "score": 29,
+    "score": 38,
     "armor": 1,
     "structure": 4,
     "parray": 0,
@@ -4721,14 +5975,14 @@ export const gofRightHand: Part[] = [
     "electronic": 0,
     "move": 0,
     "description": "",
-    "keywords": [KEYWORD_LIST.en.冲锋X, KEYWORD_LIST.en.毁伤],
+    "keywords": [KEYWORD_LIST.jp.冲锋X, KEYWORD_LIST.jp.毁伤],
     "throwIndex": "ZHRA-103-T",
     "containedIn": [{ "box": BOXES.GOF_CORE, "quantityPerBox": 4 }],
     "action": [
       {
         "id": "ZHRA-103_A",
-        "name": "Thrust",
-        "description": "· [Offensive Stance] gains Shock Attack 1.",
+        "name": "スラスト",
+        "description": "· [攻撃態勢]突撃1を得る。",
         "type": "Melee",
         "size": "m",
         "range": -1,
@@ -4738,8 +5992,8 @@ export const gofRightHand: Part[] = [
       },
       {
         "id": "ZHRA-103_B",
-        "name": "Power Thrust",
-        "description": "· [Two-Handed] Gains Mutilation.",
+        "name": "強化スラスト",
+        "description": "· [両手] 切断を得る。",
         "type": "Melee",
         "size": "l",
         "range": -1,
@@ -4754,7 +6008,7 @@ export const gofRightHand: Part[] = [
   },
   {
     "id": "ZHRA-103-T",
-    "name": "M115 Spear (D)",
+    "name": "M115スピアー（廃棄）",
     "type": "rightHand",
     "score": 0,
     "armor": 1,
@@ -4764,10 +6018,10 @@ export const gofRightHand: Part[] = [
     "electronic": 0,
     "move": 0,
     "description": "",
-    "containedIn": [{ "box": BOXES.GOF_CORE, "quantityPerBox": 4 }],
     "keywords": [
-      KEYWORD_LIST.en.空手
+      KEYWORD_LIST.jp.空手
     ],
+    "containedIn": [{ "box": BOXES.GOF_CORE, "quantityPerBox": 0 }],
     "action": [],
     "projectile": [],
     "isPD": false,
@@ -4775,7 +6029,7 @@ export const gofRightHand: Part[] = [
   },
   {
     "id": "ZHRA-201",
-    "name": "MR21 Railgun",
+    "name": "MR21レールガン",
     "type": "rightHand",
     "score": 68,
     "armor": 1,
@@ -4785,14 +6039,14 @@ export const gofRightHand: Part[] = [
     "electronic": 1,
     "move": 0,
     "description": "",
-    "keywords": [KEYWORD_LIST.en.穿甲X, KEYWORD_LIST.en.指令协调X, KEYWORD_LIST.en.狙击, KEYWORD_LIST.en.毁伤],
+    "keywords": [KEYWORD_LIST.jp.穿甲X, KEYWORD_LIST.jp.指令协调X, KEYWORD_LIST.jp.狙击, KEYWORD_LIST.jp.毁伤],
     "throwIndex": "ZHRA-201-T",
     "containedIn": [{ "box": BOXES.GOF_HUNTERS, "quantityPerBox": 2 }],
     "action": [
       {
         "id": "ZHRA-201_A",
-        "name": "Single Shot",
-        "description": "· Armor Piercing 1\n· Command Coordination 1",
+        "name": "単発射撃",
+        "description": "· 装甲貫通1\n· コマンド連携1",
         "type": "Firing",
         "size": "m",
         "range": 12,
@@ -4802,8 +6056,8 @@ export const gofRightHand: Part[] = [
       },
       {
         "id": "ZHRA-201_B",
-        "name": "Power Shot",
-        "description": "· Armor Piercing 1 · Snipe\n· [Two-Handed] Gains Mutilation.\n· [Offensive Stance]+{1R}.",
+        "name": "強化単発射撃",
+        "description": "· 装甲貫通1 · 狙撃\n·[両手] 切断を得る。\n· [攻撃態勢]+{1R}。",
         "type": "Firing",
         "size": "l",
         "range": 12,
@@ -4818,7 +6072,7 @@ export const gofRightHand: Part[] = [
   },
   {
     "id": "ZHRA-201-T",
-    "name": "MR21 Railgun (D)",
+    "name": "MR21レールガン（廃棄）",
     "type": "rightHand",
     "score": 0,
     "armor": 1,
@@ -4830,13 +6084,13 @@ export const gofRightHand: Part[] = [
     "description": "",
     "containedIn": [{ "box": BOXES.GOF_HUNTERS, "quantityPerBox": 2 }],
     "keywords": [
-      KEYWORD_LIST.en.空手
+      KEYWORD_LIST.jp.空手
     ],
     "action": [
       {
-        "id": "ZHRA-201_B",
-        "name": "Command Coordination",
-        "description": "·  Give 1 Command Token to 1 Ally Drone.",
+        "id": "ZHRA-201-T_B",
+        "name": "コマンド連携",
+        "description": "· 味方ドローン1つへコマンドトークン1つを発行する。",
         "type": "Tactic",
         "size": "s",
         "range": 0,
@@ -4851,7 +6105,7 @@ export const gofRightHand: Part[] = [
   },
   {
     "id": "ZHRA-202",
-    "name": "MR24 Railgun",
+    "name": "MR24レールガン",
     "type": "rightHand",
     "score": 68,
     "armor": 1,
@@ -4861,14 +6115,14 @@ export const gofRightHand: Part[] = [
     "electronic": 1,
     "move": 0,
     "description": "",
-    "keywords": [KEYWORD_LIST.en.穿甲X, KEYWORD_LIST.en.静默, KEYWORD_LIST.en.指令协调X, KEYWORD_LIST.en.狙击, KEYWORD_LIST.en.毁伤],
+    "keywords": [KEYWORD_LIST.jp.穿甲X, KEYWORD_LIST.jp.静默, KEYWORD_LIST.jp.指令协调X, KEYWORD_LIST.jp.狙击, KEYWORD_LIST.jp.毁伤],
     "throwIndex": "ZHRA-202-T",
     "containedIn": [{ "box": BOXES.GOF_HUNTERS, "quantityPerBox": 2 }],
     "action": [
       {
         "id": "ZHRA-202_A",
-        "name": "Single Shot",
-        "description": "· Armor Piercing 1\n· Silence· Command Coordination 1",
+        "name": "単発射撃",
+        "description": "· 装甲貫通1\n· サイレンス · コマンド連携1",
         "type": "Firing",
         "size": "m",
         "range": 12,
@@ -4878,8 +6132,8 @@ export const gofRightHand: Part[] = [
       },
       {
         "id": "ZHRA-202_B",
-        "name": "Power Shot",
-        "description": "· Armor Piercing 1 · Snipe\n· [Two-Handed] Gains Mutilation.",
+        "name": "強化単発射撃",
+        "description": "· 装甲貫通1 · 狙撃 · サイレンス\n· [両手] 切断を得る。",
         "type": "Firing",
         "size": "l",
         "range": 12,
@@ -4894,7 +6148,7 @@ export const gofRightHand: Part[] = [
   },
   {
     "id": "ZHRA-202-T",
-    "name": "MR24 Railigun (D)",
+    "name": "MR24レールガン（廃棄）",
     "type": "rightHand",
     "score": 0,
     "armor": 1,
@@ -4904,15 +6158,14 @@ export const gofRightHand: Part[] = [
     "electronic": 1,
     "move": 0,
     "description": "",
-    "containedIn": [{ "box": BOXES.GOF_HUNTERS, "quantityPerBox": 2 }],
     "keywords": [
-      KEYWORD_LIST.en.空手
+      KEYWORD_LIST.jp.空手
     ],
     "action": [
       {
-        "id": "ZHRA-202_B",
-        "name": "Command Coordination",
-        "description": "·  Give 1 Command Token to 1 Ally Drone.",
+        "id": "ZHRA-202-T_B",
+        "name": "コマンド連携",
+        "description": "· 味方ドローン1つへコマンドトークン1つを発行する。",
         "type": "Tactic",
         "size": "s",
         "range": 0,
@@ -4924,12 +6177,13 @@ export const gofRightHand: Part[] = [
     "projectile": [],
     "isPD": false,
     "hasImage": false,
+    "containedIn": [{ "box": BOXES.GOF_HUNTERS, "quantityPerBox": 2 }],
   },
   {
     "id": "ZHRA-301",
-    "name": "M100 Lance",
+    "name": "M100ランス",
     "type": "rightHand",
-    "score": 56,
+    "score": 53,
     "armor": 1,
     "structure": 5,
     "parray": 1,
@@ -4937,14 +6191,13 @@ export const gofRightHand: Part[] = [
     "electronic": 0,
     "move": 0,
     "description": "",
-    "keywords": [KEYWORD_LIST.en.冲锋X, KEYWORD_LIST.en.近战射击],
-    "throwIndex": "ZHRA-301-T",
+    "keywords": [KEYWORD_LIST.jp.冲锋X, KEYWORD_LIST.jp.近战射击],
     "containedIn": [{ "box": BOXES.GOF_JUSTICE, "quantityPerBox": 1 }],
     "action": [
       {
         "id": "ZHRA-301_A",
-        "name": "Thrust",
-        "description": "· [Offensive Stance] gains Shock Attack 1.",
+        "name": "スラスト",
+        "description": "· [攻撃態勢]突撃1を得る。",
         "type": "Melee",
         "size": "m",
         "range": -1,
@@ -4954,23 +6207,24 @@ export const gofRightHand: Part[] = [
       },
       {
         "id": "ZHRA-301_B",
-        "name": "Single Shot",
-        "description": "· Melee Firing",
+        "name": "単発射撃",
+        "description": "· 近接射撃",
         "type": "Firing",
-        "size": "l",
-        "range": 6,
+        "size": "s",
+        "range": 1,
         "storage": 0,
         "yellowDice": 3,
         "redDice": 3
       }
     ],
+    "throwIndex": "ZHRA-301-T",
     "projectile": [],
     "isPD": false,
     "hasImage": true,
   },
   {
     "id": "ZHRA-301-T",
-    "name": "M100 Lance (D)",
+    "name": "M100ランス（廃棄）",
     "type": "rightHand",
     "score": 0,
     "armor": 1,
@@ -4980,20 +6234,20 @@ export const gofRightHand: Part[] = [
     "electronic": 0,
     "move": 0,
     "description": "",
+    "containedIn": [{ "box": BOXES.GOF_CORE, "quantityPerBox": 0 }],
     "keywords": [
-      KEYWORD_LIST.en.空手
+      KEYWORD_LIST.jp.空手
     ],
     "action": [],
     "projectile": [],
     "isPD": false,
     "hasImage": false,
-    "containedIn": [{ "box": BOXES.GOF_JUSTICE, "quantityPerBox": 1 }],
   },
   {
     "id": "ZHRA-303",
-    "name": "M105 Halberd",
+    "name": "M105ハルバード",
     "type": "rightHand",
-    "score": 38,
+    "score": 41,
     "armor": 1,
     "structure": 4,
     "parray": 0,
@@ -5001,14 +6255,14 @@ export const gofRightHand: Part[] = [
     "electronic": 0,
     "move": 0,
     "description": "",
-    "keywords": [KEYWORD_LIST.en.冲锋X, KEYWORD_LIST.en.拖拽, KEYWORD_LIST.en.压制, KEYWORD_LIST.en.毁伤],
-    "throwIndex": "ZHRA-303-T",
     "containedIn": [{ "box": BOXES.GOF_CORE, "quantityPerBox": 1 }, { "box": BOXES.GOF_JUSTICE, "quantityPerBox": 1 }],
+    "keywords": [KEYWORD_LIST.jp.冲锋X, KEYWORD_LIST.jp.拖拽, KEYWORD_LIST.jp.压制],
+    "throwIndex": "ZHRA-303-T",
     "action": [
       {
         "id": "ZHRA-303_A",
-        "name": "Thrust Pick",
-        "description": "· [Offensive Stance] gains Shock Attack 1.\n· [On Hit] Causes Drag.",
+        "name": "突き上げ",
+        "description": "· [攻撃態勢]突撃1を得る。\n· [命中]引寄せ。",
         "type": "Melee",
         "size": "m",
         "range": -1,
@@ -5018,8 +6272,8 @@ export const gofRightHand: Part[] = [
       },
       {
         "id": "ZHRA-303_B",
-        "name": "Slash",
-        "description": "· [Two-Handed] Gains Suppression and Mutilation.",
+        "name": "スラッシュ",
+        "description": "· [両手] 制圧を得る。",
         "type": "Melee",
         "size": "l",
         "range": -1,
@@ -5034,7 +6288,7 @@ export const gofRightHand: Part[] = [
   },
   {
     "id": "ZHRA-303-T",
-    "name": "M105 Halberd (D)",
+    "name": "M105ハルバード（廃棄）",
     "type": "rightHand",
     "score": 0,
     "armor": 1,
@@ -5046,7 +6300,7 @@ export const gofRightHand: Part[] = [
     "description": "",
     "containedIn": [{ "box": BOXES.GOF_CORE, "quantityPerBox": 1 }, { "box": BOXES.GOF_JUSTICE, "quantityPerBox": 1 }],
     "keywords": [
-      KEYWORD_LIST.en.空手
+      KEYWORD_LIST.jp.空手
     ],
     "action": [],
     "projectile": [],
@@ -5055,9 +6309,9 @@ export const gofRightHand: Part[] = [
   },
   {
     "id": "ZHRA-304",
-    "name": "MH-K1 Heat Heavy Sword (R)",
+    "name": "MHK1ヒートブロードソード（R）",
     "type": "rightHand",
-    "score": 47,
+    "score": 56,
     "armor": 1,
     "structure": 5,
     "parray": 2,
@@ -5065,14 +6319,14 @@ export const gofRightHand: Part[] = [
     "electronic": 0,
     "move": 0,
     "description": "",
-    "keywords": [KEYWORD_LIST.en.顺劈, KEYWORD_LIST.en.毁伤],
+    "keywords": [KEYWORD_LIST.jp.顺劈, KEYWORD_LIST.jp.毁伤],
     "throwIndex": "ZHRA-304-T",
-    "containedIn": [{ "box": BOXES.GOF_JUSTICE, "quantityPerBox": 2 },{ "box": BOXES.LAB_GOF_CENTAUR, "quantityPerBox": 1 }],
+    "containedIn": [{ "box": BOXES.GOF_JUSTICE, "quantityPerBox": 2 }, { "box": BOXES.LAB_GOF_CENTAUR, "quantityPerBox": 1 }],
     "action": [
       {
         "id": "ZHRA-304_A",
-        "name": "Chop",
-        "description": "· Cleaving",
+        "name": "チョップ",
+        "description": "· クリーヴ",
         "type": "Melee",
         "size": "s",
         "range": -1,
@@ -5082,8 +6336,8 @@ export const gofRightHand: Part[] = [
       },
       {
         "id": "ZHRA-304_B",
-        "name": "Slash",
-        "description": "· [Two-Handed] Gains Mutilation.",
+        "name": "スラッシュ",
+        "description": "·[両手]切断を得る。",
         "type": "Melee",
         "size": "l",
         "range": -1,
@@ -5098,7 +6352,7 @@ export const gofRightHand: Part[] = [
   },
   {
     "id": "ZHRA-304-T",
-    "name": "MH-K1 Heat Heavy Sword (R)(D)",
+    "name": "MHK1ヒートブロードソード（R）（廃棄）",
     "type": "rightHand",
     "score": 0,
     "armor": 1,
@@ -5108,21 +6362,21 @@ export const gofRightHand: Part[] = [
     "electronic": 0,
     "move": 0,
     "description": "",
-    "containedIn": [{ "box": BOXES.GOF_JUSTICE, "quantityPerBox": 2 }],
     "keywords": [
-      KEYWORD_LIST.en.空手
+      KEYWORD_LIST.jp.空手
     ],
     "action": [],
     "projectile": [],
     "isPD": false,
     "hasImage": false,
+    "containedIn": [{ "box": BOXES.GOF_JUSTICE, "quantityPerBox": 0 }],
   }
-]
+];
 
 export const gofBackpack: Part[] = [
   {
     "id": "ZYBP-101",
-    "name": "DLSP Swarm Control Backpack",
+    "name": "DLSPスワームコントロールバックパック",
     "type": "backpack",
     "score": 33,
     "armor": 3,
@@ -5131,14 +6385,15 @@ export const gofBackpack: Part[] = [
     "dodge": 1,
     "electronic": 1,
     "move": 0,
-    "description": "· Fire in arc: This action does not require visual to the landing point or the target.\r\n· Volley X: Fire or deploy up to X projectiles and consume an equal amount of Ammo Tokens.",
-    "keywords": [KEYWORD_LIST.en.曲射, KEYWORD_LIST.en.齐射X],
+    "description": "",
     "containedIn": [{ "box": BOXES.GOF_CORE, "quantityPerBox": 4 }],
+    "keywords": [KEYWORD_LIST.jp.曲射, KEYWORD_LIST.jp.齐射X],
+    "projectile": ["ZYDR-108"],
     "action": [
       {
         "id": "ZYBP-101_A",
-        "name": "Nest Guardian Swarm",
-        "description": "· Fire in arc · Volley 2\n· Launch 1 Nest Guardian Swarm.",
+        "name": "ネストガーディアンスワーム",
+        "description": "·曲射  · 斉射2\n· ネストガーディアンスワーム1つを発射する。",
         "type": "Projectile",
         "size": "s",
         "range": 6,
@@ -5148,8 +6403,8 @@ export const gofBackpack: Part[] = [
       },
       {
         "id": "ZYBP-101_B",
-        "name": "Command Coordination",
-        "description": "·  Give 1 Command Token to 1 Ally Drone.",
+        "name": "コマンド連携",
+        "description": "· 味方ドローン1つにコマンドトークン1つを発行する。",
         "type": "Tactic",
         "size": "s",
         "range": 0,
@@ -5158,13 +6413,12 @@ export const gofBackpack: Part[] = [
         "redDice": 0
       }
     ],
-    "projectile": [],
     "isPD": false,
     "hasImage": true,
   },
   {
     "id": "ZYBP-102",
-    "name": "Integrated Data Link Pod",
+    "name": "集積データリンクポッド",
     "type": "backpack",
     "score": 33,
     "armor": 3,
@@ -5173,14 +6427,14 @@ export const gofBackpack: Part[] = [
     "dodge": 1,
     "electronic": 1,
     "move": 0,
-    "description": "·Command Coordination X: After this action is completed, may immediately give 1 Command Token to X Ally Drones.",
-    "keywords": [KEYWORD_LIST.en.指令协调X],
+    "description": "· 指令协调X：在本机此次行动结束后，可以立即为X台己方无人机各提供1枚指令标记。",
+    "keywords": [KEYWORD_LIST.jp.指令协调X],
     "containedIn": [{ "box": BOXES.GOF_CORE, "quantityPerBox": 3 }],
     "action": [
       {
         "id": "ZYBP-102_A",
-        "name": "Distributed Collaboration",
-        "description": "· When this mech ends it's Action Opportunity, Command Coordination 1.",
+        "name": "分散連携",
+        "description": "· この機体はアクションチャンスを終了するときコマンド連携1。",
         "type": "Passive",
         "size": "m",
         "range": 0,
@@ -5195,7 +6449,7 @@ export const gofBackpack: Part[] = [
   },
   {
     "id": "ZYBP-201",
-    "name": "CSS20 “Cloak” Optical Camouflage System",
+    "name": "CSS20「クローク」光学迷彩システム",
     "type": "backpack",
     "score": 45,
     "armor": 3,
@@ -5204,14 +6458,14 @@ export const gofBackpack: Part[] = [
     "dodge": 1,
     "electronic": 0,
     "move": 0,
-    "description": "· Stealth X: When the Optical Camouflage is released, the Mech may appear within X grids.",
-    "keywords": [KEYWORD_LIST.en.隐秘X],
+    "description": "·光学迷彩：将本机替换为光学迷彩模型，并移除所有高亮目标/低特征标记。\r\n· 隐秘X：光学迷彩解除时，本机在X格范围内现身。",
+    "keywords": [KEYWORD_LIST.jp.隐秘X],
     "containedIn": [{ "box": BOXES.GOF_HUNTERS, "quantityPerBox": 2 }],
     "action": [
       {
         "id": "ZYBP-201_A",
-        "name": "Optical Camouflage",
-        "description": "· Activate Optical Camouflage, Stealth 0.",
+        "name": "光学迷彩",
+        "description": "· 光学迷彩を起動、ステルス0。",
         "type": "Tactic",
         "size": "s",
         "range": 0,
@@ -5226,7 +6480,7 @@ export const gofBackpack: Part[] = [
   },
   {
     "id": "ZYBP-202",
-    "name": "ECP9 “Whistle” Drone Command System",
+    "name": "ECP9「ホイッスル」ドローンコマンドシステム",
     "type": "backpack",
     "score": 48,
     "armor": 3,
@@ -5236,14 +6490,13 @@ export const gofBackpack: Part[] = [
     "electronic": 1,
     "move": 0,
     "description": "",
-    "keywords": [KEYWORD_LIST.en.光环],
-    "hasImage": true,
     "containedIn": [{ "box": BOXES.GOF_HUNTERS, "quantityPerBox": 2 }],
+    "keywords": [KEYWORD_LIST.jp.光环],
     "action": [
       {
         "id": "ZYBP-202_A",
-        "name": "Convolution algorithm",
-        "description": "· Aura\n· When a Ally Drone within Range performs a roll, it may consume 1 Command Token from this Mech to re-roll.",
+        "name": "コンボリューションアルゴリズム",
+        "description": "· オーラ\n· 範囲内の味方ドローンがダイスを振る際に、この機体のコマンドトークンを1つ消費して振り直せる。",
         "type": "Passive",
         "size": "m",
         "range": 4,
@@ -5253,8 +6506,8 @@ export const gofBackpack: Part[] = [
       },
       {
         "id": "ZYBP-202_B",
-        "name": "Command Coordination",
-        "description": "·  Give 1 Command Token to 1 Ally Drone.",
+        "name": "コマンド連携",
+        "description": "· 味方ドローン1つにコマンドトークン1つを発行する。",
         "type": "Tactic",
         "size": "s",
         "range": 0,
@@ -5264,11 +6517,12 @@ export const gofBackpack: Part[] = [
       }
     ],
     "projectile": [],
-    "isPD": false
+    "isPD": false,
+    "hasImage": true,
   },
   {
     "id": "ZYBP-301",
-    "name": "MCP7 “Boomerang” Carry Rack",
+    "name": "MCP7「ブーメラン」ミサイルラック",
     "type": "backpack",
     "score": 27,
     "armor": 3,
@@ -5278,13 +6532,13 @@ export const gofBackpack: Part[] = [
     "electronic": 0,
     "move": 0,
     "containedIn": [{ "box": BOXES.GOF_CORE, "quantityPerBox": 1 }, { "box": BOXES.GOF_CORE, "quantityPerBox": 2 }],
-    "description": "· Fire in arc: This action does not require visual to the landing point or the target.\r\n· Volley X: Fire or deploy up to X projectiles and consume an equal amount of Ammo Tokens.",
-    "keywords": [KEYWORD_LIST.en.曲射, KEYWORD_LIST.en.齐射X],
+    "description": "·曲射：本动作不需要对落点或目标有视线。",
+    "keywords": [KEYWORD_LIST.jp.曲射, KEYWORD_LIST.jp.齐射X],
     "action": [
       {
         "id": "ZYBP-301_A",
-        "name": "Missile",
-        "description": "· Fire in arc · Volley 2 \n· Launch 1 M60 “Boomerang” Missile.",
+        "name": "ミサイル",
+        "description": "· 曲射 · 斉射2\n· M60「ブーメラン」ミサイルを1つ発射する。",
         "type": "Projectile",
         "size": "s",
         "range": 3,
@@ -5301,7 +6555,7 @@ export const gofBackpack: Part[] = [
   },
   {
     "id": "ZYBP-302",
-    "name": "“Halo” Melee Collaboration System",
+    "name": "「ヘイロー」近接連携システム",
     "type": "backpack",
     "score": 39,
     "armor": 3,
@@ -5311,13 +6565,13 @@ export const gofBackpack: Part[] = [
     "electronic": 0,
     "move": 0,
     "description": "",
-    "keywords": [],
     "containedIn": [{ "box": BOXES.GOF_CORE, "quantityPerBox": 1 }, { "box": BOXES.GOF_CORE, "quantityPerBox": 2 }],
+    "keywords": [KEYWORD_LIST.jp.额外的标识],
     "action": [
       {
         "id": "ZYBP-302_A",
-        "name": "Dodge Enhancement",
-        "description": "· {Dodge} may cancel 1 Attack Dice.",
+        "name": "回避強化",
+        "description": "· このユニットが攻撃されたとき、コマンドトークン１を消費することで、各{回避}は攻撃ダイス1個を相殺できる。",
         "type": "Passive",
         "size": "m",
         "range": 0,
@@ -5327,8 +6581,8 @@ export const gofBackpack: Part[] = [
       },
       {
         "id": "ZYBP-302_B",
-        "name": "Melee Evasion",
-        "description": "· On Parry, gains 1 extra Dodge.",
+        "name": "有利格闘",
+        "description": "· このユニットがパリィされたとき、コマンドトークン１を消費することで、追加で{回避}を1つ獲得する。",
         "type": "Passive",
         "size": "m",
         "range": 0,
@@ -5341,12 +6595,147 @@ export const gofBackpack: Part[] = [
     "isPD": false,
     "hasImage": true,
   }
+];
+
+export const gofProjectiles: Projectile[] = [
+  {
+    "id": "ZHAM-001A",
+    "name": "M707「スウィフト」ミサイル",
+    "armor": 0,
+    "structure": 0,
+    "parray": 0,
+    "dodge": 3,
+    "electronic": 2,
+    "stance": "mobility",
+    "isPD": false,
+    "keywords": [
+      {
+        "name": "抛射物"
+      },
+      {
+        "name": "导弹"
+      }
+    ],
+    "actions": [
+      {
+        "id": "ZHAM-001_A",
+        "name": "誘導爆撃",
+        "description": "· 範囲内にいる敵ユニットを対象として、対象がいるグリッドへ飛行移動して誘爆される。\n· 誘爆されるとき、対象に爆発ダメージを与える。\n· 巡航",
+        "type": "Tactic",
+        "speed": "passive",
+        "range": 6,
+        "storage": 0,
+        "yellowDice": 4,
+        "redDice": 0
+      }
+    ],
+    "hasImage": true,
+  },
+  {
+    "id": "ZHAM-002",
+    "name": "M60「ブーメラン」ミサイル",
+    "armor": 0,
+    "structure": 0,
+    "parray": 0,
+    "dodge": 6,
+    "electronic": 1,
+    "stance": "offensive",
+    "isPD": false,
+    "keywords": [
+      {
+        "name": "抛射物"
+      },
+      {
+        "name": "导弹"
+      }
+    ],
+    "actions": [
+      {
+        "id": "ZHAM-002_A",
+        "name": "誘導爆撃",
+        "description": "· 範囲内にいる敵ユニットを対象として、対象がいるグリッドへ飛行移動して誘爆される。\n· 誘爆されるとき、対象に爆発ダメージを与える。",
+        "type": "Tactic",
+        "speed": "passive",
+        "range": 2,
+        "storage": 0,
+        "yellowDice": 1,
+        "redDice": 3
+      }
+    ],
+    "hasImage": true,
+  },
+  {
+    "id": "ZHAM-003",
+    "name": "PK3センサーフューズド徹甲弾",
+    "armor": 0,
+    "structure": 0,
+    "parray": 0,
+    "dodge": 2,
+    "electronic": 1,
+    "stance": "mobility",
+    "isPD": false,
+    "keywords": [
+      {
+        "name": "抛射物"
+      },
+      {
+        "name": "智能榴弹"
+      }
+    ],
+    "actions": [
+      {
+        "id": "ZHAM-003_A",
+        "name": "遅延誘爆",
+        "description": "· 範囲内にいる最も近い敵ユニットを対象として、対象がいるグリッドへ飛行移動して誘爆される。\n· 優先的に敵機甲を対象とする。\n· 誘爆されるとき、対象に爆発ダメージを与える。\n· 切断",
+        "type": "Tactic",
+        "speed": "passive",
+        "range": -1,
+        "storage": 0,
+        "yellowDice": 0,
+        "redDice": 3
+      }
+    ],
+    "hasImage": true,
+  },
+  {
+    "id": "ZHAM-004",
+    "name": "M25榴散弾",
+    "armor": 0,
+    "structure": 0,
+    "parray": 0,
+    "dodge": 2,
+    "electronic": 0,
+    "stance": "mobility",
+    "isPD": false,
+    "keywords": [
+      {
+        "name": "抛射物"
+      },
+      {
+        "name": "榴弹"
+      }
+    ],
+    "actions": [
+      {
+        "id": "ZHAM-004_A",
+        "name": "遅延誘爆",
+        "description": "· 今いるグリッドに誘爆される。\n· 誘爆されるとき、範囲内にいるすべてのユニットに爆発ダメージを与える。",
+        "type": "Tactic",
+        "speed": "passive",
+        "range": -1,
+        "storage": 0,
+        "yellowDice": 3,
+        "redDice": 0
+      }
+    ],
+    "hasImage": true,
+  }
 ]
 
 export const gofPilots: Pilot[] = [
   {
     "id": "ZPA-35",
-    "name": "Chef",
+    "name": "シェフ",
     "score": 15,
     "LV": 4,
     "faction": "GOF",
@@ -5357,12 +6746,12 @@ export const gofPilots: Pilot[] = [
     "moving": 6,
     "tactic": 7,
     "trait": "CQC",
-    "traitDescription": "· When performing Melee Actions, may consume 1 Command Token to exchange {Eye} for {Heavy Hit}.",
+    "traitDescription": "· 近接アクションを実行する際、コマンドトークン1つを消費できる。そうすると、出目の｛目｝を｛重撃｝と見なす。",
     "box": BOXES.GOF_CORE
   },
   {
     "id": "ZPA-36",
-    "name": "Aster",
+    "name": "アスター",
     "score": 12,
     "LV": 4,
     "faction": "GOF",
@@ -5372,13 +6761,13 @@ export const gofPilots: Pilot[] = [
     "firing": 3,
     "moving": 3,
     "tactic": 4,
-    "trait": "Adjustment",
-    "traitDescription": "· Once per round, during the Command Phase, may consume 1 Cmmand Token to restore 1 Link to an Ally mech.",
+    "trait": "調節",
+    "traitDescription": "· 1ターンに1度だけ、コマンドフェイズでコマンドトークン1つを消費できる。そうすると、1つ味方機甲のリンク値を1回復させる。",
     "box": BOXES.GOF_CORE
   },
   {
     "id": "ZPA-37",
-    "name": "Foxhund",
+    "name": "フォックスハウンド",
     "score": 15,
     "LV": 4,
     "faction": "GOF",
@@ -5388,13 +6777,13 @@ export const gofPilots: Pilot[] = [
     "firing": 2,
     "moving": 5,
     "tactic": 5,
-    "trait": "Trace",
-    "traitDescription": "· If there are 2 or more Ally Drones that have line of sight to the target, Firing Actions of this Mech ignore Low Profile.",
+    "trait": "トレース",
+    "traitDescription": "· 2つまたはそれ以上の味方ドローンが対象へ視線を持っていれば、この機甲は（対象へ？）射撃アクションを実行する際、低姿勢を無視する。",
     "box": BOXES.GOF_HUNTERS
   },
   {
     "id": "ZPA-38",
-    "name": "Firewatch",
+    "name": "パーク・レンジャー",
     "score": 15,
     "LV": 4,
     "faction": "GOF",
@@ -5404,13 +6793,13 @@ export const gofPilots: Pilot[] = [
     "firing": 4,
     "moving": 7,
     "tactic": 3,
-    "trait": "Wetware Advantages",
-    "traitDescription": "· When performing Electronic Counter Rolls, may consume 1 Link to exchange {Eye} for {Lightning}.",
+    "trait": "生体部品のアドバンテージ",
+    "traitDescription": "· 電子戦対抗ロールを実行する際、リンク値を1消費できる。そうすると、出目の｛目｝を｛稲妻｝と見なす。",
     "box": BOXES.GOF_HUNTERS
   },
   {
     "id": "ZPA-39",
-    "name": "Cadaver",
+    "name": "カダヴァー",
     "score": 18,
     "LV": 4,
     "faction": "GOF",
@@ -5420,13 +6809,13 @@ export const gofPilots: Pilot[] = [
     "firing": 5,
     "moving": 4,
     "tactic": 7,
-    "trait": "Survival Willing",
-    "traitDescription": "· When this Mech has less than 4 Parts, this Mech's Focus re-roll does not consume Link.",
+    "trait": "生き延びる意思",
+    "traitDescription": " この機甲に残っているパーツが3つまたはそれ以下であれば、この機甲が集中振り直しを実行する際にリンク値を消費しない。",
     "box": BOXES.GOF_JUSTICE
   },
   {
     "id": "ZPA-40",
-    "name": "Shrike",
+    "name": "シュライク",
     "score": 12,
     "LV": 4,
     "faction": "GOF",
@@ -5436,13 +6825,13 @@ export const gofPilots: Pilot[] = [
     "firing": 8,
     "moving": 4,
     "tactic": 4,
-    "trait": "Joy",
-    "traitDescription": "· [Offensive Stance] When this Mech Destroys enemy Parts with Melee Actions, restore 1 Link.",
+    "trait": "歓喜",
+    "traitDescription": "· 【攻撃態勢】近接アクションで敵パーツを破壊するとき、リンク値を1回復する。",
     "box": BOXES.GOF_JUSTICE
   },
   {
     "id": "ZPA-43",
-    "name": "Ranger-1",
+    "name": "レンジャー-1",
     "score": 4,
     "LV": 4,
     "faction": "GOF",
@@ -5453,12 +6842,12 @@ export const gofPilots: Pilot[] = [
     "moving": 6,
     "tactic": 8,
     "trait": "",
-    "traitDescription": "Trainee Ranger from 525 Squadron.",
+    "traitDescription": "525中隊のトレーナーレンジャー",
     "box": BOXES.GOF_CORE
   },
   {
     "id": "ZPA-44",
-    "name": "Ranger-2",
+    "name": "レンジャー-2",
     "score": 4,
     "LV": 4,
     "faction": "GOF",
@@ -5469,12 +6858,12 @@ export const gofPilots: Pilot[] = [
     "moving": 6,
     "tactic": 8,
     "trait": "",
-    "traitDescription": "Trainee Ranger from 525 Squadron.",
+    "traitDescription": "525中隊のトレーナーレンジャー",
     "box": BOXES.GOF_CORE
   },
   {
     "id": "ZPA-45",
-    "name": "Ranger-3",
+    "name": "レンジャー-3",
     "score": 4,
     "LV": 4,
     "faction": "GOF",
@@ -5485,12 +6874,12 @@ export const gofPilots: Pilot[] = [
     "moving": 6,
     "tactic": 8,
     "trait": "",
-    "traitDescription": "Trainee Ranger from 525 Squadron.",
+    "traitDescription": "525中隊のトレーナーレンジャー",
     "box": BOXES.GOF_HUNTERS
   },
   {
     "id": "ZPA-46",
-    "name": "Grenadier-1",
+    "name": "擲弾兵1",
     "score": 4,
     "LV": 4,
     "faction": "GOF",
@@ -5501,12 +6890,12 @@ export const gofPilots: Pilot[] = [
     "moving": 3,
     "tactic": 2,
     "trait": "",
-    "traitDescription": "Trainee Grenadiers from 525 Squadron.",
+    "traitDescription": "525中隊のトレーナー擲弾兵",
     "box": BOXES.GOF_CORE
   },
   {
     "id": "ZPA-47",
-    "name": "Grenadier-2",
+    "name": "擲弾兵2",
     "score": 4,
     "LV": 4,
     "faction": "GOF",
@@ -5517,12 +6906,12 @@ export const gofPilots: Pilot[] = [
     "moving": 3,
     "tactic": 2,
     "trait": "",
-    "traitDescription": "Trainee Grenadiers from 525 Squadron.",
+    "traitDescription": "525中隊のトレーナー擲弾兵",
     "box": BOXES.GOF_CORE
   },
   {
     "id": "ZPA-48",
-    "name": "Grenadier-3",
+    "name": "擲弾兵3",
     "score": 4,
     "LV": 4,
     "faction": "GOF",
@@ -5533,12 +6922,12 @@ export const gofPilots: Pilot[] = [
     "moving": 3,
     "tactic": 2,
     "trait": "",
-    "traitDescription": "Trainee Grenadiers from 525 Squadron.",
+    "traitDescription": "525中隊のトレーナー擲弾兵",
     "box": BOXES.GOF_JUSTICE
   },
   {
     "id": "ZPA-49",
-    "name": "Grenadier-4",
+    "name": "擲弾兵4",
     "score": 4,
     "LV": 4,
     "faction": "GOF",
@@ -5549,1018 +6938,7 @@ export const gofPilots: Pilot[] = [
     "moving": 3,
     "tactic": 2,
     "trait": "",
-    "traitDescription": "Trainee Grenadiers from 525 Squadron.",
+    "traitDescription": "525中隊のトレーナー擲弾兵",
     "box": BOXES.GOF_JUSTICE
   }
-]
-
-export const gofProjectiles: Projectile[] = [
-  {
-    "id": "ZHAM-001A",
-    "name": "M707 \"Swift\" Missile",
-    "armor": 0,
-    "structure": 0,
-    "parray": 0,
-    "dodge": 3,
-    "electronic": 2,
-    "stance": "mobility",
-    "hasImage": true,
-    "isPD": false,
-    "keywords": [
-      {
-        "name": "Projectile"
-      },
-      {
-        "name": "Missile"
-      }
-    ],
-    "actions": [
-      {
-        "id": "ZHAM-001A_A",
-        "name": "Guided Attack",
-        "description": "· Target 1 Enemy Unit within range, Fly into target grid and undergo Detonation.\n· On Detonation, cause Explosion damage to target.\n· Cruising",
-        "type": "Projectile",
-        "speed": "passive",
-        "range": 6,
-        "storage": 0,
-        "yellowDice": 4,
-        "redDice": 0
-      }
-    ]
-  },
-  {
-    "id": "ZHAM-002",
-    "name": "M60 “Boomerang” Missile",
-    "armor": 0,
-    "structure": 0,
-    "parray": 0,
-    "dodge": 6,
-    "electronic": 1,
-    "stance": "mobility",
-    "hasImage": true,
-    "isPD": false,
-    "keywords": [
-      {
-        "name": "Projectile"
-      },
-      {
-        "name": "Missile"
-      }
-    ],
-    "actions": [
-      {
-        "id": "ZHAM-002_A",
-        "name": "Guided Attack",
-        "description": "· Target 1 Enemy Unit within range, Fly into target grid and undergo Detonation.\n· On Detonation, cause Explosion damage to target.",
-        "type": "Projectile",
-        "speed": "passive",
-        "range": 3,
-        "storage": 0,
-        "yellowDice": 1,
-        "redDice": 3
-      }
-    ]
-  },
-  {
-    "id": "ZHAM-003",
-    "name": "PK3 Sensor-fused Munition",
-    "armor": 0,
-    "structure": 0,
-    "parray": 0,
-    "dodge": 2,
-    "electronic": 1,
-    "stance": "mobility",
-    "hasImage": true,
-    "isPD": false,
-    "keywords": [
-      {
-        "name": "Projectile"
-      },
-      {
-        "name": "Sensor-fused Munition"
-      }
-    ],
-    "actions": [
-      {
-        "id": "ZHAM-003_A",
-        "name": "Delayed Detonation",
-        "description": "· Target 1 Enemy Unit within range, Fly into target grid and undergo Detonation.\n· Prioritize Enemy Mechs as target.\n· On Detonation, cause Explosion damage to target.\n· Mutilation",
-        "type": "Projectile",
-        "speed": "passive",
-        "range": -1,
-        "storage": 0,
-        "yellowDice": 0,
-        "redDice": 3
-      }
-    ]
-  },
-  {
-    "id": "ZHAM-004",
-    "name": "M25 Shrapnel Shell",
-    "armor": 0,
-    "structure": 0,
-    "parray": 0,
-    "dodge": 2,
-    "electronic": 0,
-    "stance": "mobility",
-    "hasImage": true,
-    "isPD": false,
-    "keywords": [
-      {
-        "name": "Projectile"
-      },
-      {
-        "name": "Grenade"
-      }
-    ],
-    "actions": [
-      {
-        "id": "ZHAM-004_A",
-        "name": "Delayed Detonation",
-        "description": "· Undergo Detonation at current grid.\n· On Detonation, cause Explosion damage to all units wihin range.",
-        "type": "Projectile",
-        "speed": "passive",
-        "range": -1,
-        "storage": 0,
-        "yellowDice": 3,
-        "redDice": 0
-      }
-    ]
-  }
-]
-
-export const gofDrones: Drone[] = [
-  {
-    "id": "ZHDR-201",
-    "name": "N31 Hound I “Beagle”",
-    "type": "medium",
-    "score": 40,
-    "armor": 6,
-    "structure": 0,
-    "parray": 2,
-    "dodge": 0,
-    "electronic": 2,
-    "move": 5,
-    "stance": "offensive",
-    "description": "",
-    "projectile": [
-      "ZHAM-002"
-    ],
-    "isPD": false,
-    "hasImage": true,
-    "keywords": [KEYWORD_LIST.en.齐射X, KEYWORD_LIST.en.曲射],
-    "containedIn": [{ "box": BOXES.GOF_HUNTERS, "quantityPerBox": 2 }],
-    "actions": [
-      {
-        "id": "ZHDR-201_A",
-        "name": "Tear",
-        "description": "· [On hit], target gains 1 Fragile Token.",
-        "type": "Melee",
-        "speed": "auto",
-        "range": -1,
-        "storage": 0,
-        "yellowDice": 5,
-        "redDice": 0
-      },
-      {
-        "id": "ZHDR-201_B",
-        "name": "Missile",
-        "description": "· Volley 3 · Fire in arc\n· Fire 1 M60 “Boomerang” Missile.",
-        "type": "Projectile",
-        "speed": "command",
-        "range": 6,
-        "storage": 3,
-        "yellowDice": 0,
-        "redDice": 0
-      }
-    ]
-  },
-  {
-    "id": "ZHDR-202",
-    "name": "N31 Hound II “Watchdog”",
-    "type": "medium",
-    "score": 36,
-    "armor": 6,
-    "structure": 0,
-    "parray": 2,
-    "dodge": 0,
-    "electronic": 2,
-    "move": 5,
-    "stance": "offensive",
-    "description": "",
-    "projectile": [],
-    "isPD": false,
-    "hasImage": true,
-    "keywords": [KEYWORD_LIST.en.光环],
-    "containedIn": [{ "box": BOXES.GOF_HUNTERS, "quantityPerBox": 2 }],
-    "actions": [
-      {
-        "id": "ZHDR-202_A",
-        "name": "Tear",
-        "description": "· [On hit], target gains 1 Fragile Token.",
-        "type": "Melee",
-        "speed": "auto",
-        "range": -1,
-        "storage": 0,
-        "yellowDice": 5,
-        "redDice": 0
-      },
-      {
-        "id": "ZHDR-202_B",
-        "name": "Electronic Warfare Weakening",
-        "description": "· Aura\n· When Enemy Units within range make Electronic Counter Rolls, Strength -1. This effect cannot be stacked.",
-        "type": "Passive",
-        "speed": "passive",
-        "range": 4,
-        "storage": 0,
-        "yellowDice": 0,
-        "redDice": 0
-      }
-    ]
-  },
-  {
-    "id": "ZHDR-203",
-    "name": "N31 Hound III “Bulldog”",
-    "type": "medium",
-    "score": 36,
-    "armor": 6,
-    "structure": 0,
-    "parray": 2,
-    "dodge": 0,
-    "electronic": 2,
-    "move": 5,
-    "stance": "offensive",
-    "description": "",
-    "projectile": [],
-    "isPD": false,
-    "hasImage": true,
-    "keywords": [KEYWORD_LIST.en.空中移动],
-    "containedIn": [{ "box": BOXES.GOF_HUNTERS, "quantityPerBox": 2 }],
-    "actions": [
-      {
-        "id": "ZHDR-203_A",
-        "name": "Tear",
-        "description": "· [On hit], target gains 1 Fragile Token.",
-        "type": "Melee",
-        "speed": "auto",
-        "range": -1,
-        "storage": 0,
-        "yellowDice": 5,
-        "redDice": 0
-      },
-      {
-        "id": "ZHDR-203_B",
-        "name": "Jump",
-        "description": "· Airborne Movement",
-        "type": "Moving",
-        "speed": "command",
-        "range": 3,
-        "storage": 0,
-        "yellowDice": 0,
-        "redDice": 0
-      }
-    ]
-  },
-  {
-    "id": "ZHDR-303",
-    "name": "N503 “Valkyrie”",
-    "type": "medium",
-    "score": 72,
-    "armor": 2,
-    "structure": 4,
-    "parray": 0,
-    "dodge": 0,
-    "electronic": 3,
-    "move": 5,
-    "stance": "offensive",
-    "description": "",
-    "projectile": [],
-    "isPD": false,
-    "hasImage": true,
-    "keywords": [KEYWORD_LIST.en.全向射击, KEYWORD_LIST.en.近战射击, KEYWORD_LIST.en.光环],
-    "containedIn": [{ "box": BOXES.GOF_JUSTICE, "quantityPerBox": 2 }],
-    "actions": [
-      {
-        "id": "ZHDR-303_A",
-        "name": "Single Shot",
-        "description": "· Omni-direction Firing\n· Melee Firing\n· {Lightning}  may make Target Mech switch into Shutdown Stance immediately.",
-        "type": "Firing",
-        "speed": "auto",
-        "range": 4,
-        "storage": 0,
-        "yellowDice": 1,
-        "redDice": 2
-      },
-      {
-        "id": "ZHDR-303_B",
-        "name": "Appease",
-        "description": "· Aura\n· At the end of each Round, all Ally Mechs within range recover 1 Link.",
-        "type": "Passive",
-        "speed": "passive",
-        "range": 2,
-        "storage": 0,
-        "yellowDice": 0,
-        "redDice": 0
-      }
-    ]
-  },
-  {
-    "id": "ZHDR-304",
-    "name": "N504 “Harpy”",
-    "type": "medium",
-    "score": 72,
-    "armor": 2,
-    "structure": 4,
-    "parray": 0,
-    "dodge": 0,
-    "electronic": 3,
-    "move": 5,
-    "stance": "offensive",
-    "description": "",
-    "projectile": [],
-    "isPD": false,
-    "hasImage": true,
-    "keywords": [KEYWORD_LIST.en.全向射击, KEYWORD_LIST.en.近战射击],
-    "containedIn": [{ "box": BOXES.GOF_JUSTICE, "quantityPerBox": 2 }],
-    "actions": [
-      {
-        "id": "ZHDR-304_A",
-        "name": "Single Shot",
-        "description": "· Omni-direction Firing\n· Melee Firing\n· {Lightning}  may make Target Mech switch into Shutdown Stance immediately.",
-        "type": "Firing",
-        "speed": "auto",
-        "range": 4,
-        "storage": 0,
-        "yellowDice": 1,
-        "redDice": 2
-      },
-      {
-        "id": "ZHDR-304_B",
-        "name": "Air Transport",
-        "description": "· When performing Command Movement, may consume 1 extral Command Token to drag an adjacent Ally Unit.",
-        "type": "Passive",
-        "speed": "passive",
-        "range": 0,
-        "storage": 0,
-        "yellowDice": 0,
-        "redDice": 0
-      }
-    ]
-  },
-  {
-    "id": "ZHDR-101",
-    "name": "N11 Vanguard I “Scutum”",
-    "type": "medium",
-    "score": 36,
-    "armor": 5,
-    "structure": 3,
-    "parray": 0,
-    "dodge": 0,
-    "electronic": 2,
-    "move": 5,
-    "stance": "defensive",
-    "description": "",
-    "projectile": [],
-    "isPD": false,
-    "hasImage": true,
-    "keywords": [KEYWORD_LIST.en.自动盾牌],
-    "containedIn": [{ "box": BOXES.GOF_CORE, "quantityPerBox": 6 }],
-    "actions": [
-      {
-        "id": "ZHDR-101_A",
-        "name": "Mobile Bunker",
-        "description": "· May provide Unit Protection to Ally Units.\n· Automatic Shield",
-        "type": "Passive",
-        "speed": "passive",
-        "range": 0,
-        "storage": 0,
-        "yellowDice": 0,
-        "redDice": 0
-      }
-    ]
-  },
-  {
-    "id": "ZHDR-102",
-    "name": "N12 Vanguard II “Crossbow”",
-    "type": "medium",
-    "score": 24,
-    "armor": 4,
-    "structure": 0,
-    "parray": 0,
-    "dodge": 0,
-    "electronic": 2,
-    "move": 5,
-    "stance": "defensive",
-    "description": "",
-    "projectile": [],
-    "isPD": false,
-    "hasImage": true,
-    "keywords": [KEYWORD_LIST.en.拦截X, KEYWORD_LIST.en.全向射击, KEYWORD_LIST.en.近战射击],
-    "containedIn": [{ "box": BOXES.GOF_CORE, "quantityPerBox": 6 }],
-    "actions": [
-      {
-        "id": "ZHDR-102_A",
-        "name": "Full-auto",
-        "description": "· Intercept 1\n· Omni-direction Firing\n· Melee Firing",
-        "type": "Firing",
-        "speed": "auto",
-        "range": 6,
-        "storage": 0,
-        "yellowDice": 2,
-        "redDice": 1
-      }
-    ]
-  },
-  {
-    "id": "ZHDR-103",
-    "name": "N13 Vanguard III “Claymore”",
-    "type": "medium",
-    "score": 24,
-    "armor": 4,
-    "structure": 0,
-    "parray": 0,
-    "dodge": 0,
-    "electronic": 2,
-    "move": 5,
-    "stance": "defensive",
-    "description": "",
-    "projectile": [],
-    "isPD": false,
-    "hasImage": true,
-    "keywords": [KEYWORD_LIST.en.全向射击, KEYWORD_LIST.en.近战射击],
-    "containedIn": [{ "box": BOXES.GOF_CORE, "quantityPerBox": 3 }],
-    "actions": [
-      {
-        "id": "ZHDR-103_A",
-        "name": "Full-auto",
-        "description": "· Omni-direction Firing\n· Melee Firing",
-        "type": "Firing",
-        "speed": "auto",
-        "range": 4,
-        "storage": 0,
-        "yellowDice": 4,
-        "redDice": 0
-      }
-    ]
-  },
-  {
-    "id": "ZHDR-104",
-    "name": "N14 Vanguard IV “Javelin”",
-    "type": "medium",
-    "score": 24,
-    "armor": 4,
-    "structure": 0,
-    "parray": 0,
-    "dodge": 0,
-    "electronic": 2,
-    "move": 5,
-    "stance": "defensive",
-    "description": "",
-    "projectile": [
-      "ZHAM-001A"
-    ],
-    "isPD": false,
-    "hasImage": true,
-    "keywords": [KEYWORD_LIST.en.曲射],
-    "containedIn": [{ "box": BOXES.GOF_CORE, "quantityPerBox": 3 }],
-    "actions": [
-      {
-        "id": "ZHDR-104_A",
-        "name": "Missile",
-        "description": "· Fire in arc\n· Fire 1 M707 \"Swift\" Missile.",
-        "type": "Projectile",
-        "speed": "command",
-        "range": 6,
-        "storage": 2,
-        "yellowDice": 0,
-        "redDice": 0
-      }
-    ]
-  },
-  {
-    "id": "ZHDR-106",
-    "name": "N113 Aegis II “Ballista”",
-    "type": "medium",
-    "score": 72,
-    "armor": 3,
-    "structure": 6,
-    "parray": 0,
-    "dodge": 0,
-    "electronic": 2,
-    "move": 4,
-    "stance": "offensive",
-    "description": "",
-    "projectile": [
-      "ZHAM-001A"
-    ],
-    "isPD": false,
-    "hasImage": true,
-    "keywords": [KEYWORD_LIST.en.穿甲X, KEYWORD_LIST.en.近战射击, KEYWORD_LIST.en.曲射],
-    "containedIn": [{ "box": BOXES.GOF_CORE, "quantityPerBox": 1 }],
-    "actions": [
-      {
-        "id": "ZHDR-106_A",
-        "name": "Single Shot",
-        "description": "· Armor Piercing 1\n· Melee Firing",
-        "type": "Firing",
-        "speed": "command",
-        "range": 12,
-        "storage": 0,
-        "yellowDice": 0,
-        "redDice": 3
-      },
-      {
-        "id": "ZHDR-106_B",
-        "name": "Missile",
-        "description": "· Fire in arc\n· Fire 1 M707 \"Swift\" Missile.",
-        "type": "Projectile",
-        "speed": "command",
-        "range": 6,
-        "storage": 2,
-        "yellowDice": 0,
-        "redDice": 0
-      }
-    ]
-  },
-  {
-    "id": "ZHDR-107",
-    "name": "N113 Aegis III “Ram”",
-    "type": "medium",
-    "score": 60,
-    "armor": 3,
-    "structure": 6,
-    "parray": 0,
-    "dodge": 0,
-    "electronic": 2,
-    "move": 4,
-    "stance": "offensive",
-    "description": "",
-    "projectile": [],
-    "isPD": false,
-    "hasImage": true,
-    "keywords": [KEYWORD_LIST.en.压制],
-    "containedIn": [{ "box": BOXES.GOF_CORE, "quantityPerBox": 1 }, { "box": BOXES.GOF_JUSTICE, "quantityPerBox": 1 }],
-    "actions": [
-      {
-        "id": "ZHDR-107_A",
-        "name": "Full-auto",
-        "description": "· Suppression",
-        "type": "Firing",
-        "speed": "command",
-        "range": 6,
-        "storage": 0,
-        "yellowDice": 5,
-        "redDice": 0
-      }
-    ]
-  },
-  {
-    "id": "ZHDR-301",
-    "name": "N51 “Apologist”",
-    "type": "medium",
-    "score": 60,
-    "armor": 2,
-    "structure": 5,
-    "parray": 0,
-    "dodge": 0,
-    "electronic": 2,
-    "move": 5,
-    "stance": "defensive",
-    "description": "",
-    "projectile": [],
-    "isPD": false,
-    "hasImage": true,
-    "keywords": [KEYWORD_LIST.en.霰射, KEYWORD_LIST.en.近战射击, KEYWORD_LIST.en.击退X, KEYWORD_LIST.en.自动盾牌],
-    "containedIn": [{ "box": BOXES.GOF_JUSTICE, "quantityPerBox": 2 }],
-    "actions": [
-      {
-        "id": "ZHDR-301_A",
-        "name": "Single Shot",
-        "description": "· Scatter-shot · Melee Firing\n· Knock Back 1",
-        "type": "Firing",
-        "speed": "command",
-        "range": 3,
-        "storage": 0,
-        "yellowDice": 3,
-        "redDice": 1
-      },
-      {
-        "id": "ZHDR-301_B",
-        "name": "Dense Armor Hand",
-        "description": "· When this Unit is attacked, may use {Defense} to offset {Heavy Hit}.\n· Automatic Shield.",
-        "type": "Passive",
-        "speed": "passive",
-        "range": 0,
-        "storage": 0,
-        "yellowDice": 0,
-        "redDice": 0
-      }
-    ]
-  },
-  {
-    "id": "ZHDR-302",
-    "name": "N52 “Zealot”",
-    "type": "medium",
-    "score": 60,
-    "armor": 2,
-    "structure": 5,
-    "parray": 1,
-    "dodge": 0,
-    "electronic": 2,
-    "move": 5,
-    "stance": "defensive",
-    "description": "",
-    "projectile": [],
-    "isPD": false,
-    "hasImage": true,
-    "keywords": [KEYWORD_LIST.en.禁足],
-    "containedIn": [{ "box": BOXES.GOF_JUSTICE, "quantityPerBox": 2 }],
-    "actions": [
-      {
-        "id": "ZHDR-302_A",
-        "name": "Chop",
-        "description": "· [On Hit] target gains 1 Immobilized Token.",
-        "type": "Melee",
-        "speed": "command",
-        "range": -1,
-        "storage": 0,
-        "yellowDice": 5,
-        "redDice": 0
-      },
-      {
-        "id": "ZHDR-302_B",
-        "name": "Martyrdom",
-        "description": "· When this unit is destroyed, undergo Detonation immediately.\n· On Detonation, cause Explosion damage to all units within range.",
-        "type": "Passive",
-        "speed": "passive",
-        "range": 1,
-        "storage": 0,
-        "yellowDice": 2,
-        "redDice": 4
-      }
-    ]
-  },
-  {
-    "id": "ZHDR-204",
-    "name": "N305 Eagle I “Misty Eagle”",
-    "type": "medium",
-    "score": 36,
-    "armor": 2,
-    "structure": 0,
-    "parray": 0,
-    "dodge": 7,
-    "electronic": 3,
-    "move": 6,
-    "stance": "mobility",
-    "description": "",
-    "projectile": [],
-    "isPD": false,
-    "hasImage": true,
-    "keywords": [KEYWORD_LIST.en.低特征],
-    "containedIn": [{ "box": BOXES.GOF_HUNTERS, "quantityPerBox": 2 }],
-    "actions": [
-      {
-        "id": "ZHDR-204_A",
-        "name": "Feature reduction",
-        "description": "· When Enemy Units within range perform a Firing Action, the target is considered to have Low Profile.",
-        "type": "Passive",
-        "speed": "passive",
-        "range": 5,
-        "storage": 0,
-        "yellowDice": 0,
-        "redDice": 0
-      }
-    ]
-  },
-  {
-    "id": "ZHDR-205",
-    "name": "N306 Eagle II “Roaring Eagle”",
-    "type": "medium",
-    "score": 36,
-    "armor": 2,
-    "structure": 0,
-    "parray": 0,
-    "dodge": 7,
-    "electronic": 3,
-    "move": 6,
-    "stance": "mobility",
-    "description": "",
-    "projectile": [],
-    "isPD": false,
-    "hasImage": true,
-    "keywords": [KEYWORD_LIST.en.电子攻击],
-    "containedIn": [{ "box": BOXES.GOF_HUNTERS, "quantityPerBox": 2 }],
-    "actions": [
-      {
-        "id": "ZHDR-205_A",
-        "name": "Scream",
-        "description": "· Electronic Attack\n· Perform Electronic Counter Roll with all Enemy Mechs within range, Strength +1, reduce 1 Link of Target if successful.",
-        "type": "Tactic",
-        "speed": "auto",
-        "range": 4,
-        "storage": 0,
-        "yellowDice": 0,
-        "redDice": 0
-      }
-    ]
-  },
-  {
-    "id": "ZHDR-206",
-    "name": "N307 Eagle III “Patrol Eagle”",
-    "type": "medium",
-    "score": 36,
-    "armor": 2,
-    "structure": 0,
-    "parray": 0,
-    "dodge": 7,
-    "electronic": 3,
-    "move": 6,
-    "stance": "mobility",
-    "description": "",
-    "projectile": [],
-    "isPD": false,
-    "hasImage": true,
-    "keywords": [KEYWORD_LIST.en.静默, KEYWORD_LIST.en.电子支援],
-    "containedIn": [{ "box": BOXES.GOF_HUNTERS, "quantityPerBox": 2 }],
-    "actions": [
-      {
-        "id": "ZHDR-206_A",
-        "name": "Dynamic Perception",
-        "description": "· All Actions of Enemy Units within range lose Silence.",
-        "type": "Passive",
-        "speed": "passive",
-        "range": 3,
-        "storage": 0,
-        "yellowDice": 0,
-        "redDice": 0
-      },
-      {
-        "id": "ZHDR-206_B",
-        "name": "Stance feedback",
-        "description": "· Electronic Support\n· May make an Ally Mech within range switch Stance, except if in Shutdown Stance.",
-        "type": "Tactic",
-        "speed": "command",
-        "range": 6,
-        "storage": 0,
-        "yellowDice": 0,
-        "redDice": 0
-      }
-    ]
-  },
-  {
-    "id": "ZYDR-108",
-    "name": "SU1 “Nest Guardian Swarm”",
-    "type": "medium",
-    "score": 0,
-    "armor": 1,
-    "structure": 0,
-    "parray": 0,
-    "dodge": 2,
-    "electronic": 1,
-    "move": 5,
-    "stance": "mobility",
-    "description": "",
-    "projectile": [],
-    "isPD": false,
-    "hasImage": true,
-    "keywords": [KEYWORD_LIST.en.全向射击],
-    "containedIn": [{ "box": BOXES.GOF_HUNTERS, "quantityPerBox": 2 }],
-    "actions": [
-      {
-        "id": "ZYDR-108_A",
-        "name": "Single Shot",
-        "description": "· Omni-direction Firing",
-        "type": "Firing",
-        "speed": "auto",
-        "range": 2,
-        "storage": 0,
-        "yellowDice": 3,
-        "redDice": 0
-      },
-      {
-        "id": "ZYDR-108_B",
-        "name": "Armor Patch",
-        "description": "· Remove 1 Damaged Token from Ally Unit, then remove this Unit.",
-        "type": "Tactic",
-        "speed": "command",
-        "range": 2,
-        "storage": 0,
-        "yellowDice": 0,
-        "redDice": 0
-      }
-    ]
-  }
-]
-
-export const gofTorso: Part[] = [
-  {
-    "id": "172",
-    "name": "P7\n“Warrior”\nBattle Core",
-    "type": "torso",
-    "score": 76,
-    "armor": 5,
-    "structure": 3,
-    "parray": 0,
-    "dodge": 0,
-    "electronic": 3,
-    "move": 0,
-    "hasImage": true,
-    "description": "·Command Generation X：This Unit generates X Command Tokens in the Command Phase.\n·Command Coordination X: After performing this Action, this Mech may issue 1 Command Token to X Ally Drones.",
-    "keywords": [KEYWORD_LIST.en.指令生成X, KEYWORD_LIST.en.指令协调X],
-    "containedIn": [{ "box": BOXES.GOF_CORE, "quantityPerBox": 2 }],
-    "action": [
-      {
-        "id": "172_A",
-        "name": "N4 Data Link",
-        "description": "· Command Generation 4",
-        "type": "Passive",
-        "size": "m",
-        "range": 0,
-        "storage": 0,
-        "yellowDice": 0,
-        "redDice": 0
-      },
-      {
-        "id": "172_B",
-        "name": "Melee Synergy",
-        "description": "· Melee Actions by this Unit gain Command Coordination 1.",
-        "type": "Passive",
-        "size": "m",
-        "range": 0,
-        "storage": 0,
-        "yellowDice": 0,
-        "redDice": 0
-      }
-    ],
-    "projectile": [],
-    "isPD": false
-  },
-  {
-    "id": "173",
-    "name": "P7-A3\n“Centurion”\nNode Core",
-    "type": "torso",
-    "score": 79,
-    "armor": 5,
-    "structure": 3,
-    "parray": 0,
-    "dodge": 0,
-    "electronic": 3,
-    "move": 0,
-    "hasImage": true,
-    "description": "·Command Generation X：This Unit generates X Command Tokens in the Command Phase.",
-    "keywords": [KEYWORD_LIST.en.指令生成X, KEYWORD_LIST.en.光环],
-    "containedIn": [{ "box": BOXES.GOF_CORE, "quantityPerBox": 2 },{ "box": BOXES.LAB_GOF_CENTAUR, "quantityPerBox": 1 }],
-    "action": [
-      {
-        "id": "173_A",
-        "name": "N4 Data Link",
-        "description": "· Command Generation 4",
-        "type": "Passive",
-        "size": "m",
-        "range": 0,
-        "storage": 0,
-        "yellowDice": 0,
-        "redDice": 0
-      },
-      {
-        "id": "173_B",
-        "name": "Fire Control Planning",
-        "description": "· Aura\n· Ally Drones within Range performing Firing Actions gain Range + 2 grids.\nThis effect does not stack.",
-        "type": "Passive",
-        "size": "m",
-        "range": 4,
-        "storage": 0,
-        "yellowDice": 0,
-        "redDice": 0
-      }
-    ],
-    "projectile": [],
-    "isPD": false
-  },
-  {
-    "id": "174",
-    "name": "P22\n“Hunter”\nElectronic Warfare Core",
-    "type": "torso",
-    "score": 91,
-    "armor": 5,
-    "structure": 4,
-    "parray": 0,
-    "dodge": 0,
-    "electronic": 4,
-    "move": 0,
-    "hasImage": true,
-    "description": "·Command Generation X：At the beginning of each Command Phase, this Unit automatically generates X Command Tokens rather than 1.",
-    "keywords": [KEYWORD_LIST.en.指令生成X],
-    "containedIn": [{ "box": BOXES.GOF_HUNTERS, "quantityPerBox": 2 }],
-    "action": [
-      {
-        "id": "174_A",
-        "name": "N4 Data Link",
-        "description": "· Command Generation 4",
-        "type": "Passive",
-        "size": "m",
-        "range": 0,
-        "storage": 0,
-        "yellowDice": 0,
-        "redDice": 0
-      },
-      {
-        "id": "174_B",
-        "name": "Target Tracing",
-        "description": "· When this mech is attacked by Melee/Firing Actions of Enemy Mech, may perfrom a Electronic Conter Roll with Attacker, reduce 1 Link of Target when successful.",
-        "type": "Passive",
-        "size": "m",
-        "range": 0,
-        "storage": 0,
-        "yellowDice": 0,
-        "redDice": 0
-      }
-    ],
-    "projectile": [],
-    "isPD": false
-  },
-  {
-    "id": "175",
-    "name": "P28\n“Dragoon”\nArmored Core",
-    "type": "torso",
-    "score": 97,
-    "armor": 5,
-    "structure": 4,
-    "parray": 0,
-    "dodge": 0,
-    "electronic": 2,
-    "move": 0,
-    "hasImage": true,
-    "description": "·Command Generation X：At the beginning of each Command Phase, this Unit automatically generates X Command Tokens rather than 1.",
-    "keywords": [KEYWORD_LIST.en.指令生成X],
-    "containedIn": [{ "box": BOXES.GOF_JUSTICE, "quantityPerBox": 1 }],
-    "action": [
-      {
-        "id": "175_A",
-        "name": "A2 Data Link",
-        "description": "· Command Generation 2\n· When recieving Commands from this Mech, Ally Drones may perform Automatic Actions instead of Command Actions.",
-        "type": "Passive",
-        "size": "m",
-        "range": 0,
-        "storage": 0,
-        "yellowDice": 0,
-        "redDice": 0
-      },
-      {
-        "id": "175_B",
-        "name": "Dense Armor",
-        "description": "· When this Part is designated as the Target Part, may use {Defense} to offset {Heavy Hit}.",
-        "type": "Passive",
-        "size": "m",
-        "range": 0,
-        "storage": 0,
-        "yellowDice": 0,
-        "redDice": 0
-      }
-    ],
-    "projectile": [],
-    "isPD": false
-  },
-  {
-    "id": "176",
-    "name": "P24\n“Chariot”\nArmored Core",
-    "type": "torso",
-    "score": 94,
-    "armor": 5,
-    "structure": 4,
-    "parray": 0,
-    "dodge": 0,
-    "electronic": 2,
-    "move": 0,
-    "hasImage": true,
-    "description": "·Command Generation X：At the beginning of each Command Phase, this Unit automatically generates X Command Tokens rather than 1.",
-    "keywords": [KEYWORD_LIST.en.指令生成X],
-    "containedIn": [{ "box": BOXES.GOF_JUSTICE, "quantityPerBox": 1 }],
-    "action": [
-      {
-        "id": "176_A",
-        "name": "M2 Data Link",
-        "description": "· Command Generation 2\n· When receiving Commands from this Mech, Ally Drones may move 1 grid before performing Actions.",
-        "type": "Passive",
-        "size": "m",
-        "range": 0,
-        "storage": 0,
-        "yellowDice": 0,
-        "redDice": 0
-      },
-      {
-        "id": "176_B",
-        "name": "Dense Armor",
-        "description": "· When this Part is designated as the Target Part, may use {Defense} to offset {Heavy Hit}.",
-        "type": "Passive",
-        "size": "m",
-        "range": 0,
-        "storage": 0,
-        "yellowDice": 0,
-        "redDice": 0
-      }
-    ],
-    "projectile": [],
-    "isPD": false
-  }
-]
+];

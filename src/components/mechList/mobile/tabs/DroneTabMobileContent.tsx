@@ -68,7 +68,7 @@ export const DroneTabMobileContent: React.FC<DroneTabMobileContentProps> = ({
                   >
                     {drone.backpack ? (
                       <img
-                        src={`${imgsrc}/${drone.backpack.id}.png`}
+                        src={`${imgsrc}/${drone.backpack.id}.webp`}
                         alt={drone.backpack.name}
                         style={{ width: '100%', height: '100%', objectFit: 'contain' }}
                         draggable={false}
@@ -108,7 +108,7 @@ export const DroneTabMobileContent: React.FC<DroneTabMobileContentProps> = ({
                         }}
                         style={{ backgroundColor: 'rgba(255,255,255,0.1)' }}
                       >
-                        <img src={`${imgsrc}/${bp.id}.png`} alt={bp.name} style={{ width: '32vw', height: 'auto', objectFit: 'contain', borderRadius: '8px', boxShadow: '0 2px 6px rgba(0,0,0,0.2)' }} draggable={false} />
+                        <img src={`${imgsrc}/${bp.id}.webp`} alt={bp.name} style={{ width: '32vw', height: 'auto', objectFit: 'contain', borderRadius: '8px', boxShadow: '0 2px 6px rgba(0,0,0,0.2)' }} draggable={false} />
                         <Button variant="secondary" className="absolute bg-blue-500/50 left-0 bottom-0 shadow-lg shadow-gray-500 rounded-lg" style={{ color: 'white', textShadow: '0 0 4px rgba(0,0,0,0.7)' }}>{bp?.score}</Button>
                       </button>
                     ))}
@@ -118,13 +118,13 @@ export const DroneTabMobileContent: React.FC<DroneTabMobileContentProps> = ({
             )}
 
             <Button variant="secondary" className="h-6 w-8 absolute bg-blue-500/50 left-0 top-0 shadow-lg shadow-gray-500 rounded-lg z-0" style={{ color: 'white', textShadow: '0 0 4px rgba(0,0,0,0.7)' }}>{drone?.score}</Button>
-            <img src={`${imgsrc}/${drone.id}.png`} alt={drone.name} className="shadow-lg shadow-gray-500 rounded-lg" style={{ width: '100%', height: '100%', objectFit: 'contain' }} draggable={false} />
+            <img src={`${imgsrc}/${drone.id}.webp`} alt={drone.name} className="shadow-lg shadow-gray-500 rounded-lg" style={{ width: '100%', height: '100%', objectFit: 'contain' }} draggable={false} />
             <Button variant="ghost" size="sm" onClick={(e) => { e.stopPropagation(); deleteDrone(index); }} className="absolute top-0 right-0 shadow-lg shadow-gray-500 rounded-lg text-destructive hover:text-destructive"><Trash2 className="w-4 h-4" /></Button>
           </motion.div>
         ))}
 
         <div style={{ position: 'relative', display: 'flex', padding: '1rem', cursor: 'pointer' }} onClick={() => { onSetIsChangingPart(true); onSetViewMode('drones') }}>
-          <img src={`${imgsrc}/080.png`} style={{ width: '100%', height: '100%', objectFit: 'contain', borderRadius: '0.5rem', boxShadow: '0 4px 6px rgba(0,0,0,0.1)', opacity: 0 }} draggable={false} />
+          <img src={`${imgsrc}/080.webp`} style={{ width: '100%', height: '100%', objectFit: 'contain', borderRadius: '0.5rem', boxShadow: '0 4px 6px rgba(0,0,0,0.1)', opacity: 0 }} draggable={false} />
           <div style={{ position: 'absolute', top: 0, left: 0, right: 0, bottom: 0, display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', pointerEvents: 'none' }}>
             <Plus style={{ width: '24px', height: '24px', color: '#6b7280', marginBottom: '4px' }} />
             <span style={{ fontSize: '0.875rem', color: '#6b7280' }}>{translations.t75}</span>

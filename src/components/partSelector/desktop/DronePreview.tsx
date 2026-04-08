@@ -79,7 +79,7 @@ export default function DronePreview({
           <div key={`last-${droneId}`} style={{ width: "100%", display: "flex", alignItems: "center", flexDirection: "column" }}>
             {/* 主图 */}
             {drone?.hasImage === undefined ? <img
-              src={`${imageSrc}/${droneId}.png`}
+              src={`${imageSrc}/${droneId}.webp`}
               loading="lazy"
               alt="current part"
               style={{
@@ -198,7 +198,7 @@ export default function DronePreview({
                       <div key={idx} style={{ position: "relative" }}>
                         {faction !== "GOF" ? (
                           <img
-                            src={`${imageSrc}/${projId}.png`}
+                            src={`${imageSrc}/${projId}.webp`}
                             alt={`projectile-${idx}`}
                             style={{
                               width: "30vw",
@@ -209,7 +209,7 @@ export default function DronePreview({
                             loading="lazy"
                             onMouseMove={(e) => {
                               handleMouseMove(e);
-                              setLensImage(`${imageSrc}/${projId}.png`);
+                              setLensImage(`${imageSrc}/${projId}.webp`);
                             }}
                             onMouseEnter={() => setLensVisible(true)}
                             onMouseLeave={() => setLensVisible(false)}

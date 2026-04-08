@@ -1,0 +1,336 @@
+/* ================================================================
+   PartCardEditor.css
+   只负责编辑器外壳样式，卡片本身继续使用 PartCard.css
+   ================================================================ */
+
+.pce-layout {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+  font-family: "Inter", system-ui, sans-serif;
+}
+
+/* ===== Panel 外框 ===== */
+.pce-panel {
+  background: #fff;
+  border: 0.5px solid rgba(0, 0, 0, 0.1);
+  border-radius: 12px;
+  overflow: hidden;
+}
+
+/* ===== Tabs ===== */
+.pce-tabs {
+  display: flex;
+  gap: 4px;
+  padding: 8px 12px 0;
+  border-bottom: 0.5px solid rgba(0, 0, 0, 0.08);
+}
+
+.pce-tab {
+  font-size: 12px;
+  padding: 5px 10px;
+  border-radius: 8px 8px 0 0;
+  cursor: pointer;
+  color: #666;
+  border: 0.5px solid transparent;
+  border-bottom: none;
+  background: transparent;
+  font-family: inherit;
+  transition: background 0.15s;
+  white-space: nowrap;
+}
+
+.pce-tab.active {
+  color: #111;
+  background: #fff;
+  border-color: rgba(0, 0, 0, 0.08);
+  font-weight: 500;
+}
+
+/* ===== Panel body ===== */
+.pce-panel-body {
+  padding: 12px;
+  overflow-y: auto;
+  max-height: 660px;
+}
+
+/* ===== Section titles ===== */
+.pce-section-title {
+  font-size: 11px;
+  font-weight: 500;
+  color: #999;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  margin: 14px 0 8px;
+  padding-bottom: 4px;
+  border-bottom: 0.5px solid rgba(0, 0, 0, 0.08);
+}
+
+.pce-section-title:first-child {
+  margin-top: 2px;
+}
+
+/* ===== Form layout ===== */
+.pce-field {
+  margin-bottom: 8px;
+}
+
+.pce-field-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+}
+
+.pce-field-row-3 {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 8px;
+}
+
+.pce-label {
+  display: block;
+  font-size: 11px;
+  color: #888;
+  margin-bottom: 3px;
+  font-weight: 500;
+  letter-spacing: 0.04em;
+}
+
+/* ===== Form controls（仅作用于编辑面板内，不污染卡片）===== */
+.pce-editor-panel input[type='text'],
+.pce-editor-panel input[type='number'],
+.pce-editor-panel select,
+.pce-editor-panel textarea {
+  width: 100%;
+  font-size: 13px;
+  font-family: inherit;
+  color: #111;
+  background: #f7f7f6;
+  border: 0.5px solid rgba(0, 0, 0, 0.1);
+  border-radius: 6px;
+  padding: 5px 8px;
+  outline: none;
+  transition: border-color 0.15s;
+  box-sizing: border-box;
+}
+
+.pce-editor-panel input:focus,
+.pce-editor-panel select:focus,
+.pce-editor-panel textarea:focus {
+  border-color: rgba(0, 0, 0, 0.3);
+}
+
+.pce-editor-panel textarea {
+  resize: vertical;
+  min-height: 52px;
+  line-height: 1.4;
+}
+
+/* ===== 立绘图片上传 ===== */
+.pce-image-upload-area {
+  width: 100%;
+  min-height: 108px;
+  border: 0.5px dashed rgba(0, 0, 0, 0.2);
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  overflow: hidden;
+  background: #f7f7f6;
+  transition: border-color 0.15s, background 0.15s;
+  margin-bottom: 6px;
+  position: relative;
+}
+
+.pce-image-upload-area:hover {
+  border-color: rgba(0, 0, 0, 0.35);
+  background: #f0f0ef;
+}
+
+.pce-image-thumb {
+  width: 100%;
+  max-height: 160px;
+  object-fit: contain;
+  display: block;
+}
+
+.pce-image-placeholder {
+  font-size: 12px;
+  color: #aaa;
+  pointer-events: none;
+}
+
+.pce-btn-clear-image {
+  font-size: 11px;
+  padding: 3px 10px;
+  cursor: pointer;
+  background: transparent;
+  border: 0.5px solid rgba(0, 0, 0, 0.15);
+  border-radius: 6px;
+  color: #888;
+  font-family: inherit;
+  margin-bottom: 8px;
+  transition: all 0.15s;
+}
+
+.pce-btn-clear-image:hover {
+  background: #f0f0ef;
+  color: #444;
+}
+
+/* ===== Action editor cards ===== */
+.pce-action-card {
+  background: #f7f7f6;
+  border: 0.5px solid rgba(0, 0, 0, 0.1);
+  border-radius: 8px;
+  padding: 10px;
+  margin-bottom: 8px;
+}
+
+.pce-action-card-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 8px;
+}
+
+.pce-action-num {
+  font-size: 11px;
+  color: #999;
+  font-weight: 500;
+}
+
+.pce-btn-remove {
+  font-size: 11px;
+  padding: 2px 8px;
+  cursor: pointer;
+  background: transparent;
+  border: 0.5px solid rgba(220, 60, 60, 0.35);
+  border-radius: 6px;
+  color: #c0392b;
+  font-family: inherit;
+  transition: background 0.15s;
+}
+
+.pce-btn-remove:hover {
+  background: rgba(220, 60, 60, 0.06);
+}
+
+.pce-btn-add {
+  width: 100%;
+  padding: 8px;
+  font-size: 12px;
+  cursor: pointer;
+  background: transparent;
+  border: 0.5px dashed rgba(0, 0, 0, 0.2);
+  border-radius: 8px;
+  color: #888;
+  font-family: inherit;
+  margin-top: 4px;
+  transition: all 0.15s;
+}
+
+.pce-btn-add:hover {
+  background: #f0f0ef;
+  border-style: solid;
+}
+
+.pce-btn-save {
+  width: 100%;
+  margin-top: 14px;
+  padding: 9px;
+  font-size: 13px;
+  font-weight: 500;
+  cursor: pointer;
+  background: #111;
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  font-family: inherit;
+  transition: opacity 0.15s;
+}
+
+.pce-btn-save:hover {
+  opacity: 0.82;
+}
+
+/* ===== 预览面板 ===== */
+.pce-preview-panel {
+  display: flex;
+  flex-direction: column;
+}
+
+.pce-preview-header {
+  padding: 10px 14px;
+  border-bottom: 0.5px solid rgba(0, 0, 0, 0.08);
+  font-size: 13px;
+  font-weight: 500;
+  color: #888;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-shrink: 0;
+}
+
+.pce-preview-header-right {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.pce-preview-faction-tag {
+  font-size: 11px;
+  color: #bbb;
+}
+
+/* 导出按钮放在深色 header 背景上，所以用浅色方案 */
+.pce-btn-export {
+  font-size: 11px;
+  padding: 4px 10px;
+  cursor: pointer;
+  background: transparent;
+  border: 0.5px solid rgba(0, 0, 0, 0.18);
+  border-radius: 6px;
+  color: #555;
+  font-family: inherit;
+  transition: all 0.15s;
+}
+
+.pce-btn-export:hover:not(:disabled) {
+  background: rgba(0, 0, 0, 0.05);
+  color: #111;
+}
+
+.pce-btn-export:disabled {
+  opacity: 0.5;
+  cursor: default;
+}
+
+/* 深色背景区域 */
+.pce-preview-bg {
+  flex: 1;
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  padding: 24px 16px;
+  background: #1a1a2e;
+  min-height: 500px;
+}
+
+/* ===== 无 tabsrc 时的兜底样式 ===== */
+.pce-faction-text-badge {
+  font-size: 1.2vh;
+  font-weight: 800;
+  color: #fff;
+  background: rgba(0, 0, 0, 0.2);
+  padding: 0.2vh 0.5vh;
+  border-radius: 0.3vh;
+  letter-spacing: 0.08em;
+}
+
+.pce-stat-fallback-icon {
+  font-size: 1.2vh;
+  line-height: 1;
+  opacity: 0.8;
+}

@@ -64,10 +64,10 @@ export const KEYWORD_LIST = {
         冲锋X: { name: "冲锋X", value: "执行此动作前，可以额外移动X格。机甲下肢被摧毁时不生效。" },
         监视射击: { name: "监视射击", value: "在延迟阶段的最后，移除本标记，本单位可执行1个射击动作。" },
         空手: { name: "空手", value: "" },
-        遥控武器:{name:"遥控武器",value:"指令阶段，友军可以向本机发送指令，使本机执行此动作。本部件每回合只能接收1次指令"},
-        追击标记:{name:"追击标记",value:"追击标记（双面红色）：攻击方攻击此单位时优先命中此部件。"},
-        致密装甲:{name:"致密装甲",value:"{防御}可抵消{重击}。"},
-        额外的标识:{name:"额外的标识",value:"额外的标识可以被抵消/移除或兑换，如同是一枚投出此结果的骰子，但不能被任何一方重投。"}
+        遥控武器: { name: "遥控武器", value: "指令阶段，友军可以向本机发送指令，使本机执行此动作。本部件每回合只能接收1次指令" },
+        追击标记: { name: "追击标记", value: "追击标记（双面红色）：攻击方攻击此单位时优先命中此部件。" },
+        致密装甲: { name: "致密装甲", value: "{防御}可抵消{重击}。" },
+        额外的标识: { name: "额外的标识", value: "额外的标识可以被抵消/移除或兑换，如同是一枚投出此结果的骰子，但不能被任何一方重投。" }
     },
     en: {
         不可阻挡: { name: "Unstoppable:", value: "Movement Actions with this Keyword can still be performed when Immobilized." },
@@ -101,7 +101,7 @@ export const KEYWORD_LIST = {
         曲射: { name: "Fire in arc", value: "This action does not require visual to the landing point or the target." },
         顺劈: { name: "Cleaving", value: "Surplus Damage may be resolved against another random Part or Unit in Range." },
         投掷: { name: "Throw", value: "A Freehand must be designated when performing this action." },
-        推动X: { name: "Push X", value: "After this action ends, the target is forced to move X grids along the attack direction. If the Target is a Mech, its Link Value is reduced by 1." },
+        推动X: { name: "Knock Back X", value: "After this action ends, the target is forced to move X grids along the attack direction. If the Target is a Mech, its Link Value is reduced by 1." },
         拖拽: { name: "Drag", value: "Force the target to an adjacent grid of this Mech, and set the facing of the target." },
         霰射: { name: "Scatter-shot", value: "If target is a Mech, Surplus Damage may be resolved against another random Part." },
         巡航: { name: "Cruising", value: "If there is no target within Range, the Unit will not be destroyed and will fly to any Grid within Range." },
@@ -127,7 +127,11 @@ export const KEYWORD_LIST = {
         禁足: { name: "Immobilized", value: "Units bearing an Immobilized Token are Immobilized and cannot perform Movement Actions or Maneuver (including changing facing).No Blue Dice can be rolled in the Defense Roll of a Unit bearing an Immobilized Token." },
         标靶追踪: { name: "Target Tracer", value: "When a Drone performs Automatic Actions, it designate a Unit bearing a Target Tracer Token as the target even if it is not the closest Enemy Unit.When a Drone performs any Attack/Electronic Attack targeting a Unit bearing a Target Tracer Token, it is treated as being in the Offensive Stance." },
         空手: { name: "Freehand", value: "" },
-        冲锋X: { name: "Shock Attack X", value: "Before performing this Actioin, may move X grids. Mechs require a chasis to perform this Action." }
+        遥控武器: { name: "RWS", value: "During the Command Stage, allies may send Commands to this mech to perform this action. This part can only receive one Commandn per turn." },
+        冲锋X: { name: "Shock Attack X", value: "Before performing this Actioin, may move X grids. Mechs require a chasis to perform this Action." },
+        追击标记: { name: "Target Tracer", value: "Whena Drone performs Automatic Actions, it designate a Unit bearinga Target Tracer Token as the target even if it is not the closest Enemy Unit.Whena Drone performs any Attack/Electronic Attack target-inga Unit bearinga Target Tracer Token, it is treated as being in the Offensive Stance." },
+        致密装甲: { name: "Dense Armor", value: "{Defense} may offset {Heavy Hit}." },
+        额外的标识: { name: "Additional Icons", value: "Additional icons can be offset, removed, or exchanged as if they were dice showing that result, but they cannot be rerolled by either player." }
     },
     jp: {
         不可阻挡: { name: "阻止不能", value: "このアクションは「禁足」状態であっても実行できる" },
@@ -185,6 +189,12 @@ export const KEYWORD_LIST = {
         火控干扰: { name: "FCSジャミング", value: "・「FCSジャミング」トークンを持つユニットは「射撃」タイプのアクションや迎撃を実行できない。\n・電子値を持つ投射物は、このトークンを得た瞬間に即座に破壊される。" },
         脆弱: { name: "脆弱", value: "ユニットが攻撃を受けた時、■白ダイスを1個減少する。この効果は累積する。" },
         禁足: { name: "禁足", value: "「禁足」トークンを持つユニットは、「移動」タイプのアクションや調整移動（向きの変更を含む）を実行できない。また、攻撃を受けた時、青ダイスを振ることができない。" },
-        标靶追踪: { name: "ターゲットトレーサー", value: "・ドローンが自動アクションを実行する際、このトークンを持つ対象を優先して選択できる（最も近い対象でなくてもよい）。\n・ドローンがこのトークンを持つユニットを対象に攻撃または電子攻撃を行う場合、「攻撃」態勢として扱う。" }
+        标靶追踪: { name: "ターゲットトレーサー", value: "・ドローンが自動アクションを実行する際、このトークンを持つ対象を優先して選択できる（最も近い対象でなくてもよい）。\n・ドローンがこのトークンを持つユニットを対象に攻撃または電子攻撃を行う場合、「攻撃」態勢として扱う。" },
+        冲锋X: { name: "突撃X", value: "このアクションを実行する前に、追加でXグリッド移動できる。機甲はシャーシが必要。" },
+        致密装甲: { name: "高密度アーマー", value: "{防御｝は｛重撃｝を相殺できる。" },
+        空手: { name: "フリーハンド", value: "" },
+        追击标记: { name: "追撃トークン", value: "このユニットが攻撃されるとこのパーツが命中パーツとして指定される。" },
+        额外的标识: { name: "追加のシンボル", value: "加のシンボルは、該当する出目が出た1個のダイスとして扱い、打ち消す／取り除く／交換することができる。ただし、それをリロールできない。" },
+        遥控武器: { name: "RWS", value: "指令フェイズ中、味方は本機に指令を送ることで、本機にこのアクションを実行させることができます。このパーツは1ラウンドに1回のみ指令を受け取ることができます。" }
     }
 }

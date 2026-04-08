@@ -13,6 +13,8 @@ import { DroneTabContent } from './tabs/DroneTabContent';
 import { TacticTabContent } from './tabs/TacticTabContent';
 import { BACKGROUND_SRC } from '../../../data/resource';
 import { COLOR_GREY } from '../../../styles/color';
+import { PartCardEditor } from '../../cardEditor/PartCardEditor';
+import { CompetitionDialog } from '../../custom/CompetitionDialog';
 
 
 interface MechListProps {
@@ -37,6 +39,9 @@ interface MechListProps {
   onUpdateInventory: (inventory: Record<number, number>) => void;
   inventoryMode: boolean;
   onsetInventoryMode: (mode: boolean) => void;
+  competitionDialogOpen: boolean;
+  setCompetitionDialogOpen: (open: boolean) => void;
+  showCompetitionDialog: boolean;
 }
 
 export function MechList({
@@ -52,7 +57,8 @@ export function MechList({
   partTypeNames = 'chasis',
   imgsrc, tabsrc,
   localImgsrc, lang, mobileOrTablet, setLanguage, championMode,
-  mechImgSrc, onSetIsChangingPart, animationCardMode, setAnimationCardMode, onUpdateInventory, inventoryMode, onsetInventoryMode, boxCoverSrc
+  mechImgSrc, onSetIsChangingPart, animationCardMode, setAnimationCardMode, onUpdateInventory, inventoryMode, onsetInventoryMode, boxCoverSrc,
+  competitionDialogOpen, setCompetitionDialogOpen, showCompetitionDialog
 }: MechListProps) {
   const [filterFaction, setFilterFaction] = useState<FactionType | 'ALL'>('ALL');
   const logic = useMechListLogic({
@@ -118,10 +124,10 @@ export function MechList({
         {/* tts导出消息弹窗 */}
         <Dialog open={logic.TTSDialogOpen} onOpenChange={logic.setTTSDialogOpen}>
           <DialogContent style={{
-              maxWidth: '60vw',
-              width: '60vw',
-              height: '50vh',
-            }}>
+            maxWidth: '60vw',
+            width: '60vw',
+            height: '50vh',
+          }}>
             <DialogHeader><DialogTitle>{translations.t97}</DialogTitle></DialogHeader>
             <pre className="bg-muted p-4 rounded text-sm overflow-auto">{logic.script}</pre>
             <motion.div style={{ display: 'flex', flexWrap: 'wrap', gap: `2px` }}>
@@ -143,6 +149,15 @@ export function MechList({
             </Button>
           </DialogContent>
         </Dialog>
+
+        {/* 线上比赛弹窗 */}
+        {showCompetitionDialog &&
+          <CompetitionDialog
+            open={competitionDialogOpen}
+            onOpenChange={setCompetitionDialogOpen}
+            bannerSrc={`${imgsrc}/../intro.jpg`}
+          /> 
+        }
 
         {/* 设置已购盒 弹窗 */}
         <Dialog open={logic.boxListDialogOpen} onOpenChange={logic.setBoxListDialogOpen}>
@@ -579,7 +594,13 @@ export function MechList({
           onSetViewMode={onSetViewMode} onSetIsChangingPart={onSetIsChangingPart} deleteTacticCard={logic.deleteTacticCard}
         />
 
+        {/* 自定义部件卡编辑器入口（目前隐藏，后续根据需求开放） */}
+        {/* <PartCardEditor tabsrc={tabsrc}
+          lang="zh"
+          initialFaction="RDL" onSave={(part, faction) => console.log(part, faction)} /> */}
+
       </Tabs>
+
     </div>
   );
 }
