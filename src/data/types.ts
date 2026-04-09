@@ -1,6 +1,13 @@
 import { Keyword } from "./keyword";
 export type FactionType = "RDL" | "UN" | "GOF" | "PD" | "COLLABORATION";
 
+export interface TournamentTeam{
+  userQQ: string;
+  userName: string;
+  team1:Team;
+  team2:Team;
+}
+
 export interface Team {
   id: string;
   name: string;

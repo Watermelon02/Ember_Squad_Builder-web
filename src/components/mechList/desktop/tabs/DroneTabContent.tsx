@@ -24,11 +24,12 @@ interface DroneTabContentProps {
   animationCardMode: boolean;
   lang: string;
   onUpdateTeam: (id: string, data: any) => void;
+  tournamentMode: boolean;
 }
 
 export const DroneTabContent: React.FC<DroneTabContentProps> = ({
   team, mobileOrTablet, imgsrc, tabsrc, translations, onSetViewMode, onSetIsChangingPart,
-  onSelectDrone, deleteDrone, animationCardMode, lang, onUpdateTeam,
+  onSelectDrone, deleteDrone, animationCardMode, lang, onUpdateTeam, tournamentMode
 }) => {
   const [openDialogIndex, setOpenDialogIndex] = React.useState<number | null>(null);
   return (
@@ -124,7 +125,7 @@ export const DroneTabContent: React.FC<DroneTabContentProps> = ({
           </motion.div>
         ))}
 
-        <div style={{ position: 'relative', display: 'flex', padding: '1rem', cursor: 'pointer', backgroundColor: "rgba(240, 240, 240, 0.4)", borderRadius: "0.5vw", transition: 'transform 0.3s ease, box-shadow 0.3s ease' }}
+        {!tournamentMode && <div style={{ position: 'relative', display: 'flex', padding: '1rem', cursor: 'pointer', backgroundColor: "rgba(240, 240, 240, 0.4)", borderRadius: "0.5vw", transition: 'transform 0.3s ease, box-shadow 0.3s ease' }}
           onClick={() => { onSetIsChangingPart(true); onSetViewMode('drones') }}
           onMouseEnter={(e) => { (e.currentTarget as HTMLDivElement).style.transform = 'scale(1.03)'; (e.currentTarget as HTMLDivElement).style.boxShadow = '0 6px 10px rgba(0,0,0,0.1)'; }}
           onMouseLeave={(e) => { (e.currentTarget as HTMLDivElement).style.transform = 'scale(1)'; (e.currentTarget as HTMLDivElement).style.boxShadow = '0 4px 6px rgba(0,0,0,0.05), 0 1px 3px rgba(0,0,0,0.1)'; }}
@@ -134,7 +135,7 @@ export const DroneTabContent: React.FC<DroneTabContentProps> = ({
             <Plus style={{ width: '24px', height: '24px', color: '#6b7280', marginBottom: '4px' }} />
             <span style={{ fontSize: '0.875rem', color: '#6b7280' }}>{translations.t75}</span>
           </div>
-        </div>
+        </div>}
       </div>
       {!mobileOrTablet && team.drones.length === 0 && <div className="text-center text-muted-foreground py-8">{translations.t31}</div>}
     </TabsContent>

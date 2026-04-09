@@ -21,7 +21,7 @@ interface MechTabMobileContentProps {
   tabsrc: string;
   lang: string;
   mechImgSrc: string;
-  championMode: boolean;
+  tournamentMode: boolean;
   translations: any;
   editingMechId: string;
   setEditingMechId: (id: string) => void;
@@ -37,7 +37,7 @@ interface MechTabMobileContentProps {
 export const MechTabMobileContent: React.FC<MechTabMobileContentProps> = ({
   team, selectedMechId, onSelectMech, onSelectPartType, onSetViewMode, onSetIsChangingPart,
   cPartType, setCPartType, deletePart, orderedPartTypes, mobileOrTablet, imgsrc, tabsrc, lang,
-  mechImgSrc, championMode, translations, editingMechId, setEditingMechId,
+  mechImgSrc, tournamentMode, translations, editingMechId, setEditingMechId,
   updateMechName, copyMech, deleteMech, getColorByAttr, addMech, exportRef, defaultPreviewParts
 }) => {
   return (
@@ -60,7 +60,7 @@ export const MechTabMobileContent: React.FC<MechTabMobileContentProps> = ({
           tabsrc={tabsrc}
           lang={lang}
           mechImgSrc={mechImgSrc}
-          championMode={championMode}
+          tournamentMode={tournamentMode}
           translations={translations}
           editingMechId={editingMechId}
           setEditingMechId={setEditingMechId}

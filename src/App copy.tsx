@@ -28,7 +28,11 @@ import TacticCardComparePanelMobile from './components/partSelector/mobile/tacti
 import { MechListMobile } from './components/mechList/mobile/MechListMobile';
 import { getDeviceFingerprint } from './util/RemoteUtil';
 import TournamentView from './components/competition/TournamentView';
-import { CompetitionDialog } from './components/competition/CompetitionDialog';
+
+// 赛事组件
+
+
+
 
 export default function App() {
   // ------------------ 语言 ------------------
@@ -119,7 +123,6 @@ export default function App() {
 
   // ------------------ 移动端判断 ------------------
   const [isMobileOrTablet, setMobileOrTablet] = useState(false);
-
   const [isTournamentMode, setTournamentMode] = useState(false);
   const [collapsedLeft, setCollapsedLeft] = useState(isMobileOrTablet ? true : false);
   const [collapsedRight, setCollapsedRight] = useState(isMobileOrTablet ? true : false);
@@ -128,7 +131,7 @@ export default function App() {
   const [lastSelectDrone, setLastSelectDrone] = useState<Drone>();
   const [lastSelectTacticCard, setLastSelectTacticCard] = useState<TacticCard>();
 
-  const showCompetitionDialog = false;
+  const showCompetitionDialog = true;
   const BANNER_ID = 'competition_v2';
   const [competitionDialogOpen, setCompetitionDialogOpen] = useState(() => {
     return localStorage.getItem(`has_closed_${BANNER_ID}`) !== 'true';
@@ -305,10 +308,7 @@ export default function App() {
         backgroundImgsrc={backgroundImgsrc}
         tabsrc={tabSrc}          // ← 新增
         translations={t}         // ← 新增
-        onClose={() => {
-          setShowTournament(false);
-          setTournamentMode(false);
-        }}
+        onClose={() => setShowTournament(false)}
         mechListRenderer={renderMechList}
       />
     );
@@ -584,16 +584,13 @@ export default function App() {
       </AnimatePresence>
 
       {/* ── 比赛进度入口按钮（悬浮，右下角） ── */}
-      {!isMobileOrTablet && showCompetitionDialog && <motion.button
+      <motion.button
         initial={{ opacity: 0, scale: 0.8 }}
         animate={{ opacity: 1, scale: 1 }}
         transition={{ delay: 0.5, type: 'spring', stiffness: 280, damping: 20 }}
         whileHover={{ scale: 1.07 }}
         whileTap={{ scale: 0.94 }}
-        onClick={() => {
-          setShowTournament(true);
-          setTournamentMode(true);
-        }}
+        onClick={() => setShowTournament(true)}
         style={{
           position: 'fixed',
           bottom: isMobileOrTablet ? '1rem' : '1.5rem',
@@ -625,7 +622,7 @@ export default function App() {
       >
         <Trophy size={isMobileOrTablet ? 14 : 16} style={{ filter: 'drop-shadow(0 0 4px #FFD70066)' }} />
         {lang === 'zh' ? '比赛进度' : lang === 'jp' ? '大会進行' : 'Tournament'}
-      </motion.button>}
+      </motion.button>
 
       {/* 三栏主容器 */}
       <div className={`flex flex-1 ${!isMobileOrTablet ? 'gap-4 p-4' : ''} overflow-hidden`}>
@@ -716,23 +713,11 @@ export default function App() {
               onSelectDrone={d => setLastPartId(d.id)}
               animationCardMode={animationCardMode} setAnimationCardMode={setAnimationCardMode}
               onUpdateInventory={setInventory}
+              competitionDialogOpen={competitionDialogOpen}
+              setCompetitionDialogOpen={handleCompetitionDialogOpenChange}
+              showCompetitionDialog={showCompetitionDialog}
             />
           )}
-          {/* 线上比赛弹窗 */}
-        {showCompetitionDialog &&
-          <CompetitionDialog
-            open={competitionDialogOpen}
-            onOpenChange={setCompetitionDialogOpen}
-            bannerSrc={`${imageSrc}/../intro.jpg`}
-            teams={teams}
-            lang={lang}
-            translations={t}
-            tabsrc={tabSrc}
-            localImgsrc={localImgsrc}
-            imgsrc={imageSrc}
-            factionNames={factionNames}
-          /> 
-        }
           {isMobileOrTablet && (
             <MechListMobile
               team={selectedTeam} selectedMechId={selectedMechId}

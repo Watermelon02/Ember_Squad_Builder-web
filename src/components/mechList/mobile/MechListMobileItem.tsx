@@ -23,7 +23,7 @@ interface MechListMobileItemProps {
   tabsrc: string;
   lang: 'zh'|'en'|'jp';
   mechImgSrc: string;
-  championMode: boolean;
+  tournamentMode: boolean;
   translations: any;
   editingMechId: string;
   setEditingMechId: (id: string) => void;
@@ -37,7 +37,7 @@ interface MechListMobileItemProps {
 export const MechListMobileItem: React.FC<MechListMobileItemProps> = ({
   mech, selectedMechId, onSelectMech, onSelectPartType, onSetViewMode, onSetIsChangingPart,
   cPartType, setCPartType, deletePart, orderedPartTypes, mobileOrTablet, imgsrc, tabsrc, lang,
-  mechImgSrc, championMode, translations, editingMechId, setEditingMechId,
+  mechImgSrc, tournamentMode, translations, editingMechId, setEditingMechId,
   updateMechName, copyMech, deleteMech, getColorByAttr, defaultPreviewParts
 }) => {
   const cardVariants = {
@@ -147,7 +147,7 @@ export const MechListMobileItem: React.FC<MechListMobileItemProps> = ({
               <MechPreview
                 mech={mech} mechImgSrc={mechImgSrc} width="16vh" height="16vh"
                 scaleOverrides={{ chasis: 1, backpack: 2 }} cropLeftPercent={13}
-                defaultParts={defaultPreviewParts} championMode={championMode} style={{ flex: '1' }}
+                defaultParts={defaultPreviewParts} tournamentMode={tournamentMode} style={{ flex: '1' }}
               />
             </div>
         </div>

@@ -14,7 +14,7 @@ import { TacticTabContent } from './tabs/TacticTabContent';
 import { BACKGROUND_SRC } from '../../../data/resource';
 import { COLOR_GREY } from '../../../styles/color';
 import { PartCardEditor } from '../../cardEditor/PartCardEditor';
-import { CompetitionDialog } from '../../custom/CompetitionDialog';
+
 
 
 interface MechListProps {
@@ -31,7 +31,7 @@ interface MechListProps {
   partTypeNames: 'torso' | 'leftHand' | 'rightHand' | 'backpack' | 'chasis';
   imgsrc: string, tabsrc: string,
   localImgsrc: string, lang: string, mobileOrTablet: boolean, setLanguage: React.Dispatch<React.SetStateAction<"zh" | "en" | "jp">>,
-  championMode: boolean,
+  tournamentMode: boolean,
   mechImgSrc: string,
   boxCoverSrc: string,
   animationCardMode: boolean,
@@ -39,9 +39,7 @@ interface MechListProps {
   onUpdateInventory: (inventory: Record<number, number>) => void;
   inventoryMode: boolean;
   onsetInventoryMode: (mode: boolean) => void;
-  competitionDialogOpen: boolean;
-  setCompetitionDialogOpen: (open: boolean) => void;
-  showCompetitionDialog: boolean;
+
 }
 
 export function MechList({
@@ -56,9 +54,9 @@ export function MechList({
   translations,
   partTypeNames = 'chasis',
   imgsrc, tabsrc,
-  localImgsrc, lang, mobileOrTablet, setLanguage, championMode,
+  localImgsrc, lang, mobileOrTablet, setLanguage, tournamentMode,
   mechImgSrc, onSetIsChangingPart, animationCardMode, setAnimationCardMode, onUpdateInventory, inventoryMode, onsetInventoryMode, boxCoverSrc,
-  competitionDialogOpen, setCompetitionDialogOpen, showCompetitionDialog
+
 }: MechListProps) {
   const [filterFaction, setFilterFaction] = useState<FactionType | 'ALL'>('ALL');
   const logic = useMechListLogic({
@@ -150,14 +148,7 @@ export function MechList({
           </DialogContent>
         </Dialog>
 
-        {/* 线上比赛弹窗 */}
-        {showCompetitionDialog &&
-          <CompetitionDialog
-            open={competitionDialogOpen}
-            onOpenChange={setCompetitionDialogOpen}
-            bannerSrc={`${imgsrc}/../intro.jpg`}
-          /> 
-        }
+        
 
         {/* 设置已购盒 弹窗 */}
         <Dialog open={logic.boxListDialogOpen} onOpenChange={logic.setBoxListDialogOpen}>
@@ -561,6 +552,7 @@ export function MechList({
           animationCardMode={animationCardMode} setAnimationCardMode={setAnimationCardMode}
           showBoxList={logic.boxListDialogOpen} setShowBoxList={logic.setBoxListDialogOpen}
           setBoxListDialogOpen={logic.setBoxListDialogOpen}
+          tournamentMode={tournamentMode}
         />
 
         <MechTabContent
@@ -577,21 +569,24 @@ export function MechList({
           orderedPartTypes={orderedPartTypes}
           mobileOrTablet={mobileOrTablet}
           imgsrc={imgsrc} tabsrc={tabsrc} lang={lang}
-          animationCardMode={animationCardMode} mechImgSrc={mechImgSrc} championMode={championMode} translations={translations}
+          animationCardMode={animationCardMode} mechImgSrc={mechImgSrc} tournamentMode={tournamentMode} translations={translations}
           editingMechId={logic.editingMechId} setEditingMechId={logic.setEditingMechId}
           updateMechName={logic.updateMechName} copyMech={logic.copyMech} deleteMech={logic.deleteMech} getColorByAttr={getColorByAttr}
           exportRef={logic.exportRef}
+          tournamentMode={tournamentMode}
         />
 
         <DroneTabContent
           team={team} mobileOrTablet={mobileOrTablet} imgsrc={imgsrc} tabsrc={tabsrc} translations={translations}
           onSetViewMode={onSetViewMode} onSetIsChangingPart={onSetIsChangingPart} onSelectDrone={onSelectDrone}
           deleteDrone={logic.deleteDrone} animationCardMode={animationCardMode} lang={lang} onUpdateTeam={onUpdateTeam}
+          tournamentMode={tournamentMode}
         />
 
         <TacticTabContent
           team={team} mobileOrTablet={mobileOrTablet} imgsrc={imgsrc} tabsrc={tabsrc} translations={translations}
           onSetViewMode={onSetViewMode} onSetIsChangingPart={onSetIsChangingPart} deleteTacticCard={logic.deleteTacticCard}
+          tournamentMode={tournamentMode}
         />
 
         {/* 自定义部件卡编辑器入口（目前隐藏，后续根据需求开放） */}

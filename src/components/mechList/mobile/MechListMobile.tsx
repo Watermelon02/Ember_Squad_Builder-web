@@ -24,14 +24,14 @@ interface MechListMobileProps {
   partTypeNames: any;
   imgsrc: string, tabsrc: string,
   localImgsrc: string, lang: string, mobileOrTablet: boolean, setLanguage: React.Dispatch<React.SetStateAction<"zh" | "en" | "jp">>,
-  championMode: boolean,
+  tournamentMode: boolean,
   mechImgSrc: string,
 }
 
 export function MechListMobile({
   team, selectedMechId, onSelectMech, onSelectPartType, onUpdateTeam, onSetViewMode, onSelectDrone,
   translations, partTypeNames, imgsrc, tabsrc, localImgsrc, lang, mobileOrTablet, setLanguage,
-  championMode, mechImgSrc, onSetIsChangingPart,
+  tournamentMode, mechImgSrc, onSetIsChangingPart,
 }: MechListMobileProps) {
 
   const logic = useMechListMobileLogic({
@@ -108,7 +108,7 @@ export function MechListMobile({
           orderedPartTypes={orderedPartTypes}
           mobileOrTablet={mobileOrTablet}
           imgsrc={imgsrc} tabsrc={tabsrc} lang={lang}
-          mechImgSrc={mechImgSrc} championMode={championMode} translations={translations}
+          mechImgSrc={mechImgSrc} tournamentMode={tournamentMode} translations={translations}
           editingMechId={logic.editingMechId} setEditingMechId={logic.setEditingMechId}
           updateMechName={logic.updateMechName} copyMech={logic.copyMech} deleteMech={logic.deleteMech}
           getColorByAttr={logic.getColorByAttr} addMech={logic.addMech} exportRef={logic.exportRef}

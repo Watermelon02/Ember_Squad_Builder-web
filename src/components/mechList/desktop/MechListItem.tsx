@@ -32,7 +32,7 @@ interface MechListItemProps {
   lang: string;
   animationCardMode: boolean;
   mechImgSrc: string;
-  championMode: boolean;
+  tournamentMode: boolean;
   translations: any;
   // Stats Props
   editingMechId: string;
@@ -46,7 +46,7 @@ interface MechListItemProps {
 export const MechListItem: React.FC<MechListItemProps> = ({
   mech, team, selectedMechId, onSelectMech, onSelectPartType, onSetViewMode, onSetIsChangingPart,
   cPartType, setCPartType, deletePart, orderedPartTypes, mobileOrTablet, imgsrc, tabsrc, lang,
-  animationCardMode, mechImgSrc, championMode, translations,
+  animationCardMode, mechImgSrc, tournamentMode, translations,
   editingMechId, setEditingMechId, updateMechName, copyMech, deleteMech, getColorByAttr
 }) => {
   const cardVariants = {
@@ -227,13 +227,13 @@ export const MechListItem: React.FC<MechListItemProps> = ({
             )}
 
             {!mobileOrTablet && team.faction === 'RDL' && (
-              <MechPreview mech={mech} mechImgSrc={mechImgSrc} width="20vh" height="20vh" scaleOverrides={{ chasis: 1, backpack: 2 }} cropLeftPercent={13} defaultParts={{ leftHand: rdlLeftHand[0], torso: rdlTorso[0], rightHand: rdlRightHand[0], chasis: rdlChasis[1], backpack: rdlBackpack[0] }} championMode={championMode} />
+              <MechPreview mech={mech} mechImgSrc={mechImgSrc} width="20vh" height="20vh" scaleOverrides={{ chasis: 1, backpack: 2 }} cropLeftPercent={13} defaultParts={{ leftHand: rdlLeftHand[0], torso: rdlTorso[0], rightHand: rdlRightHand[0], chasis: rdlChasis[1], backpack: rdlBackpack[0] }} tournamentMode={tournamentMode} />
             )}
             {!mobileOrTablet && (team.faction == 'UN') && (
-              <MechPreview mech={mech} mechImgSrc={mechImgSrc} width="20vh" height="20vh" scaleOverrides={{ chasis: 1, backpack: 1, leftHand: 1, rightHand: 1, torso: 1 }} defaultParts={{ leftHand: unLeftHand[3], torso: unTorso[5], rightHand: unRightHand[8], chasis: unChasis[0], backpack: unBackpack[3] }} championMode={championMode} />
+              <MechPreview mech={mech} mechImgSrc={mechImgSrc} width="20vh" height="20vh" scaleOverrides={{ chasis: 1, backpack: 1, leftHand: 1, rightHand: 1, torso: 1 }} defaultParts={{ leftHand: unLeftHand[3], torso: unTorso[5], rightHand: unRightHand[8], chasis: unChasis[0], backpack: unBackpack[3] }} tournamentMode={tournamentMode} />
             )}
             {!mobileOrTablet && (team.faction === 'GOF') && (
-              <MechPreview mech={mech} mechImgSrc={mechImgSrc} width="20vh" height="20vh" scaleOverrides={{ chasis: 1, backpack: 1, leftHand: 1, rightHand: 1, torso: 1 }} defaultParts={{ leftHand: gofLeftHand[0], torso: gofTorso[0], rightHand: gofRightHand[0], chasis: gofChasis[0], backpack: gofBackpack[0] }} championMode={championMode} />
+              <MechPreview mech={mech} mechImgSrc={mechImgSrc} width="20vh" height="20vh" scaleOverrides={{ chasis: 1, backpack: 1, leftHand: 1, rightHand: 1, torso: 1 }} defaultParts={{ leftHand: gofLeftHand[0], torso: gofTorso[0], rightHand: gofRightHand[0], chasis: gofChasis[0], backpack: gofBackpack[0] }} tournamentMode={tournamentMode} />
             )}
 
             {!mobileOrTablet && (

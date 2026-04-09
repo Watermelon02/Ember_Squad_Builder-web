@@ -2,6 +2,7 @@ import { Part, Team } from "../data/types";
 import extractChunks from "png-chunks-extract";
 import encodeChunks from "png-chunks-encode";
 import { getImage } from "./ImageGetter";
+import { IMAGE_DRONE_VERSION, IMAGE_PART_VERSION, IMAGE_PILOT_VERSION, IMAGE_PROJECTILE_VERSION } from "../data/resource";
 
 
 function createSoftSparseTexture(ctx: CanvasRenderingContext2D, spacing = 160, dotSize = 2, faction: string = "RDL"): CanvasPattern {
@@ -255,12 +256,12 @@ export const exportTeamImage = async (team: Team, lang: string, translations: an
     const partsInfo = await Promise.all(partOrder.map(async key => {
       const part = mech.parts[key];
       if (!part) return null;
-      const img = await getImage(`${localImgsrc}/${part.id}.png`);
+      const img = await getImage(`${imgsrc}/${part.id}.png?v=${IMAGE_PART_VERSION}`);
       return { part, img };
     }));
     const validParts = partsInfo.filter((p): p is { part: Part,img: HTMLImageElement } => p !== null);
 
-    const pilotImg = mech.pilot ? await getImage(`${localImgsrc}/${mech.pilot.id}.png`) : null;
+    const pilotImg = mech.pilot ? await getImage(`${imgsrc}/${mech.pilot.id}.png?v=${IMAGE_PILOT_VERSION}`) : null;
 
     const score = Object.values(mech.parts).reduce((sum, part) => sum + (part?.score || 0), 0) + (mech.pilot?.score || 0);
     const dodge = partOrder.reduce((sum, key) => sum + (mech.parts[key]?.dodge || 0), 0);
@@ -271,15 +272,15 @@ export const exportTeamImage = async (team: Team, lang: string, translations: an
 
   // 并行加载 drones
   const droneData = await Promise.all(team.drones.map(async drone => {
-    const img = await getImage(`${localImgsrc}/${drone.id}.png`);
+    const img = await getImage(`${imgsrc}/${drone.id}.png?v=${IMAGE_DRONE_VERSION}`);
     let backpackImg: HTMLImageElement | null = null;
-    if (drone.backpack) backpackImg = await getImage(`${localImgsrc}/${drone.backpack.id}.png`);
+    if (drone.backpack) backpackImg = await getImage(`${imgsrc}/${drone.backpack.id}.png?v=${IMAGE_PART_VERSION}`);
     return { drone, img, backpackImg };
   }));
 
   // 并行加载战术卡
   const tacticData = await Promise.all(team.tacticCards.map(async card => {
-    const img = await getImage(`${localImgsrc}/${card.id}.png`);
+    const img = await getImage(`${imgsrc}/${card.id}.png`);
     return { card, img };
   }));
 
@@ -298,7 +299,7 @@ export const exportTeamImage = async (team: Team, lang: string, translations: an
   // Step 2: 并行加载所有唯一 projectile 图片
   const projectileImages: HTMLImageElement[] = [];
   await Promise.all(Array.from(uniqueProjectileIds).map(async pid => {
-    const img = await getImage(`${imgsrc}/${pid}.png`);
+    const img = await getImage(`${imgsrc}/${pid}.png?v=${IMAGE_PROJECTILE_VERSION}`);
     projectileImages.push(img);
   }));
 

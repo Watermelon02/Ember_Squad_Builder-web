@@ -11,7 +11,7 @@ interface MechPreviewProps {
   cropLeftPercent?: number;
   defaultParts?: Partial<Record<keyof Mech['parts'], Part>>;
   //这里仅用来临时使用
-  championMode: boolean;
+  tournamentMode: boolean;
   style?: React.CSSProperties;
 }
 
@@ -41,7 +41,7 @@ export const MechPreview: React.FC<MechPreviewProps> = ({
   scaleOverrides = {},
   cropLeftPercent = 0,
   defaultParts = {},
-  championMode,
+  tournamentMode,
   style,
 
 }) => {

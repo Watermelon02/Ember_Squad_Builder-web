@@ -23,7 +23,7 @@ interface MechTabContentProps {
   lang: string;
   animationCardMode: boolean;
   mechImgSrc: string;
-  championMode: boolean;
+  tournamentMode: boolean;
   translations: any;
   editingMechId: string;
   setEditingMechId: (id: string) => void;
@@ -37,7 +37,7 @@ interface MechTabContentProps {
 export const MechTabContent: React.FC<MechTabContentProps> = ({
   team, selectedMechId, onSelectMech, onSelectPartType, onSetViewMode, onSetIsChangingPart,
   cPartType, setCPartType, deletePart, addMech, orderedPartTypes, mobileOrTablet, imgsrc, tabsrc, lang,
-  animationCardMode, mechImgSrc, championMode, translations, editingMechId, setEditingMechId,
+  animationCardMode, mechImgSrc, tournamentMode, translations, editingMechId, setEditingMechId,
   updateMechName, copyMech, deleteMech, getColorByAttr, exportRef
 }) => {
   return (
@@ -62,7 +62,7 @@ export const MechTabContent: React.FC<MechTabContentProps> = ({
           lang={lang}
           animationCardMode={animationCardMode}
           mechImgSrc={mechImgSrc}
-          championMode={championMode}
+          tournamentMode={tournamentMode}
           translations={translations}
           editingMechId={editingMechId}
           setEditingMechId={setEditingMechId}
@@ -73,12 +73,12 @@ export const MechTabContent: React.FC<MechTabContentProps> = ({
         />
       ))}
 
-      <div className="flex justify-center">
+      {!tournamentMode && <div className="flex justify-center">
         <Button onClick={addMech} size="sm" className="w-full bg-gray-100 hover:bg-gray-200 text-gray-800">
           <Plus className="w-4 h-4 mr-2" />
           {translations.t29}
         </Button>
-      </div>
+      </div>}
 
       {team.mechs.length === 0 && (
         <div className="text-center text-muted-foreground py-8">

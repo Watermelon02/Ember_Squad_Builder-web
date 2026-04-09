@@ -31,8 +31,8 @@ interface TeamListMobileProps {
   factionNames: Record<string, string>;
   lang: string;
   tabsrc: string;
-  championMode: boolean;
-  onChampionModeChange: (isChampion: boolean) => void;
+  tournamentMode: boolean;
+  onTournamentModeChange: (isChampion: boolean) => void;
 }
 
 export function TeamListMobile({
@@ -45,8 +45,8 @@ export function TeamListMobile({
   onCopyTeam,
   onReorderTeam, // 接收新的属性
   translations,
-  factionNames, lang, tabsrc, championMode,
-  onChampionModeChange
+  factionNames, lang, tabsrc, tournamentMode,
+  onTournamentModeChange
 }: TeamListMobileProps) {
   const [isDialogOpen, setIsDialogOpen] = useState(false);
   const [editingTeamId, setEditingTeamId] = useState<string>('');

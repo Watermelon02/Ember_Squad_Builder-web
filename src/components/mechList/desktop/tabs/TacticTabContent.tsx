@@ -16,10 +16,11 @@ interface TacticTabContentProps {
   onSetViewMode: (mode: any) => void;
   onSetIsChangingPart: (val: boolean) => void;
   deleteTacticCard: (id: number) => void;
+  tournamentMode: boolean;
 }
 
 export const TacticTabContent: React.FC<TacticTabContentProps> = ({
-  team, mobileOrTablet, imgsrc, tabsrc, translations, onSetViewMode, onSetIsChangingPart, deleteTacticCard
+  team, mobileOrTablet, imgsrc, tabsrc, translations, onSetViewMode, onSetIsChangingPart, deleteTacticCard,tournamentMode
 }) => {
   return (
     <AnimatePresence mode="wait">
@@ -54,7 +55,7 @@ export const TacticTabContent: React.FC<TacticTabContentProps> = ({
             </div>
           ))}
 
-          <div style={{ position: 'relative', display: 'flex', padding: '1rem', cursor: 'pointer', transition: 'transform 0.3s ease, box-shadow 0.3s ease' }}
+          {!tournamentMode &&<div style={{ position: 'relative', display: 'flex', padding: '1rem', cursor: 'pointer', transition: 'transform 0.3s ease, box-shadow 0.3s ease' }}
             onClick={() => { onSetViewMode('tacticCards'); onSetIsChangingPart(true); }}
             onMouseEnter={(e) => { (e.currentTarget as HTMLDivElement).style.transform = 'scale(1.03)'; (e.currentTarget as HTMLDivElement).style.boxShadow = '0 6px 10px rgba(0,0,0,0.1)'; }}
             onMouseLeave={(e) => { (e.currentTarget as HTMLDivElement).style.transform = 'scale(1)'; (e.currentTarget as HTMLDivElement).style.boxShadow = '0 4px 6px rgba(0,0,0,0.05), 0 1px 3px rgba(0,0,0,0.1)'; }}
@@ -63,7 +64,7 @@ export const TacticTabContent: React.FC<TacticTabContentProps> = ({
             <div style={{ position: 'absolute', top: 0, left: 0, right: 0, bottom: 0, display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', pointerEvents: 'none' }}>
               <img src={`${tabsrc}/tactic.png`} style={{ width: '100%', height: '100%', objectFit: 'contain', borderRadius: '0.5rem', boxShadow: '0 4px 6px rgba(0,0,0,0.1)', opacity: 1 }} draggable={false} />
             </div>
-          </div>
+          </div>}
         </motion.div>
         {!mobileOrTablet && team.tacticCards?.length === 0 && <div className="text-center text-muted-foreground py-8">{translations.t89}</div>}
       </TabsContent>

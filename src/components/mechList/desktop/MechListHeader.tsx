@@ -34,6 +34,7 @@ interface MechListHeaderProps {
     animationCardMode: boolean;
     setAnimationCardMode: (val: boolean) => void;
     setBoxListDialogOpen: (val: boolean) => void;
+    tournamentMode: boolean;
 }
 
 export const MechListHeader: React.FC<MechListHeaderProps> = ({
@@ -41,7 +42,7 @@ export const MechListHeader: React.FC<MechListHeaderProps> = ({
     currentTab, setCurrentTab, onSetViewMode, setCPartType,
     isExporting, handleExportImage, includeProjectile, setIncludeProjectile, showProjectileOption, setShowProjectileOption,
     isExportingTTS, handleExportTTS,
-    animationCardMode, setAnimationCardMode, setBoxListDialogOpen
+    animationCardMode, setAnimationCardMode, setBoxListDialogOpen, tournamentMode
 }) => {
     const [showTTSHint, setShowTTSHint] = useState(false);
     const [showAnimationHint, setShowAnimationHint] = useState(false);
@@ -109,27 +110,28 @@ export const MechListHeader: React.FC<MechListHeaderProps> = ({
                 </div>
 
                 {/* 动画模式开关 */}
-                <div style={{ position: "relative" }} onMouseEnter={() => setShowAnimationHint(true)} onMouseLeave={() => setShowAnimationHint(false)}>
-                    <AnimatedButton onClick={() => { setAnimationCardMode(!animationCardMode); }} fontSize={"0.8vw"} style={animationCardMode ? { backgroundColor: COLOR_GREY, color: 'white' } : {}}>
-                        <div style={{ display: "flex", alignItems: "center", gap: 2 }}><Zap style={{ width: "1vw", height: "1vw" }} /><span>{translations.t106}</span></div>
-                    </AnimatedButton>
-                    <AnimatePresence>
-                        {showAnimationHint && (
-                            <motion.div key="animation-mode-hint" initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: 8 }} transition={{ duration: 0.2 }} style={{ position: "absolute", top: "100%", left: "50%", transform: "translateX(-50%)", background: "white", borderRadius: 8, boxShadow: "0 4px 6px rgba(0,0,0,0.1)", padding: "6px 12px", fontSize: "0.8vw", marginTop: -6, zIndex: 90, whiteSpace: "nowrap" }}>
-                                <label style={{ userSelect: "none", color: "#374151" }}>启用/禁用卡片入场动画</label>
-                            </motion.div>
-                        )}
-                    </AnimatePresence>
-                </div>
+                {!tournamentMode &&
+                    <div style={{ position: "relative" }} onMouseEnter={() => setShowAnimationHint(true)} onMouseLeave={() => setShowAnimationHint(false)}>
+                        <AnimatedButton onClick={() => { setAnimationCardMode(!animationCardMode); }} fontSize={"0.8vw"} style={animationCardMode ? { backgroundColor: COLOR_GREY, color: 'white' } : {}}>
+                            <div style={{ display: "flex", alignItems: "center", gap: 2 }}><Zap style={{ width: "1vw", height: "1vw" }} /><span>{translations.t106}</span></div>
+                        </AnimatedButton>
+                        <AnimatePresence>
+                            {showAnimationHint && (
+                                <motion.div key="animation-mode-hint" initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: 8 }} transition={{ duration: 0.2 }} style={{ position: "absolute", top: "100%", left: "50%", transform: "translateX(-50%)", background: "white", borderRadius: 8, boxShadow: "0 4px 6px rgba(0,0,0,0.1)", padding: "6px 12px", fontSize: "0.8vw", marginTop: -6, zIndex: 90, whiteSpace: "nowrap" }}>
+                                    <label style={{ userSelect: "none", color: "#374151" }}>启用/禁用卡片入场动画</label>
+                                </motion.div>
+                            )}
+                        </AnimatePresence>
+                    </div>}
 
                 {/* 设置已购盒 按钮 */}
-                <div style={{ position: "relative" }} onMouseEnter={() => setShowBoxHint(true)} onMouseLeave={() => setShowBoxHint(false)}>
+                {!tournamentMode && <div style={{ position: "relative" }} onMouseEnter={() => setShowBoxHint(true)} onMouseLeave={() => setShowBoxHint(false)}>
                     <AnimatedButton fontSize={"0.7vw"} onClick={() => setBoxListDialogOpen(true)}>
                         <div style={{ display: "flex", alignItems: "center", gap: 4 }}>
                             <Store style={{ width: 16, height: 16 }} /><span>{translations.t111}</span>
                         </div>
                     </AnimatedButton>
-                </div>
+                </div>}
 
             </div>
 
