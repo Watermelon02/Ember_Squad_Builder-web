@@ -7,6 +7,8 @@ import { DroneImage } from '../custom/DroneImage';
 import { exportTeamImage } from '../../util/TeamImage';
 import { TeamEligibility } from '../radix-ui/TeamEligibility';
 import { Badge } from '../radix-ui/badge';
+import { all } from 'axios';
+import { allTacticCards } from '../../data/data_cn';
 
 
 interface CompetitionDialogProps {
@@ -29,6 +31,8 @@ const isMechEligible = (mech: any) => {
     mech.parts.chasis &&
     (mech.parts.leftHand || mech.parts.rightHand) &&
     mech.pilot;
+
+
 
   const bannedBackpack = ['005'].includes(mech.parts.backpack?.id || '');
   const bannedLeft = ['040', '150', '117'].includes(mech.parts.leftHand?.id || '');
@@ -100,35 +104,56 @@ export const CompetitionDialog: React.FC<CompetitionDialogProps> = ({
   const selectedTeam2 = teams.find(t => t.id === team2Id) ?? null;
 
   const bothSelected = !!selectedTeam1 && !!selectedTeam2 && team1Id !== team2Id;
+  const notGOFaction = bothSelected && selectedTeam1!.faction !== 'GOF' && selectedTeam2!.faction !== 'GOF';
   const factionMatch = bothSelected && selectedTeam1!.faction === selectedTeam2!.faction;
   const team1Eligible = selectedTeam1 ? isTeamEligible(selectedTeam1) : true;
   const team2Eligible = selectedTeam2 ? isTeamEligible(selectedTeam2) : true;
   const bothEligible = team1Eligible && team2Eligible;
-  const canExport = userQQ.trim() && userName.trim() && bothSelected && factionMatch && bothEligible;
+  const scoreValid = bothSelected && selectedTeam1!.totalScore <= 900 && selectedTeam2!.totalScore <= 900;
+  const canExport = userQQ.trim() && userName.trim() && bothSelected && factionMatch && bothEligible && scoreValid;
 
   const validationHint = (() => {
     if (!bothSelected) return null;
+    if (!notGOFaction) return `自由卫士派系无法报名`;
     if (!factionMatch) return `两支军表派系不一致（${selectedTeam1!.faction} / ${selectedTeam2!.faction}），无法报名`;
     if (!team1Eligible) return `"${selectedTeam1!.name}" 含有禁赛部件或不符合参赛条件`;
     if (!team2Eligible) return `"${selectedTeam2!.name}" 含有禁赛部件或不符合参赛条件`;
+    if (!scoreValid) return `每张军表的分数必须小于900分`;
+
     return null;
   })();
 
   const handleExport = async () => {
     if (!canExport) return;
+    // 创建副本，避免 exportTeamImage 内部修改 tacticCards 数组影响原对象
+    const team1Copy = { ...selectedTeam1, tacticCards: selectedTeam1?.tacticCards ? [...selectedTeam1.tacticCards] : selectedTeam1?.tacticCards };
+    const team2Copy = { ...selectedTeam2, tacticCards: selectedTeam2?.tacticCards ? [...selectedTeam2.tacticCards] : selectedTeam2?.tacticCards };
+    if(team1Copy.tacticCards && team1Copy.tacticCards.length > 0) {
+      for(let i = 0; i < team1Copy.tacticCards.length; i++) {
+        team1Copy.tacticCards[i] = allTacticCards[0];
+      }
+    }
+    if(team2Copy.tacticCards && team2Copy.tacticCards.length > 0) {
+      for(let i = 0; i < team2Copy.tacticCards.length; i++) {
+        team2Copy.tacticCards[i] = allTacticCards[0];
+      }
+    }
     const tournamentTeam: TournamentTeam = {
       userQQ: userQQ.trim(),
       userName: userName.trim(),
-      team1: selectedTeam1!,
-      team2: selectedTeam2!,
+      team1: team1Copy!,
+      team2: team2Copy!,
     };
     const blob = new Blob([JSON.stringify(tournamentTeam, null, 2)], { type: 'application/json' });
     const link = document.createElement('a');
     link.href = URL.createObjectURL(blob);
     link.download = `${userName.trim()}_报名数据.json`;
     link.click();
-    await exportTeamImage(selectedTeam1, lang, translations, tabsrc, localImgsrc, imgsrc, false);
-    await exportTeamImage(selectedTeam2, lang, translations, tabsrc, localImgsrc, imgsrc, false);
+
+
+
+    await exportTeamImage(team1Copy, lang, translations, tabsrc, localImgsrc, imgsrc, false, true);
+    await exportTeamImage(team2Copy, lang, translations, tabsrc, localImgsrc, imgsrc, false, true);
   };
 
   const getStats = (team: Team) => [
@@ -228,17 +253,18 @@ export const CompetitionDialog: React.FC<CompetitionDialogProps> = ({
         display: 'flex', flexDirection: 'column',
         boxShadow: '0 24px 60px rgba(0,0,0,0.18), 0 8px 24px rgba(0,0,0,0.1)',
         background: '#f3f4f6',
-        border: '1px solid rgba(0,0,0,0.08)',
+        border: '0px solid rgba(0,0,0,0)',
       }}>
 
         {/* ── 横幅 ── */}
         <div style={{ width: '100%', height: '28vh', flexShrink: 0, position: 'relative', overflow: 'hidden' }}>
           <img src={bannerSrc} alt="比赛横幅"
-            style={{ width: '100%', height: '100%', objectFit: 'cover', objectPosition: 'center 30%', display: 'block' }} />
+            loading='lazy'
+            style={{ width: '100%', height: '100%', objectFit: 'cover', objectPosition: 'center 20%', display: 'block' }} />
           {/* 渐变遮罩 */}
           <div style={{
             position: 'absolute', inset: 0,
-            background: 'linear-gradient(to bottom, rgba(0,0,0,0.05) 0%, rgba(0,0,0,0.3) 60%, #f3f4f6 100%)',
+            background: 'linear-gradient(to bottom, rgba(0,0,0,0.05) 0%, rgba(0,0,0,0.3) 80%, #f3f4f6 100%)',
             pointerEvents: 'none',
           }} />
           {/* 状态徽章 */}
@@ -251,11 +277,11 @@ export const CompetitionDialog: React.FC<CompetitionDialogProps> = ({
             borderRadius: '999px', padding: '4px 12px',
           }}>
             <span style={{
-              width: '6px', height: '6px', borderRadius: '50%', background: '#4ade80',
-              boxShadow: '0 0 6px #4ade80',
+              width: '6px', height: '6px', borderRadius: '50%', background: '#FD0267',
+              boxShadow: '0 0 6px #FD0167',
               animation: 'pulse 2s infinite',
             }} />
-            <span style={{ fontSize: '11px', color: '#ffffff', fontWeight: 600, letterSpacing: '0.04em' }}>进行中</span>
+            <span style={{ fontSize: '11px', color: '#ffffff', fontWeight: 600, letterSpacing: '0.04em' }}>报名进行中</span>
           </div>
         </div>
 
@@ -269,19 +295,32 @@ export const CompetitionDialog: React.FC<CompetitionDialogProps> = ({
           {/* 标题 */}
           <h2 style={{
             margin: '0 0 1rem',
-            fontSize: '1.3rem', fontWeight: 800,
-            color: '#111827', lineHeight: 1.3,
+            fontSize: '1.3rem',
+            fontWeight: 800,
+            color: '#000',
+            lineHeight: 1.3,
             letterSpacing: '-0.01em',
           }}>
-            首届官方线上比赛「马蒂尼杯」！
+
+            <span style={{
+              color: '#FD0267',
+              textShadow: `
+      -2px -2px 0 #fff,
+       2px -2px 0 #fff,
+      -2px  2px 0 #fff,
+       2px  2px 0 #fff
+    `,
+            }}>
+              首届官方线上比赛「马蒂尼杯」！
+            </span>
+
           </h2>
 
           {/* 奖励卡片 */}
           <div style={{
             ...card,
-            background: 'linear-gradient(135deg, #fffbeb 0%, #fef3c7 100%)',
             border: '1px solid #fde68a',
-            boxShadow: '0 4px 16px rgba(239,159,39,0.15), 0 1px 4px rgba(239,159,39,0.1)',
+            boxShadow: '0 4px 16px rgba(239,255,255,0.15), 0 1px 4px rgba(255,255,255,0.1)',
             display: 'flex', alignItems: 'flex-start', gap: '12px',
             padding: '1rem 1.25rem',
           }}>
@@ -289,7 +328,7 @@ export const CompetitionDialog: React.FC<CompetitionDialogProps> = ({
             <div>
               <p style={{ margin: '0 0 2px', fontSize: '11px', fontWeight: 700, color: '#92400e', letterSpacing: '0.06em', textTransform: 'uppercase' }}>冠军奖励</p>
               <p style={{ margin: 0, fontSize: '13px', color: '#78350f', lineHeight: 1.6 }}>
-                <strong>8月DC展线下比赛资格</strong>，由雀替报销差旅费！
+
               </p>
             </div>
           </div>
@@ -316,7 +355,7 @@ export const CompetitionDialog: React.FC<CompetitionDialogProps> = ({
                   background: '#f3f4f6', padding: '1px 6px',
                   borderRadius: '5px', fontVariantNumeric: 'tabular-nums',
                 }}>
-                  3975811496
+
                 </strong>{' '}
                 的负责人提交导出的报名数据
               </p>
@@ -324,12 +363,12 @@ export const CompetitionDialog: React.FC<CompetitionDialogProps> = ({
                 padding: '0.48rem 1.2rem', borderRadius: '10px', border: 'none',
                 background: showForm
                   ? '#f3f4f6'
-                  : 'linear-gradient(135deg, #f59e0b, #EF9F27)',
-                color: showForm ? '#374151' : '#1a0f00',
+                  : 'linear-gradient(135deg, #FD0267, #FD418D)',
+                color: showForm ? '#374151' : 'white',
                 fontSize: '13px', fontWeight: 700, cursor: 'pointer',
                 boxShadow: showForm
                   ? '0 1px 4px rgba(0,0,0,0.08)'
-                  : '0 4px 14px rgba(239,159,39,0.4)',
+                  : '0 4px 14px rgba(254,1,102,0.4)',
                 transition: 'all 0.15s',
                 letterSpacing: '0.02em',
               }}>
@@ -439,8 +478,8 @@ export const CompetitionDialog: React.FC<CompetitionDialogProps> = ({
                   disabled={!canExport}
                   style={{
                     padding: '0.5rem 1.4rem', borderRadius: '10px', border: 'none',
-                    background: 'linear-gradient(135deg, #f59e0b, #EF9F27)',
-                    color: '#1a0f00',
+                    background: 'linear-gradient(135deg, #FD0267, #FD418D)',
+                    color: 'white',
                     fontSize: '13px', fontWeight: 700,
                     cursor: canExport ? 'pointer' : 'not-allowed',
                     boxShadow: canExport ? '0 4px 12px rgba(239,159,39,0.35)' : 'none',
@@ -451,7 +490,7 @@ export const CompetitionDialog: React.FC<CompetitionDialogProps> = ({
                   ↓ 下载报名数据
                 </button>
                 <button onClick={() => {
-                  navigator.clipboard.writeText('3975811496')
+
                   alert('QQ 号已复制到剪贴板！');
                 }} style={{
                   padding: '0.48rem 1.1rem', borderRadius: '10px', border: 'none',

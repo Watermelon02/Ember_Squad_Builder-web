@@ -39,7 +39,8 @@ interface MechListProps {
   onUpdateInventory: (inventory: Record<number, number>) => void;
   inventoryMode: boolean;
   onsetInventoryMode: (mode: boolean) => void;
-
+  hideTacticCard: boolean;
+  setHideTacticCard: (hide: boolean) => void;
 }
 
 export function MechList({
@@ -55,13 +56,13 @@ export function MechList({
   partTypeNames = 'chasis',
   imgsrc, tabsrc,
   localImgsrc, lang, mobileOrTablet, setLanguage, tournamentMode,
-  mechImgSrc, onSetIsChangingPart, animationCardMode, setAnimationCardMode, onUpdateInventory, inventoryMode, onsetInventoryMode, boxCoverSrc,
+  mechImgSrc, onSetIsChangingPart, animationCardMode, setAnimationCardMode, onUpdateInventory, inventoryMode, onsetInventoryMode, boxCoverSrc, hideTacticCard, setHideTacticCard
 
 }: MechListProps) {
   const [filterFaction, setFilterFaction] = useState<FactionType | 'ALL'>('ALL');
   const logic = useMechListLogic({
     team, onUpdateTeam, onSelectMech, selectedMechId, translations, lang, mechImgSrc, imgsrc, tabsrc, localImgsrc,
-    onUpdateInventory
+    onUpdateInventory,hideTacticCard, setHideTacticCard
   });
 
   if (!team) {
@@ -148,7 +149,7 @@ export function MechList({
           </DialogContent>
         </Dialog>
 
-        
+
 
         {/* 设置已购盒 弹窗 */}
         <Dialog open={logic.boxListDialogOpen} onOpenChange={logic.setBoxListDialogOpen}>
@@ -553,6 +554,8 @@ export function MechList({
           showBoxList={logic.boxListDialogOpen} setShowBoxList={logic.setBoxListDialogOpen}
           setBoxListDialogOpen={logic.setBoxListDialogOpen}
           tournamentMode={tournamentMode}
+          hideTacticCard={hideTacticCard} setHideTacticCard={setHideTacticCard}
+          tabsrc={tabsrc} mechImgSrc={mechImgSrc}
         />
 
         <MechTabContent

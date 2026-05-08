@@ -15,6 +15,7 @@ import { DroneImage } from '../custom/DroneImage';
 import { COLOR_TEXT_GREY } from '../../styles/color';
 import extractChunks from 'png-chunks-extract';
 import { QQGroupButton } from '../custom/QQGroupButton';
+import { allTacticCards } from '../../data/data_cn';
 
 interface TeamListProps {
   teams: Team[];
@@ -34,6 +35,7 @@ interface TeamListProps {
   competitionDialogOpen: boolean;
   onOpenCompetitionDialog: () => void;
   showCompetitionDialog: boolean;
+  hideTacticCard: boolean;
 }
 
 const LIST_GAP = 16;
@@ -49,7 +51,7 @@ export function TeamList({
   onReorderTeam,
   translations,
   factionNames, lang, tabsrc, tournamentMode,
-  onTournamentModeChange, competitionDialogOpen, onOpenCompetitionDialog, showCompetitionDialog
+  onTournamentModeChange, competitionDialogOpen, onOpenCompetitionDialog, showCompetitionDialog, hideTacticCard
 }: TeamListProps) {
   const [isDialogOpen, setIsDialogOpen] = useState(false);
   const [editingTeamId, setEditingTeamId] = useState<string>('');
@@ -95,11 +97,22 @@ export function TeamList({
 
   const exportTeamAsJson = (teamId: string) => {
     const selectedTeam = teams.find((team) => team.id === teamId);
+
     if (selectedTeam) {
-      const blob = new Blob([JSON.stringify(selectedTeam, null, 2)], { type: 'application/json' });
+      let teamCopy = {
+        ...selectedTeam,
+        tacticCards: selectedTeam.tacticCards ? [...selectedTeam.tacticCards] : selectedTeam.tacticCards
+      };
+      //如果隐藏战术卡，还要将json数据中的战术卡信息隐藏掉
+      if (hideTacticCard && teamCopy.tacticCards !== undefined && teamCopy.tacticCards.length > 0) {
+        for (let i = 0; i < teamCopy.tacticCards.length; i++) {
+          teamCopy.tacticCards[i] = allTacticCards[0];
+        }
+      }
+      const blob = new Blob([JSON.stringify(teamCopy, null, 2)], { type: 'application/json' });
       const link = document.createElement('a');
       link.href = URL.createObjectURL(blob);
-      link.download = `${selectedTeam.name}.json`;
+      link.download = `${teamCopy.name}.json`;
       link.click();
     }
   };

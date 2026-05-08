@@ -268,36 +268,49 @@ export default function App() {
   if (showTournament) {
     // MechList 渲染器：传给 TournamentView 用于弹窗内展示
     const renderMechList = (team: Team) => (
-      <MechList
-        team={team}
-        inventory={inventory}
-        selectedMechId=""
-        onSelectMech={() => { }}
-        onSelectPartType={() => { }}
-        onUpdateTeam={updateTeam}
-        onSetViewMode={() => { }}
-        translations={t}
-        partTypeNames={typePartNames}
-        inventoryMode={inventoryMode}
-        onsetInventoryMode={setInventoryMode}
-        imgsrc={imageSrc}
-        localImgsrc={localImgsrc}
-        boxCoverSrc={boxCoverSrc}
-        lang={lang}
-        tabsrc={tabSrc}
-        mobileOrTablet={false}
-        setLanguage={setLang}
-        tournamentMode={isTournamentMode}
-        mechImgSrc={mechImgsrc}
-        onSetIsChangingPart={() => { }}
-        onSelectDrone={() => { }}
-        animationCardMode={animationCardMode}
-        setAnimationCardMode={setAnimationCardMode}
-        onUpdateInventory={setInventory}
-        competitionDialogOpen={false}
-        setCompetitionDialogOpen={() => { }}
-        showCompetitionDialog={false}
-      />
+      <div>
+        {!isMobileOrTablet && <MechList
+          team={team}
+          inventory={inventory}
+          selectedMechId=""
+          onSelectMech={() => { }}
+          onSelectPartType={() => { }}
+          onUpdateTeam={updateTeam}
+          onSetViewMode={() => { }}
+          translations={t}
+          partTypeNames={typePartNames}
+          inventoryMode={inventoryMode}
+          onsetInventoryMode={setInventoryMode}
+          imgsrc={imageSrc}
+          localImgsrc={localImgsrc}
+          boxCoverSrc={boxCoverSrc}
+          lang={lang}
+          tabsrc={tabSrc}
+          mobileOrTablet={false}
+          setLanguage={setLang}
+          tournamentMode={isTournamentMode}
+          mechImgSrc={mechImgsrc}
+          onSetIsChangingPart={() => { }}
+          onSelectDrone={() => { }}
+          animationCardMode={animationCardMode}
+          setAnimationCardMode={setAnimationCardMode}
+          onUpdateInventory={setInventory}
+          competitionDialogOpen={false}
+          setCompetitionDialogOpen={() => { }}
+          showCompetitionDialog={false}
+        />}
+        {isMobileOrTablet && <MechListMobile
+          team={team} selectedMechId={selectedMechId}
+          onSelectMech={() => { }} onSelectPartType={() => { }}
+          onUpdateTeam={() => { }} onSetViewMode={() => { }}
+          translations={t} partTypeNames={typePartNames}
+          imgsrc={imageSrc} localImgsrc={localImgsrc}
+          lang={lang} tabsrc={tabSrc} mobileOrTablet={isMobileOrTablet}
+          setLanguage={setLang} tournamentMode={isTournamentMode} mechImgSrc={mechImgsrc}
+          onSetIsChangingPart={() => { }}
+          onSelectDrone={() => { }}
+        />}
+      </div>
     );
 
     return (

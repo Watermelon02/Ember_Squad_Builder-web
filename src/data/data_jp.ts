@@ -36,7 +36,7 @@ export const rdlTorso: Part[] = [
   {
     "id": "015",
     "name": "RT-08「テンペスト」 砲戦コア",
-    "score": 62,
+    "score": 56,
     "structure": 2,
     "armor": 7,
     "parray": 0,
@@ -69,7 +69,7 @@ export const rdlTorso: Part[] = [
   {
     "id": "017",
     "name": "RT-15B「ラバー」強襲コア",
-    "score": 59,
+    "score": 47,
     "structure": 4,
     "armor": 5,
     "parray": 0,
@@ -153,7 +153,7 @@ export const rdlTorso: Part[] = [
   {
     "id": "503",
     "name": "RT-16B 「アバランシェ」 強襲コア",
-    "score": 60,
+    "score": 48,
     "structure": 4,
     "armor": 5,
     "parray": 0,
@@ -203,7 +203,7 @@ export const rdlTorso: Part[] = [
     "id": "533",
     "name": "RTX-06 SR「マイア SR」戦闘コア",
     "type": "torso",
-    "score": 32,
+    "score": 18,
     "armor": 6,
     "structure": 2,
     "parray": 0,
@@ -545,7 +545,7 @@ export const rdlLeftHand: Part[] = [
   {
     "id": "053",
     "name": "55型シールド+PC-9ショットガン(L)",
-    "score": 48,
+    "score": 42,
     "structure": 0,
     "armor": 5,
     "parray": 2,
@@ -607,7 +607,7 @@ export const rdlLeftHand: Part[] = [
   {
     "id": "062",
     "name": "62型 バックラー+CC-20 サーベル(L)",
-    "score": 63,
+    "score": 42,
     "structure": 0,
     "armor": 5,
     "parray": 3,
@@ -734,7 +734,7 @@ export const rdlLeftHand: Part[] = [
   {
     "id": "510",
     "name": "55型シールド + PC-9Kショットガン(L)",
-    "score": 63,
+    "score": 57,
     "structure": 0,
     "armor": 5,
     "parray": 2,
@@ -765,7 +765,7 @@ export const rdlLeftHand: Part[] = [
   {
     "id": "514",
     "name": "AH-21ピストル+ CC-50 パイルバンカー (L)",
-    "score": 63,
+    "score": 48,
     "structure": 0,
     "armor": 4,
     "parray": 1,
@@ -776,7 +776,7 @@ export const rdlLeftHand: Part[] = [
     "imgSrc": "",
     "tags": [],
     "keywords": [KEYWORD_LIST.jp.全向射击],
-    "containedIn": [{ "box": BOXES.LAB_RDL_GENJI_AND_MALLARD, "quantityPerBox": 0 }],
+    "containedIn": [{ "box": BOXES.LAB_RDL_GENJI_AND_MALLARD, "quantityPerBox": 1 }],
   },
   {
     "id": "515",
@@ -807,13 +807,13 @@ export const rdlLeftHand: Part[] = [
     "imgSrc": "",
     "tags": [],
     "keywords": [KEYWORD_LIST.jp.震撼],
-    "containedIn": [{ "box": BOXES.LAB_RDL_GENJI_AND_MALLARD, "quantityPerBox": 0 }],
+    "containedIn": [{ "box": BOXES.LAB_RDL_GENJI_AND_MALLARD, "quantityPerBox": 1 }],
   },
   {
     "id": "535",
     "name": "CC-7 クリーバー(L)",
     "type": "leftHand",
-    "score": 39,
+    "score": 36,
     "armor": 4,
     "structure": 0,
     "parray": 1,
@@ -1073,7 +1073,7 @@ export const rdlRightHand: Part[] = [
   {
     "id": "046",
     "name": "55型シールド+PC-9ショットガン(R)",
-    "score": 48,
+    "score": 42,
     "structure": 0,
     "armor": 5,
     "parray": 2,
@@ -1104,7 +1104,7 @@ export const rdlRightHand: Part[] = [
   {
     "id": "048",
     "name": "55型シールド+PC-9ショットガン(R) + スモークグレネード (R)",
-    "score": 57,
+    "score": 51,
     "structure": 0,
     "armor": 5,
     "parray": 2,
@@ -1213,7 +1213,7 @@ export const rdlRightHand: Part[] = [
   {
     "id": "063",
     "name": "63型 アームキャノン+CC-20 サーベル(R)",
-    "score": 66,
+    "score": 45,
     "structure": 0,
     "armor": 4,
     "parray": 2,
@@ -1322,7 +1322,7 @@ export const rdlRightHand: Part[] = [
   {
     "id": "508",
     "name": "55型シールド + PC-9Kショットガン(R)",
-    "score": 63,
+    "score": 57,
     "structure": 0,
     "armor": 5,
     "parray": 2,
@@ -1353,7 +1353,7 @@ export const rdlRightHand: Part[] = [
   {
     "id": "512",
     "name": "AH-21ピストル+ CC-50 パイルバンカー(R)",
-    "score": 63,
+    "score": 48,
     "structure": 0,
     "armor": 4,
     "parray": 1,
@@ -1384,7 +1384,7 @@ export const rdlRightHand: Part[] = [
   {
     "id": "516",
     "name": "AC-35スナイパーライフル",
-    "score": 51,
+    "score": 48,
     "structure": 0,
     "armor": 4,
     "parray": 0,
@@ -1900,7 +1900,7 @@ export const unTorso: Part[] = [
   {
     "id": "091",
     "name": "TM31C 「グレーウルフ」戦闘コア",
-    "score": 45,
+    "score": 36,
     "structure": 4,
     "armor": 4,
     "parray": 0,
@@ -1949,7 +1949,7 @@ export const unTorso: Part[] = [
     "id": "093",
     "name": "TM31KC「グレーウルフ」KC実験型コア",
     "type": "torso",
-    "score": 60,
+    "score": 51,
     "armor": 4,
     "structure": 4,
     "parray": 0,
@@ -2015,7 +2015,7 @@ export const unTorso: Part[] = [
   {
     "id": "098",
     "name": "TM35B 「バイソン」突撃コア",
-    "score": 72,
+    "score": 60,
     "structure": 4,
     "armor": 5,
     "parray": 0,
@@ -2047,7 +2047,7 @@ export const unTorso: Part[] = [
   {
     "id": "555",
     "name": "TM35BT「タウルス」実験型コア",
-    "score": 84,
+    "score": 75,
     "armor": 5,
     "structure": 4,
     "parray": 0,
@@ -2113,7 +2113,7 @@ export const unChasis: Part[] = [
   {
     "id": "101",
     "name": "LM213B 格闘下肢",
-    "score": 57,
+    "score": 51,
     "structure": 1,
     "armor": 4,
     "parray": 0,
@@ -2181,7 +2181,7 @@ export const unLeftHand: Part[] = [
   {
     "id": "107",
     "name": "S100 シールド  + グレネードポッド",
-    "score": 66,
+    "score": 48,
     "structure": 0,
     "armor": 5,
     "parray": 2,
@@ -2212,7 +2212,7 @@ export const unLeftHand: Part[] = [
   {
     "id": "111",
     "name": "RH21 ピストル + M3 振動剑 (L)",
-    "score": 45,
+    "score": 42,
     "structure": 0,
     "armor": 3,
     "parray": 1,
@@ -2274,7 +2274,7 @@ export const unLeftHand: Part[] = [
   {
     "id": "121",
     "name": "MSH1 アシストアーム(L)",
-    "score": 24,
+    "score": 27,
     "structure": 0,
     "armor": 3,
     "parray": 0,
@@ -2290,7 +2290,7 @@ export const unLeftHand: Part[] = [
   {
     "id": "126",
     "name": "K9 ネイルガン + M14BO 「脇差」",
-    "score": 42,
+    "score": 21,
     "structure": 0,
     "armor": 3,
     "parray": 1,
@@ -2337,7 +2337,7 @@ export const unLeftHand: Part[] = [
   {
     "id": "131",
     "name": "M3S 振動剑(L)",
-    "score": 42,
+    "score": 36,
     "structure": 0,
     "armor": 3,
     "parray": 1,
@@ -2352,7 +2352,7 @@ export const unLeftHand: Part[] = [
   {
     "id": "135",
     "name": "M4 振動剑 + グレネードポッド(L)",
-    "score": 54,
+    "score": 45,
     "structure": 0,
     "armor": 3,
     "parray": 1,
@@ -2384,7 +2384,7 @@ export const unLeftHand: Part[] = [
   {
     "id": "142",
     "name": "S100 シールド",
-    "score": 48,
+    "score": 39,
     "structure": 0,
     "armor": 5,
     "parray": 2,
@@ -2414,7 +2414,7 @@ export const unLeftHand: Part[] = [
   {
     "id": "144",
     "name": "K7 ネイルガン + S10 シールド",
-    "score": 54,
+    "score": 45,
     "structure": 0,
     "armor": 5,
     "parray": 2,
@@ -2430,7 +2430,7 @@ export const unLeftHand: Part[] = [
   {
     "id": "146",
     "name": "G6 ショットガン + グレネードポッド",
-    "score": 75,
+    "score": 66,
     "structure": 0,
     "armor": 4,
     "parray": 0,
@@ -2492,7 +2492,7 @@ export const unLeftHand: Part[] = [
   {
     "id": "256",
     "name": "K9 ネイルガン + M14BO 「脇差」試作型 (L)",
-    "score": 42,
+    "score": 21,
     "structure": 0,
     "armor": 3,
     "parray": 1,
@@ -2589,7 +2589,7 @@ export const unRightHand: Part[] = [
   {
     "id": "113",
     "name": "RH21 ピストル + M3 振動剑 (R)",
-    "score": 45,
+    "score": 42,
     "structure": 0,
     "armor": 3,
     "parray": 1,
@@ -2620,7 +2620,7 @@ export const unRightHand: Part[] = [
   {
     "id": "115",
     "name": "S100 シールド + R6SS SMG",
-    "score": 63,
+    "score": 51,
     "structure": 0,
     "armor": 5,
     "parray": 2,
@@ -2776,7 +2776,7 @@ export const unRightHand: Part[] = [
   {
     "id": "133",
     "name": "M3S 振動剑 (R)",
-    "score": 42,
+    "score": 36,
     "structure": 0,
     "armor": 3,
     "parray": 1,
@@ -2791,7 +2791,7 @@ export const unRightHand: Part[] = [
   {
     "id": "137",
     "name": "M4 振動剑 + グレネードポッド(R)",
-    "score": 54,
+    "score": 45,
     "structure": 0,
     "armor": 3,
     "parray": 1,
@@ -2916,7 +2916,7 @@ export const unRightHand: Part[] = [
   {
     "id": "257",
     "name": "K9 ネイルガン + M14BO 「脇差」試作型(R)",
-    "score": 42,
+    "score": 21,
     "structure": 0,
     "armor": 3,
     "parray": 1,
@@ -3024,7 +3024,8 @@ export const unProjectiles: Projectile[] = [
     "dodge": 2,
     "electronic": 0,
     "stance": "offensive",
-    "imgSrc": ""
+    "imgSrc": "",
+    "isCardModified": true
   },
   {
     "id": "156",
@@ -3076,7 +3077,8 @@ export const unBackpack: Part[] = [
     "imgSrc": "",
     "tags": [],
     "keywords": [KEYWORD_LIST.jp.KC装甲],
-    "containedIn": [{ "box": BOXES.UN_CORE, "quantityPerBox": 2 }]
+    "containedIn": [{ "box": BOXES.UN_CORE, "quantityPerBox": 2 }],
+    "isCardModified": true
   },
   {
     "id": "082",
@@ -3114,7 +3116,7 @@ export const unBackpack: Part[] = [
   {
     "id": "084",
     "name": "DBP 「亀甲」バリケードラック",
-    "score": 39,
+    "score": 27,
     "structure": 0,
     "armor": 5,
     "parray": 0,
@@ -3129,7 +3131,7 @@ export const unBackpack: Part[] = [
   {
     "id": "085",
     "name": "AMDS210 「デルフィニウム」ラック",
-    "score": 30,
+    "score": 27,
     "structure": 0,
     "armor": 3,
     "parray": 0,
@@ -3139,6 +3141,7 @@ export const unBackpack: Part[] = [
     "description": "",
     "imgSrc": "",
     "tags": [],
+    "projectile": ["159"],
     "containedIn": [{ "box": BOXES.UN_SCALPEL, "quantityPerBox": 2 }]
   },
   {
@@ -3175,7 +3178,7 @@ export const unBackpack: Part[] = [
   {
     "id": "088",
     "name": "JP1 ジェットパック",
-    "score": 57,
+    "score": 48,
     "structure": 0,
     "armor": 3,
     "parray": 0,
@@ -3234,7 +3237,8 @@ export const unBackpack: Part[] = [
     "imgSrc": "",
     "tags": [],
     "keywords": [KEYWORD_LIST.jp.KC装甲],
-    "containedIn": [{ "box": BOXES.LAB_TRIAL_UN_OCTOPUS, "quantityPerBox": 1 }]
+    "containedIn": [{ "box": BOXES.LAB_TRIAL_UN_OCTOPUS, "quantityPerBox": 1 }],
+    "isCardModified": true
   },
   {
     "id": "300",
@@ -3313,7 +3317,7 @@ export const unDrones: Drone[] = [
   {
     "id": "160",
     "name": "ADK15D 「ヤマアラシ」CIWS型",
-    "score": 48,
+    "score": 51,
     "structure": 2,
     "armor": 4,
     "parray": 0,
@@ -3376,7 +3380,7 @@ export const unDrones: Drone[] = [
   {
     "id": "164",
     "name": "ADK60R「レイヴン」偵察型",
-    "score": 33,
+    "score": 24,
     "structure": 0,
     "armor": 1,
     "parray": 0,
@@ -3391,7 +3395,7 @@ export const unDrones: Drone[] = [
   {
     "id": "165",
     "name": "ADK60EC「レイヴン」電子戦型",
-    "score": 33,
+    "score": 24,
     "structure": 0,
     "armor": 1,
     "parray": 0,
@@ -3407,7 +3411,7 @@ export const unDrones: Drone[] = [
   {
     "id": "166",
     "name": "ADK60S「レイヴン」妨害型",
-    "score": 51,
+    "score": 36,
     "structure": 0,
     "armor": 1,
     "parray": 0,
@@ -4798,7 +4802,7 @@ export const pdDrones: Drone[] = [
     "id": "PRDR-203",
     "name": "LD-5B「ヴィジラント」爆撃型",
     "type": "medium",
-    "score": 45,
+    "score": 42,
     "structure": 0,
     "armor": 4,
     "parray": 0,
@@ -4817,7 +4821,7 @@ export const pdDrones: Drone[] = [
     "id": "PRDR-204",
     "name": "LD-5S「ヴィジラント」支援型",
     "type": "medium",
-    "score": 48,
+    "score": 42,
     "structure": 0,
     "armor": 4,
     "parray": 0,
@@ -4834,6 +4838,23 @@ export const pdDrones: Drone[] = [
   }
 ];
 export const pdTorso: Part[] = [
+  {
+    "id": "287",
+    "name": "ACE-001 「ホワイトドワーフ」コアパーツ",
+    "type": "torso",
+    "score": 72,
+    "structure": 3,
+    "armor": 5,
+    "parray": 0,
+    "dodge": 1,
+    "electronic": 3,
+    "description": "",
+    "projectile": ["288"],
+    "isPD": true,
+    "hasImage": true,
+    "keywords": [],
+    "containedIn": [{ "box": BOXES.LAB_WHITE_DWARF, "quantityPerBox": 1 }],
+  },
   {
     "id": "547",
     "name": "H2-B「クライシス」II型",
@@ -4856,23 +4877,40 @@ export const pdTorso: Part[] = [
     "containedIn": [{ "box": BOXES.LAB_PD_CRISIS2, "quantityPerBox": 1 }],
   }
 ];
-export const pdChasis: Part[] = [{
-  "id": "548",
-  "name": "HL2 Crisis Chassis",
-  "type": "chasis",
-  "score": 21,
-  "armor": 5,
-  "structure": 0,
-  "parray": 0,
-  "dodge": 3,
-  "electronic": 0,
-  "move": 1,
-  "description": "",
-  "keywords": [],
-  "projectile": [],
-  "isPD": true,
-  "containedIn": [{ "box": BOXES.LAB_PD_CRISIS2, "quantityPerBox": 1 }],
-},
+export const pdChasis: Part[] = [
+  {
+    "id": "289",
+    "name": " ACE-001 「ホワイトドワーフ」下肢パーツ",
+    "type": "chasis",
+    "score": 54,
+    "structure": 0,
+    "armor": 4,
+    "parray": 0,
+    "dodge": 3,
+    "electronic": 0,
+    "description": "",
+    "isPD": true,
+    "hasImage": true,
+    "keywords": [],
+    "containedIn": [{ "box": BOXES.LAB_WHITE_DWARF, "quantityPerBox": 1 }],
+  },
+  {
+    "id": "548",
+    "name": "HL2 Crisis Chassis",
+    "type": "chasis",
+    "score": 21,
+    "armor": 5,
+    "structure": 0,
+    "parray": 0,
+    "dodge": 3,
+    "electronic": 0,
+    "move": 1,
+    "description": "",
+    "keywords": [],
+    "projectile": [],
+    "isPD": true,
+    "containedIn": [{ "box": BOXES.LAB_PD_CRISIS2, "quantityPerBox": 1 }],
+  },
   //   {
   //   "id": "549",
   //   "name": "HL2-M「クライシス」下肢M",
@@ -4893,6 +4931,22 @@ export const pdChasis: Part[] = [{
 ];
 export const pdLeftHand: Part[] = [
   {
+    "id": "291",
+    "name": "ACE-001「ホワイトドワーフ」左腕パーツ",
+    "type": "leftHand",
+    "score": 67,
+    "structure": 0,
+    "armor": 4,
+    "parray": 0,
+    "dodge": 0,
+    "electronic": 0,
+    "description": "",
+    "isPD": true,
+    "hasImage": true,
+    "keywords": [KEYWORD_LIST.jp.近战射击, KEYWORD_LIST.jp.脆弱],
+    "containedIn": [{ "box": BOXES.LAB_WHITE_DWARF, "quantityPerBox": 1 }],
+  },
+  {
     "id": "550",
     "name": "Ls197Rオートキャノン（L）",
     "type": "leftHand",
@@ -4911,46 +4965,97 @@ export const pdLeftHand: Part[] = [
   },
 ];
 
-export const pdRightHand: Part[] = [{
-  "id": "551",
-  "name": "Ls197Rオートキャノン（R）",
-  "type": "rightHand",
-  "score": 48,
-  "armor": 3,
-  "structure": 0,
-  "parray": 0,
-  "dodge": 0,
-  "electronic": 0,
-  "move": 0,
-  "description": "",
-  "keywords": [KEYWORD_LIST.jp.遥控武器],
-  "projectile": [],
-  "isPD": true,
-  "containedIn": [{ "box": BOXES.LAB_PD_CRISIS2, "quantityPerBox": 1 }],
-},
+export const pdRightHand: Part[] = [
+  {
+    "id": "290",
+    "name": " ACE-001「ホワイトドワーフ」 右腕パーツ",
+    "type": "rightHand",
+    "score": 72,
+    "structure": 0,
+    "armor": 4,
+    "parray": 1,
+    "dodge": 0,
+    "electronic": 0,
+    "description": "",
+    "isPD": true,
+    "hasImage": true,
+    "keywords": [KEYWORD_LIST.jp.近战射击, KEYWORD_LIST.jp.毁伤],
+    "containedIn": [{ "box": BOXES.LAB_WHITE_DWARF, "quantityPerBox": 1 }],
+  },
+  {
+    "id": "551",
+    "name": "Ls197Rオートキャノン（R）",
+    "type": "rightHand",
+    "score": 48,
+    "armor": 3,
+    "structure": 0,
+    "parray": 0,
+    "dodge": 0,
+    "electronic": 0,
+    "move": 0,
+    "description": "",
+    "keywords": [KEYWORD_LIST.jp.遥控武器],
+    "projectile": [],
+    "isPD": true,
+    "containedIn": [{ "box": BOXES.LAB_PD_CRISIS2, "quantityPerBox": 1 }],
+  },
 ];
 
 
-export const pdBackpack: Part[] = [{
-  "id": "545",
-  "name": "LS297デュアルオートキャノン",
-  "type": "backpack",
-  "score": 48,
-  "armor": 3,
-  "structure": 0,
-  "parray": 0,
-  "dodge": 0,
-  "electronic": 0,
-  "move": 0,
-  "description": "·压制：被本动作宣布为目标的机甲会立刻切换为防御姿态（处于宕机姿态的单位不受此影响）。",
-  "keywords": [KEYWORD_LIST.jp.压制],
-  "projectile": [],
-  "isPD": true,
-  "containedIn": [{ "box": BOXES.LAB_PD_CRISIS2, "quantityPerBox": 1 }],
-}
+export const pdBackpack: Part[] = [
+  {
+    "id": "292",
+    "name": "ACE-001 「ホワイトドワーフ」 ビットポート",
+    "type": "backpack",
+    "score": 60,
+    "structure": 0,
+    "armor": 3,
+    "parray": 0,
+    "dodge": 1,
+    "electronic": 2,
+    "description": "",
+    "projectile": ["293", "294", "295"],
+    "isPD": true,
+    "hasImage": true,
+    "keywords": [],
+    "containedIn": [{ "box": BOXES.LAB_WHITE_DWARF, "quantityPerBox": 1 }],
+  },
+  {
+    "id": "545",
+    "name": "LS297デュアルオートキャノン",
+    "type": "backpack",
+    "score": 48,
+    "armor": 3,
+    "structure": 0,
+    "parray": 0,
+    "dodge": 0,
+    "electronic": 0,
+    "move": 0,
+    "description": "·压制：被本动作宣布为目标的机甲会立刻切换为防御姿态（处于宕机姿态的单位不受此影响）。",
+    "keywords": [KEYWORD_LIST.jp.压制],
+    "projectile": [],
+    "isPD": true,
+    "containedIn": [{ "box": BOXES.LAB_PD_CRISIS2, "quantityPerBox": 1 }],
+  }
 ];
 
 export const pdPilots: Pilot[] = [
+  {
+    "id": "ACE-01",
+    "name": "カール・フリード",
+    "score": 15,
+    "LV": 4,
+    "faction": "PD",
+    "swift": 5,
+    "melee": 7,
+    "projectile": 6,
+    "firing": 3,
+    "moving": 8,
+    "tactic": 6,
+    "trait": "共感覚",
+    "traitDescription": "· 「ホワイトドワーフ」 ビットがダイスを振る際に、この機体のリンク値を消費して集中振り直しを実行できる。",
+    "box": BOXES.LAB_WHITE_DWARF
+  },
   {
     "id": "XPA-60",
     "name": "戦闘員 A-102",
@@ -4968,6 +5073,7 @@ export const pdPilots: Pilot[] = [
     "box": BOXES.LAB_PD_CRISIS2
   },
 ];
+
 
 export const allTacticCards: TacticCard[] = [
   {

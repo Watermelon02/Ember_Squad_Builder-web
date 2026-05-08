@@ -126,7 +126,7 @@ export function PartSelectorMobile({
 
   // --- 渲染部分：采用条件渲染代替 display:none ---
   return (
-    <div>
+    <div style={{ height: 'calc(100dvh - 35vh)', overflow: 'hidden' }}>
       {viewMode === 'parts' && (
         <ListPanel
           searchQuery={searchQuery}

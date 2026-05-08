@@ -1,11 +1,11 @@
 import { Keyword } from "./keyword";
 export type FactionType = "RDL" | "UN" | "GOF" | "PD" | "COLLABORATION";
 
-export interface TournamentTeam{
+export interface TournamentTeam {
   userQQ: string;
   userName: string;
-  team1:Team;
-  team2:Team;
+  team1: Team;
+  team2: Team;
 }
 
 export interface Team {
@@ -81,6 +81,10 @@ export interface Part {
   action?: Action[]
   hasImage?: boolean;
   containedIn: SourceInfo[];
+  //与实体卡面相比，进行过属性修改
+  isCardModified?: boolean;
+  //进行了分数调整
+  isScoreModified?: boolean;
 }
 
 export interface Projectile {
@@ -97,6 +101,8 @@ export interface Projectile {
   actions?: DroneAction[];
   hasImage?: boolean;
   isPD?: boolean;
+  //与实体卡面相比，进行过属性修改
+  isCardModified?: boolean;
 }
 
 export interface Drone {
@@ -119,7 +125,7 @@ export interface Drone {
   actions?: DroneAction[];
   hasImage?: boolean;
   containedIn: SourceInfo[];
-  valueLess?:boolean;
+  valueLess?: boolean;
 }
 
 export interface Pilot {

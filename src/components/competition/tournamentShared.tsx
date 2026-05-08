@@ -99,9 +99,9 @@ export const PlayerCard: React.FC<{
   const stats = [
     { l: lang === 'zh' ? '分' : 'PT', v: team.totalScore, hi: team.totalScore > 900 },
     { l: lang === 'zh' ? '机' : 'MC', v: team.mechCount },
-    { l: lang === 'zh' ? '大' : 'L',  v: team.largeDroneCount },
-    { l: lang === 'zh' ? '中' : 'M',  v: team.mediumDroneCount },
-    { l: lang === 'zh' ? '小' : 'S',  v: team.smallDroneCount },
+    { l: lang === 'zh' ? '大' : 'L', v: team.largeDroneCount },
+    { l: lang === 'zh' ? '中' : 'M', v: team.mediumDroneCount },
+    { l: lang === 'zh' ? '小' : 'S', v: team.smallDroneCount },
   ];
   const totalItems = (team.mechs?.length ?? 0) + (team.drones?.length ?? 0);
   const ph = (totalItems % ITEMS_PER_ROW === 0) ? 0 : ITEMS_PER_ROW - totalItems % ITEMS_PER_ROW;
@@ -109,6 +109,15 @@ export const PlayerCard: React.FC<{
   const slotLabel = slot === 0
     ? (lang === 'zh' ? '表一' : lang === 'jp' ? 'チーム①' : 'Team 1')
     : (lang === 'zh' ? '表二' : lang === 'jp' ? 'チーム②' : 'Team 2');
+
+  const [copied, setCopied] = React.useState(false);
+
+  const handleCopy = (e) => {
+    e.stopPropagation(); // 阻止事件冒泡，不触发父按钮点击
+    navigator.clipboard.writeText(player.userQQ);
+    setCopied(true);
+    setTimeout(() => setCopied(false), 2000); // 2秒后恢复
+  };
 
   return (
     <motion.button
@@ -124,6 +133,26 @@ export const PlayerCard: React.FC<{
       <div style={{ display: 'flex', alignItems: 'center', gap: 5, paddingLeft: 5 }}>
         <QQAvatar qq={player.userQQ} size={22} />
         <span style={{ flex: 1, fontWeight: 700, fontSize: '0.74rem', color: isLoser ? 'rgba(80,80,80,0.4)' : 'rgba(15,15,15,0.88)', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>{player.userName}</span>
+        <span
+          onClick={handleCopy}
+          style={{
+            flex: 1,
+            fontWeight: 700,
+            fontSize: '0.54rem',
+            color: isLoser ? 'rgba(80,80,80,0.4)' : (copied ? '#10b981' : 'rgba(15,15,15,1)'), // 复制后变绿
+            overflow: 'hidden',
+            textOverflow: 'ellipsis',
+            whiteSpace: 'nowrap',
+            opacity: 0.7,
+            cursor: 'pointer',
+            position: 'relative',
+            transition: 'all 0.2s'
+          }}
+        >
+          {/* 这里的逻辑：点击后短时间内显示“已复制”，否则显示 QQ 号 */}
+          {copied ? '✅ 已复制' : player.userQQ}
+
+        </span>
         {!hideSlot && <span style={{ padding: '0.08rem 0.32rem', borderRadius: 5, fontSize: '0.52rem', fontWeight: 700, background: `${slotColor}20`, color: slotColor, border: `1px solid ${slotColor}44`, flexShrink: 0 }}>{slotLabel}</span>}
         {champion && <Crown size={12} style={{ color: '#FFD700', filter: 'drop-shadow(0 0 4px #FFD70099)', flexShrink: 0 }} />}
         {isWinner && !champion && <div style={{ width: 6, height: 6, borderRadius: '50%', background: fc, boxShadow: `0 0 5px ${fc}`, flexShrink: 0 }} />}
@@ -132,7 +161,7 @@ export const PlayerCard: React.FC<{
         <span style={{ background: `linear-gradient(to right,${fc},${fc}88)`, color: 'white', borderRadius: 5, padding: '0.07rem 0.34rem', fontSize: '0.54rem', fontWeight: 700, boxShadow: `0 1px 5px ${fc}44`, flexShrink: 0 }}>{factionNames[team.faction] ?? team.faction}</span>
         <span style={{ color: isLoser ? 'rgba(80,80,80,0.36)' : 'rgba(40,40,40,0.72)', fontWeight: 500, fontSize: '0.67rem', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap', flex: 1 }}>{team.name}</span>
       </div>
-      {/* <div style={{ display: 'grid', gridTemplateColumns: 'repeat(5,1fr)', gap: 2, paddingLeft: 5 }}>
+      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(5,1fr)', gap: 2, paddingLeft: 5 }}>
         {stats.map((s, i) => (
           <div key={i} style={{ textAlign: 'center' }}>
             <div style={{ color: 'rgba(100,100,100,0.52)', fontSize: '0.46rem', lineHeight: 1.2 }}>{s.l}</div>
@@ -154,7 +183,7 @@ export const PlayerCard: React.FC<{
         {Array.from({ length: ph }).map((_, i) => (
           <div key={`ph-${i}`} style={{ width: ITEM_SIZE, height: ITEM_SIZE, borderRadius: 6, backgroundImage: 'repeating-linear-gradient(45deg,#eee,#eee 3px,#ddd 3px,#ddd 6px)' }} />
         ))}
-      </div> */}
+      </div>
       <TeamViewButtons player={player} activeSlot={hideSlot ? undefined : slot} onViewTeam={onClickTeam} lang={lang} style={{ paddingLeft: 3, marginTop: 1, opacity: isLoser ? 0.85 : 1 }} />
     </motion.button>
   );
@@ -205,7 +234,7 @@ export const VsSeparator: React.FC = memo(() => (
 ));
 
 export const Connector: React.FC = () => (
-  <div style={{ flexShrink: 0, color: 'rgba(255,255,255,0.25)', fontSize: '1.3rem', lineHeight: 1, userSelect: 'none', paddingBottom: 1 }}>›</div>
+  <div style={{ flexShrink: 0, color: 'rgba(255,255,255,0.25)', fontSize: '7rem', lineHeight: 1, userSelect: 'none', paddingBottom: 1 }}>›</div>
 );
 
 export const BracketGroup: React.FC<{
@@ -228,36 +257,36 @@ export const TeamDetailModal: React.FC<{
   backgroundImgsrc: string; onClose: () => void;
   mechListRenderer: (t: Team) => React.ReactNode;
 }> = ({ team, lang, factionNames, backgroundImgsrc, onClose, mechListRenderer }) =>
-  createPortal(
-    <AnimatePresence>
-      {team && (() => {
-        const fc = FACTION_COLORS[team.faction] ?? '#888';
-        return (
-          <motion.div key="ov" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} transition={{ duration: 0.18 }}
-            style={{ position: 'fixed', inset: 0, zIndex: 9999, display: 'flex', alignItems: 'center', justifyContent: 'center', backgroundColor: 'rgba(0,0,0,0.7)', backdropFilter: 'blur(5px)' }}
-            onClick={onClose}
-          >
-            <motion.div key="pnl" initial={{ opacity: 0, scale: 0.92, y: 24 }} animate={{ opacity: 1, scale: 1, y: 0 }} exit={{ opacity: 0, scale: 0.92, y: 16 }} transition={{ duration: 0.28, ease: [0.22, 1, 0.36, 1] }}
-              style={{ width: '92vw', maxWidth: 1100, height: '88vh', borderRadius: 20, overflow: 'hidden', display: 'flex', flexDirection: 'column', border: `1px solid ${fc}44`, boxShadow: `0 28px 70px rgba(0,0,0,0.65)`, backgroundImage: `url(${backgroundImgsrc}/background2.svg)`, backgroundSize: 'cover' }}
-              onClick={e => e.stopPropagation()}
+    createPortal(
+      <AnimatePresence>
+        {team && (() => {
+          const fc = FACTION_COLORS[team.faction] ?? '#888';
+          return (
+            <motion.div key="ov" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} transition={{ duration: 0.18 }}
+              style={{ position: 'fixed', inset: 0, zIndex: 9999, display: 'flex', alignItems: 'center', justifyContent: 'center', backgroundColor: 'rgba(0,0,0,0.7)', backdropFilter: 'blur(5px)' }}
+              onClick={onClose}
             >
-              <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '0.6rem 1.2rem', borderBottom: `1px solid ${fc}2a`, background: `linear-gradient(90deg,${fc}18,rgba(0,0,0,0.55))`, backdropFilter: 'blur(20px)', flexShrink: 0 }}>
-                <div style={{ display: 'flex', alignItems: 'center', gap: 9 }}>
-                  <div style={{ width: 10, height: 10, borderRadius: '50%', background: fc, boxShadow: `0 0 7px ${fc}` }} />
-                  <span style={{ color: 'rgba(255,255,255,0.9)', fontWeight: 700, fontSize: '0.96rem' }}>{team.name}</span>
-                  <span style={{ padding: '0.12rem 0.55rem', borderRadius: 7, background: `${fc}22`, color: fc, fontSize: '0.65rem', fontWeight: 700, border: `1px solid ${fc}38` }}>{factionNames[team.faction] ?? team.faction}</span>
-                  {team.totalScore > 0 && <span style={{ color: 'rgba(255,255,255,0.28)', fontSize: '0.66rem' }}>{team.totalScore} pt</span>}
+              <motion.div key="pnl" initial={{ opacity: 0, scale: 0.92, y: 24 }} animate={{ opacity: 1, scale: 1, y: 0 }} exit={{ opacity: 0, scale: 0.92, y: 16 }} transition={{ duration: 0.28, ease: [0.22, 1, 0.36, 1] }}
+                style={{ width: '92vw', maxWidth: 1100, height: '88vh', borderRadius: 20, overflow: 'hidden', display: 'flex', flexDirection: 'column', border: `1px solid ${fc}44`, boxShadow: `0 28px 70px rgba(0,0,0,0.65)`, backgroundImage: `url(${backgroundImgsrc}/background2.svg)`, backgroundSize: 'cover' }}
+                onClick={e => e.stopPropagation()}
+              >
+                <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '0.6rem 1.2rem', borderBottom: `1px solid ${fc}2a`, background: `#EEEEEE`, backdropFilter: 'blur(20px)', flexShrink: 0 }}>
+                  <div style={{ display: 'flex', alignItems: 'center', gap: 9 }}>
+                    <div style={{ width: 10, height: 10, borderRadius: '50%', background: fc, boxShadow: `0 0 7px ${fc}` }} />
+                    <span style={{ color: '#929292', fontWeight: 700, fontSize: '0.96rem' }}>{team.name}</span>
+                    <span style={{ padding: '0.12rem 0.55rem', borderRadius: 7, background: `${fc}22`, color: fc, fontSize: '0.65rem', fontWeight: 700, border: `1px solid ${fc}38` }}>{factionNames[team.faction] ?? team.faction}</span>
+                    {team.totalScore > 0 && <span style={{ color: '#929292', fontSize: '0.96rem' }}>{team.totalScore} 分</span>}
+                  </div>
+                  <button onClick={onClose} style={{ display: 'flex', alignItems: 'center', gap: 5, padding: '0.3rem 0.72rem', borderRadius: 9, background: 'rgba(255,255,255,0.07)', border: '1px solid grey', color: '#929292', cursor: 'pointer', fontSize: '0.74rem', fontWeight: 600 }}
+                    onMouseEnter={e => (e.currentTarget.style.background = 'rgba(255,255,255,0.14)')} onMouseLeave={e => (e.currentTarget.style.background = 'rgba(255,255,255,0.07)')}>
+                    {lang === 'zh' ? '关闭' : lang === 'jp' ? '閉じる' : 'Close'}
+                  </button>
                 </div>
-                <button onClick={onClose} style={{ display: 'flex', alignItems: 'center', gap: 5, padding: '0.3rem 0.72rem', borderRadius: 9, background: 'rgba(255,255,255,0.07)', border: '1px solid rgba(255,255,255,0.12)', color: 'rgba(255,255,255,0.62)', cursor: 'pointer', fontSize: '0.74rem', fontWeight: 600 }}
-                  onMouseEnter={e => (e.currentTarget.style.background = 'rgba(255,255,255,0.14)')} onMouseLeave={e => (e.currentTarget.style.background = 'rgba(255,255,255,0.07)')}>
-                  <X size={13} />{lang === 'zh' ? '关闭' : lang === 'jp' ? '閉じる' : 'Close'}
-                </button>
-              </div>
-              <div style={{ flex: 1, overflow: 'auto', background: 'rgba(255,255,255,0.93)' }}>{mechListRenderer(team)}</div>
+                <div style={{ flex: 1, overflow: 'auto', background: 'rgba(255,255,255,0.93)' }}>{mechListRenderer(team)}</div>
+              </motion.div>
             </motion.div>
-          </motion.div>
-        );
-      })()}
-    </AnimatePresence>,
-    document.body,
-  );
+          );
+        })()}
+      </AnimatePresence>,
+      document.body,
+    );

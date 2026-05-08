@@ -24,11 +24,9 @@ const DroneListMobile: React.FC<DroneListMobileProps> = ({
   // 取消选中
   const resetSelection = () => setSelectedId(null);
   return (
-    <div className="flex flex-col" style={{ minHeight: "65vh" }}>
-      <div
-        className="flex-1 overflow-y-auto space-y-3"
-        style={{ paddingLeft: '2vw', paddingRight: '2vw' }}
-      >
+    <div style={{ height: '100%', display: 'flex', flexDirection: 'column' }}>
+      <div style={{ flex: 1, minHeight: 0, overflowY: 'auto', paddingLeft: '2vw', paddingRight: '2vw' }}
+        className="space-y-3">
         {filteredDrones.map((drone) => (
           <SelectableCard
             key={drone.id}
@@ -164,10 +162,10 @@ const DroneListMobile: React.FC<DroneListMobileProps> = ({
                   }
                 >
                   {drone.type === 'large'
-                    ? '大型'
+                    ? translations.t9
                     : drone.type === 'medium'
-                      ? '中型'
-                      : '小型'}
+                      ? translations.t10
+                      : translations.t11}
                 </Badge>
               </div>
             </div>

@@ -13,6 +13,7 @@ import { MechImage } from '../custom/MechImage';
 import { DroneImage } from '../custom/DroneImage';
 import { TeamEligibility } from '../radix-ui/TeamEligibility';
 import { QQGroupButton } from '../custom/QQGroupButton';
+import { allTacticCards } from '../../data/data_cn';
 
 const COLOR_TEXT_GREY = 'gray';
 const LIST_GAP = 16;
@@ -33,6 +34,7 @@ interface TeamListMobileProps {
   tabsrc: string;
   tournamentMode: boolean;
   onTournamentModeChange: (isChampion: boolean) => void;
+  hideTacticCard: boolean;
 }
 
 export function TeamListMobile({
@@ -46,7 +48,7 @@ export function TeamListMobile({
   onReorderTeam, // 接收新的属性
   translations,
   factionNames, lang, tabsrc, tournamentMode,
-  onTournamentModeChange
+  onTournamentModeChange, hideTacticCard
 }: TeamListMobileProps) {
   const [isDialogOpen, setIsDialogOpen] = useState(false);
   const [editingTeamId, setEditingTeamId] = useState<string>('');
@@ -94,11 +96,22 @@ export function TeamListMobile({
 
   const exportTeamAsJson = (teamId: string) => {
     const selectedTeam = teams.find((team) => team.id === teamId);
+
     if (selectedTeam) {
-      const blob = new Blob([JSON.stringify(selectedTeam, null, 2)], { type: 'application/json' });
+      let teamCopy = {
+        ...selectedTeam,
+        tacticCards: selectedTeam.tacticCards ? [...selectedTeam.tacticCards] : selectedTeam.tacticCards
+      };
+      //如果隐藏战术卡，还要将json数据中的战术卡信息隐藏掉
+      if (hideTacticCard && teamCopy.tacticCards !== undefined && teamCopy.tacticCards.length > 0) {
+        for (let i = 0; i < teamCopy.tacticCards.length; i++) {
+          teamCopy.tacticCards[i] = allTacticCards[0];
+        }
+      }
+      const blob = new Blob([JSON.stringify(teamCopy, null, 2)], { type: 'application/json' });
       const link = document.createElement('a');
       link.href = URL.createObjectURL(blob);
-      link.download = `${selectedTeam.name}.json`;
+      link.download = `${teamCopy.name}.json`;
       link.click();
     }
   };

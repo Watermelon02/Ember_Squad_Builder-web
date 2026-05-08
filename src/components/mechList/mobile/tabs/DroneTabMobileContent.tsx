@@ -3,7 +3,6 @@ import { TabsContent } from '../../../radix-ui/tabs';
 import { Button } from '../../../radix-ui/button';
 import { Dialog, DialogContent, DialogTrigger, DialogHeader, DialogTitle } from '../../../radix-ui/dialog';
 import { Trash2, Plus } from 'lucide-react';
-import { motion } from 'framer-motion';
 import { Team, Drone, calculateTotalScore } from '../../../../data/types';
 import { unBackpack } from '../../../../data/data_cn';
 
@@ -31,11 +30,8 @@ export const DroneTabMobileContent: React.FC<DroneTabMobileContentProps> = ({
     <TabsContent value="drones" className="flex-1 overflow-y-auto p-4 space-y-0">
       <div style={{ display: "grid", gridTemplateColumns: mobileOrTablet ? "repeat(2, 1fr)" : "repeat(3, 1fr)", gap: "16px" }}>
         {team.drones.map((drone, index) => (
-          <motion.div
+          <div
             key={`${drone.id}-${index}`}
-            initial={{ y: -20, opacity: 0 }}
-            animate={{ y: 0, opacity: 1 }}
-            transition={{ duration: 0.1, delay: index * 0.1, ease: "easeOut" }}
             className="relative p-0 overflow-hidden cursor-pointer transition shadow-lg shadow-gray-500 rounded-lg"
             style={{ transition: 'transform 0.3s ease, box-shadow 0.3s ease' }}
             onClick={() => { onSetViewMode('drones'); onSetIsChangingPart(true); onSelectDrone(drone) }}
@@ -120,7 +116,7 @@ export const DroneTabMobileContent: React.FC<DroneTabMobileContentProps> = ({
             <Button variant="secondary" className="h-6 w-8 absolute bg-blue-500/50 left-0 top-0 shadow-lg shadow-gray-500 rounded-lg z-0" style={{ color: 'white', textShadow: '0 0 4px rgba(0,0,0,0.7)' }}>{drone?.score}</Button>
             <img src={`${imgsrc}/${drone.id}.webp`} alt={drone.name} className="shadow-lg shadow-gray-500 rounded-lg" style={{ width: '100%', height: '100%', objectFit: 'contain' }} draggable={false} />
             <Button variant="ghost" size="sm" onClick={(e) => { e.stopPropagation(); deleteDrone(index); }} className="absolute top-0 right-0 shadow-lg shadow-gray-500 rounded-lg text-destructive hover:text-destructive"><Trash2 className="w-4 h-4" /></Button>
-          </motion.div>
+          </div>
         ))}
 
         <div style={{ position: 'relative', display: 'flex', padding: '1rem', cursor: 'pointer' }} onClick={() => { onSetIsChangingPart(true); onSetViewMode('drones') }}>

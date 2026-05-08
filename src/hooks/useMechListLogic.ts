@@ -16,6 +16,8 @@ interface UseMechListLogicProps {
   tabsrc: string;
   localImgsrc: string;
   onUpdateInventory?: (inventory: Record<number, number>) => void;
+  hideTacticCard: boolean;
+  setHideTacticCard: (val: boolean) => void;
 }
 
 export const useMechListLogic = ({
@@ -29,7 +31,7 @@ export const useMechListLogic = ({
   imgsrc,
   tabsrc,
   localImgsrc,
-  onUpdateInventory
+  onUpdateInventory,hideTacticCard, setHideTacticCard
 }: UseMechListLogicProps) => {
   const [editingMechId, setEditingMechId] = useState<string>('');
   const [isExporting, setIsExporting] = useState(false);
@@ -47,10 +49,13 @@ export const useMechListLogic = ({
     const saved = localStorage.getItem("includeProjectile");
     return saved ? JSON.parse(saved) : false;
   });
+  
 
   useEffect(() => {
     localStorage.setItem("includeProjectile", JSON.stringify(includeProjectile));
   }, [includeProjectile]);
+
+  
 
   const exportWebAsImage = async () => {
     const node = exportRef.current;
@@ -85,7 +90,7 @@ export const useMechListLogic = ({
     setIsExporting(true);
     try {
       if (!team) return;
-      await exportTeamImage(team, lang, translations, tabsrc, localImgsrc, imgsrc, includeProjectile);
+      await exportTeamImage(team, lang, translations, tabsrc, localImgsrc, imgsrc, includeProjectile, hideTacticCard);
       showToast(`✅ ${translations.t76}`);
     } catch (err) {
       console.error(`${translations.t77}`, err);
@@ -230,6 +235,6 @@ const updateInventory = (params: { inventory: Record<number, number> }) => {
     updateMechName,
     copyMech,
     deleteDrone,
-    deleteTacticCard,updateInventory
+    deleteTacticCard,updateInventory,hideTacticCard, setHideTacticCard
   };
 };

@@ -27,8 +27,9 @@ import TacticCardComparePanel from './components/partSelector/desktop/TacticCard
 import TacticCardComparePanelMobile from './components/partSelector/mobile/tacticCard/TacticCardComparePanelMobile';
 import { MechListMobile } from './components/mechList/mobile/MechListMobile';
 import { getDeviceFingerprint } from './util/RemoteUtil';
-import TournamentView from './components/competition/TournamentView';
+
 import { CompetitionDialog } from './components/competition/CompetitionDialog';
+import TournamentView from './components/competition/TournamentView';
 
 export default function App() {
   // ------------------ 语言 ------------------
@@ -99,6 +100,10 @@ export default function App() {
     try { return saved ? JSON.parse(saved) : false; }
     catch (e) { return false; }
   });
+  const [hideTacticCard, setHideTacticCard] = useState<boolean>(() => {
+    const saved = localStorage.getItem("hideTacticCard");
+    return saved ? JSON.parse(saved) : false;
+  });
 
   useEffect(() => {
     try { localStorage.setItem("animationCardMode", JSON.stringify(animationCardMode)); }
@@ -161,6 +166,9 @@ export default function App() {
 
   useEffect(() => { localStorage.setItem("showKeyword", JSON.stringify(showKeyword)); }, [showKeyword]);
   useEffect(() => { localStorage.setItem("compareMode", JSON.stringify(compareMode)); }, [compareMode]);
+  useEffect(() => {
+    localStorage.setItem("hideTacticCard", JSON.stringify(hideTacticCard));
+  }, [hideTacticCard]);
 
   if (isMobileOrTablet === null) return null;
 
@@ -181,9 +189,9 @@ export default function App() {
 
   // ------------------ 保存到 localStorage & 服务器 ------------------
   async function saveTeam(team: Team) {
-    team.deviceID = await getDeviceFingerprint();
-    try { axios.post("https://server.emberdice.site/api/teams/save", team); }
-    catch (err) { console.error("保存失败:", err); }
+    // team.deviceID = await getDeviceFingerprint();
+    // try { axios.post("https://server.emberdice.site/api/teams/save", team); }
+    // catch (err) { console.error("保存失败:", err); }
   }
 
   useEffect(() => {
@@ -265,36 +273,51 @@ export default function App() {
   if (showTournament) {
     // MechList 渲染器：传给 TournamentView 用于弹窗内展示
     const renderMechList = (team: Team) => (
-      <MechList
-        team={team}
-        inventory={inventory}
-        selectedMechId=""
-        onSelectMech={() => { }}
-        onSelectPartType={() => { }}
-        onUpdateTeam={updateTeam}
-        onSetViewMode={() => { }}
-        translations={t}
-        partTypeNames={typePartNames}
-        inventoryMode={inventoryMode}
-        onsetInventoryMode={setInventoryMode}
-        imgsrc={imageSrc}
-        localImgsrc={localImgsrc}
-        boxCoverSrc={boxCoverSrc}
-        lang={lang}
-        tabsrc={tabSrc}
-        mobileOrTablet={false}
-        setLanguage={setLang}
-        tournamentMode={isTournamentMode}
-        mechImgSrc={mechImgsrc}
-        onSetIsChangingPart={() => { }}
-        onSelectDrone={() => { }}
-        animationCardMode={animationCardMode}
-        setAnimationCardMode={setAnimationCardMode}
-        onUpdateInventory={setInventory}
-        competitionDialogOpen={false}
-        setCompetitionDialogOpen={() => { }}
-        showCompetitionDialog={false}
-      />
+      <div>
+        {!isMobileOrTablet && <MechList
+          team={team}
+          inventory={inventory}
+          selectedMechId=""
+          onSelectMech={() => { }}
+          onSelectPartType={() => { }}
+          onUpdateTeam={updateTeam}
+          onSetViewMode={() => { }}
+          translations={t}
+          partTypeNames={typePartNames}
+          inventoryMode={inventoryMode}
+          onsetInventoryMode={setInventoryMode}
+          imgsrc={imageSrc}
+          localImgsrc={localImgsrc}
+          boxCoverSrc={boxCoverSrc}
+          lang={lang}
+          tabsrc={tabSrc}
+          mobileOrTablet={false}
+          setLanguage={setLang}
+          tournamentMode={isTournamentMode}
+          mechImgSrc={mechImgsrc}
+          onSetIsChangingPart={() => { }}
+          onSelectDrone={() => { }}
+          animationCardMode={animationCardMode}
+          setAnimationCardMode={setAnimationCardMode}
+          onUpdateInventory={setInventory}
+          competitionDialogOpen={false}
+          setCompetitionDialogOpen={() => { }}
+          showCompetitionDialog={false}
+          hideTacticCard={hideTacticCard} setHideTacticCard={setHideTacticCard}
+        />}
+        {isMobileOrTablet && <MechListMobile
+          team={team} selectedMechId={selectedMechId}
+          onSelectMech={() => { }} onSelectPartType={() => { }}
+          onUpdateTeam={() => { }} onSetViewMode={() => { }}
+          translations={t} partTypeNames={typePartNames}
+          imgsrc={imageSrc} localImgsrc={localImgsrc}
+          lang={lang} tabsrc={tabSrc} mobileOrTablet={isMobileOrTablet}
+          setLanguage={setLang} tournamentMode={isTournamentMode} mechImgSrc={mechImgsrc}
+          onSetIsChangingPart={() => { }}
+          onSelectDrone={() => { }}
+          hideTacticCard={hideTacticCard} setHideTacticCard={setHideTacticCard}
+        />}
+      </div>
     );
 
     return (
@@ -434,7 +457,14 @@ export default function App() {
   function updateTeam(teamId: string, updates: Partial<Team>) {
     setTeams(prev => prev.map(team => team.id === teamId ? { ...team, ...updates } : team));
   }
-  const copyTeam = (newTeam: Team) => setTeams(prev => [...prev, newTeam]);
+  const copyTeam = (newTeam: Team) => {
+    const teamWithNewId: Team = {
+      ...newTeam,
+      id: Date.now().toString() + Math.random().toString(36).slice(2)
+    };
+
+    setTeams(prev => [...prev, teamWithNewId]);
+  };
 
   const deleteTeam = async (teamId: string) => {
     const team = teams.find(t => t.id === teamId);
@@ -584,7 +614,7 @@ export default function App() {
       </AnimatePresence>
 
       {/* ── 比赛进度入口按钮（悬浮，右下角） ── */}
-      {!isMobileOrTablet && showCompetitionDialog && <motion.button
+      {showCompetitionDialog && <motion.button
         initial={{ opacity: 0, scale: 0.8 }}
         animate={{ opacity: 1, scale: 1 }}
         transition={{ delay: 0.5, type: 'spring', stiffness: 280, damping: 20 }}
@@ -672,6 +702,7 @@ export default function App() {
                 translations={t} factionNames={factionNames} lang={lang} tabsrc={tabSrc}
                 tournamentMode={isTournamentMode} onTournamentModeChange={c => setTournamentMode(c)}
                 onReorderTeam={handleReorderTeam}
+                hideTacticCard={hideTacticCard}
               />
             </SlidePanel>
           ) : (
@@ -691,6 +722,7 @@ export default function App() {
                 competitionDialogOpen={competitionDialogOpen}
                 onOpenCompetitionDialog={() => setCompetitionDialogOpen(true)}
                 showCompetitionDialog={showCompetitionDialog}
+                hideTacticCard={hideTacticCard}
               />
             </div>
           )}
@@ -699,7 +731,7 @@ export default function App() {
         {/* 中间机体列表 */}
         <div className="flex-1 flex flex-col overflow-hidden shadow-xl rounded-lg" style={{
           backgroundColor: 'transparent', backdropFilter: 'blur(4px)', WebkitBackdropFilter: 'blur(4px)',
-          border: '1px solid rgba(255,255,255,0.1)',
+
         }}>
           {!isMobileOrTablet && (
             <MechList
@@ -716,23 +748,24 @@ export default function App() {
               onSelectDrone={d => setLastPartId(d.id)}
               animationCardMode={animationCardMode} setAnimationCardMode={setAnimationCardMode}
               onUpdateInventory={setInventory}
+              hideTacticCard={hideTacticCard} setHideTacticCard={setHideTacticCard}
             />
           )}
           {/* 线上比赛弹窗 */}
-        {showCompetitionDialog &&
-          <CompetitionDialog
-            open={competitionDialogOpen}
-            onOpenChange={setCompetitionDialogOpen}
-            bannerSrc={`${imageSrc}/../intro.jpg`}
-            teams={teams}
-            lang={lang}
-            translations={t}
-            tabsrc={tabSrc}
-            localImgsrc={localImgsrc}
-            imgsrc={imageSrc}
-            factionNames={factionNames}
-          /> 
-        }
+          {showCompetitionDialog &&
+            <CompetitionDialog
+              open={competitionDialogOpen}
+              onOpenChange={setCompetitionDialogOpen}
+              bannerSrc={`${backgroundImgsrc}/competition.webp`}
+              teams={teams}
+              lang={lang}
+              translations={t}
+              tabsrc={tabSrc}
+              localImgsrc={localImgsrc}
+              imgsrc={imageSrc}
+              factionNames={factionNames}
+            />
+          }
           {isMobileOrTablet && (
             <MechListMobile
               team={selectedTeam} selectedMechId={selectedMechId}
@@ -744,6 +777,7 @@ export default function App() {
               setLanguage={setLang} tournamentMode={isTournamentMode} mechImgSrc={mechImgsrc}
               onSetIsChangingPart={v => setIsChangingPart(v)}
               onSelectDrone={d => setLastPartId(d.id)}
+              hideTacticCard={hideTacticCard} setHideTacticCard={setHideTacticCard}
             />
           )}
         </div>
@@ -774,7 +808,7 @@ export default function App() {
                       <ChevronDown />
                     </button>
                     {viewMode === "parts" && (
-                      <PartComparePanelMobile lastPartId={lastPartId} hoverId={hoverImg} factionParts={factionParts} imageSrc={imageSrc} compareMode={compareMode} viewMode={viewMode} showKeyword={showKeyword} lang={lang} translations={translations} />
+                      <PartComparePanelMobile lastPartId={lastPartId} hoverId={hoverImg} factionParts={factionParts} imageSrc={imageSrc} compareMode={compareMode} viewMode={viewMode} showKeyword={showKeyword} lang={lang} translations={translations} data={data} faction={selectedTeam.faction} />
                     )}
                     {viewMode === "pilots" && (
                       <PilotComparePanelMobile lastPilotId={lastPartId} hoverId={hoverImg} factionPilots={factionPilots} imageSrc={imageSrc} compareMode={compareMode} viewMode={viewMode} tabsrc={tabSrc} lang={lang} />

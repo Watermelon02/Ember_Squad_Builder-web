@@ -2,11 +2,10 @@ import { useState, useRef, useEffect } from 'react';
 import { Team, Mech, Drone, Part, calculateTotalScore } from '../data/types';
 import * as htmlToImage from "html-to-image";
 import { exportTeamImage } from '../util/TeamImage';
-import { exportTextTeamData } from '../util/TextUtil';
-import { 
-  gofBackpack, gofChasis, gofLeftHand, gofRightHand, gofTorso, 
-  rdlBackpack, rdlChasis, rdlLeftHand, rdlRightHand, rdlTorso, 
-  unBackpack, unChasis, unLeftHand, unRightHand, unTorso 
+import {
+  gofBackpack, gofChasis, gofLeftHand, gofRightHand, gofTorso,
+  rdlBackpack, rdlChasis, rdlLeftHand, rdlRightHand, rdlTorso,
+  unBackpack, unChasis, unLeftHand, unRightHand, unTorso
 } from '../data/data_cn';
 
 interface UseMechListMobileLogicProps {
@@ -19,6 +18,8 @@ interface UseMechListMobileLogicProps {
   tabsrc: string;
   localImgsrc: string;
   imgsrc: string;
+  hideTacticCard: boolean;
+  setHideTacticCard: (val: boolean) => void;
 }
 
 export const useMechListMobileLogic = ({
@@ -30,7 +31,7 @@ export const useMechListMobileLogic = ({
   lang,
   tabsrc,
   localImgsrc,
-  imgsrc
+  imgsrc,hideTacticCard, setHideTacticCard
 }: UseMechListMobileLogicProps) => {
   const [editingMechId, setEditingMechId] = useState<string>('');
   const [isExporting, setIsExporting] = useState(false);
@@ -40,12 +41,12 @@ export const useMechListMobileLogic = ({
   const [open, setOpen] = useState(false);
   const [script, setScript] = useState("");
   const [isDialogOpen, setIsDialogOpen] = useState(false);
-  
+
   const exportRef = useRef<HTMLDivElement>(null);
 
   const [includeProjectile, setIncludeProjectile] = useState<boolean>(() => {
     const saved = localStorage.getItem("includeProjectile");
-    return saved ? JSON.parse(saved) : false; 
+    return saved ? JSON.parse(saved) : false;
   });
 
   useEffect(() => {
@@ -104,14 +105,14 @@ export const useMechListMobileLogic = ({
     const electronicColors = ["#fef9c3", "#fef08a", "#fde047", "#facc15", "#eab308", "#ca8a04", "#a16207", "#854d0e", "#713f12", "#422006"];
     if (type === "dodge") return dodgeColors[v - 1];
     if (type === "electronic") return electronicColors[v - 1];
-    return "#111"; 
+    return "#111";
   };
 
-  const handleExportImage = async () => {
+ const handleExportImage = async () => {
     setIsExporting(true);
     try {
       if (!team) return;
-      await exportTeamImage(team, lang, translations, tabsrc, localImgsrc, imgsrc, includeProjectile);
+      await exportTeamImage(team, lang, translations, tabsrc, localImgsrc, imgsrc, includeProjectile, hideTacticCard);
       showToast(`✅ ${translations.t76}`);
     } catch (err) {
       console.error(`${translations.t77}`, err);
@@ -151,7 +152,7 @@ export const useMechListMobileLogic = ({
     const updatedMechs = team.mechs.map((mech) => {
       if (mech.id === mechId) {
         const updatedParts = { ...mech.parts };
-        delete updatedParts[partType]; 
+        delete updatedParts[partType];
         return { ...mech, parts: updatedParts };
       }
       return mech;
@@ -229,6 +230,9 @@ export const useMechListMobileLogic = ({
     updateMechName,
     copyMech,
     deleteDrone,
-    deleteTacticCard
+    deleteTacticCard,
+    hideTacticCard,
+    setHideTacticCard
+
   };
 };

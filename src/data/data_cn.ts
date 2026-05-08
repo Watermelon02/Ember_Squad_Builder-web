@@ -227,7 +227,6 @@ export const pdPilots: Pilot[] = [
     "moving": 8,
     "tactic": 6,
     "trait": "联觉",
-    "hasImage": true,
     "traitDescription": "· 白矮星浮游单元组”投骰时，可以消耗本机链接值进行专注重投",
     "box": BOXES.LAB_WHITE_DWARF
   },
@@ -1680,7 +1679,7 @@ export const pdDrones: Drone[] = [
     "id": "PRDR-203",
     "name": "LD-5B \"警惕\"轰炸型",
     "type": "medium",
-    "score": 45,
+    "score": 42,
     "structure": 0,
     "armor": 4,
     "parray": 0,
@@ -1699,7 +1698,7 @@ export const pdDrones: Drone[] = [
     "id": "PRDR-204",
     "name": "LD-5S \"警惕\"支援型",
     "type": "medium",
-    "score": 48,
+    "score": 42,
     "structure": 0,
     "armor": 4,
     "parray": 0,
@@ -3595,7 +3594,7 @@ export const pdChasis: Part[] = [
     "id": "289",
     "name": "ACE-001 白矮星 下肢组件",
     "type": "chasis",
-    "score": 24,
+    "score": 54,
     "structure": 0,
     "armor": 4,
     "parray": 0,
@@ -3665,7 +3664,6 @@ export const pdChasis: Part[] = [
         "redDice": 0
       }
     ],
-    "hasImage": false,
     "projectile": [],
     "isPD": true,
     "containedIn": [{ "box": BOXES.LAB_PD_CRISIS2, "quantityPerBox": 1 }],
@@ -3676,7 +3674,7 @@ export const pdLeftHand: Part[] = [{
   "id": "291",
   "name": "ACE-001 白矮星 左臂组件",
   "type": "leftHand",
-  "score": 57,
+  "score": 67,
   "structure": 0,
   "armor": 4,
   "parray": 0,
@@ -3879,7 +3877,7 @@ export const pdBackpack: Part[] = [
     "name": "四联装“飞鱼”发射器",
     "type": "backpack",
     "hasImage": false,
-    "score": 56,
+    "score": 48,
     "armor": 3,
     "structure": 0,
     "parray": 0,
@@ -3899,6 +3897,50 @@ export const pdBackpack: Part[] = [
         "storage": 4,
         "yellowDice": 0,
         "redDice": 0
+      }
+    ],
+    "projectile": [
+      "PDAM-002"
+    ],
+    "isPD": true,
+    "containedIn": [{ "box": BOXES.LAB_PD_CRISIS1, "quantityPerBox": 1 }],
+  },
+   {
+    "id": "PDBP-103",
+    "name": "Lm382双联装“飞鱼”发射器+Ls197机炮",
+    "type": "backpack",
+    "hasImage": false,
+    "score": 48,
+    "armor": 3,
+    "structure": 0,
+    "parray": 0,
+    "dodge": 0,
+    "electronic": 0,
+    "move": 0,
+    "description": "·曲射：本动作不需要对落点或目标有视线。\n·齐射X：发射或布撒最多X枚抛射物，并消耗同等数量的弹药标记。",
+    "keywords": [KEYWORD_LIST.zh.曲射, KEYWORD_LIST.zh.齐射X, KEYWORD_LIST.zh.压制],
+    "action": [
+      {
+        "id": "PDBP-103_A",
+        "name": "导弹",
+        "description": "· 齐射4 · 曲射\n· 发射1枚FGM46“飞鱼”导弹。",
+        "type": "Projectile",
+        "size": "m",
+        "range": 6,
+        "storage": 2,
+        "yellowDice": 0,
+        "redDice": 0
+      },
+      {
+        "id": "PDBP-103_B",
+        "name": "扫射",
+        "description": "· 压制",
+        "type": "Firing",
+        "size": "s",
+        "range": 6,
+        "storage": 0,
+        "yellowDice": 1,
+        "redDice": 2
       }
     ],
     "projectile": [
@@ -3990,7 +4032,7 @@ export const rdlTorso: Part[] = [
   {
     "id": "015",
     "name": "RT-08  雷暴  炮战核心",
-    "score": 62,
+    "score": 56,
     "structure": 2,
     "armor": 7,
     "parray": 0,
@@ -4023,7 +4065,7 @@ export const rdlTorso: Part[] = [
   {
     "id": "017",
     "name": "RT-15B  熔岩  突击核心",
-    "score": 59,
+    "score": 47,
     "structure": 4,
     "armor": 5,
     "parray": 0,
@@ -4107,7 +4149,7 @@ export const rdlTorso: Part[] = [
   {
     "id": "503",
     "name": "RT-16B  雪崩  突击核心",
-    "score": 60,
+    "score": 48,
     "structure": 4,
     "armor": 5,
     "parray": 0,
@@ -4156,7 +4198,7 @@ export const rdlTorso: Part[] = [
     "id": "533",
     "name": "RTX-06SR “泥沼SR”主战核心",
     "type": "torso",
-    "score": 32,
+    "score": 18,
     "armor": 6,
     "structure": 2,
     "parray": 0,
@@ -4601,7 +4643,7 @@ export const rdlLeftHand: Part[] = [
   {
     "id": "053",
     "name": "55型轻盾 + PC-9霰弹枪（左）",
-    "score": 48,
+    "score": 42,
     "structure": 0,
     "armor": 5,
     "parray": 2,
@@ -4668,7 +4710,7 @@ export const rdlLeftHand: Part[] = [
   {
     "id": "062",
     "name": "62型臂盾 + CC-20单手剑（左）",
-    "score": 63,
+    "score": 42,
     "structure": 0,
     "armor": 5,
     "parray": 3,
@@ -4784,7 +4826,7 @@ export const rdlLeftHand: Part[] = [
   {
     "id": "510",
     "name": "55型轻盾 + PC-9K霰弹枪（左）",
-    "score": 63,
+    "score": 57,
     "structure": 0,
     "armor": 5,
     "parray": 2,
@@ -4817,7 +4859,7 @@ export const rdlLeftHand: Part[] = [
   {
     "id": "514",
     "name": "AH-21手枪 + CC-50打桩机 （左）",
-    "score": 63,
+    "score": 48,
     "structure": 0,
     "armor": 4,
     "parray": 1,
@@ -4828,7 +4870,7 @@ export const rdlLeftHand: Part[] = [
     "imgSrc": "",
     "tags": [],
     "throwIndex": "515",
-    "containedIn": [{ "box": BOXES.LAB_RDL_GENJI_AND_MALLARD, "quantityPerBox": 0 }],
+    "containedIn": [{ "box": BOXES.LAB_RDL_GENJI_AND_MALLARD, "quantityPerBox": 1 }],
   },
   {
     "id": "515",
@@ -4860,13 +4902,13 @@ export const rdlLeftHand: Part[] = [
     "imgSrc": "",
     "tags": [],
     "keywords": [KEYWORD_LIST.zh.震撼],
-    "containedIn": [{ "box": BOXES.LAB_RDL_GENJI_AND_MALLARD, "quantityPerBox": 0 }],
+    "containedIn": [{ "box": BOXES.LAB_RDL_GENJI_AND_MALLARD, "quantityPerBox": 1 }],
   },
   {
     "id": "535",
     "name": "CC-7战斗刀（左）",
     "type": "leftHand",
-    "score": 39,
+    "score": 36,
     "armor": 4,
     "structure": 0,
     "parray": 1,
@@ -5160,7 +5202,7 @@ export const rdlRightHand: Part[] = [
   {
     "id": "046",
     "name": "55型轻盾 + PC-9霰弹枪（右）",
-    "score": 48,
+    "score": 42,
     "structure": 0,
     "armor": 5,
     "parray": 2,
@@ -5193,7 +5235,7 @@ export const rdlRightHand: Part[] = [
   {
     "id": "048",
     "name": "55型轻盾 + PC-9霰弹枪 + 烟幕弹（右）",
-    "score": 57,
+    "score": 51,
     "structure": 0,
     "armor": 5,
     "parray": 2,
@@ -5310,7 +5352,7 @@ export const rdlRightHand: Part[] = [
   {
     "id": "063",
     "name": "63型臂炮 + CC-20单手剑（右）",
-    "score": 66,
+    "score": 45,
     "structure": 0,
     "armor": 4,
     "parray": 2,
@@ -5404,7 +5446,7 @@ export const rdlRightHand: Part[] = [
     "tags": [],
     "throwIndex": "285",
     "keywords": [KEYWORD_LIST.zh.拦截X, KEYWORD_LIST.zh.双手, KEYWORD_LIST.zh.毁伤, KEYWORD_LIST.zh.震撼],
-    "containedIn": [{ "box": BOXES.COMBAT_RAID, "quantityPerBox": 1 }],
+    "containedIn": [{ "box": BOXES.UNSALE, "quantityPerBox": 1 }],
   },
   {
     "id": "285",
@@ -5425,7 +5467,7 @@ export const rdlRightHand: Part[] = [
   {
     "id": "508",
     "name": "55型轻盾 + PC-9K霰弹枪（右）",
-    "score": 63,
+    "score": 57,
     "structure": 0,
     "armor": 5,
     "parray": 2,
@@ -5458,7 +5500,7 @@ export const rdlRightHand: Part[] = [
   {
     "id": "512",
     "name": "AH-21手枪 + CC-50打桩机 （右）",
-    "score": 63,
+    "score": 48,
     "structure": 0,
     "armor": 4,
     "parray": 1,
@@ -5491,7 +5533,7 @@ export const rdlRightHand: Part[] = [
   {
     "id": "516",
     "name": "AC-35狙击步枪",
-    "score": 51,
+    "score": 48,
     "structure": 0,
     "armor": 4,
     "parray": 0,
@@ -6429,7 +6471,7 @@ export const unTorso: Part[] = [
     "electronic": 3,
     "move": 0,
     "description": "· 静默：执行本动作时不会解除光学迷彩与低特征。\r\n· 监视射击标记：在延迟阶段的最后，移除本标记，本单位可执行1个射击动作。",
-    "keywords": [KEYWORD_LIST.zh.低特征, KEYWORD_LIST.zh.静默, KEYWORD_LIST.zh.监视射击],
+    "keywords": [KEYWORD_LIST.zh.静默],
     "hasImage": false,
     "action": [
       {
@@ -6445,17 +6487,17 @@ export const unTorso: Part[] = [
       },
       {
         "id": "TM39D_B",
-        "name": "监视射击",
-        "description": "· 本机获得1枚监视射击标记并结束本次行动机会。\r\n· 本动作可以在射击时机作为起手动作。",
-        "type": "Tactic",
+        "name": "发射蛇眼",
+        "description": "· 曲射 · 静默 · 发射1台KK9“蛇眼”微型侦察机。",
+        "type": "Projectile",
         "size": "s",
-        "range": 0,
+        "range": 18,
         "storage": 0,
         "yellowDice": 0,
         "redDice": 0
       }
     ],
-    "projectile": [],
+    "projectile": ["LHDR-KK9"],
     "isPD": false,
     "containedIn": [{ "box": BOXES.UNSALE, "quantityPerBox": 1 }],
   },
@@ -6503,7 +6545,7 @@ export const unTorso: Part[] = [
   {
     "id": "091",
     "name": "TM31C 灰狼 主战核心",
-    "score": 45,
+    "score": 36,
     "structure": 4,
     "armor": 4,
     "parray": 0,
@@ -6584,7 +6626,7 @@ export const unTorso: Part[] = [
   {
     "id": "098",
     "name": "TM35B 野牛 突击核心",
-    "score": 72,
+    "score": 60,
     "structure": 4,
     "armor": 5,
     "parray": 0,
@@ -6616,7 +6658,7 @@ export const unTorso: Part[] = [
   {
     "id": "555",
     "name": "TM35BT 金牛 实验核心",
-    "score": 84,
+    "score": 75,
     "armor": 5,
     "structure": 4,
     "parray": 0,
@@ -6633,7 +6675,7 @@ export const unTorso: Part[] = [
     "id": "093",
     "name": "TM31KC “灰狼”KC型实验核心",
     "type": "torso",
-    "score": 60,
+    "score": 51,
     "armor": 4,
     "structure": 4,
     "parray": 0,
@@ -6749,7 +6791,7 @@ export const unChasis: Part[] = [
   {
     "id": "101",
     "name": "LM213B 格斗下肢",
-    "score": 57,
+    "score": 51,
     "structure": 1,
     "armor": 4,
     "parray": 0,
@@ -6785,7 +6827,7 @@ export const unLeftHand: Part[] = [
     "id": "S100+R6SS-L",
     "name": "S100大盾 + R6SS肩炮（左）",
     "type": "leftHand",
-    "score": 63,
+    "score": 54,
     "armor": 5,
     "structure": 0,
     "parray": 2,
@@ -6920,7 +6962,7 @@ export const unLeftHand: Part[] = [
   {
     "id": "107",
     "name": "S100大盾 + 手雷荚舱",
-    "score": 66,
+    "score": 48,
     "structure": 0,
     "armor": 5,
     "parray": 2,
@@ -6955,7 +6997,7 @@ export const unLeftHand: Part[] = [
   {
     "id": "111",
     "name": "RH21手枪 + M3振剑（左）",
-    "score": 45,
+    "score": 42,
     "structure": 0,
     "armor": 3,
     "parray": 1,
@@ -7021,7 +7063,7 @@ export const unLeftHand: Part[] = [
   {
     "id": "121",
     "name": "MSH1稳定辅助臂（左）",
-    "score": 24,
+    "score": 27,
     "structure": 0,
     "armor": 3,
     "parray": 0,
@@ -7037,7 +7079,7 @@ export const unLeftHand: Part[] = [
   {
     "id": "126",
     "name": "K9钉刺枪 + M14BO胁差",
-    "score": 42,
+    "score": 21,
     "structure": 0,
     "armor": 3,
     "parray": 1,
@@ -7087,7 +7129,7 @@ export const unLeftHand: Part[] = [
   {
     "id": "131",
     "name": "M3S振剑（左）",
-    "score": 42,
+    "score": 36,
     "structure": 0,
     "armor": 3,
     "parray": 1,
@@ -7103,7 +7145,7 @@ export const unLeftHand: Part[] = [
   {
     "id": "135",
     "name": "M4振剑 + 手雷荚舱（左）",
-    "score": 54,
+    "score": 45,
     "structure": 0,
     "armor": 3,
     "parray": 1,
@@ -7136,7 +7178,7 @@ export const unLeftHand: Part[] = [
   {
     "id": "142",
     "name": "S100大盾",
-    "score": 48,
+    "score": 39,
     "structure": 0,
     "armor": 5,
     "parray": 2,
@@ -7169,7 +7211,7 @@ export const unLeftHand: Part[] = [
   {
     "id": "144",
     "name": "K7钉刺枪 + S10中盾",
-    "score": 54,
+    "score": 45,
     "structure": 0,
     "armor": 5,
     "parray": 2,
@@ -7185,7 +7227,7 @@ export const unLeftHand: Part[] = [
   {
     "id": "146",
     "name": "G6霰射炮 + 手雷荚舱",
-    "score": 75,
+    "score": 66,
     "structure": 0,
     "armor": 4,
     "parray": 0,
@@ -7253,7 +7295,7 @@ export const unLeftHand: Part[] = [
   {
     "id": "256",
     "name": "K9钉刺枪 + M14BO胁差试作型（左）",
-    "score": 42,
+    "score": 21,
     "structure": 0,
     "armor": 3,
     "parray": 1,
@@ -7372,7 +7414,7 @@ export const unRightHand: Part[] = [
     "id": "XTC",
     "name": "XTC右臂",
     "type": "rightHand",
-    "score": 45,
+    "score": 48,
     "armor": 3,
     "structure": 0,
     "parray": 0,
@@ -7582,7 +7624,7 @@ export const unRightHand: Part[] = [
   {
     "id": "113",
     "name": "RH21手枪 + M3振剑（右）",
-    "score": 45,
+    "score": 42,
     "structure": 0,
     "armor": 3,
     "parray": 1,
@@ -7615,7 +7657,7 @@ export const unRightHand: Part[] = [
   {
     "id": "115",
     "name": "S100大盾 + R6SS肩炮",
-    "score": 63,
+    "score": 51,
     "structure": 0,
     "armor": 5,
     "parray": 2,
@@ -7764,7 +7806,7 @@ export const unRightHand: Part[] = [
   {
     "id": "133",
     "name": "M3S振剑（右）",
-    "score": 42,
+    "score": 36,
     "structure": 0,
     "armor": 3,
     "parray": 1,
@@ -7780,7 +7822,7 @@ export const unRightHand: Part[] = [
   {
     "id": "137",
     "name": "M4振剑 + 手雷荚舱（右）",
-    "score": 54,
+    "score": 45,
     "structure": 0,
     "armor": 3,
     "parray": 1,
@@ -7879,7 +7921,7 @@ export const unRightHand: Part[] = [
   {
     "id": "257",
     "name": "K9钉刺枪 + M14BO胁差试作型（右）",
-    "score": 42,
+    "score": 21,
     "structure": 0,
     "armor": 3,
     "parray": 1,
@@ -8007,7 +8049,8 @@ export const unBackpack: Part[] = [
     "imgSrc": "",
     "tags": [],
     "keywords": [KEYWORD_LIST.zh.KC装甲],
-    "containedIn": [{ "box": BOXES.UN_CORE, "quantityPerBox": 2 }]
+    "containedIn": [{ "box": BOXES.UN_CORE, "quantityPerBox": 2 }],
+    "isCardModified": true
   },
   {
     "id": "082",
@@ -8045,7 +8088,7 @@ export const unBackpack: Part[] = [
   {
     "id": "084",
     "name": "DBP龟壳掩体挂架",
-    "score": 39,
+    "score": 27,
     "structure": 0,
     "armor": 5,
     "parray": 0,
@@ -8062,7 +8105,7 @@ export const unBackpack: Part[] = [
   {
     "id": "085",
     "name": "AMDS210翠雀携带包",
-    "score": 30,
+    "score": 27,
     "structure": 0,
     "armor": 3,
     "parray": 0,
@@ -8073,6 +8116,7 @@ export const unBackpack: Part[] = [
     "imgSrc": "",
     "tags": [],
     "keywords": [],
+    "projectile": ["159"],
     "containedIn": [{ "box": BOXES.UN_SCALPEL, "quantityPerBox": 2 }]
   },
   {
@@ -8111,7 +8155,7 @@ export const unBackpack: Part[] = [
   {
     "id": "088",
     "name": "JP1喷射包",
-    "score": 57,
+    "score": 48,
     "structure": 0,
     "armor": 3,
     "parray": 0,
@@ -8170,7 +8214,8 @@ export const unBackpack: Part[] = [
     "imgSrc": "",
     "tags": [],
     "keywords": [KEYWORD_LIST.zh.KC装甲],
-    "containedIn": [{ "box": BOXES.LAB_TRIAL_UN_OCTOPUS, "quantityPerBox": 1 }]
+    "containedIn": [{ "box": BOXES.LAB_TRIAL_UN_OCTOPUS, "quantityPerBox": 1 }],
+    "isCardModified": true
   }
 ];
 
@@ -8235,7 +8280,8 @@ export const unProjectiles: Projectile[] = [
         "yellowDice": 0,
         "redDice": 0
       }
-    ]
+    ],
+    "isCardModified": true
   },
   {
     "id": "156",
@@ -8334,6 +8380,49 @@ export const unProjectiles: Projectile[] = [
 
 export const unDrones: Drone[] = [
   {
+    "id": "LHDR-KK9",
+    "name": "KK9“蛇眼”微型侦察机",
+    "type": "small",
+    "score": 0,
+    "armor": 2,
+    "structure": 0,
+    "parray": 0,
+    "dodge": 2,
+    "electronic": 3,
+    "move": 4,
+    "stance": "mobility",
+    "description": "",
+    "projectile": [],
+    "isPD": false,
+    "valueLess": true,
+    "keywords": [KEYWORD_LIST.zh.毁伤, KEYWORD_LIST.zh.离子武器],
+    "containedIn": [{ "box": BOXES.COMBAT_RAID, "quantityPerBox": 1 }],
+    "actions": [
+      {
+        "id": "LHDR-KK9_A",
+        "name": "锁定",
+        "description": "· 友军在射击范围内目标时，目标-1{B}。",
+        "type": "Passive",
+        "speed": "passive",
+        "range": 1,
+        "storage": 0,
+        "yellowDice": 0,
+        "redDice": 0
+      },
+      {
+        "id": "LHDR-KK9_B",
+        "name": "监视打击",
+        "description": "· 指定范围内1个敌方单位为目标，令1台己方机甲立即对其执行1次射击动作，然后移除本机。",
+        "type": "Tactic",
+        "speed": "command",
+        "range": 2,
+        "storage": 0,
+        "yellowDice": 0,
+        "redDice": 0
+      },
+    ]
+  },
+  {
     "id": "543",
     "name": "ADK15P离子型豪猪",
     "type": "medium",
@@ -8394,7 +8483,7 @@ export const unDrones: Drone[] = [
   {
     "id": "160",
     "name": "ADK15D近防型豪猪",
-    "score": 48,
+    "score": 51,
     "structure": 2,
     "armor": 4,
     "parray": 0,
@@ -8405,7 +8494,7 @@ export const unDrones: Drone[] = [
     "stance": "offensive",
     "description": "",
     "keywords": [KEYWORD_LIST.zh.激光武器, KEYWORD_LIST.zh.拦截X, KEYWORD_LIST.zh.全向射击, KEYWORD_LIST.zh.近战射击],
-    "containedIn": [{ "box": BOXES.UN_DOORBREAKER, "quantityPerBox": 2 }]
+    "containedIn": [{ "box": BOXES.UN_DOORBREAKER, "quantityPerBox": 2 },{ "box": BOXES.COMBAT_RAID, "quantityPerBox": 1 }]
   },
   {
     "id": "161",
@@ -8421,7 +8510,7 @@ export const unDrones: Drone[] = [
     "stance": "offensive",
     "description": "",
     "keywords": [],
-    "containedIn": [{ "box": BOXES.UN_DOORBREAKER, "quantityPerBox": 2 }]
+    "containedIn": [{ "box": BOXES.UN_DOORBREAKER, "quantityPerBox": 2 },{ "box": BOXES.COMBAT_RAID, "quantityPerBox": 1 }]
   },
   {
     "id": "162",
@@ -8458,7 +8547,7 @@ export const unDrones: Drone[] = [
   {
     "id": "164",
     "name": "ADK60R 侦查型渡鸦",
-    "score": 33,
+    "score": 24,
     "structure": 0,
     "armor": 1,
     "parray": 0,
@@ -8474,7 +8563,7 @@ export const unDrones: Drone[] = [
   {
     "id": "165",
     "name": "ADK60EC 电战型渡鸦",
-    "score": 33,
+    "score": 24,
     "structure": 0,
     "armor": 1,
     "parray": 0,
@@ -8490,7 +8579,7 @@ export const unDrones: Drone[] = [
   {
     "id": "166",
     "name": "ADK60S 干扰型渡鸦",
-    "score": 51,
+    "score": 36,
     "structure": 0,
     "armor": 1,
     "parray": 0,

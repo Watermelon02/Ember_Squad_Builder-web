@@ -17,6 +17,9 @@ export interface MatchConfig {
   winner: 0 | 1 | null;
 }
 
+// ── 最大负场数（达到即淘汰）──
+export const SWISS_MAX_LOSSES = 2;
+
 export interface SwissMatch {
   playerAIdx: number;
   playerBIdx: number;
@@ -33,6 +36,8 @@ export interface SwissStanding {
   wins: number;
   losses: number;
   roundResults: RoundResult[];
+  eliminated: boolean;          // ← 新增
+  eliminatedAfterRound: number | null; // ← 新增：第几轮结束后被淘汰（0-indexed）
 }
 
 // ════════════════════════════════════════════════════════════
@@ -43,40 +48,38 @@ export const TOURNAMENT_MODE: 'elimination' | 'swiss' | 'both' = 'both';
 
 export const MATCH_CONFIGS: MatchConfig[][] = [
   [
-    { selectionA: 0, selectionB: 0, winner: 0 },
-    { selectionA: 0, selectionB: 1, winner: 0 },
+    { selectionA: 0, selectionB: 0, winner: null },
+    { selectionA: 0, selectionB: 1, winner: null },
+    { selectionA: 0, selectionB: 0, winner: null },
+    { selectionA: 0, selectionB: 0, winner: null },
+    { selectionA: 0, selectionB: 0, winner: null },
   ]
 ];
 
 export const SWISS_ROUNDS: SwissMatch[][] = [
-  // 第一轮：0-0 组 (所有人都还没打)
+  // ── 第一轮：全员 0W-0L ──
   [
-    { playerAIdx: 0, playerBIdx: 1, selectionA: 0, selectionB: 0, winner: 0 }, // 0胜, 1负
-    { playerAIdx: 2, playerBIdx: 3, selectionA: 1, selectionB: 0, winner: 1 }, // 3胜, 2负
-    { playerAIdx: 4, playerBIdx: 5, selectionA: 0, selectionB: 1, winner: 0 }, // 4胜, 5负
-    { playerAIdx: 6, playerBIdx: 7, selectionA: 1, selectionB: 1, winner: 1 }, // 7胜, 6负
+    { playerAIdx: 0, playerBIdx: 1, selectionA: 0, selectionB: 0, winner: 0 }, // 0→1W | 1→1L
+    { playerAIdx: 2, playerBIdx: 3, selectionA: 1, selectionB: 0, winner: 1 }, // 3→1W | 2→1L
+    { playerAIdx: 4, playerBIdx: 5, selectionA: 0, selectionB: 1, winner: 0 }, // 4→1W | 5→1L
+    { playerAIdx: 6, playerBIdx: 7, selectionA: 1, selectionB: 1, winner: 1 }, // 7→1W | 6→1L
   ],
-  // 第二轮：按胜率配对
+
+  // ── 第二轮：1W战1W，1L战1L ──
   [
-    // 1-0 胜者组
-    { playerAIdx: 0, playerBIdx: 3, selectionA: 0, selectionB: 1, winner: 0 }, // 0变2-0, 3变1-1
-    { playerAIdx: 4, playerBIdx: 7, selectionA: 1, selectionB: 0, winner: 1 }, // 7变2-0, 4变1-1
-    // 0-1 败者组
-    { playerAIdx: 1, playerBIdx: 2, selectionA: 0, selectionB: 0, winner: 1 }, // 2变1-1, 1变0-2
-    { playerAIdx: 5, playerBIdx: 6, selectionA: 1, selectionB: 1, winner: 0 }, // 5变1-1, 6变0-2
+    { playerAIdx: 0, playerBIdx: 3, selectionA: 0, selectionB: 0, winner: 0 }, // 0→2W      | 3→1W1L
+    { playerAIdx: 4, playerBIdx: 7, selectionA: 1, selectionB: 0, winner: 1 }, // 7→2W      | 4→1W1L
+    { playerAIdx: 1, playerBIdx: 2, selectionA: 0, selectionB: 1, winner: 0 }, // 1→1W1L    | 2→0W2L ✕淘汰
+    { playerAIdx: 5, playerBIdx: 6, selectionA: 1, selectionB: 0, winner: 1 }, // 6→1W1L    | 5→0W2L ✕淘汰
   ],
-  // 第三轮：最终轮 (winner 设为 null 测试待定状态)
+
+  // ── 第三轮：2W争首，1W1L求存（2、5已淘汰不再出现）──
   [
-    // 2-0 争夺第一名
-    { playerAIdx: 0, playerBIdx: 7, selectionA: 0, selectionB: 0, winner: null },
-    // 1-1 中间组
-    { playerAIdx: 3, playerBIdx: 4, selectionA: 1, selectionB: 0, winner: null },
-    { playerAIdx: 2, playerBIdx: 5, selectionA: 0, selectionB: 1, winner: null },
-    // 0-2 荣誉战
-    { playerAIdx: 1, playerBIdx: 6, selectionA: 1, selectionB: 1, winner: null },
+    { playerAIdx: 0, playerBIdx: 7, selectionA: 0, selectionB: 1, winner: null }, // 0→3W 🏆   | 7→2W1L
+    { playerAIdx: 3, playerBIdx: 4, selectionA: 1, selectionB: 0, winner: null }, // 4→2W1L    | 3→1W2L ✕淘汰
+    { playerAIdx: 1, playerBIdx: 6, selectionA: 0, selectionB: 0, winner: null }, // 6→2W1L    | 1→1W2L ✕淘汰
   ],
 ];
-
 // ════════════════════════════════════════════════════════════
 // ██  工具函数 — 淘汰赛
 // ════════════════════════════════════════════════════════════
@@ -124,8 +127,13 @@ export function getByeIndices(roundIdx: number, players: (TournamentTeam | null)
 export function computeSwissStandings(players: (TournamentTeam | null)[]): SwissStanding[] {
   const map: Record<number, SwissStanding> = {};
   players.forEach((p, i) => {
-    if (p) map[i] = { player: p, idx: i, wins: 0, losses: 0, roundResults: Array(SWISS_ROUNDS.length).fill('none') };
+    if (p) map[i] = {
+      player: p, idx: i, wins: 0, losses: 0,
+      roundResults: Array(SWISS_ROUNDS.length).fill('none'),
+      eliminated: false, eliminatedAfterRound: null,   // ← 初始化
+    };
   });
+
   SWISS_ROUNDS.forEach((round, rIdx) => {
     const inMatch = new Set<number>();
     round.forEach(({ playerAIdx: ai, playerBIdx: bi, winner }) => {
@@ -138,15 +146,33 @@ export function computeSwissStandings(players: (TournamentTeam | null)[]): Swiss
         map[ai].roundResults[rIdx] = winner === 0 ? 'win' : 'loss';
         map[bi].roundResults[rIdx] = winner === 1 ? 'win' : 'loss';
         if (winner === 0) { map[ai].wins++; map[bi].losses++; }
-        else { map[bi].wins++; map[ai].losses++; }
+        else              { map[bi].wins++; map[ai].losses++; }
       }
     });
+
+    // 轮空 +1 胜
     Object.keys(map).forEach(k => {
       const idx = Number(k);
-      if (!inMatch.has(idx)) { map[idx].roundResults[rIdx] = 'bye'; map[idx].wins++; }
+      if (!inMatch.has(idx)) {
+        map[idx].roundResults[rIdx] = 'bye';
+        map[idx].wins++;
+      }
+    });
+
+    // ── 新增：本轮结束后判定淘汰 ──
+    Object.values(map).forEach(s => {
+      if (!s.eliminated && s.losses >= SWISS_MAX_LOSSES) {
+        s.eliminated = true;
+        s.eliminatedAfterRound = rIdx;
+      }
     });
   });
-  return Object.values(map).sort((a, b) => b.wins - a.wins || a.losses - b.losses);
+
+  return Object.values(map).sort((a, b) => {
+    // 未淘汰 > 已淘汰；同状态内按胜场降序、负场升序
+    if (a.eliminated !== b.eliminated) return a.eliminated ? 1 : -1;
+    return b.wins - a.wins || a.losses - b.losses;
+  });
 }
 
 /**

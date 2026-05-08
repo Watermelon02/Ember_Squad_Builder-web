@@ -27,9 +27,10 @@ end
 local function getPilotUrl(pilotId, fileType)
     local template
     if currentLang == "cn" then
-        template = "https://op-1307392056.cos.ap-guangzhou.myqcloud.com/res/cn/pilot_dial/%s.png"
+        template = "https://op-1307392056.cos.ap-guangzhou.myqcloud.com/res/cn/pilot_dial/%s.png?v=1"
     else
-        template = "https://raw.githubusercontent.com/Watermelon02/builder-web/main/res/" .. currentLang .. "/pilot_dial/%s.png"
+        template = "https://raw.githubusercontent.com/Watermelon02/builder-web/main/res/" .. currentLang ..
+                       "/pilot_dial/%s.png"
     end
     return string.format(template, pilotId .. (fileType or ""))
 end
@@ -191,7 +192,7 @@ function onChat(message, player)
                 if id then
                     local cardUrl = getUrl(getCardUrlTemplate(), id)
                     printToAll("生成战术卡: " .. cardUrl, {0, 1, 0})
-                    spawnCard(cardUrl, {basePos.x + droneRealX + projectileOffsetX, basePos.y, basePos.z + 4})
+                    spawnTacticCard(cardUrl, {basePos.x + droneRealX + projectileOffsetX, basePos.y, basePos.z + 4})
                     offsetX = offsetX + 1
                 else
                     printToAll("战术卡未解析到 ID: " .. line, {1, 0, 0})
@@ -207,6 +208,12 @@ function onChat(message, player)
                         y = basePos.y,
                         z = basePos.z
                     })
+
+                    -- 在驾驶员卡旁边生成头像卡（正反面均用 tab 图）
+                    local pilotTabUrl = string.format(getTabTemplate(), pilotId)
+                    printToAll("生成驾驶员头像卡: " .. pilotTabUrl, {1, 0.8, 0})
+                    spawnCard(pilotTabUrl, {basePos.x + mechBaseX , basePos.y+8, basePos.z}, {0.25, 0.25, 0.25})
+
                     partOffsetX = partOffsetX + 2
                 end
 
@@ -243,18 +250,43 @@ function onChat(message, player)
 end
 
 -- --------------------------
-function spawnCard(url, pos)
+function spawnCard(url, pos, scale)
     if not url then
         return
     end
+    scale = scale or {1, 1, 1} -- 不传则默认原尺寸
     spawnObject({
         type = "Card",
         position = pos,
         rotation = {0, 180, 0},
-        scale = {1, 1, 1},
+        scale = scale, -- ← 用传入的 scale
         callback_function = function(o)
             o.setCustomObject({
                 face = url,
+                back = url,
+                type = 0,
+                sideways = false
+            })
+            o.reload()
+        end
+    })
+end
+
+-- --------------------------战术卡
+
+function spawnTacticCard(url, pos, scale)
+    if not url then
+        return
+    end
+    scale = scale or {1, 1, 1} -- 不传则默认原尺寸
+    spawnObject({
+        type = "Card",
+        position = pos,
+        rotation = {0, 180, 0},
+        scale = scale, -- ← 用传入的 scale
+        callback_function = function(o)
+            o.setCustomObject({
+                face = getUrl(getTabTemplate(), "tactic"),
                 back = url,
                 type = 0,
                 sideways = false
@@ -284,8 +316,6 @@ function spawnFigurine(url, pos, sca, playerColor)
         end
     })
 end
-
-
 
 -- --------------------------
 function spawnPilotCard(pilotId, pos)
@@ -321,9 +351,15 @@ function spawnPilotCard(pilotId, pos)
         Nickname = stateNames[1],
         Description = "",
         Transform = {
-            posX = pos.x, posY = pos.y, posZ = pos.z,
-            rotX = 0, rotY = 180, rotZ = 0,
-            scaleX = 1, scaleY = 1, scaleZ = 1
+            posX = pos.x,
+            posY = pos.y,
+            posZ = pos.z,
+            rotX = 0,
+            rotY = 180,
+            rotZ = 0,
+            scaleX = 1,
+            scaleY = 1,
+            scaleZ = 1
         },
         CustomDeck = customDeck,
         CardID = baseDeckId * 100 + 1,
@@ -352,22 +388,25 @@ function spawnPilotCard(pilotId, pos)
             Nickname = stateNames[i] or ("State " .. i),
             Description = "",
             Transform = {
-                posX = pos.x, posY = pos.y, posZ = pos.z,
-                rotX = 0, rotY = 180, rotZ = 0,
-                scaleX = 1, scaleY = 1, scaleZ = 1
+                posX = pos.x,
+                posY = pos.y,
+                posZ = pos.z,
+                rotX = 0,
+                rotY = 180,
+                rotZ = 0,
+                scaleX = 1,
+                scaleY = 1,
+                scaleZ = 1
             },
             CustomDeck = stateDeck,
             CardID = stateCardId
         }
     end
 
-    spawnObjectJSON({ json = JSON.encode(card) })
+    spawnObjectJSON({
+        json = JSON.encode(card)
+    })
 end
-
-
-
-
-
 
 -- --------------------------
 function onPlayerConnect(player)

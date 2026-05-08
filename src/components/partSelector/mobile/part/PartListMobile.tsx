@@ -31,6 +31,33 @@ const MemoizedPartCard = React.memo(({
       selected={isSelected}
       onClick={() => onSelect(part)}
     >
+      {/* 与实体卡面相比，进行过属性修改*/}
+      {part.isCardModified && (
+        <div
+          className="group"
+          style={{
+            position: 'absolute',
+            top: 0,
+            left: 0,
+            width: 0,
+            height: 0,
+            borderStyle: 'solid',
+            borderWidth: '28px 28px 0 0',
+            borderColor: '#FACC15 transparent transparent transparent',
+            zIndex: 10,
+          }}
+        >
+          <svg
+            width="2vh"
+            height="2vh"
+            viewBox="0 0 24 24"
+            fill="white"
+            style={{ position: 'absolute', top: -26, left: 2 }}
+          >
+            <path d="M13.586 3.586a2 2 0 1 1 2.828 2.828l-.793.793-2.828-2.828.793-.793zM11.379 5.793 3 14.172V17h2.828l8.38-8.379-2.83-2.828z" />
+          </svg>
+        </div>
+      )}
       {(faction && faction === "GOF") || (part.hasImage === undefined || part.hasImage) ? (
         <img
           src={`${tabsrc}/${part.id}.webp`}
@@ -84,7 +111,7 @@ const MemoizedPartCard = React.memo(({
           {(part.armor !== 0 || part.structure !== 0) && (
             <div className="flex flex-col items-center px-1 py-0.5 border rounded-md bg-background/50 shadow-sm">
               <div className="flex items-center gap-1">
-              
+
                 <div style={{ fontSize: '8px', color: 'var(--muted-foreground)' }}>
                   {part.structure === 0
                     ? translations.t39
@@ -194,10 +221,10 @@ const PartListMobile: React.FC<PartListMobileProps> = ({
   }
 
   return (
-    <div key={selectedPartType} style={{ height: "60vh" }}>
+    <div key={selectedPartType} style={{ height: '100%' }}>
       <VirtuosoGrid
         data={filteredParts}
-        overscan={window.innerHeight * 0.3}
+        overscan={500}
         components={{
           // 容器：使用 CSS Grid 定义一行两列
           List: React.forwardRef(({ style, children, ...props }, ref) => (

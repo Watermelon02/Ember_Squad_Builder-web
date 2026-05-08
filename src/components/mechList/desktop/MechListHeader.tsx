@@ -7,6 +7,7 @@ import { AnimatedButton } from '../../custom/AnimatedButton'; // Adjust path
 import { COLOR_GLOBAL, COLOR_GREY, COLOR_WHITE } from '../../../styles/color';
 import { exportTextTeamData } from '../../../util/TextUtil';
 import { Team } from '../../../data/types';
+import { exportExcelCardData, exportHTMLCardData } from '../../../util/ExcelUtil';
 
 interface MechListHeaderProps {
     team: Team;
@@ -35,6 +36,10 @@ interface MechListHeaderProps {
     setAnimationCardMode: (val: boolean) => void;
     setBoxListDialogOpen: (val: boolean) => void;
     tournamentMode: boolean;
+    hideTacticCard: boolean;
+    setHideTacticCard: (val: boolean) => void;
+    tabsrc: string;
+    mechImgSrc: string;
 }
 
 export const MechListHeader: React.FC<MechListHeaderProps> = ({
@@ -42,11 +47,12 @@ export const MechListHeader: React.FC<MechListHeaderProps> = ({
     currentTab, setCurrentTab, onSetViewMode, setCPartType,
     isExporting, handleExportImage, includeProjectile, setIncludeProjectile, showProjectileOption, setShowProjectileOption,
     isExportingTTS, handleExportTTS,
-    animationCardMode, setAnimationCardMode, setBoxListDialogOpen, tournamentMode
+    animationCardMode, setAnimationCardMode, setBoxListDialogOpen, tournamentMode, hideTacticCard, setHideTacticCard, tabsrc, mechImgSrc
 }) => {
     const [showTTSHint, setShowTTSHint] = useState(false);
     const [showAnimationHint, setShowAnimationHint] = useState(false);
     const [showBoxHint, setShowBoxHint] = useState(false);
+    const [showTextOption, setShowTextOption] = useState(false);
 
 
     return (
@@ -54,13 +60,61 @@ export const MechListHeader: React.FC<MechListHeaderProps> = ({
             {/* 左侧按钮组 */}
             <div style={{ display: "flex", alignItems: "center", gap: "0.5vw", flexShrink: 0 }}>
                 {/* 导出文本 */}
-                <AnimatedButton
-                    onClick={() => team && exportTextTeamData(team, translations, lang)}
-                    fontSize={"0.8vw"}
+                <div
+                    style={{ position: "relative" }}
+                    onMouseEnter={() => setShowTextOption(true)}
+                    onMouseLeave={() => setShowTextOption(false)}
                 >
-                    <Table2 style={{ width: "1vw", height: "1vw" }} />
-                    {translations.t6}
-                </AnimatedButton>
+                    <AnimatedButton
+                        onClick={() => {
+                            exportTextTeamData(team, translations, lang, hideTacticCard)
+                        }
+                        }
+                        fontSize={"0.8vw"}
+                    >
+                        <Table2 style={{ width: "1vw", height: "1vw" }} />
+                        {translations.t6}
+                    </AnimatedButton>
+
+                    <AnimatePresence>
+                        {showTextOption && (
+                            <motion.div
+                                key="text-export-popup"
+                                initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: 8 }}
+                                transition={{ duration: 0.2 }}
+                                style={{
+                                    position: "absolute",
+                                    top: "100%",
+                                    left: 0,
+                                    marginTop: 4,
+                                    background: "white",
+                                    borderRadius: 8,
+                                    boxShadow: "0 4px 12px rgba(0,0,0,0.12)",
+                                    padding: "8px 12px",
+                                    display: "flex",
+                                    flexDirection: "column",
+                                    gap: 6,
+                                    fontSize: "0.8vw",
+                                    zIndex: 90,
+                                    minWidth: "max-content",
+                                }}
+                            >
+                                <div style={{ display: "flex", alignItems: "center", gap: 6 }}>
+                                    <input
+                                        type="checkbox"
+                                        id="hide-tactic-card-text"
+                                        checked={hideTacticCard}
+                                        onChange={(e) => setHideTacticCard(e.target.checked)}
+                                        style={{ width: 14, height: 14, accentColor: "#3b82f6", cursor: "pointer", flexShrink: 0 }}
+                                    />
+                                    <label htmlFor="hide-tactic-card-text" style={{ cursor: "pointer", userSelect: "none", color: "#374151", whiteSpace: "nowrap" }}>
+                                        {translations.t122}
+                                    </label>
+                                </div>
+                            </motion.div>
+                        )}
+                    </AnimatePresence>
+                </div>
 
                 {/* 导出图片 */}
                 <div style={{ position: "relative" }} onMouseEnter={() => setShowProjectileOption(true)} onMouseLeave={() => setShowProjectileOption(false)}>
@@ -78,9 +132,36 @@ export const MechListHeader: React.FC<MechListHeaderProps> = ({
                     </AnimatedButton>
                     <AnimatePresence>
                         {showProjectileOption && (
-                            <motion.div key="checkbox-popup" initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: 8 }} transition={{ duration: 0.2 }} style={{ position: "absolute", top: "100%", right: "-50%", background: "white", borderRadius: 8, boxShadow: "0 4px 6px rgba(0,0,0,0.1)", padding: "6px 12px", display: "flex", alignItems: "center", fontSize: "1vw", zIndex: 90, marginTop: -6 }}>
-                                <input type="checkbox" id="include-projectile" checked={includeProjectile} onChange={(e) => setIncludeProjectile(e.target.checked)} style={{ width: 16, height: 16, accentColor: "#3b82f6", marginRight: 6, cursor: "pointer" }} />
-                                <label htmlFor="include-projectile" style={{ cursor: "pointer", userSelect: "none", color: "#374151", whiteSpace: "nowrap" }}>{translations.t91}</label>
+                            <motion.div
+                                key="checkbox-popup"
+                                initial={{ opacity: 0, y: 8 }}
+                                animate={{ opacity: 1, y: 0 }}
+                                exit={{ opacity: 0, y: 8 }}
+                                transition={{ duration: 0.2 }}
+                                style={{
+                                    position: "absolute",
+                                    top: "100%",
+                                    right: "-50%",
+                                    background: "white",
+                                    borderRadius: 8,
+                                    boxShadow: "0 4px 6px rgba(0,0,0,0.1)",
+                                    padding: "8px 12px",
+                                    display: "flex",
+                                    flexDirection: "column",
+                                    gap: 8,
+                                    fontSize: "1vw",
+                                    zIndex: 90,
+                                    marginTop: 4
+                                }}
+                            >
+                                <div style={{ display: "flex", alignItems: "center", gap: 6 }}>
+                                    <input type="checkbox" id="include-projectile" checked={includeProjectile} onChange={(e) => setIncludeProjectile(e.target.checked)} style={{ width: 14, height: 14, accentColor: "#3b82f6", cursor: "pointer", flexShrink: 0 }} />
+                                    <label htmlFor="include-projectile" style={{ cursor: "pointer", userSelect: "none", color: "#374151", whiteSpace: "nowrap" }}>{translations.t91}</label>
+                                </div>
+                                <div style={{ display: "flex", alignItems: "center", gap: 6 }}>
+                                    <input type="checkbox" id="hide-tactic-card" checked={hideTacticCard} onChange={(e) => setHideTacticCard(e.target.checked)} style={{ width: 14, height: 14, accentColor: "#3b82f6", cursor: "pointer", flexShrink: 0 }} />
+                                    <label htmlFor="hide-tactic-card" style={{ cursor: "pointer", userSelect: "none", color: "#374151", whiteSpace: "nowrap" }}>{translations.t122}</label>
+                                </div>
                             </motion.div>
                         )}
                     </AnimatePresence>

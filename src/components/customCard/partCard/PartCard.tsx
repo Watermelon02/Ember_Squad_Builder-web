@@ -256,14 +256,7 @@ export const PartCard: React.FC<PartCardProps> = React.memo(({ part, tabsrc, isT
       </div>
 
       {/* 主图 */}
-      <div className={mainImageClass}>
-        {(part.hasImage === undefined || part.hasImage) ? <img
-          src={`${tabsrc}/${part.id}.png`}
-          alt={`${part.name} Main`}
-          className="part-main-image"
-          loading="lazy"
-        /> : <span className="placeholder">{part.name}</span>}
-      </div>
+     
 
       {/* 阴影图 */}
       <div className={shadowImageClass}>

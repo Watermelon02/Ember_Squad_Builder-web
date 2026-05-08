@@ -20,7 +20,7 @@ interface TacticTabContentProps {
 }
 
 export const TacticTabContent: React.FC<TacticTabContentProps> = ({
-  team, mobileOrTablet, imgsrc, tabsrc, translations, onSetViewMode, onSetIsChangingPart, deleteTacticCard,tournamentMode
+  team, mobileOrTablet, imgsrc, tabsrc, translations, onSetViewMode, onSetIsChangingPart, deleteTacticCard, tournamentMode
 }) => {
   return (
     <AnimatePresence mode="wait">
@@ -50,12 +50,18 @@ export const TacticTabContent: React.FC<TacticTabContentProps> = ({
               </Dialog>
 
               <Button variant="secondary" className="h-6 w-8 absolute bg-blue-500/50 left-0 bottom-0 shadow-lg shadow-gray-500 rounded-lg z-0" style={{ color: 'white', textShadow: '0 0 4px rgba(0,0,0,0.7)' }}>{tacticCards?.score}</Button>
-              <img src={`${imgsrc}/${tacticCards.id}.png`} alt={tacticCards.name} onClick={() => onSetViewMode('tacticCards')} className="shadow-lg shadow-gray-500 rounded-lg" style={{ width: '100%', height: '100%', objectFit: 'contain' }} draggable={false} />
+              {!tournamentMode &&
+                <img src={`${imgsrc}/${tacticCards.id}.png`} alt={tacticCards.name} onClick={() => onSetViewMode('tacticCards')} className="shadow-lg shadow-gray-500 rounded-lg" style={{ width: '100%', height: '100%', objectFit: 'contain' }} draggable={false} />
+              }
+              {/* 如果是比赛模式，战术卡全显示背面 */}
+              {tournamentMode &&
+                <img src={`${tabsrc}/tactic.png`} alt={tacticCards.name} className="shadow-lg shadow-gray-500 rounded-lg" style={{ width: '100%', height: '100%', objectFit: 'contain' }} draggable={false} />
+              }
               <Button variant="ghost" size="sm" onClick={(e) => { e.stopPropagation(); deleteTacticCard(index); }} className="absolute top-0 right-0 shadow-lg shadow-gray-500 rounded-lg text-destructive hover:text-destructive"><Trash2 className="w-4 h-4" /></Button>
             </div>
           ))}
 
-          {!tournamentMode &&<div style={{ position: 'relative', display: 'flex', padding: '1rem', cursor: 'pointer', transition: 'transform 0.3s ease, box-shadow 0.3s ease' }}
+          {!tournamentMode && <div style={{ position: 'relative', display: 'flex', padding: '1rem', cursor: 'pointer', transition: 'transform 0.3s ease, box-shadow 0.3s ease' }}
             onClick={() => { onSetViewMode('tacticCards'); onSetIsChangingPart(true); }}
             onMouseEnter={(e) => { (e.currentTarget as HTMLDivElement).style.transform = 'scale(1.03)'; (e.currentTarget as HTMLDivElement).style.boxShadow = '0 6px 10px rgba(0,0,0,0.1)'; }}
             onMouseLeave={(e) => { (e.currentTarget as HTMLDivElement).style.transform = 'scale(1)'; (e.currentTarget as HTMLDivElement).style.boxShadow = '0 4px 6px rgba(0,0,0,0.05), 0 1px 3px rgba(0,0,0,0.1)'; }}

@@ -151,7 +151,7 @@ const PilotListMobile: React.FC<PilotListMobileProps> = ({
 
     return (
         <Virtuoso
-            style={{ height: '60vh', width: '100%' }}
+            style={{ height: '100%', width: '100%' }}
             data={filteredPilots}
             overscan={400}  // ✅ 修复6：固定像素值，避免每次读取 window.innerHeight
             itemContent={(index, pilot) => (

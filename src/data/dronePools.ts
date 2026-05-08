@@ -5,7 +5,7 @@ export const DRONE_SHARED_POOLS: Record<string, string[]> = {
 "UN_RAVEN_POOL": ["164", "165", "166"], // 渡鸦系列
     "RDL_HYENA_POOL":["078","079","080"],//鬣狗系列
     "UN_TARANTULA_POOL":["162","163"],//狼蛛
-    "UN_PORCUPINE_POOL":["160","161"],//豪猪
+    "UN_PORCUPINE_POOL":["160","161","543"],//豪猪
     "PD_REAPER_TYPE_1_POOL":["PRDR-101","PRDR-102"],//收割者1
     "PD_REAPER_TYPE_2_POOL":["PRDR-103","PRDR-104"],//收割者2
     "GOF_VALKYRIE_POOL":["ZHDR-303","ZHDR-304"],//鹰身女妖，女武神

@@ -29,7 +29,7 @@ const groupDrones = (drones: Drone[]): DroneGroup[] => {
     return Array.from(map.values());
 };
 
-export const exportTextTeamData = (team: Team, translations: any, lang: string) => {
+export const exportTextTeamData = (team: Team, translations: any, lang: string, hideTacticCard: boolean) => {
     const hasDrones = team.drones.length > 0;
     const hasTacticCards = !!(team.tacticCards && team.tacticCards.length > 0);
     const hasTrailingSection = hasDrones || hasTacticCards;
@@ -39,7 +39,7 @@ export const exportTextTeamData = (team: Team, translations: any, lang: string) 
     team.mechs.forEach((mech, mechIdx) => {
         const isLastMech = mechIdx === team.mechs.length - 1 && !hasTrailingSection;
         const mechBranch = isLastMech ? '┗┳' : '┣┳';
-        const mechVLine  = isLastMech ? '　' : '┃';
+        const mechVLine = isLastMech ? '　' : '┃';
 
         out += `${mechBranch} ${sanitizeName(mech.name)}【M.A.P：${getMechTotalScore(mech)}${translations.t71}】\n`;
 
@@ -65,7 +65,7 @@ export const exportTextTeamData = (team: Team, translations: any, lang: string) 
     if (hasDrones) {
         const droneScore = team.drones.reduce((s, d) => s + d.score + (d.backpack?.score ?? 0), 0);
         const droneBranch = hasTacticCards ? '┣┳' : '┗┳';
-        const droneVLine  = hasTacticCards ? '┃' : '　';
+        const droneVLine = hasTacticCards ? '┃' : '　';
 
         out += `${droneBranch}【${translations.t70}：${droneScore}${translations.t71}】\n`;
 
@@ -74,7 +74,7 @@ export const exportTextTeamData = (team: Team, translations: any, lang: string) 
             const { drone, count } = group;
             const isLast = i === groups.length - 1;
             const droneName = sanitizeName(drone.name);
-            const countStr  = count > 1 ? ` x${count}` : '';
+            const countStr = count > 1 ? ` x${count}` : '';
 
             out += `${droneVLine}${isLast ? '┗' : '┣'} ${droneName}${countStr}\n`;
 
@@ -88,12 +88,16 @@ export const exportTextTeamData = (team: Team, translations: any, lang: string) 
     // 战术卡
     if (hasTacticCards) {
         const tacticScore = team.tacticCards!.reduce((s, tc) => s + tc.score, 0);
-        out += `┗┳【${translations.t90}：${tacticScore}${translations.t71}】\n`;
+        if (!hideTacticCard) {
+            out += `┗┳【${translations.t90}：${tacticScore}${translations.t71}】\n`;
 
-        team.tacticCards!.forEach((tc, i) => {
-            const isLast = i === team.tacticCards!.length - 1;
-            out += `　${isLast ? '┗' : '┣'} ${sanitizeName(tc.name)}\n`;
-        });
+            team.tacticCards!.forEach((tc, i) => {
+                const isLast = i === team.tacticCards!.length - 1;
+                out += `　${isLast ? '┗' : '┣'} ${sanitizeName(tc.name)}\n`;
+            });
+        } else {
+            out += `┗━【${translations.t90}：${tacticScore}${translations.t71}｜${translations.t87} x${team.tacticCards!.length}】\n`;
+        }
     }
 
     navigator.clipboard.writeText(out)

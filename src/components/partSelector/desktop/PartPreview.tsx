@@ -151,7 +151,7 @@ export default function PartPreview({
                   </div>
                 )}
 
-                
+
               </div>
 
               {showSourceBox &&
@@ -306,33 +306,67 @@ export default function PartPreview({
             )}
 
             {part && (
-                            <Button
-                              variant="secondary"
-                              style={{
-                                position: "absolute",
-                                top: "0",
-            
-                                height: "3vh",
-                                width: "3vh",
-                                fontSize: "2vh",
-                                color: "#fff",
-                                textShadow: `
+              <Button
+                variant="secondary"
+                style={{
+                  position: "absolute",
+                  top: "0",
+
+                  height: "3vh",
+                  width: "3vh",
+                  fontSize: "2vh",
+                  color: "#fff",
+                  textShadow: `
                   0 0 2px #000,
                   0 0 4px #000,
                   0 0 6px #000
                 `,
-                                backdropFilter: "blur(4px)",
-                                WebkitBackdropFilter: "blur(4px)",
-                                backgroundColor: "rgba(255,255,255,0.1)",
-                                borderRadius: 6,
-                                display: "flex",
-                                alignItems: "center",
-                                justifyContent: "center",
-                              }}
-                            >
-                              {part.score}
-                            </Button>
-                          )}
+                  backdropFilter: "blur(4px)",
+                  WebkitBackdropFilter: "blur(4px)",
+                  backgroundColor: "rgba(255,255,255,0.1)",
+                  borderRadius: 6,
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                }}
+              >
+                {part.score}
+              </Button>
+            )}
+
+            {part && part.isCardModified && (
+              <motion.div
+                initial={{ opacity: 0, y: -4 }}
+                animate={{ opacity: 1, y: 0 }}
+                style={{
+                  marginTop: "1vh",
+                  padding: "0.4vh 0.5vw",
+                  backdropFilter: "blur(16px)",
+                  background: "rgba(233,161,27,0.18)",
+                  borderRadius: 10,
+                  boxShadow: "0 0 8px rgba(0,0,0,0.4) inset",
+                  border: "1px solid rgba(233,161,27,0.4)",
+                  display: "inline-flex",
+                  alignItems: "center",
+                  gap: "0.4vw",
+                  color: "white",
+                }}
+              >
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="#E9A11B">
+                  <path d="M13.586 3.586a2 2 0 1 1 2.828 2.828l-.793.793-2.828-2.828.793-.793zM11.379 5.793 3 14.172V17h2.828l8.38-8.379-2.83-2.828z" />
+                </svg>
+                <span
+                  style={{
+                    fontSize: "1.3vh",
+                    color: "white",
+                    textShadow: `-1px -1px 1px #000, 1px -1px 1px #000, -1px 1px 1px #000, 1px 1px 1px #000`,
+                    lineHeight: "2.2vh",
+                  }}
+                >
+                  {translations[lang].t133}
+                </span>
+              </motion.div>
+            )}
 
 
 
@@ -377,6 +411,39 @@ export default function PartPreview({
                               tabsrc={tabsrc}
                               lang={lang}
                             />
+                          )}
+                          {currentProjectile?.isCardModified && (
+                            <motion.div
+                              initial={{ opacity: 0, y: -4 }}
+                              animate={{ opacity: 1, y: 0 }}
+                              style={{
+                                marginTop: "1vh",
+                                padding: "0.4vh 0.5vw",
+                                backdropFilter: "blur(16px)",
+                                background: "rgba(233,161,27,0.18)",
+                                borderRadius: 10,
+                                boxShadow: "0 0 8px rgba(0,0,0,0.4) inset",
+                                border: "1px solid rgba(233,161,27,0.4)",
+                                display: "inline-flex",
+                                alignItems: "center",
+                                gap: "0.4vw",
+                                color: "white",
+                              }}
+                            >
+                              <svg width="12" height="12" viewBox="0 0 24 24" fill="#E9A11B">
+                                <path d="M13.586 3.586a2 2 0 1 1 2.828 2.828l-.793.793-2.828-2.828.793-.793zM11.379 5.793 3 14.172V17h2.828l8.38-8.379-2.83-2.828z" />
+                              </svg>
+                              <span
+                                style={{
+                                  fontSize: "1.3vh",
+                                  color: "white",
+                                  textShadow: `-1px -1px 1px #000, 1px -1px 1px #000, -1px 1px 1px #000, 1px 1px 1px #000`,
+                                  lineHeight: "2.2vh",
+                                }}
+                              >
+                                {translations[lang].t133}
+                              </span>
+                            </motion.div>
                           )}
                         </div>
                       );

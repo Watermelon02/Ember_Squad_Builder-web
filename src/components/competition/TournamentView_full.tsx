@@ -1,14 +1,6 @@
 /**
  * TournamentView.tsx (v6)
  *
- * 变更（相对 v5）：
- * 1. 各轮对阵始终按胜场分组显示，移除切换按钮
- * 2. 性能优化：
- *    - 移除 mech/drone 列表上的 AnimatePresence mode="popLayout"（昂贵的布局动画）
- *    - 减少 motion.div 包装层，静态内容不再使用 framer-motion
- *    - 缓存 computeWinsBeforeRound 结果，避免每轮重复计算
- *    - 减少 backdrop-filter 使用（GPU 开销大）
- *    - 降低动画延迟密度
  */
 
 import React, { useState, useMemo, memo } from 'react';

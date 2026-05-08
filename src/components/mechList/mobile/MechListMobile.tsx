@@ -26,16 +26,18 @@ interface MechListMobileProps {
   localImgsrc: string, lang: string, mobileOrTablet: boolean, setLanguage: React.Dispatch<React.SetStateAction<"zh" | "en" | "jp">>,
   tournamentMode: boolean,
   mechImgSrc: string,
+  hideTacticCard: boolean,
+  setHideTacticCard: (val: boolean) => void,
 }
 
 export function MechListMobile({
   team, selectedMechId, onSelectMech, onSelectPartType, onUpdateTeam, onSetViewMode, onSelectDrone,
-  translations, partTypeNames, imgsrc, tabsrc, localImgsrc, lang, mobileOrTablet, setLanguage,
+  translations, partTypeNames, imgsrc, tabsrc, localImgsrc, lang, mobileOrTablet, setLanguage,hideTacticCard, setHideTacticCard,
   tournamentMode, mechImgSrc, onSetIsChangingPart,
 }: MechListMobileProps) {
 
   const logic = useMechListMobileLogic({
-    team, onUpdateTeam, onSelectMech, selectedMechId, translations, lang, tabsrc, localImgsrc, imgsrc
+    team, onUpdateTeam, onSelectMech, selectedMechId, translations, lang, tabsrc, localImgsrc, imgsrc,hideTacticCard, setHideTacticCard
   });
 
   if (!team) {
@@ -93,6 +95,7 @@ export function MechListMobile({
           isExporting={logic.isExporting} handleExportImage={logic.handleExportImage}
           showProjectileOption={logic.showProjectileOption} setShowProjectileOption={logic.setShowProjectileOption}
           includeProjectile={logic.includeProjectile} setIncludeProjectile={logic.setIncludeProjectile}
+          hideTacticCard={hideTacticCard} setHideTacticCard={setHideTacticCard}
         />
 
         <MechTabMobileContent

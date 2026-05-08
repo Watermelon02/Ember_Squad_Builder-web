@@ -37,7 +37,7 @@ export const rdlTorso: Part[] = [
   {
     "id": "015",
     "name": "RT-08  Tempest  Artillery Core",
-    "score": 62,
+    "score": 56,
     "structure": 2,
     "armor": 7,
     "parray": 0,
@@ -72,7 +72,7 @@ export const rdlTorso: Part[] = [
   {
     "id": "017",
     "name": "RT-15B  Lava  Assault Core",
-    "score": 59,
+    "score": 47,
     "structure": 4,
     "armor": 5,
     "parray": 0,
@@ -164,7 +164,7 @@ export const rdlTorso: Part[] = [
   {
     "id": "503",
     "name": "RT-16B Avalanche Assault Core",
-    "score": 60,
+    "score": 48,
     "structure": 4,
     "armor": 5,
     "parray": 0,
@@ -215,7 +215,7 @@ export const rdlTorso: Part[] = [
     "id": "533",
     "name": "RTX-06SR Mire SR Battle Core",
     "type": "torso",
-    "score": 32,
+    "score": 18,
     "armor": 6,
     "structure": 2,
     "parray": 0,
@@ -575,7 +575,7 @@ export const rdlLeftHand: Part[] = [
   {
     "id": "053",
     "name": "Type 55 Shield + PC-9 Shotgun (L)",
-    "score": 48,
+    "score": 42,
     "structure": 0,
     "armor": 5,
     "parray": 2,
@@ -642,7 +642,7 @@ export const rdlLeftHand: Part[] = [
   {
     "id": "062",
     "name": "Type 62 Buckler + CC-20 Sabre (L)",
-    "score": 63,
+    "score": 42,
     "structure": 0,
     "armor": 5,
     "parray": 3,
@@ -756,7 +756,7 @@ export const rdlLeftHand: Part[] = [
   {
     "id": "510",
     "name": "Type 55 Shield + PC-9K Shotgun (L)",
-    "score": 63,
+    "score": 57,
     "structure": 0,
     "armor": 5,
     "parray": 2,
@@ -788,7 +788,7 @@ export const rdlLeftHand: Part[] = [
   {
     "id": "514",
     "name": "AH-21 Pistol + CC-50 Pile Bunker (L)",
-    "score": 63,
+    "score": 48,
     "structure": 0,
     "armor": 4,
     "parray": 1,
@@ -800,7 +800,7 @@ export const rdlLeftHand: Part[] = [
     "tags": [],
     "throwIndex": "515",
     "keywords": [KEYWORD_LIST.en.全向射击],
-    "containedIn": [{ "box": BOXES.LAB_RDL_GENJI_AND_MALLARD, "quantityPerBox": 0 }],
+    "containedIn": [{ "box": BOXES.LAB_RDL_GENJI_AND_MALLARD, "quantityPerBox": 1 }],
   },
   {
     "id": "515",
@@ -831,7 +831,7 @@ export const rdlLeftHand: Part[] = [
     "imgSrc": "",
     "tags": [],
     "keywords": [KEYWORD_LIST.en.震撼],
-    "containedIn": [{ "box": BOXES.LAB_RDL_GENJI_AND_MALLARD, "quantityPerBox": 0 }],
+    "containedIn": [{ "box": BOXES.LAB_RDL_GENJI_AND_MALLARD, "quantityPerBox": 1 }],
   },
   {
     "id": "299",
@@ -880,7 +880,7 @@ export const rdlLeftHand: Part[] = [
     "id": "535",
     "name": "CC-7 Cleaver (L)",
     "type": "leftHand",
-    "score": 39,
+    "score": 36,
     "armor": 4,
     "structure": 0,
     "parray": 1,
@@ -1100,7 +1100,7 @@ export const rdlRightHand: Part[] = [
   {
     "id": "046",
     "name": "Type 55 Shield + PC-9 Shotgun (R)",
-    "score": 48,
+    "score": 42,
     "structure": 0,
     "armor": 5,
     "parray": 2,
@@ -1132,7 +1132,7 @@ export const rdlRightHand: Part[] = [
   {
     "id": "048",
     "name": "Type 55 Shield + PC-9 Shotgun + Smoke Grenade (R)",
-    "score": 57,
+    "score": 51,
     "structure": 0,
     "armor": 5,
     "parray": 2,
@@ -1250,7 +1250,7 @@ export const rdlRightHand: Part[] = [
   {
     "id": "063",
     "name": "Type 63 Arm Cannon + CC-20 Sabre (R)",
-    "score": 66,
+    "score": 45,
     "structure": 0,
     "armor": 4,
     "parray": 2,
@@ -1362,7 +1362,7 @@ export const rdlRightHand: Part[] = [
   {
     "id": "508",
     "name": "Type 55 Shield + PC-9K Shotgun (R)",
-    "score": 63,
+    "score": 57,
     "structure": 0,
     "armor": 5,
     "parray": 2,
@@ -1394,7 +1394,7 @@ export const rdlRightHand: Part[] = [
   {
     "id": "512",
     "name": "AH-21 Pistol + CC-50 Pile Bunker (R) (D)",
-    "score": 63,
+    "score": 48,
     "structure": 0,
     "armor": 4,
     "parray": 1,
@@ -1426,7 +1426,7 @@ export const rdlRightHand: Part[] = [
   {
     "id": "516",
     "name": "AC-35 Sniper Rifle",
-    "score": 51,
+    "score": 48,
     "structure": 0,
     "armor": 4,
     "parray": 0,
@@ -1882,7 +1882,7 @@ export const unTorso: Part[] = [
   {
     "id": "091",
     "name": "TM31C Gray Wolf Battle Core",
-    "score": 45,
+    "score": 36,
     "structure": 4,
     "armor": 4,
     "parray": 0,
@@ -1964,7 +1964,7 @@ export const unTorso: Part[] = [
   {
     "id": "098",
     "name": "TM35B Bison Assault Core",
-    "score": 72,
+    "score": 60,
     "structure": 4,
     "armor": 5,
     "parray": 0,
@@ -1995,7 +1995,7 @@ export const unTorso: Part[] = [
   {
     "id": "555",
     "name": "TM35BT Taurus Experimental Core",
-    "score": 84,
+    "score": 75,
     "armor": 5,
     "structure": 4,
     "parray": 0,
@@ -2011,7 +2011,7 @@ export const unTorso: Part[] = [
     "id": "093",
     "name": "TM31KC Gray Wolf KC Experimental Core",
     "type": "torso",
-    "score": 60,
+    "score": 51,
     "armor": 4,
     "structure": 4,
     "parray": 0,
@@ -2158,7 +2158,7 @@ export const unChasis: Part[] = [
   {
     "id": "101",
     "name": "LM213B  Combat Chassis",
-    "score": 57,
+    "score": 51,
     "structure": 1,
     "armor": 4,
     "parray": 0,
@@ -2210,7 +2210,7 @@ export const unLeftHand: Part[] = [
   {
     "id": "107",
     "name": "S100 Shield + Grenade Pod",
-    "score": 66,
+    "score": 48,
     "structure": 0,
     "armor": 5,
     "parray": 2,
@@ -2248,7 +2248,7 @@ export const unLeftHand: Part[] = [
   {
     "id": "111",
     "name": "RH21 Pistol + M3 Vibroblade (L)",
-    "score": 45,
+    "score": 42,
     "structure": 0,
     "armor": 3,
     "parray": 1,
@@ -2312,7 +2312,7 @@ export const unLeftHand: Part[] = [
   {
     "id": "121",
     "name": "MSH1 Assistance Arm (L)",
-    "score": 24,
+    "score": 27,
     "structure": 0,
     "armor": 3,
     "parray": 0,
@@ -2328,7 +2328,7 @@ export const unLeftHand: Part[] = [
   {
     "id": "126",
     "name": "K9 Nail Gun + M14BO Wakizashi",
-    "score": 42,
+    "score": 21,
     "structure": 0,
     "armor": 3,
     "parray": 1,
@@ -2343,7 +2343,7 @@ export const unLeftHand: Part[] = [
   }, {
     "id": "256",
     "name": "K9 Nail Gun + M14BO Wakizashi Trial Model (L)",
-    "score": 42,
+    "score": 21,
     "structure": 0,
     "armor": 3,
     "parray": 1,
@@ -2395,7 +2395,7 @@ export const unLeftHand: Part[] = [
   {
     "id": "131",
     "name": "M3S Vibroblade(L)",
-    "score": 42,
+    "score": 36,
     "structure": 0,
     "armor": 3,
     "parray": 1,
@@ -2410,7 +2410,7 @@ export const unLeftHand: Part[] = [
   {
     "id": "135",
     "name": "M4 Vibroblade + Grenade Pod (L)",
-    "score": 54,
+    "score": 45,
     "structure": 0,
     "armor": 3,
     "parray": 1,
@@ -2445,7 +2445,7 @@ export const unLeftHand: Part[] = [
   {
     "id": "142",
     "name": "S100 Shield",
-    "score": 48,
+    "score": 39,
     "structure": 0,
     "armor": 5,
     "parray": 2,
@@ -2476,7 +2476,7 @@ export const unLeftHand: Part[] = [
   {
     "id": "144",
     "name": "K7 Nail Gun + S10 Shield",
-    "score": 54,
+    "score": 45,
     "structure": 0,
     "armor": 5,
     "parray": 2,
@@ -2492,7 +2492,7 @@ export const unLeftHand: Part[] = [
   {
     "id": "146",
     "name": "G6 Shotgun + Grenade Pod",
-    "score": 75,
+    "score": 66,
     "structure": 0,
     "armor": 4,
     "parray": 0,
@@ -2564,7 +2564,7 @@ export const unLeftHand: Part[] = [
 export const unRightHand: Part[] = [{
   "id": "257",
   "name": "K9 Nail Gun + M14BO Wakizashi Trial Model (L)",
-  "score": 42,
+  "score": 21,
   "structure": 0,
   "armor": 3,
   "parray": 1,
@@ -2659,7 +2659,7 @@ export const unRightHand: Part[] = [{
 {
   "id": "113",
   "name": "RH21 Pistol + M3 Vibroblade (R)",
-  "score": 45,
+  "score": 42,
   "structure": 0,
   "armor": 3,
   "parray": 1,
@@ -2691,7 +2691,7 @@ export const unRightHand: Part[] = [{
 {
   "id": "115",
   "name": "S100 Shield + R6SS SMG",
-  "score": 63,
+  "score": 51,
   "structure": 0,
   "armor": 5,
   "parray": 2,
@@ -2851,7 +2851,7 @@ export const unRightHand: Part[] = [{
 {
   "id": "133",
   "name": "M3S Vibroblade (R)",
-  "score": 42,
+  "score": 36,
   "structure": 0,
   "armor": 3,
   "parray": 1,
@@ -2866,7 +2866,7 @@ export const unRightHand: Part[] = [{
 {
   "id": "137",
   "name": "M4 Vibroblade + Grenade Pod (R)",
-  "score": 54,
+  "score": 45,
   "structure": 0,
   "armor": 3,
   "parray": 1,
@@ -3082,8 +3082,10 @@ export const unBackpack: Part[] = [
     "imgSrc": "",
     "tags": [],
     "keywords": [KEYWORD_LIST.en.KC装甲],
-    "containedIn": [{ "box": BOXES.UN_CORE, "quantityPerBox": 2 }]
-  }, {
+    "containedIn": [{ "box": BOXES.UN_CORE, "quantityPerBox": 2 }],
+    "isCardModified": true
+  },
+  {
     "id": "265",
     "name": "EBS/X40 Armor Energy Charger Trial Model",
     "score": 39,
@@ -3097,7 +3099,8 @@ export const unBackpack: Part[] = [
     "imgSrc": "",
     "tags": [],
     "keywords": [KEYWORD_LIST.en.KC装甲],
-    "containedIn": [{ "box": BOXES.LAB_TRIAL_UN_OCTOPUS, "quantityPerBox": 1 }]
+    "containedIn": [{ "box": BOXES.LAB_TRIAL_UN_OCTOPUS, "quantityPerBox": 1 }],
+    "isCardModified": true
   },
   {
     "id": "082",
@@ -3137,7 +3140,7 @@ export const unBackpack: Part[] = [
   {
     "id": "084",
     "name": "DBP Turtle Shell Barricade Rack",
-    "score": 39,
+    "score": 27,
     "structure": 0,
     "armor": 5,
     "parray": 0,
@@ -3155,7 +3158,7 @@ export const unBackpack: Part[] = [
   {
     "id": "085",
     "name": "AMDS210 Delphinium Carrier",
-    "score": 30,
+    "score": 27,
     "structure": 0,
     "armor": 3,
     "parray": 0,
@@ -3165,6 +3168,7 @@ export const unBackpack: Part[] = [
     "description": "",
     "imgSrc": "",
     "tags": [],
+    "projectile": ["159"],
     "containedIn": [{ "box": BOXES.UN_SCALPEL, "quantityPerBox": 2 }]
   },
   {
@@ -3204,7 +3208,7 @@ export const unBackpack: Part[] = [
   {
     "id": "088",
     "name": "JP1 Jetpack",
-    "score": 57,
+    "score": 48,
     "structure": 0,
     "armor": 3,
     "parray": 0,
@@ -3326,7 +3330,7 @@ export const unDrones: Drone[] = [
   {
     "id": "160",
     "name": "ADK15D Porcupine CIWS Type",
-    "score": 48,
+    "score": 51,
     "structure": 2,
     "armor": 4,
     "parray": 0,
@@ -3337,7 +3341,7 @@ export const unDrones: Drone[] = [
     "stance": "offensive",
     "description": "",
     "keywords": [KEYWORD_LIST.en.激光武器, KEYWORD_LIST.en.拦截X, KEYWORD_LIST.en.全向射击, KEYWORD_LIST.en.近战射击],
-    "containedIn": [{ "box": BOXES.UN_DOORBREAKER, "quantityPerBox": 2 }]
+    "containedIn": [{ "box": BOXES.UN_DOORBREAKER, "quantityPerBox": 2 },{ "box": BOXES.COMBAT_RAID, "quantityPerBox": 1 }]
   },
   {
     "id": "161",
@@ -3352,7 +3356,7 @@ export const unDrones: Drone[] = [
     "move": 0,
     "stance": "offensive",
     "description": "",
-    "containedIn": [{ "box": BOXES.UN_DOORBREAKER, "quantityPerBox": 2 }]
+    "containedIn": [{ "box": BOXES.UN_DOORBREAKER, "quantityPerBox": 2 },{ "box": BOXES.COMBAT_RAID, "quantityPerBox": 1 }]
   },
   {
     "id": "162",
@@ -3379,7 +3383,7 @@ export const unDrones: Drone[] = [
     "parray": 0,
     "dodge": 5,
     "electronic": 2,
-    "type": "small",
+    "type": "medium",
     "move": 0,
     "stance": "offensive",
     "description": "",
@@ -3389,7 +3393,7 @@ export const unDrones: Drone[] = [
   {
     "id": "164",
     "name": "ADK60R Raven Scout Type",
-    "score": 33,
+    "score": 24,
     "structure": 0,
     "armor": 1,
     "parray": 0,
@@ -3404,7 +3408,7 @@ export const unDrones: Drone[] = [
   {
     "id": "165",
     "name": "ADK60EC Raven EC Type",
-    "score": 33,
+    "score": 24,
     "structure": 0,
     "armor": 1,
     "parray": 0,
@@ -3420,7 +3424,7 @@ export const unDrones: Drone[] = [
   {
     "id": "166",
     "name": "ADK60S Raven Interference Type",
-    "score": 51,
+    "score": 36,
     "structure": 0,
     "armor": 1,
     "parray": 0,
@@ -3579,7 +3583,7 @@ export const pdDrones: Drone[] = [
     "id": "PRDR-203",
     "name": "LD-5B Vigilant Bombing Type",
     "type": "medium",
-    "score": 45,
+    "score": 42,
     "structure": 0,
     "armor": 4,
     "parray": 0,
@@ -3598,7 +3602,7 @@ export const pdDrones: Drone[] = [
     "id": "PRDR-204",
     "name": "LD-5S Vigilant Support Type",
     "type": "medium",
-    "score": 48,
+    "score": 42,
     "structure": 0,
     "armor": 4,
     "parray": 0,
@@ -4180,7 +4184,8 @@ export const pdTorso: Part[] = [
     "projectile": ["288"],
     "isPD": true,
     "containedIn": [{ "box": BOXES.LAB_WHITE_DWARF, "quantityPerBox": 1 }],
-  }, {
+  },
+  {
     "id": "547",
     "name": "H2-B Crisis II",
     "type": "torso",
@@ -4208,7 +4213,7 @@ export const pdChasis: Part[] = [
     "id": "289",
     "name": "ACE-001 White Chassis Part",
     "type": "chasis",
-    "score": 24,
+    "score": 54,
     "structure": 0,
     "armor": 4,
     "parray": 0,
@@ -4259,7 +4264,7 @@ export const pdLeftHand: Part[] = [{
   "id": "291",
   "name": "ACE-001 White Left Arm Part",
   "type": "leftHand",
-  "score": 57,
+  "score": 67,
   "structure": 0,
   "armor": 4,
   "parray": 0,
@@ -7453,7 +7458,8 @@ export const unProjectiles: Projectile[] = [
         "yellowDice": 0,
         "redDice": 0
       }
-    ]
+    ],
+     "isCardModified": true
   },
   {
     "id": "156",

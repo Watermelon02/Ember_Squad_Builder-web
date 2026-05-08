@@ -41,7 +41,7 @@ const ListPanelMobile: React.FC<ListPanelMobileProps> = ({
   onSetShowKeyword,
 }) => {
   return (
-    <div className="min-h-0 flex flex-col" style={{ height: '100%' }}>
+    <div className="flex flex-col" style={{ height: '100%',overflow: 'hidden',  backgroundColor: 'var(--background)' }}>
       {/* 头部：搜索、排序和过滤选项 - 应用 Glassmorphism 样式 */}
       <div
         className="space-y-4 flex-shrink-0"
@@ -133,12 +133,7 @@ const ListPanelMobile: React.FC<ListPanelMobileProps> = ({
       </div>
 
       {/* 内部列表内容区域（灵活）*/}
-      <div
-        className="flex-1 min-h-0"
-        style={{
-          backgroundColor: 'transparent',
-        }}
-      >
+      <div className="flex-1 min-h-0" style={{ backgroundColor: 'var(--background)' }}>
         {children}
       </div>
     </div>

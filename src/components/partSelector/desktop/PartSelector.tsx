@@ -7,7 +7,7 @@ import { Part, Drone, Pilot, Team, TacticCard } from '../../../data/types';
 import { AnimatePresence, motion } from 'framer-motion';
 import { getAllDroneRemainingCounts, getAllPartRemainingCounts, getDroneRemainingCount } from '../../../util/BoxContentUtil';
 import { DRONE_SHARED_POOLS, getPoolId } from '../../../data/dronePools';
-import { IMAGE_PILOT_VERSION, TAB_DRONE_VERSION, TAB_PART_VERSION } from '../../../data/resource';
+import { IMAGE_PILOT_VERSION, TAB_DRONE_VERSION, TAB_PART_VERSION, TAB_PILOT_VERSION } from '../../../data/resource';
 
 
 interface PartSelectorProps {
@@ -338,6 +338,33 @@ export function PartSelector({
                             backgroundColor: inventoryMode && isOutOfStock ? '#f3f4f6' : 'inherit',
                           }}
                         >
+                          {/* 与实体卡面相比，进行过属性修改*/}
+                          {part.isCardModified && (
+                            <div
+                              className="group"
+                              style={{
+                                position: 'absolute',
+                                top: 0,
+                                left: 0,
+                                width: 0,
+                                height: 0,
+                                borderStyle: 'solid',
+                                borderWidth: '28px 28px 0 0',
+                                borderColor: '#FACC15 transparent transparent transparent',
+                                zIndex: 10,
+                              }}
+                            >
+                              <svg
+                                width="2vh"
+                                height="2vh"
+                                viewBox="0 0 24 24"
+                                fill="white"
+                                style={{ position: 'absolute', top: -26, left: 2 }}
+                              >
+                                <path d="M13.586 3.586a2 2 0 1 1 2.828 2.828l-.793.793-2.828-2.828.793-.793zM11.379 5.793 3 14.172V17h2.828l8.38-8.379-2.83-2.828z" />
+                              </svg>
+                            </div>
+                          )}
                           {/* 背景图层 - 没货时进一步淡化 */}
                           {(part.hasImage === undefined || part.hasImage) ? (
                             <div
@@ -566,7 +593,7 @@ export function PartSelector({
                   <div
                     className="absolute inset-0 bg-cover bg-left-top"
                     style={{
-                      backgroundImage: `url(${tabsrc}/${pilot.id}.webp?v=${IMAGE_PILOT_VERSION})`,
+                      backgroundImage: `url(${tabsrc}/${pilot.id}.webp?v=${TAB_PILOT_VERSION})`,
                       backgroundSize: 'contain',
                       backgroundRepeat: 'no-repeat',
                       backgroundPosition: 'right top',

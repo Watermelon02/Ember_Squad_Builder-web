@@ -59,7 +59,7 @@ export const TournamentView: React.FC<TournamentViewProps> = ({
 
   // ── 文案 ──
   const T = {
-    title: L(lang, '比赛进度', 'Tournament', '大会進行'),
+    title: L(lang, '「马蒂尼杯」比赛进度', 'Tournament', '大会進行'),
     back:  L(lang, '返回', 'Back', '戻る'),
     elim:  L(lang, '淘汰赛', 'Bracket', '決勝T'),
     swiss: L(lang, '瑞士轮', 'Swiss', 'スイス'),

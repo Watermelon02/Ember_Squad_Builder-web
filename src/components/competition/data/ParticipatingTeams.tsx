@@ -8530,2722 +8530,2233 @@ export const PARTICIPATING_TOURNAMENT_TEAMS: (TournamentTeam)[] = [
         }
     },
     {
-  "userQQ": "1446157077",
-  "userName": "ai1wei2xi3",
-  "team1": {
-    "id": "1775635395533",
-    "name": "新小队",
-    "faction": "RDL",
-    "mechs": [
-      {
-        "id": "1775635397718",
-        "name": "新机体",
-        "parts": {
-          "rightHand": {
-            "id": "027",
-            "name": "AC-32M射手步枪",
-            "type": "rightHand",
-            "score": 33,
-            "armor": 4,
-            "structure": 0,
-            "parray": 0,
-            "dodge": 0,
-            "electronic": 0,
-            "move": 0,
-            "description": "",
-            "throwIndex": "28",
-            "keywords": [],
-            "action": [
-              {
-                "id": "27_A",
-                "name": "点射",
-                "description": "·【双手】+2射程。\r\n· {眼睛}视为{2轻击}。",
-                "type": "Firing",
-                "size": "m",
-                "range": 6,
-                "storage": 0,
-                "yellowDice": 1,
-                "redDice": 3
-              }
-            ],
-            "projectile": [],
-            "isPD": false,
-            "containedIn": [
-              {
-                "box": {
-                  "id": 19,
-                  "faction": [
-                    "RDL",
-                    "UN"
-                  ],
-                  "name": {
-                    "zh": "游戏包",
-                    "en": "Game Pack",
-                    "jp": "ゲームパック"
-                  },
-                  "hasImage": true
+        "userQQ": "1446157077",
+        "userName": "ai1wei2xi3",
+        "team1": {
+  "id": "1775635395533",
+  "name": "新小队",
+  "faction": "RDL",
+  "mechs": [
+    {
+      "id": "1775659833321",
+      "name": "新机体 副本 副本",
+      "parts": {
+        "rightHand": {
+          "id": "027",
+          "name": "AC-32M射手步枪",
+          "type": "rightHand",
+          "score": 33,
+          "armor": 4,
+          "structure": 0,
+          "parray": 0,
+          "dodge": 0,
+          "electronic": 0,
+          "move": 0,
+          "description": "",
+          "throwIndex": "28",
+          "keywords": [],
+          "action": [
+            {
+              "id": "27_A",
+              "name": "点射",
+              "description": "·【双手】+2射程。\r\n· {眼睛}视为{2轻击}。",
+              "type": "Firing",
+              "size": "m",
+              "range": 6,
+              "storage": 0,
+              "yellowDice": 1,
+              "redDice": 3
+            }
+          ],
+          "projectile": [],
+          "isPD": false,
+          "containedIn": [
+            {
+              "box": {
+                "id": 19,
+                "faction": [
+                  "RDL",
+                  "UN"
+                ],
+                "name": {
+                  "zh": "游戏包",
+                  "en": "Game Pack",
+                  "jp": "ゲームパック"
                 },
-                "quantityPerBox": 2
-              }
-            ]
-          },
-          "torso": {
-            "id": "019",
-            "name": "RT-15C  冰川  突击核心",
-            "score": 56,
-            "structure": 4,
-            "armor": 5,
-            "parray": 0,
-            "dodge": 1,
-            "electronic": 2,
-            "type": "torso",
-            "description": "",
-            "imgSrc": "",
-            "tags": [],
-            "projectile": [
-              "268"
-            ],
-            "keywords": [
-              {
-                "name": "直射",
-                "value": "本动作需要对落点或目标有视线。"
-              }
-            ],
-            "containedIn": [
-              {
-                "box": {
-                  "id": 2,
-                  "faction": [
-                    "RDL"
-                  ],
-                  "name": {
-                    "zh": "铁骑",
-                    "en": "Cavalry",
-                    "jp": "カブリ"
-                  },
-                  "hasImage": true
-                },
-                "quantityPerBox": 1
-              }
-            ]
-          },
-          "leftHand": {
-            "id": "299",
-            "name": "ML-32B双联发射器 + CC-3格斗刀",
-            "type": "leftHand",
-            "score": 33,
-            "armor": 4,
-            "structure": 0,
-            "parray": 1,
-            "dodge": 0,
-            "electronic": 0,
-            "move": 0,
-            "description": "",
-            "containedIn": [
-              {
-                "box": {
-                  "id": 19,
-                  "faction": [
-                    "RDL",
-                    "UN"
-                  ],
-                  "name": {
-                    "zh": "游戏包",
-                    "en": "Game Pack",
-                    "jp": "ゲームパック"
-                  },
-                  "hasImage": true
-                },
-                "quantityPerBox": 2
-              }
-            ],
-            "keywords": [
-              {
-                "name": "空手",
-                "value": ""
-              }
-            ],
-            "action": [
-              {
-                "id": "299_A",
-                "name": "刺击",
-                "description": "",
-                "type": "Melee",
-                "size": "s",
-                "range": -1,
-                "storage": 0,
-                "yellowDice": 3,
-                "redDice": 1
+                "hasImage": true
               },
-              {
-                "id": "299_B",
-                "name": "导弹",
-                "description": " · 曲射\r\n· 发射1枚MC-3“利剑”导弹。",
-                "type": "Projectile",
-                "size": "s",
-                "range": 3,
-                "storage": 2,
-                "yellowDice": 0,
-                "redDice": 0
-              }
-            ],
-            "projectile": [
-              "071"
-            ],
-            "isPD": false
-          },
-          "backpack": {
-            "id": "011",
-            "name": "ML-92双联导弹包",
-            "score": 20,
-            "structure": 0,
-            "armor": 3,
-            "parray": 0,
-            "dodge": 0,
-            "electronic": 0,
-            "type": "backpack",
-            "description": "",
-            "imgSrc": "",
-            "tags": [],
-            "projectile": [
-              "073"
-            ],
-            "keywords": [
-              {
-                "name": "齐射X",
-                "value": "发射或布撒最多X枚抛射物，并消耗同等数量的弹药标记。"
-              },
-              {
-                "name": "曲射",
-                "value": "本动作不需要对落点或目标有视线。"
-              }
-            ],
-            "containedIn": [
-              {
-                "box": {
-                  "id": 2,
-                  "faction": [
-                    "RDL"
-                  ],
-                  "name": {
-                    "zh": "铁骑",
-                    "en": "Cavalry",
-                    "jp": "カブリ"
-                  },
-                  "hasImage": true
-                },
-                "quantityPerBox": 1
-              }
-            ]
-          },
-          "chasis": {
-            "id": "534",
-            "name": "RL-08C\r\n 重甲下肢",
-            "type": "chasis",
-            "score": 24,
-            "armor": 5,
-            "structure": 1,
-            "parray": 0,
-            "dodge": 3,
-            "electronic": 0,
-            "move": 1,
-            "description": "",
-            "keywords": [],
-            "action": [
-              {
-                "id": "534_A",
-                "name": "奔跑",
-                "description": "",
-                "type": "Moving",
-                "size": "m",
-                "range": 4,
-                "storage": 0,
-                "yellowDice": 0,
-                "redDice": 0
-              }
-            ],
-            "projectile": [],
-            "isPD": false,
-            "containedIn": [
-              {
-                "box": {
-                  "id": 18,
-                  "faction": [
-                    "RDL",
-                    "UN"
-                  ],
-                  "name": {
-                    "zh": "对战包-突袭",
-                    "en": "Combat Pack Raid",
-                    "jp": "コンバットレイド"
-                  },
-                  "hasImage": true
-                },
-                "quantityPerBox": 1
-              }
-            ]
-          }
+              "quantityPerBox": 2
+            }
+          ]
         },
-        "pilot": {
-          "id": "FPA-04-2",
-          "name": "锤头鲨-内务能手",
-          "score": 18,
-          "LV": 4,
-          "faction": "RDL",
-          "swift": 4,
-          "melee": 3,
-          "projectile": 2,
-          "firing": 5,
-          "moving": 2,
-          "tactic": 6,
-          "trait": "除虫",
-          "traitDescription": "· 【攻击姿态】当本机获得行动机会时，可最多消耗1点链接值以获得1个动作时点。",
-          "box": {
-            "id": 18,
-            "faction": [
-              "RDL",
-              "UN"
-            ],
-            "name": {
-              "zh": "对战包-突袭",
-              "en": "Combat Pack Raid",
-              "jp": "コンバットレイド"
+        "torso": {
+          "id": "287",
+          "name": "ACE-001 「ホワイトドワーフ」コアパーツ",
+          "type": "torso",
+          "score": 72,
+          "structure": 3,
+          "armor": 5,
+          "parray": 0,
+          "dodge": 1,
+          "electronic": 3,
+          "description": "",
+          "projectile": [
+            "288"
+          ],
+          "isPD": true,
+          "hasImage": true,
+          "keywords": [],
+          "containedIn": [
+            {
+              "box": {
+                "id": 11,
+                "faction": [
+                  "COLLABORATION"
+                ],
+                "name": {
+                  "zh": "白矮星",
+                  "en": "White Dwarf",
+                  "jp": "ホワイトドワーフ"
+                },
+                "hasImage": true
+              },
+              "quantityPerBox": 1
+            }
+          ]
+        },
+        "leftHand": {
+          "id": "299",
+          "name": "ML-32B双联发射器 + CC-3格斗刀",
+          "type": "leftHand",
+          "score": 33,
+          "armor": 4,
+          "structure": 0,
+          "parray": 1,
+          "dodge": 0,
+          "electronic": 0,
+          "move": 0,
+          "description": "",
+          "containedIn": [
+            {
+              "box": {
+                "id": 19,
+                "faction": [
+                  "RDL",
+                  "UN"
+                ],
+                "name": {
+                  "zh": "游戏包",
+                  "en": "Game Pack",
+                  "jp": "ゲームパック"
+                },
+                "hasImage": true
+              },
+              "quantityPerBox": 2
+            }
+          ],
+          "keywords": [
+            {
+              "name": "空手",
+              "value": ""
+            }
+          ],
+          "action": [
+            {
+              "id": "299_A",
+              "name": "刺击",
+              "description": "",
+              "type": "Melee",
+              "size": "s",
+              "range": -1,
+              "storage": 0,
+              "yellowDice": 3,
+              "redDice": 1
             },
-            "hasImage": true
-          }
+            {
+              "id": "299_B",
+              "name": "导弹",
+              "description": " · 曲射\r\n· 发射1枚MC-3“利剑”导弹。",
+              "type": "Projectile",
+              "size": "s",
+              "range": 3,
+              "storage": 2,
+              "yellowDice": 0,
+              "redDice": 0
+            }
+          ],
+          "projectile": [
+            "071"
+          ],
+          "isPD": false
+        },
+        "backpack": {
+          "id": "011",
+          "name": "ML-92双联导弹包",
+          "score": 20,
+          "structure": 0,
+          "armor": 3,
+          "parray": 0,
+          "dodge": 0,
+          "electronic": 0,
+          "type": "backpack",
+          "description": "",
+          "imgSrc": "",
+          "tags": [],
+          "projectile": [
+            "073"
+          ],
+          "keywords": [
+            {
+              "name": "齐射X",
+              "value": "发射或布撒最多X枚抛射物，并消耗同等数量的弹药标记。"
+            },
+            {
+              "name": "曲射",
+              "value": "本动作不需要对落点或目标有视线。"
+            }
+          ],
+          "containedIn": [
+            {
+              "box": {
+                "id": 2,
+                "faction": [
+                  "RDL"
+                ],
+                "name": {
+                  "zh": "铁骑",
+                  "en": "Cavalry",
+                  "jp": "カブリ"
+                },
+                "hasImage": true
+              },
+              "quantityPerBox": 1
+            }
+          ]
+        },
+        "chasis": {
+          "id": "289",
+          "name": " ACE-001 「ホワイトドワーフ」下肢パーツ",
+          "type": "chasis",
+          "score": 24,
+          "structure": 0,
+          "armor": 4,
+          "parray": 0,
+          "dodge": 3,
+          "electronic": 0,
+          "description": "",
+          "isPD": true,
+          "hasImage": true,
+          "keywords": [],
+          "containedIn": [
+            {
+              "box": {
+                "id": 11,
+                "faction": [
+                  "COLLABORATION"
+                ],
+                "name": {
+                  "zh": "白矮星",
+                  "en": "White Dwarf",
+                  "jp": "ホワイトドワーフ"
+                },
+                "hasImage": true
+              },
+              "quantityPerBox": 1
+            }
+          ]
         }
       },
-      {
-        "id": "1775659829839",
-        "name": "新机体 副本",
-        "parts": {
-          "rightHand": {
-            "id": "027",
-            "name": "AC-32M射手步枪",
-            "type": "rightHand",
-            "score": 33,
-            "armor": 4,
-            "structure": 0,
-            "parray": 0,
-            "dodge": 0,
-            "electronic": 0,
-            "move": 0,
-            "description": "",
-            "throwIndex": "28",
-            "keywords": [],
-            "action": [
-              {
-                "id": "27_A",
-                "name": "点射",
-                "description": "·【双手】+2射程。\r\n· {眼睛}视为{2轻击}。",
-                "type": "Firing",
-                "size": "m",
-                "range": 6,
-                "storage": 0,
-                "yellowDice": 1,
-                "redDice": 3
-              }
-            ],
-            "projectile": [],
-            "isPD": false,
-            "containedIn": [
-              {
-                "box": {
-                  "id": 19,
-                  "faction": [
-                    "RDL",
-                    "UN"
-                  ],
-                  "name": {
-                    "zh": "游戏包",
-                    "en": "Game Pack",
-                    "jp": "ゲームパック"
-                  },
-                  "hasImage": true
-                },
-                "quantityPerBox": 2
-              }
-            ]
+      "pilot": {
+        "id": "ACE-01",
+        "name": "Karl·Fried",
+        "score": 15,
+        "LV": 4,
+        "faction": "PD",
+        "swift": 5,
+        "melee": 7,
+        "projectile": 6,
+        "firing": 3,
+        "moving": 8,
+        "tactic": 6,
+        "trait": "Synesthesia",
+        "traitDescription": "· When a \"White Dwarf\" Bit performs a roll, it may consume Link from this Mech to re-roll.",
+        "box": {
+          "id": 11,
+          "faction": [
+            "COLLABORATION"
+          ],
+          "name": {
+            "zh": "白矮星",
+            "en": "White Dwarf",
+            "jp": "ホワイトドワーフ"
           },
-          "torso": {
-            "id": "019",
-            "name": "RT-15C  冰川  突击核心",
-            "score": 56,
-            "structure": 4,
-            "armor": 5,
-            "parray": 0,
-            "dodge": 1,
-            "electronic": 2,
-            "type": "torso",
-            "description": "",
-            "imgSrc": "",
-            "tags": [],
-            "projectile": [
-              "268"
-            ],
-            "keywords": [
-              {
-                "name": "直射",
-                "value": "本动作需要对落点或目标有视线。"
-              }
-            ],
-            "containedIn": [
-              {
-                "box": {
-                  "id": 2,
-                  "faction": [
-                    "RDL"
-                  ],
-                  "name": {
-                    "zh": "铁骑",
-                    "en": "Cavalry",
-                    "jp": "カブリ"
-                  },
-                  "hasImage": true
-                },
-                "quantityPerBox": 1
-              }
-            ]
-          },
-          "leftHand": {
-            "id": "299",
-            "name": "ML-32B双联发射器 + CC-3格斗刀",
-            "type": "leftHand",
-            "score": 33,
-            "armor": 4,
-            "structure": 0,
-            "parray": 1,
-            "dodge": 0,
-            "electronic": 0,
-            "move": 0,
-            "description": "",
-            "containedIn": [
-              {
-                "box": {
-                  "id": 19,
-                  "faction": [
-                    "RDL",
-                    "UN"
-                  ],
-                  "name": {
-                    "zh": "游戏包",
-                    "en": "Game Pack",
-                    "jp": "ゲームパック"
-                  },
-                  "hasImage": true
-                },
-                "quantityPerBox": 2
-              }
-            ],
-            "keywords": [
-              {
-                "name": "空手",
-                "value": ""
-              }
-            ],
-            "action": [
-              {
-                "id": "299_A",
-                "name": "刺击",
-                "description": "",
-                "type": "Melee",
-                "size": "s",
-                "range": -1,
-                "storage": 0,
-                "yellowDice": 3,
-                "redDice": 1
-              },
-              {
-                "id": "299_B",
-                "name": "导弹",
-                "description": " · 曲射\r\n· 发射1枚MC-3“利剑”导弹。",
-                "type": "Projectile",
-                "size": "s",
-                "range": 3,
-                "storage": 2,
-                "yellowDice": 0,
-                "redDice": 0
-              }
-            ],
-            "projectile": [
-              "071"
-            ],
-            "isPD": false
-          },
-          "backpack": {
-            "id": "011",
-            "name": "ML-92双联导弹包",
-            "score": 20,
-            "structure": 0,
-            "armor": 3,
-            "parray": 0,
-            "dodge": 0,
-            "electronic": 0,
-            "type": "backpack",
-            "description": "",
-            "imgSrc": "",
-            "tags": [],
-            "projectile": [
-              "073"
-            ],
-            "keywords": [
-              {
-                "name": "齐射X",
-                "value": "发射或布撒最多X枚抛射物，并消耗同等数量的弹药标记。"
-              },
-              {
-                "name": "曲射",
-                "value": "本动作不需要对落点或目标有视线。"
-              }
-            ],
-            "containedIn": [
-              {
-                "box": {
-                  "id": 2,
-                  "faction": [
-                    "RDL"
-                  ],
-                  "name": {
-                    "zh": "铁骑",
-                    "en": "Cavalry",
-                    "jp": "カブリ"
-                  },
-                  "hasImage": true
-                },
-                "quantityPerBox": 1
-              }
-            ]
-          },
-          "chasis": {
-            "id": "534",
-            "name": "RL-08C\r\n 重甲下肢",
-            "type": "chasis",
-            "score": 24,
-            "armor": 5,
-            "structure": 1,
-            "parray": 0,
-            "dodge": 3,
-            "electronic": 0,
-            "move": 1,
-            "description": "",
-            "keywords": [],
-            "action": [
-              {
-                "id": "534_A",
-                "name": "奔跑",
-                "description": "",
-                "type": "Moving",
-                "size": "m",
-                "range": 4,
-                "storage": 0,
-                "yellowDice": 0,
-                "redDice": 0
-              }
-            ],
-            "projectile": [],
-            "isPD": false,
-            "containedIn": [
-              {
-                "box": {
-                  "id": 18,
-                  "faction": [
-                    "RDL",
-                    "UN"
-                  ],
-                  "name": {
-                    "zh": "对战包-突袭",
-                    "en": "Combat Pack Raid",
-                    "jp": "コンバットレイド"
-                  },
-                  "hasImage": true
-                },
-                "quantityPerBox": 1
-              }
-            ]
-          }
-        },
-        "pilot": {
-          "id": "FPA-05",
-          "name": "灰雁",
-          "score": 15,
-          "LV": 4,
-          "faction": "RDL",
-          "swift": 5,
-          "melee": 6,
-          "projectile": 9,
-          "firing": 3,
-          "moving": 8,
-          "tactic": 4,
-          "trait": "不竭",
-          "traitDescription": "· 本机的下肢如果没有结构值，则视为拥有2点结构值。",
-          "box": {
-            "id": 2,
-            "faction": [
-              "RDL"
-            ],
-            "name": {
-              "zh": "铁骑",
-              "en": "Cavalry",
-              "jp": "カブリ"
-            },
-            "hasImage": true
-          }
-        }
-      },
-      {
-        "id": "1775659833321",
-        "name": "新机体 副本 副本",
-        "parts": {
-          "rightHand": {
-            "id": "027",
-            "name": "AC-32M射手步枪",
-            "type": "rightHand",
-            "score": 33,
-            "armor": 4,
-            "structure": 0,
-            "parray": 0,
-            "dodge": 0,
-            "electronic": 0,
-            "move": 0,
-            "description": "",
-            "throwIndex": "28",
-            "keywords": [],
-            "action": [
-              {
-                "id": "27_A",
-                "name": "点射",
-                "description": "·【双手】+2射程。\r\n· {眼睛}视为{2轻击}。",
-                "type": "Firing",
-                "size": "m",
-                "range": 6,
-                "storage": 0,
-                "yellowDice": 1,
-                "redDice": 3
-              }
-            ],
-            "projectile": [],
-            "isPD": false,
-            "containedIn": [
-              {
-                "box": {
-                  "id": 19,
-                  "faction": [
-                    "RDL",
-                    "UN"
-                  ],
-                  "name": {
-                    "zh": "游戏包",
-                    "en": "Game Pack",
-                    "jp": "ゲームパック"
-                  },
-                  "hasImage": true
-                },
-                "quantityPerBox": 2
-              }
-            ]
-          },
-          "torso": {
-            "id": "019",
-            "name": "RT-15C  冰川  突击核心",
-            "score": 56,
-            "structure": 4,
-            "armor": 5,
-            "parray": 0,
-            "dodge": 1,
-            "electronic": 2,
-            "type": "torso",
-            "description": "",
-            "imgSrc": "",
-            "tags": [],
-            "projectile": [
-              "268"
-            ],
-            "keywords": [
-              {
-                "name": "直射",
-                "value": "本动作需要对落点或目标有视线。"
-              }
-            ],
-            "containedIn": [
-              {
-                "box": {
-                  "id": 2,
-                  "faction": [
-                    "RDL"
-                  ],
-                  "name": {
-                    "zh": "铁骑",
-                    "en": "Cavalry",
-                    "jp": "カブリ"
-                  },
-                  "hasImage": true
-                },
-                "quantityPerBox": 1
-              }
-            ]
-          },
-          "leftHand": {
-            "id": "299",
-            "name": "ML-32B双联发射器 + CC-3格斗刀",
-            "type": "leftHand",
-            "score": 33,
-            "armor": 4,
-            "structure": 0,
-            "parray": 1,
-            "dodge": 0,
-            "electronic": 0,
-            "move": 0,
-            "description": "",
-            "containedIn": [
-              {
-                "box": {
-                  "id": 19,
-                  "faction": [
-                    "RDL",
-                    "UN"
-                  ],
-                  "name": {
-                    "zh": "游戏包",
-                    "en": "Game Pack",
-                    "jp": "ゲームパック"
-                  },
-                  "hasImage": true
-                },
-                "quantityPerBox": 2
-              }
-            ],
-            "keywords": [
-              {
-                "name": "空手",
-                "value": ""
-              }
-            ],
-            "action": [
-              {
-                "id": "299_A",
-                "name": "刺击",
-                "description": "",
-                "type": "Melee",
-                "size": "s",
-                "range": -1,
-                "storage": 0,
-                "yellowDice": 3,
-                "redDice": 1
-              },
-              {
-                "id": "299_B",
-                "name": "导弹",
-                "description": " · 曲射\r\n· 发射1枚MC-3“利剑”导弹。",
-                "type": "Projectile",
-                "size": "s",
-                "range": 3,
-                "storage": 2,
-                "yellowDice": 0,
-                "redDice": 0
-              }
-            ],
-            "projectile": [
-              "071"
-            ],
-            "isPD": false
-          },
-          "backpack": {
-            "id": "011",
-            "name": "ML-92双联导弹包",
-            "score": 20,
-            "structure": 0,
-            "armor": 3,
-            "parray": 0,
-            "dodge": 0,
-            "electronic": 0,
-            "type": "backpack",
-            "description": "",
-            "imgSrc": "",
-            "tags": [],
-            "projectile": [
-              "073"
-            ],
-            "keywords": [
-              {
-                "name": "齐射X",
-                "value": "发射或布撒最多X枚抛射物，并消耗同等数量的弹药标记。"
-              },
-              {
-                "name": "曲射",
-                "value": "本动作不需要对落点或目标有视线。"
-              }
-            ],
-            "containedIn": [
-              {
-                "box": {
-                  "id": 2,
-                  "faction": [
-                    "RDL"
-                  ],
-                  "name": {
-                    "zh": "铁骑",
-                    "en": "Cavalry",
-                    "jp": "カブリ"
-                  },
-                  "hasImage": true
-                },
-                "quantityPerBox": 1
-              }
-            ]
-          },
-          "chasis": {
-            "id": "534",
-            "name": "RL-08C\r\n 重甲下肢",
-            "type": "chasis",
-            "score": 24,
-            "armor": 5,
-            "structure": 1,
-            "parray": 0,
-            "dodge": 3,
-            "electronic": 0,
-            "move": 1,
-            "description": "",
-            "keywords": [],
-            "action": [
-              {
-                "id": "534_A",
-                "name": "奔跑",
-                "description": "",
-                "type": "Moving",
-                "size": "m",
-                "range": 4,
-                "storage": 0,
-                "yellowDice": 0,
-                "redDice": 0
-              }
-            ],
-            "projectile": [],
-            "isPD": false,
-            "containedIn": [
-              {
-                "box": {
-                  "id": 18,
-                  "faction": [
-                    "RDL",
-                    "UN"
-                  ],
-                  "name": {
-                    "zh": "对战包-突袭",
-                    "en": "Combat Pack Raid",
-                    "jp": "コンバットレイド"
-                  },
-                  "hasImage": true
-                },
-                "quantityPerBox": 1
-              }
-            ]
-          }
-        },
-        "pilot": {
-          "id": "FPA-03",
-          "name": "无霜",
-          "score": 12,
-          "LV": 4,
-          "faction": "RDL",
-          "swift": 6,
-          "melee": 2,
-          "projectile": 3,
-          "firing": 7,
-          "moving": 4,
-          "tactic": 4,
-          "trait": "坚毅",
-          "traitDescription": "· 本机部件被摧毁时，不扣除链接值。",
-          "box": {
-            "id": 3,
-            "faction": [
-              "RDL"
-            ],
-            "name": {
-              "zh": "重金属",
-              "en": "Heavy Metal",
-              "jp": "ヘビーメタル"
-            },
-            "hasImage": true
-          }
-        }
-      },
-      {
-        "id": "1775659839505",
-        "name": "新机体 副本 副本 副本",
-        "parts": {
-          "rightHand": {
-            "id": "027",
-            "name": "AC-32M射手步枪",
-            "type": "rightHand",
-            "score": 33,
-            "armor": 4,
-            "structure": 0,
-            "parray": 0,
-            "dodge": 0,
-            "electronic": 0,
-            "move": 0,
-            "description": "",
-            "throwIndex": "28",
-            "keywords": [],
-            "action": [
-              {
-                "id": "27_A",
-                "name": "点射",
-                "description": "·【双手】+2射程。\r\n· {眼睛}视为{2轻击}。",
-                "type": "Firing",
-                "size": "m",
-                "range": 6,
-                "storage": 0,
-                "yellowDice": 1,
-                "redDice": 3
-              }
-            ],
-            "projectile": [],
-            "isPD": false,
-            "containedIn": [
-              {
-                "box": {
-                  "id": 19,
-                  "faction": [
-                    "RDL",
-                    "UN"
-                  ],
-                  "name": {
-                    "zh": "游戏包",
-                    "en": "Game Pack",
-                    "jp": "ゲームパック"
-                  },
-                  "hasImage": true
-                },
-                "quantityPerBox": 2
-              }
-            ]
-          },
-          "torso": {
-            "id": "019",
-            "name": "RT-15C  冰川  突击核心",
-            "score": 56,
-            "structure": 4,
-            "armor": 5,
-            "parray": 0,
-            "dodge": 1,
-            "electronic": 2,
-            "type": "torso",
-            "description": "",
-            "imgSrc": "",
-            "tags": [],
-            "projectile": [
-              "268"
-            ],
-            "keywords": [
-              {
-                "name": "直射",
-                "value": "本动作需要对落点或目标有视线。"
-              }
-            ],
-            "containedIn": [
-              {
-                "box": {
-                  "id": 2,
-                  "faction": [
-                    "RDL"
-                  ],
-                  "name": {
-                    "zh": "铁骑",
-                    "en": "Cavalry",
-                    "jp": "カブリ"
-                  },
-                  "hasImage": true
-                },
-                "quantityPerBox": 1
-              }
-            ]
-          },
-          "leftHand": {
-            "id": "299",
-            "name": "ML-32B双联发射器 + CC-3格斗刀",
-            "type": "leftHand",
-            "score": 33,
-            "armor": 4,
-            "structure": 0,
-            "parray": 1,
-            "dodge": 0,
-            "electronic": 0,
-            "move": 0,
-            "description": "",
-            "containedIn": [
-              {
-                "box": {
-                  "id": 19,
-                  "faction": [
-                    "RDL",
-                    "UN"
-                  ],
-                  "name": {
-                    "zh": "游戏包",
-                    "en": "Game Pack",
-                    "jp": "ゲームパック"
-                  },
-                  "hasImage": true
-                },
-                "quantityPerBox": 2
-              }
-            ],
-            "keywords": [
-              {
-                "name": "空手",
-                "value": ""
-              }
-            ],
-            "action": [
-              {
-                "id": "299_A",
-                "name": "刺击",
-                "description": "",
-                "type": "Melee",
-                "size": "s",
-                "range": -1,
-                "storage": 0,
-                "yellowDice": 3,
-                "redDice": 1
-              },
-              {
-                "id": "299_B",
-                "name": "导弹",
-                "description": " · 曲射\r\n· 发射1枚MC-3“利剑”导弹。",
-                "type": "Projectile",
-                "size": "s",
-                "range": 3,
-                "storage": 2,
-                "yellowDice": 0,
-                "redDice": 0
-              }
-            ],
-            "projectile": [
-              "071"
-            ],
-            "isPD": false
-          },
-          "backpack": {
-            "id": "011",
-            "name": "ML-92双联导弹包",
-            "score": 20,
-            "structure": 0,
-            "armor": 3,
-            "parray": 0,
-            "dodge": 0,
-            "electronic": 0,
-            "type": "backpack",
-            "description": "",
-            "imgSrc": "",
-            "tags": [],
-            "projectile": [
-              "073"
-            ],
-            "keywords": [
-              {
-                "name": "齐射X",
-                "value": "发射或布撒最多X枚抛射物，并消耗同等数量的弹药标记。"
-              },
-              {
-                "name": "曲射",
-                "value": "本动作不需要对落点或目标有视线。"
-              }
-            ],
-            "containedIn": [
-              {
-                "box": {
-                  "id": 2,
-                  "faction": [
-                    "RDL"
-                  ],
-                  "name": {
-                    "zh": "铁骑",
-                    "en": "Cavalry",
-                    "jp": "カブリ"
-                  },
-                  "hasImage": true
-                },
-                "quantityPerBox": 1
-              }
-            ]
-          },
-          "chasis": {
-            "id": "534",
-            "name": "RL-08C\r\n 重甲下肢",
-            "type": "chasis",
-            "score": 24,
-            "armor": 5,
-            "structure": 1,
-            "parray": 0,
-            "dodge": 3,
-            "electronic": 0,
-            "move": 1,
-            "description": "",
-            "keywords": [],
-            "action": [
-              {
-                "id": "534_A",
-                "name": "奔跑",
-                "description": "",
-                "type": "Moving",
-                "size": "m",
-                "range": 4,
-                "storage": 0,
-                "yellowDice": 0,
-                "redDice": 0
-              }
-            ],
-            "projectile": [],
-            "isPD": false,
-            "containedIn": [
-              {
-                "box": {
-                  "id": 18,
-                  "faction": [
-                    "RDL",
-                    "UN"
-                  ],
-                  "name": {
-                    "zh": "对战包-突袭",
-                    "en": "Combat Pack Raid",
-                    "jp": "コンバットレイド"
-                  },
-                  "hasImage": true
-                },
-                "quantityPerBox": 1
-              }
-            ]
-          }
-        },
-        "pilot": {
-          "id": "FPA-02",
-          "name": "长钉",
-          "score": 15,
-          "LV": 4,
-          "faction": "RDL",
-          "swift": 3,
-          "melee": 7,
-          "projectile": 6,
-          "firing": 2,
-          "moving": 5,
-          "tactic": 5,
-          "trait": "鹰眼",
-          "traitDescription": "· 执行射击动作时获得穿甲1。",
-          "box": {
-            "id": 1,
-            "faction": [
-              "RDL"
-            ],
-            "name": {
-              "zh": "核心",
-              "en": "Core",
-              "jp": "コア"
-            },
-            "hasImage": true
-          }
-        }
-      },
-      {
-        "id": "1775659843938",
-        "name": "新机体 副本 副本 副本 副本",
-        "parts": {
-          "rightHand": {
-            "id": "027",
-            "name": "AC-32M射手步枪",
-            "type": "rightHand",
-            "score": 33,
-            "armor": 4,
-            "structure": 0,
-            "parray": 0,
-            "dodge": 0,
-            "electronic": 0,
-            "move": 0,
-            "description": "",
-            "throwIndex": "28",
-            "keywords": [],
-            "action": [
-              {
-                "id": "27_A",
-                "name": "点射",
-                "description": "·【双手】+2射程。\r\n· {眼睛}视为{2轻击}。",
-                "type": "Firing",
-                "size": "m",
-                "range": 6,
-                "storage": 0,
-                "yellowDice": 1,
-                "redDice": 3
-              }
-            ],
-            "projectile": [],
-            "isPD": false,
-            "containedIn": [
-              {
-                "box": {
-                  "id": 19,
-                  "faction": [
-                    "RDL",
-                    "UN"
-                  ],
-                  "name": {
-                    "zh": "游戏包",
-                    "en": "Game Pack",
-                    "jp": "ゲームパック"
-                  },
-                  "hasImage": true
-                },
-                "quantityPerBox": 2
-              }
-            ]
-          },
-          "torso": {
-            "id": "019",
-            "name": "RT-15C  冰川  突击核心",
-            "score": 56,
-            "structure": 4,
-            "armor": 5,
-            "parray": 0,
-            "dodge": 1,
-            "electronic": 2,
-            "type": "torso",
-            "description": "",
-            "imgSrc": "",
-            "tags": [],
-            "projectile": [
-              "268"
-            ],
-            "keywords": [
-              {
-                "name": "直射",
-                "value": "本动作需要对落点或目标有视线。"
-              }
-            ],
-            "containedIn": [
-              {
-                "box": {
-                  "id": 2,
-                  "faction": [
-                    "RDL"
-                  ],
-                  "name": {
-                    "zh": "铁骑",
-                    "en": "Cavalry",
-                    "jp": "カブリ"
-                  },
-                  "hasImage": true
-                },
-                "quantityPerBox": 1
-              }
-            ]
-          },
-          "leftHand": {
-            "id": "299",
-            "name": "ML-32B双联发射器 + CC-3格斗刀",
-            "type": "leftHand",
-            "score": 33,
-            "armor": 4,
-            "structure": 0,
-            "parray": 1,
-            "dodge": 0,
-            "electronic": 0,
-            "move": 0,
-            "description": "",
-            "containedIn": [
-              {
-                "box": {
-                  "id": 19,
-                  "faction": [
-                    "RDL",
-                    "UN"
-                  ],
-                  "name": {
-                    "zh": "游戏包",
-                    "en": "Game Pack",
-                    "jp": "ゲームパック"
-                  },
-                  "hasImage": true
-                },
-                "quantityPerBox": 2
-              }
-            ],
-            "keywords": [
-              {
-                "name": "空手",
-                "value": ""
-              }
-            ],
-            "action": [
-              {
-                "id": "299_A",
-                "name": "刺击",
-                "description": "",
-                "type": "Melee",
-                "size": "s",
-                "range": -1,
-                "storage": 0,
-                "yellowDice": 3,
-                "redDice": 1
-              },
-              {
-                "id": "299_B",
-                "name": "导弹",
-                "description": " · 曲射\r\n· 发射1枚MC-3“利剑”导弹。",
-                "type": "Projectile",
-                "size": "s",
-                "range": 3,
-                "storage": 2,
-                "yellowDice": 0,
-                "redDice": 0
-              }
-            ],
-            "projectile": [
-              "071"
-            ],
-            "isPD": false
-          },
-          "chasis": {
-            "id": "534",
-            "name": "RL-08C\r\n 重甲下肢",
-            "type": "chasis",
-            "score": 24,
-            "armor": 5,
-            "structure": 1,
-            "parray": 0,
-            "dodge": 3,
-            "electronic": 0,
-            "move": 1,
-            "description": "",
-            "keywords": [],
-            "action": [
-              {
-                "id": "534_A",
-                "name": "奔跑",
-                "description": "",
-                "type": "Moving",
-                "size": "m",
-                "range": 4,
-                "storage": 0,
-                "yellowDice": 0,
-                "redDice": 0
-              }
-            ],
-            "projectile": [],
-            "isPD": false,
-            "containedIn": [
-              {
-                "box": {
-                  "id": 18,
-                  "faction": [
-                    "RDL",
-                    "UN"
-                  ],
-                  "name": {
-                    "zh": "对战包-突袭",
-                    "en": "Combat Pack Raid",
-                    "jp": "コンバットレイド"
-                  },
-                  "hasImage": true
-                },
-                "quantityPerBox": 1
-              }
-            ]
-          }
-        },
-        "pilot": {
-          "id": "FPA-06-2",
-          "name": "锁眼-06\n藏木于林",
-          "score": 12,
-          "LV": 4,
-          "faction": "RDL",
-          "swift": 2,
-          "melee": 5,
-          "projectile": 4,
-          "firing": 6,
-          "moving": 6,
-          "tactic": 7,
-          "trait": "功率隐匿",
-          "traitDescription": "· 本机处于友军光环范围内时获得低特征。",
-          "box": {
-            "id": 16,
-            "faction": [
-              "RDL"
-            ],
-            "name": {
-              "zh": "单机包-沙丘",
-              "en": "Single Pack Dune",
-              "jp": "シングル デューン"
-            },
-            "hasImage": true
-          }
+          "hasImage": true
         }
       }
-    ],
-    "drones": [],
-    "tacticCards": [],
-    "totalScore": 882,
-    "mechCount": 5,
-    "largeDroneCount": 0,
-    "mediumDroneCount": 0,
-    "smallDroneCount": 0,
-    "deviceID": "d6eeef82f83d4f5158d95ea55eab8837231d6e7061c6ee95c26275204fe3d499"
-  },
-  "team2": {
-    "id": "1775659860322",
-    "name": "新小队2",
-    "faction": "RDL",
-    "mechs": [
-      {
-        "id": "1775635397718",
-        "name": "新机体",
-        "parts": {
-          "rightHand": {
-            "id": "027",
-            "name": "AC-32M射手步枪",
-            "type": "rightHand",
-            "score": 33,
-            "armor": 4,
-            "structure": 0,
-            "parray": 0,
-            "dodge": 0,
-            "electronic": 0,
-            "move": 0,
-            "description": "",
-            "throwIndex": "28",
-            "keywords": [],
-            "action": [
-              {
-                "id": "27_A",
-                "name": "点射",
-                "description": "·【双手】+2射程。\r\n· {眼睛}视为{2轻击}。",
-                "type": "Firing",
-                "size": "m",
-                "range": 6,
-                "storage": 0,
-                "yellowDice": 1,
-                "redDice": 3
-              }
-            ],
-            "projectile": [],
-            "isPD": false,
-            "containedIn": [
-              {
-                "box": {
-                  "id": 19,
-                  "faction": [
-                    "RDL",
-                    "UN"
-                  ],
-                  "name": {
-                    "zh": "游戏包",
-                    "en": "Game Pack",
-                    "jp": "ゲームパック"
-                  },
-                  "hasImage": true
+    },
+    {
+      "id": "1775659839505",
+      "name": "新机体 副本 副本 副本",
+      "parts": {
+        "rightHand": {
+          "id": "027",
+          "name": "AC-32M射手步枪",
+          "type": "rightHand",
+          "score": 33,
+          "armor": 4,
+          "structure": 0,
+          "parray": 0,
+          "dodge": 0,
+          "electronic": 0,
+          "move": 0,
+          "description": "",
+          "throwIndex": "28",
+          "keywords": [],
+          "action": [
+            {
+              "id": "27_A",
+              "name": "点射",
+              "description": "·【双手】+2射程。\r\n· {眼睛}视为{2轻击}。",
+              "type": "Firing",
+              "size": "m",
+              "range": 6,
+              "storage": 0,
+              "yellowDice": 1,
+              "redDice": 3
+            }
+          ],
+          "projectile": [],
+          "isPD": false,
+          "containedIn": [
+            {
+              "box": {
+                "id": 19,
+                "faction": [
+                  "RDL",
+                  "UN"
+                ],
+                "name": {
+                  "zh": "游戏包",
+                  "en": "Game Pack",
+                  "jp": "ゲームパック"
                 },
-                "quantityPerBox": 2
-              }
-            ]
-          },
-          "torso": {
-            "id": "019",
-            "name": "RT-15C  冰川  突击核心",
-            "score": 56,
-            "structure": 4,
-            "armor": 5,
-            "parray": 0,
-            "dodge": 1,
-            "electronic": 2,
-            "type": "torso",
-            "description": "",
-            "imgSrc": "",
-            "tags": [],
-            "projectile": [
-              "268"
-            ],
-            "keywords": [
-              {
-                "name": "直射",
-                "value": "本动作需要对落点或目标有视线。"
-              }
-            ],
-            "containedIn": [
-              {
-                "box": {
-                  "id": 2,
-                  "faction": [
-                    "RDL"
-                  ],
-                  "name": {
-                    "zh": "铁骑",
-                    "en": "Cavalry",
-                    "jp": "カブリ"
-                  },
-                  "hasImage": true
-                },
-                "quantityPerBox": 1
-              }
-            ]
-          },
-          "leftHand": {
-            "id": "299",
-            "name": "ML-32B双联发射器 + CC-3格斗刀",
-            "type": "leftHand",
-            "score": 33,
-            "armor": 4,
-            "structure": 0,
-            "parray": 1,
-            "dodge": 0,
-            "electronic": 0,
-            "move": 0,
-            "description": "",
-            "containedIn": [
-              {
-                "box": {
-                  "id": 19,
-                  "faction": [
-                    "RDL",
-                    "UN"
-                  ],
-                  "name": {
-                    "zh": "游戏包",
-                    "en": "Game Pack",
-                    "jp": "ゲームパック"
-                  },
-                  "hasImage": true
-                },
-                "quantityPerBox": 2
-              }
-            ],
-            "keywords": [
-              {
-                "name": "空手",
-                "value": ""
-              }
-            ],
-            "action": [
-              {
-                "id": "299_A",
-                "name": "刺击",
-                "description": "",
-                "type": "Melee",
-                "size": "s",
-                "range": -1,
-                "storage": 0,
-                "yellowDice": 3,
-                "redDice": 1
+                "hasImage": true
               },
-              {
-                "id": "299_B",
-                "name": "导弹",
-                "description": " · 曲射\r\n· 发射1枚MC-3“利剑”导弹。",
-                "type": "Projectile",
-                "size": "s",
-                "range": 3,
-                "storage": 2,
-                "yellowDice": 0,
-                "redDice": 0
-              }
-            ],
-            "projectile": [
-              "071"
-            ],
-            "isPD": false
-          },
-          "backpack": {
-            "id": "011",
-            "name": "ML-92双联导弹包",
-            "score": 20,
-            "structure": 0,
-            "armor": 3,
-            "parray": 0,
-            "dodge": 0,
-            "electronic": 0,
-            "type": "backpack",
-            "description": "",
-            "imgSrc": "",
-            "tags": [],
-            "projectile": [
-              "073"
-            ],
-            "keywords": [
-              {
-                "name": "齐射X",
-                "value": "发射或布撒最多X枚抛射物，并消耗同等数量的弹药标记。"
-              },
-              {
-                "name": "曲射",
-                "value": "本动作不需要对落点或目标有视线。"
-              }
-            ],
-            "containedIn": [
-              {
-                "box": {
-                  "id": 2,
-                  "faction": [
-                    "RDL"
-                  ],
-                  "name": {
-                    "zh": "铁骑",
-                    "en": "Cavalry",
-                    "jp": "カブリ"
-                  },
-                  "hasImage": true
-                },
-                "quantityPerBox": 1
-              }
-            ]
-          },
-          "chasis": {
-            "id": "534",
-            "name": "RL-08C\r\n 重甲下肢",
-            "type": "chasis",
-            "score": 24,
-            "armor": 5,
-            "structure": 1,
-            "parray": 0,
-            "dodge": 3,
-            "electronic": 0,
-            "move": 1,
-            "description": "",
-            "keywords": [],
-            "action": [
-              {
-                "id": "534_A",
-                "name": "奔跑",
-                "description": "",
-                "type": "Moving",
-                "size": "m",
-                "range": 4,
-                "storage": 0,
-                "yellowDice": 0,
-                "redDice": 0
-              }
-            ],
-            "projectile": [],
-            "isPD": false,
-            "containedIn": [
-              {
-                "box": {
-                  "id": 18,
-                  "faction": [
-                    "RDL",
-                    "UN"
-                  ],
-                  "name": {
-                    "zh": "对战包-突袭",
-                    "en": "Combat Pack Raid",
-                    "jp": "コンバットレイド"
-                  },
-                  "hasImage": true
-                },
-                "quantityPerBox": 1
-              }
-            ]
-          }
+              "quantityPerBox": 2
+            }
+          ]
         },
-        "pilot": {
-          "id": "FPA-04-2",
-          "name": "锤头鲨-内务能手",
-          "score": 18,
-          "LV": 4,
-          "faction": "RDL",
-          "swift": 4,
-          "melee": 3,
-          "projectile": 2,
-          "firing": 5,
-          "moving": 2,
-          "tactic": 6,
-          "trait": "除虫",
-          "traitDescription": "· 【攻击姿态】当本机获得行动机会时，可最多消耗1点链接值以获得1个动作时点。",
-          "box": {
-            "id": 18,
-            "faction": [
-              "RDL",
-              "UN"
-            ],
-            "name": {
-              "zh": "对战包-突袭",
-              "en": "Combat Pack Raid",
-              "jp": "コンバットレイド"
+        "torso": {
+          "id": "019",
+          "name": "RT-15C  冰川  突击核心",
+          "score": 56,
+          "structure": 4,
+          "armor": 5,
+          "parray": 0,
+          "dodge": 1,
+          "electronic": 2,
+          "type": "torso",
+          "description": "",
+          "imgSrc": "",
+          "tags": [],
+          "projectile": [
+            "268"
+          ],
+          "keywords": [
+            {
+              "name": "直射",
+              "value": "本动作需要对落点或目标有视线。"
+            }
+          ],
+          "containedIn": [
+            {
+              "box": {
+                "id": 2,
+                "faction": [
+                  "RDL"
+                ],
+                "name": {
+                  "zh": "铁骑",
+                  "en": "Cavalry",
+                  "jp": "カブリ"
+                },
+                "hasImage": true
+              },
+              "quantityPerBox": 1
+            }
+          ]
+        },
+        "leftHand": {
+          "id": "299",
+          "name": "ML-32B双联发射器 + CC-3格斗刀",
+          "type": "leftHand",
+          "score": 33,
+          "armor": 4,
+          "structure": 0,
+          "parray": 1,
+          "dodge": 0,
+          "electronic": 0,
+          "move": 0,
+          "description": "",
+          "containedIn": [
+            {
+              "box": {
+                "id": 19,
+                "faction": [
+                  "RDL",
+                  "UN"
+                ],
+                "name": {
+                  "zh": "游戏包",
+                  "en": "Game Pack",
+                  "jp": "ゲームパック"
+                },
+                "hasImage": true
+              },
+              "quantityPerBox": 2
+            }
+          ],
+          "keywords": [
+            {
+              "name": "空手",
+              "value": ""
+            }
+          ],
+          "action": [
+            {
+              "id": "299_A",
+              "name": "刺击",
+              "description": "",
+              "type": "Melee",
+              "size": "s",
+              "range": -1,
+              "storage": 0,
+              "yellowDice": 3,
+              "redDice": 1
             },
-            "hasImage": true
-          }
+            {
+              "id": "299_B",
+              "name": "导弹",
+              "description": " · 曲射\r\n· 发射1枚MC-3“利剑”导弹。",
+              "type": "Projectile",
+              "size": "s",
+              "range": 3,
+              "storage": 2,
+              "yellowDice": 0,
+              "redDice": 0
+            }
+          ],
+          "projectile": [
+            "071"
+          ],
+          "isPD": false
+        },
+        "backpack": {
+          "id": "011",
+          "name": "ML-92双联导弹包",
+          "score": 20,
+          "structure": 0,
+          "armor": 3,
+          "parray": 0,
+          "dodge": 0,
+          "electronic": 0,
+          "type": "backpack",
+          "description": "",
+          "imgSrc": "",
+          "tags": [],
+          "projectile": [
+            "073"
+          ],
+          "keywords": [
+            {
+              "name": "齐射X",
+              "value": "发射或布撒最多X枚抛射物，并消耗同等数量的弹药标记。"
+            },
+            {
+              "name": "曲射",
+              "value": "本动作不需要对落点或目标有视线。"
+            }
+          ],
+          "containedIn": [
+            {
+              "box": {
+                "id": 2,
+                "faction": [
+                  "RDL"
+                ],
+                "name": {
+                  "zh": "铁骑",
+                  "en": "Cavalry",
+                  "jp": "カブリ"
+                },
+                "hasImage": true
+              },
+              "quantityPerBox": 1
+            }
+          ]
+        },
+        "chasis": {
+          "id": "534",
+          "name": "RL-08C\r\n 重甲下肢",
+          "type": "chasis",
+          "score": 24,
+          "armor": 5,
+          "structure": 1,
+          "parray": 0,
+          "dodge": 3,
+          "electronic": 0,
+          "move": 1,
+          "description": "",
+          "keywords": [],
+          "action": [
+            {
+              "id": "534_A",
+              "name": "奔跑",
+              "description": "",
+              "type": "Moving",
+              "size": "m",
+              "range": 4,
+              "storage": 0,
+              "yellowDice": 0,
+              "redDice": 0
+            }
+          ],
+          "projectile": [],
+          "isPD": false,
+          "containedIn": [
+            {
+              "box": {
+                "id": 18,
+                "faction": [
+                  "RDL",
+                  "UN"
+                ],
+                "name": {
+                  "zh": "对战包-突袭",
+                  "en": "Combat Pack Raid",
+                  "jp": "コンバットレイド"
+                },
+                "hasImage": true
+              },
+              "quantityPerBox": 1
+            }
+          ]
         }
       },
-      {
-        "id": "1775659829839",
-        "name": "新机体 副本",
-        "parts": {
-          "rightHand": {
-            "id": "027",
-            "name": "AC-32M射手步枪",
-            "type": "rightHand",
-            "score": 33,
-            "armor": 4,
-            "structure": 0,
-            "parray": 0,
-            "dodge": 0,
-            "electronic": 0,
-            "move": 0,
-            "description": "",
-            "throwIndex": "28",
-            "keywords": [],
-            "action": [
-              {
-                "id": "27_A",
-                "name": "点射",
-                "description": "·【双手】+2射程。\r\n· {眼睛}视为{2轻击}。",
-                "type": "Firing",
-                "size": "m",
-                "range": 6,
-                "storage": 0,
-                "yellowDice": 1,
-                "redDice": 3
-              }
-            ],
-            "projectile": [],
-            "isPD": false,
-            "containedIn": [
-              {
-                "box": {
-                  "id": 19,
-                  "faction": [
-                    "RDL",
-                    "UN"
-                  ],
-                  "name": {
-                    "zh": "游戏包",
-                    "en": "Game Pack",
-                    "jp": "ゲームパック"
-                  },
-                  "hasImage": true
-                },
-                "quantityPerBox": 2
-              }
-            ]
+      "pilot": {
+        "id": "FPA-01",
+        "name": "薄雾",
+        "score": 15,
+        "LV": 4,
+        "faction": "RDL",
+        "swift": 7,
+        "melee": 4,
+        "projectile": 5,
+        "firing": 3,
+        "moving": 3,
+        "tactic": 2,
+        "trait": "变招",
+        "traitDescription": "· 在战术时机，起手动作不限制时机类型。",
+        "box": {
+          "id": 1,
+          "faction": [
+            "RDL"
+          ],
+          "name": {
+            "zh": "核心",
+            "en": "Core",
+            "jp": "コア"
           },
-          "torso": {
-            "id": "019",
-            "name": "RT-15C  冰川  突击核心",
-            "score": 56,
-            "structure": 4,
-            "armor": 5,
-            "parray": 0,
-            "dodge": 1,
-            "electronic": 2,
-            "type": "torso",
-            "description": "",
-            "imgSrc": "",
-            "tags": [],
-            "projectile": [
-              "268"
-            ],
-            "keywords": [
-              {
-                "name": "直射",
-                "value": "本动作需要对落点或目标有视线。"
-              }
-            ],
-            "containedIn": [
-              {
-                "box": {
-                  "id": 2,
-                  "faction": [
-                    "RDL"
-                  ],
-                  "name": {
-                    "zh": "铁骑",
-                    "en": "Cavalry",
-                    "jp": "カブリ"
-                  },
-                  "hasImage": true
-                },
-                "quantityPerBox": 1
-              }
-            ]
-          },
-          "leftHand": {
-            "id": "299",
-            "name": "ML-32B双联发射器 + CC-3格斗刀",
-            "type": "leftHand",
-            "score": 33,
-            "armor": 4,
-            "structure": 0,
-            "parray": 1,
-            "dodge": 0,
-            "electronic": 0,
-            "move": 0,
-            "description": "",
-            "containedIn": [
-              {
-                "box": {
-                  "id": 19,
-                  "faction": [
-                    "RDL",
-                    "UN"
-                  ],
-                  "name": {
-                    "zh": "游戏包",
-                    "en": "Game Pack",
-                    "jp": "ゲームパック"
-                  },
-                  "hasImage": true
-                },
-                "quantityPerBox": 2
-              }
-            ],
-            "keywords": [
-              {
-                "name": "空手",
-                "value": ""
-              }
-            ],
-            "action": [
-              {
-                "id": "299_A",
-                "name": "刺击",
-                "description": "",
-                "type": "Melee",
-                "size": "s",
-                "range": -1,
-                "storage": 0,
-                "yellowDice": 3,
-                "redDice": 1
-              },
-              {
-                "id": "299_B",
-                "name": "导弹",
-                "description": " · 曲射\r\n· 发射1枚MC-3“利剑”导弹。",
-                "type": "Projectile",
-                "size": "s",
-                "range": 3,
-                "storage": 2,
-                "yellowDice": 0,
-                "redDice": 0
-              }
-            ],
-            "projectile": [
-              "071"
-            ],
-            "isPD": false
-          },
-          "backpack": {
-            "id": "011",
-            "name": "ML-92双联导弹包",
-            "score": 20,
-            "structure": 0,
-            "armor": 3,
-            "parray": 0,
-            "dodge": 0,
-            "electronic": 0,
-            "type": "backpack",
-            "description": "",
-            "imgSrc": "",
-            "tags": [],
-            "projectile": [
-              "073"
-            ],
-            "keywords": [
-              {
-                "name": "齐射X",
-                "value": "发射或布撒最多X枚抛射物，并消耗同等数量的弹药标记。"
-              },
-              {
-                "name": "曲射",
-                "value": "本动作不需要对落点或目标有视线。"
-              }
-            ],
-            "containedIn": [
-              {
-                "box": {
-                  "id": 2,
-                  "faction": [
-                    "RDL"
-                  ],
-                  "name": {
-                    "zh": "铁骑",
-                    "en": "Cavalry",
-                    "jp": "カブリ"
-                  },
-                  "hasImage": true
-                },
-                "quantityPerBox": 1
-              }
-            ]
-          },
-          "chasis": {
-            "id": "534",
-            "name": "RL-08C\r\n 重甲下肢",
-            "type": "chasis",
-            "score": 24,
-            "armor": 5,
-            "structure": 1,
-            "parray": 0,
-            "dodge": 3,
-            "electronic": 0,
-            "move": 1,
-            "description": "",
-            "keywords": [],
-            "action": [
-              {
-                "id": "534_A",
-                "name": "奔跑",
-                "description": "",
-                "type": "Moving",
-                "size": "m",
-                "range": 4,
-                "storage": 0,
-                "yellowDice": 0,
-                "redDice": 0
-              }
-            ],
-            "projectile": [],
-            "isPD": false,
-            "containedIn": [
-              {
-                "box": {
-                  "id": 18,
-                  "faction": [
-                    "RDL",
-                    "UN"
-                  ],
-                  "name": {
-                    "zh": "对战包-突袭",
-                    "en": "Combat Pack Raid",
-                    "jp": "コンバットレイド"
-                  },
-                  "hasImage": true
-                },
-                "quantityPerBox": 1
-              }
-            ]
-          }
-        },
-        "pilot": {
-          "id": "FPA-05",
-          "name": "灰雁",
-          "score": 15,
-          "LV": 4,
-          "faction": "RDL",
-          "swift": 5,
-          "melee": 6,
-          "projectile": 9,
-          "firing": 3,
-          "moving": 8,
-          "tactic": 4,
-          "trait": "不竭",
-          "traitDescription": "· 本机的下肢如果没有结构值，则视为拥有2点结构值。",
-          "box": {
-            "id": 2,
-            "faction": [
-              "RDL"
-            ],
-            "name": {
-              "zh": "铁骑",
-              "en": "Cavalry",
-              "jp": "カブリ"
-            },
-            "hasImage": true
-          }
-        }
-      },
-      {
-        "id": "1775659833321",
-        "name": "新机体 副本 副本",
-        "parts": {
-          "rightHand": {
-            "id": "027",
-            "name": "AC-32M射手步枪",
-            "type": "rightHand",
-            "score": 33,
-            "armor": 4,
-            "structure": 0,
-            "parray": 0,
-            "dodge": 0,
-            "electronic": 0,
-            "move": 0,
-            "description": "",
-            "throwIndex": "28",
-            "keywords": [],
-            "action": [
-              {
-                "id": "27_A",
-                "name": "点射",
-                "description": "·【双手】+2射程。\r\n· {眼睛}视为{2轻击}。",
-                "type": "Firing",
-                "size": "m",
-                "range": 6,
-                "storage": 0,
-                "yellowDice": 1,
-                "redDice": 3
-              }
-            ],
-            "projectile": [],
-            "isPD": false,
-            "containedIn": [
-              {
-                "box": {
-                  "id": 19,
-                  "faction": [
-                    "RDL",
-                    "UN"
-                  ],
-                  "name": {
-                    "zh": "游戏包",
-                    "en": "Game Pack",
-                    "jp": "ゲームパック"
-                  },
-                  "hasImage": true
-                },
-                "quantityPerBox": 2
-              }
-            ]
-          },
-          "torso": {
-            "id": "019",
-            "name": "RT-15C  冰川  突击核心",
-            "score": 56,
-            "structure": 4,
-            "armor": 5,
-            "parray": 0,
-            "dodge": 1,
-            "electronic": 2,
-            "type": "torso",
-            "description": "",
-            "imgSrc": "",
-            "tags": [],
-            "projectile": [
-              "268"
-            ],
-            "keywords": [
-              {
-                "name": "直射",
-                "value": "本动作需要对落点或目标有视线。"
-              }
-            ],
-            "containedIn": [
-              {
-                "box": {
-                  "id": 2,
-                  "faction": [
-                    "RDL"
-                  ],
-                  "name": {
-                    "zh": "铁骑",
-                    "en": "Cavalry",
-                    "jp": "カブリ"
-                  },
-                  "hasImage": true
-                },
-                "quantityPerBox": 1
-              }
-            ]
-          },
-          "leftHand": {
-            "id": "299",
-            "name": "ML-32B双联发射器 + CC-3格斗刀",
-            "type": "leftHand",
-            "score": 33,
-            "armor": 4,
-            "structure": 0,
-            "parray": 1,
-            "dodge": 0,
-            "electronic": 0,
-            "move": 0,
-            "description": "",
-            "containedIn": [
-              {
-                "box": {
-                  "id": 19,
-                  "faction": [
-                    "RDL",
-                    "UN"
-                  ],
-                  "name": {
-                    "zh": "游戏包",
-                    "en": "Game Pack",
-                    "jp": "ゲームパック"
-                  },
-                  "hasImage": true
-                },
-                "quantityPerBox": 2
-              }
-            ],
-            "keywords": [
-              {
-                "name": "空手",
-                "value": ""
-              }
-            ],
-            "action": [
-              {
-                "id": "299_A",
-                "name": "刺击",
-                "description": "",
-                "type": "Melee",
-                "size": "s",
-                "range": -1,
-                "storage": 0,
-                "yellowDice": 3,
-                "redDice": 1
-              },
-              {
-                "id": "299_B",
-                "name": "导弹",
-                "description": " · 曲射\r\n· 发射1枚MC-3“利剑”导弹。",
-                "type": "Projectile",
-                "size": "s",
-                "range": 3,
-                "storage": 2,
-                "yellowDice": 0,
-                "redDice": 0
-              }
-            ],
-            "projectile": [
-              "071"
-            ],
-            "isPD": false
-          },
-          "backpack": {
-            "id": "011",
-            "name": "ML-92双联导弹包",
-            "score": 20,
-            "structure": 0,
-            "armor": 3,
-            "parray": 0,
-            "dodge": 0,
-            "electronic": 0,
-            "type": "backpack",
-            "description": "",
-            "imgSrc": "",
-            "tags": [],
-            "projectile": [
-              "073"
-            ],
-            "keywords": [
-              {
-                "name": "齐射X",
-                "value": "发射或布撒最多X枚抛射物，并消耗同等数量的弹药标记。"
-              },
-              {
-                "name": "曲射",
-                "value": "本动作不需要对落点或目标有视线。"
-              }
-            ],
-            "containedIn": [
-              {
-                "box": {
-                  "id": 2,
-                  "faction": [
-                    "RDL"
-                  ],
-                  "name": {
-                    "zh": "铁骑",
-                    "en": "Cavalry",
-                    "jp": "カブリ"
-                  },
-                  "hasImage": true
-                },
-                "quantityPerBox": 1
-              }
-            ]
-          },
-          "chasis": {
-            "id": "534",
-            "name": "RL-08C\r\n 重甲下肢",
-            "type": "chasis",
-            "score": 24,
-            "armor": 5,
-            "structure": 1,
-            "parray": 0,
-            "dodge": 3,
-            "electronic": 0,
-            "move": 1,
-            "description": "",
-            "keywords": [],
-            "action": [
-              {
-                "id": "534_A",
-                "name": "奔跑",
-                "description": "",
-                "type": "Moving",
-                "size": "m",
-                "range": 4,
-                "storage": 0,
-                "yellowDice": 0,
-                "redDice": 0
-              }
-            ],
-            "projectile": [],
-            "isPD": false,
-            "containedIn": [
-              {
-                "box": {
-                  "id": 18,
-                  "faction": [
-                    "RDL",
-                    "UN"
-                  ],
-                  "name": {
-                    "zh": "对战包-突袭",
-                    "en": "Combat Pack Raid",
-                    "jp": "コンバットレイド"
-                  },
-                  "hasImage": true
-                },
-                "quantityPerBox": 1
-              }
-            ]
-          }
-        },
-        "pilot": {
-          "id": "FPA-03",
-          "name": "无霜",
-          "score": 12,
-          "LV": 4,
-          "faction": "RDL",
-          "swift": 6,
-          "melee": 2,
-          "projectile": 3,
-          "firing": 7,
-          "moving": 4,
-          "tactic": 4,
-          "trait": "坚毅",
-          "traitDescription": "· 本机部件被摧毁时，不扣除链接值。",
-          "box": {
-            "id": 3,
-            "faction": [
-              "RDL"
-            ],
-            "name": {
-              "zh": "重金属",
-              "en": "Heavy Metal",
-              "jp": "ヘビーメタル"
-            },
-            "hasImage": true
-          }
-        }
-      },
-      {
-        "id": "1775659839505",
-        "name": "新机体 副本 副本 副本",
-        "parts": {
-          "rightHand": {
-            "id": "027",
-            "name": "AC-32M射手步枪",
-            "type": "rightHand",
-            "score": 33,
-            "armor": 4,
-            "structure": 0,
-            "parray": 0,
-            "dodge": 0,
-            "electronic": 0,
-            "move": 0,
-            "description": "",
-            "throwIndex": "28",
-            "keywords": [],
-            "action": [
-              {
-                "id": "27_A",
-                "name": "点射",
-                "description": "·【双手】+2射程。\r\n· {眼睛}视为{2轻击}。",
-                "type": "Firing",
-                "size": "m",
-                "range": 6,
-                "storage": 0,
-                "yellowDice": 1,
-                "redDice": 3
-              }
-            ],
-            "projectile": [],
-            "isPD": false,
-            "containedIn": [
-              {
-                "box": {
-                  "id": 19,
-                  "faction": [
-                    "RDL",
-                    "UN"
-                  ],
-                  "name": {
-                    "zh": "游戏包",
-                    "en": "Game Pack",
-                    "jp": "ゲームパック"
-                  },
-                  "hasImage": true
-                },
-                "quantityPerBox": 2
-              }
-            ]
-          },
-          "torso": {
-            "id": "019",
-            "name": "RT-15C  冰川  突击核心",
-            "score": 56,
-            "structure": 4,
-            "armor": 5,
-            "parray": 0,
-            "dodge": 1,
-            "electronic": 2,
-            "type": "torso",
-            "description": "",
-            "imgSrc": "",
-            "tags": [],
-            "projectile": [
-              "268"
-            ],
-            "keywords": [
-              {
-                "name": "直射",
-                "value": "本动作需要对落点或目标有视线。"
-              }
-            ],
-            "containedIn": [
-              {
-                "box": {
-                  "id": 2,
-                  "faction": [
-                    "RDL"
-                  ],
-                  "name": {
-                    "zh": "铁骑",
-                    "en": "Cavalry",
-                    "jp": "カブリ"
-                  },
-                  "hasImage": true
-                },
-                "quantityPerBox": 1
-              }
-            ]
-          },
-          "leftHand": {
-            "id": "299",
-            "name": "ML-32B双联发射器 + CC-3格斗刀",
-            "type": "leftHand",
-            "score": 33,
-            "armor": 4,
-            "structure": 0,
-            "parray": 1,
-            "dodge": 0,
-            "electronic": 0,
-            "move": 0,
-            "description": "",
-            "containedIn": [
-              {
-                "box": {
-                  "id": 19,
-                  "faction": [
-                    "RDL",
-                    "UN"
-                  ],
-                  "name": {
-                    "zh": "游戏包",
-                    "en": "Game Pack",
-                    "jp": "ゲームパック"
-                  },
-                  "hasImage": true
-                },
-                "quantityPerBox": 2
-              }
-            ],
-            "keywords": [
-              {
-                "name": "空手",
-                "value": ""
-              }
-            ],
-            "action": [
-              {
-                "id": "299_A",
-                "name": "刺击",
-                "description": "",
-                "type": "Melee",
-                "size": "s",
-                "range": -1,
-                "storage": 0,
-                "yellowDice": 3,
-                "redDice": 1
-              },
-              {
-                "id": "299_B",
-                "name": "导弹",
-                "description": " · 曲射\r\n· 发射1枚MC-3“利剑”导弹。",
-                "type": "Projectile",
-                "size": "s",
-                "range": 3,
-                "storage": 2,
-                "yellowDice": 0,
-                "redDice": 0
-              }
-            ],
-            "projectile": [
-              "071"
-            ],
-            "isPD": false
-          },
-          "backpack": {
-            "id": "011",
-            "name": "ML-92双联导弹包",
-            "score": 20,
-            "structure": 0,
-            "armor": 3,
-            "parray": 0,
-            "dodge": 0,
-            "electronic": 0,
-            "type": "backpack",
-            "description": "",
-            "imgSrc": "",
-            "tags": [],
-            "projectile": [
-              "073"
-            ],
-            "keywords": [
-              {
-                "name": "齐射X",
-                "value": "发射或布撒最多X枚抛射物，并消耗同等数量的弹药标记。"
-              },
-              {
-                "name": "曲射",
-                "value": "本动作不需要对落点或目标有视线。"
-              }
-            ],
-            "containedIn": [
-              {
-                "box": {
-                  "id": 2,
-                  "faction": [
-                    "RDL"
-                  ],
-                  "name": {
-                    "zh": "铁骑",
-                    "en": "Cavalry",
-                    "jp": "カブリ"
-                  },
-                  "hasImage": true
-                },
-                "quantityPerBox": 1
-              }
-            ]
-          },
-          "chasis": {
-            "id": "534",
-            "name": "RL-08C\r\n 重甲下肢",
-            "type": "chasis",
-            "score": 24,
-            "armor": 5,
-            "structure": 1,
-            "parray": 0,
-            "dodge": 3,
-            "electronic": 0,
-            "move": 1,
-            "description": "",
-            "keywords": [],
-            "action": [
-              {
-                "id": "534_A",
-                "name": "奔跑",
-                "description": "",
-                "type": "Moving",
-                "size": "m",
-                "range": 4,
-                "storage": 0,
-                "yellowDice": 0,
-                "redDice": 0
-              }
-            ],
-            "projectile": [],
-            "isPD": false,
-            "containedIn": [
-              {
-                "box": {
-                  "id": 18,
-                  "faction": [
-                    "RDL",
-                    "UN"
-                  ],
-                  "name": {
-                    "zh": "对战包-突袭",
-                    "en": "Combat Pack Raid",
-                    "jp": "コンバットレイド"
-                  },
-                  "hasImage": true
-                },
-                "quantityPerBox": 1
-              }
-            ]
-          }
-        },
-        "pilot": {
-          "id": "FPA-02",
-          "name": "长钉",
-          "score": 15,
-          "LV": 4,
-          "faction": "RDL",
-          "swift": 3,
-          "melee": 7,
-          "projectile": 6,
-          "firing": 2,
-          "moving": 5,
-          "tactic": 5,
-          "trait": "鹰眼",
-          "traitDescription": "· 执行射击动作时获得穿甲1。",
-          "box": {
-            "id": 1,
-            "faction": [
-              "RDL"
-            ],
-            "name": {
-              "zh": "核心",
-              "en": "Core",
-              "jp": "コア"
-            },
-            "hasImage": true
-          }
-        }
-      },
-      {
-        "id": "1775659843938",
-        "name": "新机体 副本 副本 副本 副本",
-        "parts": {
-          "rightHand": {
-            "id": "027",
-            "name": "AC-32M射手步枪",
-            "type": "rightHand",
-            "score": 33,
-            "armor": 4,
-            "structure": 0,
-            "parray": 0,
-            "dodge": 0,
-            "electronic": 0,
-            "move": 0,
-            "description": "",
-            "throwIndex": "28",
-            "keywords": [],
-            "action": [
-              {
-                "id": "27_A",
-                "name": "点射",
-                "description": "·【双手】+2射程。\r\n· {眼睛}视为{2轻击}。",
-                "type": "Firing",
-                "size": "m",
-                "range": 6,
-                "storage": 0,
-                "yellowDice": 1,
-                "redDice": 3
-              }
-            ],
-            "projectile": [],
-            "isPD": false,
-            "containedIn": [
-              {
-                "box": {
-                  "id": 19,
-                  "faction": [
-                    "RDL",
-                    "UN"
-                  ],
-                  "name": {
-                    "zh": "游戏包",
-                    "en": "Game Pack",
-                    "jp": "ゲームパック"
-                  },
-                  "hasImage": true
-                },
-                "quantityPerBox": 2
-              }
-            ]
-          },
-          "torso": {
-            "id": "019",
-            "name": "RT-15C  冰川  突击核心",
-            "score": 56,
-            "structure": 4,
-            "armor": 5,
-            "parray": 0,
-            "dodge": 1,
-            "electronic": 2,
-            "type": "torso",
-            "description": "",
-            "imgSrc": "",
-            "tags": [],
-            "projectile": [
-              "268"
-            ],
-            "keywords": [
-              {
-                "name": "直射",
-                "value": "本动作需要对落点或目标有视线。"
-              }
-            ],
-            "containedIn": [
-              {
-                "box": {
-                  "id": 2,
-                  "faction": [
-                    "RDL"
-                  ],
-                  "name": {
-                    "zh": "铁骑",
-                    "en": "Cavalry",
-                    "jp": "カブリ"
-                  },
-                  "hasImage": true
-                },
-                "quantityPerBox": 1
-              }
-            ]
-          },
-          "leftHand": {
-            "id": "299",
-            "name": "ML-32B双联发射器 + CC-3格斗刀",
-            "type": "leftHand",
-            "score": 33,
-            "armor": 4,
-            "structure": 0,
-            "parray": 1,
-            "dodge": 0,
-            "electronic": 0,
-            "move": 0,
-            "description": "",
-            "containedIn": [
-              {
-                "box": {
-                  "id": 19,
-                  "faction": [
-                    "RDL",
-                    "UN"
-                  ],
-                  "name": {
-                    "zh": "游戏包",
-                    "en": "Game Pack",
-                    "jp": "ゲームパック"
-                  },
-                  "hasImage": true
-                },
-                "quantityPerBox": 2
-              }
-            ],
-            "keywords": [
-              {
-                "name": "空手",
-                "value": ""
-              }
-            ],
-            "action": [
-              {
-                "id": "299_A",
-                "name": "刺击",
-                "description": "",
-                "type": "Melee",
-                "size": "s",
-                "range": -1,
-                "storage": 0,
-                "yellowDice": 3,
-                "redDice": 1
-              },
-              {
-                "id": "299_B",
-                "name": "导弹",
-                "description": " · 曲射\r\n· 发射1枚MC-3“利剑”导弹。",
-                "type": "Projectile",
-                "size": "s",
-                "range": 3,
-                "storage": 2,
-                "yellowDice": 0,
-                "redDice": 0
-              }
-            ],
-            "projectile": [
-              "071"
-            ],
-            "isPD": false
-          },
-          "chasis": {
-            "id": "534",
-            "name": "RL-08C\r\n 重甲下肢",
-            "type": "chasis",
-            "score": 24,
-            "armor": 5,
-            "structure": 1,
-            "parray": 0,
-            "dodge": 3,
-            "electronic": 0,
-            "move": 1,
-            "description": "",
-            "keywords": [],
-            "action": [
-              {
-                "id": "534_A",
-                "name": "奔跑",
-                "description": "",
-                "type": "Moving",
-                "size": "m",
-                "range": 4,
-                "storage": 0,
-                "yellowDice": 0,
-                "redDice": 0
-              }
-            ],
-            "projectile": [],
-            "isPD": false,
-            "containedIn": [
-              {
-                "box": {
-                  "id": 18,
-                  "faction": [
-                    "RDL",
-                    "UN"
-                  ],
-                  "name": {
-                    "zh": "对战包-突袭",
-                    "en": "Combat Pack Raid",
-                    "jp": "コンバットレイド"
-                  },
-                  "hasImage": true
-                },
-                "quantityPerBox": 1
-              }
-            ]
-          }
-        },
-        "pilot": {
-          "id": "FPA-06-2",
-          "name": "锁眼-06\n藏木于林",
-          "score": 12,
-          "LV": 4,
-          "faction": "RDL",
-          "swift": 2,
-          "melee": 5,
-          "projectile": 4,
-          "firing": 6,
-          "moving": 6,
-          "tactic": 7,
-          "trait": "功率隐匿",
-          "traitDescription": "· 本机处于友军光环范围内时获得低特征。",
-          "box": {
-            "id": 16,
-            "faction": [
-              "RDL"
-            ],
-            "name": {
-              "zh": "单机包-沙丘",
-              "en": "Single Pack Dune",
-              "jp": "シングル デューン"
-            },
-            "hasImage": true
-          }
+          "hasImage": true
         }
       }
-    ],
-    "drones": [],
-    "tacticCards": [],
-    "totalScore": 882,
-    "mechCount": 5,
-    "largeDroneCount": 0,
-    "mediumDroneCount": 0,
-    "smallDroneCount": 0,
-    "deviceID": "d6eeef82f83d4f5158d95ea55eab8837231d6e7061c6ee95c26275204fe3d499"
-  }
-}
+    },
+    {
+      "id": "1775911897584",
+      "name": "新机体",
+      "parts": {
+        "torso": {
+          "id": "547",
+          "name": "H2-B“危机”II型",
+          "type": "torso",
+          "score": 63,
+          "armor": 5,
+          "structure": 3,
+          "parray": 0,
+          "dodge": 0,
+          "electronic": 2,
+          "move": 0,
+          "description": "",
+          "keywords": [
+            {
+              "name": "多目标X",
+              "value": "本动作可以同时选择X个目标。如果使用多目标效果，则攻击时如下操作：计算本动作的总投骰数，增加攻击骰的效果在此时发动；将总投骰数任意分配给每一个目标，对这些目标依次执行一次攻击流程。攻击中，按照分配的投骰数投攻击骰。如果本动作由机甲发动，对每一个单独的攻击流程都可以专注；如果攻击造成特效，则每一次单独的攻击流程都单独对其目标造成特效。"
+            }
+          ],
+          "action": [
+            {
+              "id": "547_A",
+              "name": "扫射",
+              "description": "·【静止】+1Y。\n·多目标5",
+              "type": "Firing",
+              "size": "m",
+              "range": 8,
+              "storage": 0,
+              "yellowDice": 5,
+              "redDice": 0
+            },
+            {
+              "id": "547_B",
+              "name": "攻击模式",
+              "description": "· 【攻击姿态】本机获得行动机会时，可以增加1时点。",
+              "type": "Passive",
+              "size": "m",
+              "range": 0,
+              "storage": 0,
+              "yellowDice": 0,
+              "redDice": 0
+            }
+          ],
+          "projectile": [],
+          "isPD": true,
+          "containedIn": [
+            {
+              "box": {
+                "id": 24,
+                "faction": [
+                  "PD"
+                ],
+                "name": {
+                  "zh": "危机 II",
+                  "en": "Crisis II",
+                  "jp": "クライシス II"
+                },
+                "hasImage": true
+              },
+              "quantityPerBox": 1
+            }
+          ]
+        },
+        "chasis": {
+          "id": "548",
+          "name": "HL2\n“危机”下肢",
+          "type": "chasis",
+          "score": 21,
+          "armor": 5,
+          "structure": 0,
+          "parray": 0,
+          "dodge": 3,
+          "electronic": 0,
+          "move": 1,
+          "description": "",
+          "keywords": [],
+          "action": [
+            {
+              "id": "548_A",
+              "name": "奔跑",
+              "description": "",
+              "type": "Moving",
+              "size": "m",
+              "range": 4,
+              "storage": 0,
+              "yellowDice": 0,
+              "redDice": 0
+            }
+          ],
+          "projectile": [],
+          "isPD": true,
+          "containedIn": [
+            {
+              "box": {
+                "id": 24,
+                "faction": [
+                  "PD"
+                ],
+                "name": {
+                  "zh": "危机 II",
+                  "en": "Crisis II",
+                  "jp": "クライシス II"
+                },
+                "hasImage": true
+              },
+              "quantityPerBox": 1
+            }
+          ]
+        },
+        "leftHand": {
+          "id": "550",
+          "name": "Ls197R机炮（左）",
+          "type": "leftHand",
+          "score": 48,
+          "armor": 3,
+          "structure": 0,
+          "parray": 0,
+          "dodge": 0,
+          "electronic": 0,
+          "move": 0,
+          "description": "",
+          "keywords": [
+            {
+              "name": "遥控武器",
+              "value": "指令阶段，友军可以向本机发送指令，使本机执行此动作。本部件每回合只能接收1次指令"
+            }
+          ],
+          "action": [
+            {
+              "id": "550_A",
+              "name": "点射",
+              "description": "· 遥控武器",
+              "type": "Firing",
+              "size": "s",
+              "range": 6,
+              "storage": 0,
+              "yellowDice": 4,
+              "redDice": 0
+            }
+          ],
+          "projectile": [],
+          "isPD": true,
+          "containedIn": [
+            {
+              "box": {
+                "id": 24,
+                "faction": [
+                  "PD"
+                ],
+                "name": {
+                  "zh": "危机 II",
+                  "en": "Crisis II",
+                  "jp": "クライシス II"
+                },
+                "hasImage": true
+              },
+              "quantityPerBox": 1
+            }
+          ]
+        },
+        "rightHand": {
+          "id": "551",
+          "name": "Ls197R机炮（右）",
+          "type": "rightHand",
+          "score": 48,
+          "armor": 3,
+          "structure": 0,
+          "parray": 0,
+          "dodge": 0,
+          "electronic": 0,
+          "move": 0,
+          "description": "",
+          "keywords": [
+            {
+              "name": "遥控武器",
+              "value": "指令阶段，友军可以向本机发送指令，使本机执行此动作。本部件每回合只能接收1次指令"
+            }
+          ],
+          "action": [
+            {
+              "id": "551_A",
+              "name": "点射",
+              "description": "· 遥控武器",
+              "type": "Firing",
+              "size": "s",
+              "range": 6,
+              "storage": 0,
+              "yellowDice": 4,
+              "redDice": 0
+            }
+          ],
+          "projectile": [],
+          "isPD": true,
+          "containedIn": [
+            {
+              "box": {
+                "id": 24,
+                "faction": [
+                  "PD"
+                ],
+                "name": {
+                  "zh": "危机 II",
+                  "en": "Crisis II",
+                  "jp": "クライシス II"
+                },
+                "hasImage": true
+              },
+              "quantityPerBox": 1
+            }
+          ]
+        },
+        "backpack": {
+          "id": "545",
+          "name": "Ls297双联机炮",
+          "type": "backpack",
+          "score": 48,
+          "armor": 3,
+          "structure": 0,
+          "parray": 0,
+          "dodge": 0,
+          "electronic": 0,
+          "move": 0,
+          "description": "·压制：被本动作宣布为目标的机甲会立刻切换为防御姿态（处于宕机姿态的单位不受此影响）。",
+          "keywords": [
+            {
+              "name": "压制",
+              "value": "被本动作宣布为目标的机甲会立刻切换为防御姿态（处于宕机姿态的单位不受此影响）。"
+            }
+          ],
+          "action": [
+            {
+              "id": "545_A",
+              "name": "扫射",
+              "description": "· 压制",
+              "type": "Firing",
+              "size": "s",
+              "range": 6,
+              "storage": 0,
+              "yellowDice": 1,
+              "redDice": 2
+            },
+            {
+              "id": "545_B",
+              "name": "扫射",
+              "description": "· 压制",
+              "type": "Firing",
+              "size": "s",
+              "range": 6,
+              "storage": 0,
+              "yellowDice": 1,
+              "redDice": 2
+            }
+          ],
+          "projectile": [],
+          "isPD": true,
+          "containedIn": [
+            {
+              "box": {
+                "id": 24,
+                "faction": [
+                  "PD"
+                ],
+                "name": {
+                  "zh": "危机 II",
+                  "en": "Crisis II",
+                  "jp": "クライシス II"
+                },
+                "hasImage": true
+              },
+              "quantityPerBox": 1
+            }
+          ]
+        }
+      },
+      "pilot": {
+        "id": "XPA-60",
+        "name": "战斗员A-102",
+        "score": 10,
+        "LV": 5,
+        "faction": "PD",
+        "swift": 8,
+        "melee": 4,
+        "projectile": 5,
+        "firing": 3,
+        "moving": 3,
+        "tactic": 2,
+        "trait": "",
+        "traitDescription": "搭载作战员和LUKAS的运输机通常作为空中支援，在战场上空盘旋，以获得最低的延迟。",
+        "box": {
+          "id": 24,
+          "faction": [
+            "PD"
+          ],
+          "name": {
+            "zh": "危机 II",
+            "en": "Crisis II",
+            "jp": "クライシス II"
+          },
+          "hasImage": true
+        }
+      }
+    }
+  ],
+  "drones": [],
+  "tacticCards": [
+    {
+      "id": "275",
+      "name": "战地复苏",
+      "description": "",
+      "score": 30
+    },
+    {
+      "id": "274",
+      "name": "额外指令",
+      "description": "",
+      "score": 30
+    }
+  ],
+  "totalScore": 676,
+  "mechCount": 3,
+  "largeDroneCount": 0,
+  "mediumDroneCount": 0,
+  "smallDroneCount": 0,
+  "deviceID": "4182dae4304962b6f3e7bc7fce1ddcc79045c47eb9314aaef5e41d5272a8eceb"
+},
+        "team2": {
+            "id": "1775659860322",
+            "name": "新小队2",
+            "faction": "RDL",
+            "mechs": [
+                {
+                    "id": "1775635397718",
+                    "name": "新机体",
+                    "parts": {
+                        "rightHand": {
+                            "id": "027",
+                            "name": "AC-32M射手步枪",
+                            "type": "rightHand",
+                            "score": 33,
+                            "armor": 4,
+                            "structure": 0,
+                            "parray": 0,
+                            "dodge": 0,
+                            "electronic": 0,
+                            "move": 0,
+                            "description": "",
+                            "throwIndex": "28",
+                            "keywords": [],
+                            "action": [
+                                {
+                                    "id": "27_A",
+                                    "name": "点射",
+                                    "description": "·【双手】+2射程。\r\n· {眼睛}视为{2轻击}。",
+                                    "type": "Firing",
+                                    "size": "m",
+                                    "range": 6,
+                                    "storage": 0,
+                                    "yellowDice": 1,
+                                    "redDice": 3
+                                }
+                            ],
+                            "projectile": [],
+                            "isPD": false,
+                            "containedIn": [
+                                {
+                                    "box": {
+                                        "id": 19,
+                                        "faction": [
+                                            "RDL",
+                                            "UN"
+                                        ],
+                                        "name": {
+                                            "zh": "游戏包",
+                                            "en": "Game Pack",
+                                            "jp": "ゲームパック"
+                                        },
+                                        "hasImage": true
+                                    },
+                                    "quantityPerBox": 2
+                                }
+                            ]
+                        },
+                        "torso": {
+                            "id": "019",
+                            "name": "RT-15C  冰川  突击核心",
+                            "score": 56,
+                            "structure": 4,
+                            "armor": 5,
+                            "parray": 0,
+                            "dodge": 1,
+                            "electronic": 2,
+                            "type": "torso",
+                            "description": "",
+                            "imgSrc": "",
+                            "tags": [],
+                            "projectile": [
+                                "268"
+                            ],
+                            "keywords": [
+                                {
+                                    "name": "直射",
+                                    "value": "本动作需要对落点或目标有视线。"
+                                }
+                            ],
+                            "containedIn": [
+                                {
+                                    "box": {
+                                        "id": 2,
+                                        "faction": [
+                                            "RDL"
+                                        ],
+                                        "name": {
+                                            "zh": "铁骑",
+                                            "en": "Cavalry",
+                                            "jp": "カブリ"
+                                        },
+                                        "hasImage": true
+                                    },
+                                    "quantityPerBox": 1
+                                }
+                            ]
+                        },
+                        "leftHand": {
+                            "id": "299",
+                            "name": "ML-32B双联发射器 + CC-3格斗刀",
+                            "type": "leftHand",
+                            "score": 33,
+                            "armor": 4,
+                            "structure": 0,
+                            "parray": 1,
+                            "dodge": 0,
+                            "electronic": 0,
+                            "move": 0,
+                            "description": "",
+                            "containedIn": [
+                                {
+                                    "box": {
+                                        "id": 19,
+                                        "faction": [
+                                            "RDL",
+                                            "UN"
+                                        ],
+                                        "name": {
+                                            "zh": "游戏包",
+                                            "en": "Game Pack",
+                                            "jp": "ゲームパック"
+                                        },
+                                        "hasImage": true
+                                    },
+                                    "quantityPerBox": 2
+                                }
+                            ],
+                            "keywords": [
+                                {
+                                    "name": "空手",
+                                    "value": ""
+                                }
+                            ],
+                            "action": [
+                                {
+                                    "id": "299_A",
+                                    "name": "刺击",
+                                    "description": "",
+                                    "type": "Melee",
+                                    "size": "s",
+                                    "range": -1,
+                                    "storage": 0,
+                                    "yellowDice": 3,
+                                    "redDice": 1
+                                },
+                                {
+                                    "id": "299_B",
+                                    "name": "导弹",
+                                    "description": " · 曲射\r\n· 发射1枚MC-3“利剑”导弹。",
+                                    "type": "Projectile",
+                                    "size": "s",
+                                    "range": 3,
+                                    "storage": 2,
+                                    "yellowDice": 0,
+                                    "redDice": 0
+                                }
+                            ],
+                            "projectile": [
+                                "071"
+                            ],
+                            "isPD": false
+                        },
+                        "backpack": {
+                            "id": "011",
+                            "name": "ML-92双联导弹包",
+                            "score": 20,
+                            "structure": 0,
+                            "armor": 3,
+                            "parray": 0,
+                            "dodge": 0,
+                            "electronic": 0,
+                            "type": "backpack",
+                            "description": "",
+                            "imgSrc": "",
+                            "tags": [],
+                            "projectile": [
+                                "073"
+                            ],
+                            "keywords": [
+                                {
+                                    "name": "齐射X",
+                                    "value": "发射或布撒最多X枚抛射物，并消耗同等数量的弹药标记。"
+                                },
+                                {
+                                    "name": "曲射",
+                                    "value": "本动作不需要对落点或目标有视线。"
+                                }
+                            ],
+                            "containedIn": [
+                                {
+                                    "box": {
+                                        "id": 2,
+                                        "faction": [
+                                            "RDL"
+                                        ],
+                                        "name": {
+                                            "zh": "铁骑",
+                                            "en": "Cavalry",
+                                            "jp": "カブリ"
+                                        },
+                                        "hasImage": true
+                                    },
+                                    "quantityPerBox": 1
+                                }
+                            ]
+                        },
+                        "chasis": {
+                            "id": "534",
+                            "name": "RL-08C\r\n 重甲下肢",
+                            "type": "chasis",
+                            "score": 24,
+                            "armor": 5,
+                            "structure": 1,
+                            "parray": 0,
+                            "dodge": 3,
+                            "electronic": 0,
+                            "move": 1,
+                            "description": "",
+                            "keywords": [],
+                            "action": [
+                                {
+                                    "id": "534_A",
+                                    "name": "奔跑",
+                                    "description": "",
+                                    "type": "Moving",
+                                    "size": "m",
+                                    "range": 4,
+                                    "storage": 0,
+                                    "yellowDice": 0,
+                                    "redDice": 0
+                                }
+                            ],
+                            "projectile": [],
+                            "isPD": false,
+                            "containedIn": [
+                                {
+                                    "box": {
+                                        "id": 18,
+                                        "faction": [
+                                            "RDL",
+                                            "UN"
+                                        ],
+                                        "name": {
+                                            "zh": "对战包-突袭",
+                                            "en": "Combat Pack Raid",
+                                            "jp": "コンバットレイド"
+                                        },
+                                        "hasImage": true
+                                    },
+                                    "quantityPerBox": 1
+                                }
+                            ]
+                        }
+                    },
+                    "pilot": {
+                        "id": "FPA-04-2",
+                        "name": "锤头鲨-内务能手",
+                        "score": 18,
+                        "LV": 4,
+                        "faction": "RDL",
+                        "swift": 4,
+                        "melee": 3,
+                        "projectile": 2,
+                        "firing": 5,
+                        "moving": 2,
+                        "tactic": 6,
+                        "trait": "除虫",
+                        "traitDescription": "· 【攻击姿态】当本机获得行动机会时，可最多消耗1点链接值以获得1个动作时点。",
+                        "box": {
+                            "id": 18,
+                            "faction": [
+                                "RDL",
+                                "UN"
+                            ],
+                            "name": {
+                                "zh": "对战包-突袭",
+                                "en": "Combat Pack Raid",
+                                "jp": "コンバットレイド"
+                            },
+                            "hasImage": true
+                        }
+                    }
+                },
+                {
+                    "id": "1775659829839",
+                    "name": "新机体 副本",
+                    "parts": {
+                        "rightHand": {
+                            "id": "027",
+                            "name": "AC-32M射手步枪",
+                            "type": "rightHand",
+                            "score": 33,
+                            "armor": 4,
+                            "structure": 0,
+                            "parray": 0,
+                            "dodge": 0,
+                            "electronic": 0,
+                            "move": 0,
+                            "description": "",
+                            "throwIndex": "28",
+                            "keywords": [],
+                            "action": [
+                                {
+                                    "id": "27_A",
+                                    "name": "点射",
+                                    "description": "·【双手】+2射程。\r\n· {眼睛}视为{2轻击}。",
+                                    "type": "Firing",
+                                    "size": "m",
+                                    "range": 6,
+                                    "storage": 0,
+                                    "yellowDice": 1,
+                                    "redDice": 3
+                                }
+                            ],
+                            "projectile": [],
+                            "isPD": false,
+                            "containedIn": [
+                                {
+                                    "box": {
+                                        "id": 19,
+                                        "faction": [
+                                            "RDL",
+                                            "UN"
+                                        ],
+                                        "name": {
+                                            "zh": "游戏包",
+                                            "en": "Game Pack",
+                                            "jp": "ゲームパック"
+                                        },
+                                        "hasImage": true
+                                    },
+                                    "quantityPerBox": 2
+                                }
+                            ]
+                        },
+                        "torso": {
+                            "id": "019",
+                            "name": "RT-15C  冰川  突击核心",
+                            "score": 56,
+                            "structure": 4,
+                            "armor": 5,
+                            "parray": 0,
+                            "dodge": 1,
+                            "electronic": 2,
+                            "type": "torso",
+                            "description": "",
+                            "imgSrc": "",
+                            "tags": [],
+                            "projectile": [
+                                "268"
+                            ],
+                            "keywords": [
+                                {
+                                    "name": "直射",
+                                    "value": "本动作需要对落点或目标有视线。"
+                                }
+                            ],
+                            "containedIn": [
+                                {
+                                    "box": {
+                                        "id": 2,
+                                        "faction": [
+                                            "RDL"
+                                        ],
+                                        "name": {
+                                            "zh": "铁骑",
+                                            "en": "Cavalry",
+                                            "jp": "カブリ"
+                                        },
+                                        "hasImage": true
+                                    },
+                                    "quantityPerBox": 1
+                                }
+                            ]
+                        },
+                        "leftHand": {
+                            "id": "299",
+                            "name": "ML-32B双联发射器 + CC-3格斗刀",
+                            "type": "leftHand",
+                            "score": 33,
+                            "armor": 4,
+                            "structure": 0,
+                            "parray": 1,
+                            "dodge": 0,
+                            "electronic": 0,
+                            "move": 0,
+                            "description": "",
+                            "containedIn": [
+                                {
+                                    "box": {
+                                        "id": 19,
+                                        "faction": [
+                                            "RDL",
+                                            "UN"
+                                        ],
+                                        "name": {
+                                            "zh": "游戏包",
+                                            "en": "Game Pack",
+                                            "jp": "ゲームパック"
+                                        },
+                                        "hasImage": true
+                                    },
+                                    "quantityPerBox": 2
+                                }
+                            ],
+                            "keywords": [
+                                {
+                                    "name": "空手",
+                                    "value": ""
+                                }
+                            ],
+                            "action": [
+                                {
+                                    "id": "299_A",
+                                    "name": "刺击",
+                                    "description": "",
+                                    "type": "Melee",
+                                    "size": "s",
+                                    "range": -1,
+                                    "storage": 0,
+                                    "yellowDice": 3,
+                                    "redDice": 1
+                                },
+                                {
+                                    "id": "299_B",
+                                    "name": "导弹",
+                                    "description": " · 曲射\r\n· 发射1枚MC-3“利剑”导弹。",
+                                    "type": "Projectile",
+                                    "size": "s",
+                                    "range": 3,
+                                    "storage": 2,
+                                    "yellowDice": 0,
+                                    "redDice": 0
+                                }
+                            ],
+                            "projectile": [
+                                "071"
+                            ],
+                            "isPD": false
+                        },
+                        "backpack": {
+                            "id": "011",
+                            "name": "ML-92双联导弹包",
+                            "score": 20,
+                            "structure": 0,
+                            "armor": 3,
+                            "parray": 0,
+                            "dodge": 0,
+                            "electronic": 0,
+                            "type": "backpack",
+                            "description": "",
+                            "imgSrc": "",
+                            "tags": [],
+                            "projectile": [
+                                "073"
+                            ],
+                            "keywords": [
+                                {
+                                    "name": "齐射X",
+                                    "value": "发射或布撒最多X枚抛射物，并消耗同等数量的弹药标记。"
+                                },
+                                {
+                                    "name": "曲射",
+                                    "value": "本动作不需要对落点或目标有视线。"
+                                }
+                            ],
+                            "containedIn": [
+                                {
+                                    "box": {
+                                        "id": 2,
+                                        "faction": [
+                                            "RDL"
+                                        ],
+                                        "name": {
+                                            "zh": "铁骑",
+                                            "en": "Cavalry",
+                                            "jp": "カブリ"
+                                        },
+                                        "hasImage": true
+                                    },
+                                    "quantityPerBox": 1
+                                }
+                            ]
+                        },
+                        "chasis": {
+                            "id": "534",
+                            "name": "RL-08C\r\n 重甲下肢",
+                            "type": "chasis",
+                            "score": 24,
+                            "armor": 5,
+                            "structure": 1,
+                            "parray": 0,
+                            "dodge": 3,
+                            "electronic": 0,
+                            "move": 1,
+                            "description": "",
+                            "keywords": [],
+                            "action": [
+                                {
+                                    "id": "534_A",
+                                    "name": "奔跑",
+                                    "description": "",
+                                    "type": "Moving",
+                                    "size": "m",
+                                    "range": 4,
+                                    "storage": 0,
+                                    "yellowDice": 0,
+                                    "redDice": 0
+                                }
+                            ],
+                            "projectile": [],
+                            "isPD": false,
+                            "containedIn": [
+                                {
+                                    "box": {
+                                        "id": 18,
+                                        "faction": [
+                                            "RDL",
+                                            "UN"
+                                        ],
+                                        "name": {
+                                            "zh": "对战包-突袭",
+                                            "en": "Combat Pack Raid",
+                                            "jp": "コンバットレイド"
+                                        },
+                                        "hasImage": true
+                                    },
+                                    "quantityPerBox": 1
+                                }
+                            ]
+                        }
+                    },
+                    "pilot": {
+                        "id": "FPA-05",
+                        "name": "灰雁",
+                        "score": 15,
+                        "LV": 4,
+                        "faction": "RDL",
+                        "swift": 5,
+                        "melee": 6,
+                        "projectile": 9,
+                        "firing": 3,
+                        "moving": 8,
+                        "tactic": 4,
+                        "trait": "不竭",
+                        "traitDescription": "· 本机的下肢如果没有结构值，则视为拥有2点结构值。",
+                        "box": {
+                            "id": 2,
+                            "faction": [
+                                "RDL"
+                            ],
+                            "name": {
+                                "zh": "铁骑",
+                                "en": "Cavalry",
+                                "jp": "カブリ"
+                            },
+                            "hasImage": true
+                        }
+                    }
+                },
+                {
+                    "id": "1775659833321",
+                    "name": "新机体 副本 副本",
+                    "parts": {
+                        "rightHand": {
+                            "id": "027",
+                            "name": "AC-32M射手步枪",
+                            "type": "rightHand",
+                            "score": 33,
+                            "armor": 4,
+                            "structure": 0,
+                            "parray": 0,
+                            "dodge": 0,
+                            "electronic": 0,
+                            "move": 0,
+                            "description": "",
+                            "throwIndex": "28",
+                            "keywords": [],
+                            "action": [
+                                {
+                                    "id": "27_A",
+                                    "name": "点射",
+                                    "description": "·【双手】+2射程。\r\n· {眼睛}视为{2轻击}。",
+                                    "type": "Firing",
+                                    "size": "m",
+                                    "range": 6,
+                                    "storage": 0,
+                                    "yellowDice": 1,
+                                    "redDice": 3
+                                }
+                            ],
+                            "projectile": [],
+                            "isPD": false,
+                            "containedIn": [
+                                {
+                                    "box": {
+                                        "id": 19,
+                                        "faction": [
+                                            "RDL",
+                                            "UN"
+                                        ],
+                                        "name": {
+                                            "zh": "游戏包",
+                                            "en": "Game Pack",
+                                            "jp": "ゲームパック"
+                                        },
+                                        "hasImage": true
+                                    },
+                                    "quantityPerBox": 2
+                                }
+                            ]
+                        },
+                        "torso": {
+                            "id": "019",
+                            "name": "RT-15C  冰川  突击核心",
+                            "score": 56,
+                            "structure": 4,
+                            "armor": 5,
+                            "parray": 0,
+                            "dodge": 1,
+                            "electronic": 2,
+                            "type": "torso",
+                            "description": "",
+                            "imgSrc": "",
+                            "tags": [],
+                            "projectile": [
+                                "268"
+                            ],
+                            "keywords": [
+                                {
+                                    "name": "直射",
+                                    "value": "本动作需要对落点或目标有视线。"
+                                }
+                            ],
+                            "containedIn": [
+                                {
+                                    "box": {
+                                        "id": 2,
+                                        "faction": [
+                                            "RDL"
+                                        ],
+                                        "name": {
+                                            "zh": "铁骑",
+                                            "en": "Cavalry",
+                                            "jp": "カブリ"
+                                        },
+                                        "hasImage": true
+                                    },
+                                    "quantityPerBox": 1
+                                }
+                            ]
+                        },
+                        "leftHand": {
+                            "id": "299",
+                            "name": "ML-32B双联发射器 + CC-3格斗刀",
+                            "type": "leftHand",
+                            "score": 33,
+                            "armor": 4,
+                            "structure": 0,
+                            "parray": 1,
+                            "dodge": 0,
+                            "electronic": 0,
+                            "move": 0,
+                            "description": "",
+                            "containedIn": [
+                                {
+                                    "box": {
+                                        "id": 19,
+                                        "faction": [
+                                            "RDL",
+                                            "UN"
+                                        ],
+                                        "name": {
+                                            "zh": "游戏包",
+                                            "en": "Game Pack",
+                                            "jp": "ゲームパック"
+                                        },
+                                        "hasImage": true
+                                    },
+                                    "quantityPerBox": 2
+                                }
+                            ],
+                            "keywords": [
+                                {
+                                    "name": "空手",
+                                    "value": ""
+                                }
+                            ],
+                            "action": [
+                                {
+                                    "id": "299_A",
+                                    "name": "刺击",
+                                    "description": "",
+                                    "type": "Melee",
+                                    "size": "s",
+                                    "range": -1,
+                                    "storage": 0,
+                                    "yellowDice": 3,
+                                    "redDice": 1
+                                },
+                                {
+                                    "id": "299_B",
+                                    "name": "导弹",
+                                    "description": " · 曲射\r\n· 发射1枚MC-3“利剑”导弹。",
+                                    "type": "Projectile",
+                                    "size": "s",
+                                    "range": 3,
+                                    "storage": 2,
+                                    "yellowDice": 0,
+                                    "redDice": 0
+                                }
+                            ],
+                            "projectile": [
+                                "071"
+                            ],
+                            "isPD": false
+                        },
+                        "backpack": {
+                            "id": "011",
+                            "name": "ML-92双联导弹包",
+                            "score": 20,
+                            "structure": 0,
+                            "armor": 3,
+                            "parray": 0,
+                            "dodge": 0,
+                            "electronic": 0,
+                            "type": "backpack",
+                            "description": "",
+                            "imgSrc": "",
+                            "tags": [],
+                            "projectile": [
+                                "073"
+                            ],
+                            "keywords": [
+                                {
+                                    "name": "齐射X",
+                                    "value": "发射或布撒最多X枚抛射物，并消耗同等数量的弹药标记。"
+                                },
+                                {
+                                    "name": "曲射",
+                                    "value": "本动作不需要对落点或目标有视线。"
+                                }
+                            ],
+                            "containedIn": [
+                                {
+                                    "box": {
+                                        "id": 2,
+                                        "faction": [
+                                            "RDL"
+                                        ],
+                                        "name": {
+                                            "zh": "铁骑",
+                                            "en": "Cavalry",
+                                            "jp": "カブリ"
+                                        },
+                                        "hasImage": true
+                                    },
+                                    "quantityPerBox": 1
+                                }
+                            ]
+                        },
+                        "chasis": {
+                            "id": "534",
+                            "name": "RL-08C\r\n 重甲下肢",
+                            "type": "chasis",
+                            "score": 24,
+                            "armor": 5,
+                            "structure": 1,
+                            "parray": 0,
+                            "dodge": 3,
+                            "electronic": 0,
+                            "move": 1,
+                            "description": "",
+                            "keywords": [],
+                            "action": [
+                                {
+                                    "id": "534_A",
+                                    "name": "奔跑",
+                                    "description": "",
+                                    "type": "Moving",
+                                    "size": "m",
+                                    "range": 4,
+                                    "storage": 0,
+                                    "yellowDice": 0,
+                                    "redDice": 0
+                                }
+                            ],
+                            "projectile": [],
+                            "isPD": false,
+                            "containedIn": [
+                                {
+                                    "box": {
+                                        "id": 18,
+                                        "faction": [
+                                            "RDL",
+                                            "UN"
+                                        ],
+                                        "name": {
+                                            "zh": "对战包-突袭",
+                                            "en": "Combat Pack Raid",
+                                            "jp": "コンバットレイド"
+                                        },
+                                        "hasImage": true
+                                    },
+                                    "quantityPerBox": 1
+                                }
+                            ]
+                        }
+                    },
+                    "pilot": {
+                        "id": "FPA-03",
+                        "name": "无霜",
+                        "score": 12,
+                        "LV": 4,
+                        "faction": "RDL",
+                        "swift": 6,
+                        "melee": 2,
+                        "projectile": 3,
+                        "firing": 7,
+                        "moving": 4,
+                        "tactic": 4,
+                        "trait": "坚毅",
+                        "traitDescription": "· 本机部件被摧毁时，不扣除链接值。",
+                        "box": {
+                            "id": 3,
+                            "faction": [
+                                "RDL"
+                            ],
+                            "name": {
+                                "zh": "重金属",
+                                "en": "Heavy Metal",
+                                "jp": "ヘビーメタル"
+                            },
+                            "hasImage": true
+                        }
+                    }
+                },
+                {
+                    "id": "1775659839505",
+                    "name": "新机体 副本 副本 副本",
+                    "parts": {
+                        "rightHand": {
+                            "id": "027",
+                            "name": "AC-32M射手步枪",
+                            "type": "rightHand",
+                            "score": 33,
+                            "armor": 4,
+                            "structure": 0,
+                            "parray": 0,
+                            "dodge": 0,
+                            "electronic": 0,
+                            "move": 0,
+                            "description": "",
+                            "throwIndex": "28",
+                            "keywords": [],
+                            "action": [
+                                {
+                                    "id": "27_A",
+                                    "name": "点射",
+                                    "description": "·【双手】+2射程。\r\n· {眼睛}视为{2轻击}。",
+                                    "type": "Firing",
+                                    "size": "m",
+                                    "range": 6,
+                                    "storage": 0,
+                                    "yellowDice": 1,
+                                    "redDice": 3
+                                }
+                            ],
+                            "projectile": [],
+                            "isPD": false,
+                            "containedIn": [
+                                {
+                                    "box": {
+                                        "id": 19,
+                                        "faction": [
+                                            "RDL",
+                                            "UN"
+                                        ],
+                                        "name": {
+                                            "zh": "游戏包",
+                                            "en": "Game Pack",
+                                            "jp": "ゲームパック"
+                                        },
+                                        "hasImage": true
+                                    },
+                                    "quantityPerBox": 2
+                                }
+                            ]
+                        },
+                        "torso": {
+                            "id": "019",
+                            "name": "RT-15C  冰川  突击核心",
+                            "score": 56,
+                            "structure": 4,
+                            "armor": 5,
+                            "parray": 0,
+                            "dodge": 1,
+                            "electronic": 2,
+                            "type": "torso",
+                            "description": "",
+                            "imgSrc": "",
+                            "tags": [],
+                            "projectile": [
+                                "268"
+                            ],
+                            "keywords": [
+                                {
+                                    "name": "直射",
+                                    "value": "本动作需要对落点或目标有视线。"
+                                }
+                            ],
+                            "containedIn": [
+                                {
+                                    "box": {
+                                        "id": 2,
+                                        "faction": [
+                                            "RDL"
+                                        ],
+                                        "name": {
+                                            "zh": "铁骑",
+                                            "en": "Cavalry",
+                                            "jp": "カブリ"
+                                        },
+                                        "hasImage": true
+                                    },
+                                    "quantityPerBox": 1
+                                }
+                            ]
+                        },
+                        "leftHand": {
+                            "id": "299",
+                            "name": "ML-32B双联发射器 + CC-3格斗刀",
+                            "type": "leftHand",
+                            "score": 33,
+                            "armor": 4,
+                            "structure": 0,
+                            "parray": 1,
+                            "dodge": 0,
+                            "electronic": 0,
+                            "move": 0,
+                            "description": "",
+                            "containedIn": [
+                                {
+                                    "box": {
+                                        "id": 19,
+                                        "faction": [
+                                            "RDL",
+                                            "UN"
+                                        ],
+                                        "name": {
+                                            "zh": "游戏包",
+                                            "en": "Game Pack",
+                                            "jp": "ゲームパック"
+                                        },
+                                        "hasImage": true
+                                    },
+                                    "quantityPerBox": 2
+                                }
+                            ],
+                            "keywords": [
+                                {
+                                    "name": "空手",
+                                    "value": ""
+                                }
+                            ],
+                            "action": [
+                                {
+                                    "id": "299_A",
+                                    "name": "刺击",
+                                    "description": "",
+                                    "type": "Melee",
+                                    "size": "s",
+                                    "range": -1,
+                                    "storage": 0,
+                                    "yellowDice": 3,
+                                    "redDice": 1
+                                },
+                                {
+                                    "id": "299_B",
+                                    "name": "导弹",
+                                    "description": " · 曲射\r\n· 发射1枚MC-3“利剑”导弹。",
+                                    "type": "Projectile",
+                                    "size": "s",
+                                    "range": 3,
+                                    "storage": 2,
+                                    "yellowDice": 0,
+                                    "redDice": 0
+                                }
+                            ],
+                            "projectile": [
+                                "071"
+                            ],
+                            "isPD": false
+                        },
+                        "backpack": {
+                            "id": "011",
+                            "name": "ML-92双联导弹包",
+                            "score": 20,
+                            "structure": 0,
+                            "armor": 3,
+                            "parray": 0,
+                            "dodge": 0,
+                            "electronic": 0,
+                            "type": "backpack",
+                            "description": "",
+                            "imgSrc": "",
+                            "tags": [],
+                            "projectile": [
+                                "073"
+                            ],
+                            "keywords": [
+                                {
+                                    "name": "齐射X",
+                                    "value": "发射或布撒最多X枚抛射物，并消耗同等数量的弹药标记。"
+                                },
+                                {
+                                    "name": "曲射",
+                                    "value": "本动作不需要对落点或目标有视线。"
+                                }
+                            ],
+                            "containedIn": [
+                                {
+                                    "box": {
+                                        "id": 2,
+                                        "faction": [
+                                            "RDL"
+                                        ],
+                                        "name": {
+                                            "zh": "铁骑",
+                                            "en": "Cavalry",
+                                            "jp": "カブリ"
+                                        },
+                                        "hasImage": true
+                                    },
+                                    "quantityPerBox": 1
+                                }
+                            ]
+                        },
+                        "chasis": {
+                            "id": "534",
+                            "name": "RL-08C\r\n 重甲下肢",
+                            "type": "chasis",
+                            "score": 24,
+                            "armor": 5,
+                            "structure": 1,
+                            "parray": 0,
+                            "dodge": 3,
+                            "electronic": 0,
+                            "move": 1,
+                            "description": "",
+                            "keywords": [],
+                            "action": [
+                                {
+                                    "id": "534_A",
+                                    "name": "奔跑",
+                                    "description": "",
+                                    "type": "Moving",
+                                    "size": "m",
+                                    "range": 4,
+                                    "storage": 0,
+                                    "yellowDice": 0,
+                                    "redDice": 0
+                                }
+                            ],
+                            "projectile": [],
+                            "isPD": false,
+                            "containedIn": [
+                                {
+                                    "box": {
+                                        "id": 18,
+                                        "faction": [
+                                            "RDL",
+                                            "UN"
+                                        ],
+                                        "name": {
+                                            "zh": "对战包-突袭",
+                                            "en": "Combat Pack Raid",
+                                            "jp": "コンバットレイド"
+                                        },
+                                        "hasImage": true
+                                    },
+                                    "quantityPerBox": 1
+                                }
+                            ]
+                        }
+                    },
+                    "pilot": {
+                        "id": "FPA-02",
+                        "name": "长钉",
+                        "score": 15,
+                        "LV": 4,
+                        "faction": "RDL",
+                        "swift": 3,
+                        "melee": 7,
+                        "projectile": 6,
+                        "firing": 2,
+                        "moving": 5,
+                        "tactic": 5,
+                        "trait": "鹰眼",
+                        "traitDescription": "· 执行射击动作时获得穿甲1。",
+                        "box": {
+                            "id": 1,
+                            "faction": [
+                                "RDL"
+                            ],
+                            "name": {
+                                "zh": "核心",
+                                "en": "Core",
+                                "jp": "コア"
+                            },
+                            "hasImage": true
+                        }
+                    }
+                },
+                {
+                    "id": "1775659843938",
+                    "name": "新机体 副本 副本 副本 副本",
+                    "parts": {
+                        "rightHand": {
+                            "id": "027",
+                            "name": "AC-32M射手步枪",
+                            "type": "rightHand",
+                            "score": 33,
+                            "armor": 4,
+                            "structure": 0,
+                            "parray": 0,
+                            "dodge": 0,
+                            "electronic": 0,
+                            "move": 0,
+                            "description": "",
+                            "throwIndex": "28",
+                            "keywords": [],
+                            "action": [
+                                {
+                                    "id": "27_A",
+                                    "name": "点射",
+                                    "description": "·【双手】+2射程。\r\n· {眼睛}视为{2轻击}。",
+                                    "type": "Firing",
+                                    "size": "m",
+                                    "range": 6,
+                                    "storage": 0,
+                                    "yellowDice": 1,
+                                    "redDice": 3
+                                }
+                            ],
+                            "projectile": [],
+                            "isPD": false,
+                            "containedIn": [
+                                {
+                                    "box": {
+                                        "id": 19,
+                                        "faction": [
+                                            "RDL",
+                                            "UN"
+                                        ],
+                                        "name": {
+                                            "zh": "游戏包",
+                                            "en": "Game Pack",
+                                            "jp": "ゲームパック"
+                                        },
+                                        "hasImage": true
+                                    },
+                                    "quantityPerBox": 2
+                                }
+                            ]
+                        },
+                        "torso": {
+                            "id": "019",
+                            "name": "RT-15C  冰川  突击核心",
+                            "score": 56,
+                            "structure": 4,
+                            "armor": 5,
+                            "parray": 0,
+                            "dodge": 1,
+                            "electronic": 2,
+                            "type": "torso",
+                            "description": "",
+                            "imgSrc": "",
+                            "tags": [],
+                            "projectile": [
+                                "268"
+                            ],
+                            "keywords": [
+                                {
+                                    "name": "直射",
+                                    "value": "本动作需要对落点或目标有视线。"
+                                }
+                            ],
+                            "containedIn": [
+                                {
+                                    "box": {
+                                        "id": 2,
+                                        "faction": [
+                                            "RDL"
+                                        ],
+                                        "name": {
+                                            "zh": "铁骑",
+                                            "en": "Cavalry",
+                                            "jp": "カブリ"
+                                        },
+                                        "hasImage": true
+                                    },
+                                    "quantityPerBox": 1
+                                }
+                            ]
+                        },
+                        "leftHand": {
+                            "id": "299",
+                            "name": "ML-32B双联发射器 + CC-3格斗刀",
+                            "type": "leftHand",
+                            "score": 33,
+                            "armor": 4,
+                            "structure": 0,
+                            "parray": 1,
+                            "dodge": 0,
+                            "electronic": 0,
+                            "move": 0,
+                            "description": "",
+                            "containedIn": [
+                                {
+                                    "box": {
+                                        "id": 19,
+                                        "faction": [
+                                            "RDL",
+                                            "UN"
+                                        ],
+                                        "name": {
+                                            "zh": "游戏包",
+                                            "en": "Game Pack",
+                                            "jp": "ゲームパック"
+                                        },
+                                        "hasImage": true
+                                    },
+                                    "quantityPerBox": 2
+                                }
+                            ],
+                            "keywords": [
+                                {
+                                    "name": "空手",
+                                    "value": ""
+                                }
+                            ],
+                            "action": [
+                                {
+                                    "id": "299_A",
+                                    "name": "刺击",
+                                    "description": "",
+                                    "type": "Melee",
+                                    "size": "s",
+                                    "range": -1,
+                                    "storage": 0,
+                                    "yellowDice": 3,
+                                    "redDice": 1
+                                },
+                                {
+                                    "id": "299_B",
+                                    "name": "导弹",
+                                    "description": " · 曲射\r\n· 发射1枚MC-3“利剑”导弹。",
+                                    "type": "Projectile",
+                                    "size": "s",
+                                    "range": 3,
+                                    "storage": 2,
+                                    "yellowDice": 0,
+                                    "redDice": 0
+                                }
+                            ],
+                            "projectile": [
+                                "071"
+                            ],
+                            "isPD": false
+                        },
+                        "chasis": {
+                            "id": "534",
+                            "name": "RL-08C\r\n 重甲下肢",
+                            "type": "chasis",
+                            "score": 24,
+                            "armor": 5,
+                            "structure": 1,
+                            "parray": 0,
+                            "dodge": 3,
+                            "electronic": 0,
+                            "move": 1,
+                            "description": "",
+                            "keywords": [],
+                            "action": [
+                                {
+                                    "id": "534_A",
+                                    "name": "奔跑",
+                                    "description": "",
+                                    "type": "Moving",
+                                    "size": "m",
+                                    "range": 4,
+                                    "storage": 0,
+                                    "yellowDice": 0,
+                                    "redDice": 0
+                                }
+                            ],
+                            "projectile": [],
+                            "isPD": false,
+                            "containedIn": [
+                                {
+                                    "box": {
+                                        "id": 18,
+                                        "faction": [
+                                            "RDL",
+                                            "UN"
+                                        ],
+                                        "name": {
+                                            "zh": "对战包-突袭",
+                                            "en": "Combat Pack Raid",
+                                            "jp": "コンバットレイド"
+                                        },
+                                        "hasImage": true
+                                    },
+                                    "quantityPerBox": 1
+                                }
+                            ]
+                        }
+                    },
+                    "pilot": {
+                        "id": "FPA-06-2",
+                        "name": "锁眼-06\n藏木于林",
+                        "score": 12,
+                        "LV": 4,
+                        "faction": "RDL",
+                        "swift": 2,
+                        "melee": 5,
+                        "projectile": 4,
+                        "firing": 6,
+                        "moving": 6,
+                        "tactic": 7,
+                        "trait": "功率隐匿",
+                        "traitDescription": "· 本机处于友军光环范围内时获得低特征。",
+                        "box": {
+                            "id": 16,
+                            "faction": [
+                                "RDL"
+                            ],
+                            "name": {
+                                "zh": "单机包-沙丘",
+                                "en": "Single Pack Dune",
+                                "jp": "シングル デューン"
+                            },
+                            "hasImage": true
+                        }
+                    }
+                }
+            ],
+            "drones": [],
+            "tacticCards": [],
+            "totalScore": 882,
+            "mechCount": 5,
+            "largeDroneCount": 0,
+            "mediumDroneCount": 0,
+            "smallDroneCount": 0,
+            "deviceID": "d6eeef82f83d4f5158d95ea55eab8837231d6e7061c6ee95c26275204fe3d499"
+        }
+    }
+    
     // { userQQ: '100000002', userName: '玩家B', team1: {...}, team2: {...} },
 ];

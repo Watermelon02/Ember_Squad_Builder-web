@@ -3,6 +3,7 @@ import extractChunks from "png-chunks-extract";
 import encodeChunks from "png-chunks-encode";
 import { getImage } from "./ImageGetter";
 import { IMAGE_DRONE_VERSION, IMAGE_PART_VERSION, IMAGE_PILOT_VERSION, IMAGE_PROJECTILE_VERSION } from "../data/resource";
+import { allTacticCards } from "../data/data_cn";
 
 
 function createSoftSparseTexture(ctx: CanvasRenderingContext2D, spacing = 160, dotSize = 2, faction: string = "RDL"): CanvasPattern {
@@ -223,7 +224,9 @@ const drawItemImage = (
   ctx.restore();
 };
 
-export const exportTeamImage = async (team: Team, lang: string, translations: any, tabsrc: string, localImgsrc: string, imgsrc: string, includeProjectile: boolean) => {
+
+
+export const exportTeamImage = async (team: Team, lang: string, translations: any, tabsrc: string, localImgsrc: string, imgsrc: string, includeProjectile: boolean, hideTacticCard: boolean) => {
   if (!team.mechs.length) {
     alert(`${translations.t14}`);
     return;
@@ -259,7 +262,7 @@ export const exportTeamImage = async (team: Team, lang: string, translations: an
       const img = await getImage(`${imgsrc}/${part.id}.png?v=${IMAGE_PART_VERSION}`);
       return { part, img };
     }));
-    const validParts = partsInfo.filter((p): p is { part: Part,img: HTMLImageElement } => p !== null);
+    const validParts = partsInfo.filter((p): p is { part: Part, img: HTMLImageElement } => p !== null);
 
     const pilotImg = mech.pilot ? await getImage(`${imgsrc}/${mech.pilot.id}.png?v=${IMAGE_PILOT_VERSION}`) : null;
 
@@ -281,6 +284,12 @@ export const exportTeamImage = async (team: Team, lang: string, translations: an
   // 并行加载战术卡
   const tacticData = await Promise.all(team.tacticCards.map(async card => {
     const img = await getImage(`${imgsrc}/${card.id}.png`);
+    return { card, img };
+  }));
+
+  // 并行加载战术卡背面（秘密携带）
+  const tacticBackData = await Promise.all(team.tacticCards.map(async card => {
+    const img = await getImage(`${tabsrc}/tactic.png`);
     return { card, img };
   }));
 
@@ -426,18 +435,18 @@ export const exportTeamImage = async (team: Team, lang: string, translations: an
     items.forEach((item, i) => {
       // @ts-ignore
       const img = item.img || item;
-    const width = img.width * (TARGET_HEIGHT / img.height);
-    const col = i % perRow;
-    const row = Math.floor(i / perRow);
-    const x = PADDING + col * (width + SPACING + 20);
-    const itemY = startY + row * rowHeight;
-    renderer(item, x, itemY, width, TARGET_HEIGHT);
+      const width = img.width * (TARGET_HEIGHT / img.height);
+      const col = i % perRow;
+      const row = Math.floor(i / perRow);
+      const x = PADDING + col * (width + SPACING + 20);
+      const itemY = startY + row * rowHeight;
+      renderer(item, x, itemY, width, TARGET_HEIGHT);
     });
     return startY + Math.ceil(items.length / perRow) * rowHeight;
   };
 
   y = drawGrid(droneData, CONSTANTS.DRONES_PER_ROW, y, (data, x, y, w, h) => {
-    const {drone, img, backpackImg} = data;
+    const { drone, img, backpackImg } = data;
 
     // ----------------------------
     // 渐变背景（无人机专属，径向随机版）
@@ -455,72 +464,100 @@ export const exportTeamImage = async (team: Team, lang: string, translations: an
 
     if (backpackImg) {
       ctx.save();
-    ctx.shadowColor = "rgba(0,0,0,0.4)";
-    ctx.shadowBlur = 10;
-    const backpackScale = 0.4;
-    ctx.drawImage(backpackImg, x + 80, y + 25, backpackImg.width * backpackScale, backpackImg.height * backpackScale);
-    ctx.restore();
+      ctx.shadowColor = "rgba(0,0,0,0.4)";
+      ctx.shadowBlur = 10;
+      const backpackScale = 0.4;
+      ctx.drawImage(backpackImg, x + 80, y + 25, backpackImg.width * backpackScale, backpackImg.height * backpackScale);
+      ctx.restore();
     }
   });
 
-    if (includeProjectile) {
+  if (includeProjectile) {
     // 绘制抛射物
-    const projItems = projectileImages.map(img => ({img}));
+    const projItems = projectileImages.map(img => ({ img }));
     y = drawGrid(projItems, CONSTANTS.DRONES_PER_ROW, y, (data, x, y, w, h) => {
       drawCardBackground(ctx, x, y, w + SPACING, h + 30, CONSTANTS.RADIUS, team.faction, 0.3);
-    const noOfficialCard = checkNoOfficialCard(team.faction, true, false);
-    drawItemImage(ctx, data.img, x, y, w, h, noOfficialCard);
+      const noOfficialCard = checkNoOfficialCard(team.faction, true, false);
+      drawItemImage(ctx, data.img, x, y, w, h, noOfficialCard);
     });
   }
 
   // 绘制战术卡
-  drawGrid(tacticData, CONSTANTS.CARDS_PER_ROW, y, (data, x, y, w, h) => {
+  if (!hideTacticCard) {
+    drawGrid(tacticData, CONSTANTS.CARDS_PER_ROW, y, (data, x, y, w, h) => {
       drawCardBackground(ctx, x, y, w + SPACING, h + 30, CONSTANTS.RADIUS, team.faction, 0.3);
 
-    ctx.save();
-    setGlowText(ctx, 36, "#ffffff", fontFamily);
-    // @ts-ignore
-    drawMixedText(ctx, `${translations.t16}: ${data.card.score || 0}`, x + 20, y + 30, 24, lang);
-    ctx.restore();
+      ctx.save();
+      setGlowText(ctx, 36, "#ffffff", fontFamily);
+      // @ts-ignore
+      drawMixedText(ctx, `${translations.t16}: ${data.card.score || 0}`, x + 20, y + 30, 24, lang);
+      ctx.restore();
 
-    ctx.save();
-    ctx.shadowColor = "rgba(0,0,0,0.2)";
-    ctx.shadowBlur = 6;
-    ctx.drawImage(data.img, x + 10, y + 35, w, h);
-    ctx.restore();
-  });
+      ctx.save();
+      ctx.shadowColor = "rgba(0,0,0,0.2)";
+      ctx.shadowBlur = 6;
+      drawItemImage(ctx, data.img, x, y, w, h, false);
+      ctx.restore();
+    });
+  } else {
+    drawGrid(tacticBackData, CONSTANTS.CARDS_PER_ROW, y, (data, x, y, w, h) => {
+      drawCardBackground(ctx, x, y, w + SPACING, h + 30, CONSTANTS.RADIUS, team.faction, 0.3);
+      ctx.save();
+      setGlowText(ctx, 36, "#ffffff", fontFamily);
+      // @ts-ignore
+      drawMixedText(ctx, `${translations.t16}: ${data.card.score || 0}`, x + 20, y + 30, 24, lang);
+      ctx.restore();
+
+      ctx.save();
+      ctx.shadowColor = "rgba(0,0,0,0.2)";
+      ctx.shadowBlur = 6;
+      drawItemImage(ctx, data.img, x, y, w, h, false);
+      ctx.restore();
+    });
+  }
+
+  //如果隐藏战术卡，还要将json数据中的战术卡信息隐藏掉,使用teamCopy来避免修改原team对象导致界面更新
+  let teamCopy = {
+    ...team,
+    tacticCards: team.tacticCards ? [...team.tacticCards] : team.tacticCards
+  };
+  if (hideTacticCard && teamCopy.tacticCards !== undefined && teamCopy.tacticCards.length > 0) {
+    for (let i = 0; i < teamCopy.tacticCards.length; i++) {
+      teamCopy.tacticCards[i] = allTacticCards[0];
+    }
+  }
 
   // 把 canvas 导出为 PNG
   const blob: Blob = await new Promise(resolve => canvas.toBlob(b => resolve(b!), "image/png"));
-    if (!blob) return;
+  if (!blob) return;
 
-    // 转成 ArrayBuffer
-    const buffer = new Uint8Array(await blob.arrayBuffer());
+  // 转成 ArrayBuffer
+  const buffer = new Uint8Array(await blob.arrayBuffer());
 
-    // 提取 PNG chunks
-    // @ts-ignore
-    const chunks = extractChunks(buffer);
+  // 提取 PNG chunks
+  // @ts-ignore
+  const chunks = extractChunks(buffer);
 
-    // 插入 JSON 数据
-    const jsonString = JSON.stringify(team);
-    // @ts-ignore
-    const customChunk = textChunk("TeamData", jsonString);
-    chunks.splice(-1, 0, customChunk); // 在 IEND 前插入
+  // 插入 JSON 数据
+  const jsonString = JSON.stringify(teamCopy);
+  // @ts-ignore
+  const customChunk = textChunk("TeamData", jsonString);
+  chunks.splice(-1, 0, customChunk); // 在 IEND 前插入
 
-    // 重新编码 PNG
-    // @ts-ignore
-    const outputBuffer = encodeChunks(chunks);
-    const outBlob = new Blob([outputBuffer], {type: "image/png" });
+  // 重新编码 PNG
+  // @ts-ignore
+  const outputBuffer = encodeChunks(chunks);
+  const outBlob = new Blob([outputBuffer], { type: "image/png" });
 
-    const blobUrl = URL.createObjectURL(outBlob);
-    const link = document.createElement("a");
-    link.download = `${team.name}.png`;
-    link.href = blobUrl;
+  const blobUrl = URL.createObjectURL(outBlob);
+  const link = document.createElement("a");
+  link.download = `${teamCopy.name}.png`;
+  link.href = blobUrl;
 
-    // 尝试在用户交互环境触发
-    document.body.appendChild(link);
-    link.click();
-    document.body.removeChild(link);
+  // 尝试在用户交互环境触发
+  document.body.appendChild(link);
+  link.click();
+  document.body.removeChild(link);
 
   setTimeout(() => URL.revokeObjectURL(blobUrl), 500);
 };

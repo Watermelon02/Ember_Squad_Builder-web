@@ -521,7 +521,6 @@ export const PartCardEditor: React.FC<PartCardEditorProps> = ({
               {([
                 ['dodge',      '闪避 Dodge'],
                 ['electronic', '电子 Electronic'],
-                ['parray',     '相阵 Parray'],
               ] as const).map(([field, label]) => (
                 <div key={field} className="pce-field">
                   <label className="pce-label">{label}</label>

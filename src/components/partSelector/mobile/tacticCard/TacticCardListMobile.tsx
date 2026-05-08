@@ -21,11 +21,8 @@ const TacticCardListMobile: React.FC<TacticCardListMobileProps> = ({
   // 取消选中
   const resetSelection = () => setSelectedId(null);
   return (
-    <div className="min-h-0 flex flex-col">
-      <div
-        className="flex-1 overflow-y-auto"
-        style={{ paddingLeft: '2vw', paddingRight: '2vw' }}
-      >
+    <div style={{ height: '100%', display: 'flex', flexDirection: 'column' }}>
+      <div style={{ flex: 1, minHeight: 0, overflowY: 'auto', paddingLeft: '2vw', paddingRight: '2vw' }}>
         <div className="grid grid-cols-2 gap-2">
           {filteredTacticCards.map((tacticCard) => (
             <SelectableCard

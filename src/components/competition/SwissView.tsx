@@ -82,7 +82,7 @@ const SwissStandingRow: React.FC<{
   const { player, wins, losses, roundResults } = standing;
   return (
     <motion.div initial={{ opacity: 0, x: -6 }} animate={{ opacity: 1, x: 0 }} transition={{ delay: animDelay, duration: 0.22 }}
-      style={{ display: 'flex', alignItems: 'center', gap: 8, padding: '0.48rem 0.75rem', borderRadius: 11, background: rank === 1 ? 'rgba(255,215,0,0.08)' : rank <= 3 ? 'rgba(255,255,255,0.05)' : 'rgba(255,255,255,0.03)', border: `1px solid ${rank === 1 ? 'rgba(255,215,0,0.22)' : rank <= 3 ? 'rgba(255,255,255,0.1)' : 'rgba(255,255,255,0.06)'}` }}
+      style={{ display: 'flex', alignItems: 'center', gap: 8, padding: '0.48rem 0.75rem', borderRadius: 11, background: rank === 1 ? 'rgba(255,215,0,0.08)' : rank <= 3 ? 'rgba(255,255,255,0.05)' : 'rgba(255,255,255,0.03)', opacity: standing.eliminated ? 0.45 : 1, border: `1px solid ${rank === 1 ? 'rgba(255,215,0,0.22)' : rank <= 3 ? 'rgba(255,255,255,0.1)' : 'rgba(255,255,255,0.06)'}` }}
     >
       <div style={{ width: 24, textAlign: 'center', flexShrink: 0 }}>
         {rank === 1 ? <span style={{ fontSize: '1rem' }}>🥇</span> : rank === 2 ? <span style={{ fontSize: '0.9rem' }}>🥈</span> : rank === 3 ? <span style={{ fontSize: '0.9rem' }}>🥉</span> : <span style={{ fontSize: '0.68rem', fontWeight: 700, color: 'rgba(255,255,255,0.36)' }}>#{rank}</span>}
@@ -100,6 +100,22 @@ const SwissStandingRow: React.FC<{
           <span style={{ fontWeight: 800, fontSize: '0.82rem', color: '#ef4444' }}>{losses}</span>
         </div>
       </div>
+      {/* 淘汰标记 */}
+      {standing.eliminated && (
+        <div title={`R${(standing.eliminatedAfterRound ?? 0) + 1} 淘汰`}
+          style={{
+            marginTop: 2, display: 'flex', alignItems: 'center', gap: 2,
+            padding: '0.06rem 0.28rem', borderRadius: 5,
+            background: 'rgba(239,68,68,0.15)', border: '1px solid rgba(239,68,68,0.35)'
+          }}>
+          <span style={{ fontSize: '0.44rem', fontWeight: 800, color: '#ef4444', letterSpacing: '0.05em' }}>
+            ✕ {lang === 'zh' ? `R${(standing.eliminatedAfterRound ?? 0) + 1} 淘汰`
+              : lang === 'jp' ? `R${(standing.eliminatedAfterRound ?? 0) + 1} 敗退`
+                : `OUT R${(standing.eliminatedAfterRound ?? 0) + 1}`}
+          </span>
+        </div>
+      )}
+
       <div style={{ display: 'flex', gap: 3, flexShrink: 0 }}>
         {Array.from({ length: totalRounds }).map((_, ri) => {
           const r: RoundResult = roundResults[ri] ?? 'none';
@@ -255,12 +271,22 @@ export const SwissView: React.FC<SwissViewProps> = ({
 
     const matchGroups: Record<number, SwissMatch[]> = {};
     round.forEach(m => {
+      // ── 新增：跳过双方中任意一人已在本轮前被淘汰的对局 ──
+      const sA = swissStandings.find(s => s.idx === m.playerAIdx);
+      const sB = swissStandings.find(s => s.idx === m.playerBIdx);
+      const aElimBefore = sA?.eliminated && (sA.eliminatedAfterRound ?? Infinity) < rIdx;
+      const bElimBefore = sB?.eliminated && (sB.eliminatedAfterRound ?? Infinity) < rIdx;
+      if (aElimBefore || bElimBefore) return; // 直接跳过，不渲染
+
       const b = Math.max(winsMap[m.playerAIdx] ?? 0, winsMap[m.playerBIdx] ?? 0);
       (matchGroups[b] ??= []).push(m);
     });
 
+    // byeGroups 同理，跳过已淘汰的轮空（理论上不应出现，保险起见）
     const byeGroups: Record<number, number[]> = {};
     byeIdxs.forEach(bi => {
+      const s = swissStandings.find(st => st.idx === bi);
+      if (s?.eliminated && (s.eliminatedAfterRound ?? Infinity) < rIdx) return;
       const b = winsMap[bi] ?? 0;
       (byeGroups[b] ??= []).push(bi);
     });
@@ -286,11 +312,36 @@ export const SwissView: React.FC<SwissViewProps> = ({
                 </span>
                 <div style={{ flex: 1, height: 1, background: `linear-gradient(to right,${gc}55,transparent)` }} />
               </div>
-              {matches.map((match, mIdx) => (
-                <div key={mIdx} style={{ marginBottom: 8 }}>
-                  <SwissMatchCard match={match} players={PARTICIPATING_TOURNAMENT_TEAMS} onViewTeam={onClickTeam} factionNames={factionNames} lang={lang} tabsrc={tabsrc} translations={translations} animDelay={rIdx * 0.04 + bOrd * 0.02 + mIdx * 0.02} />
-                </div>
-              ))}
+
+              {matches.map((match, mIdx) => {
+                const pA = PARTICIPATING_TOURNAMENT_TEAMS[match.playerAIdx];
+                const pB = PARTICIPATING_TOURNAMENT_TEAMS[match.playerBIdx];
+
+
+                const standingA = swissStandings.find(s => s.idx === match.playerAIdx);
+                const standingB = swissStandings.find(s => s.idx === match.playerBIdx);
+                const aElim = standingA?.eliminated && (standingA.eliminatedAfterRound ?? Infinity) < rIdx;
+                const bElim = standingB?.eliminated && (standingB.eliminatedAfterRound ?? Infinity) < rIdx;
+
+                return (
+                  <div key={mIdx} style={{ marginBottom: 8 }}>
+                    {(aElim || bElim) && (
+                      <div style={{ display: 'flex', gap: 4, marginBottom: 4, paddingLeft: 2 }}>
+                        {aElim && <span style={{ fontSize: '0.44rem', color: '#ef4444', opacity: 0.7 }}>
+                          ✕ {pA?.userName} {lang === 'zh' ? '已淘汰' : lang === 'jp' ? '敗退済' : 'eliminated'}
+                        </span>}
+                        {bElim && <span style={{ fontSize: '0.44rem', color: '#ef4444', opacity: 0.7 }}>
+                          ✕ {pB?.userName} {lang === 'zh' ? '已淘汰' : lang === 'jp' ? '敗退済' : 'eliminated'}
+                        </span>}
+                      </div>
+                    )}
+                    <SwissMatchCard match={match} players={PARTICIPATING_TOURNAMENT_TEAMS}
+                      onViewTeam={onClickTeam} factionNames={factionNames}
+                      lang={lang} tabsrc={tabsrc} translations={translations}
+                      animDelay={rIdx * 0.04 + bOrd * 0.02 + mIdx * 0.02} />
+                  </div>
+                );
+              })}
               {byes.map((bIdx, bi) => {
                 const bp = PARTICIPATING_TOURNAMENT_TEAMS[bIdx];
                 if (!bp) return null;

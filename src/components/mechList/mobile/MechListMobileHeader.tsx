@@ -23,11 +23,13 @@ interface MechListMobileHeaderProps {
   setShowProjectileOption: (val: any) => void;
   includeProjectile: boolean;
   setIncludeProjectile: (val: boolean) => void;
+  hideTacticCard: boolean;
+  setHideTacticCard: (val: boolean) => void;
 }
 
 export const MechListMobileHeader: React.FC<MechListMobileHeaderProps> = ({
   team, translations, lang, setLanguage, currentTab, setCurrentTab, onSetViewMode, setCPartType,
-  isExporting, handleExportImage, showProjectileOption, setShowProjectileOption, includeProjectile, setIncludeProjectile
+  isExporting, handleExportImage, showProjectileOption, setShowProjectileOption, includeProjectile, setIncludeProjectile, hideTacticCard, setHideTacticCard
 }) => {
   return (
     <div className="p-2 border-b border-border flex flex-col gap-2">
@@ -73,7 +75,7 @@ export const MechListMobileHeader: React.FC<MechListMobileHeaderProps> = ({
         {/* 三个按钮平分剩余空间 */}
         <div className="flex-1 min-w-0">
           <Button className="w-full h-8 px-1" variant="outline" size="sm"
-            onClick={() => team && exportTextTeamData(team, translations, lang)}>
+            onClick={() => team && exportTextTeamData(team, translations, lang,hideTacticCard)}>
             <Table2 className="w-3.5 h-3.5 shrink-0" />
             <span className="text-[10px] whitespace-nowrap ml-0.5">{translations.t6}</span>
           </Button>
@@ -111,18 +113,46 @@ export const MechListMobileHeader: React.FC<MechListMobileHeaderProps> = ({
           </Button>
           <AnimatePresence>
             {showProjectileOption && (
-              <motion.div key="checkbox-popup"
+              <motion.div
+                key="checkbox-popup"
                 initial={{ opacity: 0, y: -5 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -5 }}
                 transition={{ duration: 0.2 }}
-                className="absolute top-full left-1/2 -translate-x-1/2 bg-white border border-gray-300 rounded-lg shadow-lg px-3 py-1.5 flex items-center gap-2 text-sm z-10 max-w-[200px] sm:max-w-[250px] break-words"
-                style={{ backgroundColor: 'white' }}>
-                <input type="checkbox" id="include-projectile" checked={includeProjectile}
-                  onChange={(e) => setIncludeProjectile(e.target.checked)} className="h-4 w-4" />
-                <label htmlFor="include-projectile"
-                  className="cursor-pointer select-none whitespace-normal"
-                  style={{ color: 'black', WebkitTextStroke: '0.5px white' }}>
-                  {translations.t91}
-                </label>
+                style={{
+                  position: "absolute",
+                  top: "100%",
+                  right: 0,          // ← 右对齐，向左展开
+                  // 删除 transform、left
+                  backgroundColor: "white",
+                  border: "1px solid #d1d5db",
+                  borderRadius: 8,
+                  boxShadow: "0 4px 12px rgba(0,0,0,0.15)",
+                  padding: "8px 12px",
+                  display: "flex",
+                  flexDirection: "column",
+                  gap: 8,
+                  fontSize: 12,
+                  zIndex: 10,
+                  whiteSpace: "nowrap",
+                }}
+              >
+                <div className="flex items-center gap-2">
+                  <input type="checkbox" id="include-projectile-mobile" checked={includeProjectile}
+                    onChange={(e) => setIncludeProjectile(e.target.checked)}
+                    className="h-4 w-4 shrink-0" style={{ accentColor: "#3b82f6" }} />
+                  <label htmlFor="include-projectile-mobile"
+                    className="cursor-pointer select-none" style={{ color: "#374151" }}>
+                    {translations.t91}
+                  </label>
+                </div>
+                <div className="flex items-center gap-2">
+                  <input type="checkbox" id="hide-tactic-card-mobile" checked={hideTacticCard}
+                    onChange={(e) => setHideTacticCard(e.target.checked)}
+                    className="h-4 w-4 shrink-0" style={{ accentColor: "#3b82f6" }} />
+                  <label htmlFor="hide-tactic-card-mobile"
+                    className="cursor-pointer select-none" style={{ color: "#374151" }}>
+                    {translations.t122}
+                  </label>
+                </div>
               </motion.div>
             )}
           </AnimatePresence>
@@ -155,7 +185,7 @@ export const MechListMobileHeader: React.FC<MechListMobileHeaderProps> = ({
               boxShadow: "inset 0 0 8px rgba(0,0,0,0.1)",
             }}
           >
-            <div style={{ fontSize: "1.2vh", color: "#6b7280"}}>
+            <div style={{ fontSize: "1.2vh", color: "#6b7280" }}>
               {stat.label}
             </div>
             <AnimatePresence mode="popLayout">
