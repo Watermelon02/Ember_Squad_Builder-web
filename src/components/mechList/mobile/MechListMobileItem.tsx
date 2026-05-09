@@ -147,7 +147,7 @@ export const MechListMobileItem: React.FC<MechListMobileItemProps> = ({
               <MechPreview
                 mech={mech} mechImgSrc={mechImgSrc} width="16vh" height="16vh"
                 scaleOverrides={{ chasis: 1, backpack: 2 }} cropLeftPercent={13}
-                defaultParts={defaultPreviewParts} tournamentMode={tournamentMode} style={{ flex: '1' }}
+                defaultParts={defaultPreviewParts} style={{ flex: '1' }}
               />
             </div>
         </div>

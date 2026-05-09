@@ -364,6 +364,97 @@ export function TeamList({
         />
       </div>
 
+      {/* 新增小队按钮 —— 玻璃拟态，与上方操作栏风格统一 */}
+      <div
+        style={{
+          paddingLeft: 12,
+          paddingRight: 12,
+          marginBottom: 8,
+          flexShrink: 0,
+        }}
+      >
+        <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
+          <DialogTrigger asChild>
+            <button
+              style={{
+                width: "100%",
+                height: "5vh",
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+                gap: 6,
+                borderRadius: "8px",
+                border: "1px rgba(80,80,80,0.3)",
+                backgroundColor: "rgba(255,255,255,0.3)",
+                backdropFilter: "blur(12px)",
+                WebkitBackdropFilter: "blur(12px)",
+                boxShadow: "0 4px 12px rgba(0,0,0,0.15)",
+                color: COLOR_TEXT_GREY,
+                fontWeight: 600,
+                fontSize: 13,
+                cursor: "pointer",
+                transition: "transform 0.2s, background-color 0.25s, box-shadow 0.3s",
+              }}
+              onMouseEnter={(e) => {
+                const btn = e.currentTarget;
+                btn.style.transform = "translateY(-1px)";
+                btn.style.backgroundColor = "rgba(255,255,255,0.45)";
+                btn.style.boxShadow = "0 6px 16px rgba(0,0,0,0.2)";
+              }}
+              onMouseLeave={(e) => {
+                const btn = e.currentTarget;
+                btn.style.transform = "translateY(0)";
+                btn.style.backgroundColor = "rgba(255,255,255,0.3)";
+                btn.style.boxShadow = "0 4px 12px rgba(0,0,0,0.15)";
+              }}
+            >
+              <Plus style={{ width: 16, height: 16 }} />
+              <span>{translations.t12}</span>
+            </button>
+          </DialogTrigger>
+          <DialogContent>
+            <DialogHeader>
+              <DialogTitle>{translations.t13}</DialogTitle>
+            </DialogHeader>
+            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: 8 }}>
+              {(Object.entries(factionNames) as [keyof typeof factionNames, string][]).map(([key, name]) => (
+                <Button
+                  key={key}
+                  onClick={() => handleAddTeam(key)}
+                  style={{
+                    background: `linear-gradient(135deg, ${FACTION_COLORS[key]}, ${FACTION_COLORS[key]}cc)`,
+                    color: "#fff",
+                    border: "none",
+                    borderRadius: "8px",
+                    padding: "0.5rem 1rem",
+                    fontWeight: 600,
+                    boxShadow: "0 4px 12px rgba(0,0,0,0.15)",
+                    cursor: "pointer",
+                    transition: "transform 0.2s, box-shadow 0.3s",
+                  }}
+                  onMouseEnter={e => {
+                    const btn = e.currentTarget as HTMLButtonElement;
+                    btn.style.transform = "translateY(-2px)";
+                    btn.style.boxShadow = `
+                0 6px 16px rgba(0,0,0,0.25),
+                0 0 20px ${FACTION_COLORS[key]}88,
+                0 0 40px ${FACTION_COLORS[key]}44
+              `;
+                  }}
+                  onMouseLeave={e => {
+                    const btn = e.currentTarget as HTMLButtonElement;
+                    btn.style.transform = "translateY(0)";
+                    btn.style.boxShadow = "0 4px 12px rgba(0,0,0,0.15)";
+                  }}
+                >
+                  {name}
+                </Button>
+              ))}
+            </div>
+          </DialogContent>
+        </Dialog>
+      </div>
+
       {/* 小队列表 - 使用 DragDropContext 包裹 */}
       <DragDropContext onDragEnd={handleDragEnd}>
         {/* === 关键修改：添加 direction="vertical" === */}
@@ -576,59 +667,7 @@ export function TeamList({
         </Droppable>
       </DragDropContext>
 
-      {/* 新增小队按钮 (保持不变) */}
-      <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
-        <DialogTrigger asChild>
-          <div style={{ display: 'flex', justifyContent: 'center' }}>
-            <Button size="sm" className="w-full bg-gray-100 hover:bg-gray-200 text-gray-800">
-              <Plus className="w-4 h-4 mr-2" />
-              <div style={{ fontSize: 12 }}>{translations.t12}</div>
-            </Button>
-          </div>
-        </DialogTrigger>
-        <DialogContent>
-          <DialogHeader>
-            <DialogTitle>{translations.t13}</DialogTitle>
-          </DialogHeader>
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: 8 }}>
-            {(Object.entries(factionNames) as [keyof typeof factionNames, string][]).map(([key, name]) => (
-              <Button
-                key={key}
-                onClick={() => handleAddTeam(key)}
-                style={{
-                  background: `linear-gradient(135deg, ${FACTION_COLORS[key]}, ${FACTION_COLORS[key]}cc)`,
-                  color: "#fff",
-                  border: "none",
-                  borderRadius: "8px",
-                  padding: "0.5rem 1rem",
-                  fontWeight: 600,
-                  boxShadow: "0 4px 12px rgba(0,0,0,0.15)",
-                  cursor: "pointer",
-                  transition: "transform 0.2s, box-shadow 0.3s",
-                }}
-                onMouseEnter={e => {
-                  const btn = e.currentTarget as HTMLButtonElement;
-                  btn.style.transform = "translateY(-2px)";
-                  btn.style.boxShadow = `
-      0 6px 16px rgba(0,0,0,0.25),
-      0 0 20px ${FACTION_COLORS[key]}88,
-      0 0 40px ${FACTION_COLORS[key]}44
-    `;
-                }}
-                onMouseLeave={e => {
-                  const btn = e.currentTarget as HTMLButtonElement;
-                  btn.style.transform = "translateY(0)";
-                  btn.style.boxShadow = "0 4px 12px rgba(0,0,0,0.15)";
-                }}
-              >
-                {name}
-              </Button>
 
-
-            ))}
-          </div>
-        </DialogContent>
-      </Dialog>
     </div >
   );
 }

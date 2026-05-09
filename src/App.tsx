@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { TeamList } from './components/teamList/TeamList';
 import { MechList } from './components/mechList/desktop/MechList';
 import { PartSelector } from './components/partSelector/desktop/PartSelector';
-import { Team, Mech, Part, Drone, Pilot, PART_TYPE_NAMES, FACTION_NAMES, TacticCard, calculateTotalScore } from './data/types';
+import { Team, Mech, Part, Drone, Pilot, PART_TYPE_NAMES, FACTION_NAMES, TacticCard, calculateTotalScore, FACTION_COLORS } from './data/types';
 
 import { translations } from './i18n';
 import { BACKGROUND_SRC, BOX_COVER_SRC, IMAGE_SRC, LOCAL_IMAGE_SRC, MECH_IMAGE_SRC, TAB_IMAGE_SRC, TAB_SMALL_IMAGE_SRC } from './data/resource';
@@ -30,6 +30,7 @@ import { getDeviceFingerprint } from './util/RemoteUtil';
 
 import { CompetitionDialog } from './components/competition/CompetitionDialog';
 import TournamentView from './components/competition/TournamentView';
+import { Button } from './components/radix-ui/button';
 
 export default function App() {
   // ------------------ 语言 ------------------
@@ -100,15 +101,28 @@ export default function App() {
     try { return saved ? JSON.parse(saved) : false; }
     catch (e) { return false; }
   });
+  //比赛报名模式，在header处设置，开启后影响可选择的部件
+  const [competitionRegistrationMode, setCompetitionRegistrationMode] = useState<boolean>(() => {
+    const saved = localStorage.getItem("competitionRegistrationMode");
+    try { return saved ? JSON.parse(saved) : false; }
+    catch (e) { return false; }
+  });
   const [hideTacticCard, setHideTacticCard] = useState<boolean>(() => {
     const saved = localStorage.getItem("hideTacticCard");
     return saved ? JSON.parse(saved) : false;
   });
 
   useEffect(() => {
-    try { localStorage.setItem("animationCardMode", JSON.stringify(animationCardMode)); }
+    try { localStorage.setItem("animationCardMode", JSON.stringify(animationCardMode));
+      //关闭动画模式，给比赛报名按钮腾位置
+      setAnimationCardMode(false);
+     }
     catch (e) { }
   }, [animationCardMode]);
+
+  useEffect(() => {
+    localStorage.setItem("competitionRegistrationMode", JSON.stringify(competitionRegistrationMode));
+  }, [competitionRegistrationMode]);
 
   const typePartNames = PART_TYPE_NAMES[lang];
   const factionNames = FACTION_NAMES[lang];
@@ -134,7 +148,7 @@ export default function App() {
   const [lastSelectTacticCard, setLastSelectTacticCard] = useState<TacticCard>();
 
   const showCompetitionDialog = false;
-  const BANNER_ID = 'competition_v2';
+  const BANNER_ID = 'competition_v3';
   const [competitionDialogOpen, setCompetitionDialogOpen] = useState(() => {
     return localStorage.getItem(`has_closed_${BANNER_ID}`) !== 'true';
   });
@@ -299,11 +313,14 @@ export default function App() {
           onSelectDrone={() => { }}
           animationCardMode={animationCardMode}
           setAnimationCardMode={setAnimationCardMode}
+          competitionRegistrationMode={competitionRegistrationMode}
+          setCompetitionRegistrationMode={setCompetitionRegistrationMode}
           onUpdateInventory={setInventory}
           competitionDialogOpen={false}
           setCompetitionDialogOpen={() => { }}
           showCompetitionDialog={false}
           hideTacticCard={hideTacticCard} setHideTacticCard={setHideTacticCard}
+          showCompetitionDialog = {showCompetitionDialog}
         />}
         {isMobileOrTablet && <MechListMobile
           team={team} selectedMechId={selectedMechId}
@@ -370,21 +387,41 @@ export default function App() {
             }}>
               {t.t65}
             </p>
-            <button
-              onClick={() => initNewTeam('RDL')}
-              style={{
-                padding: "0.75rem 1.5rem", borderRadius: "12px", color: "white", fontWeight: "bold",
-                fontSize: isMobileOrTablet ? "4vw" : "1.2vw",
-                backdropFilter: "blur(10px)", WebkitBackdropFilter: "blur(10px)",
-                backgroundColor: "rgba(255,255,255,0.12)", border: "1px solid rgba(255,255,255,0.4)",
-                textShadow: `-1px -1px 1px #000, 1px -1px 1px #000, -1px 1px 1px #000, 1px 1px 1px #000, 0 0 6px rgba(255,255,255,0.9)`,
-                cursor: "pointer", animation: "buttonPulse 3.2s ease-in-out infinite", transition: "0.25s ease",
-              }}
-              onMouseEnter={e => { e.currentTarget.style.backgroundColor = "rgba(255,255,255,0.22)"; }}
-              onMouseLeave={e => { e.currentTarget.style.backgroundColor = "rgba(255,255,255,0.12)"; }}
-            >
-              {t.t66}
-            </button>
+            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: 8 }}>
+              {(Object.entries(factionNames) as [keyof typeof factionNames, string][]).map(([key, name]) => (
+                <Button
+                  key={key}
+                  onClick={() => addTeam(key)}
+                  style={{
+                    background: `linear-gradient(135deg, ${FACTION_COLORS[key]}, ${FACTION_COLORS[key]}cc)`,
+                    color: "#fff",
+                    border: "none",
+                    borderRadius: "8px",
+                    padding: "0.5rem 1rem",
+                    fontWeight: 600,
+                    boxShadow: "0 4px 12px rgba(0,0,0,0.15)",
+                    cursor: "pointer",
+                    transition: "transform 0.2s, box-shadow 0.3s",
+                  }}
+                  onMouseEnter={e => {
+                    const btn = e.currentTarget as HTMLButtonElement;
+                    btn.style.transform = "translateY(-2px)";
+                    btn.style.boxShadow = `
+                0 6px 16px rgba(0,0,0,0.25),
+                0 0 20px ${FACTION_COLORS[key]}88,
+                0 0 40px ${FACTION_COLORS[key]}44
+              `;
+                  }}
+                  onMouseLeave={e => {
+                    const btn = e.currentTarget as HTMLButtonElement;
+                    btn.style.transform = "translateY(0)";
+                    btn.style.boxShadow = "0 4px 12px rgba(0,0,0,0.15)";
+                  }}
+                >
+                  {name}
+                </Button>
+              ))}
+            </div>
           </div>
         </div>
       </>
@@ -409,11 +446,11 @@ export default function App() {
     if (!selectedTeam.faction) return [];
     switch (selectedTeam.faction) {
       case 'RDL': switch (selectedPartType) {
-        case 'torso': return [...rdlTorso, ...pdTorso].filter(p => p?.type);
-        case 'chasis': return [...rdlChasis, ...pdChasis].filter(p => p?.type);
-        case 'leftHand': return [...rdlLeftHand, ...pdLeftHand].filter(p => p?.type);
-        case 'rightHand': return [...rdlRightHand, ...pdRightHand].filter(p => p?.type);
-        case 'backpack': return [...rdlBackpack, ...pdBackpack].filter(p => p?.type);
+        case 'torso': return [...rdlTorso, ...pdTorso];
+        case 'chasis': return [...rdlChasis, ...pdChasis];
+        case 'leftHand': return [...rdlLeftHand, ...pdLeftHand];
+        case 'rightHand': return [...rdlRightHand, ...pdRightHand];
+        case 'backpack': return [...rdlBackpack, ...pdBackpack];
       }
       case 'UN': switch (selectedPartType) {
         case 'torso': return unTorso.concat(pdTorso);
@@ -747,6 +784,7 @@ export default function App() {
               onSetIsChangingPart={v => setIsChangingPart(v)}
               onSelectDrone={d => setLastPartId(d.id)}
               animationCardMode={animationCardMode} setAnimationCardMode={setAnimationCardMode}
+              competitionRegistrationMode={competitionRegistrationMode} setCompetitionRegistrationMode={setCompetitionRegistrationMode}
               onUpdateInventory={setInventory}
               hideTacticCard={hideTacticCard} setHideTacticCard={setHideTacticCard}
             />
@@ -755,7 +793,7 @@ export default function App() {
           {showCompetitionDialog &&
             <CompetitionDialog
               open={competitionDialogOpen}
-              onOpenChange={setCompetitionDialogOpen}
+              onOpenChange={handleCompetitionDialogOpenChange}
               bannerSrc={`${backgroundImgsrc}/competition.webp`}
               teams={teams}
               lang={lang}
@@ -764,6 +802,7 @@ export default function App() {
               localImgsrc={localImgsrc}
               imgsrc={imageSrc}
               factionNames={factionNames}
+
             />
           }
           {isMobileOrTablet && (
@@ -887,6 +926,7 @@ export default function App() {
                         onSelectPart={handleSelectPart} onSelectDrone={handleSelectDrone}
                         onSelectTacticCard={handleSelectTacticCard} onSelectPilot={handleSelectPilot}
                         inventoryMode={inventoryMode}
+                        competitionRegistrationMode={competitionRegistrationMode}
                       />
                     </div>
                   </motion.div>

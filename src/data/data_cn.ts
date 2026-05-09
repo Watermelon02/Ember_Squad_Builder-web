@@ -3314,7 +3314,7 @@ export const gofBackpack: Part[] = [
     "electronic": 0,
     "move": 0,
     "description": "",
-    "containedIn": [{ "box": BOXES.GOF_CORE, "quantityPerBox": 1 }, { "box": BOXES.GOF_CORE, "quantityPerBox": 2 }],
+    "containedIn": [ { "box": BOXES.GOF_CORE, "quantityPerBox": 2 },{ "box": BOXES.LAB_GOF_CENTAUR, "quantityPerBox": 1 },],
     "keywords": [KEYWORD_LIST.zh.额外的标识],
     "action": [
       {

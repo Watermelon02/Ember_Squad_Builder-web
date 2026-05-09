@@ -13,7 +13,6 @@ import { DroneTabContent } from './tabs/DroneTabContent';
 import { TacticTabContent } from './tabs/TacticTabContent';
 import { BACKGROUND_SRC } from '../../../data/resource';
 import { COLOR_GREY } from '../../../styles/color';
-import { PartCardEditor } from '../../cardEditor/PartCardEditor';
 
 
 
@@ -36,11 +35,14 @@ interface MechListProps {
   boxCoverSrc: string,
   animationCardMode: boolean,
   setAnimationCardMode: (mode: boolean) => void,
+  competitionRegistrationMode: boolean,
+  setCompetitionRegistrationMode: (mode: boolean) => void,
   onUpdateInventory: (inventory: Record<number, number>) => void;
   inventoryMode: boolean;
   onsetInventoryMode: (mode: boolean) => void;
   hideTacticCard: boolean;
   setHideTacticCard: (hide: boolean) => void;
+  showCompetitionDialog: boolean;
 }
 
 export function MechList({
@@ -56,13 +58,14 @@ export function MechList({
   partTypeNames = 'chasis',
   imgsrc, tabsrc,
   localImgsrc, lang, mobileOrTablet, setLanguage, tournamentMode,
-  mechImgSrc, onSetIsChangingPart, animationCardMode, setAnimationCardMode, onUpdateInventory, inventoryMode, onsetInventoryMode, boxCoverSrc, hideTacticCard, setHideTacticCard
+  mechImgSrc, onSetIsChangingPart, animationCardMode, setAnimationCardMode, onUpdateInventory, inventoryMode, onsetInventoryMode, boxCoverSrc, hideTacticCard, setHideTacticCard,
+  competitionRegistrationMode, setCompetitionRegistrationMode,showCompetitionDialog
 
 }: MechListProps) {
   const [filterFaction, setFilterFaction] = useState<FactionType | 'ALL'>('ALL');
   const logic = useMechListLogic({
     team, onUpdateTeam, onSelectMech, selectedMechId, translations, lang, mechImgSrc, imgsrc, tabsrc, localImgsrc,
-    onUpdateInventory,hideTacticCard, setHideTacticCard
+    onUpdateInventory, hideTacticCard, setHideTacticCard
   });
 
   if (!team) {
@@ -551,11 +554,13 @@ export function MechList({
           showProjectileOption={logic.showProjectileOption} setShowProjectileOption={logic.setShowProjectileOption}
           isExportingTTS={logic.isExportingTTS} handleExportTTS={logic.handleExportTTS}
           animationCardMode={animationCardMode} setAnimationCardMode={setAnimationCardMode}
+          competitionRegistrationMode={competitionRegistrationMode} setCompetitionRegistrationMode={setCompetitionRegistrationMode}
           showBoxList={logic.boxListDialogOpen} setShowBoxList={logic.setBoxListDialogOpen}
           setBoxListDialogOpen={logic.setBoxListDialogOpen}
           tournamentMode={tournamentMode}
           hideTacticCard={hideTacticCard} setHideTacticCard={setHideTacticCard}
           tabsrc={tabsrc} mechImgSrc={mechImgSrc}
+          showCompetitionDialog={showCompetitionDialog}
         />
 
         <MechTabContent
@@ -576,7 +581,6 @@ export function MechList({
           editingMechId={logic.editingMechId} setEditingMechId={logic.setEditingMechId}
           updateMechName={logic.updateMechName} copyMech={logic.copyMech} deleteMech={logic.deleteMech} getColorByAttr={getColorByAttr}
           exportRef={logic.exportRef}
-          tournamentMode={tournamentMode}
         />
 
         <DroneTabContent

@@ -227,13 +227,13 @@ export const MechListItem: React.FC<MechListItemProps> = ({
             )}
 
             {!mobileOrTablet && team.faction === 'RDL' && (
-              <MechPreview mech={mech} mechImgSrc={mechImgSrc} width="20vh" height="20vh" scaleOverrides={{ chasis: 1, backpack: 2 }} cropLeftPercent={13} defaultParts={{ leftHand: rdlLeftHand[0], torso: rdlTorso[0], rightHand: rdlRightHand[0], chasis: rdlChasis[1], backpack: rdlBackpack[0] }} tournamentMode={tournamentMode} />
+              <MechPreview mech={mech} mechImgSrc={mechImgSrc} width="20vh" height="20vh" scaleOverrides={{ chasis: 1, backpack: 2 }} cropLeftPercent={13} defaultParts={{ leftHand: rdlLeftHand[0], torso: rdlTorso[0], rightHand: rdlRightHand[0], chasis: rdlChasis[1], backpack: rdlBackpack[0] }} />
             )}
             {!mobileOrTablet && (team.faction == 'UN') && (
-              <MechPreview mech={mech} mechImgSrc={mechImgSrc} width="20vh" height="20vh" scaleOverrides={{ chasis: 1, backpack: 1, leftHand: 1, rightHand: 1, torso: 1 }} defaultParts={{ leftHand: unLeftHand[3], torso: unTorso[5], rightHand: unRightHand[8], chasis: unChasis[0], backpack: unBackpack[3] }} tournamentMode={tournamentMode} />
+              <MechPreview mech={mech} mechImgSrc={mechImgSrc} width="20vh" height="20vh" scaleOverrides={{ chasis: 1, backpack: 1, leftHand: 1, rightHand: 1, torso: 1 }} defaultParts={{ leftHand: unLeftHand[3], torso: unTorso[5], rightHand: unRightHand[8], chasis: unChasis[0], backpack: unBackpack[3] }} />
             )}
             {!mobileOrTablet && (team.faction === 'GOF') && (
-              <MechPreview mech={mech} mechImgSrc={mechImgSrc} width="20vh" height="20vh" scaleOverrides={{ chasis: 1, backpack: 1, leftHand: 1, rightHand: 1, torso: 1 }} defaultParts={{ leftHand: gofLeftHand[0], torso: gofTorso[0], rightHand: gofRightHand[0], chasis: gofChasis[0], backpack: gofBackpack[0] }} tournamentMode={tournamentMode} />
+              <MechPreview mech={mech} mechImgSrc={mechImgSrc} width="20vh" height="20vh" scaleOverrides={{ chasis: 1, backpack: 1, leftHand: 1, rightHand: 1, torso: 1 }} defaultParts={{ leftHand: gofLeftHand[0], torso: gofTorso[0], rightHand: gofRightHand[0], chasis: gofChasis[0], backpack: gofBackpack[0] }} />
             )}
 
             {!mobileOrTablet && (

@@ -1,13 +1,12 @@
 import React, { useState } from 'react';
 import { TabsList, TabsTrigger } from '../../radix-ui/tabs'; // Adjust path
-import { Loader2, Image, Gamepad2Icon, Zap, Table2, Globe, Store } from 'lucide-react';
+import { Loader2, Image, Gamepad2Icon, Zap, Table2, Globe, Store, Trophy } from 'lucide-react';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '../../radix-ui/select';
 import { motion, AnimatePresence } from 'framer-motion';
 import { AnimatedButton } from '../../custom/AnimatedButton'; // Adjust path
 import { COLOR_GLOBAL, COLOR_GREY, COLOR_WHITE } from '../../../styles/color';
 import { exportTextTeamData } from '../../../util/TextUtil';
 import { Team } from '../../../data/types';
-import { exportExcelCardData, exportHTMLCardData } from '../../../util/ExcelUtil';
 
 interface MechListHeaderProps {
     team: Team;
@@ -34,12 +33,15 @@ interface MechListHeaderProps {
     // Animation States
     animationCardMode: boolean;
     setAnimationCardMode: (val: boolean) => void;
+    competitionRegistrationMode: boolean;
+    setCompetitionRegistrationMode: (val: boolean) => void;
     setBoxListDialogOpen: (val: boolean) => void;
     tournamentMode: boolean;
     hideTacticCard: boolean;
     setHideTacticCard: (val: boolean) => void;
     tabsrc: string;
     mechImgSrc: string;
+    showCompetitionDialog: boolean;
 }
 
 export const MechListHeader: React.FC<MechListHeaderProps> = ({
@@ -47,10 +49,12 @@ export const MechListHeader: React.FC<MechListHeaderProps> = ({
     currentTab, setCurrentTab, onSetViewMode, setCPartType,
     isExporting, handleExportImage, includeProjectile, setIncludeProjectile, showProjectileOption, setShowProjectileOption,
     isExportingTTS, handleExportTTS,
-    animationCardMode, setAnimationCardMode, setBoxListDialogOpen, tournamentMode, hideTacticCard, setHideTacticCard, tabsrc, mechImgSrc
+    animationCardMode, setAnimationCardMode, setBoxListDialogOpen, tournamentMode, hideTacticCard, setHideTacticCard, tabsrc, mechImgSrc,
+    competitionRegistrationMode, setCompetitionRegistrationMode,showCompetitionDialog
 }) => {
     const [showTTSHint, setShowTTSHint] = useState(false);
     const [showAnimationHint, setShowAnimationHint] = useState(false);
+    const [showCompetitionHint, setShowCompetitionHint] = useState(false);
     const [showBoxHint, setShowBoxHint] = useState(false);
     const [showTextOption, setShowTextOption] = useState(false);
 
@@ -191,7 +195,7 @@ export const MechListHeader: React.FC<MechListHeaderProps> = ({
                 </div>
 
                 {/* 动画模式开关 */}
-                {!tournamentMode &&
+                {/* {!tournamentMode &&
                     <div style={{ position: "relative" }} onMouseEnter={() => setShowAnimationHint(true)} onMouseLeave={() => setShowAnimationHint(false)}>
                         <AnimatedButton onClick={() => { setAnimationCardMode(!animationCardMode); }} fontSize={"0.8vw"} style={animationCardMode ? { backgroundColor: COLOR_GREY, color: 'white' } : {}}>
                             <div style={{ display: "flex", alignItems: "center", gap: 2 }}><Zap style={{ width: "1vw", height: "1vw" }} /><span>{translations.t106}</span></div>
@@ -203,7 +207,7 @@ export const MechListHeader: React.FC<MechListHeaderProps> = ({
                                 </motion.div>
                             )}
                         </AnimatePresence>
-                    </div>}
+                    </div>} */}
 
                 {/* 设置已购盒 按钮 */}
                 {!tournamentMode && <div style={{ position: "relative" }} onMouseEnter={() => setShowBoxHint(true)} onMouseLeave={() => setShowBoxHint(false)}>
@@ -213,6 +217,22 @@ export const MechListHeader: React.FC<MechListHeaderProps> = ({
                         </div>
                     </AnimatedButton>
                 </div>}
+
+                {/* 比赛报名模式开关 */}
+                {!tournamentMode &&showCompetitionDialog&& lang === "zh" &&
+                    <div style={{ position: "relative" }} onMouseEnter={() => setShowCompetitionHint(true)} onMouseLeave={() => setShowCompetitionHint(false)}>
+                        <AnimatedButton onClick={() => { setCompetitionRegistrationMode(!competitionRegistrationMode); }} fontSize={"0.8vw"} style={competitionRegistrationMode ? { backgroundColor: COLOR_GREY, color: 'white' } : {}}>
+                            <div style={{ display: "flex", alignItems: "center", gap: 2 }}>
+                                <Trophy style={{ width: "1vw", height: "1vw" }} /><span>报名模式</span></div>
+                        </AnimatedButton>
+                        <AnimatePresence>
+                            {showCompetitionHint && (
+                                <motion.div key="competition-mode-hint" initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: 8 }} transition={{ duration: 0.2 }} style={{ position: "absolute", top: "100%", left: "50%", transform: "translateX(-50%)", background: "white", borderRadius: 8, boxShadow: "0 4px 6px rgba(0,0,0,0.1)", padding: "6px 12px", fontSize: "0.8vw", marginTop: -6, zIndex: 90, whiteSpace: "nowrap" }}>
+                                    <label style={{ userSelect: "none", color: "#374151" }}>比赛报名模式，开启后只显示比赛允许的部件</label>
+                                </motion.div>
+                            )}
+                        </AnimatePresence>
+                    </div>}
 
             </div>
 
