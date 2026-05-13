@@ -33,7 +33,7 @@ export function getCacheNames(): Record<string, string> {
   return {
     fullParts: `${CACHE_PREFIX}full-parts-v${IMAGE_PART_VERSION}`,
     fullPilots: `${CACHE_PREFIX}full-pilots-v${IMAGE_PILOT_VERSION}`,
-    fullDrones: `${CACHE_PREFIX}full-drones`,
+    fullDrones: `${CACHE_PREFIX}full-drones-v${IMAGE_DRONE_VERSION}`,
     fullProjectiles: `${CACHE_PREFIX}full-projectiles-v${IMAGE_PROJECTILE_VERSION}`,
     fullThrow: `${CACHE_PREFIX}throw-v${IMAGE_PART_THROW_VERSION}`,
     fullCards: `${CACHE_PREFIX}full-cards`,
@@ -102,15 +102,15 @@ export function buildAllImageUrls(data: any, lang: Lang): ImageUrlGroups {
   // Merge projectile IDs from data arrays + part/drone references
   const allProjectileIds = [...new Set([...projectileIds, ...partProjectileIds])];
 
-  // Build full-size URLs
+  // ── Full-size URLs ──
   const fullParts = partIds.map(id => buildImageUrl(imageSrc, id, 'webp', IMAGE_PART_VERSION));
   const fullPilots = pilotIds.map(id => buildImageUrl(imageSrc, id, 'webp', IMAGE_PILOT_VERSION));
-  const fullDrones = droneIds.map(id => buildImageUrl(imageSrc, id, 'webp'));
+  const fullDrones = droneIds.map(id => buildImageUrl(imageSrc, id, 'webp', IMAGE_DRONE_VERSION));
   const fullProjectiles = allProjectileIds.map(id => buildImageUrl(imageSrc, id, 'webp', IMAGE_PROJECTILE_VERSION));
   const fullThrow = [...throwIds].map(id => buildImageUrl(imageSrc, id, 'webp', IMAGE_PART_THROW_VERSION));
   const fullCards = (allTacticCards as TacticCard[]).map((card: TacticCard) => buildImageUrl(imageSrc, card.id, 'webp'));
 
-  // Build tab-size URLs
+  // ── Tab-size URLs ──
   const tabParts = partIds.map(id => buildImageUrl(tabSrc, id, 'webp', TAB_PART_VERSION));
   const tabPilots = pilotIds.map(id => buildImageUrl(tabSrc, id, 'webp', TAB_PILOT_VERSION));
   const tabDrones = droneIds.map(id => buildImageUrl(tabSrc, id, 'webp', TAB_DRONE_VERSION));
@@ -156,13 +156,13 @@ export async function preloadImageCache(
   }
 
   let loaded = 0;
-  const CONCURRENCY = 8;
+  const CONCURRENCY = 6;
 
-  // Batch process URLs
+  // Batch process URLs: use Image() to warm HTTP cache + try Cache API via fetch
   for (let i = 0; i < tasks.length; i += CONCURRENCY) {
     const batch = tasks.slice(i, i + CONCURRENCY);
 
-    // Open all needed caches for this batch
+    // Open needed caches once per batch
     const neededCaches = [...new Set(batch.map(t => t.cacheName))];
     const cacheMap = new Map<string, Cache>();
     await Promise.all(neededCaches.map(async name => {
@@ -171,8 +171,8 @@ export async function preloadImageCache(
 
     await Promise.allSettled(batch.map(async ({ cacheName, url }) => {
       try {
+        // Step 1: Try Cache API first (skip if already cached)
         const cache = cacheMap.get(cacheName)!;
-        // Check cache first
         const cached = await cache.match(url);
         if (cached) {
           loaded++;
@@ -180,13 +180,27 @@ export async function preloadImageCache(
           return;
         }
 
-        // Fetch and cache
-        const response = await fetch(url, { mode: 'no-cors' });
-        if (response.type === 'opaque' || response.ok) {
-          await cache.put(url, response);
+        // Step 2: Load image via Image() — always works, warms browser HTTP cache
+        await new Promise<void>((resolve) => {
+          const img = new Image();
+          img.onload = () => resolve();
+          img.onerror = () => resolve();
+          img.src = url;
+        });
+
+        // Step 3: Best-effort Cache API PUT via CORS fetch
+        // This populates Cache API for long-term persistence.
+        // If CDN CORS is not configured, fetch fails silently and HTTP cache still works.
+        try {
+          const response = await fetch(url);
+          if (response.ok) {
+            await cache.put(url, response);
+          }
+        } catch {
+          // CORS not available — HTTP cache is sufficient
         }
       } catch {
-        // Silently handle errors (network issue, 404, etc.)
+        // Network error, skip
       }
       loaded++;
       onProgress(loaded, total);
@@ -201,9 +215,10 @@ interface ImagePreloaderProps {
   lang: Lang;
   translations: { t137: string; t138: string };
   onComplete: () => void;
+  onSetLanguage: (lang: Lang) => void;
 }
 
-export function ImagePreloader({ data, lang, translations, onComplete }: ImagePreloaderProps) {
+export function ImagePreloader({ data, lang, translations, onComplete, onSetLanguage }: ImagePreloaderProps) {
   const [progress, setProgress] = useState(0);
   const [phase, setPhase] = useState<'preparing' | 'loading'>('preparing');
   const [logoFaction, setLogoFaction] = useState(0);
@@ -320,6 +335,34 @@ export function ImagePreloader({ data, lang, translations, onComplete }: ImagePr
             letterSpacing: '0.04em',
           }}>
             月尘写表器
+          </div>
+
+          {/* Language switcher */}
+          <div style={{ display: 'flex', gap: 6 }}>
+            {([
+              { key: 'zh', label: '中文' },
+              { key: 'en', label: 'EN' },
+              { key: 'jp', label: 'JP' },
+            ] as const).map(({ key, label }) => (
+              <button
+                key={key}
+                onClick={() => onSetLanguage(key)}
+                style={{
+                  padding: '4px 14px',
+                  borderRadius: 6,
+                  border: '1px solid',
+                  borderColor: lang === key ? '#1a1a2e' : 'rgba(0,0,0,0.12)',
+                  background: lang === key ? '#1a1a2e' : 'transparent',
+                  color: lang === key ? '#fff' : '#666',
+                  fontSize: 13,
+                  fontWeight: lang === key ? 600 : 400,
+                  cursor: 'pointer',
+                  transition: 'all 0.15s ease',
+                }}
+              >
+                {label}
+              </button>
+            ))}
           </div>
 
           {/* Loading spinner */}

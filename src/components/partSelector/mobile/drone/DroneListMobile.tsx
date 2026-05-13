@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { Card } from '../../../radix-ui/card';
 import { Badge } from '../../../radix-ui/badge';
 import { SelectableCard } from '../../../custom/SelectableCard';
+import { TAB_DRONE_VERSION } from '../../../../data/resource';
 
 interface DroneListMobileProps {
   filteredDrones: any[];
@@ -49,7 +50,7 @@ const DroneListMobile: React.FC<DroneListMobileProps> = ({
             >
               {/* 背景图层 */}
               {(drone.hasImage === undefined || drone.hasImage) ? <img
-                src={`${tabsrc}/${drone.id}.webp`}
+                src={`${tabsrc}/${drone.id}.webp?v=${TAB_DRONE_VERSION}`}
                 alt=""
                 className="absolute right-0 top-0 w-auto h-full object-contain pointer-events-none"
                 style={{ opacity: isOutOfStock ? 0.2 : 0.8 }}

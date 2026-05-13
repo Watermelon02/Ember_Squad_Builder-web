@@ -29,7 +29,6 @@ interface MobilePartSelectorMobileProps {
   partTypeNames: any;
   imgsrc: string;
   tabsrc: string;
-  tabSmallSrc: string;
   onSetHoverImg: (img: string | null) => void;
   onSetShowHoverImg: (show: boolean) => void;
   showHoverImg: boolean;
@@ -61,7 +60,6 @@ export function PartSelectorMobile({
   showKeyword,
   imgsrc,
   tabsrc,
-  tabSmallSrc,
   onSetHoverImg,
   onSetShowHoverImg,
   showHoverImg,
@@ -221,7 +219,7 @@ export function PartSelectorMobile({
           <PartListMobile
             filteredParts={filteredParts}
             onSelectPart={onSelectPart}
-            tabsrc={tabSmallSrc}
+            tabsrc={tabsrc}
             translations={translations}
             lastScore={lastScore}
             selectedPartType={selectedPartType}

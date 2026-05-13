@@ -45,13 +45,13 @@ export const TacticTabContent: React.FC<TacticTabContentProps> = ({
                   </Button>
                 </DialogTrigger>
                 <DialogContent className="border-0 shadow-none bg-transparent p-0">
-                  <img key={tacticCards.id} src={`${imgsrc}/${tacticCards.id}.png`} alt={tacticCards.name} className="w-full h-auto object-contain rounded-lg" />
+                  <img key={tacticCards.id} src={`${imgsrc}/${tacticCards.id}.webp`} alt={tacticCards.name} className="w-full h-auto object-contain rounded-lg" />
                 </DialogContent>
               </Dialog>
 
               <Button variant="secondary" className="h-6 w-8 absolute bg-blue-500/50 left-0 bottom-0 shadow-lg shadow-gray-500 rounded-lg z-0" style={{ color: 'white', textShadow: '0 0 4px rgba(0,0,0,0.7)' }}>{tacticCards?.score}</Button>
               {!tournamentMode &&
-                <img src={`${imgsrc}/${tacticCards.id}.png`} alt={tacticCards.name} onClick={() => onSetViewMode('tacticCards')} className="shadow-lg shadow-gray-500 rounded-lg" style={{ width: '100%', height: '100%', objectFit: 'contain' }} draggable={false} />
+                <img src={`${imgsrc}/${tacticCards.id}.webp`} alt={tacticCards.name} onClick={() => onSetViewMode('tacticCards')} className="shadow-lg shadow-gray-500 rounded-lg" style={{ width: '100%', height: '100%', objectFit: 'contain' }} draggable={false} />
               }
               {/* 如果是比赛模式，战术卡全显示背面 */}
               {tournamentMode &&
@@ -66,7 +66,7 @@ export const TacticTabContent: React.FC<TacticTabContentProps> = ({
             onMouseEnter={(e) => { (e.currentTarget as HTMLDivElement).style.transform = 'scale(1.03)'; (e.currentTarget as HTMLDivElement).style.boxShadow = '0 6px 10px rgba(0,0,0,0.1)'; }}
             onMouseLeave={(e) => { (e.currentTarget as HTMLDivElement).style.transform = 'scale(1)'; (e.currentTarget as HTMLDivElement).style.boxShadow = '0 4px 6px rgba(0,0,0,0.05), 0 1px 3px rgba(0,0,0,0.1)'; }}
           >
-            <img src={`${imgsrc}/274.png`} style={{ width: '100%', height: '100%', objectFit: 'contain', borderRadius: '0.5rem', boxShadow: '0 4px 6px rgba(0,0,0,0.1)', opacity: 0 }} draggable={false} />
+            <img src={`${imgsrc}/274.webp`} style={{ width: '100%', height: '100%', objectFit: 'contain', borderRadius: '0.5rem', boxShadow: '0 4px 6px rgba(0,0,0,0.1)', opacity: 0 }} draggable={false} />
             <div style={{ position: 'absolute', top: 0, left: 0, right: 0, bottom: 0, display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', pointerEvents: 'none' }}>
               <img src={`${tabsrc}/tactic.png`} style={{ width: '100%', height: '100%', objectFit: 'contain', borderRadius: '0.5rem', boxShadow: '0 4px 6px rgba(0,0,0,0.1)', opacity: 1 }} draggable={false} />
             </div>

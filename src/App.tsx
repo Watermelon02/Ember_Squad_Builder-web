@@ -5,7 +5,7 @@ import { PartSelector } from './components/partSelector/desktop/PartSelector';
 import { Team, Mech, Part, Drone, Pilot, PART_TYPE_NAMES, FACTION_NAMES, TacticCard, calculateTotalScore, FACTION_COLORS } from './data/types';
 
 import { translations } from './i18n';
-import { BACKGROUND_SRC, BOX_COVER_SRC, IMAGE_SRC, LOCAL_IMAGE_SRC, MECH_IMAGE_SRC, TAB_IMAGE_SRC, TAB_SMALL_IMAGE_SRC } from './data/resource';
+import { BACKGROUND_SRC, BOX_COVER_SRC, IMAGE_SRC, LOCAL_IMAGE_SRC, MECH_IMAGE_SRC, TAB_IMAGE_SRC } from './data/resource';
 import { ImagePreloader, getCacheNames } from './util/ImagePreloader';
 import * as zhData from './data/data_cn';
 import * as enData from './data/data_en';
@@ -35,9 +35,18 @@ import { Button } from './components/radix-ui/button';
 
 export default function App() {
   // ------------------ 语言 ------------------
+  const [hasSelectedLang, setHasSelectedLang] = useState(!!localStorage.getItem("lang"));
   const [lang, setLang] = useState<"en" | "zh" | "jp">(() => {
     return (localStorage.getItem("lang") as "en" | "zh" | "jp") || "zh";
   });
+
+  const handleSetLang: React.Dispatch<React.SetStateAction<"en" | "zh" | "jp">> = (value) => {
+    const newLang = typeof value === 'function' ? value(lang) : value;
+    setLang(newLang);
+    setHasSelectedLang(true);
+    localStorage.setItem("lang", newLang);
+  };
+
   const t = translations[lang];
   const DATA_VERSION = "3";
 
@@ -130,8 +139,7 @@ export default function App() {
   const factionNames = FACTION_NAMES[lang];
   const imageSrc = IMAGE_SRC[lang];
   const tabSrc = TAB_IMAGE_SRC[lang];
-  const tabSmallSrc = TAB_SMALL_IMAGE_SRC[lang];
-  const localImgsrc = LOCAL_IMAGE_SRC[lang];
+    const localImgsrc = LOCAL_IMAGE_SRC[lang];
   const mechImgsrc = MECH_IMAGE_SRC[lang];
   const boxCoverSrc = BOX_COVER_SRC[lang];
   const backgroundImgsrc = BACKGROUND_SRC[lang];
@@ -255,6 +263,80 @@ export default function App() {
   // 语言数据变化时，重置图片预加载状态
   useEffect(() => { setImagesReady(false); }, [data]);
 
+  // 首次使用：先选语言，再加载数据
+  if (!hasSelectedLang) {
+    const bgSrc = BACKGROUND_SRC['zh'];
+    return (
+      <div className="fixed inset-0 flex overflow-hidden" style={{
+        backgroundColor: "white",
+        backgroundImage: `url(${bgSrc}/background.svg)`,
+        backgroundSize: "cover", backgroundPosition: "center",
+      }}>
+        <div style={{ position: 'absolute', inset: 0, backgroundColor: 'rgba(0,0,0,0.6)' }} />
+        <div style={{
+          position: 'relative', zIndex: 1,
+          width: '100%', height: '100%',
+          display: 'flex', alignItems: 'center', justifyContent: 'center',
+          flexDirection: 'column', gap: 32,
+        }}>
+          <motion.img
+            initial={{ opacity: 0, scale: 0.8 }}
+            animate={{ opacity: 0.15, scale: 1 }}
+            transition={{ duration: 0.6, ease: 'easeOut' }}
+            src={`${bgSrc}/logo_RDL.png`}
+            alt="" style={{
+              position: 'absolute', bottom: 0, right: 0,
+              width: 'clamp(120px, 20vw, 280px)', height: 'auto', pointerEvents: 'none',
+            }}
+          />
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.4, ease: 'easeOut' }}
+            style={{
+              width: 'min(360px, 88vw)', padding: '40px 28px', borderRadius: 12,
+              background: 'rgba(255,255,255,0.92)',
+              backdropFilter: 'blur(16px)', WebkitBackdropFilter: 'blur(16px)',
+              border: '1px solid rgba(255,255,255,0.3)',
+              boxShadow: '0 8px 32px rgba(0,0,0,0.15)',
+              display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 28,
+            }}
+          >
+            <div style={{ fontSize: 'clamp(20px, 5vw, 26px)', fontWeight: 700, color: '#1a1a2e' }}>
+              月尘写表器
+            </div>
+            <div style={{ fontSize: 14, color: '#666', textAlign: 'center' }}>
+              选择语言 / Select Language / 言語を選択
+            </div>
+            <div style={{ display: 'flex', flexDirection: 'column', gap: 10, width: '100%' }}>
+              {[
+                { key: 'zh' as const, label: '中文', sub: '简体中文' },
+                { key: 'en' as const, label: 'English', sub: 'English' },
+                { key: 'jp' as const, label: '日本語', sub: '日本語' },
+              ].map(({ key, label, sub }) => (
+                <button
+                  key={key}
+                  onClick={() => handleSetLang(key)}
+                  style={{
+                    padding: '12px 20px', borderRadius: 8, border: '1px solid rgba(0,0,0,0.1)',
+                    background: '#fff', cursor: 'pointer',
+                    display: 'flex', alignItems: 'center', justifyContent: 'space-between',
+                    transition: 'all 0.15s ease', fontSize: 15,
+                  }}
+                  onMouseEnter={e => { e.currentTarget.style.borderColor = '#1a1a2e'; e.currentTarget.style.background = '#f5f5f5'; }}
+                  onMouseLeave={e => { e.currentTarget.style.borderColor = 'rgba(0,0,0,0.1)'; e.currentTarget.style.background = '#fff'; }}
+                >
+                  <span style={{ fontWeight: 600, color: '#1a1a2e' }}>{label}</span>
+                  <span style={{ color: '#999', fontSize: 13 }}>{sub}</span>
+                </button>
+              ))}
+            </div>
+          </motion.div>
+        </div>
+      </div>
+    );
+  }
+
   if (!data) return <div>加载中...</div>;
 
   // 图片预加载阶段
@@ -265,6 +347,7 @@ export default function App() {
         lang={lang}
         translations={t}
         onComplete={() => setImagesReady(true)}
+        onSetLanguage={handleSetLang}
       />
     );
   }
@@ -332,7 +415,7 @@ export default function App() {
           lang={lang}
           tabsrc={tabSrc}
           mobileOrTablet={false}
-          setLanguage={setLang}
+          setLanguage={handleSetLang}
           tournamentMode={isTournamentMode}
           mechImgSrc={mechImgsrc}
           onSetIsChangingPart={() => { }}
@@ -355,7 +438,7 @@ export default function App() {
           translations={t} partTypeNames={typePartNames}
           imgsrc={imageSrc} localImgsrc={localImgsrc}
           lang={lang} tabsrc={tabSrc} mobileOrTablet={isMobileOrTablet}
-          setLanguage={setLang} tournamentMode={isTournamentMode} mechImgSrc={mechImgsrc}
+          setLanguage={handleSetLang} tournamentMode={isTournamentMode} mechImgSrc={mechImgsrc}
           onSetIsChangingPart={() => { }}
           onSelectDrone={() => { }}
           hideTacticCard={hideTacticCard} setHideTacticCard={setHideTacticCard}
@@ -414,9 +497,7 @@ export default function App() {
                 fontWeight: "bold", fontSize: isMobileOrTablet ? "3.4vw" : "1.4vw",
                 lineHeight: 1.6,
               }}>
-                {translations.zh.t65}<br />
-                {translations.en.t65}<br />
-                {translations.jp.t65}
+                {translations[lang].t65}
               </p>
             <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: 8 }}>
               {(Object.entries(factionNames) as [keyof typeof factionNames, string][]).map(([key, name]) => (
@@ -818,7 +899,7 @@ export default function App() {
               inventoryMode={inventoryMode} onsetInventoryMode={setInventoryMode}
               imgsrc={imageSrc} localImgsrc={localImgsrc} boxCoverSrc={boxCoverSrc}
               lang={lang} tabsrc={tabSrc} mobileOrTablet={isMobileOrTablet}
-              setLanguage={setLang} tournamentMode={isTournamentMode}
+              setLanguage={handleSetLang} tournamentMode={isTournamentMode}
               mechImgSrc={mechImgsrc}
               onSetIsChangingPart={v => setIsChangingPart(v)}
               onSelectDrone={d => setLastPartId(d.id)}
@@ -852,7 +933,7 @@ export default function App() {
               translations={t} partTypeNames={typePartNames}
               imgsrc={imageSrc} localImgsrc={localImgsrc}
               lang={lang} tabsrc={tabSrc} mobileOrTablet={isMobileOrTablet}
-              setLanguage={setLang} tournamentMode={isTournamentMode} mechImgSrc={mechImgsrc}
+              setLanguage={handleSetLang} tournamentMode={isTournamentMode} mechImgSrc={mechImgsrc}
               onSetIsChangingPart={v => setIsChangingPart(v)}
               onSelectDrone={d => setLastPartId(d.id)}
               hideTacticCard={hideTacticCard} setHideTacticCard={setHideTacticCard}
@@ -914,7 +995,7 @@ export default function App() {
                         lastScore={lastScore} lastPartId={lastPartId}
                         onSelectPart={handleSelectPartMobile} onSelectDrone={handleSelectDroneMobile}
                         onSelectTacticCard={handleSelectTacticCardMobile} onSelectPilot={handleSelectPilotMobile}
-                        tabSmallSrc={tabSmallSrc} showKeyword={showKeyword} onSetShowKeyword={setShowKeyword}
+                        showKeyword={showKeyword} onSetShowKeyword={setShowKeyword}
                         competitionRegistrationMode={competitionRegistrationMode}
                         inventory={inventory}
                         inventoryMode={inventoryMode}

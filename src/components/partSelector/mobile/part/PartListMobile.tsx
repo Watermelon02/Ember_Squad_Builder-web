@@ -3,6 +3,7 @@ import { VirtuosoGrid } from 'react-virtuoso';
 import { Card } from '../../../radix-ui/card';
 import { Badge } from '../../../radix-ui/badge';
 import { SelectableCardMobile } from '../../../custom/SelectableCardMobile';
+import { TAB_PART_VERSION } from '../../../../data/resource';
 
 interface PartListMobileProps {
   filteredParts: any[];
@@ -68,7 +69,7 @@ const MemoizedPartCard = React.memo(({
       )}
       {(faction && faction === "GOF") || (part.hasImage === undefined || part.hasImage) ? (
         <img
-          src={`${tabsrc}/${part.id}.webp`}
+          src={`${tabsrc}/${part.id}.webp?v=${TAB_PART_VERSION}`}
           alt=""
           className="absolute right-0 top-0 w-auto h-full max-w-[80%] object-contain pointer-events-none"
           style={{ opacity: isOutOfStock ? 0.2 : 0.8 }}

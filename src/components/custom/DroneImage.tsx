@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { motion } from "framer-motion";
+import { TAB_DRONE_VERSION } from "../../data/resource";
 
 interface DroneImageProps {
   drone: any; // drone 对象，至少有 id
@@ -36,7 +37,7 @@ export const DroneImage: React.FC<DroneImageProps> = ({ drone, tabsrc }) => {
       {hasImage ? (
         <motion.img
         loading="lazy"
-          src={`${tabsrc}/${drone.id}.png`}
+          src={`${tabsrc}/${drone.id}.webp?v=${TAB_DRONE_VERSION}`}
           alt={drone.name}
           style={{
             width: "100%",
