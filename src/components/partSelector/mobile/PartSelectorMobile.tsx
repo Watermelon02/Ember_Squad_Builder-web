@@ -7,6 +7,10 @@ import PartListMobile from './part/PartListMobile';
 import PilotListMobile from './pilot/PilotListMobile';
 import DroneListMobile from './drone/DroneListMobile';
 import TacticCardListMobile from './tacticCard/TacticCardListMobile';
+import {
+  getAllPartRemainingCounts,
+  getAllDroneRemainingCounts,
+} from '../../../util/BoxContentUtil';
 
 // 手机端部件选择
 interface MobilePartSelectorMobileProps {
@@ -35,6 +39,8 @@ interface MobilePartSelectorMobileProps {
   showKeyword?: boolean;
   onSetShowKeyword: (show: boolean) => void;
   competitionRegistrationMode: boolean;
+  inventory: Record<number, number>;
+  inventoryMode: boolean;
 }
 
 export function PartSelectorMobile({
@@ -63,13 +69,26 @@ export function PartSelectorMobile({
   lastScore,
   lastPartId,
   competitionRegistrationMode,
+  inventory,
+  inventoryMode,
 }: MobilePartSelectorMobileProps) {
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedTags, setSelectedTags] = useState<string[]>([]);
   const [containPD, setContainPD] = useState<boolean>(false);
   const [sortOrder, setSortOrder] = useState<'score_desc' | 'score_asc'>('score_asc');
 
-  // --- 过滤逻辑保持不变（已使用 useMemo 优化） ---
+  // 计算库存剩余数量
+  const remainingCounts = useMemo(() => {
+    if (!team || !inventoryMode) return {};
+    return getAllPartRemainingCounts(team, parts, inventory);
+  }, [team, parts, inventory, inventoryMode]);
+
+  const droneRemainingCounts = useMemo(() => {
+    if (!team || !inventoryMode) return {};
+    return getAllDroneRemainingCounts(team, drones, inventory);
+  }, [team, drones, inventory, inventoryMode]);
+
+  // --- 过滤逻辑 ---
   const filteredParts = useMemo(() => {
     let filtered = parts.filter((part) => {
       if (part.type !== selectedPartType) return false;
@@ -84,49 +103,42 @@ export function PartSelectorMobile({
       if (part.score == 0) return false;
       // 如果开启比赛报名模式，进一步过滤掉不可参赛的部件
       if (competitionRegistrationMode) {
-        // 众筹部件禁赛
         const bannedPartIds = new Set(['005', '040', '150', '117', '038', '152', '119']);
         if (bannedPartIds.has(part.id)) return false;
 
-        // 根据部件来源进一步过滤
         let hasValidSource = false;
         let hasAnySource = false;
 
         for (const source of part.containedIn) {
           hasAnySource = true;
 
-          // 未发售的部件不能使用（包括危机1）
           if (source.box === BOXES.UNSALE || source.box === BOXES.LAB_PD_CRISIS1) {
-            continue; // 这个来源非法，检查下一个
+            continue;
           }
 
-          // 自由阵营：只能用人马或者中立的部件
           if (team?.faction === "GOF") {
             if (source.box === BOXES.LAB_GOF_CENTAUR || part.isPD) {
               hasValidSource = true;
               break;
             }
-            // 否则这个来源对自由无效，继续检查
             continue;
           }
 
-          // 联合与复兴：不能使用游戏包、对战包
           if (source.box === BOXES.COMBAT_RAID || source.box === BOXES.GAME_PACK) {
-            continue; // 这个来源非法，检查下一个
+            continue;
           }
 
-          // 通过所有检查，这是一个合法来源
           hasValidSource = true;
           break;
         }
 
-        // 没有任何合法来源则排除
         if (hasAnySource && !hasValidSource) return false;
       }
+      // 仓库模式：库存为0的部件仍保留显示（禁用状态由 PartListMobile 处理）
       return true;
     });
     return filtered.sort((a, b) => (sortOrder === 'score_desc' ? b.score - a.score : a.score - b.score));
-  }, [parts, selectedPartType, searchQuery, selectedTags, sortOrder, containPD, lastPartId]);
+  }, [parts, selectedPartType, searchQuery, selectedTags, sortOrder, containPD, lastPartId, competitionRegistrationMode, team]);
 
   const filteredDrones = useMemo(() => {
     let filtered = drones.filter((drone) => {
@@ -134,13 +146,12 @@ export function PartSelectorMobile({
       if (drone.isPD && !containPD) return false;
       if ((drone.isPD === undefined || !drone.isPD) && containPD) return false;
       if (drone.score == 0) return false;
-      //如果开启比赛报名模式，进一步过滤掉不可参赛的无人机
       if (competitionRegistrationMode) {
         let usable = true;
         drone.containedIn.forEach(source => {
           if (team?.faction === "GOF" && !drone.isPD) usable = false;
           else {
-            if (drone.id === "543") usable = false; //离子豪猪
+            if (drone.id === "543") usable = false;
           }
         });
         if (!usable) return false;
@@ -148,7 +159,7 @@ export function PartSelectorMobile({
       return true;
     });
     return filtered.sort((a, b) => (sortOrder === 'score_desc' ? b.score - a.score : a.score - b.score));
-  }, [drones, searchQuery, sortOrder, containPD]);
+  }, [drones, searchQuery, sortOrder, containPD, competitionRegistrationMode, team]);
 
   const filteredTacticCards = useMemo(() => {
     if (!tacticCards) return [];
@@ -159,7 +170,7 @@ export function PartSelectorMobile({
     return tacticCards.filter((tacticCard) => {
       if (searchQuery && !tacticCard.name.toLowerCase().includes(searchQuery.toLowerCase())) return false;
       if (usedTacticIds.has(tacticCard.id)) return false;
-      if (competitionRegistrationMode) return false; // 目前战术卡不允许参赛
+      if (competitionRegistrationMode) return false;
       return true;
     });
   }, [tacticCards, team, searchQuery]);
@@ -174,7 +185,6 @@ export function PartSelectorMobile({
       if (pilot.faction === 'PD' && !containPD) return false;
       if (pilot.faction !== 'PD' && containPD) return false;
       if (usedPilotIds.has(pilot.id)) return false;
-      //如果开启比赛报名模式，进一步过滤掉不可参赛的驾驶员
       if (competitionRegistrationMode) {
         let usable = true;
         if (pilot.id === "LPA-23-2" || pilot.id === "FPA-04-2") usable = false;
@@ -185,14 +195,12 @@ export function PartSelectorMobile({
           if (pilot.id !== "XPA-60" && pilot.id !== "ACE-01") usable = false;
         }
         if (!usable) return false;
-
       }
       return true;
     });
     return filtered.sort((a, b) => (sortOrder === 'score_desc' ? b.score - a.score : a.score - b.score));
-  }, [pilots, team, searchQuery, containPD, sortOrder]);
+  }, [pilots, team, searchQuery, containPD, sortOrder, competitionRegistrationMode]);
 
-  // --- 渲染部分：采用条件渲染代替 display:none ---
   return (
     <div style={{ height: 'calc(100dvh - 35vh)', overflow: 'hidden' }}>
       {viewMode === 'parts' && (
@@ -218,6 +226,8 @@ export function PartSelectorMobile({
             lastScore={lastScore}
             selectedPartType={selectedPartType}
             faction={team?.faction}
+            remainingCounts={remainingCounts}
+            inventoryMode={inventoryMode}
           />
         </ListPanel>
       )}
@@ -269,6 +279,8 @@ export function PartSelectorMobile({
             tabsrc={tabsrc}
             imgsrc={imgsrc}
             translations={translations}
+            remainingCounts={droneRemainingCounts}
+            inventoryMode={inventoryMode}
           />
         </ListPanel>
       )}

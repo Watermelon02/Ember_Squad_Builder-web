@@ -820,6 +820,11 @@ export default function App() {
               onSelectDrone={d => setLastPartId(d.id)}
               hideTacticCard={hideTacticCard} setHideTacticCard={setHideTacticCard}
               competitionRegistrationMode={competitionRegistrationMode} setCompetitionRegistrationMode={setCompetitionRegistrationMode}
+              inventory={inventory}
+              inventoryMode={inventoryMode}
+              setInventoryMode={setInventoryMode}
+              onUpdateInventory={setInventory}
+              boxCoverSrc={boxCoverSrc}
             />
           )}
         </div>
@@ -874,6 +879,8 @@ export default function App() {
                         onSelectTacticCard={handleSelectTacticCardMobile} onSelectPilot={handleSelectPilotMobile}
                         tabSmallSrc={tabSmallSrc} showKeyword={showKeyword} onSetShowKeyword={setShowKeyword}
                         competitionRegistrationMode={competitionRegistrationMode}
+                        inventory={inventory}
+                        inventoryMode={inventoryMode}
                       />
                     </div>
                   </div>

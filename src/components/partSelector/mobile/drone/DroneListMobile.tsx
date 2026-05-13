@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { Card } from '../../../radix-ui/card';
 import { Badge } from '../../../radix-ui/badge';
 import { SelectableCard } from '../../../custom/SelectableCard';
+
 interface DroneListMobileProps {
   filteredDrones: any[];
   onSelectDrone: (drone: any) => void;
@@ -9,6 +10,8 @@ interface DroneListMobileProps {
   tabsrc: string;
   imgsrc: string;
   translations: any;
+  remainingCounts?: Record<string, number>;
+  inventoryMode?: boolean;
 }
 
 const DroneListMobile: React.FC<DroneListMobileProps> = ({
@@ -18,159 +21,180 @@ const DroneListMobile: React.FC<DroneListMobileProps> = ({
   tabsrc,
   imgsrc,
   translations,
+  remainingCounts,
+  inventoryMode,
 }) => {
   const [selectedId, setSelectedId] = useState<string | null>(null);
 
-  // 取消选中
   const resetSelection = () => setSelectedId(null);
   return (
     <div style={{ height: '100%', display: 'flex', flexDirection: 'column' }}>
       <div style={{ flex: 1, minHeight: 0, overflowY: 'auto', paddingLeft: '2vw', paddingRight: '2vw' }}
         className="space-y-3">
-        {filteredDrones.map((drone) => (
-          <SelectableCard
-            key={drone.id}
-            className="relative p-3 cursor-pointer hover:bg-accent/50 transition overflow-hidden shadow-sm min-h-[120px]"
-            selected={selectedId === drone.id} // 由父组件控制选中状态
-            onClick={() => { onSelectDrone(drone); setSelectedId(drone.id) }}
-          >
-            {/* 背景图层 */}
-            {(drone.hasImage === undefined || drone.hasImage) ? <img
-              src={`${tabsrc}/${drone.id}.webp`}
-              alt=""
-              className="absolute right-0 top-0 w-auto h-full object-contain pointer-events-none"
-              style={{ opacity: 0.8 }}
-              loading='lazy'
-            /> : <span
-              style={{
-                display: "flex",
-                position: "absolute",
-                right: 0,
-                padding: "1vh",
-                bottom: 0,
-                opacity: 0.8,
-              }}>{translations.t108}</span>}
+        {filteredDrones.map((drone) => {
+          const remainingCount = remainingCounts?.[drone.id];
+          const isOutOfStock = inventoryMode && remainingCount != null && remainingCount <= 0;
 
+          return (
+            <SelectableCard
+              key={drone.id}
+              className={`relative p-3 cursor-pointer transition overflow-hidden shadow-sm min-h-[120px] ${isOutOfStock ? 'opacity-60 grayscale' : 'hover:bg-accent/50'}`}
+              selected={selectedId === drone.id}
+              onClick={() => {
+                onSelectDrone(drone);
+                setSelectedId(drone.id);
+              }}
+              style={isOutOfStock ? { filter: 'grayscale(100%)', cursor: 'not-allowed', backgroundColor: '#f3f4f6' } : undefined}
+            >
+              {/* 背景图层 */}
+              {(drone.hasImage === undefined || drone.hasImage) ? <img
+                src={`${tabsrc}/${drone.id}.webp`}
+                alt=""
+                className="absolute right-0 top-0 w-auto h-full object-contain pointer-events-none"
+                style={{ opacity: isOutOfStock ? 0.2 : 0.8 }}
+                loading='lazy'
+              /> : <span
+                style={{
+                  display: "flex",
+                  position: "absolute",
+                  right: 0,
+                  padding: "1vh",
+                  bottom: 0,
+                  opacity: 0.8,
+                }}>{translations.t108}</span>}
 
-            {/* 前景文字内容 */}
-            <div className="relative z-10 space-y-2">
-              {/* 名称和分数 */}
-              <div className="flex items-center gap-2">
-                <Badge variant="outline" className="shrink-0">
-                  {drone.score}
-                </Badge>
-                <h4 className="font-medium truncate">{drone.name}</h4>
-              </div>
+              {/* 前景文字内容 */}
+              <div className="relative z-10 space-y-2">
+                {/* 名称和分数 */}
+                <div className="flex items-center gap-2">
+                  <Badge variant="outline" className="shrink-0">
+                    {drone.score}
+                  </Badge>
+                  <h4 className={`font-medium truncate ${isOutOfStock ? 'line-through text-muted-foreground' : ''}`}>{drone.name}</h4>
+                </div>
 
-              {/* 属性 */}
-              <div className="flex items-center gap-2">
-                {(drone.armor !== 0 || drone.structure !== 0) && (
-                  <div className="flex flex-col items-center px-1 py-0.5 border rounded-md shadow-sm">
-                    <div className="flex items-center gap-1">
-                      <img
-                        loading="lazy"
-                        src={`${tabsrc}/icon_armor.webp`}
-                        alt="armor"
-                        className="w-4 h-4"
-                      />
-                      <div style={{ fontSize: '12px', color: 'var(--muted-foreground)' }}>
-                        {drone.structure === 0
-                          ? translations.t39
-                          : `${translations.t39}/${translations.t40}`}
+                {/* 属性 */}
+                <div className="flex flex-wrap items-center gap-2">
+                  {inventoryMode && remainingCount != null && (
+                    <div className="flex flex-col items-center px-1 py-0.5 border rounded-md shadow-sm">
+                      <div className="flex items-center gap-1">
+                        <div style={{ fontSize: '12px', color: 'var(--muted-foreground)' }}>
+                          {translations.t111}
+                        </div>
+                      </div>
+                      <div style={{ fontSize: '16px', color: remainingCount <= 0 ? '#ef4444' : 'inherit' }}>
+                        {remainingCount <= 0 ? translations.t94 : `x${remainingCount}`}
                       </div>
                     </div>
-                    <div
-                      style={{
-                        fontSize: '16px',
-                        color:
-                          drone.armor < 0 || drone.structure < 0 ? 'red' : 'inherit',
-                      }}
-                    >
-                      {drone.structure === 0
-                        ? drone.armor
-                        : `${drone.armor} / ${drone.structure}`}
-                    </div>
-                  </div>
-                )}
-
-                {[
-                  { label: translations.t41, value: drone.parray, icon: 'icon_parray' },
-                  {
-                    label: translations.t42,
-                    value: drone.dodge,
-                    icon: 'icon_dodge',
-                    color: (() => {
-                      const v = Math.min(Math.max(drone.dodge, 1), 6);
-                      const opacity = 0.2 + v * 0.08;
-                      return `rgba(0,120,255,${opacity})`;
-                    })(),
-                  },
-                  {
-                    label: translations.t43,
-                    value: drone.electronic,
-                    icon: 'icon_electronic',
-                    color: (() => {
-                      const v = Math.min(Math.max(drone.electronic, 1), 6);
-                      const opacity = 0.2 + v * 0.08;
-                      return `rgba(255,180,0,${opacity})`;
-                    })(),
-                  },
-                ]
-                  .filter((attr) => attr.value !== 0)
-                  .map((attr) => (
-                    <div
-                      key={attr.label}
-                      className="flex flex-col items-center px-1 py-0.5 border rounded-md shadow-sm"
-                    >
+                  )}
+                  {(drone.armor !== 0 || drone.structure !== 0) && (
+                    <div className="flex flex-col items-center px-1 py-0.5 border rounded-md shadow-sm">
                       <div className="flex items-center gap-1">
                         <img
                           loading="lazy"
-                          src={`${tabsrc}/${attr.icon}.webp`}
-                          alt={attr.label}
+                          src={`${tabsrc}/icon_armor.webp`}
+                          alt="armor"
                           className="w-4 h-4"
                         />
-                        <div
-                          style={{
-                            fontSize: '12px',
-                            color: 'var(--muted-foreground)',
-                          }}
-                        >
-                          {attr.label}
+                        <div style={{ fontSize: '12px', color: 'var(--muted-foreground)' }}>
+                          {drone.structure === 0
+                            ? translations.t39
+                            : `${translations.t39}/${translations.t40}`}
                         </div>
                       </div>
                       <div
                         style={{
                           fontSize: '16px',
-                          color: attr.value < 0 ? 'red' : attr.color || 'inherit',
+                          color:
+                            drone.armor < 0 || drone.structure < 0 ? 'red' : 'inherit',
                         }}
                       >
-                        {attr.value}
+                        {drone.structure === 0
+                          ? drone.armor
+                          : `${drone.armor} / ${drone.structure}`}
                       </div>
                     </div>
-                  ))}
-              </div>
+                  )}
 
-              {/* 类型 */}
-              <div className="flex items-center gap-2">
-                <Badge
-                  variant={
-                    drone.type === 'large'
-                      ? 'destructive'
+                  {[
+                    { label: translations.t41, value: drone.parray, icon: 'icon_parray' },
+                    {
+                      label: translations.t42,
+                      value: drone.dodge,
+                      icon: 'icon_dodge',
+                      color: (() => {
+                        const v = Math.min(Math.max(drone.dodge, 1), 6);
+                        const opacity = 0.2 + v * 0.08;
+                        return `rgba(0,120,255,${opacity})`;
+                      })(),
+                    },
+                    {
+                      label: translations.t43,
+                      value: drone.electronic,
+                      icon: 'icon_electronic',
+                      color: (() => {
+                        const v = Math.min(Math.max(drone.electronic, 1), 6);
+                        const opacity = 0.2 + v * 0.08;
+                        return `rgba(255,180,0,${opacity})`;
+                      })(),
+                    },
+                  ]
+                    .filter((attr) => attr.value !== 0)
+                    .map((attr) => (
+                      <div
+                        key={attr.label}
+                        className="flex flex-col items-center px-1 py-0.5 border rounded-md shadow-sm"
+                      >
+                        <div className="flex items-center gap-1">
+                          <img
+                            loading="lazy"
+                            src={`${tabsrc}/${attr.icon}.webp`}
+                            alt={attr.label}
+                            className="w-4 h-4"
+                          />
+                          <div
+                            style={{
+                              fontSize: '12px',
+                              color: 'var(--muted-foreground)',
+                            }}
+                          >
+                            {attr.label}
+                          </div>
+                        </div>
+                        <div
+                          style={{
+                            fontSize: '16px',
+                            color: attr.value < 0 ? 'red' : attr.color || 'inherit',
+                          }}
+                        >
+                          {attr.value}
+                        </div>
+                      </div>
+                    ))}
+                </div>
+
+                {/* 类型 */}
+                <div className="flex items-center gap-2">
+                  <Badge
+                    variant={
+                      drone.type === 'large'
+                        ? 'destructive'
+                        : drone.type === 'medium'
+                          ? 'default'
+                          : 'secondary'
+                    }
+                  >
+                    {drone.type === 'large'
+                      ? translations.t9
                       : drone.type === 'medium'
-                        ? 'default'
-                        : 'secondary'
-                  }
-                >
-                  {drone.type === 'large'
-                    ? translations.t9
-                    : drone.type === 'medium'
-                      ? translations.t10
-                      : translations.t11}
-                </Badge>
+                        ? translations.t10
+                        : translations.t11}
+                  </Badge>
+                </div>
               </div>
-            </div>
-          </SelectableCard>
-        ))}
+            </SelectableCard>
+          );
+        })}
       </div>
     </div>
   );

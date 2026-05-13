@@ -1,5 +1,5 @@
 import React, { useState, useCallback } from 'react';
-import { VirtuosoGrid } from 'react-virtuoso'; // 引入 VirtuosoGrid
+import { VirtuosoGrid } from 'react-virtuoso';
 import { Card } from '../../../radix-ui/card';
 import { Badge } from '../../../radix-ui/badge';
 import { SelectableCardMobile } from '../../../custom/SelectableCardMobile';
@@ -12,9 +12,10 @@ interface PartListMobileProps {
   lastScore: number;
   selectedPartType: string;
   faction: string | undefined;
+  remainingCounts?: Record<string, number>;
+  inventoryMode?: boolean;
 }
 
-// 删除了容易导致点击失效的自定义比较函数
 const MemoizedPartCard = React.memo(({
   part,
   isSelected,
@@ -22,14 +23,20 @@ const MemoizedPartCard = React.memo(({
   tabsrc,
   translations,
   lastScore,
-  faction
+  faction,
+  remainingCount,
+  inventoryMode,
 }: any) => {
+  const isOutOfStock = inventoryMode && remainingCount != null && remainingCount <= 0;
+
   return (
     <SelectableCardMobile
-      // 增加 h-full 确保在网格中等高；适当缩小 padding 适应窄卡片
-      className="relative p-2 h-full cursor-pointer hover:bg-accent/50 transition overflow-hidden shadow-sm flex flex-col"
+      className={`relative p-2 h-full cursor-pointer transition overflow-hidden shadow-sm flex flex-col ${isOutOfStock ? 'opacity-60 grayscale' : 'hover:bg-accent/50'}`}
       selected={isSelected}
-      onClick={() => onSelect(part)}
+      onClick={() => {
+        onSelect(part);
+      }}
+      style={isOutOfStock ? { filter: 'grayscale(100%)', cursor: 'not-allowed', backgroundColor: '#f3f4f6' } : undefined}
     >
       {/* 与实体卡面相比，进行过属性修改*/}
       {part.isCardModified && (
@@ -63,7 +70,7 @@ const MemoizedPartCard = React.memo(({
           src={`${tabsrc}/${part.id}.webp`}
           alt=""
           className="absolute right-0 top-0 w-auto h-full max-w-[80%] object-contain pointer-events-none"
-          style={{ opacity: 0.8 }}
+          style={{ opacity: isOutOfStock ? 0.2 : 0.8 }}
           loading="lazy"
           decoding="async"
         />
@@ -102,12 +109,24 @@ const MemoizedPartCard = React.memo(({
               </span>
             )}
           </Badge>
-          {/* 加入 line-clamp 避免名称过长破坏布局 */}
-          <h4 className="font-medium text-sm line-clamp-2">{part.name}</h4>
+          <h4 className={`font-medium text-sm line-clamp-2 ${isOutOfStock ? 'line-through text-muted-foreground' : ''}`}>{part.name}</h4>
         </div>
 
-        {/* 属性 - 加上 flex-wrap，在一行显示不下时自动折行 */}
+        {/* 属性 */}
         <div className="flex flex-wrap items-center gap-1 mt-auto">
+
+          {inventoryMode && remainingCount != null && (
+            <div className="flex flex-col items-center px-1 py-0.5 border rounded-md bg-background/50 shadow-sm">
+              <div className="flex items-center gap-1">
+                <div style={{ fontSize: '8px', color: 'var(--muted-foreground)' }}>
+                  {translations.t111}
+                </div>
+              </div>
+              <div style={{ fontSize: '14px', fontWeight: 500, color: remainingCount <= 0 ? '#ef4444' : 'inherit' }}>
+                {remainingCount <= 0 ? translations.t94 : `x${remainingCount}`}
+              </div>
+            </div>
+          )}
           {(part.armor !== 0 || part.structure !== 0) && (
             <div className="flex flex-col items-center px-1 py-0.5 border rounded-md bg-background/50 shadow-sm">
               <div className="flex items-center gap-1">
@@ -180,7 +199,7 @@ const MemoizedPartCard = React.memo(({
             ))}
         </div>
 
-        {/* 标签 - 同样允许换行 */}
+        {/* 标签 */}
         {part.tags?.length > 0 && (
           <div className="flex flex-wrap gap-1 mt-1">
             {part.tags.map(tag => (
@@ -203,6 +222,8 @@ const PartListMobile: React.FC<PartListMobileProps> = ({
   translations,
   lastScore,
   selectedPartType,
+  remainingCounts,
+  inventoryMode,
 }) => {
   const [selectedId, setSelectedId] = useState<string | null>(null);
 
@@ -226,15 +247,14 @@ const PartListMobile: React.FC<PartListMobileProps> = ({
         data={filteredParts}
         overscan={500}
         components={{
-          // 容器：使用 CSS Grid 定义一行两列
           List: React.forwardRef(({ style, children, ...props }, ref) => (
             <div
               ref={ref}
               {...props}
               style={{
                 display: 'grid',
-                gridTemplateColumns: 'repeat(2, 1fr)', // 核心：一行分为同等的两列
-                gap: '8px', // 卡片之间的间距
+                gridTemplateColumns: 'repeat(2, 1fr)',
+                gap: '8px',
                 padding: '10px 1vw',
                 ...style,
               }}
@@ -242,7 +262,6 @@ const PartListMobile: React.FC<PartListMobileProps> = ({
               {children}
             </div>
           )),
-          // 列表项：确保高度拉伸以填满 Grid
           Item: ({ children, ...props }) => (
             <div {...props} style={{ display: 'flex', flexDirection: 'column' }}>
               {children}
@@ -258,6 +277,8 @@ const PartListMobile: React.FC<PartListMobileProps> = ({
             translations={translations}
             lastScore={lastScore}
             faction={faction}
+            remainingCount={remainingCounts?.[part.id]}
+            inventoryMode={inventoryMode}
           />
         )}
       />

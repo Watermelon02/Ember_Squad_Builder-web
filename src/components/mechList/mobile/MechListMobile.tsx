@@ -10,6 +10,7 @@ import { MechListMobileHeader } from './MechListMobileHeader';
 import { MechTabMobileContent } from './tabs/MechTabMobileContent';
 import { TacticTabMobileContent } from './tabs/TacticTabMobileContent';
 import { DroneTabMobileContent } from './tabs/DroneTabMobileContent';
+import { WarehouseDialogMobile } from './WarehouseDialogMobile';
 
 interface MechListMobileProps {
   team?: Team;
@@ -30,17 +31,25 @@ interface MechListMobileProps {
   setHideTacticCard: (val: boolean) => void,
   competitionRegistrationMode: boolean;
   setCompetitionRegistrationMode: (val: boolean) => void;
+  inventory: Record<number, number>;
+  inventoryMode: boolean;
+  setInventoryMode: (mode: boolean) => void;
+  onUpdateInventory: (inventory: Record<number, number>) => void;
+  boxCoverSrc: string;
 }
 
 export function MechListMobile({
   team, selectedMechId, onSelectMech, onSelectPartType, onUpdateTeam, onSetViewMode, onSelectDrone,
-  translations, partTypeNames, imgsrc, tabsrc, localImgsrc, lang, mobileOrTablet, setLanguage,hideTacticCard, setHideTacticCard,
-  tournamentMode, mechImgSrc, onSetIsChangingPart,competitionRegistrationMode, setCompetitionRegistrationMode
+  translations, partTypeNames, imgsrc, tabsrc, localImgsrc, lang, mobileOrTablet, setLanguage, hideTacticCard, setHideTacticCard,
+  tournamentMode, mechImgSrc, onSetIsChangingPart, competitionRegistrationMode, setCompetitionRegistrationMode,
+  inventory, inventoryMode, setInventoryMode, onUpdateInventory, boxCoverSrc
 }: MechListMobileProps) {
 
   const logic = useMechListMobileLogic({
-    team, onUpdateTeam, onSelectMech, selectedMechId, translations, lang, tabsrc, localImgsrc, imgsrc,hideTacticCard, setHideTacticCard
+    team, onUpdateTeam, onSelectMech, selectedMechId, translations, lang, tabsrc, localImgsrc, imgsrc, hideTacticCard, setHideTacticCard
   });
+
+  const [warehouseOpen, setWarehouseOpen] = React.useState(false);
 
   if (!team) {
     return <div className="h-full flex items-center justify-center text-muted-foreground">{translations.t21}</div>;
@@ -70,7 +79,7 @@ export function MechListMobile({
 
         {/* tts导出消息弹窗 */}
         <Dialog open={logic.open} onOpenChange={logic.setOpen}>
-          <DialogContent >
+          <DialogContent>
             <DialogHeader><DialogTitle>{translations.t97}</DialogTitle></DialogHeader>
             <pre className="bg-muted p-4 rounded text-sm overflow-auto">{logic.script}</pre>
             <div style={{ display: 'flex', flexWrap: 'wrap', gap: `2px` }}>
@@ -91,6 +100,19 @@ export function MechListMobile({
           </DialogContent>
         </Dialog>
 
+        {/* 仓库弹窗 */}
+        <WarehouseDialogMobile
+          open={warehouseOpen}
+          onOpenChange={setWarehouseOpen}
+          inventory={inventory}
+          onUpdateInventory={onUpdateInventory}
+          inventoryMode={inventoryMode}
+          setInventoryMode={setInventoryMode}
+          translations={translations}
+          lang={lang}
+          boxCoverSrc={boxCoverSrc}
+        />
+
         <MechListMobileHeader
           team={team} translations={translations} lang={lang} setLanguage={setLanguage}
           currentTab={logic.currentTab} setCurrentTab={logic.setCurrentTab} onSetViewMode={onSetViewMode} setCPartType={logic.setCPartType}
@@ -99,6 +121,8 @@ export function MechListMobile({
           includeProjectile={logic.includeProjectile} setIncludeProjectile={logic.setIncludeProjectile}
           hideTacticCard={hideTacticCard} setHideTacticCard={setHideTacticCard}
             competitionRegistrationMode={competitionRegistrationMode} setCompetitionRegistrationMode={setCompetitionRegistrationMode}
+          inventoryMode={inventoryMode} setInventoryMode={setInventoryMode}
+          onOpenWarehouse={() => setWarehouseOpen(true)}
         />
 
         <MechTabMobileContent
