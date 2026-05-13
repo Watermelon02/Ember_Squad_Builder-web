@@ -41,6 +41,7 @@ const DroneListMobile: React.FC<DroneListMobileProps> = ({
               className={`relative p-3 cursor-pointer transition overflow-hidden shadow-sm min-h-[120px] ${isOutOfStock ? 'opacity-60 grayscale' : 'hover:bg-accent/50'}`}
               selected={selectedId === drone.id}
               onClick={() => {
+                if (inventoryMode && isOutOfStock && selectedId === drone.id) return;
                 onSelectDrone(drone);
                 setSelectedId(drone.id);
               }}

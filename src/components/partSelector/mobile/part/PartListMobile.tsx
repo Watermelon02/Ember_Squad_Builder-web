@@ -34,6 +34,7 @@ const MemoizedPartCard = React.memo(({
       className={`relative p-2 h-full cursor-pointer transition overflow-hidden shadow-sm flex flex-col ${isOutOfStock ? 'opacity-60 grayscale' : 'hover:bg-accent/50'}`}
       selected={isSelected}
       onClick={() => {
+        if (inventoryMode && isOutOfStock && isSelected) return;
         onSelect(part);
       }}
       style={isOutOfStock ? { filter: 'grayscale(100%)', cursor: 'not-allowed', backgroundColor: '#f3f4f6' } : undefined}

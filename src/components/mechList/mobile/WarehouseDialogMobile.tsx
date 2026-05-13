@@ -44,6 +44,7 @@ export const WarehouseDialogMobile: React.FC<WarehouseDialogMobileProps> = ({
           width: '95vw',
           height: '90dvh',
           padding: 0,
+          gap: 0,
           overflow: 'hidden',
           border: '0.1vh solid rgba(255,255,255,0.1)',
           backgroundColor: 'transparent',
@@ -140,7 +141,6 @@ export const WarehouseDialogMobile: React.FC<WarehouseDialogMobileProps> = ({
         <div style={{
           flex: 1,
           position: 'relative',
-          backgroundImage: `url(${BACKGROUND_SRC[lang]}/background2.svg)`,
           backdropFilter: 'blur(1.6vh)',
           WebkitBackdropFilter: 'blur(1.6vh)',
           overflow: 'hidden',
@@ -167,7 +167,7 @@ export const WarehouseDialogMobile: React.FC<WarehouseDialogMobileProps> = ({
                       color: FACTION_COLORS[faction],
                       marginBottom: '1.5vh',
                       paddingBottom: '0.5vh',
-                      borderBottom: `0.2vh solid ${FACTION_COLORS[faction]}22`,
+
                     }}>
                       {FACTION_NAMES.zh[faction as keyof typeof FACTION_NAMES.zh] || faction}
                     </h3>
