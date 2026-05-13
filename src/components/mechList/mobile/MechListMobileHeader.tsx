@@ -133,7 +133,7 @@ export const MechListMobileHeader: React.FC<MechListMobileHeaderProps> = ({
               <div className="flex items-center gap-2">
                 <input type="checkbox" id="include-projectile-mobile" checked={includeProjectile}
                   onChange={(e) => setIncludeProjectile(e.target.checked)}
-                  className="h-4 w-4 shrink-0" style={{ accentColor: "#3b82f6" }} />
+                  className="h-4 w-4 shrink-0" style={{ accentColor: "grey" }} />
                 <label htmlFor="include-projectile-mobile"
                   className="cursor-pointer select-none" style={{ color: "#374151" }}>
                   {translations.t91}
@@ -142,7 +142,7 @@ export const MechListMobileHeader: React.FC<MechListMobileHeaderProps> = ({
               <div className="flex items-center gap-2">
                 <input type="checkbox" id="hide-tactic-card-mobile" checked={hideTacticCard}
                   onChange={(e) => setHideTacticCard(e.target.checked)}
-                  className="h-4 w-4 shrink-0" style={{ accentColor: "#3b82f6" }} />
+                  className="h-4 w-4 shrink-0" style={{ accentColor: "grey" }} />
                 <label htmlFor="hide-tactic-card-mobile"
                   className="cursor-pointer select-none" style={{ color: "#374151" }}>
                   {translations.t122}
@@ -151,7 +151,7 @@ export const MechListMobileHeader: React.FC<MechListMobileHeaderProps> = ({
               {<div className="flex items-center gap-2">
                 <input type="checkbox" id="competition-registration-mobile" checked={competitionRegistrationMode}
                   onChange={(e) => setCompetitionRegistrationMode(e.target.checked)}
-                  className="h-4 w-4 shrink-0" style={{ accentColor: "#3b82f6" }} />
+                  className="h-4 w-4 shrink-0" style={{ accentColor: "grey" }} />
                 <label htmlFor="competition-registration-mobile"
                   className="cursor-pointer select-none" style={{ color: "#374151" }}>
                   {translations.t134}
@@ -161,31 +161,33 @@ export const MechListMobileHeader: React.FC<MechListMobileHeaderProps> = ({
               <div className="flex items-center gap-2">
                 <input type="checkbox" id="inventory-mode-mobile" checked={inventoryMode}
                   onChange={(e) => setInventoryMode(e.target.checked)}
-                  className="h-4 w-4 shrink-0" style={{ accentColor: "#3b82f6" }} />
+                  className="h-4 w-4 shrink-0" style={{ accentColor: "grey" }} />
                 <label htmlFor="inventory-mode-mobile"
                   className="cursor-pointer select-none" style={{ color: "#374151" }}>
                   {translations.t111}
                 </label>
-                {/* 打开仓库按钮 */}
-                <button
-                  onClick={onOpenWarehouse}
-                  style={{
-                    display: 'flex',
-                    alignItems: 'center',
-                    justifyContent: 'center',
-                    gap: 4,
-                    borderRadius: 6,
-                    border: '1px solid #d1d5db',
-                    backgroundColor: '#f9fafb',
-                    color: '#374151',
-                    fontSize: 12,
-                    cursor: 'pointer',
-                  }}
-                >
-                  <Package className="w-3.5 h-3.5" />
-                </button>
               </div>
-
+              {/* 打开仓库按钮 */}
+              <button
+                onClick={onOpenWarehouse}
+                style={{
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  gap: 4,
+                  padding: '6px 0',
+                  borderRadius: 6,
+                  border: '1px solid #d1d5db',
+                  backgroundColor: '#f9fafb',
+                  color: '#374151',
+                  fontSize: 12,
+                  cursor: 'pointer',
+                  width: '100%',
+                }}
+              >
+                <Package className="w-3.5 h-3.5" />
+                {translations.t112}
+              </button>
             </div>
           )}
         </div>

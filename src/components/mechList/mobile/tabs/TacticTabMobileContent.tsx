@@ -17,7 +17,7 @@ interface TacticTabMobileContentProps {
   deleteTacticCard: (id: number) => void;
 }
 
-export const TacticTabMobileContent: React.FC<TacticTabMobileContentProps> = ({
+export const TacticTabMobileContent = React.memo<TacticTabMobileContentProps>(({
   team, mobileOrTablet, imgsrc, tabsrc, translations, onSetViewMode, onSetIsChangingPart, deleteTacticCard
 }) => {
   return (
@@ -63,4 +63,4 @@ export const TacticTabMobileContent: React.FC<TacticTabMobileContentProps> = ({
       </TabsContent>
     </AnimatePresence>
   );
-};
+});

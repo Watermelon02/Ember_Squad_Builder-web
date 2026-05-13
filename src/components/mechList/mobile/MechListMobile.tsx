@@ -142,7 +142,7 @@ export function MechListMobile({
           editingMechId={logic.editingMechId} setEditingMechId={logic.setEditingMechId}
           updateMechName={logic.updateMechName} copyMech={logic.copyMech} deleteMech={logic.deleteMech}
           getColorByAttr={logic.getColorByAttr} addMech={logic.addMech} exportRef={logic.exportRef}
-          defaultPreviewParts={logic.getDefaultPreviewParts()}
+          defaultPreviewParts={logic.defaultPreviewParts}
         />
 
         <DroneTabMobileContent

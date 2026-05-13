@@ -21,7 +21,7 @@ interface MechStatusMobileProps {
     isMobile: boolean
 }
 
-export const MechStatusMobile: React.FC<MechStatusMobileProps> = ({
+export const MechStatusMobile = React.memo<MechStatusMobileProps>(({
     mech,
     translations,
     tabsrc,
@@ -323,4 +323,4 @@ export const MechStatusMobile: React.FC<MechStatusMobileProps> = ({
             </div>
         </div>
     );
-};
+});

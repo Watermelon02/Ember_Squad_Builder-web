@@ -20,7 +20,7 @@ interface DroneTabMobileContentProps {
   onUpdateTeam: (id: string, updates: Partial<Team>) => void;
 }
 
-export const DroneTabMobileContent: React.FC<DroneTabMobileContentProps> = ({
+export const DroneTabMobileContent = React.memo<DroneTabMobileContentProps>(({
   team, mobileOrTablet, imgsrc, translations, onSetViewMode, onSetIsChangingPart,
   onSelectDrone, deleteDrone, isDialogOpen, setIsDialogOpen, onUpdateTeam
 }) => {
@@ -130,4 +130,4 @@ export const DroneTabMobileContent: React.FC<DroneTabMobileContentProps> = ({
       {!mobileOrTablet && team.drones.length === 0 && <div className="text-center text-muted-foreground py-8">{translations.t31}</div>}
     </TabsContent>
   );
-};
+});

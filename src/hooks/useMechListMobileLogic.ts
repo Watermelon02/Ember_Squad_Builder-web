@@ -1,4 +1,4 @@
-import { useState, useRef, useEffect } from 'react';
+import { useState, useRef, useEffect, useMemo } from 'react';
 import { Team, Mech, Drone, Part, calculateTotalScore } from '../data/types';
 import * as htmlToImage from "html-to-image";
 import { exportTeamImage } from '../util/TeamImage';
@@ -55,7 +55,7 @@ export const useMechListMobileLogic = ({
     localStorage.setItem("includeProjectile", JSON.stringify(includeProjectile));
   }, [includeProjectile]);
 
-  const getDefaultPreviewParts = (): {
+  const defaultPreviewParts = useMemo((): {
     leftHand: Part;
     torso: Part;
     rightHand: Part;
@@ -99,7 +99,7 @@ export const useMechListMobileLogic = ({
         };
       }
     }
-  };
+  }, [team?.faction]);
 
   const getColorByAttr = (type: string, value: number) => {
     const v = Math.min(Math.max(value, 1), 10);
@@ -225,7 +225,7 @@ export const useMechListMobileLogic = ({
     isDialogOpen, setIsDialogOpen,
     includeProjectile, setIncludeProjectile,
     exportRef,
-    getDefaultPreviewParts,
+    defaultPreviewParts,
     getColorByAttr,
     deletePart,
     addMech,

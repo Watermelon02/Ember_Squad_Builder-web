@@ -138,7 +138,7 @@ export function PartSelectorMobile({
       return true;
     });
     return filtered.sort((a, b) => (sortOrder === 'score_desc' ? b.score - a.score : a.score - b.score));
-  }, [parts, selectedPartType, searchQuery, selectedTags, sortOrder, containPD, lastPartId, competitionRegistrationMode, team]);
+  }, [parts, selectedPartType, searchQuery, selectedTags, sortOrder, containPD, lastPartId, competitionRegistrationMode, team?.faction]);
 
   const filteredDrones = useMemo(() => {
     let filtered = drones.filter((drone) => {
@@ -159,7 +159,7 @@ export function PartSelectorMobile({
       return true;
     });
     return filtered.sort((a, b) => (sortOrder === 'score_desc' ? b.score - a.score : a.score - b.score));
-  }, [drones, searchQuery, sortOrder, containPD, competitionRegistrationMode, team]);
+  }, [drones, searchQuery, sortOrder, containPD, competitionRegistrationMode, team?.faction]);
 
   const filteredTacticCards = useMemo(() => {
     if (!tacticCards) return [];
@@ -173,7 +173,7 @@ export function PartSelectorMobile({
       if (competitionRegistrationMode) return false;
       return true;
     });
-  }, [tacticCards, team, searchQuery]);
+  }, [tacticCards, team?.tacticCards, searchQuery]);
 
   const filteredPilots = useMemo(() => {
     const usedPilotIds = new Set<string>();
@@ -199,7 +199,7 @@ export function PartSelectorMobile({
       return true;
     });
     return filtered.sort((a, b) => (sortOrder === 'score_desc' ? b.score - a.score : a.score - b.score));
-  }, [pilots, team, searchQuery, containPD, sortOrder, competitionRegistrationMode]);
+  }, [pilots, team?.mechs, searchQuery, containPD, sortOrder, competitionRegistrationMode]);
 
   return (
     <div style={{ height: 'calc(100dvh - 35vh)', overflow: 'hidden' }}>

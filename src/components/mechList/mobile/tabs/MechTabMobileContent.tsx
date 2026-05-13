@@ -34,7 +34,7 @@ interface MechTabMobileContentProps {
   defaultPreviewParts: any;
 }
 
-export const MechTabMobileContent: React.FC<MechTabMobileContentProps> = ({
+export const MechTabMobileContent = React.memo<MechTabMobileContentProps>(({
   team, selectedMechId, onSelectMech, onSelectPartType, onSetViewMode, onSetIsChangingPart,
   cPartType, setCPartType, deletePart, orderedPartTypes, mobileOrTablet, imgsrc, tabsrc, lang,
   mechImgSrc, tournamentMode, translations, editingMechId, setEditingMechId,
@@ -86,4 +86,4 @@ export const MechTabMobileContent: React.FC<MechTabMobileContentProps> = ({
       )}
     </TabsContent>
   );
-};
+});

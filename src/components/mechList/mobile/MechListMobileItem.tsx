@@ -34,7 +34,7 @@ interface MechListMobileItemProps {
   defaultPreviewParts: any;
 }
 
-export const MechListMobileItem: React.FC<MechListMobileItemProps> = ({
+export const MechListMobileItem = React.memo<MechListMobileItemProps>(({
   mech, selectedMechId, onSelectMech, onSelectPartType, onSetViewMode, onSetIsChangingPart,
   cPartType, setCPartType, deletePart, orderedPartTypes, mobileOrTablet, imgsrc, tabsrc, lang,
   mechImgSrc, tournamentMode, translations, editingMechId, setEditingMechId,
@@ -154,4 +154,4 @@ export const MechListMobileItem: React.FC<MechListMobileItemProps> = ({
       </Card>
     </div>
   );
-};
+});
