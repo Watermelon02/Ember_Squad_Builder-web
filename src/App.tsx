@@ -6,6 +6,7 @@ import { Team, Mech, Part, Drone, Pilot, PART_TYPE_NAMES, FACTION_NAMES, TacticC
 
 import { translations } from './i18n';
 import { BACKGROUND_SRC, BOX_COVER_SRC, IMAGE_SRC, LOCAL_IMAGE_SRC, MECH_IMAGE_SRC, TAB_IMAGE_SRC, TAB_SMALL_IMAGE_SRC } from './data/resource';
+import { ImagePreloader, getCacheNames } from './util/ImagePreloader';
 import * as zhData from './data/data_cn';
 import * as enData from './data/data_en';
 import * as jpData from './data/data_jp';
@@ -141,6 +142,7 @@ export default function App() {
   const [isMobileOrTablet, setMobileOrTablet] = useState(false);
 
   const [isTournamentMode, setTournamentMode] = useState(false);
+  const [imagesReady, setImagesReady] = useState(false);
   const [collapsedLeft, setCollapsedLeft] = useState(isMobileOrTablet ? true : false);
   const [collapsedRight, setCollapsedRight] = useState(isMobileOrTablet ? true : false);
   const [lastSelectPart, setLastSelectPart] = useState<Part>();
@@ -160,16 +162,24 @@ export default function App() {
 
   useEffect(() => {
     if (!sessionStorage.getItem('sw_cleared')) {
+      // 取消注册 Service Worker
       if ('serviceWorker' in navigator) {
         navigator.serviceWorker.getRegistrations().then(registrations => {
           registrations.forEach(r => r.unregister());
         });
       }
+      // 选择性清理缓存：保留当前版本的图片缓存，删除其他所有缓存
       if ('caches' in window) {
-        caches.keys().then(names => names.forEach(n => caches.delete(n)));
+        const currentImageCaches = Object.values(getCacheNames());
+        caches.keys().then(names => {
+          names.forEach(name => {
+            if (!currentImageCaches.includes(name)) {
+              caches.delete(name);
+            }
+          });
+        });
       }
       sessionStorage.setItem('sw_cleared', 'true');
-      window.location.replace(window.location.href);
     }
   }, []);
 
@@ -242,7 +252,22 @@ export default function App() {
   useEffect(() => { localStorage.setItem('inventory', JSON.stringify(inventory)); }, [inventory]);
   useEffect(() => { localStorage.setItem('inventoryMode', JSON.stringify(inventoryMode)); }, [inventoryMode]);
 
+  // 语言数据变化时，重置图片预加载状态
+  useEffect(() => { setImagesReady(false); }, [data]);
+
   if (!data) return <div>加载中...</div>;
+
+  // 图片预加载阶段
+  if (!imagesReady) {
+    return (
+      <ImagePreloader
+        data={data}
+        lang={lang}
+        translations={t}
+        onComplete={() => setImagesReady(true)}
+      />
+    );
+  }
 
   const {
     gofBackpack, gofChasis, gofDrones, gofLeftHand, gofPilots, gofRightHand, gofTorso, gofProjectiles,
@@ -382,13 +407,17 @@ export default function App() {
           animation: "bgFloat 12s ease-in-out infinite", overflow: "hidden",
         }}>
           <div style={{ textAlign: "center" }}>
-            <p style={{
-              marginBottom: "1rem", color: "white",
-              textShadow: `-1px -1px 1px #000, 1px -1px 1px #000, -1px 1px 1px #000, 1px 1px 1px #000, 0px 0px 6px rgba(0,0,0,1)`,
-              fontWeight: "bold", fontSize: isMobileOrTablet ? "3.4vw" : "1.4vw",
-            }}>
-              {t.t65}
-            </p>
+            {/* 同时显示三种语言 */}
+              <p style={{
+                marginBottom: "1rem", color: "white",
+                textShadow: `-1px -1px 1px #000, 1px -1px 1px #000, -1px 1px 1px #000, 1px 1px 1px #000, 0px 0px 6px rgba(0,0,0,1)`,
+                fontWeight: "bold", fontSize: isMobileOrTablet ? "3.4vw" : "1.4vw",
+                lineHeight: 1.6,
+              }}>
+                {translations.zh.t65}<br />
+                {translations.en.t65}<br />
+                {translations.jp.t65}
+              </p>
             <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: 8 }}>
               {(Object.entries(factionNames) as [keyof typeof factionNames, string][]).map(([key, name]) => (
                 <Button
