@@ -13,6 +13,13 @@ const loadImage = (src: string): Promise<HTMLImageElement | null> => {
   });
 };
 
+export async function preloadImages(urls: string[], concurrency = 6): Promise<void> {
+  const unique = [...new Set(urls)];
+  for (let i = 0; i < unique.length; i += concurrency) {
+    await Promise.all(unique.slice(i, i + concurrency).map(url => getImage(url)));
+  }
+}
+
 export async function getImage(src: string): Promise<HTMLImageElement> {
   if (imageCache.has(src)) return imageCache.get(src)!;
 

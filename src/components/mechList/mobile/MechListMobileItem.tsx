@@ -66,12 +66,12 @@ export const MechListMobileItem = React.memo<MechListMobileItemProps>(({
                   onMouseLeave={(e) => { if (cPartType !== partType) { e.currentTarget.style.boxShadow = "0 4px 6px rgba(0,0,0,0.05), 0 1px 3px rgba(0,0,0,0.1)"; } }}
                   className={`relative p-0 overflow-hidden cursor-pointer transition shadow-lg shadow-gray-500 rounded-lg ${selectedMechId === mech.id ? "border-primary" : ""}`}
                 >
-                  <Button variant="secondary" className="h-6 w-8 flex absolute top-0 left-0 m-1 text-xs shadow-lg shadow-gray-500 rounded-lg bg-blue-500/80" style={{ color: 'white', textShadow: '0 0 4px rgba(0,0,0,0.7)' }}>
-                    {mech.parts[partType]?.score}
-                  </Button>
 
                   {mech.parts[partType] ? (
                     <>
+                    <Button variant="secondary" className="h-6 w-8 flex absolute top-0 left-0 m-1 text-xs shadow-lg shadow-gray-500 rounded-lg bg-blue-500/80" style={{ color: 'white', textShadow: '0 0 4px rgba(0,0,0,0.7)' }}>
+                    {mech.parts[partType]?.score}
+                  </Button>
                       <Button variant="ghost" size="sm" onClick={() => deletePart(mech.id, partType)} className="absolute bottom-0 right-0 text-red shadow-lg shadow-gray-500 rounded-lg hover:text-destructive">
                         <Trash2 className="w-4 h-4" />
                       </Button>

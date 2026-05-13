@@ -222,7 +222,6 @@ const PartListMobile: React.FC<PartListMobileProps> = ({
   tabsrc,
   translations,
   lastScore,
-  selectedPartType,
   remainingCounts,
   inventoryMode,
 }) => {
@@ -243,9 +242,10 @@ const PartListMobile: React.FC<PartListMobileProps> = ({
   }
 
   return (
-    <div key={selectedPartType} style={{ height: '100%' }}>
+    <div style={{ height: '100%' }}>
       <VirtuosoGrid
         data={filteredParts}
+        computeItemKey={(index, part) => `${part.id}-${part.type}`}
         overscan={500}
         components={{
           List: React.forwardRef(({ style, children, ...props }, ref) => (

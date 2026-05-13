@@ -472,6 +472,14 @@ export default function App() {
     return [];
   })();
 
+  const cMech = selectedTeam?.mechs.find(mech => mech.id === selectedMechId);
+  const currentPartId = (() => {
+    if (!cMech) return '';
+    if (viewMode === 'parts') return cMech.parts[selectedPartType]?.id || '';
+    if (viewMode === 'pilots') return cMech.pilot?.id || '';
+    return '';
+  })();
+
   const factionDrones: Drone[] = (() => {
     switch (selectedTeam.faction) {
       case 'RDL': return rdlDrones.concat(pdDrones);
@@ -855,16 +863,16 @@ export default function App() {
                       <ChevronDown />
                     </button>
                     {viewMode === "parts" && (
-                      <PartComparePanelMobile lastPartId={lastPartId} hoverId={hoverImg} factionParts={factionParts} imageSrc={imageSrc} compareMode={compareMode} viewMode={viewMode} showKeyword={showKeyword} lang={lang} translations={translations} data={data} faction={selectedTeam.faction} />
+                      <PartComparePanelMobile lastPartId={currentPartId} hoverId={hoverImg} factionParts={factionParts} imageSrc={imageSrc} compareMode={compareMode} viewMode={viewMode} showKeyword={showKeyword} lang={lang} translations={translations} data={data} faction={selectedTeam.faction} />
                     )}
                     {viewMode === "pilots" && (
-                      <PilotComparePanelMobile lastPilotId={lastPartId} hoverId={hoverImg} factionPilots={factionPilots} imageSrc={imageSrc} compareMode={compareMode} viewMode={viewMode} tabsrc={tabSrc} lang={lang} />
+                      <PilotComparePanelMobile lastPilotId={currentPartId} hoverId={hoverImg} factionPilots={factionPilots} imageSrc={imageSrc} compareMode={compareMode} viewMode={viewMode} tabsrc={tabSrc} lang={lang} />
                     )}
                     {viewMode === "drones" && (
-                      <DroneComparePanelMobile lastPartId={lastPartId} hoverId={hoverImg} factionDrones={factionDrones} imageSrc={imageSrc} compareMode={compareMode} viewMode={viewMode} showKeyword={showKeyword} lang={lang} />
+                      <DroneComparePanelMobile lastPartId={currentPartId} hoverId={hoverImg} factionDrones={factionDrones} imageSrc={imageSrc} compareMode={compareMode} viewMode={viewMode} showKeyword={showKeyword} lang={lang} />
                     )}
                     {viewMode === "tacticCards" && (
-                      <TacticCardComparePanelMobile lastPartId={lastPartId} hoverId={hoverImg} tacticCards={allTacticCards} imageSrc={imageSrc} compareMode={compareMode} viewMode={viewMode} />
+                      <TacticCardComparePanelMobile lastPartId={currentPartId} hoverId={hoverImg} tacticCards={allTacticCards} imageSrc={imageSrc} compareMode={compareMode} viewMode={viewMode} />
                     )}
                     <div className="flex-1 relative" style={{ backgroundColor: "white", overflowY: "auto" }}>
                       <PartSelectorMobile
@@ -911,16 +919,16 @@ export default function App() {
                     onClick={e => e.stopPropagation()}
                   >
                     {viewMode === "parts" && (
-                      <PartComparePanel lastPartId={lastPartId} hoverId={hoverImg} factionParts={factionParts} imageSrc={imageSrc} compareMode={compareMode} viewMode={viewMode} showKeyword={showKeyword} faction={selectedTeam.faction} tabsrc={tabSrc} data={data} lang={lang} showSourceBox={showSourceBox} />
+                      <PartComparePanel lastPartId={currentPartId} hoverId={hoverImg} factionParts={factionParts} imageSrc={imageSrc} compareMode={compareMode} viewMode={viewMode} showKeyword={showKeyword} faction={selectedTeam.faction} tabsrc={tabSrc} data={data} lang={lang} showSourceBox={showSourceBox} />
                     )}
                     {viewMode === "pilots" && (
-                      <PilotComparePanel lastPilotId={lastPartId} hoverId={hoverImg} factionPilots={factionPilots} imageSrc={imageSrc} compareMode={compareMode} viewMode={viewMode} tabsrc={tabSrc} lang={lang} />
+                      <PilotComparePanel lastPilotId={currentPartId} hoverId={hoverImg} factionPilots={factionPilots} imageSrc={imageSrc} compareMode={compareMode} viewMode={viewMode} tabsrc={tabSrc} lang={lang} />
                     )}
                     {viewMode === "drones" && (
-                      <DroneComparePanel lastPartId={lastPartId} hoverId={hoverImg} factionDrones={factionDrones} imageSrc={imageSrc} compareMode={compareMode} viewMode={viewMode} showKeyword={showKeyword} tabsrc={tabSrc} faction={selectedTeam.faction} lang={lang} showSourceBox={showSourceBox} gofProjectiles={gofProjectiles} />
+                      <DroneComparePanel lastPartId={currentPartId} hoverId={hoverImg} factionDrones={factionDrones} imageSrc={imageSrc} compareMode={compareMode} viewMode={viewMode} showKeyword={showKeyword} tabsrc={tabSrc} faction={selectedTeam.faction} lang={lang} showSourceBox={showSourceBox} gofProjectiles={gofProjectiles} />
                     )}
                     {viewMode === "tacticCards" && (
-                      <TacticCardComparePanel lastPartId={lastPartId} hoverId={hoverImg} tacticCards={allTacticCards} imageSrc={imageSrc} compareMode={compareMode} viewMode={viewMode} />
+                      <TacticCardComparePanel lastPartId={currentPartId} hoverId={hoverImg} tacticCards={allTacticCards} imageSrc={imageSrc} compareMode={compareMode} viewMode={viewMode} />
                     )}
                     <div className="flex-1 relative" style={{ backgroundColor: "white", overflowY: "auto" }}>
                       <PartSelector

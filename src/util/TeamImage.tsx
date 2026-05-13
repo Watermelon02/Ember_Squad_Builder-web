@@ -1,7 +1,7 @@
 import { Part, Team } from "../data/types";
 import extractChunks from "png-chunks-extract";
 import encodeChunks from "png-chunks-encode";
-import { getImage } from "./ImageGetter";
+import { getImage, preloadImages } from "./ImageGetter";
 import { IMAGE_DRONE_VERSION, IMAGE_PART_VERSION, IMAGE_PILOT_VERSION, IMAGE_PROJECTILE_VERSION } from "../data/resource";
 import { allTacticCards } from "../data/data_cn";
 
@@ -246,6 +246,48 @@ export const exportTeamImage = async (team: Team, lang: string, translations: an
   };
   const fontFamily = fontMap[lang] || "sans-serif";
 
+  // ── 预先收集所有 projectile ID ──
+  const uniqueProjectileIds = new Set<string>();
+  team.mechs.forEach(m => {
+    Object.values(m.parts).forEach(p => {
+      if (p?.projectile && p.projectile[0] !== '288') {
+        p.projectile.forEach(pid => uniqueProjectileIds.add(pid));
+      }
+    });
+  });
+  team.drones.forEach(d => d.projectile?.forEach(pid => uniqueProjectileIds.add(pid)));
+
+  // ── 一次性预加载所有图片到缓存 ──
+  const allImageUrls: string[] = [
+    `${tabsrc}/logo.png`,
+    `${tabsrc}/icon_dodge.png`,
+    `${tabsrc}/icon_electronic.png`,
+  ];
+
+  team.mechs.forEach(mech => {
+    const partOrder: (keyof typeof mech.parts)[] = ["torso", "chasis", "leftHand", "rightHand", "backpack"];
+    partOrder.forEach(key => {
+      const part = mech.parts[key];
+      if (part) allImageUrls.push(`${imgsrc}/${part.id}.png?v=${IMAGE_PART_VERSION}`);
+    });
+    if (mech.pilot) allImageUrls.push(`${imgsrc}/${mech.pilot.id}.png?v=${IMAGE_PILOT_VERSION}`);
+  });
+
+  team.drones.forEach(drone => {
+    allImageUrls.push(`${imgsrc}/${drone.id}.png?v=${IMAGE_DRONE_VERSION}`);
+    if (drone.backpack) allImageUrls.push(`${imgsrc}/${drone.backpack.id}.png?v=${IMAGE_PART_VERSION}`);
+  });
+
+  team.tacticCards.forEach(card => allImageUrls.push(`${imgsrc}/${card.id}.png`));
+  if (team.tacticCards.length > 0) allImageUrls.push(`${tabsrc}/tactic.png`);
+
+  Array.from(uniqueProjectileIds).forEach(pid => {
+    allImageUrls.push(`${imgsrc}/${pid}.png?v=${IMAGE_PROJECTILE_VERSION}`);
+  });
+
+  await preloadImages(allImageUrls, 6);
+  // ── 预加载结束 ──
+
   // 预加载 icon
   const [iconLogo, iconDodge, iconElectronic] = await Promise.all([
     getImage(`${tabsrc}/logo.png`),
@@ -293,19 +335,7 @@ export const exportTeamImage = async (team: Team, lang: string, translations: an
     return { card, img };
   }));
 
-  // Step 1: 收集所有唯一 projectile ID
-  const uniqueProjectileIds = new Set<string>();
-  team.mechs.forEach(m => {
-    Object.values(m.parts).forEach(p => {
-      //排除白矮星变形卡（尺寸不一样）
-      if (p?.projectile && p.projectile[0] !== '288') {
-        p.projectile.forEach(pid => uniqueProjectileIds.add(pid));
-      }
-    });
-  });
-  team.drones.forEach(d => d.projectile?.forEach(pid => uniqueProjectileIds.add(pid)));
-
-  // Step 2: 并行加载所有唯一 projectile 图片
+  // 并行加载所有唯一 projectile 图片
   const projectileImages: HTMLImageElement[] = [];
   await Promise.all(Array.from(uniqueProjectileIds).map(async pid => {
     const img = await getImage(`${imgsrc}/${pid}.png?v=${IMAGE_PROJECTILE_VERSION}`);

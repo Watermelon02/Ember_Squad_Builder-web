@@ -15,8 +15,6 @@ interface PilotListMobileProps {
     selectedId?: string | null;
 }
 
-// ✅ 修复1：属性图标列表提到模块顶层
-//    原代码在每次渲染时都在组件内部重新创建这个数组，浪费内存
 const PILOT_ATTR_ICONS = [
     'icon_swift',
     'icon_melee',
@@ -27,7 +25,6 @@ const PILOT_ATTR_ICONS = [
     'icon_LV'
 ] as const;
 
-// ✅ 修复2：对应的 pilot 属性 key 列表，与图标一一对应
 const PILOT_ATTR_KEYS = [
     'swift',
     'melee',
@@ -38,7 +35,6 @@ const PILOT_ATTR_KEYS = [
     'LV'
 ] as const;
 
-// ✅ 修复3：textShadow 样式对象提到顶层，避免每次渲染创建新对象
 const TRAIT_TEXT_STYLE: React.CSSProperties = {
     color: 'white',
     textShadow: '-1px -1px 1px #000, 1px -1px 1px #000, -1px 1px 1px #000, 1px 1px 1px #000',
@@ -52,8 +48,6 @@ const MemoizedPilotCard = React.memo(({
     translations,
     lastScore,
 }: any) => {
-    // ✅ 修复4：属性值数组用 useMemo 缓存
-    //    依赖项只有 pilot 各属性，不变则跳过重建
     const attrs = useMemo(() =>
         PILOT_ATTR_KEYS.map((key, i) => ({
             value: pilot[key],
@@ -64,7 +58,10 @@ const MemoizedPilotCard = React.memo(({
     );
 
     return (
-        <div style={{ paddingBottom: '12px', paddingLeft: '2vw', paddingRight: '2vw' }}>
+        <div
+          style={{ paddingBottom: '12px', paddingLeft: '2vw', paddingRight: '2vw',
+                   contentVisibility: 'auto', containIntrinsicSize: 'auto 11rem' }}
+        >
             <SelectableCard
                 selected={isSelected}
                 className="p-4 cursor-pointer relative overflow-hidden shadow-sm"
@@ -92,27 +89,26 @@ const MemoizedPilotCard = React.memo(({
                         </Badge>
                     </div>
 
-                    <div className="flex items-stretch gap-1 w-full">
+                    <div className="flex items-stretch gap-1 w-full" style={{ contain: 'layout style paint', height: '4.5rem' }}>
                         {attrs.map(({ value, icon }) => (
                             <div
                                 key={icon}
                                 className="flex-1 flex flex-col items-center justify-center h-16 border rounded-md bg-background/50"
+                                style={{ height: '4.5rem', minHeight: '4.5rem' }}
                             >
                                 <img
                                     src={`${tabsrc}/${icon}.webp`}
                                     alt={icon}
-                                    width={30}
-                                    height={30}
+                                    width={28}
+                                    height={28}
                                     className="object-contain"
                                     decoding="async"
-                                    loading="lazy"
                                 />
                                 <div className="text-[10px] mt-0.5">{value}</div>
                             </div>
                         ))}
                     </div>
 
-                    {/* ✅ 修复3 应用：直接复用顶层常量，不再每次创建新对象 */}
                     {pilot.traitDescription && (
                         <p className="text-sm text-muted-foreground" style={TRAIT_TEXT_STYLE}>
                             {pilot.traitDescription}
@@ -153,7 +149,8 @@ const PilotListMobile: React.FC<PilotListMobileProps> = ({
         <Virtuoso
             style={{ height: '100%', width: '100%' }}
             data={filteredPilots}
-            overscan={400}  // ✅ 修复6：固定像素值，避免每次读取 window.innerHeight
+            overscan={200}
+            computeItemKey={(index, pilot) => pilot.id}
             itemContent={(index, pilot) => (
                 <MemoizedPilotCard
                     // ✅ 修复7：Virtuoso 的 itemContent 已通过 index 管理 key，

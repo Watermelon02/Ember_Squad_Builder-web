@@ -20,25 +20,17 @@ export function SelectableCard({
     <div
       className={`transition-all relative rounded-xl overflow-hidden shadow-lg cursor-pointer ${className}`}
       style={{
-        // 背景颜色 + 半透明
         backgroundColor: selected ? "rgba(255,255,255,0.5)" : "rgba(255,255,255,1)",
-        // 背景模糊
-        backdropFilter: "blur(16px)",
-        WebkitBackdropFilter: "blur(16px)",
-        // 边框：半透明增强玻璃感
         border: "1px solid rgba(255,255,255,0.3)",
-        // 阴影
         boxShadow: selected
           ? "0 8px 24px rgba(0,0,0,0.15)"
           : "0 4px 12px rgba(0,0,0,0.1)",
-        // 渐变叠加（可选，增加玻璃质感）
         backgroundImage: selected
           ? "linear-gradient(145deg, rgba(255,255,255,0.2), rgba(255,255,255,0.1))"
           : "linear-gradient(145deg, rgba(255,255,255,0.15), rgba(255,255,255,0.05))",
-        transition: "all 0.25s ease",
+        transition: "background-color 0.25s ease, box-shadow 0.25s ease",
         padding: "0.75rem 1rem",
-        willChange: 'transform', // 告诉浏览器提前做好硬件加速准备
-        WebkitBackfaceVisibility: 'hidden' // 防止某些手机浏览器闪烁
+        WebkitBackfaceVisibility: 'hidden',
       }}
       onClick={onClick}
       onMouseEnter={(e) => {
