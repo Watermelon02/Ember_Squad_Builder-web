@@ -25,11 +25,14 @@ interface MechListMobileHeaderProps {
   setIncludeProjectile: (val: boolean) => void;
   hideTacticCard: boolean;
   setHideTacticCard: (val: boolean) => void;
+  competitionRegistrationMode: boolean;
+  setCompetitionRegistrationMode: (val: boolean) => void;
 }
 
 export const MechListMobileHeader: React.FC<MechListMobileHeaderProps> = ({
   team, translations, lang, setLanguage, currentTab, setCurrentTab, onSetViewMode, setCPartType,
-  isExporting, handleExportImage, showProjectileOption, setShowProjectileOption, includeProjectile, setIncludeProjectile, hideTacticCard, setHideTacticCard
+  isExporting, handleExportImage, showProjectileOption, setShowProjectileOption, includeProjectile, setIncludeProjectile, hideTacticCard, setHideTacticCard,
+  competitionRegistrationMode, setCompetitionRegistrationMode
 }) => {
   return (
     <div className="p-2 border-b border-border flex flex-col gap-2">
@@ -75,7 +78,7 @@ export const MechListMobileHeader: React.FC<MechListMobileHeaderProps> = ({
         {/* 三个按钮平分剩余空间 */}
         <div className="flex-1 min-w-0">
           <Button className="w-full h-8 px-1" variant="outline" size="sm"
-            onClick={() => team && exportTextTeamData(team, translations, lang,hideTacticCard)}>
+            onClick={() => team && exportTextTeamData(team, translations, lang, hideTacticCard)}>
             <Table2 className="w-3.5 h-3.5 shrink-0" />
             <span className="text-[10px] whitespace-nowrap ml-0.5">{translations.t6}</span>
           </Button>
@@ -153,6 +156,15 @@ export const MechListMobileHeader: React.FC<MechListMobileHeaderProps> = ({
                     {translations.t122}
                   </label>
                 </div>
+                {<div className="flex items-center gap-2">
+                  <input type="checkbox" id="competition-registration-mobile" checked={competitionRegistrationMode}
+                    onChange={(e) => setCompetitionRegistrationMode(e.target.checked)}
+                    className="h-4 w-4 shrink-0" style={{ accentColor: "#3b82f6" }} />
+                  <label htmlFor="competition-registration-mobile"
+                    className="cursor-pointer select-none" style={{ color: "#374151" }}>
+                    {translations.t134}
+                  </label>
+                </div>}
               </motion.div>
             )}
           </AnimatePresence>

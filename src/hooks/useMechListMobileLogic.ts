@@ -31,7 +31,7 @@ export const useMechListMobileLogic = ({
   lang,
   tabsrc,
   localImgsrc,
-  imgsrc,hideTacticCard, setHideTacticCard
+  imgsrc, hideTacticCard, setHideTacticCard
 }: UseMechListMobileLogicProps) => {
   const [editingMechId, setEditingMechId] = useState<string>('');
   const [isExporting, setIsExporting] = useState(false);
@@ -41,6 +41,8 @@ export const useMechListMobileLogic = ({
   const [open, setOpen] = useState(false);
   const [script, setScript] = useState("");
   const [isDialogOpen, setIsDialogOpen] = useState(false);
+
+  const [boxListDialogOpen, setBoxListDialogOpen] = useState(false);
 
   const exportRef = useRef<HTMLDivElement>(null);
 
@@ -108,7 +110,7 @@ export const useMechListMobileLogic = ({
     return "#111";
   };
 
- const handleExportImage = async () => {
+  const handleExportImage = async () => {
     setIsExporting(true);
     try {
       if (!team) return;
@@ -219,6 +221,7 @@ export const useMechListMobileLogic = ({
     currentTab, setCurrentTab,
     open, setOpen,
     script, setScript,
+    boxListDialogOpen, setBoxListDialogOpen,
     isDialogOpen, setIsDialogOpen,
     includeProjectile, setIncludeProjectile,
     exportRef,

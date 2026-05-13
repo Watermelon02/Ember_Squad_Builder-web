@@ -457,7 +457,7 @@ export const rdlLeftHand: Part[] = [
     "electronic": 0,
     "move": 0,
     "description": "",
-    "containedIn": [{ "box": BOXES.RDL_CORE, "quantityPerBox": 2 }],
+    "containedIn": [{ "box": BOXES.GAME_PACK, "quantityPerBox": 1 }, ],
     "keywords": [
       KEYWORD_LIST.jp.空手, KEYWORD_LIST.jp.频闪武器
     ],
@@ -1006,7 +1006,7 @@ export const rdlRightHand: Part[] = [
     "imgSrc": "",
     "tags": [],
     "keywords": [KEYWORD_LIST.jp.频闪武器],
-    "containedIn": [{ "box": BOXES.RDL_CORE, "quantityPerBox": 2 }, { "box": BOXES.GAME_PACK, "quantityPerBox": 1 }, { "box": BOXES.SINGLE_RDL_DUNE, "quantityPerBox": 1 }],
+    "containedIn": [{ "box": BOXES.RDL_CORE, "quantityPerBox": 2 },  { "box": BOXES.SINGLE_RDL_DUNE, "quantityPerBox": 1 }],
   },
   {
     "id": "038",

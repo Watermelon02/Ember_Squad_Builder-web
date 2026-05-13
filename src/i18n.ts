@@ -79,7 +79,7 @@ export const translations = {
     t108: "未发售", t109: "手持", t110: "空手",
     t111: "仓库", t112: "仓库管理", t113: "根据你拥有的扩展包，按照真实拥有的部件数量，限制写表器中可用的部件数量", t114: "显示全部",
     t115: "启用仓库", t116: "开启", t117: "关闭", t118: "所属", t119: "空", t120: "低价值", t121: "中立", t122: "秘密携带战术卡",
-    t133: "该卡片的印刷版本与当前规则有差异，请以写表器中的卡面为准"
+    t133: "该卡片的印刷版本与当前规则有差异，请以写表器中的卡面为准", t134: "锦标赛模式", t135: "锦标赛", "t136": "开启后只显示锦标赛允许的部件"
   },
 
   en: {
@@ -182,7 +182,8 @@ export const translations = {
     t117: "Off",
     t118: "Affiliation",
     t119: "None", t120: "Low Value", t121: "Neutral", t122: "Secretly Carrying Tactic Card",
-    t133: "The printed version of this card differs from the current rules, please refer to the card face in the list builder"
+    t133: "The printed version of this card differs from the current rules, please refer to the card face in the list builder",
+    t134: "Competition Mode", t135: "Competition", t136: "When enabled, only parts allowed in competitions will be shown"
   }, jp: {
     t1: "データがクリップボードにコピーされました！",
     t2: "エクスポートに失敗しました。もう一度お試しください。",
@@ -281,7 +282,8 @@ export const translations = {
     t117: "オフ",
     t118: "所属",
     t119: "なし", t120: "低価値", t121: "中立", t122: "戦術カードを秘密裏に携帯",
-    t133: "このカードの印刷されたバージョンは現在のルールとは異なります。リストビルダーのカードフェイスを参照してください"
+    t133: "このカードの印刷されたバージョンは現在のルールとは異なります。リストビルダーのカードフェイスを参照してください",
+    t134: "锦标赛模式", t135: "锦标赛", t136: "开启后只显示锦标赛允许的部件"
   },
 
 };

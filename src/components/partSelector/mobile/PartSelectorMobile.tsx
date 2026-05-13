@@ -1,5 +1,5 @@
 import React, { useState, useMemo } from 'react';
-import { Part, Drone, Pilot, Team, TacticCard } from '../../../data/types';
+import { Part, Drone, Pilot, Team, TacticCard, BOXES } from '../../../data/types';
 
 import ListPanel from '../mobile/ListPanelMobile';
 
@@ -34,6 +34,7 @@ interface MobilePartSelectorMobileProps {
   lastPartId: string;
   showKeyword?: boolean;
   onSetShowKeyword: (show: boolean) => void;
+  competitionRegistrationMode: boolean;
 }
 
 export function PartSelectorMobile({
@@ -61,6 +62,7 @@ export function PartSelectorMobile({
   mobileOrTablet,
   lastScore,
   lastPartId,
+  competitionRegistrationMode,
 }: MobilePartSelectorMobileProps) {
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedTags, setSelectedTags] = useState<string[]>([]);
@@ -80,6 +82,47 @@ export function PartSelectorMobile({
         if (!hasSelectedTag) return false;
       }
       if (part.score == 0) return false;
+      // 如果开启比赛报名模式，进一步过滤掉不可参赛的部件
+      if (competitionRegistrationMode) {
+        // 众筹部件禁赛
+        const bannedPartIds = new Set(['005', '040', '150', '117', '038', '152', '119']);
+        if (bannedPartIds.has(part.id)) return false;
+
+        // 根据部件来源进一步过滤
+        let hasValidSource = false;
+        let hasAnySource = false;
+
+        for (const source of part.containedIn) {
+          hasAnySource = true;
+
+          // 未发售的部件不能使用（包括危机1）
+          if (source.box === BOXES.UNSALE || source.box === BOXES.LAB_PD_CRISIS1) {
+            continue; // 这个来源非法，检查下一个
+          }
+
+          // 自由阵营：只能用人马或者中立的部件
+          if (team?.faction === "GOF") {
+            if (source.box === BOXES.LAB_GOF_CENTAUR || part.isPD) {
+              hasValidSource = true;
+              break;
+            }
+            // 否则这个来源对自由无效，继续检查
+            continue;
+          }
+
+          // 联合与复兴：不能使用游戏包、对战包
+          if (source.box === BOXES.COMBAT_RAID || source.box === BOXES.GAME_PACK) {
+            continue; // 这个来源非法，检查下一个
+          }
+
+          // 通过所有检查，这是一个合法来源
+          hasValidSource = true;
+          break;
+        }
+
+        // 没有任何合法来源则排除
+        if (hasAnySource && !hasValidSource) return false;
+      }
       return true;
     });
     return filtered.sort((a, b) => (sortOrder === 'score_desc' ? b.score - a.score : a.score - b.score));
@@ -91,6 +134,17 @@ export function PartSelectorMobile({
       if (drone.isPD && !containPD) return false;
       if ((drone.isPD === undefined || !drone.isPD) && containPD) return false;
       if (drone.score == 0) return false;
+      //如果开启比赛报名模式，进一步过滤掉不可参赛的无人机
+      if (competitionRegistrationMode) {
+        let usable = true;
+        drone.containedIn.forEach(source => {
+          if (team?.faction === "GOF" && !drone.isPD) usable = false;
+          else {
+            if (drone.id === "543") usable = false; //离子豪猪
+          }
+        });
+        if (!usable) return false;
+      }
       return true;
     });
     return filtered.sort((a, b) => (sortOrder === 'score_desc' ? b.score - a.score : a.score - b.score));
@@ -105,6 +159,7 @@ export function PartSelectorMobile({
     return tacticCards.filter((tacticCard) => {
       if (searchQuery && !tacticCard.name.toLowerCase().includes(searchQuery.toLowerCase())) return false;
       if (usedTacticIds.has(tacticCard.id)) return false;
+      if (competitionRegistrationMode) return false; // 目前战术卡不允许参赛
       return true;
     });
   }, [tacticCards, team, searchQuery]);
@@ -119,6 +174,19 @@ export function PartSelectorMobile({
       if (pilot.faction === 'PD' && !containPD) return false;
       if (pilot.faction !== 'PD' && containPD) return false;
       if (usedPilotIds.has(pilot.id)) return false;
+      //如果开启比赛报名模式，进一步过滤掉不可参赛的驾驶员
+      if (competitionRegistrationMode) {
+        let usable = true;
+        if (pilot.id === "LPA-23-2" || pilot.id === "FPA-04-2") usable = false;
+        if (pilot.faction === "GOF") {
+          if (pilot.id !== "ZPA-46") usable = false;
+        }
+        if (pilot.faction === "PD") {
+          if (pilot.id !== "XPA-60" && pilot.id !== "ACE-01") usable = false;
+        }
+        if (!usable) return false;
+
+      }
       return true;
     });
     return filtered.sort((a, b) => (sortOrder === 'score_desc' ? b.score - a.score : a.score - b.score));

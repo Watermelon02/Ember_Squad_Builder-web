@@ -113,10 +113,11 @@ export default function App() {
   });
 
   useEffect(() => {
-    try { localStorage.setItem("animationCardMode", JSON.stringify(animationCardMode));
+    try {
+      localStorage.setItem("animationCardMode", JSON.stringify(animationCardMode));
       //关闭动画模式，给比赛报名按钮腾位置
       setAnimationCardMode(false);
-     }
+    }
     catch (e) { }
   }, [animationCardMode]);
 
@@ -320,7 +321,7 @@ export default function App() {
           setCompetitionDialogOpen={() => { }}
           showCompetitionDialog={false}
           hideTacticCard={hideTacticCard} setHideTacticCard={setHideTacticCard}
-          showCompetitionDialog = {showCompetitionDialog}
+          showCompetitionDialog={showCompetitionDialog}
         />}
         {isMobileOrTablet && <MechListMobile
           team={team} selectedMechId={selectedMechId}
@@ -333,6 +334,7 @@ export default function App() {
           onSetIsChangingPart={() => { }}
           onSelectDrone={() => { }}
           hideTacticCard={hideTacticCard} setHideTacticCard={setHideTacticCard}
+          competitionRegistrationMode={competitionRegistrationMode} setCompetitionRegistrationMode={setCompetitionRegistrationMode}
         />}
       </div>
     );
@@ -817,6 +819,7 @@ export default function App() {
               onSetIsChangingPart={v => setIsChangingPart(v)}
               onSelectDrone={d => setLastPartId(d.id)}
               hideTacticCard={hideTacticCard} setHideTacticCard={setHideTacticCard}
+              competitionRegistrationMode={competitionRegistrationMode} setCompetitionRegistrationMode={setCompetitionRegistrationMode}
             />
           )}
         </div>
@@ -870,6 +873,7 @@ export default function App() {
                         onSelectPart={handleSelectPartMobile} onSelectDrone={handleSelectDroneMobile}
                         onSelectTacticCard={handleSelectTacticCardMobile} onSelectPilot={handleSelectPilotMobile}
                         tabSmallSrc={tabSmallSrc} showKeyword={showKeyword} onSetShowKeyword={setShowKeyword}
+                        competitionRegistrationMode={competitionRegistrationMode}
                       />
                     </div>
                   </div>

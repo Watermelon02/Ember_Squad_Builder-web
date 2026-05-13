@@ -28,12 +28,14 @@ interface MechListMobileProps {
   mechImgSrc: string,
   hideTacticCard: boolean,
   setHideTacticCard: (val: boolean) => void,
+  competitionRegistrationMode: boolean;
+  setCompetitionRegistrationMode: (val: boolean) => void;
 }
 
 export function MechListMobile({
   team, selectedMechId, onSelectMech, onSelectPartType, onUpdateTeam, onSetViewMode, onSelectDrone,
   translations, partTypeNames, imgsrc, tabsrc, localImgsrc, lang, mobileOrTablet, setLanguage,hideTacticCard, setHideTacticCard,
-  tournamentMode, mechImgSrc, onSetIsChangingPart,
+  tournamentMode, mechImgSrc, onSetIsChangingPart,competitionRegistrationMode, setCompetitionRegistrationMode
 }: MechListMobileProps) {
 
   const logic = useMechListMobileLogic({
@@ -96,6 +98,7 @@ export function MechListMobile({
           showProjectileOption={logic.showProjectileOption} setShowProjectileOption={logic.setShowProjectileOption}
           includeProjectile={logic.includeProjectile} setIncludeProjectile={logic.setIncludeProjectile}
           hideTacticCard={hideTacticCard} setHideTacticCard={setHideTacticCard}
+            competitionRegistrationMode={competitionRegistrationMode} setCompetitionRegistrationMode={setCompetitionRegistrationMode}
         />
 
         <MechTabMobileContent
