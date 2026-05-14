@@ -190,14 +190,27 @@ export async function preloadImageCache(
 
         // Step 3: Best-effort Cache API PUT via CORS fetch
         // This populates Cache API for long-term persistence.
-        // If CDN CORS is not configured, fetch fails silently and HTTP cache still works.
+        // If CDN CORS is not configured, falls back to no-cors mode.
         try {
           const response = await fetch(url);
           if (response.ok) {
-            await cache.put(url, response);
+            // Validate content-type — prevents caching non-image responses
+            // (e.g. jsDelivr HTML error pages for repos exceeding 50MB limit)
+            const contentType = response.headers.get('content-type') || '';
+            if (contentType.startsWith('image/')) {
+              await cache.put(url, response);
+            }
           }
         } catch {
-          // CORS not available — HTTP cache is sufficient
+          // CORS not available — try no-cors mode (e.g. raw.githubusercontent.com)
+          try {
+            const opaqueResponse = await fetch(url, { mode: 'no-cors' });
+            if (opaqueResponse.type === 'opaque') {
+              await cache.put(url, opaqueResponse);
+            }
+          } catch {
+            // Both methods failed, HTTP cache from Image() is sufficient
+          }
         }
       } catch {
         // Network error, skip
@@ -297,7 +310,7 @@ export function ImagePreloader({ data, lang, translations, onComplete, onSetLang
             animate={{ opacity: 0.15, scale: 1 }}
             exit={{ opacity: 0, scale: 0.8 }}
             transition={{ duration: 0.6, ease: 'easeOut' }}
-            src={`${backgroundImgsrc}/logo_${factions[logoFaction]}.png`}
+            src={`${backgroundImgsrc}/logo_${factions[logoFaction]}.webp`}
             alt=""
             style={{
               position: 'absolute', bottom: 0, right: 0,

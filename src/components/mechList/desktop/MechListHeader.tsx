@@ -153,9 +153,10 @@ export const MechListHeader: React.FC<MechListHeaderProps> = ({
                                     display: "flex",
                                     flexDirection: "column",
                                     gap: 8,
-                                    fontSize: "1vw",
+                                    fontSize: "0.8vw",
                                     zIndex: 90,
-                                    marginTop: 4
+                                    marginTop: 4,
+                                    whiteSpace: "nowrap",
                                 }}
                             >
                                 <div style={{ display: "flex", alignItems: "center", gap: 6 }}>
@@ -187,7 +188,7 @@ export const MechListHeader: React.FC<MechListHeaderProps> = ({
                     </AnimatedButton>
                     <AnimatePresence>
                         {showTTSHint && (
-                            <motion.div key="checkbox-popup-tts" initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: 8 }} transition={{ duration: 0.2 }} style={{ position: "absolute", top: "100%", left: "-50%", background: "white", borderRadius: 8, boxShadow: "0 4px 6px rgba(0,0,0,0.1)", padding: "6px 12px", fontSize: "1vw", marginTop: -6, zIndex: 90 }}>
+                            <motion.div key="checkbox-popup-tts" initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: 8 }} transition={{ duration: 0.2 }} style={{ position: "absolute", top: "100%", left: "-50%", background: "white", borderRadius: 8, boxShadow: "0 4px 6px rgba(0,0,0,0.1)", padding: "6px 12px", fontSize: "0.8vw", marginTop: -6, zIndex: 90, whiteSpace: "nowrap" }}>
                                 <label style={{ cursor: "pointer", userSelect: "none", color: "#374151", whiteSpace: "nowrap" }}>{translations.t96}</label>
                             </motion.div>
                         )}
