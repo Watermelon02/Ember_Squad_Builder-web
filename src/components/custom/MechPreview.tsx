@@ -1,6 +1,7 @@
 import React, { useMemo } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Mech, Part } from '../../data/types';
+import { TAB_PART_VERSION } from '../../data/resource';
 
 interface MechPreviewProps {
   mech: { parts: Partial<Record<keyof Mech['parts'], Part>> };
@@ -125,7 +126,7 @@ export const MechPreview: React.FC<MechPreviewProps> = ({
               >
                 {(part.hasImage === undefined || part.hasImage) && <img
                   loading='lazy'
-                  src={`${mechImgSrc}/${part.id}.png`}
+                  src={`${mechImgSrc}/${part.id}.webp?v=${TAB_PART_VERSION}`}
                   alt={part.name}
                   style={{
                     width: '100%',

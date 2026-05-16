@@ -5,6 +5,14 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>月尘写表器</title>
+  <link rel="icon" type="image/webp" href="/res/background/logo.webp" />
+  <script>
+    (function () {
+      var lang = localStorage.getItem('lang');
+      var titles = { zh: '月尘写表器', en: 'Ember Squad Builder', jp: '月塵スクワッドビルダー' };
+      if (lang && titles[lang]) document.title = titles[lang];
+    })();
+  </script>
 
   <script>
     (function () {

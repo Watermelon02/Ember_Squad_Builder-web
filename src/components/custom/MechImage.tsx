@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Mech } from "../../data/types";
-import { TAB_PILOT_VERSION } from "../../data/resource";
+import { TAB_PART_VERSION, TAB_PILOT_VERSION } from "../../data/resource";
 
 interface MechImageProps {
   mech: Mech;
@@ -66,7 +66,7 @@ export const MechImage: React.FC<MechImageProps> = ({ mech, tabsrc, translation 
           <motion.img
             loading="lazy"
             key={mech.parts.torso.id}
-            src={`${tabsrc}/${mech.parts.torso.id}.png`
+            src={`${tabsrc}/${mech.parts.torso.id}.webp?v=${TAB_PART_VERSION}`
             }
             alt="torso"
             style={{
@@ -125,8 +125,8 @@ export const MechImage: React.FC<MechImageProps> = ({ mech, tabsrc, translation 
             key={animatingPart.id}
             src={
               animatingPart.key === "pilot"
-                ? `${tabsrc}/${pilot?.id}.png`
-                : `${tabsrc}/${mech.parts[animatingPart.key]?.id}.png`
+                ? `${tabsrc}/${pilot?.id}.webp?v=${TAB_PILOT_VERSION}`
+                : `${tabsrc}/${mech.parts[animatingPart.key]?.id}.webp?v=${TAB_PART_VERSION}`
             }
             alt={animatingPart.key}
             style={{
@@ -150,7 +150,7 @@ export const MechImage: React.FC<MechImageProps> = ({ mech, tabsrc, translation 
       {pilot?.id && (!animatingPart || animatingPart.key !== "pilot") ? (
         <motion.img
           key={pilot.id}
-          src={`${tabsrc}/${pilot.id}.png?v=${TAB_PILOT_VERSION}`}
+          src={`${tabsrc}/${pilot.id}.webp?v=${TAB_PILOT_VERSION}`}
           alt="pilot"
           style={{
             position: "absolute",
@@ -168,7 +168,7 @@ export const MechImage: React.FC<MechImageProps> = ({ mech, tabsrc, translation 
         <AnimatePresence>
           <motion.img
             key={pilot?.id}
-            src={`${tabsrc}/${pilot?.id}.png`}
+            src={`${tabsrc}/${pilot?.id}.webp?v=${TAB_PILOT_VERSION}`}
             alt="pilot"
             style={{
               position: "absolute",

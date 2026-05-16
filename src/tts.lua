@@ -10,7 +10,7 @@ local function getCardUrlTemplate()
     if currentLang == "cn" then
         return "https://op-1307392056.cos.ap-guangzhou.myqcloud.com/res/cn/%s.png"
     else
-        return "https://cdn.jsdelivr.net/gh/Watermelon02/builder-web/res/" .. currentLang .. "/%s.png"
+        return "https://raw.githubusercontent.com/Watermelon02/builder-web/main/res/" .. currentLang .. "/%s.png"
     end
 end
 
@@ -18,7 +18,7 @@ local function getTabTemplate()
     if currentLang == "cn" then
         return "https://op-1307392056.cos.ap-guangzhou.myqcloud.com/res/tab/%s.png"
     else
-        return "https://cdn.jsdelivr.net/gh/Watermelon02/builder-web/res/tab/%s.png"
+        return "https://raw.githubusercontent.com/Watermelon02/builder-web/main/res/tab/%s.png"
     end
 end
 
@@ -29,7 +29,7 @@ local function getPilotUrl(pilotId, fileType)
     if currentLang == "cn" then
         template = "https://op-1307392056.cos.ap-guangzhou.myqcloud.com/res/cn/pilot_dial/%s.png?v=1"
     else
-        template = "https://cdn.jsdelivr.net/gh/Watermelon02/builder-web/res/" .. currentLang ..
+        template = "https://raw.githubusercontent.com/Watermelon02/builder-web/main/res/" .. currentLang ..
                        "/pilot_dial/%s.png"
     end
     return string.format(template, pilotId .. (fileType or ""))

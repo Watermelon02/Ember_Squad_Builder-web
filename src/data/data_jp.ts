@@ -251,7 +251,7 @@ export const rdlChasis: Part[] = [
     "imgSrc": "",
     "tags": [],
     "keywords": [KEYWORD_LIST.jp.直线移动],
-    "containedIn": [{ "box": BOXES.RDL_CORE, "quantityPerBox": 2 }, { "box": BOXES.SINGLE_RDL_DUNE, "quantityPerBox": 1 }],
+    "containedIn": [{ "box": BOXES.RDL_CORE, "quantityPerBox": 2 },{ "box": BOXES.RDL_HEAVY_METAL, "quantityPerBox": 2 }, { "box": BOXES.SINGLE_RDL_DUNE, "quantityPerBox": 1 }],
   },
   {
     "id": "022",
@@ -5038,6 +5038,40 @@ export const pdBackpack: Part[] = [
     "containedIn": [{ "box": BOXES.LAB_PD_CRISIS2, "quantityPerBox": 1 }],
   }
 ];
+
+export const pdProjectiles: Projectile[] = [{
+  "id": "PDAM-002",
+  "name": "FGM46「エグゾセ」ミサイル",
+  "armor": 0,
+  "structure": 0,
+  "parray": 0,
+  "dodge": 4,
+  "electronic": 1,
+  "stance": "mobility",
+  "hasImage": false,
+  "isPD": true,
+  "keywords": [
+    {
+      "name": "抛射物"
+    },
+    {
+      "name": "导弹"
+    }
+  ],
+  "actions": [
+    {
+      "id": "PDAM-002_A",
+      "name": "制导攻击",
+      "description": "· 以范围内1个敌方单位为目标，飞行进入目标格并引爆。\n· 引爆时，对目标造成爆炸伤害。\n· 毁伤",
+      "type": "Tactic",
+      "speed": "passive",
+      "range": 6,
+      "storage": 0,
+      "yellowDice": 0,
+      "redDice": 3
+    }
+  ]
+},]
 
 export const pdPilots: Pilot[] = [
   {

@@ -55,7 +55,7 @@ export const TacticTabContent: React.FC<TacticTabContentProps> = ({
               }
               {/* 如果是比赛模式，战术卡全显示背面 */}
               {tournamentMode &&
-                <img src={`${tabsrc}/tactic.png`} alt={tacticCards.name} className="shadow-lg shadow-gray-500 rounded-lg" style={{ width: '100%', height: '100%', objectFit: 'contain' }} draggable={false} />
+                <img src={`${tabsrc}/tactic.webp`} alt={tacticCards.name} className="shadow-lg shadow-gray-500 rounded-lg" style={{ width: '100%', height: '100%', objectFit: 'contain' }} draggable={false} />
               }
               <Button variant="ghost" size="sm" onClick={(e) => { e.stopPropagation(); deleteTacticCard(index); }} className="absolute top-0 right-0 shadow-lg shadow-gray-500 rounded-lg text-destructive hover:text-destructive"><Trash2 className="w-4 h-4" /></Button>
             </div>
@@ -68,7 +68,7 @@ export const TacticTabContent: React.FC<TacticTabContentProps> = ({
           >
             <img src={`${imgsrc}/274.webp`} style={{ width: '100%', height: '100%', objectFit: 'contain', borderRadius: '0.5rem', boxShadow: '0 4px 6px rgba(0,0,0,0.1)', opacity: 0 }} draggable={false} />
             <div style={{ position: 'absolute', top: 0, left: 0, right: 0, bottom: 0, display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', pointerEvents: 'none' }}>
-              <img src={`${tabsrc}/tactic.png`} style={{ width: '100%', height: '100%', objectFit: 'contain', borderRadius: '0.5rem', boxShadow: '0 4px 6px rgba(0,0,0,0.1)', opacity: 1 }} draggable={false} />
+              <img src={`${tabsrc}/tactic.webp`} style={{ width: '100%', height: '100%', objectFit: 'contain', borderRadius: '0.5rem', boxShadow: '0 4px 6px rgba(0,0,0,0.1)', opacity: 1 }} draggable={false} />
             </div>
           </div>}
         </motion.div>

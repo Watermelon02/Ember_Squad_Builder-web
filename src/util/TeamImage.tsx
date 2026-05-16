@@ -259,30 +259,30 @@ export const exportTeamImage = async (team: Team, lang: string, translations: an
 
   // ── 一次性预加载所有图片到缓存 ──
   const allImageUrls: string[] = [
-    `${tabsrc}/logo.png`,
-    `${tabsrc}/icon_dodge.png`,
-    `${tabsrc}/icon_electronic.png`,
+    `${tabsrc}/logo.webp`,
+    `${tabsrc}/icon_dodge.webp`,
+    `${tabsrc}/icon_electronic.webp`,
   ];
 
   team.mechs.forEach(mech => {
     const partOrder: (keyof typeof mech.parts)[] = ["torso", "chasis", "leftHand", "rightHand", "backpack"];
     partOrder.forEach(key => {
       const part = mech.parts[key];
-      if (part) allImageUrls.push(`${imgsrc}/${part.id}.png?v=${IMAGE_PART_VERSION}`);
+      if (part) allImageUrls.push(`${imgsrc}/${part.id}.webp?v=${IMAGE_PART_VERSION}`);
     });
-    if (mech.pilot) allImageUrls.push(`${imgsrc}/${mech.pilot.id}.png?v=${IMAGE_PILOT_VERSION}`);
+    if (mech.pilot) allImageUrls.push(`${imgsrc}/${mech.pilot.id}.webp?v=${IMAGE_PILOT_VERSION}`);
   });
 
   team.drones.forEach(drone => {
-    allImageUrls.push(`${imgsrc}/${drone.id}.png?v=${IMAGE_DRONE_VERSION}`);
-    if (drone.backpack) allImageUrls.push(`${imgsrc}/${drone.backpack.id}.png?v=${IMAGE_PART_VERSION}`);
+    allImageUrls.push(`${imgsrc}/${drone.id}.webp?v=${IMAGE_DRONE_VERSION}`);
+    if (drone.backpack) allImageUrls.push(`${imgsrc}/${drone.backpack.id}.webp?v=${IMAGE_PART_VERSION}`);
   });
 
-  team.tacticCards.forEach(card => allImageUrls.push(`${imgsrc}/${card.id}.png`));
-  if (team.tacticCards.length > 0) allImageUrls.push(`${tabsrc}/tactic.png`);
+  team.tacticCards.forEach(card => allImageUrls.push(`${imgsrc}/${card.id}.webp`));
+  if (team.tacticCards.length > 0) allImageUrls.push(`${tabsrc}/tactic.webp`);
 
   Array.from(uniqueProjectileIds).forEach(pid => {
-    allImageUrls.push(`${imgsrc}/${pid}.png?v=${IMAGE_PROJECTILE_VERSION}`);
+    allImageUrls.push(`${imgsrc}/${pid}.webp?v=${IMAGE_PROJECTILE_VERSION}`);
   });
 
   await preloadImages(allImageUrls, 6);
@@ -290,9 +290,9 @@ export const exportTeamImage = async (team: Team, lang: string, translations: an
 
   // 预加载 icon
   const [iconLogo, iconDodge, iconElectronic] = await Promise.all([
-    getImage(`${tabsrc}/logo.png`),
-    getImage(`${tabsrc}/icon_dodge.png`),
-    getImage(`${tabsrc}/icon_electronic.png`),
+    getImage(`${tabsrc}/logo.webp`),
+    getImage(`${tabsrc}/icon_dodge.webp`),
+    getImage(`${tabsrc}/icon_electronic.webp`),
   ]);
 
   // 并行加载 mech images
@@ -301,12 +301,12 @@ export const exportTeamImage = async (team: Team, lang: string, translations: an
     const partsInfo = await Promise.all(partOrder.map(async key => {
       const part = mech.parts[key];
       if (!part) return null;
-      const img = await getImage(`${imgsrc}/${part.id}.png?v=${IMAGE_PART_VERSION}`);
+      const img = await getImage(`${imgsrc}/${part.id}.webp?v=${IMAGE_PART_VERSION}`);
       return { part, img };
     }));
     const validParts = partsInfo.filter((p): p is { part: Part, img: HTMLImageElement } => p !== null);
 
-    const pilotImg = mech.pilot ? await getImage(`${imgsrc}/${mech.pilot.id}.png?v=${IMAGE_PILOT_VERSION}`) : null;
+    const pilotImg = mech.pilot ? await getImage(`${imgsrc}/${mech.pilot.id}.webp?v=${IMAGE_PILOT_VERSION}`) : null;
 
     const score = Object.values(mech.parts).reduce((sum, part) => sum + (part?.score || 0), 0) + (mech.pilot?.score || 0);
     const dodge = partOrder.reduce((sum, key) => sum + (mech.parts[key]?.dodge || 0), 0);
@@ -317,28 +317,28 @@ export const exportTeamImage = async (team: Team, lang: string, translations: an
 
   // 并行加载 drones
   const droneData = await Promise.all(team.drones.map(async drone => {
-    const img = await getImage(`${imgsrc}/${drone.id}.png?v=${IMAGE_DRONE_VERSION}`);
+    const img = await getImage(`${imgsrc}/${drone.id}.webp?v=${IMAGE_DRONE_VERSION}`);
     let backpackImg: HTMLImageElement | null = null;
-    if (drone.backpack) backpackImg = await getImage(`${imgsrc}/${drone.backpack.id}.png?v=${IMAGE_PART_VERSION}`);
+    if (drone.backpack) backpackImg = await getImage(`${imgsrc}/${drone.backpack.id}.webp?v=${IMAGE_PART_VERSION}`);
     return { drone, img, backpackImg };
   }));
 
   // 并行加载战术卡
   const tacticData = await Promise.all(team.tacticCards.map(async card => {
-    const img = await getImage(`${imgsrc}/${card.id}.png`);
+    const img = await getImage(`${imgsrc}/${card.id}.webp`);
     return { card, img };
   }));
 
   // 并行加载战术卡背面（秘密携带）
   const tacticBackData = await Promise.all(team.tacticCards.map(async card => {
-    const img = await getImage(`${tabsrc}/tactic.png`);
+    const img = await getImage(`${tabsrc}/tactic.webp`);
     return { card, img };
   }));
 
   // 并行加载所有唯一 projectile 图片
   const projectileImages: HTMLImageElement[] = [];
   await Promise.all(Array.from(uniqueProjectileIds).map(async pid => {
-    const img = await getImage(`${imgsrc}/${pid}.png?v=${IMAGE_PROJECTILE_VERSION}`);
+    const img = await getImage(`${imgsrc}/${pid}.webp?v=${IMAGE_PROJECTILE_VERSION}`);
     projectileImages.push(img);
   }));
 
@@ -581,7 +581,7 @@ export const exportTeamImage = async (team: Team, lang: string, translations: an
 
   const blobUrl = URL.createObjectURL(outBlob);
   const link = document.createElement("a");
-  link.download = `${teamCopy.name}.png`;
+  link.download = `${teamCopy.name}.webp`;
   link.href = blobUrl;
 
   // 尝试在用户交互环境触发

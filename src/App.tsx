@@ -158,8 +158,8 @@ export default function App() {
   const [lastSelectDrone, setLastSelectDrone] = useState<Drone>();
   const [lastSelectTacticCard, setLastSelectTacticCard] = useState<TacticCard>();
 
-  const showCompetitionDialog = false;
-  const BANNER_ID = 'competition_v3';
+  const showCompetitionDialog = true;
+  const BANNER_ID = 'competition_v4';
   const [competitionDialogOpen, setCompetitionDialogOpen] = useState(() => {
     return localStorage.getItem(`has_closed_${BANNER_ID}`) !== 'true';
   });
@@ -283,7 +283,7 @@ export default function App() {
             initial={{ opacity: 0, scale: 0.8 }}
             animate={{ opacity: 0.15, scale: 1 }}
             transition={{ duration: 0.6, ease: 'easeOut' }}
-            src={`${bgSrc}/logo_RDL.png`}
+            src={`${bgSrc}/logo_RDL.webp`}
             alt="" style={{
               position: 'absolute', bottom: 0, right: 0,
               width: 'clamp(120px, 20vw, 280px)', height: 'auto', pointerEvents: 'none',
@@ -759,7 +759,7 @@ export default function App() {
         {selectedTeam && (
           <motion.img
             key={selectedTeam.id}
-            src={`${backgroundImgsrc}/logo_${selectedTeam.faction}.png`}
+            src={`${backgroundImgsrc}/logo_${selectedTeam.faction}.webp`}
             alt=""
             style={{ position: "absolute", bottom: 0, right: 0, width: isMobileOrTablet ? "25vw" : "15vw", height: "auto", pointerEvents: "none" }}
             initial={{ opacity: 0, scale: 0.8 }}
@@ -771,7 +771,7 @@ export default function App() {
       </AnimatePresence>
 
       {/* ── 比赛进度入口按钮（悬浮，右下角） ── */}
-      {showCompetitionDialog && <motion.button
+      {/* {showCompetitionDialog && <motion.button
         initial={{ opacity: 0, scale: 0.8 }}
         animate={{ opacity: 1, scale: 1 }}
         transition={{ delay: 0.5, type: 'spring', stiffness: 280, damping: 20 }}
@@ -812,7 +812,7 @@ export default function App() {
       >
         <Trophy size={isMobileOrTablet ? 14 : 16} style={{ filter: 'drop-shadow(0 0 4px #FFD70066)' }} />
         {lang === 'zh' ? '比赛进度' : lang === 'jp' ? '大会進行' : 'Tournament'}
-      </motion.button>}
+      </motion.button>} */}
 
       {/* 三栏主容器 */}
       <div className={`flex flex-1 ${!isMobileOrTablet ? 'gap-4 p-4' : ''} overflow-hidden`}>
@@ -915,6 +915,7 @@ export default function App() {
               open={competitionDialogOpen}
               onOpenChange={handleCompetitionDialogOpenChange}
               bannerSrc={`${backgroundImgsrc}/competition.webp`}
+              backgroundImgsrc={backgroundImgsrc}
               teams={teams}
               lang={lang}
               translations={t}

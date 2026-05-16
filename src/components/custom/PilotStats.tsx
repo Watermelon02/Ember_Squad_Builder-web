@@ -50,7 +50,7 @@ export const PilotStats: React.FC<PilotStatsProps> = ({ pilot, tabsrc, style }) 
           >
             {/* 图标 */}
             <img
-              src={`${tabsrc}/icon_${attr.key}.png`}
+              src={`${tabsrc}/icon_${attr.key}.webp`}
               alt={attr.key}
               style={{
                 width: '1.2vw',

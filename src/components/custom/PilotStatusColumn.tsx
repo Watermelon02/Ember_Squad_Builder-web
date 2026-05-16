@@ -89,7 +89,7 @@ export const PilotStatsColumn: React.FC<PilotStatsColumnProps> = ({
           >
             {/* 图标 */}
             <img
-              src={`${tabsrc}/icon_${attr.key}.png`}
+              src={`${tabsrc}/icon_${attr.key}.webp`}
               alt={attr.key}
               style={{
                 width: "1.5vw",

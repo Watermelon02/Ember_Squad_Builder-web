@@ -183,9 +183,9 @@ export const MechListItem: React.FC<MechListItemProps> = ({
                     </>
                   ) : (
                     <div style={{ position: "relative", width: "100%", borderRadius: "0.5rem", overflow: "hidden", cursor: "pointer" }} onClick={() => { setCPartType(partType); onSelectMech(mech.id); onSelectPartType(partType); onSetViewMode("parts"); onSetIsChangingPart(true); }}>
-                      <img src={`${imgsrc}/001.png`} loading="lazy" alt="placeholder" style={{ width: "100%", height: "auto", objectFit: "contain", borderRadius: "0.5rem", opacity: 0, userSelect: "none", pointerEvents: "none" }} />
+                      <img src={`${imgsrc}/001.webp`} loading="lazy" alt="placeholder" style={{ width: "100%", height: "auto", objectFit: "contain", borderRadius: "0.5rem", opacity: 0, userSelect: "none", pointerEvents: "none" }} />
                       <div style={{ position: "absolute", inset: 0, display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", fontSize: window.innerWidth > 768 ? "1.4vw" : "0.9rem", color: "rgba(100, 100, 100, 0.4)", backgroundColor: "rgba(240, 240, 240, 0.4)", borderRadius: "0.5rem", gap: "0.2rem" }}>
-                        <img src={`${tabsrc}/icon_part_${partType}.png`} style={{ transform: "translate(-5%, -5%)", width: "20%", height: "auto", objectFit: "contain", opacity: 0.8, pointerEvents: "none", userSelect: "none" }} />
+                        <img src={`${tabsrc}/icon_part_${partType}.webp`} style={{ transform: "translate(-5%, -5%)", width: "20%", height: "auto", objectFit: "contain", opacity: 0.8, pointerEvents: "none", userSelect: "none" }} />
                         {`${PART_TYPE_NAMES[lang][partType]}`}
                       </div>
                     </div>

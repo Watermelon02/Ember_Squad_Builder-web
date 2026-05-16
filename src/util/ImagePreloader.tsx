@@ -269,7 +269,7 @@ export function ImagePreloader({ data, lang, translations, onComplete, onSetLang
         if (!mountedRef.current) return;
         // 预加载完成后至少显示 2s 动画，让用户看到 UI
         const elapsed = Date.now() - timerStart;
-        const remaining = Math.max(0, 0 - elapsed);
+        const remaining = Math.max(0,0 - elapsed);
         setTimeout(() => { if (mountedRef.current) cb(); }, remaining);
       });
     }, 300);
@@ -340,15 +340,14 @@ export function ImagePreloader({ data, lang, translations, onComplete, onSetLang
             gap: 24,
           }}
         >
-          {/* Title */}
-          <div style={{
-            fontSize: 'clamp(18px, 4.5vw, 24px)',
-            fontWeight: 700,
-            color: '#1a1a2e',
-            letterSpacing: '0.04em',
-          }}>
-            月尘写表器
-          </div>
+          {/* Logo */}
+          <img
+            src={`${backgroundImgsrc}/logo.webp`}
+            alt="logo"
+            style={{
+              height: '8vh', width: 'auto',
+            }}
+          />
 
           {/* Language switcher */}
           <div style={{ display: 'flex', gap: 6 }}>
@@ -364,8 +363,8 @@ export function ImagePreloader({ data, lang, translations, onComplete, onSetLang
                   padding: '4px 14px',
                   borderRadius: 6,
                   border: '1px solid',
-                  borderColor: lang === key ? '#1a1a2e' : 'rgba(0,0,0,0.12)',
-                  background: lang === key ? '#1a1a2e' : 'transparent',
+                  borderColor: lang === key ? 'white' : 'rgba(0,0,0,0.12)',
+                  background: lang === key ? 'grey' : 'transparent',
                   color: lang === key ? '#fff' : '#666',
                   fontSize: 13,
                   fontWeight: lang === key ? 600 : 400,
@@ -378,16 +377,7 @@ export function ImagePreloader({ data, lang, translations, onComplete, onSetLang
             ))}
           </div>
 
-          {/* Loading spinner */}
-          <div style={{
-            width: 44,
-            height: 44,
-            border: '3px solid rgba(102,126,234,0.2)',
-            borderTopColor: 'grey',
-            borderRadius: '50%',
-            animation: 'ember-preload-spin 0.8s linear infinite',
-          }} />
-
+        
           {/* Progress bar track */}
           <div style={{ width: '100%' }}>
             <div style={{

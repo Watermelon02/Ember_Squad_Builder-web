@@ -116,7 +116,7 @@ export const MechStatus: React.FC<MechStatusProps> = ({
                 0
             ),
             type: "dodge" as const,
-            icon: `${tabsrc}/icon_dodge.png`,
+            icon: `${tabsrc}/icon_dodge.webp`,
         },
         {
             label: translations.t43,
@@ -127,7 +127,7 @@ export const MechStatus: React.FC<MechStatusProps> = ({
                 (mech.parts.rightHand?.electronic || 0) +
                 (mech.parts.backpack?.electronic || 0),
             type: "electronic" as const,
-            icon: `${tabsrc}/icon_electronic.png`,
+            icon: `${tabsrc}/icon_electronic.webp`,
         },
     ];
 

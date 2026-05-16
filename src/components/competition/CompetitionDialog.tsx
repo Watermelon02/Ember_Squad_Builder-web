@@ -14,6 +14,7 @@ interface CompetitionDialogProps {
   open: boolean;
   onOpenChange: (open: boolean) => void;
   bannerSrc: string;
+  backgroundImgsrc: string;
   tabsrc: string;
   teams: Team[];
   translations: any;
@@ -170,6 +171,8 @@ const card: React.CSSProperties = {
   border: '1px solid rgba(0,0,0,0.06)',
   padding: '1rem 1.25rem',
   marginBottom: '0.9rem',
+  contentVisibility: 'auto',
+  containIntrinsicSize: 'auto 120px',
 };
 
 const sectionLabel: React.CSSProperties = {
@@ -245,6 +248,10 @@ const scrollAreaStyle: React.CSSProperties = {
   overflowY: 'auto', flex: 1,
   padding: '1.25rem 1.5rem 1.5rem',
   background: '#f3f4f6',
+  transform: 'translateZ(0)',
+  willChange: 'scroll-position',
+  contain: 'layout style',
+  WebkitOverflowScrolling: 'touch',
 };
 
 const titleStyle: React.CSSProperties = {
@@ -258,7 +265,7 @@ const titleStyle: React.CSSProperties = {
 
 const titleHighlightStyle: React.CSSProperties = {
   color: '#FD0267',
-  textShadow: `-2px -2px 0 #fff, 2px -2px 0 #fff, -2px 2px 0 #fff, 2px 2px 0 #fff`,
+  textShadow: '0 0 2px #fff',
 };
 
 const rewardCardStyle: React.CSSProperties = {
@@ -267,6 +274,24 @@ const rewardCardStyle: React.CSSProperties = {
   boxShadow: '0 4px 16px rgba(239,255,255,0.15), 0 1px 4px rgba(255,255,255,0.1)',
   display: 'flex', alignItems: 'flex-start', gap: '12px',
   padding: '1rem 1.25rem',
+};
+// ─────────────────────────────────────────────────────────────────────────────
+
+// ── 比赛信息常量 ──────────────────────────────────────────────────────────────
+const COMPETITION_INFO_ROWS = [
+  { l: '比赛时间', v: '2026年6月14日-21日（比赛天数根据最终参与人数决定）' },
+  { l: '比赛地点', v: '报名成功后进入线上赛群组' },
+  { l: '主办方', v: '雀替建构' },
+  { l: '参赛资格', v: '中国境内常住者' },
+  { l: '报名截止', v: '2026年6月7日' },
+  { l: '分数限制', v: '900分' },
+];
+
+const infoRowLabelStyle: React.CSSProperties = {
+  fontSize: '11px', fontWeight: 600, color: '#6b7280', minWidth: '5em', flexShrink: 0,
+};
+const infoRowValueStyle: React.CSSProperties = {
+  fontSize: '13px', color: '#111827', fontWeight: 500,
 };
 // ─────────────────────────────────────────────────────────────────────────────
 
@@ -408,7 +433,7 @@ TeamCard.displayName = 'TeamCard';
 // ─────────────────────────────────────────────────────────────────────────────
 
 export const CompetitionDialog: React.FC<CompetitionDialogProps> = ({
-  open, onOpenChange, bannerSrc, tabsrc, teams, translations, lang, localImgsrc, imgsrc, factionNames
+  open, onOpenChange, bannerSrc, backgroundImgsrc, tabsrc, teams, translations, lang, localImgsrc, imgsrc, factionNames
 }) => {
   const [showForm, setShowForm] = useState(false);
   const [userQQ, setUserQQ] = useState('');
@@ -427,12 +452,19 @@ export const CompetitionDialog: React.FC<CompetitionDialogProps> = ({
     }
   }, [open]);
 
-  // 横幅图片预加载
+  // 横幅图片预加载（与 <img> 标签共用浏览器缓存）
   useEffect(() => {
     if (!bannerSrc) return;
     const img = new Image();
     img.src = bannerSrc;
   }, [bannerSrc]);
+
+  // 二维码图片预加载
+  useEffect(() => {
+    if (!backgroundImgsrc) return;
+    const img = new Image();
+    img.src = `${backgroundImgsrc}/competition_qrcode.webp`;
+  }, [backgroundImgsrc]);
 
   const selectedTeam1 = useMemo(
     () => teams.find(t => t.id === team1Id) ?? null,
@@ -441,6 +473,12 @@ export const CompetitionDialog: React.FC<CompetitionDialogProps> = ({
   const selectedTeam2 = useMemo(
     () => teams.find(t => t.id === team2Id) ?? null,
     [teams, team2Id]
+  );
+
+  // select 选项列表缓存，避免输入时重复创建
+  const teamOptions = useMemo(
+    () => teams.map(t => ({ id: t.id, name: t.name, score: t.totalScore })),
+    [teams]
   );
 
   // 资格检查 memo 化，避免输入 QQ/姓名时重复计算
@@ -536,7 +574,7 @@ export const CompetitionDialog: React.FC<CompetitionDialogProps> = ({
             <>
               <h2 style={titleStyle}>
                 <span style={titleHighlightStyle}>
-                  首届官方线上比赛「马蒂尼杯」！
+                  「月尘：黑曜协议」亚洲锦标赛2026 中国预选赛 线上组
                 </span>
               </h2>
 
@@ -545,29 +583,45 @@ export const CompetitionDialog: React.FC<CompetitionDialogProps> = ({
                 <span style={{ fontSize: '22px', flexShrink: 0, lineHeight: 1 }}>🏆</span>
                 <div>
                   <p style={{ margin: '0 0 2px', fontSize: '11px', fontWeight: 700, color: '#92400e', letterSpacing: '0.06em', textTransform: 'uppercase' }}>冠军奖励</p>
-                  <p style={{ margin: 0, fontSize: '13px', color: '#78350f', lineHeight: 1.6 }}></p>
+                  <p style={{ margin: 0, fontSize: '13px', color: '#78350f', lineHeight: 1.6 }}>
+                    亚洲锦标赛2026参赛资格，往来路费及比赛期间的住宿费用将由雀替建构承担
+                  </p>
                 </div>
               </div>
 
-              {/* 赛制 */}
+              {/* 比赛信息 */}
               <div style={card}>
-                <span style={sectionLabel}>比赛赛制</span>
-                <p style={{ margin: 0, fontSize: '13px', color: '#374151', lineHeight: 1.8 }}>赛制详情。</p>
+                <span style={sectionLabel}>比赛信息</span>
+                <div style={{ display: 'flex', flexDirection: 'column', gap: '0.35rem' }}>
+                  {COMPETITION_INFO_ROWS.map((row, i) => (
+                    <div key={i} style={{ display: 'flex', gap: '0.5rem' }}>
+                      <span style={infoRowLabelStyle}>{row.l}</span>
+                      <span style={infoRowValueStyle}>{row.v}</span>
+                    </div>
+                  ))}
+                </div>
               </div>
 
-              {/* 两列卡片：报名方式 + 教程 */}
+              {/* 两列卡片：扫码报名 + 规则指引 */}
               <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '0.75rem', marginBottom: '0.9rem' }}>
                 <div style={{ ...card, margin: 0, display: 'flex', flexDirection: 'column', gap: '0.35rem' }}>
-                  <span style={sectionLabel}>报名方式</span>
-                  <p style={{ margin: 0, fontSize: '13px', color: '#374151', lineHeight: 1.7 }}>
-                    向 QQ{' '}
-                    <strong style={{
-                      fontSize: '15px', color: '#111827',
-                      background: '#f3f4f6', padding: '1px 6px',
-                      borderRadius: '5px', fontVariantNumeric: 'tabular-nums',
-                    }}></strong>{' '}
-                    的负责人提交导出的报名数据
-                  </p>
+                  <span style={sectionLabel}>扫码报名</span>
+                  <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '0.5rem' }}>
+                    <img
+                      src={`${backgroundImgsrc}/competition_qrcode.webp`}
+                      alt="报名二维码"
+                      loading="lazy"
+                      style={{
+                        width: '10vh', height: '10vh',
+                        objectFit: 'contain',
+                        borderRadius: '10px',
+                        border: '1px solid #e5e7eb',
+                      }}
+                    />
+                    <p style={{ margin: 0, fontSize: '12px', color: '#6b7280', textAlign: 'center' }}>
+                      扫描二维码提交报名信息
+                    </p>
+                  </div>
                   <button onClick={() => setShowForm(v => !v)} style={{
                     padding: '0.48rem 1.2rem', borderRadius: '10px', border: 'none',
                     background: showForm
@@ -585,25 +639,24 @@ export const CompetitionDialog: React.FC<CompetitionDialogProps> = ({
                   </button>
                 </div>
 
-                <div style={{ ...card, margin: 0, display: 'flex', flexDirection: 'column', justifyContent: 'space-between', gap: '0.6rem' }}>
-                  <div>
-                    <span style={sectionLabel}>线上对战方式教程</span>
-                    <p style={{ margin: 0, fontSize: '12px', color: '#6b7280' }}>点击下方按钮前往 Bilibili 观看</p>
+                <div style={{ ...card, margin: 0, display: 'flex', flexDirection: 'column',  gap: '0.5rem' }}>
+                  <span style={sectionLabel}>比赛规则</span>
+                  <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '0.5rem' }}>
+                    <img
+                      src={`${backgroundImgsrc}/competition_qqgroup.webp`}
+                      alt="报名二维码"
+                      loading="lazy"
+                      style={{
+                        width: '10vh', height: '10vh',
+                        objectFit: 'contain',
+                        borderRadius: '10px',
+                        border: '1px solid #e5e7eb',
+                      }}
+                    />
+                    <p style={{ margin: 0, fontSize: '12px', color: '#6b7280', textAlign: 'center' }}>
+                      锦标赛规则、可用部件列表等详细信息，请通过资讯群内文件进行查看
+                    </p>
                   </div>
-                  <a
-                    href="https://www.bilibili.com/video/BV1kBMPzHELa"
-                    target="_blank" rel="noopener noreferrer"
-                    style={{
-                      display: 'inline-flex', alignItems: 'center', justifyContent: 'center', gap: '5px',
-                      padding: '0.45rem 0', borderRadius: '9px',
-                      background: '#eeeeee', color: 'black',
-                      fontSize: '12px', fontWeight: 600, textDecoration: 'none',
-                      boxShadow: '0 2px 8px rgba(0,0,0,0.18)',
-                      transition: 'opacity 0.15s',
-                    }}
-                  >
-                    ▶ 观看 TTS 使用教程
-                  </a>
                 </div>
               </div>
 
@@ -643,9 +696,9 @@ export const CompetitionDialog: React.FC<CompetitionDialogProps> = ({
                       <label style={{ ...sectionLabel, marginBottom: '5px' }}>参赛军表 1</label>
                       <select style={inputStyle} value={team1Id} onChange={e => setTeam1Id(e.target.value)}>
                         <option value="">-- 请选择 --</option>
-                        {teams.map(t => (
+                        {teamOptions.map(t => (
                           <option key={t.id} value={t.id} disabled={t.id === team2Id}>
-                            {t.name}（{t.totalScore}分）
+                            {t.name}（{t.score}分）
                           </option>
                         ))}
                       </select>
@@ -654,9 +707,9 @@ export const CompetitionDialog: React.FC<CompetitionDialogProps> = ({
                       <label style={{ ...sectionLabel, marginBottom: '5px' }}>参赛军表 2</label>
                       <select style={inputStyle} value={team2Id} onChange={e => setTeam2Id(e.target.value)}>
                         <option value="">-- 请选择 --</option>
-                        {teams.map(t => (
+                        {teamOptions.map(t => (
                           <option key={t.id} value={t.id} disabled={t.id === team1Id}>
-                            {t.name}（{t.totalScore}分）
+                            {t.name}（{t.score}分）
                           </option>
                         ))}
                       </select>
@@ -719,15 +772,7 @@ export const CompetitionDialog: React.FC<CompetitionDialogProps> = ({
                     >
                       ↓ 下载报名数据
                     </button>
-                    <button onClick={handleCopyQQ} style={{
-                      padding: '0.48rem 1.1rem', borderRadius: '10px', border: 'none',
-                      background: '#eeeeee', color: 'black',
-                      fontSize: '13px', fontWeight: 600, cursor: 'pointer',
-                      boxShadow: '0 2px 8px rgba(0,0,0,0.2)',
-                      transition: 'opacity 0.15s',
-                    }}>
-                      复制 QQ 号报名
-                    </button>
+                   
                   </div>
                 </div>
               )}
